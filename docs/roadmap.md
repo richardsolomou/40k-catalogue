@@ -1,12 +1,12 @@
 # Roadmap
 
-40K Mechanics publishes structured game data and original summaries for third-party apps. Praetorium is the first consumer. The goal is to replace its catalogue inputs where we can establish a basis for reuse, reproduce the relevant gameplay facts, and verify compatibility. Keep app code and app-specific mappings in Praetorium.
+40K Catalogue publishes structured game data and original summaries for third-party apps. Praetorium is the first consumer. The goal is to replace its catalogue inputs where we can establish a basis for reuse, reproduce the relevant gameplay facts, and verify compatibility. Keep app code and app-specific mappings in Praetorium.
 
 ## Start here
 
-- [#1 Define the record format and renderer](https://github.com/richardsolomou/40k-mechanics/issues/1) can run entirely on synthetic fixtures.
-- [#2 Inventory the current sources](https://github.com/richardsolomou/40k-mechanics/issues/2) starts from the pinned Praetorium manifest and can run in parallel with #1.
-- [#3 Author the pilot](https://github.com/richardsolomou/40k-mechanics/issues/3), [#4 publish a pinned release](https://github.com/richardsolomou/40k-mechanics/issues/4), and [#5 integrate the release](https://github.com/richardsolomou/40k-mechanics/issues/5) follow in order. Use the acceptance checks and dependencies in the issue you pick up.
+- [#1 Define the record format and renderer](https://github.com/richardsolomou/40k-catalogue/issues/1) can run entirely on synthetic fixtures.
+- [#2 Inventory the current sources](https://github.com/richardsolomou/40k-catalogue/issues/2) starts from the pinned Praetorium manifest and can run in parallel with #1.
+- [#3 Author the pilot](https://github.com/richardsolomou/40k-catalogue/issues/3), [#4 publish a pinned release](https://github.com/richardsolomou/40k-catalogue/issues/4), and [#5 integrate the release](https://github.com/richardsolomou/40k-catalogue/issues/5) follow in order. Use the acceptance checks and dependencies in the issue you pick up.
 
 ## Necrons pilot
 
@@ -27,15 +27,21 @@ These are the migration work items. The source inventory records exactly which a
 
 | Input | Migration issue |
 | --- | --- |
-| `wh40k-11e` units, wargear, and roster definitions | [#6 Definition compatibility](https://github.com/richardsolomou/40k-mechanics/issues/6) |
-| Game Datacards gameplay reference, including unit, faction, detachment, and core rules | [#7 Rules reference coverage](https://github.com/richardsolomou/40k-mechanics/issues/7) |
-| Game Datacards mission packs, scoring, deployments, and layout references | [#8 Mission pack coverage](https://github.com/richardsolomou/40k-mechanics/issues/8) |
-| Battlemaster battlefield geometry and layout details | [#9 Terrain geometry](https://github.com/richardsolomou/40k-mechanics/issues/9) |
-| Munitorum Field Manual points | [#10 Points updates](https://github.com/richardsolomou/40k-mechanics/issues/10) |
-| Translated names and import aliases | [#11 Localised catalogue names](https://github.com/richardsolomou/40k-mechanics/issues/11) |
-| Faction artwork and icons used by the catalogue | [#12 Faction icon assets](https://github.com/richardsolomou/40k-mechanics/issues/12) |
+| `wh40k-11e` units, wargear, and roster definitions | [#6 Definition compatibility](https://github.com/richardsolomou/40k-catalogue/issues/6) |
+| Game Datacards gameplay reference, including unit, faction, detachment, and core rules | [#7 Rules reference coverage](https://github.com/richardsolomou/40k-catalogue/issues/7) |
+| Game Datacards mission packs, scoring, deployments, and layout references | [#8 Mission pack coverage](https://github.com/richardsolomou/40k-catalogue/issues/8) |
+| Battlemaster battlefield geometry and layout details | [#9 Terrain geometry](https://github.com/richardsolomou/40k-catalogue/issues/9) |
+| Munitorum Field Manual points | [#10 Points updates](https://github.com/richardsolomou/40k-catalogue/issues/10) |
+| Translated names and import aliases | [#11 Localised catalogue names](https://github.com/richardsolomou/40k-catalogue/issues/11) |
+| Faction artwork and icons used by the catalogue | [#12 Faction icon assets](https://github.com/richardsolomou/40k-catalogue/issues/12) |
 
-Integrate one source at a time. [#13 Track and verify catalogue cutovers](https://github.com/richardsolomou/40k-mechanics/issues/13) records replacements, retained inputs and their reasons, and the checks required before a change of source.
+Integrate one source at a time. [#13 Track and verify catalogue cutovers](https://github.com/richardsolomou/40k-catalogue/issues/13) records replacements, retained inputs and their reasons, and the checks required before a change of source.
+
+## Shared work
+
+- [#14 Define catalogue IDs and versioning](https://github.com/richardsolomou/40k-catalogue/issues/14) covers joins across record types, aliases, and historical records.
+- [#15 Make authoring and review repeatable](https://github.com/richardsolomou/40k-catalogue/issues/15) turns the pilot workflow into a process contributors can run for other rules.
+- [#16 Validate full-catalogue releases](https://github.com/richardsolomou/40k-catalogue/issues/16) extends the pilot packaging with cross-category validation, compatibility reports, and an inventory of what each release covers.
 
 ## Praetorium integration
 

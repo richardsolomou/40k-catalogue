@@ -1,6 +1,6 @@
 # Contributing
 
-Pick an [open issue](https://github.com/richardsolomou/40k-mechanics/issues) whose dependencies are complete. Each issue has the context and checks needed to work on it independently. Keep each pull request focused on one issue.
+Pick an [open issue](https://github.com/richardsolomou/40k-catalogue/issues) whose dependencies are complete. Each issue has the context and checks needed to work on it independently. Keep each pull request focused on one issue.
 
 ## Rules records
 

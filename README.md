@@ -1,4 +1,4 @@
-# 40K Mechanics
+# 40K Catalogue
 
 I’m building a community-maintained reference for gameplay mechanics in Warhammer 40,000. The aim is to give third-party apps versioned data they can display, test, and build on.
 
@@ -8,4 +8,4 @@ The first milestone is four Necrons rules. After the pilot, the goal is to suppl
 
 This is an independent fan project. Games Workshop owns the Warhammer 40,000 marks.
 
-[Roadmap and pilot notes](docs/roadmap.md) · [Open issues](https://github.com/richardsolomou/40k-mechanics/issues) · [Contributing](CONTRIBUTING.md)
+[Roadmap and pilot notes](docs/roadmap.md) · [Open issues](https://github.com/richardsolomou/40k-catalogue/issues) · [Contributing](CONTRIBUTING.md)

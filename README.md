@@ -4,8 +4,8 @@ I’m building a community-maintained reference for gameplay mechanics in Warham
 
 Each record captures the trigger, the units involved, the conditions, and the effect. The project uses original wording and source references so contributors can check a record against the right edition and update. Praetorium is the first planned consumer.
 
-The first milestone is four Necrons abilities. It covers authoring the mechanics, generating summaries, checking them in an app, and measuring the work needed to cover a faction.
+The first milestone is four Necrons rules. After the pilot, the goal is to supply as much of Praetorium's game catalogue as we can, including roster definitions, rules summaries, missions, terrain, points, and localised names. Each source moves when the replacement can cover its use in the app.
 
 This is an independent fan project. Games Workshop owns the Warhammer 40,000 marks.
 
-[Open issues](https://github.com/richardsolomou/40k-mechanics/issues) · [Contributing](CONTRIBUTING.md)
+[Roadmap and pilot notes](docs/roadmap.md) · [Open issues](https://github.com/richardsolomou/40k-mechanics/issues) · [Contributing](CONTRIBUTING.md)

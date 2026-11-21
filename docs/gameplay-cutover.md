@@ -77,11 +77,11 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 2,215 current drafts that passed automated checks, including 640 stratagems. Of these, 139 use native mechanic records, 1,999 come from pinned 40kdc structured fields, and 77 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Eight drafts that repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 19,714 versioned drafts across 2,043 distinct pieces of source content.
+The combined queue has 2,222 current drafts that passed automated checks, including 644 stratagems. Of these, 139 use native mechanic records, 2,003 come from pinned 40kdc structured fields, and 80 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Eight drafts that repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 19,777 versioned drafts across 2,050 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,400 with bold spans and 1,256 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Sixty-one of the 82 linked destinations have drafts. The other twenty-one remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,407 with bold spans and 1,261 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Sixty-two of the 82 linked destinations have drafts. The other twenty remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 556 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,008 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 552 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,005 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
 ### CP and Miracle dice
 
@@ -150,6 +150,14 @@ The Terrain And Visibility draft links to its four rules. Benefit of Cover recor
 Frame measures to the closest point on the model itself, including for models with a base. Its rotation clause applies to FRAME models without a base. Obscuring disregards an area when either model is within it. The reference's 15-inch value comes from the Hidden diagram and is kept with the example evidence. [Core Rules, pp. 50–51 and 62](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=50)
 
 The Terrain Objectives draft links the terrain-area rule and Level of Control. The FAQ supplies the 40 mm marker, the horizontal and vertical measurement limits and permission to finish a move on the marker. Hidden and Solid stay held for reference-only additions and unresolved detection and height boundaries. [Core Rules, pp. 50–52 and 88](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=88)
+
+### Terrain categories and control
+
+Placing Terrain covers the three setup methods and where to find a terrain area's boundary. Exposed and Dense Terrain also pass the checks. Terrain Categories still needs review of the setup guidance bundled into that record. Light Terrain needs confirmation of its movement and cover clauses. Level of Control remains held while terrain-area inclusion, ties on secured objectives and the reference's end-step ordering are checked. [Core Rules, pp. 46–53](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=46)
+
+### Stratagems triggered by model losses
+
+Four drafts identify which unit lost models, which enemy caused the losses and when the attacks resolved. Protocol of the Undying Legions stays held for the Shooting and Fight trigger and the interaction between ability activation and healing. Suboptimal Facade still needs evidence that its region owner affects targeting.
 
 ### Direct structure pilot
 

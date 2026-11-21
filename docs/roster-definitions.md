@@ -15,8 +15,8 @@ Nothing here is published definition data yet. The fixtures are an invented fact
 | `detachment` | `faction` | The faction the detachment belongs to. |
 | `enhancement` | `detachment`, optional `upgrade`, optional `keywords.all` and `keywords.none` | Offered by that detachment to units holding every `all` keyword and no `none` keyword. An `upgrade` may be taken by several units; any other enhancement once per roster. |
 | `unit` | `faction`, `keywords`, `sizes`, optional `perRoster`, `limits`, `legends`, `enhancements: false` | `sizes` lists every model count the unit may field. `perRoster` caps its copies, and each of `limits` replaces it in a roster of its `battleSize`. `enhancements: false` bars a unit that the keyword rules would otherwise admit. |
-| `model` | `unit`, `min`, `max`, `wargear` | A kind of model in the unit, how many of it the unit fields, and the wargear each one carries by default. |
-| `roster-option` | `unit`, optional `carrier`, `choose`, optional `per`, `uniform`, `replaces`, `caps`, `requires`, and `choices` | Wargear the unit may take instead of `replaces`. `choices` are wargear IDs. |
+| `model` | `unit`, `min`, `max`, `wargear`, optional `bySize` | A kind of model in the unit, how many of it the unit fields, and the wargear each one carries by default. A `bySize` row gives its bounds at one total squad size. |
+| `roster-option` | `unit`, optional `carrier`, `choose`, optional `per`, `bySize`, `uniform`, `replaces`, `caps`, `requires`, and `choices` | Wargear the unit may take instead of `replaces`. `choices` are wargear IDs. |
 | `wargear` | optional `includes` | A piece of wargear, or a bundle of the wargear it `includes`. |
 
 An option takes between `choose.min` and `choose.max` selections, scaled by `per`:
@@ -31,6 +31,8 @@ A `uniform` option is all or nothing: the unit takes none of it, or takes its fu
 
 Each of an option's `caps` limits how many of its `choices` the option takes together, to `max` scaled by the cap's own `per`. A cap of 1 per carrier lets each model take any two of three wargear but never two of the same. A cap without `per` holds for the whole unit, as when only one model in a fixed squad may carry a particular weapon.
 
+A model or option can specify `bySize: [{ size, min, max }]` for sizes with their own bounds. Use the total model count in the unit as `size`. A cap can specify `bySize: [{ size, max }]`. The listed values are absolute for that size. Other sizes use the regular bounds and scaling. An option with no carriers still takes zero selections.
+
 An option with `requires` is closed until the unit takes one of `requires.choices` from the option `requires.option`, as when a character may take a relic only after swapping its default weapon.
 
 A model loadout that a source writes as separate model entries, one per weapon, is one `model` with a `roster-option` per carrier whose choices are the loadouts as wargear.
@@ -41,16 +43,16 @@ A model loadout that a source writes as separate model entries, one per weapon, 
 
 - Every record uses the identity release's rules version, its entry is current, and an entry has at most one record.
 - Every ID a record's data names has a record of the right kind and appears in the identity entry's `references`, so a release's `dependsOn` and `unresolvedReferences` see every join.
-- Every unit has at least one model, and every size lies between its models' summed minimums and maximums.
+- Every unit has at least one model, and every size lies between its models' summed minimums and maximums at that size.
 - A model's `min` is no more than its `max`, and an option's `choose.min` no more than its `choose.max`.
 - An option's carrier belongs to its unit, it replaces only wargear its carriers carry, and it does not offer what it replaces.
 - An option caps only wargear it offers. It requires another option of the same unit and choices that option offers, and has no minimum.
-- A unit sets at most one limit per battle size.
+- A unit sets at most one limit per battle size. Each list of `bySize` bounds has at most one row per size and uses the unit's declared sizes.
 - A wargear bundle does not include itself.
 
 ## Saved rosters
 
-A saved roster names a `faction`, a `detachment`, an optional `battleSize`, and its `units`. Each unit gives its `unit` ID, its model counts by model ID (an absent model fields its `min`), its taken wargear as `{ <option ID>: { <wargear ID>: count } }`, and an optional `enhancement`. Wargear a unit keeps by default is not listed.
+A saved roster names a `faction`, a `detachment`, an optional `battleSize`, and its `units`. Each unit gives its `unit` ID, its model counts by model ID, its taken wargear as `{ <option ID>: { <wargear ID>: count } }`, and an optional `enhancement`. An omitted model count uses its base `min`. The checker then applies the bounds for the sum of those counts. Wargear a unit keeps by default is not listed.
 
 `checkRoster(definitions, roster)` checks the constraints this format supports. It reports problems in roster order, each with a `code`, the unit's position, and a message:
 

@@ -19,19 +19,23 @@ export type UnitData = {
   legends?: true;
   enhancements?: false;
 };
-export type ModelData = { unit: string; min: number; max: number; wargear: string[] };
+type Bounds = { min: number; max: number };
+type SizeBounds = Bounds & { size: number };
+type SizeMaximum = { size: number; max: number };
+export type ModelData = Bounds & { unit: string; wargear: string[]; bySize?: SizeBounds[] };
 /** Scales a bound by each carrier model, or by every `models` models in the unit; absent means once per unit. */
 export type Per = "carrier" | { models: number };
 export type OptionData = {
   unit: string;
   carrier?: string;
-  choose: { min: number; max: number };
+  choose: Bounds;
   per?: Per;
+  bySize?: SizeBounds[];
   uniform?: true;
   replaces?: string[];
   choices: string[];
   /** Each cap limits how many of its `choices` the option takes together, scaled by its own `per`. */
-  caps?: { choices: string[]; max: number; per?: Per }[];
+  caps?: { choices: string[]; max: number; per?: Per; bySize?: SizeMaximum[] }[];
   /** The option is closed unless another option of the unit has taken one of these choices. */
   requires?: { option: string; choices: string[] };
 };
@@ -63,6 +67,10 @@ export type Definitions = {
 export type DefinitionsValidation = { ok: true; definitions: Definitions } | { ok: false; errors: string[] };
 
 export const KINDS: DefinitionKind[] = ["faction", "battle-size", "detachment", "enhancement", "unit", "model", "roster-option", "wargear"];
+
+export function modelBounds(model: ModelData, size: number): Bounds {
+  return model.bySize?.find((bounds) => bounds.size === size) ?? model;
+}
 
 const ajv = new Ajv2020({ allErrors: true }).addSchema(schema);
 const checkData = new Map(KINDS.map((kind) => [kind, ajv.getSchema(`${schema.$id}#/$defs/${kind}`)!]));
@@ -152,13 +160,25 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     }
   }
 
+  const checkSizeBounds = (at: string, bounds: readonly (SizeBounds | SizeMaximum)[], unit: string) => {
+    const sizes = get("unit", unit)?.data.sizes;
+    const seen = new Set<number>();
+    for (const row of bounds) {
+      if (sizes && !sizes.includes(row.size)) errors.push(`${at} names unlisted size ${row.size}`);
+      if (seen.has(row.size)) errors.push(`${at} repeats size ${row.size}`);
+      seen.add(row.size);
+      if ("min" in row && row.min > row.max) errors.push(`${at} size ${row.size} min is above max`);
+    }
+  };
+
   for (const unit of all("unit")) {
     const at = key("unit", unit.id);
     const models = modelsOf(unit.id);
     if (models.length === 0) errors.push(`${at} has no models`);
-    const least = models.reduce((sum, m) => sum + m.data.min, 0);
-    const most = models.reduce((sum, m) => sum + m.data.max, 0);
     for (const size of unit.data.sizes) {
+      const bounds = models.map(({ data }) => modelBounds(data, size));
+      const least = bounds.reduce((sum, { min }) => sum + min, 0);
+      const most = bounds.reduce((sum, { max }) => sum + max, 0);
       if (models.length > 0 && (size < least || size > most)) errors.push(`${at} size ${size} is outside its models' ${least}-${most}`);
     }
     const battleSizes = unit.data.limits?.map((l) => l.battleSize) ?? [];
@@ -166,23 +186,28 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
   }
   for (const model of models) {
     if (model.data.min > model.data.max) errors.push(`model:${model.id} min is above max`);
+    if (model.data.bySize) checkSizeBounds(`model:${model.id} bySize`, model.data.bySize, model.data.unit);
   }
   for (const option of options) {
     const at = key("roster-option", option.id);
-    const { unit, carrier, choose, replaces = [], choices, caps = [], requires } = option.data;
+    const { unit, carrier, choose, bySize, replaces = [], choices, caps = [], requires } = option.data;
     const carrierModel = carrier ? get("model", carrier) : undefined;
     if (choose.min > choose.max) errors.push(`${at} choose min is above max`);
+    if (bySize) checkSizeBounds(`${at} bySize`, bySize, unit);
     if (carrierModel && carrierModel.data.unit !== unit) errors.push(`${at} carrier model:${carrier} belongs to another unit`);
     const carried = new Set((carrier ? [carrierModel] : modelsOf(unit)).flatMap((m) => m?.data.wargear ?? []));
     for (const id of replaces) if (!carried.has(id)) errors.push(`${at} replaces wargear:${id}, which its carriers do not carry`);
     for (const id of choices) if (replaces.includes(id)) errors.push(`${at} offers wargear:${id}, which it also replaces`);
-    for (const id of caps.flatMap((c) => c.choices)) if (!choices.includes(id)) errors.push(`${at} caps wargear:${id}, which it does not offer`);
+    for (const [i, cap] of caps.entries()) {
+      for (const id of cap.choices) if (!choices.includes(id)) errors.push(`${at} caps wargear:${id}, which it does not offer`);
+      if (cap.bySize) checkSizeBounds(`${at} caps[${i}] bySize`, cap.bySize, unit);
+    }
     if (requires) {
       const required = get("roster-option", requires.option);
       if (requires.option === option.id) errors.push(`${at} requires itself`);
       else if (required && required.data.unit !== unit) errors.push(`${at} requires roster-option:${requires.option}, which belongs to another unit`);
       for (const id of requires.choices) if (required && !required.data.choices.includes(id)) errors.push(`${at} requires wargear:${id}, which roster-option:${requires.option} does not offer`);
-      if (choose.min > 0) errors.push(`${at} requires another option but has a minimum`);
+      if (choose.min > 0 || bySize?.some(({ min }) => min > 0)) errors.push(`${at} requires another option but has a minimum`);
     }
   }
   for (const wargear of all("wargear")) {

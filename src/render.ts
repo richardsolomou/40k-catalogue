@@ -70,8 +70,13 @@ const DURATIONS = { "end-of-phase": "the end of the phase", "end-of-turn": "the 
 type Names = (ref: UnitRef) => string;
 type UnitCondition = Extract<Condition, { unit: UnitRef }>;
 
-// Conditions on a selected target restrict which unit can be selected, so they render inside the selection.
 export function renderSummary(record: MechanicRecord): string {
+  const cost = record.usage?.cp === undefined ? "" : ` (${record.usage.cp} CP)`;
+  return `${record.name}${cost}: ${renderSummaryBody(record)}`;
+}
+
+// Conditions on a selected target restrict which unit can be selected, so they render inside the selection.
+export function renderSummaryBody(record: MechanicRecord): string {
   const unit: Names = (ref) => {
     if (ref === "this-unit") return "this unit";
     if (ref === "triggering-model") return "that model";
@@ -116,9 +121,8 @@ export function renderSummary(record: MechanicRecord): string {
   clauses.push(action);
   if (record.restriction) clauses.push(`and ${or(record.restriction, (r) => restriction(r, unit))}`);
 
-  const cost = record.usage?.cp === undefined ? "" : ` (${record.usage.cp} CP)`;
   const limit = record.usage?.oncePerTurn ? " Use once per turn." : record.usage?.oncePerPhase ? " Use once per phase." : "";
-  return `${record.name}${cost}: ${capitalise(clauses.join(", "))}.${limit}`;
+  return `${capitalise(clauses.join(", "))}.${limit}`;
 }
 
 function or<T extends object>(part: OrUnresolved<T>, render: (part: T) => string): string {

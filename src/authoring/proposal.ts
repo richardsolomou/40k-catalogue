@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from "node:util";
 import { Ajv2020 } from "ajv/dist/2020.js";
-import { renderSummary } from "../render.ts";
+import { renderSummaryBody } from "../render.ts";
 import type { MechanicRecord } from "../record.ts";
 import { validate } from "../validate.ts";
 import schema from "./proposal.v1.schema.json" with { type: "json" };
@@ -81,8 +81,7 @@ export function publication(decision: Extract<Decision, { outcome: "approved" }>
     checks: checks.map(({ path, outcome, note, draft }) => ({ path, outcome, note, draft })),
   };
   return {
-    [`${record.id}.json`]: json(record),
-    [`${record.id}.summary.txt`]: `${renderSummary(record)}\n`,
+    [`${record.id}.json`]: json({ ...record, summary: renderSummaryBody(record) }),
     [`${record.id}.review.json`]: json(review),
   };
 }

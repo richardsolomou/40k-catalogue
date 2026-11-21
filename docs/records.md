@@ -9,6 +9,7 @@ A mechanic record describes one ability as structured data that any app can vali
 | `formatVersion` | Always `1`. A change that would break existing consumers gets a new version and a new schema file. |
 | `id` | Project ability ID, lowercase words separated by `.` or `-`. |
 | `name` | Display name of the ability. |
+| `summary` | Generated and reviewed prose body. Required in released records and optional while drafting. `name` and `usage.cp` provide the heading. |
 | `rulesVersion` | The `edition` and `update` the record was checked against. |
 | `source` | Source `title` and at least one of `page` or `url`, so a reviewer can find the printed rule. |
 | `attribution` | For an adapted record, the upstream `url`, pinned `revision`, contributor `credit`, `licence` URL and `changes` made to the input. |
@@ -42,17 +43,17 @@ When a part of an ability does not fit the format yet, replace that part with `{
 
 ## Summaries
 
-The renderer uses the record's fields alone, so the same record always gives the same summary regardless of key order. A typical selective effect renders like this:
+The renderer uses the structured fields to generate `summary`. The same record gives the same body regardless of key order. A typical selective effect renders in this order.
 
 ```text
-<name>: <trigger>, [if <conditions>, ][select <unit>[ that <eligibility>], then ]<effect>[ <duration>].
+<trigger>, [if <conditions>, ][select <unit>[ that <eligibility>], then ]<effect>[ <duration>].
 ```
 
 Summaries are display text. Apps should read game behaviour from the structured fields. The [release guide](releases.md) explains how to package both.
 
 ## Fixtures
 
-[fixtures/valid](../fixtures/valid) holds invented abilities, each with the summary it must render in a matching `.summary.txt` file. [fixtures/invalid](../fixtures/invalid) holds records that must fail validation. A consumer with its own implementation can check itself against both folders.
+[fixtures/valid](../fixtures/valid) holds invented abilities with the expected `summary` in each JSON record. [fixtures/invalid](../fixtures/invalid) holds records that must fail validation. A consumer with its own implementation can check itself against both folders.
 
 ## Local checks
 

@@ -48,10 +48,9 @@ A proposal is approved only when its record is valid and every part is reviewed.
 node src/authoring/cli.ts publish <proposal.json> data/<faction>/<detachment> reviews/<faction>/<detachment>
 ```
 
-Publishing writes three files for an approved proposal and nothing for a held one:
+Publishing an approved proposal writes two JSON files:
 
-- `<id>.json`, the record.
-- `<id>.summary.txt`, its rendered summary.
+- `<id>.json` holds the record and its generated `summary` body.
 - `<id>.review.json`, the review: `id`, `rulesVersion`, `outcome`, `drafting`, `reviewer`, `date`, and the checks with their notes and corrected drafts.
 
 The review shares the record's `rulesVersion`. Keep the review outside the records directory so release archives contain only the mechanic records and their summaries. Before committing, check that review notes and corrected draft values contain only your own wording and structured fields. A proposal with a reviewed gap can be committed for further work, and the release tool holds that record until the gap is resolved.

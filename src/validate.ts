@@ -1,6 +1,7 @@
 import { Ajv2020 } from "ajv/dist/2020.js";
 import schema from "../schema/mechanic.v1.schema.json" with { type: "json" };
 import { isUnresolved, type MechanicRecord, type Trigger, type UnitRef } from "./record.ts";
+import { renderSummaryBody } from "./render.ts";
 
 export type Gap = { path: string; note: string };
 export type Validation = { ok: true; record: MechanicRecord; gaps: Gap[] } | { ok: false; errors: string[] };
@@ -14,6 +15,9 @@ export function validate(value: unknown): Validation {
     return { ok: false, errors: errors.map((e) => `${e.instancePath || "/"} ${e.message}`) };
   }
   const errors = referenceErrors(value);
+  if (errors.length === 0 && value.summary !== undefined && value.summary !== renderSummaryBody(value)) {
+    errors.push("/summary must match the rendered summary");
+  }
   return errors.length > 0 ? { ok: false, errors } : { ok: true, record: value, gaps: gaps(value) };
 }
 

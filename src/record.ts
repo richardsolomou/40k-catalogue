@@ -43,7 +43,8 @@ export type Condition =
     }
   | { kind: "within"; unit: UnitRef; inches: number; of: UnitRef }
   // Passes while the unit has been selected for none of these activities this phase.
-  | { kind: "not-selected"; unit: UnitRef; to: ("shoot" | "fight")[] };
+  | { kind: "not-selected"; unit: UnitRef; to: ("shoot" | "fight")[] }
+  | { kind: "source-model-leading" };
 
 export type Roll = "hit" | "wound" | "save" | "advance" | "charge" | "battle-shock";
 // Absent means every weapon the target's models are equipped with.

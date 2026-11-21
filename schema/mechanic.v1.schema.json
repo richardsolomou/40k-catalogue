@@ -756,11 +756,24 @@
           "enum": [
             "status",
             "within",
-            "not-selected"
+            "not-selected",
+            "source-model-leading"
           ]
         }
       },
       "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "required": ["kind"],
+            "properties": { "kind": { "const": "source-model-leading" } }
+          },
+          "then": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": { "kind": true }
+          }
+        },
         {
           "if": {
             "properties": {

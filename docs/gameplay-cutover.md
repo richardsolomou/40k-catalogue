@@ -77,11 +77,11 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 2,208 current drafts that passed automated checks, including 636 stratagems. Of these, 139 use native mechanic records, 1,995 come from pinned 40kdc structured fields, and 74 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Eight drafts that repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 19,651 versioned drafts across 2,036 distinct pieces of source content.
+The combined queue has 2,212 current drafts that passed automated checks, including 640 stratagems. Of these, 139 use native mechanic records, 1,999 come from pinned 40kdc structured fields, and 74 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Eight drafts that repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 19,687 versioned drafts across 2,040 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,393 with bold spans and 1,249 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Fifty-nine of the 79 linked destinations have drafts. The other twenty remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,397 with bold spans and 1,253 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Fifty-nine of the 80 linked destinations have drafts. The other twenty-one remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 560 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,011 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 556 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,011 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
 ### CP and Miracle dice
 
@@ -90,6 +90,10 @@ The player resource comparison adds 23 drafts covering 18 CP gains and five Mira
 ### Stratagems with exclusive target options
 
 Eleven stratagem drafts now describe two mutually exclusive target options and preserve the recipients for each option. The checks cover one friendly target entry per mode, different target names and matching effect steps that differ only in their recipient. Twenty-one multi-target entries remain held, including cases with a mode-specific cost, targets selected together and relationships between targets.
+
+### Charge target eligibility
+
+Four stratagem drafts specify that the chosen friendly unit must be one the triggering enemy selected for its charge. The checks bind the candidate and the triggering unit to that selection event in the opponent's Charge phase. A comparison that substitutes attack target selection is rejected even though both renderers phrase it the same way. Seven existing target lines now group their keyword options and state the other eligibility requirements separately. Blind Grenades and Suboptimal Facade remain held for target grouping and a regional ownership condition.
 
 ### Linked core and weapon rules
 

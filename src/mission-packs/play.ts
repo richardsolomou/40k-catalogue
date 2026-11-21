@@ -1,11 +1,14 @@
 import { isUnresolved } from "../record.ts";
 import type { Award, Cap, MissionPack, Mode, Phase, Primary, Secondary, ScoringWindow } from "./pack.ts";
 
-/** A scoring moment seen from one player: `turn` is whose turn it is, `lastTurn` whose turn ended the battle. */
+/**
+ * A scoring moment seen from one player: `turn` is whose turn it is, `lastTurn` whose turn ended the battle.
+ * `drawnLastTurn: false` says the card was drawn before this player's last turn, which keeps `orBattleEnd` closed.
+ */
 export type Moment =
   | { at: "phase-end"; round: number; phase: Phase; turn: "own" | "opponent" }
   | { at: "turn-end"; round: number; turn: "own" | "opponent" }
-  | { at: "battle-end"; round: number; lastTurn: "own" | "opponent" };
+  | { at: "battle-end"; round: number; lastTurn: "own" | "opponent"; drawnLastTurn?: boolean };
 
 /** The primary mission and battlefields a pack offers for two force dispositions, or null if it pairs them with none. */
 export function setupFor(pack: MissionPack, friendly: string, opposition: string) {
@@ -37,7 +40,8 @@ export function windowOpen(window: ScoringWindow, moment: Moment): boolean {
   const { from = 1, to = Infinity } = window.rounds ?? {};
   if (moment.round < from || moment.round > to) return false;
   // The opponent's turn that would close the window never comes when this player's turn ended the battle.
-  if (moment.at === "battle-end") return window.orBattleEnd === true && window.turn === "opponent" && moment.lastTurn === "own";
+  if (moment.at === "battle-end")
+    return window.orBattleEnd === true && window.turn === "opponent" && moment.lastTurn === "own" && moment.drawnLastTurn !== false;
   if (window.at !== moment.at || (window.turn !== "any" && window.turn !== moment.turn)) return false;
   return window.at !== "phase-end" || (moment.at === "phase-end" && window.phase === moment.phase);
 }
@@ -54,6 +58,7 @@ export type Score = { vp: number; capped: boolean; errors: string[]; unenforced:
 /**
  * What one card scores for a set of claims at one moment, after the pack's caps on what the player has already banked
  * this round, this battle, and on this card. A cap the pack leaves unresolved is listed as unenforced, never assumed.
+ * Under `perRoundExcludesBattleEnd`, `banked.round` leaves out what was scored at the battle end.
  */
 export function scoreCard(
   pack: MissionPack,
@@ -110,7 +115,7 @@ export function scoreCard(
       if (!unenforced.includes(`${name} cap`)) unenforced.push(`${name} cap`);
       continue;
     }
-    const limit = cap[span];
+    const limit = span === "perRound" && moment.at === "battle-end" && cap.perRoundExcludesBattleEnd ? undefined : cap[span];
     if (limit !== undefined) allowed = Math.min(allowed, Math.max(0, limit - already));
   }
   return { vp: allowed, capped: allowed < vp, errors, unenforced };

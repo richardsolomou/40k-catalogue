@@ -16,8 +16,8 @@ A mechanic record describes one ability as structured data that any app can vali
 | `trigger` | A phase boundary, movement event, destruction, an always-on effect, or a use the player chooses during a usage window. Model destruction can specify that the window closes at a pending roll. |
 | `target` | The source unit, a unit or model bound by the trigger, or a unit selected by side, keywords, and range. A triggering model can carry a destroyed-target exception. |
 | `conditions` | Checks that must all pass. A `status` condition reads a unit's state now, at the start of the phase, or at the start of the turn. A `within` condition checks distance between two units. A `not-selected` condition checks that a unit has not been selected to shoot or to fight this phase. A `source-model-leading` condition checks whether the model carrying the ability is leading a unit. |
-| `effect` | A roll or characteristic modifier, a re-roll of all results or only 1s, weapon abilities granted to the target's weapons, mortal wounds, a roll threshold, activation of a named ability, Desperate Escape tests, or a movement distance threshold. |
-| `duration` | How long the effect lasts. A roll threshold can be limited to a phase, and modifiers, re-rolls and granted weapon abilities require a duration unless they are always on. Immediate effects such as mortal wounds require a discrete trigger. |
+| `effect` | A roll or characteristic modifier, a re-roll of all results or only 1s, weapon abilities granted to the target's weapons, [core abilities](#core-abilities) granted to the target, mortal wounds, a roll threshold, activation of a named ability, Desperate Escape tests, or a movement distance threshold. |
+| `duration` | How long the effect lasts. A roll threshold can be limited to a phase, and modifiers, re-rolls and granted weapon or core abilities require a duration unless they are always on. Immediate effects such as mortal wounds require a discrete trigger. |
 | `restriction` | An optional second consequence checked at the end of a move, such as a charge restriction based on its endpoint. |
 
 Conditions and ranges can refer to the source unit, the target, or a participant the trigger introduces. A unit-destruction trigger also binds the unit that made the kill. A model-destruction trigger binds the destroyed model. A `within` condition measures between two different units.
@@ -31,6 +31,10 @@ An `always` trigger applies a continuous effect while the ability is in play and
 ## Weapons
 
 A `re-roll` or `grant-weapon-abilities` effect can set `weapons` to `ranged` or `melee`. Without it, the effect covers every weapon the target's models are equipped with. A re-roll limited to a weapon type must re-roll Hit or Wound rolls. Granted abilities come from a fixed list of core weapon abilities: Melta, Rapid Fire and Sustained Hits carry a `value`, and Anti carries a `keyword` and a `threshold`.
+
+## Core abilities
+
+A `grant-abilities` effect gives the target one or more of Deep Strike, Fights First, Infiltrators, Lone Operative, Stealth, Scouts and Feel No Pain. Scouts carries its distance in `inches`. Feel No Pain carries a `threshold` and can list `against` as `psychic-attacks`, `mortal-wounds` or both. An omitted `against` covers every wound the model would lose. Other named abilities and abilities printed with the grant remain gaps.
 
 ## Gaps
 

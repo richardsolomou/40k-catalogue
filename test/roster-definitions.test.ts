@@ -173,6 +173,53 @@ test("an import reads a printed unit into catalogue IDs", () => {
   assert.deepEqual(read, { ok: true, unit: { unit: WARDENS, models: { [`${WARDENS}.leader`]: 1, [WARDEN]: 9 }, options: { [`${WARDENS}.cannon`]: { "synthetic.cinder-cannon": 1 } } } });
 });
 
+test("a size-specific option bound can close a choice even with eligible carriers", () => {
+  const { identity, records } = input("1.1");
+  Object.assign(find(records, "roster-option", `${WARDENS}.cannon`).data, { bySize: [{ size: 5, min: 0, max: 0 }] });
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  const roster = edited((r) => {
+    r.units[1]!.options = { [`${WARDENS}.cannon`]: { "synthetic.cinder-cannon": 1 } };
+  });
+  assert.deepEqual(codes(validated.definitions, roster), ["1 option-count"]);
+});
+
+test("a cap uses the absolute maximum for its unit size", () => {
+  const { identity, records } = input("1.1");
+  const payload = find(records, "roster-option", `${DRONES}.payload`);
+  Object.assign(payload.data, { caps: [{ choices: ["synthetic.ash-carbine"], max: 1, per: "carrier", bySize: [{ size: 2, max: 1 }] }] });
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(codes(validated.definitions, legal11), ["4 option-cap"]);
+});
+
+test("a saved model mix is checked against its total size", () => {
+  const { identity, records } = input("1.1");
+  const leader = `${WARDENS}.leader`;
+  Object.assign(find(records, "model", leader).data, { max: 2, bySize: [{ size: 10, min: 2, max: 2 }] });
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(codes(validated.definitions, legal11), ["0 model-count"]);
+});
+
+test("model bounds for a selected size can make an import unambiguous", () => {
+  const { identity, records } = input("1.1");
+  const leader = `${WARDENS}.leader`;
+  Object.assign(find(records, "model", leader).data, { max: 2, bySize: [{ size: 10, min: 2, max: 2 }] });
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(importUnit(validated.definitions, "synthetic.ember-host", { name: "Flame Warden Squad", models: 10 }), {
+    ok: true, unit: { unit: WARDENS, models: { [leader]: 2, [WARDEN]: 8 } },
+  });
+});
+
+test("a bound cannot name an unlisted unit size", () => {
+  const { identity, records } = input("1.1");
+  const id = `${WARDENS}.cannon`;
+  Object.assign(find(records, "roster-option", id).data, { bySize: [{ size: 6, min: 0, max: 1 }] });
+  assert.deepEqual(validateDefinitions(identity, records), { ok: false, errors: [`roster-option:${id} bySize names unlisted size 6`] });
+});
+
 test("an import does not match a unit's name from an earlier rules version", () => {
   assert.deepEqual(importUnit(v11, "synthetic.ember-host", { name: "Flame Wardens", models: 5 }), { ok: false, misses: [{ code: "unknown-unit", name: "Flame Wardens" }] });
 });

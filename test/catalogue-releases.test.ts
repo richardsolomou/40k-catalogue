@@ -98,6 +98,15 @@ test("standard tar unpacks the archive to a release that verifies", () => {
   assert.deepEqual(verifyCatalogueRelease(dir), []);
 });
 
+test("standard tar preserves a catalogue record ID longer than the ustar file name field", () => {
+  const dir = mkdtempSync(join(tmpdir(), "long-catalogue-archive-"));
+  const path = `records/profiles/weapon-profile/${"synthetic-long-profile-".repeat(6)}named.json`;
+  const archive = join(dir, "release.tar");
+  writeFileSync(archive, packRelease(new Map([[path, "{}\n"]])));
+  execFileSync("tar", ["-xf", archive, "-C", dir]);
+  assert.equal(readFileSync(join(dir, path), "utf8"), "{}\n");
+});
+
 test("nested catalogue paths longer than the tar name field round-trip", () => {
   const dir = input("1.0");
   const id = "synthetic.terrain." + "long-layout-".repeat(4) + "east";

@@ -48,6 +48,8 @@ The other 1,856 IDs include 605 unique matches at another version, 6 without a s
 
 All 2,909 selected ability records pass the pinned upstream schema. The local review file keeps the trigger, scope, effect and usage fields with their attribution and review status.
 
+An exact clause translation holds all 2,909 records at format v1. Separately, 110 trigger clauses, 33 effect and target clauses and 884 scopes have direct equivalents. The most common unsupported cases are permanent effects, rules without an explicit trigger, ordered sequences, conditions and weapon-ability grants. Ten candidates have a trigger gap as their only unsupported field and 25 have an effect gap as theirs. Structured translation also needs a place to record the source revision, attribution and changes, plus a verified link to the applicable rules update. The held records are work for [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+
 The same package has all 25 current Chapter Approved primary card names and 18 secondary card names, with the same number of award rows on each. It has no matches for the 26 current Combat Patrol primary cards. Its terrain data credits Battlemaster for 45 layouts and King of the Colosseum for one. These are separate checks from gameplay coverage. Mission conditions, scoring, source rights and geometry still need their own comparisons.
 
 ## Reproduce the staging output

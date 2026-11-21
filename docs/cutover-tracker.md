@@ -35,6 +35,8 @@ The current join checks use the consumer's source IDs and the candidate identity
 
 The separate profile stage captures all 2,470 current unit profiles and 11,302 current weapon profiles by recognised field. The [typed profile rehearsal](datasheet-profiles.md#rehearsal) expands those records across catalogue units that share a datasheet. It reports unmatched wargear, model and attachment links. Transport and other profiles remain separate.
 
+The nine private aggregate archives verify 174,046 records across rosters, profiles, points, localisation, missions and terrain. The current rules version contributes 80,185. The manifests also pin the separately released original marks and the retained gameplay input. Structural coverage in the archives leaves the source, content review and parity checks above open.
+
 ## Cutover record
 
 When a source passes its scope issue, record these details in a focused cutover issue before switching the app:

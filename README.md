@@ -1,43 +1,38 @@
 # 40K Catalogue
 
-**Versioned Warhammer 40,000 game data for third-party apps.**
+**Versioned Warhammer 40,000 data for army builders, battle trackers and reference apps.**
 
-[Releases](https://github.com/richardsolomou/40k-catalogue/releases) · [Record format](docs/records.md) · [Catalogue progress](docs/cutover-tracker.md) · [Contributing](CONTRIBUTING.md)
+[Releases](https://github.com/richardsolomou/40k-catalogue/releases) · [Documentation](docs/README.md) · [Issues](https://github.com/richardsolomou/40k-catalogue/issues)
 
-[![Latest release](https://img.shields.io/github/v/release/richardsolomou/40k-catalogue)](https://github.com/richardsolomou/40k-catalogue/releases) [![License](https://img.shields.io/github/license/richardsolomou/40k-catalogue)](LICENSE)
+[![MIT License](https://img.shields.io/github/license/richardsolomou/40k-catalogue)](LICENSE)
 
-40K Catalogue is a community-maintained reference for gameplay mechanics, roster choices, missions and terrain. Apps can use the structured records for game behaviour and display original summaries with keyword formatting and links to related rules. Each record carries its rules version and source so it can be checked against the correct update.
+40K Catalogue gives apps structured data for rules, datasheets, roster choices, points, missions and terrain. A mechanic record tells your app when a rule applies and what it does. Its summary gives players the same rule in plain language, with bold keywords and links to related rules.
 
-## Scope
-
-| Area | Status |
-| --- | --- |
-| Gameplay mechanics | The [Necrons pilot](https://github.com/richardsolomou/40k-catalogue/releases/tag/v0.1.0) publishes four Pantheon of Woe rules. The [coverage report](docs/gameplay-cutover.md#full-summary-coverage) tracks draft summaries across the wider catalogue. |
-| Rosters and datasheets | Formats cover [roster definitions](docs/roster-definitions.md), [profiles and attachments](docs/datasheet-profiles.md), [points](docs/points.md) and [localised names](docs/localisation.md). |
-| Missions and terrain | Formats cover [mission packs](docs/mission-packs.md) and [terrain geometry](docs/terrain.md). Source migrations are tracked in the [cutover tracker](docs/cutover-tracker.md). |
-| Faction marks | The [original icon pack](https://github.com/richardsolomou/40k-catalogue/releases/tag/icons-v1.0.0) provides 37 reusable marks. |
+Catalogue IDs keep rules and other records linkable across updates. Pin the data for the rules version your app uses, so a saved roster or battle can still resolve its references later.
 
 ## Use
 
-Pin a release and its checksum to make a data update reproducible. [Mechanics releases](docs/releases.md) describe the JSON records, summaries and link IDs. [Catalogue releases](docs/catalogue-releases.md) describe the manifest for multiple categories, and [catalogue identity](docs/catalogue-identity.md) explains how records keep stable IDs across updates.
+1. Download an archive and its checksum from [Releases](https://github.com/richardsolomou/40k-catalogue/releases). Choose the archive for the data you need and pin its version and SHA-256.
+2. Verify the checksum, unpack the archive, and open `manifest.json` to find its records and rules versions.
+3. Read the structured fields for game behaviour. Use the summary for display and resolve rule links by their supplied kind and ID.
+
+The [release guides](docs/README.md#releases) explain the archive formats and verifiers.
+
+## Try a mechanic
+
+From the repository root, read the effect and summary of an invented rule with Node.js.
+
+```sh
+node -p 'require("./fixtures/valid/targeted-effect.json").effect'
+node -p 'require("./fixtures/valid/targeted-effect.json").summary'
+```
+
+The first command shows a modifier that subtracts 1 from saving throws. The record's trigger, target, conditions and duration say who it applies to and when. The second command prints the text an app can show players. See the [example JSON](fixtures/valid/targeted-effect.json) and the [mechanic format](docs/records.md).
 
 ## Development
 
-Use Node 24 or later and pnpm. Validate and render an invented mechanic, then run the project checks.
-
-```sh
-pnpm install --frozen-lockfile
-pnpm validate fixtures/valid/targeted-effect.json
-pnpm render fixtures/valid/targeted-effect.json
-pnpm check
-pnpm test
-pnpm lint:md
-```
-
-The [roadmap](docs/roadmap.md) links to open work. The [authoring guide](docs/authoring.md) covers drafting, source attribution and review.
+See [Contributing](CONTRIBUTING.md) to run the validators and tests or add a record. Use [GitHub Issues](https://github.com/richardsolomou/40k-catalogue/issues) to report a data gap, request a change or follow planned work.
 
 ## Data and trademarks
 
-Original project material is available under the [MIT License](LICENSE). Imported data carries its own source and attribution. [Source inventory](docs/source-inventory.md)
-
-40K Catalogue is an independent community project. Warhammer 40,000 and related marks belong to Games Workshop.
+Original project material is licensed under the [MIT License](LICENSE). Records carry their [sources and attribution](docs/source-inventory.md). 40K Catalogue is unofficial and is unaffiliated with Games Workshop. Warhammer 40,000 and related marks belong to Games Workshop.

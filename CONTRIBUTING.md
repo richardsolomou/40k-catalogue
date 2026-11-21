@@ -2,6 +2,19 @@
 
 Pick an [open issue](https://github.com/richardsolomou/40k-catalogue/issues) whose dependencies are complete. Each issue has the context and checks needed to work on it independently. Keep each pull request focused on one issue.
 
+## Develop locally
+
+Use Node.js 24 or later and pnpm. The example is an invented mechanic you can validate and render.
+
+```sh
+pnpm install --frozen-lockfile
+pnpm validate fixtures/valid/targeted-effect.json
+pnpm render fixtures/valid/targeted-effect.json
+pnpm check
+pnpm test
+pnpm lint:md
+```
+
 ## Rules records
 
 - Use structured fields and original wording. Include a source reference and a rules version so someone can verify the mechanic.

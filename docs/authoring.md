@@ -1,10 +1,10 @@
 # Authoring and review
 
-This workflow turns a rule a contributor is authorised to read into a reviewed [mechanic record](records.md). It repeats the [Necrons pilot](../data/necrons/pantheon-of-woe/README.md) for other factions and categories. A proposal holds the draft record, how it was drafted, and the review of each part. Only an approved proposal publishes anything.
+This workflow turns a rule a contributor is authorised to read into a reviewed [mechanic record](records.md). A proposal holds the draft record, how it was drafted, and the review of each part. Only an approved proposal publishes anything.
 
 ## Inputs
 
-Read the source yourself and write notes in your own words. Keep those notes, model prompts and responses, and any other intermediate files in `author-inputs/` at the repository root. Git ignores that folder. Never paste official prose, page images, or extracts into a model, a proposal, an issue, a pull request, or a CI artifact. The [source-use decision](source-inventory.md#source-use-decision-for-3) explains the reasons.
+Read the source yourself and write notes in your own words. Keep those notes, model prompts and responses, and any other intermediate files in `author-inputs/` at the repository root. Git ignores that folder. Never paste official prose, page images, or extracts into a model, a proposal, an issue, a pull request, or a CI artifact. See [using source data](source-inventory.md#using-source-data).
 
 ## Draft a proposal
 

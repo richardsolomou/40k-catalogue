@@ -4,8 +4,6 @@ Roster definitions say how a list is built: which models a unit fields, what war
 
 Points are not definitions. Prices stay in [points snapshots](points.md), which join to definitions by the same catalogue IDs.
 
-Nothing here is published definition data yet. The fixtures are an invented faction, because no source of real definitions has a reuse basis (see [Where each field can come from](#where-each-field-can-come-from)).
-
 ## Records
 
 | Kind | `data` | Meaning |
@@ -96,84 +94,3 @@ The rules in [When an ID changes](catalogue-identity.md#when-an-id-changes) appl
 - Battle sizes, caps, an option group, and a conditional option first appear in the second release, so the first release's roster has no battle size.
 
 [fixtures/roster-definitions](../fixtures/roster-definitions) holds two catalogue release inputs for an invented faction, a points snapshot for the second, and a saved roster for each. [test/roster-definitions.test.ts](../test/roster-definitions.test.ts) builds both releases, checks the history, and covers validation, legality, imports, upgrades, and points joins.
-
-## Where each field can come from
-
-The [source inventory](source-inventory.md) records provenance and terms. No candidate source is cleared for publishing definition data.
-
-| Field | Candidate sources | Open question |
-| --- | --- | --- |
-| Unit, model and wargear names, keywords, model counts, default wargear, wargear options | The publisher's datasheets and faction packs, authored as structured facts with page references | Whether publishing structured facts and names from the publisher's material is acceptable ([source-use decision](source-inventory.md#source-use-decision-for-3), unresolved before [#4](https://github.com/richardsolomou/40k-catalogue/issues/4)) |
-| The same fields, as data | The `wh40k-11e` definitions, Game Datacards | No licence for the definitions; no reuse basis for Game Datacards. Usable for comparison only |
-| Detachments, enhancements, upgrade marks, Legends status, priced unit sizes | The Munitorum Field Manual dataset ([points](points.md)) | Whether its MIT grant covers the scraped values |
-| Roster limits, battle-size limits | The publisher's core rules and datasheets | As for datasheets |
-| Translated and historical names | [Localisation](localisation.md) | As recorded there |
-
-## Necrons comparison at the baseline
-
-Checked on 21 November 2026. The Necrons definitions were converted into this shape in a scratch directory through Praetorium's own construction code, so the comparison measures what the shape can express and how this reference implementation judges it, not the accuracy of a new source. Converted data and roster samples stayed out of the repository and every result below is an aggregate.
-
-**Baseline.** Praetorium [`a9b4a5b`](https://github.com/richardsolomou/praetorium.gg/tree/a9b4a5b3d37484f696b275d0b0e10b89ca07c325), whose lock pins definitions revision `5dd8d752…` and points revision `6a63139e…` (the MFM 1.6 fork at `6eed7b1` with corrections), rules version `mfm-1-6`, Necrons catalogue `b654-a18a-ea1-3bf2`. The local snapshot's `revision.json` matches the lock exactly. Praetorium's [pilot integration](https://github.com/richardsolomou/praetorium.gg/pull/1975) shows catalogue summaries only on detachment pages and the offline download, matched by ID and rules version, so its game calculations still read these definitions.
-
-The comparison was rerun after adding battle sizes, caps, `requires`, and all-or-nothing `uniform`, against the same pinned revisions. Every check the additions do not touch reproduced its earlier result exactly.
-
-| Check | Result |
-| --- | --- |
-| Conversion | 90 datasheets, 12 detachments and 38 enhancements became 471 records (1 faction, 3 battle sizes, 12 detachments, 38 enhancements, 90 units, 92 models, 57 options, 178 wargear), which pass `validateDefinitions`. 74 units carry battle-size `limits`, seven options carry `caps`, and one carries `requires`. |
-| Unit composition | Every size Praetorium builds for every datasheet, and one past each end, gets the same verdict from `checkRoster`: 260 of 260. |
-| Wargear | 801 single-option probes, each taking 1 to one more than the room of one option at every size. 797 agree (99.5%, from 659 of 799 before the additions). In all 4 that differ, the candidate accepts what Praetorium rejects (see [Remaining gaps](#remaining-gaps)). |
-| Conditional options | The one option Praetorium closes until another selection opens it, probed alone and with each choice of the unit's other options: 3 of 3 agree. |
-| Battle-size limits | Each datasheet fielded at its limit and one past it at Incursion, Strike Force and Onslaught: 765 of 771 agree. All 6 that differ are one Epic Hero whose limit Praetorium enforces outside the roster limit the conversion reads, so the candidate gives it none. |
-| Roster legality | 279 Necrons tournament lists from the local import corpus, 277 of which Praetorium reads as Necrons and 256 imports cleanly. All 3,840 units map to candidate IDs, and each is judged on the candidate's unit-level codes. 3,789 unit verdicts agree (98.7%). Praetorium rejects 51 more units and the candidate none more. Only one of the 30 lists Praetorium rejects comes from an export of current data. Their errors are about Leader attachments (41 messages), the Warlord (4), and army-wide count limits (3). Every list is a Strike Force list. |
-| Lists | 248 of 277 verdicts agree. 246 are legal in both and 2 illegal in both. Praetorium alone rejects 28, all for the rules above. The candidate alone rejects one list that names no detachment, a gap in the scratch translation rather than in the definitions. |
-| Imports | `importUnit`, given each translated unit's name, model count and taken wargear names, reproduces all 3,840 units with no misses. |
-| Points joins | Against the converted MFM file, all 12 detachments and 38 enhancements are priced. 63 of 90 units join by name. The 27 that do not are Legends fortifications, Legends units, three campaign variants, and three units with no price in Praetorium either. Praetorium prices 22 of them from another input and 2 at zero. One priced unit's name differs only in number from its definition. One unit has two sizes without a row. |
-| Enhancement eligibility | Keyword rules inferred from the units Praetorium offers each enhancement to, plus `enhancements: false` for characters it never offers one to, give the same answer for 3,417 of 3,420 enhancement and unit pairs. |
-
-The 78 disagreements first put down to room that is not a multiple of unit size came from the scratch conversion, which did not read room equal to the unit's size as once per model. Read that way, the remaining differences in those options were squads splitting a weapon swap that the datasheet makes all or nothing, which `uniform` now checks. Caps account for the other 58, including the 4 in a Legends fortification that were not attributed before.
-
-### Remaining gaps
-
-These block replacing definitions for Necrons. Each is a shape, source, or consumer change, not a data fix:
-
-1. **Room shared between options.** A campaign character's two ability groups share one slot, and a Legends fortification caps a weapon across two of its options. Option groups now hold both, and pair probes of the two units agree in 363 of 363 cases ([rerun](definition-cutover.md#shared-option-bounds-rerun)). The four single-option differences remain, because a roster cannot say that it dropped a default from another option.
-2. **Limits outside the roster limit.** One Epic Hero's single copy comes from a rule the conversion does not read as a roster limit. The shape can hold it as `perRoster: 1`, once the source says so.
-3. **Rules outside the shape.** Leader attachments, the Warlord (25 datasheets carry it as a toggle), army-wide enhancement and count limits, and detachment-specific restrictions are roster rules that the app checks separately. Praetorium reads attachment eligibility from datasheet text facts, so it depends on the gameplay reference ([#7](https://github.com/richardsolomou/40k-catalogue/issues/7)).
-4. **Narrow eligibility.** Three enhancement and unit pairs need a rule narrower than shared keywords.
-5. **Points coverage.** 27 units, mostly Legends, have no price in the Necrons points file, and one name needs an explicit mapping.
-6. **Source.** No source of definition data has a reuse basis (see above).
-
-## Older versions and ID mappings
-
-At the baseline Praetorium composes nine rules versions: `mfm-1-6`, the released default, and eight retired versions, three of them backed by private snapshots instead of source pins. Saved rosters keep their rules version, so a replacement has to resolve each one or leave it on its existing input. Moving the retired versions buys nothing, so they keep their current inputs and only new rules versions move. A version that does move needs its own identity release and records, published as an immutable catalogue revision.
-
-Saved rosters hold definition IDs, so Praetorium needs a mapping from its IDs to catalogue references (see [Consumer mappings](catalogue-identity.md#consumer-mappings-and-upgrades)). For Necrons at `mfm-1-6` that mapping is:
-
-| Praetorium | Catalogue | Count |
-| --- | --- | --- |
-| Faction catalogue ID | `faction` | 1 |
-| Battle size entry ID | `battle-size` | 3 |
-| Detachment entry ID | `detachment` | 12 |
-| Detachment and enhancement option ID | `enhancement` | 38 |
-| Datasheet entry ID | `unit` | 90 |
-| Model entry ID, including one entry per loadout | `model`, plus the loadout's option and wargear | 102 onto 92 |
-| Choice path within a datasheet | `roster-option` | 57 |
-| Wargear and loadout entry ID | `wargear` | 275 onto 178 |
-| Spread counts | Wargear counts in the roster | |
-| Warlord toggle | None; a roster-level rule | 25 |
-
-The mapping is many-to-one where the definitions repeat the same wargear for each unit, and keyed by datasheet where choices are paths. Two model entries in one unit share a name and needed distinct IDs. Every mapped catalogue ID then follows the identity history: a later release can alias or retire it, and `checkUpgrade` lists what the mapping must move. Praetorium's `checkIdDrops` stays in place, because the mapping must never drop an ID a saved roster can hold.
-
-## Cutover sequence
-
-Run per faction, after the gaps above are closed or the faction's units do not meet them:
-
-1. **Publish.** Release a catalogue revision whose roster category is `complete` for the faction, with its points category joined by the same IDs and `pointsGaps` empty.
-2. **Map.** Add Praetorium's ID mapping as a reviewed file in its `catalogue/` directory. Check that it covers every ID `just rosters-audit` finds in production rosters and that `checkUpgrade` returns nothing.
-3. **Shadow.** Keep definitions authoritative and run the candidate beside them: the probes above, the roster audit against its baseline, the 95% import bar, `just points`, the client-text integration test, and the offline construction bundle. Every disagreement is explained or fixed in the catalogue.
-4. **Switch.** Read construction for the faction from the release in a new rules version, leaving retired versions on their inputs. Repeat the shadow checks against the deployed revision.
-5. **Roll back.** Pin the roster category back to the definitions source in composition. Saved rosters keep their stored IDs and the mapping stays in place, so rollback needs no data migration and the release stays published for history.
-
-## Decision
-
-Retained. The `wh40k-11e` definitions remain Praetorium's construction source. The shape now reproduces Necrons unit sizes, imports, and wargear and battle-size limits apart from gap 2 and the implicit defaults in gap 1, but the roster rules in gap 3 are outside it and no source has a reuse basis. It is not ready for a cutover.

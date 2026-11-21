@@ -4,7 +4,7 @@ A release is an immutable, versioned set of reviewed [mechanic records](records.
 
 ## Layout
 
-A release unpacks to these files and no others:
+New archives use manifest format 2 and unpack to the following files.
 
 | Path | Content |
 | --- | --- |
@@ -12,7 +12,7 @@ A release unpacks to these files and no others:
 | `schema/mechanic.v1.schema.json` | The record schema the records were validated against. |
 | `records/<id>.json` | One mechanic record with the rendered body in `summary` and optional bold and link `summarySpans`, named by its `id`. |
 
-It is published as one uncompressed `.tar` file holding those paths.
+The release ships as an uncompressed `.tar` file. For format 1 archives, each manifest entry points to a mechanic JSON file and a separate `summaries/<id>.txt` file.
 
 ## Manifest
 
@@ -63,4 +63,4 @@ Verification fails when the manifest does not match its schema, when a file is m
 
 ## Consuming a release
 
-Pin the archive URL of an exact release and its SHA-256 checksum. Check the checksum after download, unpack the archive, and run verification or an equivalent check of every `sha256` in the manifest. Read game behaviour from the structured fields. Display `summary` alongside the ability's `name` and optional `usage.cp`. Apply the recorded formatting and resolve links by the supplied kind and ID. [Summary span contract](records.md#summaries)
+Pin the archive URL of an exact release and its SHA-256 checksum. Check the checksum after download, unpack the archive, and run verification or an equivalent check of every `sha256` in the manifest. Read game behaviour from the structured fields. With format 2, display `summary` alongside the ability's `name` and optional `usage.cp`. Apply `summarySpans` and resolve links by the supplied kind and ID. With format 1, read the display text from the summary path in the manifest. [Summary span contract](records.md#summaries)

@@ -2,7 +2,7 @@
 
 A catalogue release packages one revision of the [catalogue identity](catalogue-identity.md) with the data records of each category the catalogue covers, and records which categories still come from their existing source. Consumers pin each category they adopt and can see what changed since the release before it. The contract is the JSON Schemas in [src/catalogue-releases](../src/catalogue-releases) plus the rules below. [src/catalogue-releases/catalogue.ts](../src/catalogue-releases/catalogue.ts) builds and verifies releases.
 
-[Mechanics releases](releases.md), such as the pinned pilot, keep their own format and archive. A catalogue release can list mechanics as a retained category whose source is that pinned archive.
+[Mechanics releases](releases.md) have their own archive format. A catalogue release can list a mechanics archive as a retained category.
 
 ## Inputs
 
@@ -100,9 +100,9 @@ node src/catalogue-releases/cli.ts verify <release-dir>
 
 Verification checks the manifest schema, that the release holds exactly the listed files with their checksums, that record paths match their kind and ID, that categories and records are in order, and that retained categories list no records. Like the mechanics check, it does not re-run validation, so later changes never invalidate a published release.
 
-## Cutover evidence
+## Upgrading
 
-The manifest supplies coverage evidence for the [cutover tracker](cutover-tracker.md) and [#13](https://github.com/richardsolomou/40k-catalogue/issues/13). A cutover record names the release URL and archive checksum, the categories it switches, and their `complete` status at that release. A `partial` category lists in `unresolved` and `unresolvedReferences` what would still need the existing source. Each retained category keeps its existing source pin. Rolling back one category means pinning that category to an earlier release or its retained source, without moving the others.
+Check each category's coverage and unresolved references in the manifest before switching an app to the release. Use the change report to check saved IDs and data joins. Pin a category to its earlier archive or retained source to roll it back.
 
 ## Fixtures
 

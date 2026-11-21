@@ -62,6 +62,27 @@ All 141 translated drafts have identical normalised source fingerprints, includi
 
 A match verifies the wording represented by both pins after normalisation. The printed source citation, proof of the official rules update and review of the structured mechanic remain separate steps.
 
+## Full summary coverage
+
+The private inventory covers 55,329 records across nine rules versions. Grouping identical source content within each category gives 7,339 distinct entries that need a summary. For the current version, the queue has 6,158 records across the following categories.
+
+| Category | Current records |
+| --- | ---: |
+| Gameplay references | 4,765 |
+| Keyword descriptions | 57 |
+| FAQs | 675 |
+| Rulebook sections | 421 |
+| Mission award criteria | 201 |
+| Mission card texts | 18 |
+| Mission actions | 15 |
+| Mission twists | 6 |
+
+The combined queue has 1,778 current drafts that passed automated checks, including 515 stratagems. Of these, 139 use native mechanic records and 1,639 come from pinned 40kdc structured fields. The stratagem renderer adds the phase, turn and target restrictions from the linked stratagem record. Reuse across versions requires matching source content for the same qualified entry. That gives 15,817 versioned drafts across 1,621 distinct pieces of source content.
+
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,152 with bold spans and 1,026 with links. The build checks that each link resolves to a rule or keyword record by ID in the relevant version. The destination can still need its own summary. Printed uppercase keyword labels are retained where the source confirms them.
+
+The current queue also records 925 entries held by unsupported structure, 206 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,085 needing authoring. Two native translations are held for missing mechanical values. Eight rendered bodies repeat the source wording and are held for rewriting. The comparison also flags shared phrases for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+
 The same package has all 25 current Chapter Approved primary card names and 18 secondary card names, with the same number of award rows on each. It has no matches for the 26 current Combat Patrol primary cards. Its terrain data credits Battlemaster for 45 layouts and King of the Colosseum for one. These are separate checks from gameplay coverage. Mission conditions, scoring, source rights and geometry still need their own comparisons.
 
 ## Reproduce the staging output

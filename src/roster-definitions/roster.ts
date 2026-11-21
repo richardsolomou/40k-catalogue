@@ -28,6 +28,7 @@ export type ProblemCode =
   | "option-uniform"
   | "option-cap"
   | "option-unavailable"
+  | "option-group-count"
   | "enhancement-detachment"
   | "enhancement-keywords"
   | "enhancement-repeated"
@@ -153,6 +154,10 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
       if (requires && taken > 0 && takenOf(requires.option, requires.choices) === 0) {
         add("option-unavailable", `${option.name} needs one of ${requires.choices.map((w) => `wargear:${w}`).join(", ")} from roster-option:${requires.option}`);
       }
+    }
+    for (const group of unit.data.optionGroups ?? []) {
+      const taken = group.options.reduce((sum, { option, choices }) => sum + takenOf(option, choices), 0);
+      if (taken > group.max) add("option-group-count", `${group.options.map(({ option }) => `roster-option:${option}`).join(", ")} together take at most ${group.max}, have ${taken}`);
     }
 
     if (picked.enhancement && current("enhancement", picked.enhancement, i)) {

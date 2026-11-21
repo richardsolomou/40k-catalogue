@@ -35,7 +35,7 @@ These are the migration work items. The [source inventory](source-inventory.md) 
 | Translated names and import aliases | [#11 Localised catalogue names](https://github.com/richardsolomou/40k-catalogue/issues/11) |
 | Faction artwork and icons used by the catalogue | [#12 Faction icon assets](https://github.com/richardsolomou/40k-catalogue/issues/12) |
 
-Integrate one source at a time. [#13 Track and verify catalogue cutovers](https://github.com/richardsolomou/40k-catalogue/issues/13) records replacements, retained inputs and their reasons, and the checks required before a change of source.
+Integrate one source at a time. The [cutover tracker](cutover-tracker.md) records baseline pins, verification, and rollback steps for [#13](https://github.com/richardsolomou/40k-catalogue/issues/13).
 
 ## Shared work
 

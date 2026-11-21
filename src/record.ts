@@ -4,18 +4,38 @@ export type Unresolved = { unresolved: string };
 export type OrUnresolved<T> = T | Unresolved;
 
 export type Phase = "command" | "movement" | "shooting" | "charge" | "fight";
-export type UnitRef = "this-unit" | "triggering-unit" | "target";
-export type UnitFilter = { side: "friendly" | "enemy"; keywords?: string[] };
-export type Range = { inches: number; of: UnitRef };
+export type Turn = "own" | "opponent" | "any";
+export type Move = "normal" | "advance" | "fall-back" | "charge" | "ingress";
+export type UnitRef = "this-unit" | "triggering-unit" | "triggering-model" | "destroying-unit" | "target";
+export type UnitFilter = { side: "friendly" | "enemy"; keywords?: string[]; excludedKeywords?: string[] };
+export type Range = { inches: number | "engagement-range"; of: UnitRef };
 
 export type Trigger =
-  | { kind: "phase-start" | "phase-end"; phase: Phase; turn: "own" | "opponent" | "any" }
-  | { kind: "move-end"; moves: ("normal" | "advance" | "fall-back" | "charge")[]; unit: UnitFilter };
+  | { kind: "phase-start" | "phase-end"; phase: Phase; turn: Turn }
+  | { kind: "move-end" | "move-selected"; moves: Move[]; unit: UnitFilter }
+  | { kind: "ability-move"; ability: string; moves: Move[] }
+  | { kind: "model-destroyed"; unit: UnitFilter; beforeRoll?: "deadly-demise" }
+  | { kind: "unit-destroyed"; unit: UnitFilter; by: UnitFilter };
 
-export type Target = { unit: "this-unit" | "triggering-unit" } | { select: UnitFilter & { within?: Range } };
+export type Target =
+  | { unit: "this-unit" | "triggering-unit" }
+  | { unit: "triggering-model"; allowDestroyed?: true }
+  | { select: UnitFilter & { within?: Range } };
+
+export type Usage = {
+  cp?: number;
+  windows?: { phase?: Phase; turn: Turn }[];
+  oncePerTurn?: true;
+  bearerModel?: string;
+};
 
 export type Condition =
-  | { kind: "status"; unit: UnitRef; status: "battle-shocked" | "below-half-strength"; at: "now" | "phase-start" | "turn-start" }
+  | {
+      kind: "status";
+      unit: UnitRef;
+      status: "battle-shocked" | "below-half-strength" | "unravelling";
+      at: "now" | "phase-start" | "turn-start";
+    }
   | { kind: "within"; unit: UnitRef; inches: number; of: UnitRef };
 
 export type Effect =
@@ -25,9 +45,16 @@ export type Effect =
       characteristic: "move" | "toughness" | "save" | "leadership" | "objective-control" | "attacks";
       by: number;
     }
-  | { kind: "mortal-wounds"; amount: string };
+  | { kind: "mortal-wounds"; amount: string }
+  | { kind: "roll-threshold"; roll: "deadly-demise"; succeedsOn: number }
+  | { kind: "activate-ability"; ability: string }
+  | { kind: "desperate-escape-tests"; unit: UnitRef; ifBattleShocked: OrUnresolved<{ by: number }> }
+  | { kind: "enemy-distance"; inches: number; horizontal: boolean };
 
 export type Duration = { until: "end-of-phase" | "end-of-turn" | "end-of-battle-round" };
+
+// A second consequence checked once the triggering move ends, independently of the effect.
+export type Restriction = { kind: "cannot-charge"; unit: UnitRef; ifWithinEnemy: number; until: Duration["until"] };
 
 export type MechanicRecord = {
   formatVersion: 1;
@@ -35,11 +62,13 @@ export type MechanicRecord = {
   name: string;
   rulesVersion: { edition: string; update: string };
   source: { title: string; page?: string; url?: string };
+  usage?: Usage;
   trigger: OrUnresolved<Trigger>;
   target: OrUnresolved<Target>;
   conditions: OrUnresolved<Condition>[];
   effect: OrUnresolved<Effect>;
   duration?: OrUnresolved<Duration>;
+  restriction?: OrUnresolved<Restriction>;
 };
 
 export function isUnresolved(part: object): part is Unresolved {

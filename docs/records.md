@@ -11,13 +11,15 @@ A mechanic record describes one ability as structured data that any app can vali
 | `name` | Display name of the ability. |
 | `rulesVersion` | The `edition` and `update` the record was checked against. |
 | `source` | Source `title` and at least one of `page` or `url`, so a reviewer can find the printed rule. |
-| `trigger` | When the ability fires: the start or end of a phase (`phase-start`, `phase-end`) in a given player's turn, or a unit ending a kind of move (`move-end`). |
-| `target` | The unit affected: `this-unit`, the `triggering-unit` of a `move-end` trigger, or one unit the player selects, optionally within a range. |
+| `usage` | Optional CP cost, turn or phase windows, a once-per-turn limit, and bearer model eligibility. |
+| `trigger` | A phase boundary, move selection or ending, move made through a named ability, or model or unit destruction. Model destruction can specify that the window closes at a pending roll. |
+| `target` | The source unit, a unit or model bound by the trigger, or a unit selected by side, keywords, and range. A triggering model can carry a destroyed-target exception. |
 | `conditions` | Checks that must all pass. A `status` condition reads a unit's state now, at the start of the phase, or at the start of the turn. A `within` condition checks distance between two units. |
-| `effect` | What happens: `modify-roll`, `modify-characteristic`, or `mortal-wounds`. |
-| `duration` | How long a modifier lasts. Modifiers must have one and immediate effects such as mortal wounds must not. |
+| `effect` | A roll or characteristic modifier, mortal wounds, a roll threshold, activation of a named ability, Desperate Escape tests, or a movement distance threshold. |
+| `duration` | How long the effect lasts. A roll threshold can be limited to a phase, and modifiers require a duration. Immediate effects such as mortal wounds apply at the trigger. |
+| `restriction` | An optional second consequence checked at the end of a move, such as a charge restriction based on its endpoint. |
 
-Conditions and ranges refer to units as `this-unit`, `triggering-unit`, or `target`. A record can only refer to a triggering unit when its trigger introduces one, and a `within` condition must measure between two different units.
+Conditions and ranges can refer to the source unit, the target, or a participant the trigger introduces. A unit-destruction trigger also binds the unit that made the kill. A model-destruction trigger binds the destroyed model. A `within` condition measures between two different units.
 
 When the target is selected, a condition that mentions `target` restricts which unit can be selected. Other conditions are checked when the trigger fires, before anything is selected.
 
@@ -27,7 +29,7 @@ When a part of an ability does not fit the format yet, replace that part with `{
 
 ## Summaries
 
-The renderer produces one sentence from the record's fields alone, so the same record always gives the same summary regardless of key order:
+The renderer uses the record's fields alone, so the same record always gives the same summary regardless of key order. A typical selective effect renders like this:
 
 ```text
 <name>: <trigger>, [if <conditions>, ][select <unit>[ that <eligibility>], then ]<effect>[ <duration>].

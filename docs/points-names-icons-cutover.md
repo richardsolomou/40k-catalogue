@@ -41,6 +41,8 @@ The private snapshots behind `legacy-profiles` (MFM 1.5, 2 October) and the two 
 
 For all nine rules versions, `lookupPoints` was compared with Praetorium's `mfmPrice` for every unit. The probes covered each model count from 1 to one past the unit's largest row, for copies 1 to 5. All 336,465 probes agreed, including 37,200 for the Custodes preview.
 
+Another 12,820 checks agreed for the same versions. They cover 3,671 detachment costs, 6,807 enhancement costs, 1,223 upgrade costs and 1,119 wargear prices. Detachments, enhancements and upgrades use the existing joins. Wargear checks compare the explicitly named price rows. Proposed alias joins and 21 add-on rows represented as wargear in the candidate still need saved-list and loadout comparison.
+
 ### Joining Praetorium's catalogue IDs
 
 Praetorium's own join (`mfmUnitFor`, `mfmDetachmentFor`, and enhancement matching) ran over every faction's datasheets and detachments in each rules version. Each joined row was then mapped to its candidate ID. For reference datasheets, the rows a faction page lists:

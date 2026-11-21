@@ -129,7 +129,11 @@ The pinned schemas validate 2,659 current ability payloads and 830 linked strata
 
 ### Mission award candidates
 
-The structured award renderer passes all 43 upstream scoring fixtures. It renders 89 candidate award criteria from the Chapter Approved data. A comparison against the pinned mission facts found 28 timing mismatches and 26 awards with additional reference scoring windows. All 89 remain outside the complete-draft count pending review of the criteria and version binding.
+The structured award renderer passes all 43 upstream scoring fixtures. The private Chapter Approved review covers 89 current award criteria. Forty-five pass the checks for scoring values, criterion concepts and timing across the pinned reference and structured data. Another 19 pass with timing taken from the pinned card. Twenty-five are held for errata, missing condition details or scoring differences. Eleven holds concern cards named in the Event Companion errata. [Event Companion v1.2](https://assets.warhammer-community.com/eng_wh40k_event_companion-pl87i44rzn-a7ieny8i9x.pdf)
+
+For 26 awards, the pinned card scores at the end of the player's Command phase in rounds 2–4 and at the end of their turn in round 5. The structured source keeps Command-phase timing through round 5. Seven of those 26 also have separate holds. Two Defend Stronghold awards have a different round range and fallback in the pinned card.
+
+The 64 provisional summaries retain their pin, checks and review state. The Event Companion covers layouts and amendments. The full criteria still need a version-matched check against the Mission Deck or the publisher's app before these summaries count toward coverage. [Chapter Approved Mission Deck announcement](https://www.warhammer-community.com/en-gb/articles/adciuo3f/saturday-pre-orders-new40k-rules-card-packs-and-more/)
 
 The same package has all 25 current Chapter Approved primary card names and 18 secondary card names, with the same number of award rows on each. It has no matches for the 26 current Combat Patrol primary cards. Its terrain data credits Battlemaster for 45 layouts and King of the Colosseum for one. These are separate checks from gameplay coverage. Mission conditions, scoring, source rights and geometry still need their own comparisons.
 

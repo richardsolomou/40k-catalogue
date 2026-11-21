@@ -80,6 +80,8 @@ Both print counts, gap paths, and differences by ID, award, and moment only, nev
 
 On 21 November 2026 a local adapter read the pinned Chapter Approved 2026–27 pack through Praetorium's own routines at `a9b4a5b` (catalogue pointer `29e26d2…`, Game Datacards `ebcd0cb`, Battlemaster `acabfa4…`). It replaced every string the routines publish with a hash, so no wording was read. It wrote a candidate pack in format 1 and reference cases from `missionsFromDatacards`, `missionCardsFromDatacards`, `tableBattlefields`, `cardsDue`, `cardsDueFromTheirTurn` with the mode filter `scoringDue` applies, and `awardTotal`. The candidate keeps Game Datacards IDs, has no summaries or effects (each is unresolved), and stays outside Git.
 
+The [award review](gameplay-cutover.md#mission-award-candidates) records 64 provisional summaries and 25 holds against the current pack pin. It tracks round-five timing and errata separately from the app scoring comparison.
+
 The pack has 5 dispositions, 6 deployments, 45 layouts, 25 primaries with 25 pairings and 100 awards, 18 secondaries with 31 awards, and 6 twists. The candidate validates with 140 gaps: 131 award criteria, 6 twist effects, 2 "when drawn" replacements, and 1 window.
 
 | Cases | Checked | Agree |

@@ -1,7 +1,7 @@
 import { resolve, type Ref } from "../catalogue-identity/identity.ts";
 import { lookupPoints, type Miss } from "../points/lookup.ts";
 import type { PointsSnapshot } from "../points/snapshot.ts";
-import type { Definition, DefinitionKind, Definitions, Per } from "./definitions.ts";
+import { modelBounds, type Definition, type DefinitionKind, type Definitions, type Per } from "./definitions.ts";
 
 /** A saved list in catalogue IDs: model counts by model ID, and wargear counts by option ID. */
 export type RosterUnit = {
@@ -55,7 +55,9 @@ const blocks = (per: Per | undefined, total: number, carriers: number) =>
 
 /** How many wargear selections an option takes in a unit of `total` models, `carriers` of which can take it. */
 export function optionBounds(option: Definition<"roster-option">, total: number, carriers: number): { min: number; max: number } {
-  const { choose, per } = option.data;
+  const { choose, per, bySize } = option.data;
+  const sized = bySize?.find(({ size }) => size === total);
+  if (sized && carriers > 0) return { min: sized.min, max: sized.max };
   const n = blocks(per, total, carriers);
   return { min: choose.min * n, max: choose.max * n };
 }
@@ -64,9 +66,9 @@ export function optionBounds(option: Definition<"roster-option">, total: number,
 export function checkRoster(definitions: Definitions, roster: Roster): Problem[] {
   const problems: Problem[] = [];
   const current = (kind: DefinitionKind, id: string, unit?: number) => {
+    if (definitions.get(kind, id)) return true;
     const found = resolve(definitions.identity, { kind, id });
     if (found.status === "current") {
-      if (definitions.get(kind, id)) return true;
       problems.push({ code: "missing-definition", ...(unit === undefined ? {} : { unit }), message: `${kind}:${id} has no definition` });
     } else {
       problems.push({ code: "not-current", ...(unit === undefined ? {} : { unit }), message: `${kind}:${id} is ${found.status}` });
@@ -96,13 +98,14 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
       if (current("model", id, i) && !models.some((m) => m.id === id)) add("unit-model", `model:${id} is not part of ${unit.name}`);
     }
     const counts = new Map(models.map((m) => [m.id, picked.models && Object.hasOwn(picked.models, m.id) ? picked.models[m.id]! : m.data.min]));
+    const total = [...counts.values()].reduce((sum, n) => sum + n, 0);
     for (const model of models) {
       const count = counts.get(model.id)!;
-      if (!Number.isSafeInteger(count) || count < model.data.min || count > model.data.max) {
-        add("model-count", `${model.name} needs ${model.data.min}-${model.data.max} models, has ${count}`);
+      const { min, max } = modelBounds(model.data, total);
+      if (!Number.isSafeInteger(count) || count < min || count > max) {
+        add("model-count", `${model.name} needs ${min}-${max} models, has ${count}`);
       }
     }
-    const total = [...counts.values()].reduce((sum, n) => sum + n, 0);
     if (!unit.data.sizes.includes(total)) add("unit-size", `${unit.name} fields ${unit.data.sizes.join(" or ")} models, has ${total}`);
 
     const options = definitions.optionsOf(unit.id);
@@ -132,7 +135,8 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
       if (taken < min || taken > max) add("option-count", `${option.name} takes ${min}-${max}, has ${taken}`);
       else if (option.data.uniform && (kinds > 1 || (taken > 0 && taken !== max))) add("option-uniform", `${option.name} is taken ${max} times with one choice, or not at all`);
       for (const cap of option.data.caps ?? []) {
-        const most = cap.max * blocks(cap.per, total, carriers);
+        const sized = cap.bySize?.find(({ size }) => size === total);
+        const most = sized && carriers > 0 ? sized.max : cap.max * blocks(cap.per, total, carriers);
         const capped = takenOf(option.id, cap.choices);
         if (capped > most) add("option-cap", `${option.name} takes at most ${most} of ${cap.choices.map((w) => `wargear:${w}`).join(", ")}, has ${capped}`);
       }
@@ -178,11 +182,12 @@ export function importUnit(definitions: Definitions, faction: string, printed: P
 
   // Fixed models stay at their count; the one variable model takes the rest.
   const models = definitions.modelsOf(unit.id);
-  const variable = models.filter((m) => m.data.min !== m.data.max);
-  const fixed = models.filter((m) => m.data.min === m.data.max).reduce((sum, m) => sum + m.data.min, 0);
+  const bounds = models.map((m) => ({ id: m.id, ...modelBounds(m.data, printed.models) }));
+  const variable = bounds.filter(({ min, max }) => min !== max);
+  const fixed = bounds.filter(({ min, max }) => min === max).reduce((sum, { min }) => sum + min, 0);
   if (variable.length > 1) misses.push({ code: "ambiguous-models", name: printed.name });
   if (variable.length === 0 && printed.models !== fixed) misses.push({ code: "model-count-mismatch", name: printed.name });
-  const counts = Object.fromEntries(models.map((m) => [m.id, m === variable[0] ? printed.models - fixed : m.data.min]));
+  const counts = Object.fromEntries(bounds.map((m) => [m.id, m === variable[0] ? printed.models - fixed : m.min]));
 
   const options = new Map<string, Record<string, number>>();
   const defaults = new Set(models.flatMap((m) => m.data.wargear));

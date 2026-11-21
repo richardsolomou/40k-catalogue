@@ -54,6 +54,14 @@ The extended format represents 103 candidates in full. It covers 33 enhancements
 
 The other 2,806 candidates still have format gaps, including compound conditions, ordered effects and target event history. The [structured import workflow](authoring.md#draft-a-proposal) preserves source revision, attribution and changes in a released record. All 103 drafts still need a confirmed rules update, printed source and mechanic review before publication under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
+### Source fingerprints
+
+The private comparison uses 40kdc's pinned `source_digest` function against the Game Datacards content in snapshot `9d1bbd9`. It joins on the mapped card identity and uses 40kdc's section order for stratagems. The comparison hashes the rendered plain text in memory and records only the outcome. [Fingerprint contract at the upstream revision](https://github.com/wn-mitch/40kdc-data/blob/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad/tools/src/source-digest.ts)
+
+All 103 translated drafts have identical normalised source fingerprints, including all 20 stratagems. Across all 2,909 candidates, 2,659 match (91.4%), 234 differ, 13 have no comparable card body and three have more than one card fingerprint for the mapped identity. A mismatch may come from content changes or different source formats. It needs review before linking a candidate to the app's pinned rule.
+
+A match verifies the wording represented by both pins after normalisation. The printed source citation, proof of the official rules update and review of the structured mechanic remain separate steps.
+
 The same package has all 25 current Chapter Approved primary card names and 18 secondary card names, with the same number of award rows on each. It has no matches for the 26 current Combat Patrol primary cards. Its terrain data credits Battlemaster for 45 layouts and King of the Colosseum for one. These are separate checks from gameplay coverage. Mission conditions, scoring, source rights and geometry still need their own comparisons.
 
 ## Reproduce the staging output

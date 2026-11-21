@@ -64,7 +64,7 @@ A match verifies the wording represented by both pins after normalisation. The p
 
 ## Full summary coverage
 
-The private inventory covers 55,329 records across nine rules versions. Grouping identical source content within each category gives 7,339 distinct entries that need a summary. For the current version, the queue has 6,158 records across the following categories.
+The private inventory covers 55,329 records across nine rules versions. Grouping identical source content within each category gives 6,010 distinct pieces of source content. For the current version, the queue has 6,158 records across the following categories.
 
 | Category | Current records |
 | --- | ---: |
@@ -77,11 +77,11 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 2,482 current drafts that passed automated checks, including 707 stratagems. Of these, 140 use native mechanic records, 2,170 come from pinned 40kdc structured fields, and 139 are core rule or keyword summaries backed by executable evidence or published rules. Another 33 reuse a summary from an identical ability body. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. An earlier pass rewrote 27 drafts with repeated source wording from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 22,096 versioned drafts across 2,269 distinct pieces of source content.
+The combined queue has 2,503 current drafts that passed automated checks, including 716 stratagems. Of these, 140 use native mechanic records, 2,179 come from pinned 40kdc structured fields, and 146 are core rule or keyword summaries backed by executable evidence or published rules. Another 33 reuse a summary from an identical ability body. Five derived entries also have summaries backed by their linked rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. An earlier pass rewrote 27 drafts with repeated source wording from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 22,285 versioned drafts covering 2,285 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,555 with bold spans and 1,422 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Drafts exist for 90 of the 128 linked destinations. The other 38 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,573 with bold spans and 1,442 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Drafts exist for 99 of the 139 linked destinations. The other 40 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 420 entries held by unsupported structure, 179 incomplete drafts, 110 entries with partial facts, 54 derived names and 2,913 in the authoring queue. One native translation is held for a missing mechanical value. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 411 entries held by unsupported structure, 179 incomplete drafts, 110 entries with partial facts, 49 derived names and 2,906 in the authoring queue. One native translation is held for a missing mechanical value. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
 ### CP and Miracle dice
 
@@ -119,11 +119,23 @@ Four designation summaries now describe the verified replacement event. Five fig
 
 ### Core FAQ source alignment
 
+Question-and-answer digests now bind 178 current FAQ records and 1,506 records across versions. This reduces the FAQ list to 704 distinct pieces of content from 2,033. One unanswered entry still lacks a digest.
+
 The 84 indexed Core Rules FAQ and errata entries have no match in the pinned PDF appendix. Its five printed questions also have no matching indexed entry. The indexed records need a source for the applicable rules version before draft review.
+
+Eight faction launch packs match 193 indexed FAQ or errata entries, including 57 question-and-answer pairs and 136 errata. Those entries have the same content digest in all nine snapshots. Their applicability to the pinned October update remains open.
+
+### Verified keyword casing
+
+Exact keyword casing and branch checks add 9 stratagem summaries. Each summary preserves the casing of the keyword in its printed role and retains its timing, cost and target restrictions.
+
+### Datasheet-derived keyword links
+
+The source comparison binds 26 datasheet-derived names to their rule in each pinned version. It checks the ability or weapon profile that uses the keyword, its role, and the linked rule’s identity and digest. Five entries also have original summaries supported by the linked mechanics. The other 21 carry their verified destination and any corroborated parameter. Another 28 names remain held, including unresolved variants.
 
 ### Linked core and weapon rules
 
-The link audit uses pinned executable rules and printed sections to verify destinations against the reference version. The draft JSON carries the mechanic, the original summary, and references to the supporting tests or published rule sections.
+The link audit uses pinned executable rules and printed sections to verify destinations against the reference version. The latest pass adds 7 printed rule summaries covering round sequencing and movement. The draft JSON carries the mechanic, the original summary, and references to the supporting tests or published rule sections.
 
 The published 11th-edition Core Rules resolve two conflicts between the pinned engines. Devastating Wounds resolves after normal damage and keeps the mortal wounds from a single attack on one model. Lethal Hits gives the attacker a choice to take the automatic wound. The audit also recorded the normal-damage ordering for mortal wounds. [Core Rules, pp. 24, 80 and 82](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf)
 

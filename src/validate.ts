@@ -51,7 +51,7 @@ function referenceErrors(record: MechanicRecord): string[] {
     else if (target.select.within) refs.push(["/target/select/within/of", target.select.within.of]);
   }
   record.conditions.forEach((c, i) => {
-    if (isUnresolved(c)) return;
+    if (isUnresolved(c) || !("unit" in c)) return;
     refs.push([`/conditions/${i}/unit`, c.unit]);
     if (c.kind !== "within") return;
     refs.push([`/conditions/${i}/of`, c.of]);

@@ -59,6 +59,7 @@ const CHARACTERISTICS = {
 const DURATIONS = { "end-of-phase": "the end of the phase", "end-of-turn": "the end of the turn", "end-of-battle-round": "the end of the battle round" };
 
 type Names = (ref: UnitRef) => string;
+type UnitCondition = Extract<Condition, { unit: UnitRef }>;
 
 // Conditions on a selected target restrict which unit can be selected, so they render inside the selection.
 export function renderSummary(record: MechanicRecord): string {
@@ -73,7 +74,7 @@ export function renderSummary(record: MechanicRecord): string {
   const { target } = record;
   const selection = !isUnresolved(target) && "select" in target ? target : undefined;
   const destroyedTarget = !isUnresolved(target) && "unit" in target && target.unit === "triggering-model" && target.allowDestroyed;
-  const eligibility: Condition[] = [];
+  const eligibility: UnitCondition[] = [];
   const checks: OrUnresolved<Condition>[] = [];
   for (const c of record.conditions) {
     if (selection && !isUnresolved(c) && mentionsTarget(c)) eligibility.push(c);
@@ -91,7 +92,12 @@ export function renderSummary(record: MechanicRecord): string {
   ].filter(Boolean);
   const clauses = lead.length > 0 ? [lead.join(", ")] : [];
   const gate = kind === "always" ? "while" : "if";
-  if (checks.length > 0) clauses.push(`${gate} ${list(checks.map((c) => or(c, (c) => `${unit(c.unit)} ${predicate(c, c.unit, unit)}`)), "and")}`);
+  if (checks.length > 0) {
+    const predicates = checks.map((c) => or(c, (c) => c.kind === "source-model-leading"
+      ? "this model is leading a unit"
+      : `${unit(c.unit)} ${predicate(c, c.unit, unit)}`));
+    clauses.push(`${gate} ${list(predicates, "and")}`);
+  }
 
   let action = or(record.effect, (e) => effect(e, unit("target"), unit));
   if (selection) action = `${select(selection, eligibility, unit)}, then ${action}`;
@@ -141,19 +147,19 @@ function moves(kinds: Move[]): string {
   return list(kinds.map((m) => MOVES[m]), "or");
 }
 
-function mentionsTarget(c: Condition): boolean {
-  return c.unit === "target" || (c.kind === "within" && c.of === "target");
+function mentionsTarget(c: Condition): c is UnitCondition {
+  return "unit" in c && (c.unit === "target" || (c.kind === "within" && c.of === "target"));
 }
 
 // Describes the condition with `subject` as its grammatical subject; distance is symmetric, so either end can be the subject.
-function predicate(c: Condition, subject: UnitRef, unit: Names): string {
+function predicate(c: UnitCondition, subject: UnitRef, unit: Names): string {
   if (c.kind === "within") return `is within ${c.inches}" of ${unit(subject === c.unit ? c.of : c.unit)}`;
   if (c.kind === "not-selected") return `has not been selected to ${list(c.to, "or")} this phase`;
   if (c.at === "now") return `is ${STATUSES[c.status]}`;
   return `was ${STATUSES[c.status]} ${MOMENTS[c.at]}`;
 }
 
-function select(t: Extract<Target, { select: unknown }>, eligibility: Condition[], unit: Names): string {
+function select(t: Extract<Target, { select: unknown }>, eligibility: UnitCondition[], unit: Names): string {
   const { within } = t.select;
   const chosen = `select one ${filterWords(t.select)} unit`;
   const range = within && `within ${within.inches === "engagement-range" ? "Engagement Range" : `${within.inches}"`} of ${unit(within.of)}`;

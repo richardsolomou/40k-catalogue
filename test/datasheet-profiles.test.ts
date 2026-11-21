@@ -1,0 +1,127 @@
+import assert from "node:assert/strict";
+import { cpSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { test } from "node:test";
+import { checkUpgrade, historyErrors, type Release } from "../src/catalogue-identity/identity.ts";
+import { buildCatalogueRelease, type CatalogueRecord, type Manifest } from "../src/catalogue-releases/catalogue.ts";
+import { validateProfiles } from "../src/datasheet-profiles/profiles.ts";
+
+const fixtures = new URL("../fixtures/", import.meta.url);
+const json = (path: string): any => JSON.parse(readFileSync(new URL(path, fixtures), "utf8"));
+const records = (dir: string) => readdirSync(new URL(dir, fixtures)).map((f) => json(`${dir}${f}`) as CatalogueRecord);
+const identity = (version: string): Release => {
+  const rosters = json(`roster-definitions/${version}/identity.json`);
+  return { ...rosters, entries: [...rosters.entries, ...json(`datasheet-profiles/${version}/identity.json`).entries] };
+};
+const profileRecords = (version: string) => records(`datasheet-profiles/${version}/records/profiles/`);
+const UNIT = "synthetic.ember-host";
+const WARDENS = `${UNIT}.flame-wardens`;
+
+function errors(change: (identity: Release, records: CatalogueRecord[]) => void) {
+  const id = identity("1.1");
+  const recs = profileRecords("1.1");
+  change(id, recs);
+  const result = validateProfiles(id, recs);
+  return result.ok ? [] : result.errors;
+}
+const record = (recs: CatalogueRecord[], kind: string, id: string): any => recs.find((r) => r.kind === kind && r.id === id)!;
+const entry = (id: Release, kind: string, entryId: string) => id.entries.find((e) => e.kind === kind && e.id === entryId)!;
+
+function profiles(version: string) {
+  const result = validateProfiles(identity(version), profileRecords(version));
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.profiles;
+}
+
+test("both rules versions validate", () => {
+  assert.deepEqual([profiles("1.0").all("weapon-profile").length, profiles("1.1").all("weapon-profile").length], [2, 6]);
+});
+
+test("profile IDs form a valid identity history beside the roster IDs", () => {
+  assert.deepEqual(historyErrors([identity("1.0"), identity("1.1")]), []);
+});
+
+test("a saved weapon profile that split into firing modes resolves to its replacements", () => {
+  const [finding] = checkUpgrade(identity("1.1"), [{ kind: "weapon-profile", id: `${WARDENS}.cinder-cannon` }]);
+  assert.deepEqual(finding.resolution.status === "retired" && finding.resolution.replacedBy.map((e) => e.id), [`${WARDENS}.cinder-cannon-focused`, `${WARDENS}.cinder-cannon-dispersed`]);
+});
+
+test("profiles build as a category that depends on rosters and reports the retired profile", () => {
+  const build = (version: string, release: string, previous?: Parameters<typeof buildCatalogueRelease>[1]["previous"]) => {
+    const dir = mkdtempSync(join(tmpdir(), "profiles-"));
+    cpSync(fileURLToPath(new URL(`roster-definitions/${version}/records`, fixtures)), join(dir, "records"), { recursive: true });
+    cpSync(fileURLToPath(new URL(`datasheet-profiles/${version}/records`, fixtures)), join(dir, "records"), { recursive: true });
+    writeFileSync(join(dir, "identity.json"), JSON.stringify(identity(version)));
+    const categories = json(`roster-definitions/${version}/categories.json`);
+    categories.categories.push({ name: "profiles", status: "included", kinds: ["unit-profile", "weapon-profile", "attachment"], sources: [{ title: "Synthetic datasheet profiles", page: "1" }] });
+    writeFileSync(join(dir, "categories.json"), JSON.stringify(categories));
+    const result = buildCatalogueRelease(dir, { release, commit: "0".repeat(40), previous });
+    assert.ok(result.ok, JSON.stringify(result));
+    return result.files;
+  };
+  const files = build("1.1", "0.2.0", build("1.0", "0.1.0"));
+  assert.ok(files.has("schema/datasheet-profiles/profiles.v1.schema.json"));
+  const category = (JSON.parse(files.get("manifest.json")!.toString()) as Manifest).categories.find((c) => c.name === "profiles")!;
+  assert.deepEqual([category.status, category.dependsOn, category.changes.retired.map((r) => r.id)], ["complete", ["rosters"], [`${WARDENS}.cinder-cannon`]]);
+});
+
+test("a unit's profiles are listed by kind and model", () => {
+  const models = profiles("1.1").of("unit-profile", WARDENS).map((p) => p.data.models);
+  assert.deepEqual(models, [[`${WARDENS}.warden`], [`${WARDENS}.leader`]]);
+});
+
+test("a bodyguard lists every unit that may lead it", () => {
+  assert.deepEqual(profiles("1.1").attachedBy(WARDENS, "leads"), [`${UNIT}.pyre-lord`, `${UNIT}.the-kindler`]);
+});
+
+test("a profile cannot name a model of another unit", () => {
+  const found = errors((id, recs) => {
+    const other = `${UNIT}.pyre-lord.lord`;
+    record(recs, "unit-profile", `${WARDENS}.warden`).data.models = [other];
+    entry(id, "unit-profile", `${WARDENS}.warden`).references!.push({ kind: "model", id: other });
+  });
+  assert.deepEqual(found, [`unit-profile:${WARDENS}.warden names model:${UNIT}.pyre-lord.lord, which belongs to another unit`]);
+});
+
+test("a weapon profile cannot name wargear its unit neither carries nor offers", () => {
+  const found = errors((id, recs) => {
+    record(recs, "weapon-profile", `${WARDENS}.ember-rifle`).data.wargear = "synthetic.ember-staff";
+    entry(id, "weapon-profile", `${WARDENS}.ember-rifle`).references!.push({ kind: "wargear", id: "synthetic.ember-staff" });
+  });
+  assert.deepEqual(found, [`weapon-profile:${WARDENS}.ember-rifle names wargear:synthetic.ember-staff, which unit:${WARDENS} neither carries nor offers`]);
+});
+
+test("an attachment cannot name a unit its identity entry does not reference", () => {
+  const found = errors((_, recs) => record(recs, "attachment", `${UNIT}.pyre-lord`).data.leads.push(`${UNIT}.ash-drones`));
+  assert.deepEqual(found, [`attachment:${UNIT}.pyre-lord names unit:${UNIT}.ash-drones but its identity entry does not reference it`]);
+});
+
+test("a missing characteristic needs a gap", () => {
+  const found = errors((_, recs) => delete record(recs, "weapon-profile", `${WARDENS}.ember-rifle`).data.strength);
+  assert.deepEqual(found, [`weapon-profile:${WARDENS}.ember-rifle has no strength and no gap for it`]);
+});
+
+test("a stated characteristic cannot also be a gap", () => {
+  const found = errors((_, recs) => record(recs, "unit-profile", `${UNIT}.ash-drones.ash-drone`).data.leadership = 7);
+  assert.deepEqual(found, [`unit-profile:${UNIT}.ash-drones.ash-drone states leadership and also a gap for it`]);
+});
+
+test("an unknown gap field cannot stand in for a profile field", () => {
+  const found = errors((_, recs) => (record(recs, "unit-profile", `${WARDENS}.warden`).data.gaps = [{ field: "move", reason: "unrepresentable" }]));
+  assert.deepEqual(found, [`unit-profile:${WARDENS}.warden has a gap for unknown field move`]);
+});
+
+test("several unit profiles each need models or a gap for them", () => {
+  const found = errors((id, recs) => {
+    delete record(recs, "unit-profile", `${WARDENS}.warden`).data.models;
+    entry(id, "unit-profile", `${WARDENS}.warden`).references = [{ kind: "unit", id: WARDENS }];
+  });
+  assert.deepEqual(found, [`unit:${WARDENS} has 2 unit profiles, so each needs models or a gap for them`]);
+});
+
+test("dice amounts must name a die", () => {
+  const found = errors((_, recs) => (record(recs, "weapon-profile", `${UNIT}.pyre-lord.ember-staff`).data.damage = "D+3"));
+  assert.ok(found.some((e) => e.startsWith(`weapon-profile:${UNIT}.pyre-lord.ember-staff data/damage`)), found.join("\n"));
+});

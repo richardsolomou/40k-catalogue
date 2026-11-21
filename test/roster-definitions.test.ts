@@ -87,6 +87,24 @@ const invalid: Record<string, [(records: CatalogueRecord[], identity: Release) =
     (r) => (find(r, "unit", WARDENS).data as any).limits.push({ battleSize: "synthetic.incursion", perRoster: 2 }),
     `unit:${WARDENS} limits battle-size:synthetic.incursion more than once`,
   ],
+  "an option group with another unit's option": [
+    (r, identity) => {
+      (find(r, "unit", WARDENS).data as any).optionGroups[0].options[1] = { option: `${LORD}.staff` };
+      identity.entries.find((e) => e.id === WARDENS)!.references!.push({ kind: "roster-option", id: `${LORD}.staff` });
+    },
+    `unit:${WARDENS} optionGroups/0 names roster-option:${LORD}.staff, which belongs to another unit`,
+  ],
+  "an option group with wargear its option does not offer": [
+    (r, identity) => {
+      (find(r, "unit", WARDENS).data as any).optionGroups[0].options[0].choices = ["synthetic.scorch-projector"];
+      identity.entries.find((e) => e.id === WARDENS)!.references!.push({ kind: "wargear", id: "synthetic.scorch-projector" });
+    },
+    `unit:${WARDENS} optionGroups/0 names wargear:synthetic.scorch-projector, which roster-option:${WARDENS}.cannon does not offer`,
+  ],
+  "an option group naming one option twice": [
+    (r) => ((find(r, "unit", WARDENS).data as any).optionGroups[0].options[1] = { option: `${WARDENS}.cannon` }),
+    `unit:${WARDENS} optionGroups/0 names roster-option:${WARDENS}.cannon more than once`,
+  ],
   "replacing wargear the carrier lacks": [
     (r) => ((find(r, "roster-option", `${WARDENS}.leader-weapon`).data as any).replaces = ["synthetic.ember-rifle"]),
     `roster-option:${WARDENS}.leader-weapon replaces wargear:synthetic.ember-rifle, which its carriers do not carry`,
@@ -128,6 +146,10 @@ const illegal: Record<string, [(roster: Roster) => void, string[]]> = {
   "a negative choice count": [
     (r) => (r.units[1]!.options = { [`${WARDENS}.cannon`]: { "synthetic.cinder-cannon": 1, "synthetic.ember-rifle": -1 } }),
     ["1 option-quantity"],
+  ],
+  "more selections across options than their group allows": [
+    (r) => (r.units[0]!.options![`${WARDENS}.cannon`] = { "synthetic.cinder-cannon": 2 }),
+    ["0 option-group-count"],
   ],
   "more of one choice than its carriers may take": [(r) => (r.units[4]!.options = { [`${DRONES}.payload`]: { "synthetic.ash-carbine": 3 } }), ["4 option-cap"]],
   "more of one choice than the unit may take": [(r) => (r.units[4]!.options = { [`${DRONES}.payload`]: { "synthetic.ember-carbine": 2 } }), ["4 option-cap"]],
@@ -191,6 +213,16 @@ test("a cap uses the absolute maximum for its unit size", () => {
   const validated = validateDefinitions(identity, records);
   if (!validated.ok) assert.fail(validated.errors.join("\n"));
   assert.deepEqual(codes(validated.definitions, legal11), ["4 option-cap"]);
+});
+
+test("an option group counts only the choices it names", () => {
+  const { identity, records } = input("1.1");
+  (find(records, "unit", WARDENS).data as any).optionGroups = [{ options: [{ option: `${WARDENS}.leader-weapon`, choices: ["synthetic.twin-ash-blades"] }, { option: `${WARDENS}.cannon` }], max: 1 }];
+  identity.entries.find((e) => e.id === WARDENS)!.references!.push({ kind: "roster-option", id: `${WARDENS}.leader-weapon` }, { kind: "wargear", id: "synthetic.twin-ash-blades" });
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  const withMaul = edited((r) => (r.units[0]!.options![`${WARDENS}.leader-weapon`] = { "synthetic.ember-maul": 1 }));
+  assert.deepEqual([codes(validated.definitions, legal11), codes(validated.definitions, withMaul)], [["0 option-group-count"], []]);
 });
 
 test("a saved model mix is checked against its total size", () => {

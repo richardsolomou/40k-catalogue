@@ -15,12 +15,15 @@ export type UnitData = {
   keywords: string[];
   sizes: number[];
   modelGroups?: (ModelCountBounds & { models: string[] })[];
+  /** Bounds the selections its options take together, counting only a member's `choices` where it names them. */
+  optionGroups?: OptionGroup[];
   perRoster?: number;
   limits?: { battleSize: string; perRoster: number }[];
   legends?: true;
   enhancements?: false;
 };
 type Bounds = { min: number; max: number };
+export type OptionGroup = { options: { option: string; choices?: string[] }[]; max: number };
 type SizeBounds = Bounds & { size: number };
 type SizeMaximum = { size: number; max: number };
 type ModelCountBounds = Bounds & { bySize?: SizeBounds[] };
@@ -90,6 +93,8 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
         ...refs("faction", [data.faction]),
         ...refs("battle-size", data.limits?.map((l: { battleSize: string }) => l.battleSize)),
         ...refs("model", (data as UnitData).modelGroups?.flatMap((group) => group.models)),
+        ...refs("roster-option", (data as UnitData).optionGroups?.flatMap((group) => group.options.map((member) => member.option))),
+        ...refs("wargear", (data as UnitData).optionGroups?.flatMap((group) => group.options.flatMap((member) => member.choices ?? []))),
       ];
     case "model":
       return [...refs("unit", [data.unit]), ...refs("wargear", data.wargear)];
@@ -194,6 +199,17 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       for (const id of group.models) {
         const model = get("model", id);
         if (model && model.data.unit !== unit.id) errors.push(`${path} names model:${id}, which belongs to another unit`);
+      }
+    }
+    for (const [i, group] of (unit.data.optionGroups ?? []).entries()) {
+      const path = `${at} optionGroups/${i}`;
+      const seen = new Set<string>();
+      for (const { option: id, choices } of group.options) {
+        if (seen.has(id)) errors.push(`${path} names roster-option:${id} more than once`);
+        seen.add(id);
+        const option = get("roster-option", id);
+        if (option && option.data.unit !== unit.id) errors.push(`${path} names roster-option:${id}, which belongs to another unit`);
+        for (const w of choices ?? []) if (option && !option.data.choices.includes(w)) errors.push(`${path} names wargear:${w}, which roster-option:${id} does not offer`);
       }
     }
     const battleSizes = unit.data.limits?.map((l) => l.battleSize) ?? [];

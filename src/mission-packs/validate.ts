@@ -51,9 +51,14 @@ function referenceErrors(pack: MissionPack): string[] {
   pack.layouts.forEach((layout, i) => layout.deployments.forEach((d, j) => known(`/layouts/${i}/deployments/${j}`, deployments, d, "deployment")));
 
   const pairings = new Set<string>();
+  const detachments = new Set<string>();
   pack.primaries.forEach((primary, i) => {
     const path = `/primaries/${i}`;
     awardErrors(errors, `${path}/awards`, primary.awards, [], rounds);
+    if (primary.detachment !== undefined) {
+      if (detachments.has(primary.detachment)) errors.push(`${path}/detachment repeats "${primary.detachment}"`);
+      detachments.add(primary.detachment);
+    }
     primary.pairings.forEach((pairing, j) => {
       const at = `${path}/pairings/${j}`;
       known(`${at}/friendly`, dispositions, pairing.friendly, "disposition");

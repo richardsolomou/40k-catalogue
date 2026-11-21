@@ -29,7 +29,7 @@ Praetorium `c742a9e` writes the same cases, byte for byte, as the baseline `a9b4
 
 The retired-edition Chapter Approved pack has the same IDs as the current pack and the same facts in every section. Its raw file differs in 3 leaves: two metadata fields and one translated string. The current Combat Patrol pack adds 2 primaries and removes none. Its other raw differences are translations.
 
-Combat Patrol primaries are chosen by detachment, not by force-disposition pairing. Format 1 cannot express this, so the candidate's primaries have no pairings.
+Combat Patrol selects a primary using a stable `detachment` reference. The lookup reproduced all 26 assignments in the current pack and all 24 in each of the eight retired versions. The source uses a separate detachment namespace for Combat Patrol. Its IDs do not match any faction-file detachment ID, so a consumer needs to preserve the Combat Patrol IDs.
 
 ## Terrain
 
@@ -90,7 +90,7 @@ Both identities validate, both releases verify, and the history check reports no
 
 1. The source-use decision ([#3](source-inventory.md#source-use-decision-for-3)) and a reuse basis for any geometry. Every converted record is `measured`, and its `reuse` is explicitly unresolved.
 2. Authored content: criteria for 131 Chapter Approved and 70 Combat Patrol awards, 70 Combat Patrol windows, 6 twist effects, 2 "when drawn" replacements, card-level modes, cumulative awards, and a ruling on the final-round primary timing.
-3. Format gaps: Combat Patrol primaries chosen by detachment, and King of the Colosseum battlefields outside any pack.
+3. The King of the Colosseum battlefields are standalone geometry. A lookup must keep them available independently of the mission packs.
 4. Assign stable IDs under the [identity contract](catalogue-identity.md) and validate mappings for the 3 older deployment slugs against the saved battle data.
 5. A protected production audit of battle logs, rosters, and sealed events for layout IDs, card keys, twist IDs, and objective keys, plus a `scoreCard` replay of stored logs.
 6. A real release built from tracked inputs, with an archive checksum, before Praetorium switches any pin.

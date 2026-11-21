@@ -30,7 +30,7 @@ Trigger windows come from matching `whenText` against six known phrasings. Wordi
 | `caps` | `primary` and `secondary` caps `perRound` and `perBattle`, and `fixedSecondaryPerCard`, the most one Fixed card can score. |
 | `dispositions` | Force dispositions players pick. |
 | `deployments`, `layouts` | Stable battlefield references. A layout lists the deployments it can be played with. |
-| `primaries` | Primary missions. Each `pairing` names a `friendly` and `opposition` disposition and the deployments and layouts the pairing allows. A pairing appears once in a pack. |
+| `primaries` | Primary missions. Each `pairing` names a `friendly` and `opposition` disposition and the deployments and layouts the pairing allows. A primary may also name a stable `detachment` ID. Each pairing or detachment maps to at most one primary in a pack. |
 | `secondaries` | Secondary cards, the `modes` (`fixed`, `tactical`) they can be played in, their awards, and an optional `whenDrawn` redraw. |
 | `twists` | Optional battle-wide changes, flagged `changesPrimary` when they rewrite primary scoring. |
 
@@ -74,6 +74,8 @@ Both print counts, gap paths, and differences by ID, award, and moment only, nev
 
 `battlefieldsFor` gives the deployment and layout pairs for two dispositions. Each side has its own primary, so a battlefield must be allowed by both sides' pairings.
 
+`primaryForDetachment` selects a primary by exact detachment ID, for packs such as Combat Patrol whose battlefield is chosen independently.
+
 ### Chapter Approved at the inventory baseline
 
 On 21 November 2026 a local adapter read the pinned Chapter Approved 2026–27 pack through Praetorium's own routines at `a9b4a5b` (catalogue pointer `29e26d2…`, Game Datacards `ebcd0cb`, Battlemaster `acabfa4…`). It replaced every string the routines publish with a hash, so no wording was read. It wrote a candidate pack in format 1 and reference cases from `missionsFromDatacards`, `missionCardsFromDatacards`, `tableBattlefields`, `cardsDue`, `cardsDueFromTheirTurn` with the mode filter `scoringDue` applies, and `awardTotal`. The candidate keeps Game Datacards IDs, has no summaries or effects (each is unresolved), and stays outside Git.
@@ -107,7 +109,7 @@ Fields that need richer modelling or review:
 ## Remaining gaps
 
 - **No reviewed real pack is published.** The Chapter Approved candidate above is derived from Game Datacards, which has no reuse basis and is not an authoring source ([source inventory](source-inventory.md#game-datacards-mission-packs)). It shows the format can carry the pack's setup and scoring and that this implementation agrees with Praetorium's on those facts. It is not a review against the printed pack: cases and candidate come from the same derived fields.
-- **Not modelled:** machine-checkable scoring criteria, mission actions (start, completion, units, limits), mission selections and operation markers, "when drawn" replacements, twist effects, card-level mode restrictions, cumulative awards, Combat Patrol packs, and battle sizes.
+- **Not modelled:** machine-checkable scoring criteria, mission actions (start, completion, units, limits), mission selections and operation markers, "when drawn" replacements, twist effects, card-level mode restrictions, cumulative awards, and battle sizes.
 - **Battle-end fallback** covers opponent's-turn windows only. Windows tied to when a card was drawn or became active need history this format does not carry.
 
 ## Blockers for publishing a real pack

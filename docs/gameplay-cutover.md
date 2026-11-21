@@ -113,7 +113,7 @@ Thirteen designation drafts pass after confirming that the designation's duratio
 
 Thirty-three unit ability records reuse a summary after the pinned card bodies matched across all nine versions. The comparison checks the entire body, mechanical values, casing, and whether the same link destinations apply. Source differences, wording overlap and link scope leave 17 candidates held.
 
-The numeric checks recovered 36 drafts whose distances, dice counts or modifiers were already present in typed fields. Each check ties the value to its mechanical role and to the specific record and source revision. Sixteen of those drafts also use original wording to avoid a repeated source phrase. Values without a verified binding remain held.
+The numeric checks recovered 36 drafts whose distances, dice counts or modifiers were already present in typed fields. Each check ties the value to its mechanical role and to the specific record and source revision. Sixteen of those drafts also use original wording to avoid a repeated source phrase. Values without a verified binding remain held. The movement review checked 10 of the 24 current numeric holds. Eight need a card-specific movement maximum that the typed data omits. Two depend on the unresolved Consolidation rules.
 
 ### Designation replacement and model removal
 
@@ -126,6 +126,8 @@ Question-and-answer digests now bind 178 current FAQ records and 1,506 records a
 The 84 indexed Core Rules FAQ and errata entries have no match in the pinned PDF appendix. Its five printed questions also have no matching indexed entry. The indexed records need a source for the applicable rules version before draft review.
 
 Eight faction launch packs match 193 indexed FAQ or errata entries, including 57 question-and-answer pairs and 136 errata. Those entries have the same content digest in all nine snapshots. Their applicability to the pinned October update remains open.
+
+The June print review produced 34 provisional FAQ summaries. Another 23 need clearer evidence for the condition, actor or scope of the answer. The private queue attaches this review to all 57 entries and verifies every summary link by record ID and digest in each version. October applicability remains unverified for this group.
 
 ### Verified keyword casing
 

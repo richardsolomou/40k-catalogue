@@ -15,7 +15,11 @@ export type Trigger =
   | { kind: "move-end" | "move-selected"; moves: Move[]; unit: UnitFilter }
   | { kind: "ability-move"; ability: string; moves: Move[] }
   | { kind: "model-destroyed"; unit: UnitFilter; beforeRoll?: "deadly-demise" }
-  | { kind: "unit-destroyed"; unit: UnitFilter; by: UnitFilter };
+  | { kind: "unit-destroyed"; unit: UnitFilter; by: UnitFilter }
+  // Applies for as long as its conditions hold, with no duration, cost, window or limit.
+  | { kind: "always" }
+  // The player chooses to use it during one of the record's usage windows.
+  | { kind: "use" };
 
 export type Target =
   | { unit: "this-unit" | "triggering-unit" }
@@ -26,6 +30,7 @@ export type Usage = {
   cp?: number;
   windows?: { phase?: Phase; turn: Turn }[];
   oncePerTurn?: true;
+  oncePerPhase?: true;
   bearerModel?: string;
 };
 

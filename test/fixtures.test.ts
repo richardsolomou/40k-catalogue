@@ -25,6 +25,10 @@ for (const name of names("valid")) {
 }
 
 const expectedErrors: Record<string, string> = {
+  "always-with-cost": "/usage property name must be valid",
+  "always-with-duration": "/duration boolean schema is false",
+  "always-with-immediate-effect": "/trigger must NOT be valid",
+  "always-with-selection": "/target must NOT be valid",
   "distance-to-itself": "/conditions/0 cannot measure a distance from a unit to itself",
   "empty-gap-note": `/conditions/0/unresolved must match pattern "\\S"`,
   "immediate-effect-with-duration": "/duration boolean schema is false",
@@ -33,8 +37,10 @@ const expectedErrors: Record<string, string> = {
   "missing-source-reference": "/source must match a schema in anyOf",
   "target-within-itself": "/target/select/within/of cannot refer to the target it selects",
   "triggering-unit-without-trigger-unit": "/target/unit refers to a triggering unit, but the trigger has none",
+  "two-usage-limits": "/usage must NOT be valid",
   "unknown-trigger-kind": "/trigger/kind must be equal to one of the allowed values",
   "unsupported-format-version": "/formatVersion must be equal to constant",
+  "use-without-windows": "/usage must have required property 'windows'",
   "zero-modifier": "/effect/by must NOT be valid",
 };
 

@@ -59,6 +59,7 @@ export function renderSummary(record: MechanicRecord): string {
     else checks.push(c);
   }
 
+  const kind = isUnresolved(record.trigger) ? undefined : record.trigger.kind;
   const lead = [
     record.usage?.bearerModel && `for ${article(`${record.usage.bearerModel} model`)}`,
     record.usage?.windows && `during ${list(record.usage.windows.map(({ phase, turn }) => {
@@ -67,19 +68,21 @@ export function renderSummary(record: MechanicRecord): string {
     }), "or")}`,
     or(record.trigger, trigger),
   ].filter(Boolean);
-  const clauses = [capitalise(lead.join(", "))];
-  if (checks.length > 0) clauses.push(`if ${list(checks.map((c) => or(c, (c) => `${unit(c.unit)} ${predicate(c, c.unit, unit)}`)), "and")}`);
+  const clauses = lead.length > 0 ? [lead.join(", ")] : [];
+  const gate = kind === "always" ? "while" : "if";
+  if (checks.length > 0) clauses.push(`${gate} ${list(checks.map((c) => or(c, (c) => `${unit(c.unit)} ${predicate(c, c.unit, unit)}`)), "and")}`);
 
   let action = or(record.effect, (e) => effect(e, unit("target"), unit));
   if (selection) action = `${select(selection, eligibility, unit)}, then ${action}`;
   if (destroyedTarget) action = `you may target the destroyed model. ${capitalise(action)}`;
   if (record.duration) action += ` ${or(record.duration, duration)}`;
+  if (kind === "use") action = `you can use this to ${action}`;
   clauses.push(action);
   if (record.restriction) clauses.push(`and ${or(record.restriction, (r) => restriction(r, unit))}`);
 
   const cost = record.usage?.cp === undefined ? "" : ` (${record.usage.cp} CP)`;
-  const limit = record.usage?.oncePerTurn ? " Use once per turn." : "";
-  return `${record.name}${cost}: ${clauses.join(", ")}.${limit}`;
+  const limit = record.usage?.oncePerTurn ? " Use once per turn." : record.usage?.oncePerPhase ? " Use once per phase." : "";
+  return `${record.name}${cost}: ${capitalise(clauses.join(", "))}.${limit}`;
 }
 
 function or<T extends object>(part: OrUnresolved<T>, render: (part: T) => string): string {
@@ -98,6 +101,10 @@ function trigger(t: Trigger): string {
       return `when ${article(`${filterWords(t.unit)} model`)} is destroyed${t.beforeRoll ? `, before its ${THRESHOLD_ROLLS[t.beforeRoll]}` : ""}`;
     case "unit-destroyed":
       return `when ${filter(t.unit)} is destroyed by ${filter(t.by)}`;
+    // Neither has a moment of its own: an always-on effect has no lead, and a use is timed by its usage windows.
+    case "always":
+    case "use":
+      return "";
     default:
       return `at the ${t.kind === "phase-start" ? "start" : "end"} of ${TURNS[t.turn]} ${PHASES[t.phase]} phase`;
   }

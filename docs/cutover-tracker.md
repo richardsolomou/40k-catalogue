@@ -33,9 +33,9 @@ The current join checks use the consumer's source IDs and the candidate identity
 | Reference datasheets to roster entries | 2,230 | 2,216 | 0 | 14 |
 | Localised unit, detachment and enhancement entries to a roster entry | 7,264 | 6,136 | 1,098 | 30 |
 
-The separate profile stage captures all 2,470 current unit profiles and 11,302 current weapon profiles by recognised field. The [typed profile rehearsal](datasheet-profiles.md#rehearsal) expands those records across catalogue units that share a datasheet. It reports unmatched wargear, model and attachment links. Transport and other profiles remain separate.
+The separate profile stage captures all 2,470 current unit profiles and 11,302 current weapon profiles by recognised field. The [typed profile rehearsal](datasheet-profiles.md#rehearsal) expands those records across catalogue units that share a datasheet. It reports unmatched wargear, model and attachment links, and records capacity for the transport rules the existing reader can interpret.
 
-The nine private aggregate archives verify 174,046 records across rosters, profiles, points, localisation, missions and terrain. The current rules version contributes 80,185. The manifests also pin the separately released original marks and the retained gameplay input. Structural coverage in the archives leaves the source, content review and parity checks above open.
+The nine private aggregate archives verify 174,316 records across rosters, profiles, points, localisation, missions and terrain. The current rules version contributes 80,266. This includes 270 transport records with four capacity gaps. The manifests also pin the separately released original marks and the retained gameplay input. Structural coverage in the archives leaves the source, content review and parity checks above open.
 
 ## Cutover record
 

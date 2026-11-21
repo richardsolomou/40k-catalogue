@@ -93,6 +93,29 @@ test("a weapon profile cannot name wargear its unit neither carries nor offers",
   assert.deepEqual(found, [`weapon-profile:${WARDENS}.ember-rifle names wargear:synthetic.ember-staff, which unit:${WARDENS} neither carries nor offers`]);
 });
 
+const LORD_STAFF = `${UNIT}.pyre-lord.ember-staff`;
+const nameWargear = (id: Release, recs: CatalogueRecord[], profile: string, wargear: string) => {
+  record(recs, "weapon-profile", profile).data.wargear = wargear;
+  entry(id, "weapon-profile", profile).references!.push({ kind: "wargear", id: wargear });
+};
+
+test("a weapon profile may name wargear included by a bundle its unit offers", () => {
+  assert.deepEqual(errors((id, recs) => nameWargear(id, recs, LORD_STAFF, "synthetic.ember-maul")), []);
+});
+
+test("a weapon profile cannot name wargear only another unit's bundle includes", () => {
+  const found = errors((id, recs) => nameWargear(id, recs, `${WARDENS}.ember-rifle`, "synthetic.ward-shield"));
+  assert.deepEqual(found, [`weapon-profile:${WARDENS}.ember-rifle names wargear:synthetic.ward-shield, which unit:${WARDENS} neither carries nor offers`]);
+});
+
+test("bundles that include each other still bound a weapon profile's wargear", () => {
+  const found = errors((id, recs) => {
+    entry(id, "wargear", "synthetic.ember-maul").references = [{ kind: "wargear", id: "synthetic.maul-and-shield" }];
+    nameWargear(id, recs, LORD_STAFF, "synthetic.ember-maul");
+  });
+  assert.deepEqual(found, []);
+});
+
 const transportLoad = { limit: 4, count: "models", selectors: ["Scouts", "Guard Infantry"] };
 
 function transport(id: Release, records: CatalogueRecord[], capacity: object) {

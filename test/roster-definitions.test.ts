@@ -105,6 +105,13 @@ const invalid: Record<string, [(records: CatalogueRecord[], identity: Release) =
     (r) => ((find(r, "unit", WARDENS).data as any).optionGroups[0].options[1] = { option: `${WARDENS}.cannon` }),
     `unit:${WARDENS} optionGroups/0 names roster-option:${WARDENS}.cannon more than once`,
   ],
+  "a bundle that includes itself through another bundle": [
+    (r, identity) => {
+      (find(r, "wargear", "synthetic.ember-maul").data as any).includes = ["synthetic.maul-and-shield", "synthetic.ward-shield"];
+      identity.entries.find((e) => e.id === "synthetic.ember-maul")!.references = [{ kind: "wargear", id: "synthetic.maul-and-shield" }, { kind: "wargear", id: "synthetic.ward-shield" }];
+    },
+    "wargear:synthetic.maul-and-shield includes itself",
+  ],
   "replacing wargear the carrier lacks": [
     (r) => ((find(r, "roster-option", `${WARDENS}.leader-weapon`).data as any).replaces = ["synthetic.ember-rifle"]),
     `roster-option:${WARDENS}.leader-weapon replaces wargear:synthetic.ember-rifle, which its carriers do not carry`,

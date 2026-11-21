@@ -35,7 +35,7 @@ The renderer uses the record's fields alone, so the same record always gives the
 <name>: <trigger>, [if <conditions>, ][select <unit>[ that <eligibility>], then ]<effect>[ <duration>].
 ```
 
-Summaries are display text. Apps should read game behaviour from the structured fields.
+Summaries are display text. Apps should read game behaviour from the structured fields. The [release guide](releases.md) explains how to package both.
 
 ## Fixtures
 

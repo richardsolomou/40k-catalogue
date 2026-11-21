@@ -16,6 +16,10 @@ export function setupFor(pack: MissionPack, friendly: string, opposition: string
   return null;
 }
 
+export function primaryForDetachment(pack: MissionPack, detachment: string): Primary | null {
+  return pack.primaries.find((primary) => primary.detachment === detachment) ?? null;
+}
+
 /** The deployment and layout pairs two dispositions can play on: each side has its own primary, and a battlefield must suit both. */
 export function battlefieldsFor(pack: MissionPack, one: string, two: string): { deployment: string; layout: string }[] {
   const first = setupFor(pack, one, two);

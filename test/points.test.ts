@@ -72,6 +72,17 @@ test("a copy past the threshold costs the later tier", () => {
   assert.deepEqual(lookupPoints(current, unit("cinder-wardens", 5, { copy: 3 })), { ok: true, points: 90 });
 });
 
+test("a closed final tier prices its last copy and leaves later copies unpriced", () => {
+  const capped = structuredClone(current);
+  capped.factions[0]!.units[0]!.tiers[1]!.copies.to = 3;
+  const result = validateSnapshot(capped);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  assert.deepEqual([3, 4].map((copy) => lookupPoints(result.snapshot, unit("cinder-wardens", 5, { copy }))), [
+    { ok: true, points: 90 },
+    { ok: false, reason: "no-tier" },
+  ]);
+});
+
 test("a count between the rows of a two-row table costs the upper row", () => {
   assert.deepEqual(lookupPoints(current, unit("cinder-wardens", 7)), { ok: true, points: 150 });
 });

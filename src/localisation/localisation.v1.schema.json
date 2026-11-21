@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/src/localisation/localisation.v1.schema.json",
+  "title": "Localised catalogue names, format version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "language", "rulesVersion", "source", "entries"],
+  "properties": {
+    "formatVersion": { "const": 1 },
+    "language": {
+      "description": "BCP 47 language tag the names are written in.",
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"
+    },
+    "rulesVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["edition", "update"],
+      "properties": {
+        "edition": { "$ref": "#/$defs/text" },
+        "update": { "$ref": "#/$defs/text" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "reuse"],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "url": { "type": "string", "pattern": "^https://\\S+$" },
+        "reuse": {
+          "description": "Who wrote the names and the basis on which this project may redistribute them.",
+          "type": "string",
+          "pattern": "\\S",
+          "maxLength": 1000
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "pattern": "\\S", "maxLength": 200 },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "name"],
+      "anyOf": [{ "required": ["display"] }, { "required": ["aliases"] }],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+        "kind": { "enum": ["faction", "detachment", "enhancement", "unit", "wargear", "disposition"] },
+        "name": {
+          "description": "The catalogue's own name for the entity, so a reviewer can check the entry and a consumer keyed on names can join it.",
+          "$ref": "#/$defs/text"
+        },
+        "display": {
+          "description": "The one name to show for the entity in this language.",
+          "$ref": "#/$defs/text"
+        },
+        "aliases": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/alias" }
+        }
+      }
+    },
+    "alias": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "use"],
+      "properties": {
+        "name": { "$ref": "#/$defs/text" },
+        "use": { "enum": ["spelling", "historical"] },
+        "until": {
+          "description": "The rules update that retired a historical name.",
+          "$ref": "#/$defs/text"
+        }
+      },
+      "if": { "properties": { "use": { "const": "historical" } } },
+      "then": { "required": ["until"] },
+      "else": { "properties": { "until": false } }
+    }
+  }
+}

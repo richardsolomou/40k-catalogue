@@ -4,7 +4,7 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writ
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { buildRelease, packRelease, verifyRelease, writeRelease, type ReleaseFiles } from "../src/releases/release.ts";
+import { buildRelease, packRelease, sha256, verifyRelease, writeRelease, type ReleaseFiles } from "../src/releases/release.ts";
 
 const fixtures = new URL("../fixtures/valid/", import.meta.url);
 const NAMES = ["targeted-effect", "end-of-move-trigger", "mixed-unit-conditions"];
@@ -19,9 +19,7 @@ function scratch(): string {
 function inputs(names = NAMES): string {
   const dir = join(scratch(), "records");
   mkdirSync(dir);
-  for (const name of names) {
-    for (const file of [`${name}.json`, `${name}.summary.txt`]) cpSync(new URL(file, fixtures), join(dir, file));
-  }
+  for (const name of names) cpSync(new URL(`${name}.json`, fixtures), join(dir, `${name}.json`));
   return dir;
 }
 
@@ -44,7 +42,14 @@ function written(files = build(inputs())): string {
 
 const manifest = (files: ReleaseFiles) => JSON.parse(files.get("manifest.json")!);
 
-test("a release holds only the manifest, the record schema, and each record with its summary", () => {
+function editRecord(dir: string, update: (record: Record<string, unknown>) => void) {
+  const path = join(dir, "targeted-effect.json");
+  const record = JSON.parse(readFileSync(path, "utf8"));
+  update(record);
+  writeFileSync(path, JSON.stringify(record));
+}
+
+test("a release contains JSON files only", () => {
   assert.deepEqual(
     [...build(inputs()).keys()],
     [
@@ -53,11 +58,18 @@ test("a release holds only the manifest, the record schema, and each record with
       "records/synthetic.hex-lantern.json",
       "records/synthetic.wake-shards.json",
       "schema/mechanic.v1.schema.json",
-      "summaries/synthetic.grave-tether.txt",
-      "summaries/synthetic.hex-lantern.txt",
-      "summaries/synthetic.wake-shards.txt",
     ],
   );
+});
+
+test("the released record carries its reviewed summary body inline", () => {
+  const files = build(inputs());
+  const record = JSON.parse(files.get("records/synthetic.hex-lantern.json")!);
+  const reviewed = JSON.parse(readFileSync(new URL("targeted-effect.json", fixtures), "utf8"));
+  assert.equal(manifest(files).formatVersion, 2);
+  assert.equal(typeof record.summary, "string");
+  assert.equal(record.summary, reviewed.summary);
+  assert.ok(!record.summary.startsWith(record.name));
 });
 
 test("rebuilding the same inputs gives identical files", () => {
@@ -106,7 +118,7 @@ test("the manifest names the commit it was built from", () => {
 test("an unexpected input file blocks the release", () => {
   const dir = inputs();
   writeFileSync(join(dir, "notes.md"), "draft");
-  assert.deepEqual(errors(dir), ["notes.md: not a record or summary file"]);
+  assert.deepEqual(errors(dir), ["notes.md: not a record file"]);
 });
 
 test("a review README beside the records is excluded from the release", () => {
@@ -119,25 +131,25 @@ test("a review README beside the records is excluded from the release", () => {
 test("a subdirectory in the input blocks the release", () => {
   const dir = inputs();
   mkdirSync(join(dir, "drafts"));
-  assert.deepEqual(errors(dir), ["drafts: not a record or summary file"]);
+  assert.deepEqual(errors(dir), ["drafts: not a record file"]);
 });
 
 test("a symlinked input blocks the release", () => {
   const dir = inputs();
   symlinkSync(join(dir, "targeted-effect.json"), join(dir, "linked.json"));
-  assert.deepEqual(errors(dir), ["linked.json: not a record or summary file"]);
+  assert.deepEqual(errors(dir), ["linked.json: not a record file"]);
 });
 
 test("a record without its reviewed summary blocks the release", () => {
   const dir = inputs();
-  rmSync(join(dir, "targeted-effect.summary.txt"));
-  assert.deepEqual(errors(dir), ["targeted-effect: needs both targeted-effect.json and targeted-effect.summary.txt"]);
+  editRecord(dir, (record) => { delete record.summary; });
+  assert.deepEqual(errors(dir), ["targeted-effect.json: /summary is required for a release"]);
 });
 
 test("a reviewed summary that differs from the rendered one blocks the release", () => {
   const dir = inputs();
-  writeFileSync(join(dir, "targeted-effect.summary.txt"), "Edited by hand.\n");
-  assert.deepEqual(errors(dir), ["targeted-effect.summary.txt: does not match the rendered summary"]);
+  editRecord(dir, (record) => { record.summary = "Edited by hand."; });
+  assert.deepEqual(errors(dir), ["targeted-effect.json: /summary must match the rendered summary"]);
 });
 
 test("an unexpected record field blocks the release", () => {
@@ -164,7 +176,7 @@ test("an unresolved record blocks the release", () => {
 
 test("two records with one id block the release", () => {
   const dir = inputs();
-  for (const ext of ["json", "summary.txt"]) cpSync(join(dir, `targeted-effect.${ext}`), join(dir, `copy.${ext}`));
+  cpSync(join(dir, "targeted-effect.json"), join(dir, "copy.json"));
   assert.deepEqual(errors(dir), ["targeted-effect.json: duplicate id synthetic.hex-lantern"]);
 });
 
@@ -184,6 +196,22 @@ test("a written release verifies", () => {
   assert.deepEqual(verifyRelease(written()), []);
 });
 
+test("a published version 1 archive still verifies", () => {
+  const files = build(inputs(["targeted-effect"]));
+  const legacy = manifest(files);
+  legacy.formatVersion = 1;
+  const [entry] = legacy.records;
+  const { name, summary, ...mechanic } = JSON.parse(files.get(entry.record.path)!);
+  const json = JSON.stringify({ name, ...mechanic });
+  const text = `${name}: ${summary}\n`;
+  entry.summary = { path: `summaries/${entry.id}.txt`, sha256: sha256(text) };
+  entry.record.sha256 = sha256(json);
+  files.set(entry.record.path, json);
+  files.set(entry.summary.path, text);
+  files.set("manifest.json", JSON.stringify(legacy));
+  assert.deepEqual(verifyRelease(written(files)), []);
+});
+
 test("writing never replaces an existing release", () => {
   const dir = written();
   assert.throws(() => writeRelease(dir, build(inputs())), { code: "EEXIST" });
@@ -197,14 +225,14 @@ test("verification rejects a file the manifest does not list", () => {
 
 test("verification rejects a missing file", () => {
   const dir = written();
-  rmSync(join(dir, "summaries", "synthetic.wake-shards.txt"));
-  assert.deepEqual(verifyRelease(dir), ["summaries/synthetic.wake-shards.txt: missing"]);
+  rmSync(join(dir, "records", "synthetic.wake-shards.json"));
+  assert.deepEqual(verifyRelease(dir), ["records/synthetic.wake-shards.json: missing"]);
 });
 
 test("verification rejects a changed file", () => {
   const dir = written();
-  writeFileSync(join(dir, "summaries", "synthetic.wake-shards.txt"), "Changed.\n");
-  assert.deepEqual(verifyRelease(dir), ["summaries/synthetic.wake-shards.txt: checksum mismatch"]);
+  writeFileSync(join(dir, "records", "synthetic.wake-shards.json"), "{}\n");
+  assert.deepEqual(verifyRelease(dir), ["records/synthetic.wake-shards.json: checksum mismatch"]);
 });
 
 test("verification rejects an unexpected manifest field", () => {

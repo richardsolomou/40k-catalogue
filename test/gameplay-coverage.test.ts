@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { test } from "node:test";
 import { coverage, validateInventory, type Inventory, type Mapping } from "../src/gameplay-coverage/coverage.ts";
 import { inventoryFromDatacards, type DatacardsCore, type DatacardsFaction } from "../src/gameplay-coverage/datacards.ts";
+import { stageDatacards } from "../src/gameplay-coverage/stage.ts";
 import type { MechanicRecord } from "../src/record.ts";
 import { validate } from "../src/validate.ts";
 
@@ -32,6 +35,27 @@ test("a datacards file gives the inventory of its entry names and IDs", () => {
 
 test("the extracted inventory validates", () => {
   assert.equal(validateInventory(inventory).ok, true);
+});
+
+test("staging preserves faction occurrences and structured usage and reads core once", (t) => {
+  const directory = mkdtempSync(join(tmpdir(), "catalogue-gameplay-"));
+  t.after(() => rmSync(directory, { recursive: true, force: true }));
+  const save = (file: string, value: object) => writeFileSync(join(directory, file), JSON.stringify(value));
+  const faction = {
+    datasheets: [],
+    stratagems: [{ id: "strat-wake", name: "Wake Shards", cost: 2, phase: ["Fight"], turn: "either", effect: "Source text sentinel" }],
+  };
+  save("ashen-choir.json", { ...faction, id: "ashen-choir" });
+  save("ember-host.json", { ...faction, id: "ember-host" });
+  save("core.json", { stratagems: [{ id: "core-reroll", name: "Second Chance" }] });
+  const staged = stageDatacards(directory, { rulesVersion: inventory.rulesVersion, source: inventory.source });
+  assert.deepEqual(staged.usage, [
+    { id: "strat-wake", cost: 2, phase: ["Fight"], turn: "either", faction: "ashen-choir.json" },
+    { id: "strat-wake", cost: 2, phase: ["Fight"], turn: "either", faction: "ember-host.json" },
+    { id: "core-reroll", cost: undefined, phase: undefined, turn: undefined },
+  ]);
+  assert.deepEqual(staged.entries.map(({ id }) => id), ["strat-wake", "strat-wake", "core-reroll"]);
+  assert.ok(!JSON.stringify(staged).includes("Source text sentinel"));
 });
 
 test("an inventory that repeats an entry ID is invalid", () => {

@@ -3,6 +3,14 @@ import type { Entry, Inventory } from "./coverage.ts";
 // The Game Datacards faction and core file layout, reduced to the fields that name an entry. Text fields are never read.
 type Name = string | { en?: string };
 type Named = { name?: Name };
+export type DatacardsStratagem = {
+  id: string;
+  name: Name;
+  detachment_id?: string;
+  cost?: unknown;
+  phase?: unknown;
+  turn?: unknown;
+};
 type Profile = { keywords?: string[] };
 type Datasheet = {
   id: string;
@@ -19,13 +27,14 @@ type Datasheet = {
   meleeWeapons?: { profiles?: Profile[] }[];
 };
 export type DatacardsFaction = {
+  id?: string;
   detachments?: { id: string; name: Name }[];
-  stratagems?: { id: string; name: Name; detachment_id?: string }[];
+  stratagems?: DatacardsStratagem[];
   enhancements?: { id: string; name: Name; detachment_id?: string }[];
   rules?: { army?: Named[]; detachment?: { detachment_id: string; rules?: Named[] }[] };
   datasheets?: Datasheet[];
 };
-export type DatacardsCore = { stratagems?: { id: string; name: Name }[] };
+export type DatacardsCore = { stratagems?: DatacardsStratagem[] };
 
 const nameOf = (name: Name | undefined) => (typeof name === "string" ? name : (name?.en ?? "")).trim();
 const slug = (text: string) =>

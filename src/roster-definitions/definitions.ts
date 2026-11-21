@@ -104,6 +104,7 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
   const errors: string[] = [];
   const byKey = new Map<string, Definition>();
   const key = (kind: string, id: string) => `${kind}:${id}`;
+  const entries = new Map(identity.entries.map((entry) => [key(entry.kind, entry.id), entry]));
 
   for (const record of records) {
     const at = key(record.kind, record.id);
@@ -120,25 +121,30 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       errors.push(...(check.errors ?? []).map((e) => `${at} data${e.instancePath} ${e.message}`));
       continue;
     }
-    const found = resolve(identity, record);
-    if (found.status !== "current") {
-      errors.push(`${at} is ${found.status} in the identity release`);
+    const entry = entries.get(at);
+    if (!entry || entry.retired) {
+      errors.push(`${at} is ${resolve(identity, record).status} in the identity release`);
       continue;
     }
     if (byKey.has(at)) errors.push(`${at} has more than one record`);
-    byKey.set(at, { id: record.id, name: found.entry.name, data: record.data as any });
+    byKey.set(at, { id: record.id, name: entry.name, data: record.data as any });
   }
 
-  const all = <K extends DefinitionKind>(kind: K) =>
-    [...byKey.entries()].filter(([k]) => k.startsWith(`${kind}:`)).map(([, d]) => d as Definition<K>).sort((a, b) => (a.id < b.id ? -1 : 1));
+  const kindOf = (at: string) => at.slice(0, at.indexOf(":")) as DefinitionKind;
+  const byKind = Map.groupBy(byKey, ([at]) => kindOf(at));
+  for (const definitions of byKind.values()) definitions.sort(([a], [b]) => (a < b ? -1 : 1));
+  const all = <K extends DefinitionKind>(kind: K) => (byKind.get(kind) ?? []).map(([, definition]) => definition as Definition<K>);
   const get = <K extends DefinitionKind>(kind: K, id: string) => byKey.get(key(kind, id)) as Definition<K> | undefined;
-  const modelsOf = (unit: string) => all("model").filter((m) => m.data.unit === unit);
-  const optionsOf = (unit: string) => all("roster-option").filter((o) => o.data.unit === unit);
-  const modelUnit = new Map(all("model").map((m) => [m.id, m.data.unit]));
+  const models = all("model");
+  const options = all("roster-option");
+  const modelsByUnit = Map.groupBy(models, (model) => model.data.unit);
+  const optionsByUnit = Map.groupBy(options, (option) => option.data.unit);
+  const modelsOf = (unit: string) => modelsByUnit.get(unit)?.slice() ?? [];
+  const optionsOf = (unit: string) => optionsByUnit.get(unit)?.slice() ?? [];
 
   for (const [at, definition] of byKey) {
-    const kind = at.slice(0, at.indexOf(":")) as DefinitionKind;
-    const entry = identity.entries.find((e) => e.kind === kind && e.id === definition.id)!;
+    const kind = kindOf(at);
+    const entry = entries.get(at)!;
     for (const ref of namedRefs(kind, definition.data)) {
       const target = key(ref.kind, ref.id);
       if (!byKey.has(target)) errors.push(`${at} names ${target}, which has no record`);
@@ -158,15 +164,16 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     const battleSizes = unit.data.limits?.map((l) => l.battleSize) ?? [];
     for (const id of new Set(battleSizes)) if (battleSizes.indexOf(id) !== battleSizes.lastIndexOf(id)) errors.push(`${at} limits battle-size:${id} more than once`);
   }
-  for (const model of all("model")) {
+  for (const model of models) {
     if (model.data.min > model.data.max) errors.push(`model:${model.id} min is above max`);
   }
-  for (const option of all("roster-option")) {
+  for (const option of options) {
     const at = key("roster-option", option.id);
     const { unit, carrier, choose, replaces = [], choices, caps = [], requires } = option.data;
+    const carrierModel = carrier ? get("model", carrier) : undefined;
     if (choose.min > choose.max) errors.push(`${at} choose min is above max`);
-    if (carrier && modelUnit.get(carrier) !== undefined && modelUnit.get(carrier) !== unit) errors.push(`${at} carrier model:${carrier} belongs to another unit`);
-    const carried = new Set((carrier ? [get("model", carrier)] : modelsOf(unit)).flatMap((m) => m?.data.wargear ?? []));
+    if (carrierModel && carrierModel.data.unit !== unit) errors.push(`${at} carrier model:${carrier} belongs to another unit`);
+    const carried = new Set((carrier ? [carrierModel] : modelsOf(unit)).flatMap((m) => m?.data.wargear ?? []));
     for (const id of replaces) if (!carried.has(id)) errors.push(`${at} replaces wargear:${id}, which its carriers do not carry`);
     for (const id of choices) if (replaces.includes(id)) errors.push(`${at} offers wargear:${id}, which it also replaces`);
     for (const id of caps.flatMap((c) => c.choices)) if (!choices.includes(id)) errors.push(`${at} caps wargear:${id}, which it does not offer`);

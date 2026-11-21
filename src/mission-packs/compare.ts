@@ -1,5 +1,5 @@
 import type { MissionPack, Mode, Primary, Secondary } from "./pack.ts";
-import { awardVp, battlefieldsFor, type Moment, scoreCard, setupFor } from "./play.ts";
+import { awardVp, type Banked, battlefieldsFor, type Claim, type Moment, scoreCard, setupFor } from "./play.ts";
 
 /**
  * What another implementation does with one pack, as cases this format can be run against. Every ID is the pack's own;
@@ -15,12 +15,14 @@ export type ReferenceCases = {
   amounts: { card: string; award: string; times: number; vp: number }[];
   /** Awards the reference lets a player claim only one of at a time, per card. */
   exclusive: { card: string; groups: string[][] }[];
+  /** Whether the reference refuses or cuts a valid claim for passing a cap, given what is already banked. */
+  scores?: { card: string; claims: Claim[]; mode?: Mode; moment: Moment; banked: Banked; capped: boolean }[];
   caps: { primary: CapCase; secondary: CapCase; fixedSecondaryPerCard: CapCase };
 };
 type CapCase = { perRound: number | null; perBattle: number | null };
 
 export type Section = { checked: number; agreed: number; differences: string[] };
-export type Comparison = Record<"setups" | "battlefields" | "windows" | "amounts" | "exclusive" | "caps", Section>;
+export type Comparison = Record<"setups" | "battlefields" | "windows" | "amounts" | "exclusive" | "scores" | "caps", Section>;
 
 function same(a: readonly string[], b: readonly string[]): boolean {
   if (a.length !== b.length) return false;
@@ -34,7 +36,7 @@ function section<T>(cases: T[], differs: (c: T) => string | null): Section {
 }
 
 const describe = (m: Moment) =>
-  m.at === "battle-end" ? `battle-end r${m.round} last ${m.lastTurn}` : `${m.at}${m.at === "phase-end" ? ` ${m.phase}` : ""} r${m.round} ${m.turn}`;
+  m.at === "battle-end" ? `battle-end r${m.round} last ${m.lastTurn}${m.drawnLastTurn === false ? " drawn earlier" : ""}` : `${m.at}${m.at === "phase-end" ? ` ${m.phase}` : ""} r${m.round} ${m.turn}`;
 
 /** Runs the cases against the pack. Differences name IDs and moments only, so a report never repeats a value it compared. */
 export function compare(pack: MissionPack, cases: ReferenceCases): Comparison {
@@ -73,6 +75,15 @@ export function compare(pack: MissionPack, cases: ReferenceCases): Comparison {
       for (const a of card.awards) if (a.exclusive) groups.set(a.exclusive, [...(groups.get(a.exclusive) ?? []), a.id]);
       const key = (gs: string[][]) => gs.map((g) => [...g].sort().join("+")).sort();
       return same(key([...groups.values()]), key(c.groups)) ? null : `${c.card}: exclusive groups`;
+    }),
+    scores: section(cases.scores ?? [], (c) => {
+      const card = cards.get(c.card);
+      if (!card) return `${c.card}: missing`;
+      const score = scoreCard(pack, card, c.claims, c.moment, c.banked, c.mode);
+      const where = `${c.card}/${c.claims.map((claim) => claim.award).join("+")} at ${describe(c.moment)}`;
+      if (score.errors.length > 0) return `${where}: claim refused`;
+      const said = (capped: boolean) => (capped ? "capped" : "not capped");
+      return score.capped === c.capped ? null : `${where}: ${said(score.capped)}, expected ${said(c.capped)}`;
     }),
     caps: section(Object.entries(cases.caps) as [keyof MissionPack["caps"], CapCase][], ([name, expected]) => {
       const cap = pack.caps[name];

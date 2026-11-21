@@ -6,6 +6,7 @@ import recordSchema from "../../schema/mechanic.v1.schema.json" with { type: "js
 import legacyManifestSchema from "./manifest.v1.schema.json" with { type: "json" };
 import manifestSchema from "./manifest.v2.schema.json" with { type: "json" };
 import type { MechanicRecord } from "../record.ts";
+import { renderSummaryData } from "../render.ts";
 import { validate } from "../validate.ts";
 
 type FileRef = { path: string; sha256: string };
@@ -80,7 +81,7 @@ export function buildRelease(dir: string, { release, commit }: { release: string
   for (const id of [...records.keys()].sort()) {
     const record = records.get(id)!;
     const path = `records/${id}.json`;
-    const content = canonicalJson(record);
+    const content = canonicalJson({ ...record, ...renderSummaryData(record) });
     files.set(path, content);
     entries.push({ id, record: { path, sha256: sha256(content) } });
     const { edition, update } = record.rulesVersion;

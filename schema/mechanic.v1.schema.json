@@ -29,6 +29,36 @@
     "summary": {
       "$ref": "#/$defs/text"
     },
+    "summaryTerms": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["label"],
+        "additionalProperties": false,
+        "anyOf": [{ "required": ["bold"] }, { "required": ["target"] }],
+        "properties": {
+          "label": { "$ref": "#/$defs/text" },
+          "bold": { "const": true },
+          "target": { "$ref": "#/$defs/summaryTarget" }
+        }
+      }
+    },
+    "summarySpans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["start", "end"],
+        "additionalProperties": false,
+        "anyOf": [{ "required": ["bold"] }, { "required": ["target"] }],
+        "properties": {
+          "start": { "type": "integer", "minimum": 0 },
+          "end": { "type": "integer", "minimum": 1 },
+          "bold": { "const": true },
+          "target": { "$ref": "#/$defs/summaryTarget" }
+        }
+      }
+    },
     "rulesVersion": {
       "type": "object",
       "additionalProperties": false,
@@ -392,6 +422,15 @@
     }
   ],
   "$defs": {
+    "summaryTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" }
+      }
+    },
     "text": {
       "type": "string",
       "pattern": "\\S"

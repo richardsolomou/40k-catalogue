@@ -34,7 +34,7 @@ The reviewer compares every part of the draft against the source, regardless of 
 | `corrected` | The author fixed the part. Keep the wrong value in `draft` and the reason in `note`, so the correction stays on record. |
 | `unresolved` | The part is a gap in the record. Explain in `note` what is missing. |
 
-The reviewer must check `/rulesVersion`, `/source`, `/trigger`, `/target`, each `/conditions/<n>`, `/effect`, and `/attribution`, `/usage`, `/duration`, and `/restriction` when they are present. The reviewer must also check every gap the validator reports, such as `/effect/ifBattleShocked`. Pay particular attention to timing, targets, durations, and exceptions.
+The reviewer must check `/rulesVersion`, `/source`, `/trigger`, `/target`, each `/conditions/<n>`, `/effect`, and `/attribution`, `/summaryTerms`, `/usage`, `/duration`, and `/restriction` when they are present. The reviewer must also check every gap the validator reports, such as `/effect/ifBattleShocked`. Pay particular attention to timing, targets, durations, and exceptions. Confirm named references against the entry in the same rules version.
 
 ## Decide and publish
 
@@ -50,7 +50,7 @@ node src/authoring/cli.ts publish <proposal.json> data/<faction>/<detachment> re
 
 Publishing an approved proposal writes two JSON files:
 
-- `<id>.json` holds the record and its generated `summary` body.
+- `<id>.json` holds the record, generated `summary` body and any bold or link `summarySpans`.
 - `<id>.review.json`, the review: `id`, `rulesVersion`, `outcome`, `drafting`, `reviewer`, `date`, and the checks with their notes and corrected drafts.
 
 The review shares the record's `rulesVersion`. Keep the review outside the records directory so release archives contain only the mechanic records and their summaries. Before committing, check that review notes and corrected draft values contain only your own wording and structured fields. A proposal with a reviewed gap can be committed for further work, and the release tool holds that record until the gap is resolved.

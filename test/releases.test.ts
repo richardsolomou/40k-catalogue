@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 import { buildRelease, packRelease, sha256, verifyRelease, writeRelease, type ReleaseFiles } from "../src/releases/release.ts";
+import { renderSummaryBody } from "../src/render.ts";
 
 const fixtures = new URL("../fixtures/valid/", import.meta.url);
 const NAMES = ["targeted-effect", "end-of-move-trigger", "mixed-unit-conditions"];
@@ -70,6 +71,49 @@ test("the released record carries its reviewed summary body inline", () => {
   assert.equal(typeof record.summary, "string");
   assert.equal(record.summary, reviewed.summary);
   assert.ok(!record.summary.startsWith(record.name));
+});
+
+test("released summaries bold the original keyword and link the granted weapon ability", () => {
+  const dir = inputs(["weapon-abilities-use"]);
+  const path = join(dir, "weapon-abilities-use.json");
+  const draft = JSON.parse(readFileSync(path, "utf8"));
+  draft.target.select.keywords = ["ADEPTUS MECHANICUS"];
+  draft.effect.abilities = [{ ability: "devastating-wounds" }];
+  draft.summary = renderSummaryBody(draft);
+  writeFileSync(path, JSON.stringify(draft));
+  const files = build(dir);
+  const record = JSON.parse(files.get(`records/${draft.id}.json`)!);
+  const spans = (record.summarySpans ?? []).map(({ start, end, ...style }: { start: number; end: number }) => ({
+    text: record.summary.slice(start, end), ...style,
+  }));
+  assert.deepEqual(spans, [
+    { text: "ADEPTUS MECHANICUS", bold: true },
+    { text: "DEVASTATING WOUNDS", bold: true, target: { kind: "weapon-ability", id: "devastating-wounds" } },
+  ]);
+});
+
+test("a named rule uses its explicitly assigned catalogue link", () => {
+  const dir = inputs(["targeted-effect"]);
+  const target = { kind: "ability", id: "synthetic.rift-gate" };
+  editRecord(dir, (record) => {
+    record.effect = { kind: "activate-ability", ability: "RIFT GATE" };
+    record.conditions = [];
+    delete record.duration;
+    record.summaryTerms = [{ label: "Rift Gate", target }];
+    record.summary = renderSummaryBody(record as Parameters<typeof renderSummaryBody>[0]);
+  });
+  const json = build(dir).get("records/synthetic.hex-lantern.json")!;
+  const record = JSON.parse(json);
+  const spans = record.summarySpans.map(({ start, end, ...style }: { start: number; end: number }) => ({
+    text: record.summary.slice(start, end), ...style,
+  }));
+  assert.deepEqual(spans, [{ text: "RIFT GATE", target }]);
+});
+
+test("a release rejects stale summary formatting offsets", () => {
+  const dir = inputs();
+  editRecord(dir, (record) => { record.summarySpans = [{ start: 0, end: 2, bold: true }]; });
+  assert.deepEqual(errors(dir), ["targeted-effect.json: /summarySpans must match the rendered summary spans"]);
 });
 
 test("rebuilding the same inputs gives identical files", () => {

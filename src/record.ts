@@ -1,4 +1,5 @@
 // Mirrors schema/mechanic.v1.schema.json, which is the contract consumers rely on.
+import type { Ref } from "./catalogue-identity/identity.ts";
 
 export type Unresolved = { unresolved: string };
 export type OrUnresolved<T> = T | Unresolved;
@@ -97,11 +98,17 @@ export type Duration = { until: "end-of-phase" | "end-of-turn" | "end-of-battle-
 // A second consequence checked once the triggering move ends, independently of the effect.
 export type Restriction = { kind: "cannot-charge"; unit: UnitRef; ifWithinEnemy: number; until: Duration["until"] };
 
+type SummaryStyle = { bold?: true; target?: Ref };
+export type SummaryTerm = SummaryStyle & { label: string };
+export type SummarySpan = SummaryStyle & { start: number; end: number };
+
 export type MechanicRecord = {
   formatVersion: 1;
   id: string;
   name: string;
   summary?: string;
+  summaryTerms?: SummaryTerm[];
+  summarySpans?: SummarySpan[];
   rulesVersion: { edition: string; update: string };
   source: { title: string; page?: string; url?: string };
   attribution?: { url: string; revision: string; credit: string; licence: string; changes: string };

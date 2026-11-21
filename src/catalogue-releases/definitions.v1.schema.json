@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/src/catalogue-releases/definitions.v1.schema.json",
+  "title": "Definitions shared by catalogue release schemas, format version 1",
+  "$defs": {
+    "text": { "type": "string", "pattern": "\\S" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "rulesVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["edition", "update"],
+      "properties": {
+        "edition": { "$ref": "#/$defs/text" },
+        "update": { "$ref": "#/$defs/text" }
+      }
+    },
+    "ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": { "$ref": "#/$defs/slug" },
+        "id": { "$ref": "#/$defs/id" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "anyOf": [{ "required": ["page"] }, { "required": ["url"] }],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "page": { "$ref": "#/$defs/text" },
+        "url": { "type": "string", "pattern": "^https://\\S+$" },
+        "revision": { "$ref": "#/$defs/text" }
+      }
+    }
+  }
+}

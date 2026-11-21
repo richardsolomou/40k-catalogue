@@ -202,6 +202,40 @@ test("a saved model mix is checked against its total size", () => {
   assert.deepEqual(codes(validated.definitions, legal11), ["0 model-count"]);
 });
 
+test("a shared model bound counts regular and alternate loadouts together", () => {
+  const { identity, records } = input("1.1");
+  const alternate = `${WARDENS}.alternate-warden`;
+  const leader = `${WARDENS}.leader`;
+  const original = find(records, "model", WARDEN);
+  const originalEntry = identity.entries.find(({ id }) => id === WARDEN)!;
+  identity.entries.push({ ...originalEntry, id: alternate, name: "Alternate Warden" });
+  records.push({ ...original, id: alternate, data: { ...original.data, min: 0 } });
+  Object.assign(find(records, "model", WARDEN).data, { min: 0 });
+  Object.assign(find(records, "model", leader).data, { max: 2 });
+  Object.assign(find(records, "unit", WARDENS).data, {
+    modelGroups: [{ models: [WARDEN, alternate], min: 4, max: 4, bySize: [{ size: 10, min: 9, max: 9 }] }],
+  });
+  const unitEntry = identity.entries.find(({ id }) => id === WARDENS)!;
+  unitEntry.references!.push({ kind: "model", id: WARDEN }, { kind: "model", id: alternate });
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  const mixed = { ...legal11, units: [{ unit: WARDENS, models: { [WARDEN]: 7, [alternate]: 2, [leader]: 1 } }] };
+  assert.deepEqual(codes(result.definitions, mixed), []);
+  mixed.units[0]!.models[leader] = 2;
+  mixed.units[0]!.models[alternate] = 1;
+  assert.deepEqual(codes(result.definitions, mixed), ["0 model-group-count"]);
+});
+
+test("a shared model bound cannot include models from two units", () => {
+  const { identity, records } = input("1.1");
+  const foreign = `${LORD}.lord`;
+  Object.assign(find(records, "unit", WARDENS).data, { modelGroups: [{ models: [WARDEN, foreign], min: 3, max: 9 }] });
+  identity.entries.find(({ id }) => id === WARDENS)!.references!.push({ kind: "model", id: WARDEN }, { kind: "model", id: foreign });
+  assert.deepEqual(validateDefinitions(identity, records), {
+    ok: false, errors: [`unit:${WARDENS} modelGroups/0 names model:${foreign}, which belongs to another unit`],
+  });
+});
+
 test("model bounds for a selected size can make an import unambiguous", () => {
   const { identity, records } = input("1.1");
   const leader = `${WARDENS}.leader`;

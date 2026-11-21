@@ -19,6 +19,7 @@ export type ProblemCode =
   | "unit-faction"
   | "unit-model"
   | "model-count"
+  | "model-group-count"
   | "unit-size"
   | "unit-option"
   | "option-choice"
@@ -104,6 +105,14 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
       const { min, max } = modelBounds(model.data, total);
       if (!Number.isSafeInteger(count) || count < min || count > max) {
         add("model-count", `${model.name} needs ${min}-${max} models, has ${count}`);
+      }
+    }
+    for (const group of unit.data.modelGroups ?? []) {
+      const count = group.models.reduce((sum, id) => sum + counts.get(id)!, 0);
+      const { min, max } = modelBounds(group, total);
+      if (count < min || count > max) {
+        const names = group.models.map((id) => definitions.get("model", id)!.name);
+        add("model-group-count", `${names.join(", ")} together need ${min}-${max} models, have ${count}`);
       }
     }
     if (!unit.data.sizes.includes(total)) add("unit-size", `${unit.name} fields ${unit.data.sizes.join(" or ")} models, has ${total}`);

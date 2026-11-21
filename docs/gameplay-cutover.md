@@ -77,11 +77,11 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 2,224 current drafts that passed automated checks, including 644 stratagems. Of these, 139 use native mechanic records, 2,003 come from pinned 40kdc structured fields, and 82 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Eight drafts that repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 19,795 versioned drafts across 2,052 distinct pieces of source content.
+The combined queue has 2,234 current drafts that passed automated checks, including 644 stratagems. Of these, 139 use native mechanic records, 2,013 come from pinned 40kdc structured fields, and 82 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Eight drafts that repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 19,885 versioned drafts across 2,061 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,409 with bold spans and 1,263 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Sixty-two of the 83 linked destinations have drafts. The other twenty-one remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,410 with bold spans and 1,270 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Sixty-three of the 86 linked destinations have drafts. The other twenty-three remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 552 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,003 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 542 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,003 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
 ### CP and Miracle dice
 
@@ -160,6 +160,10 @@ Secured Objectives passes with the printed tie exception. The securing player ke
 ### Stratagems triggered by model losses
 
 Four drafts identify which unit lost models, which enemy caused the losses and when the attacks resolved. Protocol of the Undying Legions stays held for the Shooting and Fight trigger and the interaction between ability activation and healing. Suboptimal Facade still needs evidence that its region owner affects targeting.
+
+### Abilities triggered by a stratagem
+
+Seven drafts identify the unit chosen for Fire Overwatch, including two enhancements that apply to the bearer's unit. They link to the core rules entry through its source stratagem ID. Three single-model unit abilities apply their cost multiplier when a stratagem targets that model. Esoteric Explosives stays held for a model-to-unit targeting mismatch. Stalwart's Honours stays held because the evidence leaves the order issuer unclear.
 
 ### Direct structure pilot
 

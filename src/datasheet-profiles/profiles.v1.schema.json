@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/src/datasheet-profiles/profiles.v1.schema.json",
+  "title": "Datasheet profile record data, format version 1",
+  "$defs": {
+    "text": { "type": "string", "pattern": "\\S" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+    "ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+    "positive": { "type": "integer", "minimum": 1 },
+    "roll": { "type": "integer", "minimum": 2 },
+    "amount": {
+      "oneOf": [{ "$ref": "#/$defs/positive" }, { "type": "string", "pattern": "^(?:[1-9][0-9]*)?D[1-9][0-9]*(?:\\+[1-9][0-9]*)?$" }]
+    },
+    "gaps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["field", "reason"],
+        "properties": {
+          "field": { "type": "string", "pattern": "^[a-z][a-zA-Z]*$" },
+          "reason": { "enum": ["no-target", "unrepresentable"] }
+        }
+      }
+    },
+    "unit-profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit"],
+      "properties": {
+        "unit": { "$ref": "#/$defs/id" },
+        "models": { "$ref": "#/$defs/ids" },
+        "movement": {
+          "oneOf": [
+            { "type": "integer", "minimum": 0 },
+            { "type": "null" },
+            { "type": "object", "additionalProperties": false, "required": ["atLeast"], "properties": { "atLeast": { "$ref": "#/$defs/positive" } } }
+          ]
+        },
+        "toughness": { "$ref": "#/$defs/positive" },
+        "save": { "$ref": "#/$defs/roll" },
+        "wounds": { "$ref": "#/$defs/positive" },
+        "leadership": { "$ref": "#/$defs/roll" },
+        "objectiveControl": { "oneOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }] },
+        "invulnerableSave": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["roll"],
+          "properties": { "roll": { "$ref": "#/$defs/roll" }, "against": { "const": "ranged" }, "conditional": { "const": true } }
+        },
+        "baseSize": {
+          "oneOf": [
+            { "const": "hull" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["diameter"],
+              "properties": { "diameter": { "type": "number", "exclusiveMinimum": 0 }, "approximate": { "const": true }, "flying": { "const": true } }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["length", "width"],
+              "properties": {
+                "length": { "type": "number", "exclusiveMinimum": 0 },
+                "width": { "type": "number", "exclusiveMinimum": 0 },
+                "approximate": { "const": true },
+                "flying": { "const": true }
+              }
+            }
+          ]
+        },
+        "gaps": { "$ref": "#/$defs/gaps" }
+      }
+    },
+    "weapon-profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit"],
+      "properties": {
+        "unit": { "$ref": "#/$defs/id" },
+        "wargear": { "$ref": "#/$defs/id" },
+        "range": { "oneOf": [{ "$ref": "#/$defs/positive" }, { "const": "melee" }] },
+        "attacks": { "$ref": "#/$defs/amount" },
+        "skill": { "oneOf": [{ "$ref": "#/$defs/roll" }, { "type": "null" }] },
+        "strength": { "$ref": "#/$defs/positive" },
+        "armourPenetration": { "type": "integer", "maximum": 0 },
+        "damage": { "$ref": "#/$defs/amount" },
+        "keywords": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/text" } },
+        "gaps": { "$ref": "#/$defs/gaps" }
+      }
+    },
+    "attachment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit"],
+      "minProperties": 2,
+      "properties": {
+        "unit": { "$ref": "#/$defs/id" },
+        "leads": { "$ref": "#/$defs/ids" },
+        "supports": { "$ref": "#/$defs/ids" },
+        "gaps": { "$ref": "#/$defs/gaps" }
+      }
+    }
+  }
+}

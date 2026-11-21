@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { Ajv2020 } from "ajv/dist/2020.js";
 import identitySchema from "../catalogue-identity/release.v1.schema.json" with { type: "json" };
 import { historyErrors, resolve, validateRelease, type Ref, type Release, type RulesVersion } from "../catalogue-identity/identity.ts";
+import profilesSchema from "../datasheet-profiles/profiles.v1.schema.json" with { type: "json" };
 import { canonicalJson, checkReleaseFiles, releaseFiles, sha256, type ReleaseFiles } from "../releases/release.ts";
 import categoriesSchema from "./categories.v1.schema.json" with { type: "json" };
 import definitionsSchema from "./definitions.v1.schema.json" with { type: "json" };
@@ -56,6 +57,7 @@ const SCHEMAS = new Map<string, object>([
   ["schema/catalogue-releases/definitions.v1.schema.json", definitionsSchema],
   ["schema/catalogue-releases/manifest.v1.schema.json", manifestSchema],
   ["schema/catalogue-releases/record.v1.schema.json", recordSchema],
+  ["schema/datasheet-profiles/profiles.v1.schema.json", profilesSchema],
 ]);
 
 const ajv = new Ajv2020({ allErrors: true }).addSchema(definitionsSchema);

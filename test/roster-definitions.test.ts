@@ -29,6 +29,8 @@ const legal10 = json("rosters/legal-1.0.json") as Roster;
 const legal11 = json("rosters/legal-1.1.json") as Roster;
 const WARDENS = "synthetic.ember-host.flame-wardens";
 const WARDEN = `${WARDENS}.warden`;
+const DRONES = "synthetic.ember-host.ash-drones";
+const LORD = "synthetic.ember-host.pyre-lord";
 const codes = (definitions: Definitions, roster: Roster) => checkRoster(definitions, roster).map((p) => `${p.unit ?? "-"} ${p.code}`);
 const edited = (change: (roster: Roster) => void) => {
   const roster = structuredClone(legal11);
@@ -65,6 +67,18 @@ const invalid: Record<string, [(records: CatalogueRecord[], identity: Release) =
     (r) => (find(r, "unit", WARDENS).rulesVersion = v10.identity.rulesVersion),
     `unit:${WARDENS} belongs to a different rules version`,
   ],
+  "a cap on wargear its option does not offer": [
+    (r) => ((find(r, "roster-option", `${DRONES}.payload`).data as any).caps[1].choices = ["synthetic.ember-rifle"]),
+    `roster-option:${DRONES}.payload caps wargear:synthetic.ember-rifle, which it does not offer`,
+  ],
+  "a requirement on another unit's option": [
+    (r) => ((find(r, "roster-option", `${LORD}.ward`).data as any).requires = { option: `${WARDENS}.leader-weapon`, choices: ["synthetic.twin-ash-blades"] }),
+    `roster-option:${LORD}.ward requires roster-option:${WARDENS}.leader-weapon, which belongs to another unit`,
+  ],
+  "two limits for one battle size": [
+    (r) => (find(r, "unit", WARDENS).data as any).limits.push({ battleSize: "synthetic.incursion", perRoster: 2 }),
+    `unit:${WARDENS} limits battle-size:synthetic.incursion more than once`,
+  ],
   "replacing wargear the carrier lacks": [
     (r) => ((find(r, "roster-option", `${WARDENS}.leader-weapon`).data as any).replaces = ["synthetic.ember-rifle"]),
     `roster-option:${WARDENS}.leader-weapon replaces wargear:synthetic.ember-rifle, which its carriers do not carry`,
@@ -99,7 +113,7 @@ const SIGIL = "synthetic.kindled-vow.ash-sigil";
 const MANTLE = "synthetic.kindled-vow.cinder-mantle";
 const BRAND = "synthetic.kindled-vow.brand-of-ash";
 const illegal: Record<string, [(roster: Roster) => void, string[]]> = {
-  "a unit outside its sizes": [(r) => (r.units[1]!.models = { [WARDEN]: 6 }), ["1 unit-size"]],
+  "a unit outside its sizes": [(r) => (r.units[0]!.models = { [WARDEN]: 6 }), ["0 unit-size"]],
   "a model above its maximum": [(r) => (r.units[4]!.models = { "synthetic.ember-host.ash-drones.drone": 4 }), ["4 model-count", "4 unit-size"]],
   "more selections than every five models allow": [(r) => (r.units[1]!.options = { [`${WARDENS}.cannon`]: { "synthetic.cinder-cannon": 2 } }), ["1 option-count"]],
   "more selections than carriers": [(r) => (r.units[1]!.options = { [`${WARDENS}.carbines`]: { "synthetic.ember-carbine": 5 } }), ["1 option-count"]],
@@ -107,6 +121,14 @@ const illegal: Record<string, [(roster: Roster) => void, string[]]> = {
     (r) => (r.units[1]!.options = { [`${WARDENS}.cannon`]: { "synthetic.cinder-cannon": 1, "synthetic.ember-rifle": -1 } }),
     ["1 option-quantity"],
   ],
+  "more of one choice than its carriers may take": [(r) => (r.units[4]!.options = { [`${DRONES}.payload`]: { "synthetic.ash-carbine": 3 } }), ["4 option-cap"]],
+  "more of one choice than the unit may take": [(r) => (r.units[4]!.options = { [`${DRONES}.payload`]: { "synthetic.ember-carbine": 2 } }), ["4 option-cap"]],
+  "an option its required choice has not opened": [(r) => (r.units[2]!.options![`${LORD}.ward`] = { "synthetic.ward-shield": 1 }), ["2 option-unavailable"]],
+  "an option its required choice opens": [
+    (r) => (r.units[2]!.options = { [`${LORD}.staff`]: { "synthetic.twin-ash-blades": 1 }, [`${LORD}.ward`]: { "synthetic.ward-shield": 1 } }),
+    [],
+  ],
+  "a uniform option taken by only some carriers": [(r) => (r.units[1]!.options = { [`${WARDENS}.carbines`]: { "synthetic.ember-carbine": 2 } }), ["1 option-uniform"]],
   "a uniform option split between choices": [(r) => (r.units[1]!.options = { [`${WARDENS}.carbines`]: { "synthetic.ember-carbine": 2, "synthetic.ash-carbine": 2 } }), ["1 option-uniform"]],
   "wargear its option does not offer": [(r) => (r.units[2]!.options = { "synthetic.ember-host.pyre-lord.staff": { "synthetic.ember-maul": 1 } }), ["2 option-choice"]],
   "an option from another unit": [(r) => (r.units[3]!.options = { "synthetic.ember-host.pyre-lord.staff": { "synthetic.maul-and-shield": 1 } }), ["3 unit-option"]],
@@ -116,6 +138,9 @@ const illegal: Record<string, [(roster: Roster) => void, string[]]> = {
   "an enhancement on a unit barred from enhancements": [(r) => r.units.push({ unit: "synthetic.ember-host.ember-colossus", enhancement: MANTLE }), ["5 enhancement-keywords"]],
   "an enhancement taken twice": [(r) => r.units.push({ unit: "synthetic.ember-host.pyre-lord", enhancement: SIGIL }), ["5 enhancement-repeated"]],
   "an upgrade taken twice": [(r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND)), []],
+  "more copies than its battle size allows": [(r) => (r.battleSize = "synthetic.incursion"), ["1 roster-limit"]],
+  "a battle size without its own limit for the unit": [(r) => (r.battleSize = "synthetic.strike-force"), []],
+  "a battle size the release does not define": [(r) => (r.battleSize = "synthetic.onslaught"), ["- not-current"]],
   "a second copy of a unit limited to one": [(r) => r.units.push({ unit: "synthetic.ember-host.the-kindler" }), ["5 roster-limit"]],
   "an ID the release retired": [(r) => (r.units[0]!.options = { [`${WARDENS}.heavy-weapon`]: { "synthetic.cinder-cannon": 1 } }), ["0 not-current"]],
 };

@@ -1,7 +1,7 @@
 import { resolve, type Ref } from "../catalogue-identity/identity.ts";
 import { lookupPoints, type Miss } from "../points/lookup.ts";
 import type { PointsSnapshot } from "../points/snapshot.ts";
-import type { Definition, DefinitionKind, Definitions } from "./definitions.ts";
+import type { Definition, DefinitionKind, Definitions, Per } from "./definitions.ts";
 
 /** A saved list in catalogue IDs: model counts by model ID, and wargear counts by option ID. */
 export type RosterUnit = {
@@ -10,7 +10,7 @@ export type RosterUnit = {
   options?: Record<string, Record<string, number>>;
   enhancement?: string;
 };
-export type Roster = { faction: string; detachment: string; units: RosterUnit[] };
+export type Roster = { faction: string; detachment: string; battleSize?: string; units: RosterUnit[] };
 
 export type ProblemCode =
   | "not-current"
@@ -25,6 +25,8 @@ export type ProblemCode =
   | "option-count"
   | "option-quantity"
   | "option-uniform"
+  | "option-cap"
+  | "option-unavailable"
   | "enhancement-detachment"
   | "enhancement-keywords"
   | "enhancement-repeated"
@@ -37,6 +39,7 @@ export function rosterRefs(roster: Roster): Ref[] {
   return [
     { kind: "faction", id: roster.faction },
     { kind: "detachment", id: roster.detachment },
+    ...(roster.battleSize ? [{ kind: "battle-size", id: roster.battleSize }] : []),
     ...roster.units.flatMap((u) => [
       { kind: "unit", id: u.unit },
       ...Object.keys(u.models ?? {}).map((id) => ({ kind: "model", id })),
@@ -46,11 +49,15 @@ export function rosterRefs(roster: Roster): Ref[] {
   ];
 }
 
+/** How many times a bound scaled by `per` applies in a unit of `total` models, `carriers` of which can take the option. */
+const blocks = (per: Per | undefined, total: number, carriers: number) =>
+  carriers === 0 ? 0 : per === "carrier" ? carriers : per ? Math.floor(total / per.models) : 1;
+
 /** How many wargear selections an option takes in a unit of `total` models, `carriers` of which can take it. */
 export function optionBounds(option: Definition<"roster-option">, total: number, carriers: number): { min: number; max: number } {
   const { choose, per } = option.data;
-  const blocks = carriers === 0 ? 0 : per === "carrier" ? carriers : per ? Math.floor(total / per.models) : 1;
-  return { min: choose.min * blocks, max: choose.max * blocks };
+  const n = blocks(per, total, carriers);
+  return { min: choose.min * n, max: choose.max * n };
 }
 
 /** Every reason the roster is not legal under these definitions, in roster order. */
@@ -66,6 +73,7 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
     }
     return false;
   };
+  const battleSize = roster.battleSize && current("battle-size", roster.battleSize) ? roster.battleSize : undefined;
   if (current("faction", roster.faction) && current("detachment", roster.detachment)) {
     if (definitions.get("detachment", roster.detachment)?.data.faction !== roster.faction) {
       problems.push({ code: "detachment-faction", message: `detachment:${roster.detachment} is not a ${roster.faction} detachment` });
@@ -80,7 +88,8 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
     const unit = definitions.get("unit", picked.unit)!;
     if (unit.data.faction !== roster.faction) add("unit-faction", `${unit.name} is not a ${roster.faction} unit`);
     copies.set(unit.id, (copies.get(unit.id) ?? 0) + 1);
-    if (copies.get(unit.id) === (unit.data.perRoster ?? Infinity) + 1) add("roster-limit", `${unit.name} is limited to ${unit.data.perRoster} per roster`);
+    const limit = unit.data.limits?.find((l) => l.battleSize === battleSize)?.perRoster ?? unit.data.perRoster;
+    if (copies.get(unit.id) === (limit ?? Infinity) + 1) add("roster-limit", `${unit.name} is limited to ${limit} per roster`);
 
     const models = definitions.modelsOf(unit.id);
     for (const id of Object.keys(picked.models ?? {})) {
@@ -110,13 +119,27 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
       for (const [wargear] of taken) {
         if (current("wargear", wargear, i) && !option.data.choices.includes(wargear)) add("option-choice", `${option.name} does not offer wargear:${wargear}`);
       }
-      if (option.data.uniform && taken.length > 1) add("option-uniform", `${option.name} takes one choice for the whole unit`);
     }
+    const takenOf = (optionId: string, only?: string[]) =>
+      Object.entries(picked.options?.[optionId] ?? {})
+        .filter(([w, n]) => n > 0 && (!only || only.includes(w)))
+        .reduce((sum, [, n]) => sum + n, 0);
     for (const option of options) {
       const carriers = option.data.carrier ? (counts.get(option.data.carrier) ?? 0) : total;
       const { min, max } = optionBounds(option, total, carriers);
-      const taken = Object.values(picked.options?.[option.id] ?? {}).filter((n) => n > 0).reduce((sum, n) => sum + n, 0);
+      const taken = takenOf(option.id);
+      const kinds = Object.values(picked.options?.[option.id] ?? {}).filter((n) => n > 0).length;
       if (taken < min || taken > max) add("option-count", `${option.name} takes ${min}-${max}, has ${taken}`);
+      else if (option.data.uniform && (kinds > 1 || (taken > 0 && taken !== max))) add("option-uniform", `${option.name} is taken ${max} times with one choice, or not at all`);
+      for (const cap of option.data.caps ?? []) {
+        const most = cap.max * blocks(cap.per, total, carriers);
+        const capped = takenOf(option.id, cap.choices);
+        if (capped > most) add("option-cap", `${option.name} takes at most ${most} of ${cap.choices.map((w) => `wargear:${w}`).join(", ")}, has ${capped}`);
+      }
+      const { requires } = option.data;
+      if (requires && taken > 0 && takenOf(requires.option, requires.choices) === 0) {
+        add("option-unavailable", `${option.name} needs one of ${requires.choices.map((w) => `wargear:${w}`).join(", ")} from roster-option:${requires.option}`);
+      }
     }
 
     if (picked.enhancement && current("enhancement", picked.enhancement, i)) {

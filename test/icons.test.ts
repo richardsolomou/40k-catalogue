@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { type IconEntry, verifyIcon } from "../src/icons/verify.ts";
 
@@ -32,4 +32,12 @@ test("an icon with a script is rejected", () => {
 
 test("an icon that loads an external resource is rejected", () => {
   assert.deepEqual(withSvg('<svg viewBox="0 0 24 24"><image href="https://example.com/a.png"/></svg>'), ["references a resource outside the file"]);
+});
+
+test("the original mark set has one verified asset per manifest entry", () => {
+  const pack = new URL("../data/icons/", import.meta.url);
+  const entries = JSON.parse(readFileSync(new URL("manifest.json", pack), "utf8")) as IconEntry[];
+  assert.equal(new Set(entries.map(({ id }) => id)).size, entries.length);
+  assert.deepEqual(entries.map(({ file }) => file).toSorted(), readdirSync(pack).filter((file) => file.endsWith(".svg")).sort());
+  for (const entry of entries) assert.deepEqual(verifyIcon(entry, readFileSync(new URL(entry.file, pack))), [], entry.id);
 });

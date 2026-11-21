@@ -31,7 +31,8 @@ export type Primary = { id: string; name: string; source: Source; pairings: Pair
 export type WhenDrawn = { action: "redraw"; required: boolean; untilRound?: number; ifActive?: string };
 export type Secondary = { id: string; name: string; source: Source; modes: Mode[]; awards: Award[]; whenDrawn?: OrUnresolved<WhenDrawn> };
 export type Twist = { id: string; name: string; source: Source; changesPrimary: boolean; effect: OrUnresolved<{ summary: string }> };
-export type Cap = OrUnresolved<{ perRound?: number; perBattle?: number }>;
+/** `perRoundExcludesBattleEnd`: what is scored at the battle end counts against `perBattle` but not `perRound`. */
+export type Cap = OrUnresolved<{ perRound?: number; perBattle?: number; perRoundExcludesBattleEnd?: true }>;
 
 export type MissionPack = {
   formatVersion: 1;

@@ -91,6 +91,14 @@ On 21 November 2026 the sample also:
 - round-tripped byte for byte through the `data:` URI and the decoding in the icon route, which is the same form the offline bundle embeds;
 - rendered correctly as the Necrons mark on the live faction index after the mask was replaced in the page, keeping its evenodd cut-out at the 40-pixel card size.
 
+### Original mark set
+
+[The mark directory](../data/icons) contains 37 original geometric SVGs under the repository's MIT licence. The [manifest](../data/icons/manifest.json) gives each mark a stable shape ID, provenance, attribution and a SHA-256 pin. The set has enough distinct masks for the current and retained input IDs catalogued above. Its IDs describe shapes so any consumer can assign them to its own entities.
+
+Each SVG has a solid outline and a transparent cut-out. The marks were checked as monochrome CSS masks at 20 px and 40 px. Keep the faction name visible alongside them. The consumer chooses the mapping and verifies that every faction ID, including historical ones, resolves in its own UI and offline bundle.
+
+The files and licence can be built from a pinned commit with `git archive --format=tar <commit> LICENSE data/icons`. Verify each SVG against the manifest when consuming the archive.
+
 ## Missing icons
 
 Praetorium already handles a missing icon: no icon URL is sent, the route returns 404, and `FactionMark` shows the diamond in the faction colour. A partial replacement should rely on that fallback rather than mixing sources for the same faction. A catalogue release should list factions without an icon so the consumer can tell a gap from an error.
@@ -99,10 +107,9 @@ Faction colours come from a separate table in `FactionMark`. Its T'au entry is k
 
 ## What prevents a full switch
 
-- No authorised source exists. The catalogue would need 36 original icons, one for each faction family, plus a decision on whether chapter variants should share one.
-- Players recognise factions by these icons. Generic shapes need design and review against the colour table, the diamond fallback, and the 20-pixel small size.
+- Assign the original marks to faction families and chapter variants and review them against the consumer's colour table and diamond fallback.
 - The current terms are unresolved. Until the upstream author or a rights holder confirms otherwise, Praetorium should record the icon licence as CC BY-NC-SA 4.0 with the Games Workshop notice, fix the licence URL, and remove the `be23002` pin and the unused jsDelivr fallback. Those changes stay in Praetorium.
-- Distribution needs a release format. Icons would ship with the catalogue release under #16 and be mapped under #13, and the offline bundle would need to carry the replacement's attribution.
+- Preserve the attribution in the offline bundle and the selected mark IDs across pinned releases. [Cutover tracker](cutover-tracker.md)
 
 [p-root]: https://github.com/richardsolomou/praetorium.gg/tree/a9b4a5b3d37484f696b275d0b0e10b89ca07c325
 [p-sources]: https://github.com/richardsolomou/praetorium.gg/blob/a9b4a5b3d37484f696b275d0b0e10b89ca07c325/catalogue/sources.json

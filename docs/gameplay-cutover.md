@@ -165,7 +165,11 @@ Four drafts identify which unit lost models, which enemy caused the losses and w
 
 Seven drafts identify the unit chosen for Fire Overwatch, including two enhancements that apply to the bearer's unit. They link to the core rules entry through its source stratagem ID. Three single-model unit abilities apply their cost multiplier when a stratagem targets that model. Esoteric Explosives stays held for a model-to-unit targeting mismatch. Stalwart's Honours stays held because the evidence leaves the order issuer unclear.
 
-The Fire Overwatch core rule and standalone card share a summary after their timing, targeting, effect and cost matched across all nine versions. Each keeps its source ID. The CP cost sits in its own JSON field. Snap Shooting remains held for the visible-target observer and the reference's Critical Hit exclusion. The Core Stratagems paragraph covers only part of Using Stratagems. [Core Rules, pp. 54 and 57](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=57)
+The Fire Overwatch core rule and standalone card share a summary after their timing, targeting, effect and cost matched across all nine versions. Each keeps its source ID. The CP cost sits in its own JSON field.
+
+The Using Stratagems draft covers the printed section, including selection, payment and resolution in that order. The reference adds a cost floor, a limit on the scope of cost modifiers, a rule about when targets count as affected and definitions for ownership terms. The full record stays held while those additions lack a confirmed printed basis. [Core Rules, p. 54](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=54)
+
+Select Targets requires each target to be visible to the model firing the weapon. For Snap Shooting, the separate unit-level visibility condition still leaves the observer unspecified. The printed Hit Rolls table treats an unmodified 6 as a Critical Hit. Whether Snap Shooting inherits that result remains held because the reference explicitly excludes Critical Hits. [Core Rules, pp. 16–18 and 57](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=57)
 
 ### Direct structure pilot
 

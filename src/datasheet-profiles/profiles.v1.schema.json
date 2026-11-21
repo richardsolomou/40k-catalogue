@@ -102,6 +102,63 @@
         "supports": { "$ref": "#/$defs/ids" },
         "gaps": { "$ref": "#/$defs/gaps" }
       }
+    },
+    "selectors": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/text" } },
+    "transportPool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["limit", "count", "selectors"],
+      "properties": {
+        "limit": { "$ref": "#/$defs/positive" },
+        "count": { "enum": ["models", "units"] },
+        "selectors": { "$ref": "#/$defs/selectors" },
+        "maxWounds": { "$ref": "#/$defs/positive" }
+      }
+    },
+    "transport-profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit"],
+      "properties": {
+        "unit": { "$ref": "#/$defs/id" },
+        "capacity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["loads"],
+          "properties": {
+            "loads": {
+              "type": "array", "minItems": 1,
+              "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/transportPool" } }
+            },
+            "whenEquipped": {
+              "type": "array", "minItems": 1,
+              "items": {
+                "type": "object", "additionalProperties": false, "required": ["wargear", "pool"],
+                "properties": { "wargear": { "$ref": "#/$defs/id" }, "pool": { "$ref": "#/$defs/transportPool" } }
+              }
+            },
+            "excluded": {
+              "type": "array", "minItems": 1,
+              "items": {
+                "type": "object", "additionalProperties": false, "required": ["selectors"],
+                "properties": { "selectors": { "$ref": "#/$defs/selectors" }, "except": { "$ref": "#/$defs/selectors" } }
+              }
+            },
+            "space": {
+              "type": "array", "minItems": 1,
+              "items": {
+                "type": "object", "additionalProperties": false, "required": ["size"],
+                "properties": {
+                  "selectors": { "$ref": "#/$defs/selectors" },
+                  "moreWoundsThan": { "type": "integer", "minimum": 0 },
+                  "size": { "$ref": "#/$defs/positive" }
+                }
+              }
+            }
+          }
+        },
+        "gaps": { "$ref": "#/$defs/gaps" }
+      }
     }
   }
 }

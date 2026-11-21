@@ -93,6 +93,40 @@ test("a weapon profile cannot name wargear its unit neither carries nor offers",
   assert.deepEqual(found, [`weapon-profile:${WARDENS}.ember-rifle names wargear:synthetic.ember-staff, which unit:${WARDENS} neither carries nor offers`]);
 });
 
+const transportLoad = { limit: 4, count: "models", selectors: ["Scouts", "Guard Infantry"] };
+
+function transport(id: Release, records: CatalogueRecord[], capacity: object) {
+  const unit = WARDENS;
+  id.entries.push({ kind: "transport-profile", id: unit, name: "Transport", references: [{ kind: "unit", id: unit }] });
+  records.push({
+    formatVersion: 1, kind: "transport-profile", id: unit, rulesVersion: id.rulesVersion,
+    source: { title: "Synthetic datasheet", page: "1" }, data: { unit, capacity },
+  });
+}
+
+test("transport capacity distinguishes extra pools from alternative loads", () => {
+  const capacity = {
+    loads: [[transportLoad, { limit: 1, count: "models", selectors: ["Hero"] }], [{ limit: 1, count: "units", selectors: ["Monsters"], maxWounds: 3 }]],
+    excluded: [{ selectors: ["Flying"], except: ["Friendly Scout"] }],
+    space: [{ selectors: ["Heavy"], size: 2 }],
+  };
+  const id = identity("1.1");
+  const recs = profileRecords("1.1");
+  transport(id, recs, capacity);
+  const result = validateProfiles(id, recs);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  assert.deepEqual(result.profiles.of("transport-profile", WARDENS)[0]?.data.capacity, capacity);
+});
+
+test("conditional capacity can only name gear the transport carries or offers", () => {
+  const found = errors((id, recs) => {
+    const wargear = "synthetic.ember-staff";
+    transport(id, recs, { loads: [[transportLoad]], whenEquipped: [{ wargear, pool: transportLoad }] });
+    entry(id, "transport-profile", WARDENS).references!.push({ kind: "wargear", id: wargear });
+  });
+  assert.deepEqual(found, [`transport-profile:${WARDENS} names wargear:synthetic.ember-staff, which unit:${WARDENS} neither carries nor offers`]);
+});
+
 test("an attachment cannot name a unit its identity entry does not reference", () => {
   const found = errors((_, recs) => record(recs, "attachment", `${UNIT}.pyre-lord`).data.leads.push(`${UNIT}.ash-drones`));
   assert.deepEqual(found, [`attachment:${UNIT}.pyre-lord names unit:${UNIT}.ash-drones but its identity entry does not reference it`]);

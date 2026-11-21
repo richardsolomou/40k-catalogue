@@ -11,8 +11,9 @@ Nothing here is published profile data yet. The fixtures are profiles for the in
 | `unit-profile` | `unit`, optional `models`, the unit characteristics, optional `gaps` | One stat line. With neither `models` nor a model gap, it describes every model of the unit. |
 | `weapon-profile` | `unit`, `wargear`, the weapon characteristics, optional `keywords` and `gaps` | One stat line of a weapon as this unit's datasheet prints it. A weapon with several modes has one profile per mode, all naming the same `wargear`. |
 | `attachment` | `unit`, optional `leads`, `supports` and `gaps` | The units this unit may join as a Leader (`leads`) or as a support attachment (`supports`). |
+| `transport-profile` | `unit`, `capacity` or a capacity gap | The transport's alternative loads, passenger allowances, exceptions and equipment-dependent capacities. |
 
-A profile's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two datasheets can print different stat lines for wargear with the same ID. An attachment's ID is its unit's ID.
+A stat line's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two datasheets can print different stat lines for wargear with the same ID. An attachment or transport profile uses its unit's ID.
 
 ## Characteristics
 
@@ -32,13 +33,21 @@ A profile's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two d
 
 Unit profiles must state `movement`, `toughness`, `save`, `wounds`, `leadership` and `objectiveControl`, and weapon profiles `wargear`, `range`, `attacks`, `skill`, `strength`, `armourPenetration` and `damage`, unless a gap names the field.
 
+## Transport capacity
+
+Each `loads` entry is one way to load the transport. Each consists of one or more pools, and eligible passengers may occupy those pools at the same time. A pool gives its `limit`, whether it `count`s models or units, its `selectors` and an optional `maxWounds`. A selector is a keyword or a phrase formed by consecutive keywords. A passenger can match any selector in the list.
+
+An `excluded` entry refuses a passenger matching its selectors unless an `except` selector also matches. `space` sets the number of places a matching model takes. Use the first matching entry and one place by default. The optional `moreWoundsThan` threshold is strict. If the transport carries a `whenEquipped` wargear item, that item's pool replaces the first pool of the first load. Multiple active replacements need a ruling before the capacity can be evaluated.
+
+Use a `capacity` gap when the complete transport capacity cannot be represented or an equipment condition cannot be joined. Deployment abilities such as splitting a unit before it embarks need separate mechanics records.
+
 ## Gaps
 
 A gap is `{ "field", "reason" }`. `unrepresentable` means the source prints a value this format has no form for, such as an invulnerable save that differs by model, and the field is left out. `no-target` means the source names something no catalogue ID identifies: a weapon whose wargear the unit neither carries nor offers, a unit profile that matches none of the unit's models, or an attachment target with no unit. An attachment keeps the targets that resolve and adds one `no-target` gap for each that does not. A converter records a gap instead of choosing a nearby value or target.
 
 ## Local and qualified references
 
-A profile's `unit` bounds what else it may name. Its `models` must belong to that unit, and its `wargear` must be wargear a model of the unit carries or an option of the unit offers. Attachment targets are qualified: they may name any current unit in the release, including another faction's. Every reference resolves within the record's own rules version, so a release that holds only some factions cannot name a unit outside them.
+A profile's `unit` bounds what else it may name. Its `models` must belong to that unit, and any weapon profile or equipment condition must refer to wargear the unit carries or offers. Attachment targets are qualified: they may name any current unit in the release, including another faction's. Every reference resolves within the record's own rules version, so a release that holds only some factions cannot name a unit outside them.
 
 ## Validation
 
@@ -49,7 +58,7 @@ A profile's `unit` bounds what else it may name. Its `models` must belong to tha
 - The local references above hold, and no unit attaches to itself.
 - A required characteristic is either stated or a gap, never both.
 - When a unit has several unit profiles, each names its models or has a `models` gap, and no model has two profiles.
-- A unit has at most one attachment record.
+- A unit has at most one attachment and one transport record. A transport can state one replacement pool for each wargear ID.
 
 `profiles.of(kind, unit)` lists a unit's records of one kind, and `profiles.attachedBy(unit, role)` lists the units that may lead or support it.
 
@@ -72,9 +81,13 @@ The private stage converted the [definition rehearsal](definition-cutover.md)'s 
 
 Across the eight retired versions, 33,628 profile IDs are also current and 1,330 belong to units whose current profiles differ because a profile was renamed or removed; that is 90.0% to 99.4% kept per version. Another 12,228 belong to units that have no current datasheet, and 902 to units no longer current.
 
+The private transport stage joined all 270 datasheets with a transport rule across the nine versions to roster IDs. The existing reader can express 266 capacity records, including 79 of 81 current datasheets. The other four records flag a capacity gap. One current rule's equipment condition resolves to the unit's exact wargear ID.
+
+The staged capacities reproduce eligibility and pool occupancy in all 1,168,904 single-passenger cases, covering loads of 1, 5, 10 and 20 models and all equipment variants in the input. These cases use the same rules reader and load checker as the baseline. Source review and a replay of full saved formations remain open.
+
 ## Not covered
 
-- Transport capacity and other profiles hold only rules text, so the format leaves them out: 536 at `mfm-1-6`.
+- Additional transport and other profile lines still need review where the reader exposes no structured capacity. The profile inventory has 536 transport and other lines at `mfm-1-6`, including repeated lines for the same datasheet.
 - Abilities and rules text are mechanics, not profiles.
 - An attachment target named only by keyword, or a relation that holds only under a condition, has no form and becomes a `no-target` gap.
 - Profiles are duplicated for every faction that offers a shared datasheet, as roster definitions are.

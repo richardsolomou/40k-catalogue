@@ -10,7 +10,7 @@ The full rehearsal uses snapshot `9d1bbd972c311e52f7e6d2e912e08513ca55f865100957
 
 | Input | Baseline pin | Work item | Candidate and state | Required checks | Rollback |
 | --- | --- | --- | --- | --- | --- |
-| `wh40k-11e` roster definitions | `6fd981b` | [#39](https://github.com/richardsolomou/40k-catalogue/issues/39) | The full definition rehearsal validates 41,837 current records across 36 factions and 41,242 records from retained faction snapshots. Wargear and full roster legality still differ. Retain the current definitions through the remaining profile, attachment, saved-ID and source review. | Unit composition, wargear, constraints, saved roster IDs, imports, legality, offline construction | Restore the previous definition and overlay pins. |
+| `wh40k-11e` roster definitions | `6fd981b` | [#39](https://github.com/richardsolomou/40k-catalogue/issues/39) | The [full definition rehearsal](definition-cutover.md) validates 42,643 current records across 36 factions and 41,701 records from retained faction snapshots. It agrees on 3,619 of 4,842 whole-list verdicts. Retain the current definitions through the remaining legality, profile, attachment, saved-ID and source review. | Unit composition, wargear, constraints, saved roster IDs, imports, legality, offline construction | Restore the previous definition and overlay pins. |
 | Game Datacards gameplay reference | `ebcd0cb`, faction and core files | [#7](https://github.com/richardsolomou/40k-catalogue/issues/7) | [Gameplay staging](gameplay-cutover.md) accounts for nine rules versions and 4,765 distinct inventory IDs in the released version. [v0.1.0](https://github.com/richardsolomou/40k-catalogue/releases/tag/v0.1.0) covers four mapped summaries. Remaining entries need reviewed mechanics. | Versioned ability matching, reference/API and offline output, client-text tests, rule facts used by the app | Restore the previous reference input and summary mapping. |
 | Game Datacards mission data | `ebcd0cb`, mission and layout files | [#8](https://github.com/richardsolomou/40k-catalogue/issues/8) | The [mission rehearsal](missions-terrain-cutover.md#mission-packs) validated four pack variants and checked all Combat Patrol detachment assignments. Chapter Approved agreed on 10,356 of 10,358 cases in both versions. Three older deployment slugs need verified mappings. | Mission and layout IDs, deployment, objectives, scoring cases, saved battle replay | Restore the previous mission and layout inputs together. |
 | Battlemaster geometry | `acabfa43bd2d7cabfc868789ff01c1d2f467e770baf1b77a5bf4c301ed3ab4e7` | [#9](https://github.com/richardsolomou/40k-catalogue/issues/9) | The [terrain rehearsal](missions-terrain-cutover.md#terrain) verified 50 layouts and 11 deployments, including two King of the Colosseum layouts. The private archives verify; the geometry still needs a recorded basis for reuse. | Chapter Approved and Combat Patrol maps, axes and orientation, walls and roofs, overlays, saved layout references | Restore the previous geometry pin and lookup. |
@@ -29,9 +29,9 @@ The current join checks use the consumer's source IDs and the candidate identity
 
 | Candidate join | Checked | Exact | Context required | Missing |
 | --- | --- | --- | --- | --- |
-| Mapped unit-price rows to a roster entry | 2,338 | 2,320 | 0 | 18 |
-| Reference datasheets to roster entries | 2,230 | 2,115 | 0 | 115 |
-| Localised unit, detachment and enhancement entries to a roster entry | 7,264 | 6,101 | 1,093 | 70 |
+| Mapped unit-price rows to a roster entry | 2,338 | 2,335 | 0 | 3 |
+| Reference datasheets to roster entries | 2,230 | 2,216 | 0 | 14 |
+| Localised unit, detachment and enhancement entries to a roster entry | 7,264 | 6,136 | 1,098 | 30 |
 
 The separate profile stage captures all 2,470 current unit profiles and 11,302 current weapon profiles by recognised field. Transport and other profiles are counted separately. The profile stage also accounts for 3,497 current attachment links, of which 314 lack a target entry ID. The candidate roster format still needs to represent these records and their joins.
 

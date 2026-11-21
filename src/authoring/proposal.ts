@@ -13,7 +13,7 @@ export type Check = {
   draft?: unknown;
 };
 export type Drafting = {
-  method: "by-hand" | "model-assisted";
+  method: "by-hand" | "model-assisted" | "structured-import";
   author: string;
   model?: string;
   modelInputs?: ("contributor-notes" | "structured-fields")[];
@@ -34,9 +34,12 @@ export function decide(value: unknown): Decision {
   }
   const result = validate(value.record);
   if (!result.ok) return { outcome: "held", reasons: result.errors.map((e) => (e.startsWith("/ ") ? `/record${e.slice(1)}` : `/record${e}`)) };
+  const { record } = result;
+  if (value.drafting.method === "structured-import" && !record.attribution) {
+    return { outcome: "held", reasons: ["a structured import requires record attribution"] };
+  }
   if (!value.review) return { outcome: "held", reasons: ["the proposal has not been reviewed"] };
 
-  const { record } = result;
   const gaps = new Set(result.gaps.map((g) => g.path));
   const parts = new Set([...reviewableParts(record), ...gaps]);
   const reasons: string[] = [];
@@ -86,7 +89,7 @@ export function publication(decision: Extract<Decision, { outcome: "approved" }>
 
 // Every part a reviewer must confirm, correct, or mark unresolved before a record is published.
 function reviewableParts(record: MechanicRecord): string[] {
-  const optional = (["usage", "duration", "restriction"] as const).filter((key) => record[key] !== undefined);
+  const optional = (["attribution", "usage", "duration", "restriction"] as const).filter((key) => record[key] !== undefined);
   const conditions = record.conditions.map((_, i) => `/conditions/${i}`);
   return ["/rulesVersion", "/source", "/trigger", "/target", ...conditions, "/effect", ...optional.map((key) => `/${key}`)];
 }

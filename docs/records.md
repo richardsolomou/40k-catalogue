@@ -11,6 +11,7 @@ A mechanic record describes one ability as structured data that any app can vali
 | `name` | Display name of the ability. |
 | `rulesVersion` | The `edition` and `update` the record was checked against. |
 | `source` | Source `title` and at least one of `page` or `url`, so a reviewer can find the printed rule. |
+| `attribution` | For an adapted record, the upstream `url`, pinned `revision`, contributor `credit`, `licence` URL and `changes` made to the input. |
 | `usage` | Optional CP cost, turn or phase windows, a once-per-turn limit, and bearer model eligibility. |
 | `trigger` | A phase boundary, move selection or ending, move made through a named ability, or model or unit destruction. Model destruction can specify that the window closes at a pending roll. |
 | `target` | The source unit, a unit or model bound by the trigger, or a unit selected by side, keywords, and range. A triggering model can carry a destroyed-target exception. |

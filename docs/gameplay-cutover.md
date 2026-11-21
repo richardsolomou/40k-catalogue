@@ -127,7 +127,7 @@ The 84 indexed Core Rules FAQ and errata entries have no match in the pinned PDF
 
 Eight faction launch packs match 193 indexed FAQ or errata entries, including 57 question-and-answer pairs and 136 errata. Those entries have the same content digest in all nine snapshots. Their applicability to the pinned October update remains open.
 
-The June print review produced 34 provisional FAQ summaries. Another 23 need clearer evidence for the condition, actor or scope of the answer. The private queue attaches this review to all 57 entries and verifies every summary link by record ID and digest in each version. October applicability remains unverified for this group.
+The June print review produced 34 provisional question-and-answer summaries and 14 provisional errata summaries. Holds cover 23 question-and-answer entries and 122 errata. Five errata drafts verify a replacement value whose earlier printed value remains unconfirmed. The private queue attaches this review to all 193 entries and verifies summary links by record ID and digest in each version.
 
 ### Verified keyword casing
 

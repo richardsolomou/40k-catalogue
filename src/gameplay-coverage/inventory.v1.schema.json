@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/src/gameplay-coverage/inventory.v1.schema.json",
+  "title": "Gameplay reference inventory",
+  "description": "The names and IDs of every gameplay reference entry a consumer reads for one rules version, without rules text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "rulesVersion", "source", "entries"],
+  "properties": {
+    "formatVersion": { "const": 1 },
+    "rulesVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["edition", "update"],
+      "properties": {
+        "edition": { "$ref": "#/$defs/text" },
+        "update": { "$ref": "#/$defs/text" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "revision": { "$ref": "#/$defs/text" },
+        "url": { "type": "string", "pattern": "^https://\\S+$" }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "id", "name"],
+        "properties": {
+          "kind": {
+            "enum": [
+              "army-rule",
+              "detachment-rule",
+              "stratagem",
+              "enhancement",
+              "unit-ability",
+              "core-stratagem",
+              "core-ability",
+              "weapon-ability"
+            ]
+          },
+          "id": { "$ref": "#/$defs/text" },
+          "name": { "$ref": "#/$defs/text" },
+          "group": { "$ref": "#/$defs/text" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1 }
+  }
+}

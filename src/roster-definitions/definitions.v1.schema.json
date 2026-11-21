@@ -77,6 +77,21 @@
         "faction": { "$ref": "#/$defs/id" },
         "keywords": { "$ref": "#/$defs/keywords" },
         "sizes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "integer", "minimum": 1 } },
+        "modelGroups": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["models", "min", "max"],
+            "properties": {
+              "models": { "allOf": [{ "$ref": "#/$defs/ids" }, { "type": "array", "minItems": 2 }] },
+              "min": { "$ref": "#/$defs/count" },
+              "max": { "$ref": "#/$defs/count" },
+              "bySize": { "$ref": "#/$defs/sizeBounds" }
+            }
+          }
+        },
         "perRoster": { "type": "integer", "minimum": 1 },
         "limits": {
           "type": "array",

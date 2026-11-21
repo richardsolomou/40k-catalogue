@@ -62,6 +62,27 @@ All 141 translated drafts have identical normalised source fingerprints, includi
 
 A match verifies the wording represented by both pins after normalisation. The printed source citation, proof of the official rules update and review of the structured mechanic remain separate steps.
 
+## Full summary coverage
+
+The private inventory covers 55,329 records across nine rules versions. Grouping identical source content within each category gives 7,339 distinct entries that need a summary. For the current version, the queue has 6,158 records across the following categories.
+
+| Category | Current records |
+| --- | ---: |
+| Gameplay references | 4,765 |
+| Keyword descriptions | 57 |
+| FAQs | 675 |
+| Rulebook sections | 421 |
+| Mission award criteria | 201 |
+| Mission card texts | 18 |
+| Mission actions | 15 |
+| Mission twists | 6 |
+
+The combined queue has 1,291 current drafts that passed the automated checks. Of these, 139 use native mechanic records and 1,152 use summaries rendered from pinned 40kdc structured fields. Two native translations are held because the source states a distance or modifier missing from the structure. The same checks hold candidate summaries when the source fingerprint or numeric evidence differs. Reuse across versions requires matching source content for the same qualified entry. That gives 11,458 versioned drafts across 1,132 distinct source entries.
+
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. Known link targets come from typed references. Printed uppercase keyword labels are retained when the source confirms them. The renderer's conformance and source checks support review of the drafts. Publication still requires a confirmed printed source, rules version and mechanics review.
+
+The current queue also records 1,488 entries held by unsupported structure, 130 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,085 needing authoring. The upstream renderer omits stratagem target restrictions. Native stratagem drafts are counted where complete, and extending typed target coverage remains part of [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+
 The same package has all 25 current Chapter Approved primary card names and 18 secondary card names, with the same number of award rows on each. It has no matches for the 26 current Combat Patrol primary cards. Its terrain data credits Battlemaster for 45 layouts and King of the Colosseum for one. These are separate checks from gameplay coverage. Mission conditions, scoring, source rights and geometry still need their own comparisons.
 
 ## Reproduce the staging output

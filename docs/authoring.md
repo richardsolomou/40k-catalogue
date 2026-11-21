@@ -14,16 +14,18 @@ Write the proposal as JSON outside `author-inputs/`. The contract is [src/author
 | --- | --- |
 | `proposalVersion` | Always `1`. |
 | `record` | The draft mechanic record, including its `source` page or URL and its `rulesVersion`. |
-| `drafting.method` | `by-hand` or `model-assisted`. |
+| `drafting.method` | `by-hand`, `model-assisted` or `structured-import` for a deterministic translation of structured fields. |
 | `drafting.author` | Who wrote the draft. |
 | `drafting.model`, `drafting.modelInputs` | Required for a model-assisted draft. Inputs can only be `contributor-notes` or `structured-fields`, so source prose cannot be declared as an input. |
 | `review` | Added by the reviewer: `reviewer`, `date`, and `checks`. |
 
 Put any part of the rule that the format cannot express into the record as a gap, as [records.md](records.md#gaps) describes. Do not approximate it.
 
+A structured import requires `record.attribution` with the upstream URL, pinned revision, contributor credit, licence URL and a description of changes. Review the upstream terms and check that they cover the fields being adapted. Keep the published rule reference in `record.source`. The attribution travels with the released record.
+
 ## Review it
 
-The reviewer compares every part of the draft against the source. A model-assisted draft gets the same review as a draft written by hand. Each check names a part by its JSON pointer into the record and gives one outcome:
+The reviewer compares every part of the draft against the source, regardless of how it was drafted. Each check names a part by its JSON pointer into the record and gives one outcome:
 
 | Outcome | When to use it |
 | --- | --- |
@@ -32,7 +34,7 @@ The reviewer compares every part of the draft against the source. A model-assist
 | `corrected` | The author fixed the part. Keep the wrong value in `draft` and the reason in `note`, so the correction stays on record. |
 | `unresolved` | The part is a gap in the record. Explain in `note` what is missing. |
 
-The reviewer must check `/rulesVersion`, `/source`, `/trigger`, `/target`, each `/conditions/<n>`, `/effect`, and `/usage`, `/duration`, and `/restriction` when they are present. The reviewer must also check every gap the validator reports, such as `/effect/ifBattleShocked`. Pay particular attention to timing, targets, durations, and exceptions.
+The reviewer must check `/rulesVersion`, `/source`, `/trigger`, `/target`, each `/conditions/<n>`, `/effect`, and `/attribution`, `/usage`, `/duration`, and `/restriction` when they are present. The reviewer must also check every gap the validator reports, such as `/effect/ifBattleShocked`. Pay particular attention to timing, targets, durations, and exceptions.
 
 ## Decide and publish
 

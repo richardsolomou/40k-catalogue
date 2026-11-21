@@ -1,0 +1,654 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/schema/mechanic.v1.schema.json",
+  "title": "Mechanic record, format version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "formatVersion",
+    "id",
+    "name",
+    "rulesVersion",
+    "source",
+    "trigger",
+    "target",
+    "conditions",
+    "effect"
+  ],
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"
+    },
+    "name": {
+      "$ref": "#/$defs/text"
+    },
+    "rulesVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "edition",
+        "update"
+      ],
+      "properties": {
+        "edition": {
+          "$ref": "#/$defs/text"
+        },
+        "update": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title"
+      ],
+      "anyOf": [
+        {
+          "required": [
+            "page"
+          ],
+          "type": "object"
+        },
+        {
+          "required": [
+            "url"
+          ],
+          "type": "object"
+        }
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "page": {
+          "$ref": "#/$defs/text"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://\\S+$"
+        }
+      }
+    },
+    "trigger": {
+      "if": {
+        "required": [
+          "unresolved"
+        ],
+        "type": "object"
+      },
+      "then": {
+        "$ref": "#/$defs/unresolved"
+      },
+      "else": {
+        "$ref": "#/$defs/trigger"
+      }
+    },
+    "target": {
+      "if": {
+        "required": [
+          "unresolved"
+        ],
+        "type": "object"
+      },
+      "then": {
+        "$ref": "#/$defs/unresolved"
+      },
+      "else": {
+        "$ref": "#/$defs/target"
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "if": {
+          "required": [
+            "unresolved"
+          ],
+          "type": "object"
+        },
+        "then": {
+          "$ref": "#/$defs/unresolved"
+        },
+        "else": {
+          "$ref": "#/$defs/condition"
+        }
+      }
+    },
+    "effect": {
+      "if": {
+        "required": [
+          "unresolved"
+        ],
+        "type": "object"
+      },
+      "then": {
+        "$ref": "#/$defs/unresolved"
+      },
+      "else": {
+        "$ref": "#/$defs/effect"
+      }
+    },
+    "duration": {
+      "if": {
+        "required": [
+          "unresolved"
+        ],
+        "type": "object"
+      },
+      "then": {
+        "$ref": "#/$defs/unresolved"
+      },
+      "else": {
+        "$ref": "#/$defs/duration"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "effect"
+        ],
+        "properties": {
+          "effect": {
+            "required": [
+              "kind"
+            ],
+            "properties": {
+              "kind": {
+                "enum": [
+                  "modify-roll",
+                  "modify-characteristic"
+                ]
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "required": [
+          "duration"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "effect"
+        ],
+        "properties": {
+          "effect": {
+            "required": [
+              "kind"
+            ],
+            "properties": {
+              "kind": {
+                "const": "mortal-wounds"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "duration": false
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "text": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "unresolved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unresolved"
+      ],
+      "properties": {
+        "unresolved": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "phase": {
+      "enum": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ]
+    },
+    "unitRef": {
+      "enum": [
+        "this-unit",
+        "triggering-unit",
+        "target"
+      ]
+    },
+    "unitFilter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "side"
+      ],
+      "properties": {
+        "side": {
+          "$ref": "#/$defs/side"
+        },
+        "keywords": {
+          "$ref": "#/$defs/keywords"
+        }
+      }
+    },
+    "range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inches",
+        "of"
+      ],
+      "properties": {
+        "inches": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "of": {
+          "$ref": "#/$defs/unitRef"
+        }
+      }
+    },
+    "kinded": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string"
+        }
+      }
+    },
+    "trigger": {
+      "$ref": "#/$defs/kinded",
+      "properties": {
+        "kind": {
+          "enum": [
+            "phase-start",
+            "phase-end",
+            "move-end"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "phase-start",
+                  "phase-end"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "phase",
+              "turn"
+            ],
+            "properties": {
+              "kind": true,
+              "phase": {
+                "$ref": "#/$defs/phase"
+              },
+              "turn": {
+                "enum": [
+                  "own",
+                  "opponent",
+                  "any"
+                ]
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "move-end"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "moves",
+              "unit"
+            ],
+            "properties": {
+              "kind": true,
+              "moves": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "normal",
+                    "advance",
+                    "fall-back",
+                    "charge"
+                  ]
+                }
+              },
+              "unit": {
+                "$ref": "#/$defs/unitFilter"
+              }
+            },
+            "type": "object"
+          }
+        }
+      ],
+      "type": "object"
+    },
+    "target": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "properties": {
+        "unit": {
+          "enum": [
+            "this-unit",
+            "triggering-unit"
+          ]
+        },
+        "select": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "side"
+          ],
+          "properties": {
+            "side": {
+              "$ref": "#/$defs/side"
+            },
+            "keywords": {
+              "$ref": "#/$defs/keywords"
+            },
+            "within": {
+              "$ref": "#/$defs/range"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "condition": {
+      "$ref": "#/$defs/kinded",
+      "properties": {
+        "kind": {
+          "enum": [
+            "status",
+            "within"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "status"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "unit",
+              "status",
+              "at"
+            ],
+            "properties": {
+              "kind": true,
+              "unit": {
+                "$ref": "#/$defs/unitRef"
+              },
+              "status": {
+                "enum": [
+                  "battle-shocked",
+                  "below-half-strength"
+                ]
+              },
+              "at": {
+                "enum": [
+                  "now",
+                  "phase-start",
+                  "turn-start"
+                ]
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "within"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "unit",
+              "inches",
+              "of"
+            ],
+            "properties": {
+              "kind": true,
+              "unit": {
+                "$ref": "#/$defs/unitRef"
+              },
+              "inches": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "of": {
+                "$ref": "#/$defs/unitRef"
+              }
+            },
+            "type": "object"
+          }
+        }
+      ],
+      "type": "object"
+    },
+    "effect": {
+      "$ref": "#/$defs/kinded",
+      "properties": {
+        "kind": {
+          "enum": [
+            "modify-roll",
+            "modify-characteristic",
+            "mortal-wounds"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "modify-roll"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "roll",
+              "by"
+            ],
+            "properties": {
+              "kind": true,
+              "roll": {
+                "enum": [
+                  "hit",
+                  "wound",
+                  "save",
+                  "advance",
+                  "charge",
+                  "battle-shock"
+                ]
+              },
+              "by": {
+                "$ref": "#/$defs/modifier"
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "modify-characteristic"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "characteristic",
+              "by"
+            ],
+            "properties": {
+              "kind": true,
+              "characteristic": {
+                "enum": [
+                  "move",
+                  "toughness",
+                  "save",
+                  "leadership",
+                  "objective-control",
+                  "attacks"
+                ]
+              },
+              "by": {
+                "$ref": "#/$defs/modifier"
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "mortal-wounds"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "amount"
+            ],
+            "properties": {
+              "kind": true,
+              "amount": {
+                "type": "string",
+                "pattern": "^(?:[1-9][0-9]*|[1-9]?D[36])$"
+              }
+            },
+            "type": "object"
+          }
+        }
+      ],
+      "type": "object"
+    },
+    "modifier": {
+      "type": "integer",
+      "not": {
+        "const": 0
+      }
+    },
+    "duration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "until"
+      ],
+      "properties": {
+        "until": {
+          "enum": [
+            "end-of-phase",
+            "end-of-turn",
+            "end-of-battle-round"
+          ]
+        }
+      }
+    },
+    "side": {
+      "enum": [
+        "friendly",
+        "enemy"
+      ]
+    },
+    "keywords": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    }
+  }
+}

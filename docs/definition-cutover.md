@@ -70,9 +70,9 @@ These are the differences the format or the reference implementation cannot clos
 8. **Shared datasheets.** 396 datasheets are offered by two or more factions and become 4,879 of the 6,233 unit records, one per faction. The format has no shared unit or offered-to relation, which is also why 1,539 units miss a price.
 9. **Ambiguous names.** Within a faction, 1,038 list units carry a name two units share, and 36,018 Praetorium wargear entries collapse onto 17,171 wargear names. Imports by name need the ambiguity resolved by ID or by [localisation](localisation.md) aliases.
 
-## What no format holds
+## Profiles and attachments at the baseline
 
-The current version's canonical catalogue has 2,230 datasheets. None of the following has a 40K Catalogue format, so none can be verified against one:
+The current version's canonical catalogue has 2,230 datasheets. The initial roster definition format left these structures out. The separate [profile rehearsal](datasheet-profiles.md#rehearsal) validates records and identifies the remaining gaps.
 
 | Structure | Count | Join to candidate IDs |
 | --- | ---: | --- |

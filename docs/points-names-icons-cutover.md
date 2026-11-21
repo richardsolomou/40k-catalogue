@@ -93,7 +93,7 @@ The inventory covers the current set and the three retained sets (`legacy-marine
 
 Run through `verifyIcon` under the closest stated term, CC BY-NC-SA 4.0, none of the 148 files passes. Every file fails the licence check, and none is recorded here as covered by a licence. 24 files per set also fail the structural check, because they open with an Illustrator or Inkscape generator comment before the `<svg>` element. All 37 have a `viewBox`, no scripts and no external references, and Praetorium's materializer accepts them. The comments carry no attribution.
 
-## What is ready for public release
+## Publication state at the baseline
 
 No converted record from this pass meets every criterion for release:
 
@@ -102,11 +102,11 @@ No converted record from this pass meets every criterion for release:
 - **Icons.** Non-commercial share-alike terms, and they depict marks that their own README attributes to Games Workshop.
 - **ID maps.** They join provisional slugs to BSData entry IDs, so they depend on the catalogue identity contract ([#14](https://github.com/richardsolomou/40k-catalogue/issues/14)) and on the points snapshot they point into.
 
-The only record that meets every criterion is already in Git. It is the `generic-hexagon` entry in [fixtures/icons/manifest.json](../fixtures/icons/manifest.json), an original MIT drawing that passes `verifyIcon`. The contributor-written [necrons.fr.json](../fixtures/localisation/candidates/necrons.fr.json) is original, but its names still need a reviewer with the French books.
+The `generic-hexagon` entry in [fixtures/icons/manifest.json](../fixtures/icons/manifest.json) was the original sample at the time of this audit. The separate [original marks release](https://github.com/richardsolomou/40k-catalogue/releases/tag/icons-v1.0.0) now supplies a full asset set. The contributor-written [necrons.fr.json](../fixtures/localisation/candidates/necrons.fr.json) still needs a reviewer with the French books.
 
 ## Remaining source dependence
 
 - Points stay on the community dataset until the project records a reuse basis and maps points rows to stable IDs.
 - Translations stay on New Recruit's project until a language has a source that permits redistribution and a measured import check.
-- Icons stay with their current source until original replacements exist for each faction family.
+- The original asset set is available. Assignments and online and offline verification belong to the consumer's icon cutover.
 - Praetorium's faction aliases, retained chapter books and dash folding are fixes in the consuming app. They are needed before its catalogue IDs can join a snapshot by ID rather than by name.

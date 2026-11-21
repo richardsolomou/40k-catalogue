@@ -104,7 +104,7 @@ With the qualified conversion, 114,042 of 129,002 wargear probes match, up from 
 
 ## Importing named model counts
 
-The private import replay supplied the named model breakdown already present in the translated roster to the optional `modelCounts` input. It compares counts by model ID, ignoring field order and explicit zeros. With only a total, the importer reproduced 58,077 of 70,789 unit compositions and wargear selections. With the named breakdown it reproduced 60,523. The rehearsal measures the import contract using known counts from translated lists. Extraction of the model names from original list text remains a consumer check. [Import contract](roster-definitions.md#reading-a-printed-list)
+The private import replay supplied the named model breakdown already present in the translated roster to the optional `modelCounts` input. It compares counts by model ID, ignoring field order and explicit zeros. With only a total, the importer reproduced 58,077 of 70,789 unit compositions and wargear selections. With the named breakdown it reproduced 60,523. The rehearsal measures the import contract using known counts from translated lists. Extraction of the model names from original list text remains a consumer check. [Import contract](roster-definitions.md#imports)
 
 ## Decision
 

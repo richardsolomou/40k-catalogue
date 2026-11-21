@@ -42,6 +42,14 @@ test("both rules versions form a valid identity history", () => {
   assert.deepEqual(historyErrors([v10.identity, v11.identity]), []);
 });
 
+test("unit options stay in ID order when input records arrive in reverse order", () => {
+  const { identity, records } = input("1.1");
+  const result = validateDefinitions(identity, records.toReversed());
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  const ids = result.definitions.optionsOf(WARDENS).map(({ id }) => id);
+  assert.deepEqual(ids, ["cannon", "carbines", "leader-weapon", "projector"].map((option) => `${WARDENS}.${option}`));
+});
+
 test("both rules versions build complete catalogue releases", () => {
   const dir = (version: string) => fileURLToPath(new URL(version, fixtures));
   const first = buildCatalogueRelease(dir("1.0"), { release: "0.1.0", commit: "0".repeat(40) });

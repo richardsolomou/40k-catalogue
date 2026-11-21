@@ -12,17 +12,21 @@ A mechanic record describes one ability as structured data that any app can vali
 | `rulesVersion` | The `edition` and `update` the record was checked against. |
 | `source` | Source `title` and at least one of `page` or `url`, so a reviewer can find the printed rule. |
 | `attribution` | For an adapted record, the upstream `url`, pinned `revision`, contributor `credit`, `licence` URL and `changes` made to the input. |
-| `usage` | Optional CP cost, turn or phase windows, a once-per-turn limit, and bearer model eligibility. |
-| `trigger` | A phase boundary, move selection or ending, move made through a named ability, or model or unit destruction. Model destruction can specify that the window closes at a pending roll. |
+| `usage` | Optional CP cost, turn or phase windows, a once-per-turn or once-per-phase limit, and bearer model eligibility. |
+| `trigger` | A phase boundary, movement event, destruction, an always-on effect, or a use the player chooses during a usage window. Model destruction can specify that the window closes at a pending roll. |
 | `target` | The source unit, a unit or model bound by the trigger, or a unit selected by side, keywords, and range. A triggering model can carry a destroyed-target exception. |
 | `conditions` | Checks that must all pass. A `status` condition reads a unit's state now, at the start of the phase, or at the start of the turn. A `within` condition checks distance between two units. |
 | `effect` | A roll or characteristic modifier, mortal wounds, a roll threshold, activation of a named ability, Desperate Escape tests, or a movement distance threshold. |
-| `duration` | How long the effect lasts. A roll threshold can be limited to a phase, and modifiers require a duration. Immediate effects such as mortal wounds apply at the trigger. |
+| `duration` | How long the effect lasts. A roll threshold can be limited to a phase, and modifiers require a duration unless they are always on. Immediate effects such as mortal wounds require a discrete trigger. |
 | `restriction` | An optional second consequence checked at the end of a move, such as a charge restriction based on its endpoint. |
 
 Conditions and ranges can refer to the source unit, the target, or a participant the trigger introduces. A unit-destruction trigger also binds the unit that made the kill. A model-destruction trigger binds the destroyed model. A `within` condition measures between two different units.
 
 When the target is selected, a condition that mentions `target` restricts which unit can be selected. Other conditions are checked when the trigger fires, before anything is selected.
+
+## Timing
+
+An `always` trigger applies a continuous effect while the ability is in play and its conditions hold. It takes no duration, selected target, CP cost, window or usage limit. A `use` trigger lets the player choose when to use the ability during one of its `usage.windows`. Use explicit timing from the source for either trigger. Missing timing remains a gap.
 
 ## Gaps
 

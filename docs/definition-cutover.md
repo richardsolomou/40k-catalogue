@@ -102,6 +102,10 @@ The roster format now supports absolute model counts, option bounds and individu
 
 With the qualified conversion, 114,042 of 129,002 wargear probes match, up from 113,824. All 36 faction record sets and the merged 42,643-record release validate. Whole-list agreement stays at 3,619 of 4,842, and unit verdicts agree in 69,188 of 70,789 cases. The new per-model bounds and import behavior are verified with synthetic cases. A source conversion still needs to supply the bounds for mixed-model compositions.
 
+## Importing named model counts
+
+The private import replay supplied the named model breakdown already present in the translated roster to the optional `modelCounts` input. It compares counts by model ID, ignoring field order and explicit zeros. With only a total, the importer reproduced 58,077 of 70,789 unit compositions and wargear selections. With the named breakdown it reproduced 60,523. The rehearsal measures the import contract using known counts from translated lists. Extraction of the model names from original list text remains a consumer check. [Import contract](roster-definitions.md#imports)
+
 ## Decision
 
 Retain the current definitions. Whole-list verdicts agree in 74.7% of cases. Mixed composition and option caps account for most option differences, shared datasheets are duplicated per faction, and there is no recorded reuse basis for the source. The format needs to cover gaps 1 to 4 and 8, plus profiles and attachments. Gaps 5 to 7 need a comparison against the consumer's roster rules. [Roster compatibility issue](https://github.com/richardsolomou/40k-catalogue/issues/39)

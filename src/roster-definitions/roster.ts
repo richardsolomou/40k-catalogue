@@ -160,15 +160,38 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
   return problems;
 }
 
-/** A unit as a list prints it: its name, model count, and the names of wargear taken beyond the default loadout. */
-export type PrintedUnit = { name: string; models: number; wargear?: Record<string, number> };
+/** A printed unit with its total model count and, when present, its complete breakdown by model name. */
+export type PrintedUnit = { name: string; models: number; modelCounts?: Record<string, number>; wargear?: Record<string, number> };
 export type ImportMiss = {
-  code: "unknown-unit" | "ambiguous-unit" | "ambiguous-models" | "model-count-mismatch" | "unknown-wargear" | "ambiguous-wargear";
+  code: "unknown-unit" | "ambiguous-unit" | "unknown-model" | "ambiguous-models" | "model-count-mismatch" | "unknown-wargear" | "ambiguous-wargear";
   name: string;
 };
 export type ImportResult = { ok: true; unit: RosterUnit } | { ok: false; misses: ImportMiss[] };
 
 const same = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
+
+function importedModelCounts(models: Definition<"model">[], printed: PrintedUnit, misses: ImportMiss[]): Record<string, number> {
+  if (printed.modelCounts) {
+    const counts: Record<string, number> = Object.fromEntries(models.map(({ id }) => [id, 0]));
+    for (const [name, quantity] of Object.entries(printed.modelCounts)) {
+      const matches = models.filter((model) => same(model.name, name));
+      if (matches.length !== 1) misses.push({ code: matches.length ? "ambiguous-models" : "unknown-model", name });
+      else if (!Number.isSafeInteger(quantity) || quantity < 0) misses.push({ code: "model-count-mismatch", name });
+      else counts[matches[0]!.id] += quantity;
+    }
+    if (!misses.length && (!Number.isSafeInteger(printed.models) || Object.values(counts).reduce((sum, n) => sum + n, 0) !== printed.models)) {
+      misses.push({ code: "model-count-mismatch", name: printed.name });
+    }
+    return counts;
+  }
+
+  const bounds = models.map((m) => ({ id: m.id, ...modelBounds(m.data, printed.models) }));
+  const variable = bounds.filter(({ min, max }) => min !== max);
+  const fixed = bounds.filter(({ min, max }) => min === max).reduce((sum, { min }) => sum + min, 0);
+  if (variable.length > 1) misses.push({ code: "ambiguous-models", name: printed.name });
+  if (variable.length === 0 && printed.models !== fixed) misses.push({ code: "model-count-mismatch", name: printed.name });
+  return Object.fromEntries(bounds.map((m) => [m.id, m === variable[0] ? printed.models - fixed : m.min]));
+}
 
 /**
  * Reads a printed unit into catalogue IDs by exact name, never by similarity. Legality is `checkRoster`'s job,
@@ -180,14 +203,8 @@ export function importUnit(definitions: Definitions, faction: string, printed: P
   const unit = units[0]!;
   const misses: ImportMiss[] = [];
 
-  // Fixed models stay at their count; the one variable model takes the rest.
   const models = definitions.modelsOf(unit.id);
-  const bounds = models.map((m) => ({ id: m.id, ...modelBounds(m.data, printed.models) }));
-  const variable = bounds.filter(({ min, max }) => min !== max);
-  const fixed = bounds.filter(({ min, max }) => min === max).reduce((sum, { min }) => sum + min, 0);
-  if (variable.length > 1) misses.push({ code: "ambiguous-models", name: printed.name });
-  if (variable.length === 0 && printed.models !== fixed) misses.push({ code: "model-count-mismatch", name: printed.name });
-  const counts = Object.fromEntries(bounds.map((m) => [m.id, m === variable[0] ? printed.models - fixed : m.min]));
+  const counts = importedModelCounts(models, printed, misses);
 
   const options = new Map<string, Record<string, number>>();
   const defaults = new Set(models.flatMap((m) => m.data.wargear));

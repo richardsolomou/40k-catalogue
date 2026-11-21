@@ -96,6 +96,12 @@ Keywords come from Praetorium's definitions. They differ from the canonical data
 
 At `mfm-1-6` the private ID map takes Praetorium's 36 catalogue IDs, 445 detachments, 1,250 detachment and enhancement pairs, 6,233 datasheets, 8,813 model entries, 9,143 choice paths and 36,018 wargear entries onto catalogue IDs. The 9,143 choice paths include those of the 33 left-out units, and the Warlord toggles map to nothing. The map is many-to-one for model entries, choice paths and wargear, as in the Necrons pilot.
 
+## Size-specific bounds rerun
+
+The roster format now supports absolute model counts, option bounds and individual choice caps at a declared unit size. The private converter added size-specific option bounds only when the reference builder exposed the same option at every size, the built composition had the requested size, and the bound applied to the whole unit. Choice caps also required the same choice to be visible at each size. Taking a missing choice as an observed zero caused 31 fewer whole-list matches in an earlier run.
+
+With the qualified conversion, 114,042 of 129,002 wargear probes match, up from 113,824. All 36 faction record sets and the merged 42,643-record release validate. Whole-list agreement stays at 3,619 of 4,842, and unit verdicts agree in 69,188 of 70,789 cases. The new per-model bounds and import behavior are verified with synthetic cases. A source conversion still needs to supply the bounds for mixed-model compositions.
+
 ## Decision
 
 Retain the current definitions. Whole-list verdicts agree in 74.7% of cases. Mixed composition and option caps account for most option differences, shared datasheets are duplicated per faction, and there is no recorded reuse basis for the source. The format needs to cover gaps 1 to 4 and 8, plus profiles and attachments. Gaps 5 to 7 need a comparison against the consumer's roster rules. [Roster compatibility issue](https://github.com/richardsolomou/40k-catalogue/issues/39)

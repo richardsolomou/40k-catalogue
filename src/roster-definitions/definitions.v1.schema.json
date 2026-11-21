@@ -8,6 +8,33 @@
     "ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
     "keywords": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/text" } },
     "count": { "type": "integer", "minimum": 0 },
+    "sizeBounds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["size", "min", "max"],
+        "properties": {
+          "size": { "type": "integer", "minimum": 1 },
+          "min": { "$ref": "#/$defs/count" },
+          "max": { "$ref": "#/$defs/count" }
+        }
+      }
+    },
+    "sizeMaxima": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["size", "max"],
+        "properties": {
+          "size": { "type": "integer", "minimum": 1 },
+          "max": { "$ref": "#/$defs/count" }
+        }
+      }
+    },
     "choices": { "allOf": [{ "$ref": "#/$defs/ids" }, { "type": "array", "minItems": 1 }] },
     "per": {
       "oneOf": [
@@ -73,6 +100,7 @@
         "unit": { "$ref": "#/$defs/id" },
         "min": { "$ref": "#/$defs/count" },
         "max": { "type": "integer", "minimum": 1 },
+        "bySize": { "$ref": "#/$defs/sizeBounds" },
         "wargear": { "$ref": "#/$defs/ids" }
       }
     },
@@ -90,6 +118,7 @@
           "properties": { "min": { "$ref": "#/$defs/count" }, "max": { "type": "integer", "minimum": 1 } }
         },
         "per": { "$ref": "#/$defs/per" },
+        "bySize": { "$ref": "#/$defs/sizeBounds" },
         "uniform": { "const": true },
         "replaces": { "$ref": "#/$defs/ids" },
         "choices": { "$ref": "#/$defs/choices" },
@@ -100,7 +129,12 @@
             "type": "object",
             "additionalProperties": false,
             "required": ["choices", "max"],
-            "properties": { "choices": { "$ref": "#/$defs/choices" }, "max": { "type": "integer", "minimum": 1 }, "per": { "$ref": "#/$defs/per" } }
+            "properties": {
+              "choices": { "$ref": "#/$defs/choices" },
+              "max": { "type": "integer", "minimum": 1 },
+              "per": { "$ref": "#/$defs/per" },
+              "bySize": { "$ref": "#/$defs/sizeMaxima" }
+            }
           }
         },
         "requires": {

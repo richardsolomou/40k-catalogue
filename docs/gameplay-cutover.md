@@ -77,15 +77,19 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 2,194 current drafts that passed automated checks, including 625 stratagems. Of these, 139 use native mechanic records, 1,984 come from pinned 40kdc structured fields, and 71 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Eight drafts that repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 19,525 versioned drafts across 2,022 distinct pieces of source content.
+The combined queue has 2,208 current drafts that passed automated checks, including 636 stratagems. Of these, 139 use native mechanic records, 1,995 come from pinned 40kdc structured fields, and 74 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Eight drafts that repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 19,651 versioned drafts across 2,036 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,379 with bold spans and 1,235 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Fifty-eight of the 72 linked destinations have drafts. The other fourteen remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,393 with bold spans and 1,249 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Fifty-nine of the 79 linked destinations have drafts. The other twenty remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 571 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,014 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 560 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,011 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
 ### CP and Miracle dice
 
 The player resource comparison adds 23 drafts covering 18 CP gains and five Miracle dice gains. For these effects the pinned compiler emits a constant target field, and both renderers describe the player as the recipient. Across 50 candidate fields, the checks varied all other unit references without changing the summary, then varied the amount to verify the gain clause. Three drafts were rewritten from their structured fields to avoid shared source phrasing. Five other entries remain held because the renderer reproduced the reference wording.
+
+### Stratagems with exclusive target options
+
+Eleven stratagem drafts now describe two mutually exclusive target options and preserve the recipients for each option. The checks cover one friendly target entry per mode, different target names and matching effect steps that differ only in their recipient. Twenty-one multi-target entries remain held, including cases with a mode-specific cost, targets selected together and relationships between targets.
 
 ### Linked core and weapon rules
 
@@ -127,9 +131,15 @@ The opposing player declares allocation order. The draft records the priority fo
 
 ### Engagement and visibility
 
-The Engagement draft records the horizontal and vertical distances, the base measurement rule and which models and units become engaged. Its reference's 9-inch passage comes from the Coherency illustration. Shooting, charge and fight drafts link to Engagement by ID. Measuring Distances still needs its own draft. [Core Rules, pp. 9, 14–15](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=14)
+The Engagement draft records the horizontal and vertical distances, the base measurement rule and which models and units become engaged. Its reference's 9-inch passage comes from the Coherency illustration. Shooting, charge and fight drafts link to Engagement by ID. The linked Frame rule supplies the measurement point for FRAME models. Measuring Distances remains held for additional reference definitions, including wholly within. [Core Rules, pp. 9, 14–15 and 62](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=14)
 
-The Visibility draft records the line-of-sight test and the distinctions between visible and fully visible models and units. It remains held because the reference adds a default observer for cases where a rule leaves the observer unspecified. The audit found no counterpart for that clause in the printed rules or FAQ. [Core Rules, pp. 24–25](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=24)
+The Visibility draft records the line-of-sight test and the distinctions between visible and fully visible models and units. It remains held because the reference adds a default observer for cases where a rule leaves the observer unspecified. The audit found no counterpart for that clause in the printed rules or FAQ, including under Snap Shooting and Plunging Fire. [Core Rules, pp. 24–25](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=24)
+
+### Coherency and cover
+
+Coherency records the two distance tests for each model, the End of Turn removal procedure and the FAQ for models added during a phase. The mission-scoring consequence of removals remains open. [Core Rules, pp. 14–15 and 88](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=14)
+
+The Terrain And Visibility draft links to its four rules. Benefit of Cover records the conditions each target model must satisfy and the one-step worsening of the attack's BS. The draft leaves open what happens when the required roll exceeds the die's range. [Core Rules, pp. 50–51](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=50)
 
 ### Direct structure pilot
 

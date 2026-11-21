@@ -23,7 +23,7 @@ Use distinct project IDs and an explicit rules version. Verify mappings to consu
 
 ## Catalogue transition
 
-These are the migration work items. The source inventory records exactly which app features use each input and identifies any gaps in provenance or coverage. [Praetorium source manifest baseline](https://github.com/richardsolomou/praetorium.gg/blob/a9b4a5b3d37484f696b275d0b0e10b89ca07c325/catalogue/sources.json) · [Catalogue composition baseline](https://github.com/richardsolomou/praetorium.gg/blob/a9b4a5b3d37484f696b275d0b0e10b89ca07c325/catalogue/composition.json)
+These are the migration work items. The [source inventory](source-inventory.md) records exactly which app features use each input and identifies any gaps in provenance or coverage. [Praetorium source manifest baseline](https://github.com/richardsolomou/praetorium.gg/blob/a9b4a5b3d37484f696b275d0b0e10b89ca07c325/catalogue/sources.json) · [Catalogue composition baseline](https://github.com/richardsolomou/praetorium.gg/blob/a9b4a5b3d37484f696b275d0b0e10b89ca07c325/catalogue/composition.json)
 
 | Input | Migration issue |
 | --- | --- |

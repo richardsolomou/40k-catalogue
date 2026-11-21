@@ -1,0 +1,671 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/src/mission-packs/mission-pack.v1.schema.json",
+  "title": "Mission pack, format version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "formatVersion",
+    "kind",
+    "id",
+    "name",
+    "rulesVersion",
+    "source",
+    "battleRounds",
+    "battleReady",
+    "caps",
+    "dispositions",
+    "deployments",
+    "layouts",
+    "primaries",
+    "secondaries",
+    "twists"
+  ],
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "kind": {
+      "const": "mission-pack"
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "name": {
+      "$ref": "#/$defs/text"
+    },
+    "rulesVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "edition",
+        "update"
+      ],
+      "properties": {
+        "edition": {
+          "$ref": "#/$defs/text"
+        },
+        "update": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "battleRounds": {
+      "if": {
+        "type": "object",
+        "required": [
+          "unresolved"
+        ]
+      },
+      "then": {
+        "$ref": "#/$defs/unresolved"
+      },
+      "else": {
+        "$ref": "#/$defs/battleRounds"
+      }
+    },
+    "battleReady": {
+      "if": {
+        "type": "object",
+        "required": [
+          "unresolved"
+        ]
+      },
+      "then": {
+        "$ref": "#/$defs/unresolved"
+      },
+      "else": {
+        "$ref": "#/$defs/battleReady"
+      }
+    },
+    "caps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary",
+        "secondary",
+        "fixedSecondaryPerCard"
+      ],
+      "properties": {
+        "primary": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/cap"
+          }
+        },
+        "secondary": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/cap"
+          }
+        },
+        "fixedSecondaryPerCard": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/cap"
+          }
+        }
+      }
+    },
+    "dispositions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/named"
+      },
+      "minItems": 1
+    },
+    "deployments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/named"
+      },
+      "minItems": 1
+    },
+    "layouts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "deployments"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "name": {
+            "$ref": "#/$defs/text"
+          },
+          "deployments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/id"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "primaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "source",
+          "pairings",
+          "awards"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "name": {
+            "$ref": "#/$defs/text"
+          },
+          "source": {
+            "$ref": "#/$defs/source"
+          },
+          "pairings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "friendly",
+                "opposition",
+                "deployments",
+                "layouts"
+              ],
+              "properties": {
+                "friendly": {
+                  "$ref": "#/$defs/id"
+                },
+                "opposition": {
+                  "$ref": "#/$defs/id"
+                },
+                "deployments": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "uniqueItems": true
+                },
+                "layouts": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "uniqueItems": true
+                }
+              }
+            }
+          },
+          "awards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/award"
+            },
+            "minItems": 1
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "secondaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "source",
+          "modes",
+          "awards"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "name": {
+            "$ref": "#/$defs/text"
+          },
+          "source": {
+            "$ref": "#/$defs/source"
+          },
+          "modes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/mode"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "awards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/award"
+            },
+            "minItems": 1
+          },
+          "whenDrawn": {
+            "if": {
+              "type": "object",
+              "required": [
+                "unresolved"
+              ]
+            },
+            "then": {
+              "$ref": "#/$defs/unresolved"
+            },
+            "else": {
+              "$ref": "#/$defs/whenDrawn"
+            }
+          }
+        }
+      }
+    },
+    "twists": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "source",
+          "changesPrimary",
+          "effect"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "name": {
+            "$ref": "#/$defs/text"
+          },
+          "source": {
+            "$ref": "#/$defs/source"
+          },
+          "changesPrimary": {
+            "type": "boolean"
+          },
+          "effect": {
+            "if": {
+              "type": "object",
+              "required": [
+                "unresolved"
+              ]
+            },
+            "then": {
+              "$ref": "#/$defs/unresolved"
+            },
+            "else": {
+              "$ref": "#/$defs/summary"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"
+    },
+    "unresolved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unresolved"
+      ],
+      "properties": {
+        "unresolved": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "page": {
+          "$ref": "#/$defs/text"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://"
+        }
+      },
+      "anyOf": [
+        {
+          "type": "object",
+          "required": [
+            "page"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "url"
+          ]
+        }
+      ]
+    },
+    "named": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary"
+      ],
+      "properties": {
+        "summary": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "battleRounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "count"
+      ],
+      "properties": {
+        "count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "battleReady": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vp"
+      ],
+      "properties": {
+        "vp": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "cap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "perRound": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "perBattle": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "minProperties": 1
+    },
+    "phase": {
+      "enum": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ]
+    },
+    "turn": {
+      "enum": [
+        "own",
+        "opponent",
+        "any"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "fixed",
+        "tactical"
+      ]
+    },
+    "rounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "from": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "to": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "minProperties": 1
+    },
+    "window": {
+      "type": "object",
+      "required": [
+        "at"
+      ],
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "at",
+            "phase",
+            "turn"
+          ],
+          "properties": {
+            "at": {
+              "const": "phase-end"
+            },
+            "phase": {
+              "$ref": "#/$defs/phase"
+            },
+            "turn": {
+              "$ref": "#/$defs/turn"
+            },
+            "rounds": {
+              "$ref": "#/$defs/rounds"
+            },
+            "orBattleEnd": {
+              "const": true
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "at",
+            "turn"
+          ],
+          "properties": {
+            "at": {
+              "const": "turn-end"
+            },
+            "turn": {
+              "$ref": "#/$defs/turn"
+            },
+            "rounds": {
+              "$ref": "#/$defs/rounds"
+            },
+            "orBattleEnd": {
+              "const": true
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "at"
+          ],
+          "properties": {
+            "at": {
+              "const": "battle-end"
+            }
+          }
+        }
+      ]
+    },
+    "award": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "vp",
+        "count",
+        "criterion",
+        "windows"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "vp": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "count": {
+          "enum": [
+            "once",
+            "each"
+          ]
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "modes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/mode"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "exclusive": {
+          "$ref": "#/$defs/id"
+        },
+        "criterion": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/summary"
+          }
+        },
+        "windows": {
+          "type": "array",
+          "items": {
+            "if": {
+              "type": "object",
+              "required": [
+                "unresolved"
+              ]
+            },
+            "then": {
+              "$ref": "#/$defs/unresolved"
+            },
+            "else": {
+              "$ref": "#/$defs/window"
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "whenDrawn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "required"
+      ],
+      "properties": {
+        "action": {
+          "const": "redraw"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "untilRound": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "ifActive": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    }
+  }
+}

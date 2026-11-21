@@ -77,11 +77,11 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 2,338 current drafts that passed automated checks, including 651 stratagems. Of these, 139 use native mechanic records, 2,064 come from pinned 40kdc structured fields, and 135 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Sixteen drafts with repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 20,807 versioned drafts across 2,161 distinct pieces of source content.
+The combined queue has 2,392 current drafts that passed automated checks, including 680 stratagems. Of these, 139 use native mechanic records, 2,114 come from pinned 40kdc structured fields, and 139 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Twenty-seven drafts with repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 21,293 versioned drafts across 2,215 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,466 with bold spans and 1,331 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Eighty-six of the 124 linked destinations have drafts. The other 38 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,511 with bold spans and 1,372 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Eighty-eight of the 125 linked destinations have drafts. The other 37 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 491 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 2,950 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 441 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 2,946 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
 ### CP and Miracle dice
 
@@ -100,6 +100,12 @@ Four stratagem drafts specify that the chosen friendly unit must be one the trig
 The recipient audit examined 70 entries where the effect recipient was the sole reported hold. Fifty-one passed for the current version, with 451 added drafts across all nine versions. The comparison checks whether the compiler fixes the recipient for an effect or copies it from the same side that the summary names. Tests distinguish alternate recipients, ownership, phase and duration even when the two renderers produce the same words.
 
 Nineteen stay held for source mismatches, ambiguous recipients, missing selectors or other mechanics that the typed fields leave open. Four of these need a shared trigger restriction, a shooting replacement, a conditional payment or a move-scoped embark restriction represented. Eight summaries were rewritten from verified mechanics. Six Fire Overwatch restrictions link to the core rule.
+
+### Keyword casing, target selectors and duration
+
+Exact casing and bold checks recover 21 stratagem drafts. Two additional repairs remain held because the typed records lack a distance. Five stratagem selectors pass exact checks for event history and eligibility. The follow-up recipient pass adds 11 drafts where pinned witnesses account for all held recipient fields.
+
+Thirteen designation drafts pass after confirming that the designation's duration and the enclosing duration are identical. Eleven of these need original wording. Two visibility actors and one keyword casing case remain held.
 
 ### Linked core and weapon rules
 
@@ -124,6 +130,10 @@ End of Command Phase resolves triggered non-mission rules before both players ch
 ### Leadership and Battle-shock
 
 Leadership Rolls and Battle-shock Rolls pass across all nine versions. The extra Datacards sentences identify alternate names for the same rolls. The Battle-shock summary covers the effects of failing, including Objective Control being set to a dash, Stratagem targeting and Actions. Its Command-phase recovery is tracked in the Battle-Shock Step. Dice and Profiles remain held for additional mechanics in Datacards. [Core Rules, pp. 9–10 and 30](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=9)
+
+### Datasheets, Stratagems and Actions
+
+The Datasheets and Wargear Options drafts pass across all nine versions. Five other datasheet entries retain source or clause holds, alongside the existing Profiles hold. The Stratagems and Actions overviews pass and resolve existing Battle-shock links. Performing Actions retains holds for slash notation, which Objective Control the eligibility test reads, what happens to an interrupted Action after Battle-shock and how the Objective Control dash enters the control total. [Core Rules, pp. 10–11 and 54–58](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=54)
 
 ### Shooting, charge and fight modes
 

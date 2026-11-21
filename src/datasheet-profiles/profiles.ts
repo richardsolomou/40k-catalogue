@@ -133,7 +133,7 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
       if (!target || target.retired) errors.push(`${at} names ${key(ref.kind, ref.id)}, which is not current in the identity release`);
       else if (!entry.references?.some((r) => r.kind === ref.kind && r.id === ref.id)) errors.push(`${at} names ${key(ref.kind, ref.id)} but its identity entry does not reference it`);
     }
-    const gapped = new Set((data.gaps ?? []).map((g: Gap) => g.field));
+    const gapped = new Set((profile.data.gaps ?? []).map((gap) => gap.field));
     for (const field of gapped) {
       if (field === "unit" || field === "gaps" || !Object.hasOwn(schema.$defs[kind].properties, field)) {
         errors.push(`${at} has a gap for unknown field ${field}`);

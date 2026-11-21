@@ -4,7 +4,13 @@ import { Ajv2020 } from "ajv/dist/2020.js";
 import identitySchema from "../catalogue-identity/release.v1.schema.json" with { type: "json" };
 import { historyErrors, resolve, validateRelease, type Ref, type Release, type RulesVersion } from "../catalogue-identity/identity.ts";
 import profilesSchema from "../datasheet-profiles/profiles.v1.schema.json" with { type: "json" };
+import localisationSchema from "../localisation/localisation.v1.schema.json" with { type: "json" };
+import missionPackSchema from "../mission-packs/mission-pack.v1.schema.json" with { type: "json" };
+import pointsHistorySchema from "../points/history.v1.schema.json" with { type: "json" };
+import pointsSchema from "../points/points.v1.schema.json" with { type: "json" };
 import { canonicalJson, checkReleaseFiles, releaseFiles, sha256, type ReleaseFiles } from "../releases/release.ts";
+import rosterSchema from "../roster-definitions/definitions.v1.schema.json" with { type: "json" };
+import terrainSchema from "../terrain/terrain.v1.schema.json" with { type: "json" };
 import categoriesSchema from "./categories.v1.schema.json" with { type: "json" };
 import definitionsSchema from "./definitions.v1.schema.json" with { type: "json" };
 import manifestSchema from "./manifest.v1.schema.json" with { type: "json" };
@@ -58,6 +64,12 @@ const SCHEMAS = new Map<string, object>([
   ["schema/catalogue-releases/manifest.v1.schema.json", manifestSchema],
   ["schema/catalogue-releases/record.v1.schema.json", recordSchema],
   ["schema/datasheet-profiles/profiles.v1.schema.json", profilesSchema],
+  ["schema/localisation/localisation.v1.schema.json", localisationSchema],
+  ["schema/mission-packs/mission-pack.v1.schema.json", missionPackSchema],
+  ["schema/points/history.v1.schema.json", pointsHistorySchema],
+  ["schema/points/points.v1.schema.json", pointsSchema],
+  ["schema/roster-definitions/definitions.v1.schema.json", rosterSchema],
+  ["schema/terrain/terrain.v1.schema.json", terrainSchema],
 ]);
 
 const ajv = new Ajv2020({ allErrors: true }).addSchema(definitionsSchema);
@@ -92,6 +104,7 @@ export function buildCatalogueRelease(
   if (!categoriesOk) errors.push(...schemaErrors("categories.json", checkCategories.errors));
   if (errors.length > 0 || !identityResult.ok || !categoriesOk) return { ok: false, errors: errors.sort() };
   const identity = identityResult.release;
+  const entryByKey = new Map(identity.entries.map((entry) => [key(entry), entry]));
   const declared = [...(categoriesValue as Categories).categories].sort((a, b) => (a.name < b.name ? -1 : 1));
 
   const categoryOf = new Map<string, string>();
@@ -128,7 +141,8 @@ export function buildCatalogueRelease(
       }
       const k = key(value);
       if (categoryOf.get(value.kind) !== entry.name) errors.push(`${where}: ${value.kind} does not belong to ${entry.name}`);
-      const status = resolve(identity, value).status;
+      const identityEntry = entryByKey.get(k);
+      const status = identityEntry ? (identityEntry.retired ? "retired" : "current") : resolve(identity, value).status;
       if (status !== "current") errors.push(`${where}: ${k} is ${status} in ${IDENTITY}`);
       if (!sameVersion(value.rulesVersion, identity.rulesVersion)) errors.push(`${where}: rules version differs from ${IDENTITY}`);
       if (records.has(k)) errors.push(`${where}: duplicates ${k}`);
@@ -155,7 +169,7 @@ export function buildCatalogueRelease(
     const unresolvedReferences: Category["unresolvedReferences"] = [];
     const dependsOn = new Set<string>();
     for (const from of own) {
-      for (const to of identity.entries.find((e) => key(e) === key(from))!.references ?? []) {
+      for (const to of entryByKey.get(key(from))!.references ?? []) {
         const target = categoryOf.get(to.kind)!;
         if (target !== name) dependsOn.add(target);
         if (included.has(target) && !records.has(key(to))) unresolvedReferences.push({ from, to: { kind: to.kind, id: to.id } });

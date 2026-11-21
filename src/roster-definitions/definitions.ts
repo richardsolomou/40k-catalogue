@@ -14,6 +14,7 @@ export type UnitData = {
   faction: string;
   keywords: string[];
   sizes: number[];
+  modelGroups?: (ModelCountBounds & { models: string[] })[];
   perRoster?: number;
   limits?: { battleSize: string; perRoster: number }[];
   legends?: true;
@@ -22,7 +23,8 @@ export type UnitData = {
 type Bounds = { min: number; max: number };
 type SizeBounds = Bounds & { size: number };
 type SizeMaximum = { size: number; max: number };
-export type ModelData = Bounds & { unit: string; wargear: string[]; bySize?: SizeBounds[] };
+type ModelCountBounds = Bounds & { bySize?: SizeBounds[] };
+export type ModelData = ModelCountBounds & { unit: string; wargear: string[] };
 /** Scales a bound by each carrier model, or by every `models` models in the unit; absent means once per unit. */
 export type Per = "carrier" | { models: number };
 export type OptionData = {
@@ -68,7 +70,7 @@ export type DefinitionsValidation = { ok: true; definitions: Definitions } | { o
 
 export const KINDS: DefinitionKind[] = ["faction", "battle-size", "detachment", "enhancement", "unit", "model", "roster-option", "wargear"];
 
-export function modelBounds(model: ModelData, size: number): Bounds {
+export function modelBounds(model: ModelCountBounds, size: number): Bounds {
   return model.bySize?.find((bounds) => bounds.size === size) ?? model;
 }
 
@@ -84,7 +86,11 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
     case "enhancement":
       return refs("detachment", [data.detachment]);
     case "unit":
-      return [...refs("faction", [data.faction]), ...refs("battle-size", data.limits?.map((l: { battleSize: string }) => l.battleSize))];
+      return [
+        ...refs("faction", [data.faction]),
+        ...refs("battle-size", data.limits?.map((l: { battleSize: string }) => l.battleSize)),
+        ...refs("model", (data as UnitData).modelGroups?.flatMap((group) => group.models)),
+      ];
     case "model":
       return [...refs("unit", [data.unit]), ...refs("wargear", data.wargear)];
     case "roster-option":
@@ -180,6 +186,15 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       const least = bounds.reduce((sum, { min }) => sum + min, 0);
       const most = bounds.reduce((sum, { max }) => sum + max, 0);
       if (models.length > 0 && (size < least || size > most)) errors.push(`${at} size ${size} is outside its models' ${least}-${most}`);
+    }
+    for (const [i, group] of (unit.data.modelGroups ?? []).entries()) {
+      const path = `${at} modelGroups/${i}`;
+      if (group.min > group.max) errors.push(`${path} min is above max`);
+      if (group.bySize) checkSizeBounds(`${path} bySize`, group.bySize, unit.id);
+      for (const id of group.models) {
+        const model = get("model", id);
+        if (model && model.data.unit !== unit.id) errors.push(`${path} names model:${id}, which belongs to another unit`);
+      }
     }
     const battleSizes = unit.data.limits?.map((l) => l.battleSize) ?? [];
     for (const id of new Set(battleSizes)) if (battleSizes.indexOf(id) !== battleSizes.lastIndexOf(id)) errors.push(`${at} limits battle-size:${id} more than once`);

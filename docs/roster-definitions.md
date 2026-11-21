@@ -14,7 +14,7 @@ Nothing here is published definition data yet. The fixtures are an invented fact
 | `battle-size` | `points` | A battle size a roster can be built for, and its points limit. |
 | `detachment` | `faction` | The faction the detachment belongs to. |
 | `enhancement` | `detachment`, optional `upgrade`, optional `keywords.all` and `keywords.none` | Offered by that detachment to units holding every `all` keyword and no `none` keyword. An `upgrade` may be taken by several units; any other enhancement once per roster. |
-| `unit` | `faction`, `keywords`, `sizes`, optional `perRoster`, `limits`, `legends`, `enhancements: false` | `sizes` lists every model count the unit may field. `perRoster` caps its copies, and each of `limits` replaces it in a roster of its `battleSize`. `enhancements: false` bars a unit that the keyword rules would otherwise admit. |
+| `unit` | `faction`, `keywords`, `sizes`, optional `modelGroups`, `perRoster`, `limits`, `legends`, `enhancements: false` | `sizes` lists every model count the unit may field. `modelGroups` bounds the sum of counts of its named model IDs. `perRoster` caps its copies, and each of `limits` replaces it in a roster of its `battleSize`. `enhancements: false` bars a unit that the keyword rules would otherwise admit. |
 | `model` | `unit`, `min`, `max`, `wargear`, optional `bySize` | A kind of model in the unit, how many of it the unit fields, and the wargear each one carries by default. A `bySize` row gives its bounds at one total squad size. |
 | `roster-option` | `unit`, optional `carrier`, `choose`, optional `per`, `bySize`, `uniform`, `replaces`, `caps`, `requires`, and `choices` | Wargear the unit may take instead of `replaces`. `choices` are wargear IDs. |
 | `wargear` | optional `includes` | A piece of wargear, or a bundle of the wargear it `includes`. |
@@ -33,6 +33,8 @@ Each of an option's `caps` limits how many of its `choices` the option takes tog
 
 A model or option can specify `bySize: [{ size, min, max }]` for sizes with their own bounds. Use the total model count in the unit as `size`. A cap can specify `bySize: [{ size, max }]`. The listed values are absolute for that size. Other sizes use the regular bounds and scaling. An option with no carriers still takes zero selections.
 
+A unit's `modelGroups` entries give `models`, `min`, `max` and optional `bySize`. The bound applies to the sum across its member IDs, for example when multiple equipment configurations fill the same kind of slot. Individual model bounds and the unit's total remain in force.
+
 An option with `requires` is closed until the unit takes one of `requires.choices` from the option `requires.option`, as when a character may take a relic only after swapping its default weapon.
 
 A model loadout that a source writes as separate model entries, one per weapon, is one `model` with a `roster-option` per carrier whose choices are the loadouts as wargear.
@@ -44,6 +46,7 @@ A model loadout that a source writes as separate model entries, one per weapon, 
 - Every record uses the identity release's rules version, its entry is current, and an entry has at most one record.
 - Every ID a record's data names has a record of the right kind and appears in the identity entry's `references`, so a release's `dependsOn` and `unresolvedReferences` see every join.
 - Every unit has at least one model, and every size lies between its models' summed minimums and maximums at that size.
+- Every shared model group includes at least two distinct models that belong to its unit.
 - A model's `min` is no more than its `max`, and an option's `choose.min` no more than its `choose.max`.
 - An option's carrier belongs to its unit, it replaces only wargear its carriers carry, and it does not offer what it replaces.
 - An option caps only wargear it offers. It requires another option of the same unit and choices that option offers, and has no minimum.
@@ -62,6 +65,7 @@ A saved roster names a `faction`, a `detachment`, an optional `battleSize`, and 
 | `missing-definition` | A current ID with no definition in the supplied records. |
 | `detachment-faction`, `unit-faction` | A detachment or unit from another faction. |
 | `unit-model`, `model-count`, `unit-size` | A model from another unit, a model count outside its bounds, or a total outside `sizes`. |
+| `model-group-count` | The named models' combined count is outside their shared bounds. |
 | `unit-option`, `option-choice`, `option-count`, `option-uniform` | An option from another unit, wargear the option does not offer, a selection count outside its scaled bounds, or a `uniform` option split between choices or short of its maximum. |
 | `option-cap`, `option-unavailable` | More of some choices than a cap allows, or an option taken before the choice it `requires`. |
 | `option-quantity` | A wargear choice with a negative, fractional or invalid count. |

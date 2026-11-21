@@ -1,6 +1,6 @@
 # Source inventory
 
-This inventory records where each class of Praetorium's game data comes from, which parts of the app read it, what it is used for, and what we know about reusing it. It describes sources in our own words and links to them. It holds no source payloads, rules text, or roster samples.
+This inventory records where each class of Praetorium's game data comes from, which parts of the app read it, what it is used for, and the known terms for reuse. It links to each source and describes it in original wording. It holds no source payloads, rules text, or roster samples.
 
 The baseline is Praetorium [`a9b4a5b`][p-root] (20 November 2026). Its pins are in [`catalogue/sources.json`][p-sources], [`catalogue/composition.json`][p-composition], and the lock file [`catalogue.json`][p-lock]. Production had already moved past this baseline when the inventory was written: on 21 November 2026 the live reference service cited Game Datacards at `2ab4e82` and different definitions and points content hashes. Every check below uses the baseline pins unless it says otherwise.
 
@@ -77,7 +77,7 @@ The app never serves rules text from either rules source. Game Datacards text is
 - **Consumers.** `catalogueMaterialize.ts` copies the selected files; [`datacardFactions.ts`][p-dcfactions] embeds them; the [`/api/faction-icons/$id`][p-iconroute] route serves them to the simulator pickers and other faction views. [`src/server/factionIconSources.ts`][p-iconsources] links two Titan factions' icons through jsDelivr at a different commit, `be23002`, which is also the icon pin in [`catalogue/retained-profile-build.json`][p-retained-build].
 - **Intended use.** Faction artwork in the interface.
 - **Reuse terms.** The manifest records AGPL-3.0. The upstream [README][s-icons-readme] applies AGPL-3.0 to code, CC BY-NC-SA 4.0 to documents and released non-font files, and OFL-1.1 to fonts, and says the symbols and names belong to Games Workshop.
-- **Open questions.** Which licence covers the SVGs we use; the manifest's AGPL-3.0 may be wrong. Whether a non-commercial share-alike licence is acceptable for our releases. Whether the depicted marks can be redistributed at all. The two icon pins should be reconciled.
+- **Open questions.** The licence that covers the SVGs in use and whether the AGPL-3.0 entry in the manifest is accurate. Whether a non-commercial share-alike licence suits catalogue releases. Whether the depicted marks can be redistributed at all. The two icon pins should be reconciled.
 
 ### Locally maintained data
 
@@ -135,7 +135,7 @@ The detachment is Game Datacards `a7ec286c-a305-435b-b402-91140c67d809` and defi
 
 ### Download terms
 
-The Faction Pack is a PDF offered for download from Warhammer Community. The site's [Terms of Website Use][s-wc-terms], read on 21 November 2026, show no last-updated date and [can change whenever the page is amended][wc-variations], so re-read them before each release. In our own words, by section:
+The Faction Pack is a PDF offered for download from Warhammer Community. The site's [Terms of Website Use][s-wc-terms], read on 21 November 2026, show no last-updated date and [can change whenever the page is amended][wc-variations], so re-read them before each release. The sections below summarise the terms.
 
 - **[Downloadable Material Licence][wc-download], paragraph 1.** Downloadable game rules and PDFs come with a personal, non-exclusive, non-transferable, free licence to keep copies on devices you own and to open them.
 - **Paragraph 2.** Any use or storage beyond that is outside the licence.
@@ -166,7 +166,7 @@ Catalogue records carry only project IDs and an explicit rules version, as the [
 
 1. Whether publishing original summaries and structured facts is acceptable to the publisher, as set out in the source-use table. This inventory does not decide it.
 2. The cross-references the four rules depend on, such as Deadly Demise, Fall Back, Desperate Escape, Battle-shock, Reanimation Protocols, and the Necrons Unravelling status, have not been located, and their sources are not yet identified. [#3][i3] needs them. When each source is found, check its own terms before using it as above.
-3. The Faction Pack version Game Datacards transcribes is not recorded at its pin, so we cannot confirm it matches v1.3. This affects Praetorium's mapping check, not authoring.
+3. The Faction Pack version Game Datacards transcribes is not recorded at its pin, so the match with v1.3 is unconfirmed. Praetorium's mapping check depends on that match.
 4. The [summary prototype][p-prototype] matched summaries to rules by wording digest. Praetorium's mapping should bind to stable IDs so a wording change upstream does not detach a summary.
 
 ## Open questions

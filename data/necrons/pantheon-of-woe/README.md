@@ -4,7 +4,7 @@ These are four records for the 11th-edition Necrons Pantheon of Woe detachment. 
 
 ## Review
 
-I compared the records and rendered summaries with the mechanics from the source comparison used to write the pilot cases. The final comparison checked the activation window, affected models, distance boundaries, and duration for each rule. The fixture tests check that the resulting records validate and render the expected summaries. The comparison was done as a batch, so individual review times were not measured.
+The source review checked each rule’s activation window, affected models, distance boundaries and duration. The fixture tests validate all four records and check their rendered summaries. The four rules were reviewed as a batch. Individual review times are unavailable.
 
 | Record | Page | Verified cases |
 | --- | --- | --- |
@@ -13,4 +13,4 @@ I compared the records and rendered summaries with the mechanics from the source
 | Phase Melding | 12 | 1 CP in the opponent's Movement phase. Check Unravelling at selection and Engagement Range on the friendly Necrons target. Each model in the enemy unit tests when that unit Falls Back. Battle-shock subtracts 1 from every test. |
 | Reletavistic Tether | 11 | The Transcendent C’tan model uses the ability in its own turn. Only ingress and advance through Transdimensional Displacement use the strict horizontal 6-inch boundary. Ending the same move within 8 inches of an enemy prevents charging for the rest of the turn. |
 
-The records contain project-authored summaries, mechanic fields, and source references. The [source inventory](../../../docs/source-inventory.md#source-use-decision-for-3) records the remaining questions about input use and distribution. [#4](https://github.com/richardsolomou/40k-catalogue/issues/4) covers packaging and publication of the pilot.
+The records contain project-authored summaries, mechanic fields, and source references. The [source inventory](../../../docs/source-inventory.md#source-use-decision-for-3) records the remaining questions about input use and distribution. The [pilot release](https://github.com/richardsolomou/40k-catalogue/releases/tag/v0.1.0) packages all four records with a checksum.

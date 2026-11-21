@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/src/points/history.v1.schema.json",
+  "title": "Points history, format version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "kind", "updates"],
+  "properties": {
+    "formatVersion": { "const": 1 },
+    "kind": { "const": "points-history" },
+    "updates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status", "sha256"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+          "status": { "enum": ["current", "retired"] },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}

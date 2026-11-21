@@ -27,7 +27,7 @@ Trigger windows come from matching `whenText` against six known phrasings. Wordi
 | `formatVersion`, `kind` | `1` and `"mission-pack"`. A breaking change gets a new version and schema file. |
 | `id`, `name`, `rulesVersion`, `source` | Project pack ID, display name, the edition and update it was checked against, and a source `title` with a `page` or `url`. |
 | `battleRounds`, `battleReady` | Number of battle rounds and the battle-ready bonus. |
-| `caps` | `primary` and `secondary` caps `perRound` and `perBattle`, and `fixedSecondaryPerCard`, the most one Fixed card can score. |
+| `caps` | `primary` and `secondary` caps `perRound` and `perBattle`, and `fixedSecondaryPerCard`, the most one Fixed card can score. `perRoundExcludesBattleEnd` on a cap counts what is scored at the battle end against `perBattle` only. |
 | `dispositions` | Force dispositions players pick. |
 | `deployments`, `layouts` | Stable battlefield references. A layout lists the deployments it can be played with. |
 | `primaries` | Primary missions. Each `pairing` names a `friendly` and `opposition` disposition and the deployments and layouts the pairing allows. A primary may also name a stable `detachment` ID. Each pairing or detachment maps to at most one primary in a pack. |
@@ -36,7 +36,7 @@ Trigger windows come from matching `whenText` against six known phrasings. Wordi
 
 An award is `vp` scored `once` or for `each` occurrence, up to an optional `max`, limited to some `modes`, and in an optional `exclusive` group. Awards on one card add up, except that one claim per exclusive group is allowed at a moment. `criterion` is a short summary in our own words. Apps show it for players to confirm; it is not machine-checkable.
 
-A window is the end of a named `phase`, the end of a `turn` (`own`, `opponent`, `any`), or `battle-end`, optionally limited to `rounds`. `orBattleEnd` on an opponent's-turn window also opens it at the battle end when this player took the last turn, because the opponent's next turn never comes. A rule that scores in the command phase but at turn end in the final round is two windows with complementary round ranges.
+A window is the end of a named `phase`, the end of a `turn` (`own`, `opponent`, `any`), or `battle-end`, optionally limited to `rounds`. `orBattleEnd` on an opponent's-turn window also opens it at the battle end when this player took the last turn, because the opponent's next turn never comes. A battle-end moment with `drawnLastTurn: false`, for a card drawn before that last turn, keeps it closed; without the field it opens. A rule that scores in the command phase but at turn end in the final round is two windows with complementary round ranges.
 
 Any of `battleRounds`, `battleReady`, each cap, an award's `criterion`, each window, `whenDrawn`, and a twist's `effect` can be `{ "unresolved": "<what is missing>" }`. The validator lists each gap by JSON pointer. `scoreCard` refuses claims outside every resolved window and reports an unresolved window or cap as unenforced, rather than assuming a value.
 
@@ -59,11 +59,11 @@ Layouts and deployments are references, not geometry. Zones, objective markers, 
 
 ## Fixtures and checks
 
-[fixtures/mission-packs/synthetic-pack.json](../fixtures/mission-packs/synthetic-pack.json) is an invented pack. Its names and numbers are made up, and it uses four battle rounds so tests show the count is read rather than assumed. It exercises disposition pairings, a final-round window change, per-each awards with a maximum, round, battle, and fixed-card caps, mode-limited and exclusive awards, the battle-end fallback, redraws, and four unresolved parts. [synthetic-cases.json](../fixtures/mission-packs/synthetic-cases.json) is a matching set of reference cases. [test/mission-packs.test.ts](../test/mission-packs.test.ts) runs both and the reference errors with `pnpm test`.
+[fixtures/mission-packs/synthetic-pack.json](../fixtures/mission-packs/synthetic-pack.json) is an invented pack. Its names and numbers are made up, and it uses four battle rounds so tests show the count is read rather than assumed. It exercises disposition pairings, a final-round window change, per-each awards with a maximum, round, battle, and fixed-card caps, mode-limited and exclusive awards, the battle-end fallback with and without draw history, redraws, and four unresolved parts. [synthetic-cases.json](../fixtures/mission-packs/synthetic-cases.json) is a matching set of reference cases, including cap cases. [test/mission-packs.test.ts](../test/mission-packs.test.ts) runs both and the reference errors with `pnpm test`.
 
 ## Comparing with another implementation
 
-`compare` runs a pack against reference cases: what another implementation decides for setups, the battlefields a table may play, whether an award can be claimed at a moment, award amounts, exclusive groups, and caps. Cases use the pack's own IDs. A consumer writes them from its own routines and translates its stored IDs first. One reference moment can stand for several of ours, such as a last turn that is also the battle end; the award is open if any of them opens it.
+`compare` runs a pack against reference cases: what another implementation decides for setups, the battlefields a table may play, whether an award can be claimed at a moment, award amounts, exclusive groups, caps, and, optionally, whether a claim passes a cap given what is already banked. Cases use the pack's own IDs. A consumer writes them from its own routines and translates its stored IDs first. One reference moment can stand for several of ours, such as a last turn that is also the battle end; the award is open if any of them opens it.
 
 ```sh
 node src/mission-packs/cli.ts validate <pack.json>
@@ -93,24 +93,35 @@ The pack has 5 dispositions, 6 deployments, 45 layouts, 25 primaries with 25 pai
 
 Also agreed: all 45 layouts name one deployment and have geometry, the caps are the same on every primary, and the pack's battle-ready field equals the bonus Praetorium hardcodes.
 
-Both differences are the same primary award (`2a68706e-fa98-4c79-a431-67069fb93f4e`, first objective), whose data scores it at the end of either player's turn in every round. Praetorium never scores any primary at the end of the opponent's turn in the final round, whatever the card's data says. Format 1 can say either; which one the printed rules mean needs review.
+Both differences are the same primary award (`2a68706e-fa98-4c79-a431-67069fb93f4e`, first objective), whose data scores it at the end of either player's turn in every round. In the final round, Praetorium scores every primary award at the end of the player's own turn, whatever the card's data says. The data agrees for every other award. Format 1 can say either per award. A private variant whose window stops opponent's-turn scoring after round 4 agrees with every case. A pack-wide rule would add nothing that windows can't say, so none was added. Which reading the printed rules mean needs review.
+
+A second local probe asked Praetorium `c742a9e` how it caps scores and settles the battle end, through `scoringCapError` and `scoringDue` on battles at their final turn's end and `cardsDue` for cards drawn before the last turn. It wrote 62 more window cases, 10 of them for the 5 `orBattleEnd` awards, and 156 cap cases. Without `drawnLastTurn`, all 10 `orBattleEnd` cases differ. Without `perRoundExcludesBattleEnd`, 13 battle-end primary claims after a full round are capped, which Praetorium allows. With both:
+
+| Cases, current and retired-edition packs alike | Checked | Agree |
+| --- | --- | --- |
+| Earlier cases above | 10,358 | 10,356 |
+| Window cases for cards drawn before the last turn | 62 | 62 |
+| Cap cases, candidate as derived | 156 | 143 |
+| Cap cases, private variant with `perRoundExcludesBattleEnd` on the primary cap | 156 | 156 |
+
+The 13 remaining differences are the battle-end primary awards scored after a full round. This repeats Praetorium's behaviour; it does not confirm the printed rules.
 
 Fields that need richer modelling or review:
 
-- **Card modes.** 14 of 18 secondaries have no award limited to one mode, and the source states no card-level mode, so the candidate lets them be played in both. The real pack's mode restrictions have to be authored.
-- **Cumulative awards.** 9 awards (7 primary, 2 secondary) carry the source's `isCumulative`, which neither Praetorium nor format 1 reads.
+- **Card modes.** 14 of 18 secondaries have no award limited to one mode, and the source states no card-level mode, so the candidate lets them be played in both. The source's cards have no field with a mode, and only 11 awards are typed (6 Fixed, 5 Tactical). Praetorium filters awards by type, never cards. The real pack's mode restrictions have to be authored.
+- **Cumulative awards.** 9 awards (7 primary, 2 secondary) carry the source's `isCumulative`, which neither Praetorium nor format 1 reads. Each is a later award on an objective, after an award without the flag, and none is in an exclusive group. Both implementations add these awards like any others, so the flag changes no score in either. What it means on the printed card needs review.
 - **Per-each reading.** Praetorium reads an award as per-each only when its input is a stepper and its wording starts "for each". 2 primary awards have a stepper but not that wording, so they score once. Review against the printed card.
 - **Unrecognised timing.** 1 primary award's wording is outside the six phrasings, so Praetorium cannot score it automatically and the candidate leaves its window unresolved.
-- **"When drawn" replacements.** 2 secondaries replace rather than redraw. Format 1 has no value for this, so they stay unresolved.
-- **Cap behaviour.** Praetorium refuses a score that would pass a cap; `scoreCard` keeps the part that fits and reports `capped`. Both use the same numbers. A consumer that refuses can treat `capped` as a refusal.
-- **Battle-end fallback.** Praetorium opens an opponent's-turn card at the battle end only if it was drawn in the player's last turn. The cases cover only that case. `orBattleEnd` also opens a card drawn earlier, which needs draw history the format does not carry.
+- **"When drawn" replacements.** 2 secondaries replace rather than redraw. Praetorium offers them as an optional discard and draw, under a table condition the player judges from the card's words. Nothing in scoring reads it. Format 1 has no value for this, and the condition would need an authored summary, so they stay unresolved.
+- **Cap behaviour.** Praetorium refuses a score that would pass a cap; `scoreCard` keeps the part that fits and reports `capped`. Both use the same numbers. A consumer that refuses can treat `capped` as a refusal. Praetorium does not count an end-of-battle primary award against the round cap, only the battle cap; secondaries at the battle end still count against both. `perRoundExcludesBattleEnd` on the primary cap reproduces this. Whether the printed pack says so needs review, so it is set only in a private variant of the candidate.
+- **Battle-end fallback.** Praetorium opens an opponent's-turn card at the battle end only if it was drawn in the player's last turn. Fixed cards are never drawn during a turn, so they never get this fallback. `drawnLastTurn: false` reproduces this. Whether the printed rule also lets a card drawn earlier score needs review.
 - **Exclusive per-each awards.** Praetorium's end-of-battle check allows one claim of an award in an exclusive group; `scoreCard` allows several. None of the pack's awards are both, so no case tests it.
 
 ## Remaining gaps
 
 - **No reviewed real pack is published.** The Chapter Approved candidate above is derived from Game Datacards, which has no reuse basis and is not an authoring source ([source inventory](source-inventory.md#game-datacards-mission-packs)). It shows the format can carry the pack's setup and scoring and that this implementation agrees with Praetorium's on those facts. It is not a review against the printed pack: cases and candidate come from the same derived fields.
 - **Not modelled:** machine-checkable scoring criteria, mission actions (start, completion, units, limits), mission selections and operation markers, "when drawn" replacements, twist effects, card-level mode restrictions, cumulative awards, and battle sizes.
-- **Battle-end fallback** covers opponent's-turn windows only. Windows tied to when a card was drawn or became active need history this format does not carry.
+- **Battle-end fallback** covers opponent's-turn windows only, and its only draw history is whether the card was drawn in the last turn. Windows tied to any other draw or activation time are not modelled.
 
 ## Blockers for publishing a real pack
 

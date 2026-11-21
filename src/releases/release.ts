@@ -26,7 +26,7 @@ export type Build = { ok: true; files: ReleaseFiles } | { ok: false; errors: str
 
 const MANIFEST = "manifest.json";
 const RECORD_SCHEMA = "schema/mechanic.v1.schema.json";
-const INPUT = /^([a-z0-9]+(?:-[a-z0-9]+)*)\.(json|summary\.txt)$/;
+const INPUT = /^([a-z0-9]+(?:[.-][a-z0-9]+)*)\.(json|summary\.txt)$/;
 
 const checkManifest = new Ajv2020({ allErrors: true }).compile<Manifest>(manifestSchema);
 

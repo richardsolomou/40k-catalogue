@@ -1,0 +1,95 @@
+{
+  "proposalVersion": 1,
+  "record": {
+    "formatVersion": 1,
+    "id": "synthetic.cinder-ward",
+    "name": "Cinder Ward",
+    "rulesVersion": {
+      "edition": "synthetic",
+      "update": "1.0"
+    },
+    "source": {
+      "title": "Synthetic Test Rules",
+      "page": "2"
+    },
+    "usage": {
+      "cp": 1
+    },
+    "trigger": {
+      "kind": "phase-start",
+      "phase": "shooting",
+      "turn": "opponent"
+    },
+    "target": {
+      "select": {
+        "side": "friendly",
+        "within": {
+          "inches": 12,
+          "of": "this-unit"
+        }
+      }
+    },
+    "conditions": [
+      {
+        "unresolved": "whether the selected unit must be visible to this unit"
+      }
+    ],
+    "effect": {
+      "kind": "modify-roll",
+      "roll": "hit",
+      "by": -1
+    },
+    "duration": {
+      "until": "end-of-phase"
+    }
+  },
+  "drafting": {
+    "method": "model-assisted",
+    "author": "Synthetic Author",
+    "model": "synthetic-model",
+    "modelInputs": [
+      "contributor-notes",
+      "structured-fields"
+    ]
+  },
+  "review": {
+    "reviewer": "Synthetic Reviewer",
+    "date": "2026-11-21",
+    "checks": [
+      {
+        "path": "/rulesVersion",
+        "outcome": "confirmed"
+      },
+      {
+        "path": "/source",
+        "outcome": "confirmed"
+      },
+      {
+        "path": "/trigger",
+        "outcome": "confirmed"
+      },
+      {
+        "path": "/target",
+        "outcome": "needs-correction",
+        "note": "the selected unit is an enemy unit, not a friendly one"
+      },
+      {
+        "path": "/conditions/0",
+        "outcome": "unresolved",
+        "note": "the synthetic rule does not say whether visibility is needed"
+      },
+      {
+        "path": "/effect",
+        "outcome": "confirmed"
+      },
+      {
+        "path": "/usage",
+        "outcome": "confirmed"
+      },
+      {
+        "path": "/duration",
+        "outcome": "confirmed"
+      }
+    ]
+  }
+}

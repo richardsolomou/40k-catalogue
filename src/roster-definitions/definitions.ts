@@ -241,8 +241,11 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       if (choose.min > 0 || bySize?.some(({ min }) => min > 0)) errors.push(`${at} requires another option but has a minimum`);
     }
   }
+  const includes = (id: string) => get("wargear", id)?.data.includes ?? [];
   for (const wargear of all("wargear")) {
-    if (wargear.data.includes?.includes(wargear.id)) errors.push(`wargear:${wargear.id} includes itself`);
+    const reached = new Set(includes(wargear.id));
+    for (const id of reached) for (const inner of includes(id)) reached.add(inner);
+    if (reached.has(wargear.id)) errors.push(`wargear:${wargear.id} includes itself`);
   }
 
   return errors.length > 0 ? { ok: false, errors } : { ok: true, definitions: { identity, get, all, modelsOf, optionsOf } };

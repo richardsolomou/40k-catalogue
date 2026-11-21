@@ -47,7 +47,7 @@ A gap is `{ "field", "reason" }`. `unrepresentable` means the source prints a va
 
 ## Local and qualified references
 
-A profile's `unit` bounds what else it may name. Its `models` must belong to that unit, and any weapon profile or equipment condition must refer to wargear the unit carries or offers. Attachment targets are qualified: they may name any current unit in the release, including another faction's. Every reference resolves within the record's own rules version, so a release that holds only some factions cannot name a unit outside them.
+A profile's `unit` bounds what else it may name. Its `models` must belong to that unit, and any weapon profile or equipment condition must refer to wargear the unit carries or offers, or that a bundle it carries or offers includes at any depth. Attachment targets are qualified: they may name any current unit in the release, including another faction's. Every reference resolves within the record's own rules version, so a release that holds only some factions cannot name a unit outside them.
 
 ## Validation
 
@@ -74,7 +74,7 @@ The private stage converted the [definition rehearsal](definition-cutover.md)'s 
 | --- | --- |
 | Units with profiles | 5,055 of 6,233. 2,216 from their own faction's datasheet and 2,839 from a shared datasheet whose copies are identical; 1,178 units have no datasheet. |
 | Unit profiles | 6,009, of which 5,481 have no gap. Of the 1,575 in units with several profiles, 1,105 name their models by exact name and 470 have a `models` gap, 4 of them because two profiles match the same model. |
-| Weapon profiles | 29,957, of which 26,325 have no gap. 26,295 join by exact name and 43 join to the source entry that owns the weapon profile. The other 3,619 have a `wargear` gap. |
+| Weapon profiles | 29,957, of which 27,509 have no gap. 26,295 join by exact name, 43 to the source entry that owns the weapon profile and 1,184 to a weapon that a carried pack includes. The other 2,435 have a `wargear` gap. |
 | Unrepresentable values | 95 in all nine versions together: base sizes printed without a size (52), skills or leadership printed without `+` (30), invulnerable saves that differ by model or have two values (8), ranges printed as `?` or `N/A` (4), and armour penetration printed as `-` (1). |
 | Attachment links | 8,899 statements: 8,566 resolve within the unit's faction, 39 to one unit of another faction, 10 to several units and 284 to none. They form 3,777 Leader and 908 support relations in 1,065 records. |
 | Both directions | The source lists a relation on the joining unit, on the unit joined, or both. 3,059 Leader relations appear on both sides, 140 only on the joining unit and 578 only on the unit joined. For support the counts are 861, 28 and 19. The private inventory holds their union for review. It needs a comparison against the actual roster rules before it can decide attachment legality. |
@@ -83,7 +83,11 @@ The private stage converted the [definition rehearsal](definition-cutover.md)'s 
 
 The comparison first keeps the exact-name joins. It then follows every source path from the unit to an unmatched profile. A direct join requires the entry that owns the profile to map to the same carried or offered weapon on every path. That check adds 43 current joins and 125 across nine versions. It agrees with all 52,588 exact-name joins it overlaps. Record IDs and existing joins are preserved.
 
-Of the 3,619 remaining current gaps, 2,669 have a single enclosing choice, 789 have ambiguous ancestry and 161 lack a carried weapon on any path. The candidate keeps the weapon ID unresolved in those cases. An enclosing choice may be a model variant or a bundle, and it differs from the direct weapon in 684 of the 747 cases where both joins can be measured. That relationship can guide a later loadout comparison. All nine versions validate with the direct joins.
+A profile reached only through carried choices joins to the weapon its owning entry maps to when that entry is fixed content of the choice on every path: taken exactly once in every selection of the choice, with no condition, alternative or optional step between them. The choice is then a pack. Every source entry that shares its wargear ID must hold the same contents, at least two distinct items and no selection of its own. The candidate definitions record those contents as the pack's `includes`. An included item without a wargear record gets one under the converter's name rule; no option offers it and no model carries it. The choice itself is never the weapon's ID.
+
+That check adds 1,184 current joins and 2,416 across nine versions. Every joined weapon has the profile's own name, and none contradicts an exact-name join. The current definitions gain `includes` on 934 packs and 214 wargear records. Every other definition, every selectable ID and the result of 60,607 single-unit roster checks across nine versions are unchanged. Of 202 packs written in more than one version, one changes its contents between versions. Definitions and profiles validate together in all nine versions, and the profiles fail against the definitions without the packs.
+
+Of the 2,435 remaining current gaps, 2,148 sit under carried choices that the check cannot settle. In 1,169 the pack also holds a selection, a condition or an optional item. In 405 the weapon or pack comes more than once, and `includes` has no counts. 232 are chosen within the choice or depend on a condition, 173 sit in a choice with one item, 153 in a choice whose source entries differ, 10 in a choice whose contents depend on a condition, and 6 in a pack inside another pack. Another 120 pass through a source entry defined twice with different content, 6 are also reachable without a carried choice, 129 have no carried wargear on any path and 32 are printed on the unit or model entry itself.
 
 Across the eight retired versions, 33,628 profile IDs are also current and 1,330 belong to units whose current profiles differ because a profile was renamed or removed. Each version keeps 90.0% to 99.4% of those IDs. Another 12,228 belong to units that have no current datasheet, and 902 to units no longer current.
 
@@ -97,3 +101,4 @@ The staged capacities reproduce eligibility and pool occupancy in all 1,168,904 
 - Abilities and rules text are mechanics, not profiles.
 - An attachment target named only by keyword, or a relation that holds only under a condition, has no form and becomes a `no-target` gap.
 - Profiles are duplicated for every faction that offers a shared datasheet, as roster definitions are.
+- A weapon in a choice whose contents vary, repeat an item or hold a further selection keeps its `no-target` gap. `includes` lists distinct items without counts.

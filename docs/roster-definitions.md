@@ -54,7 +54,7 @@ A model loadout that a source writes as separate model entries, one per weapon, 
 - An option's carrier belongs to its unit, it replaces only wargear its carriers carry, and it does not offer what it replaces.
 - An option caps only wargear it offers. It requires another option of the same unit and choices that option offers, and has no minimum.
 - A unit sets at most one limit per battle size. Each list of `bySize` bounds has at most one row per size and uses the unit's declared sizes.
-- A wargear bundle does not include itself.
+- A wargear bundle does not include itself, directly or through another bundle.
 
 ## Saved rosters
 

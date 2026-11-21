@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/src/roster-definitions/definitions.v1.schema.json",
+  "title": "Roster definition record data, format version 1",
+  "$defs": {
+    "text": { "type": "string", "pattern": "\\S" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+    "ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+    "keywords": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/text" } },
+    "count": { "type": "integer", "minimum": 0 },
+    "faction": { "type": "object", "additionalProperties": false, "properties": {} },
+    "detachment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["faction"],
+      "properties": { "faction": { "$ref": "#/$defs/id" } }
+    },
+    "enhancement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["detachment"],
+      "properties": {
+        "detachment": { "$ref": "#/$defs/id" },
+        "upgrade": { "const": true },
+        "keywords": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "all": { "$ref": "#/$defs/keywords" }, "none": { "$ref": "#/$defs/keywords" } }
+        }
+      }
+    },
+    "unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["faction", "keywords", "sizes"],
+      "properties": {
+        "faction": { "$ref": "#/$defs/id" },
+        "keywords": { "$ref": "#/$defs/keywords" },
+        "sizes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "integer", "minimum": 1 } },
+        "perRoster": { "type": "integer", "minimum": 1 },
+        "legends": { "const": true },
+        "enhancements": { "const": false }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit", "min", "max", "wargear"],
+      "properties": {
+        "unit": { "$ref": "#/$defs/id" },
+        "min": { "$ref": "#/$defs/count" },
+        "max": { "type": "integer", "minimum": 1 },
+        "wargear": { "$ref": "#/$defs/ids" }
+      }
+    },
+    "roster-option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit", "choose", "choices"],
+      "properties": {
+        "unit": { "$ref": "#/$defs/id" },
+        "carrier": { "$ref": "#/$defs/id" },
+        "choose": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["min", "max"],
+          "properties": { "min": { "$ref": "#/$defs/count" }, "max": { "type": "integer", "minimum": 1 } }
+        },
+        "per": {
+          "oneOf": [
+            { "const": "carrier" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["models"],
+              "properties": { "models": { "type": "integer", "minimum": 1 } }
+            }
+          ]
+        },
+        "uniform": { "const": true },
+        "replaces": { "$ref": "#/$defs/ids" },
+        "choices": { "allOf": [{ "$ref": "#/$defs/ids" }, { "type": "array", "minItems": 1 }] }
+      }
+    },
+    "wargear": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "includes": { "allOf": [{ "$ref": "#/$defs/ids" }, { "type": "array", "minItems": 2 }] } }
+    }
+  }
+}

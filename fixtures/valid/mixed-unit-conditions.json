@@ -1,0 +1,60 @@
+{
+  "formatVersion": 1,
+  "id": "synthetic.grave-tether",
+  "name": "Grave Tether",
+  "rulesVersion": {
+    "edition": "synthetic",
+    "update": "1.0"
+  },
+  "source": {
+    "title": "Synthetic Test Rules",
+    "page": "1"
+  },
+  "trigger": {
+    "kind": "move-end",
+    "moves": [
+      "normal",
+      "fall-back"
+    ],
+    "unit": {
+      "side": "enemy"
+    }
+  },
+  "target": {
+    "select": {
+      "side": "friendly",
+      "within": {
+        "inches": 6,
+        "of": "triggering-unit"
+      }
+    }
+  },
+  "conditions": [
+    {
+      "kind": "status",
+      "unit": "triggering-unit",
+      "status": "battle-shocked",
+      "at": "now"
+    },
+    {
+      "kind": "status",
+      "unit": "target",
+      "status": "below-half-strength",
+      "at": "phase-start"
+    },
+    {
+      "kind": "within",
+      "unit": "this-unit",
+      "inches": 12,
+      "of": "target"
+    }
+  ],
+  "effect": {
+    "kind": "modify-roll",
+    "roll": "hit",
+    "by": 1
+  },
+  "duration": {
+    "until": "end-of-turn"
+  }
+}

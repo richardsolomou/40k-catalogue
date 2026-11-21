@@ -149,6 +149,42 @@ test("an opponent's-turn award does not score at the battle end when the opponen
   assert.equal(score.vp, 0);
 });
 
+test("an opponent's-turn award stays closed at the battle end when the card was drawn before the last turn", () => {
+  const p = pack();
+  const moment: Moment = { at: "battle-end", round: 4, lastTurn: "own", drawnLastTurn: false };
+  assert.equal(scoreCard(p, card(p, "watchful-eye"), [{ award: "eye-all", times: 1 }], moment, none, "tactical").vp, 0);
+});
+
+const battleEnd: Moment = { at: "battle-end", round: 4, lastTurn: "opponent" };
+
+test("a battle-end primary counts against the round cap", () => {
+  const p = pack();
+  assert.equal(scoreCard(p, card(p, "last-stand"), [{ award: "survivor", times: 1 }], battleEnd, { round: 12, battle: 12, card: 12 }).vp, 0);
+});
+
+function excludingBattleEnd(): MissionPack {
+  const value = raw();
+  value.caps.primary.perRoundExcludesBattleEnd = true;
+  const result = validatePack(value);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.pack;
+}
+
+test("a round cap that excludes the battle end lets a battle-end primary score past it", () => {
+  const p = excludingBattleEnd();
+  assert.equal(scoreCard(p, card(p, "last-stand"), [{ award: "survivor", times: 1 }], battleEnd, { round: 12, battle: 12, card: 12 }).vp, 8);
+});
+
+test("a round cap that excludes the battle end still applies before it", () => {
+  const p = excludingBattleEnd();
+  assert.equal(scoreCard(p, card(p, "hold-the-line"), [{ award: "hold-one", times: 1 }], turnEnd(4), { round: 12, battle: 12, card: 12 }).vp, 0);
+});
+
+test("the battle cap applies at the battle end when the round cap excludes it", () => {
+  const p = excludingBattleEnd();
+  assert.equal(scoreCard(p, card(p, "last-stand"), [{ award: "survivor", times: 1 }], battleEnd, { round: 0, battle: 36, card: 36 }).vp, 4);
+});
+
 test("an unresolved window is reported as unenforced", () => {
   const p = pack();
   const score = scoreCard(p, card(p, "relic-hunt"), [{ award: "relic", times: 2 }], { at: "battle-end", round: 4, lastTurn: "own" }, none, "fixed");
@@ -183,4 +219,10 @@ test("a differing amount is reported without either value", () => {
   const c = cases();
   c.amounts[0]!.vp = 8;
   assert.deepEqual(compare(pack(), c).amounts.differences, ["hold-the-line/hold-each x4"]);
+});
+
+test("a differing cap outcome is reported without the amounts", () => {
+  const c = cases();
+  c.scores![0]!.capped = false;
+  assert.deepEqual(compare(pack(), c).scores.differences, ["last-stand/survivor at battle-end r4 last opponent: capped, expected not capped"]);
 });

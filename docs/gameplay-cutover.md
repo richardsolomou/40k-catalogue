@@ -77,11 +77,11 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 2,784 current drafts that passed automated checks, including 739 faction stratagems. Of these, 140 use native mechanic records, 2,199 come from pinned structured fields and 445 use verified rules or source evidence. The drafts cover 151 core rule sections and keyword descriptions, seven core stratagems, 68 FAQ and errata entries and three mission entries. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. An earlier pass rewrote 27 drafts with repeated source wording from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 23,983 versioned drafts covering 2,447 distinct pieces of source content.
+The combined queue has 2,894 current drafts that passed automated checks, including 739 faction stratagems. Of these, 140 use native mechanic records, 2,199 come from pinned structured fields and 555 use verified rules or source evidence. The drafts cover 151 core rule sections and keyword descriptions, seven core stratagems, 56 Event Companion entries, 116 FAQ and errata entries and three mission entries. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. An earlier pass rewrote 27 drafts with repeated source wording from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 24,462 versioned drafts covering 2,517 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,694 with bold spans and 1,684 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Drafts exist for 135 of the 195 linked destinations. The other 60 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,740 with bold spans and 1,746 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Drafts exist for 151 of the 225 linked destinations. The other 74 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 391 entries held by unsupported structure, 173 incomplete drafts, 107 entries with partial facts, 42 derived names and 2,661 in the authoring queue. One native translation is held for a missing mechanical value. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 391 entries held by unsupported structure, 173 incomplete drafts, 107 entries with partial facts, 36 derived names and 2,557 in the authoring queue. One native translation is held for a missing mechanical value. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
 ### CP and Miracle dice
 
@@ -137,7 +137,7 @@ Eight faction launch packs match 193 indexed FAQ or errata entries, including 57
 
 The June print review produced 34 provisional question-and-answer summaries and 14 provisional errata summaries. Holds cover 23 question-and-answer entries and 122 errata. Five errata drafts verify a replacement value whose earlier printed value remains unconfirmed. The private queue attaches this review to all 193 entries and verifies summary links by record ID and digest in each version.
 
-The September and October publisher packs establish 268 exact FAQ and errata pairs. Sixty-eight have current drafts, including 29 new summaries and 39 reverified June summaries. Four summaries were revised during integration to show the stated CP reward or both distances in an amendment. The date check applies to the current version. The older records carry identity and link evidence for review. The remaining 200 exact pairs still need summary or mechanics review.
+The September and October publisher packs establish 268 exact FAQ and errata pairs. Sixty-eight have current drafts, including 29 new summaries and 39 reverified June summaries. Four summaries were revised during integration to show the stated CP reward or both distances in an amendment. The date check applies to the current version. The older records carry identity and link evidence for review. A further 48 dated entries now have drafts. The remaining 152 exact pairs still need summary or mechanics review.
 
 ### Verified keyword casing
 
@@ -145,7 +145,11 @@ Exact keyword casing and branch checks add 9 stratagem summaries. Each summary p
 
 ### Datasheet-derived keyword links
 
-The source comparison binds 26 datasheet-derived names to their rule in each pinned version. It checks the ability or weapon profile that uses the keyword, its role, and the linked rule’s identity and digest. Twelve entries also have original summaries supported by the linked mechanics. The other 14 carry their verified destination and any corroborated parameter. Another 28 names remain held, including unresolved variants.
+The source comparison binds 26 datasheet-derived names to their rule in each pinned version. It checks the ability or weapon profile that uses the keyword, its role, and the linked rule’s identity and digest. Eighteen entries also have original summaries supported by the linked mechanics. The other eight carry their verified destination and any corroborated parameter. Another 28 names remain held, including unresolved variants.
+
+### Event Companion variants
+
+The separate Singles, Doubles, Teams and Dominatus publications support 56 current drafts. Each draft uses the publisher version for its event format. The checks bind the heading, body and any linked rule to the dated publication and catalogue record. Earlier versions receive a draft where the dated source is in scope. The 45 image-only entries still need diagram verification.
 
 ### Publisher mission card images
 

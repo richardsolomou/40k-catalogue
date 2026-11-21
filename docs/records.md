@@ -10,6 +10,8 @@ A mechanic record describes one ability as structured data that any app can vali
 | `id` | Project ability ID, lowercase words separated by `.` or `-`. |
 | `name` | Display name of the ability. |
 | `summary` | Generated and reviewed prose body. Required in released records and optional while drafting. `name` and `usage.cp` provide the heading. |
+| `summarySpans` | Generated bold and link ranges within `summary`. Each link names the destination by catalogue kind and ID. |
+| `summaryTerms` | Optional reviewed phrases with bold formatting or an explicit destination for a named ability or rule. |
 | `rulesVersion` | The `edition` and `update` the record was checked against. |
 | `source` | Source `title` and at least one of `page` or `url`, so a reviewer can find the printed rule. |
 | `attribution` | For an adapted record, the upstream `url`, pinned `revision`, contributor `credit`, `licence` URL and `changes` made to the input. |
@@ -50,6 +52,10 @@ The renderer uses the structured fields to generate `summary`. The same record g
 ```
 
 Summaries are display text. Apps should read game behaviour from the structured fields. The [release guide](releases.md) explains how to package both.
+
+The renderer keeps the casing of structured keyword labels and makes them bold. It assigns stable targets to weapon ability grants, known core abilities and recognised core rule phrases. A named rule can supply an exact `summaryTerms` label and `target` during authoring. Case alone never assigns a destination.
+
+Each generated `summarySpans` entry has `start` and `end` offsets, with an exclusive end. The offsets index UTF-16 code units in the exact `summary` string, so `summary.slice(start, end)` returns the text to render. `bold: true` applies emphasis. A `target` is `{ kind, id }` in the record's `rulesVersion`. Resolve that pair through the catalogue index. Existing occurrences are already located in the JSON.
 
 ## Fixtures
 

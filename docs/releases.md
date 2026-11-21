@@ -10,7 +10,7 @@ A release unpacks to these files and no others:
 | --- | --- |
 | `manifest.json` | The index described below. |
 | `schema/mechanic.v1.schema.json` | The record schema the records were validated against. |
-| `records/<id>.json` | One mechanic record with the rendered body in `summary`, named by its `id`. |
+| `records/<id>.json` | One mechanic record with the rendered body in `summary` and optional bold and link `summarySpans`, named by its `id`. |
 
 It is published as one uncompressed `.tar` file holding those paths.
 
@@ -63,4 +63,4 @@ Verification fails when the manifest does not match its schema, when a file is m
 
 ## Consuming a release
 
-Pin the archive URL of an exact release and its SHA-256 checksum. Check the checksum after download, unpack the archive, and run verification or an equivalent check of every `sha256` in the manifest. Read game behaviour from the structured fields. Display `summary` alongside the ability's `name` and optional `usage.cp`.
+Pin the archive URL of an exact release and its SHA-256 checksum. Check the checksum after download, unpack the archive, and run verification or an equivalent check of every `sha256` in the manifest. Read game behaviour from the structured fields. Display `summary` alongside the ability's `name` and optional `usage.cp`. Apply the recorded formatting and resolve links by the supplied kind and ID. [Summary span contract](records.md#summaries)

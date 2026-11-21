@@ -1,7 +1,8 @@
 import { Ajv2020 } from "ajv/dist/2020.js";
+import { isDeepStrictEqual } from "node:util";
 import schema from "../schema/mechanic.v1.schema.json" with { type: "json" };
 import { isUnresolved, type MechanicRecord, type Trigger, type UnitRef } from "./record.ts";
-import { renderSummaryBody } from "./render.ts";
+import { renderSummaryData } from "./render.ts";
 
 export type Gap = { path: string; note: string };
 export type Validation = { ok: true; record: MechanicRecord; gaps: Gap[] } | { ok: false; errors: string[] };
@@ -15,8 +16,18 @@ export function validate(value: unknown): Validation {
     return { ok: false, errors: errors.map((e) => `${e.instancePath || "/"} ${e.message}`) };
   }
   const errors = referenceErrors(value);
-  if (errors.length === 0 && value.summary !== undefined && value.summary !== renderSummaryBody(value)) {
-    errors.push("/summary must match the rendered summary");
+  if (errors.length === 0 && (value.summary !== undefined || value.summarySpans !== undefined || value.summaryTerms?.length)) {
+    const expected = renderSummaryData(value);
+    if (value.summary !== undefined && value.summary !== expected.summary) errors.push("/summary must match the rendered summary");
+    if (value.summarySpans !== undefined && !isDeepStrictEqual(value.summarySpans, expected.summarySpans ?? [])) {
+      errors.push("/summarySpans must match the rendered summary spans");
+    }
+    const labels = value.summaryTerms?.map(({ label }) => label.trim().toLowerCase()) ?? [];
+    if (new Set(labels).size !== labels.length) errors.push("/summaryTerms repeats a label");
+    const renderedLabels = new Set(expected.summarySpans?.map(({ start, end }) => expected.summary.slice(start, end).toLowerCase()));
+    for (const [index, label] of labels.entries()) {
+      if (!renderedLabels.has(label)) errors.push(`/summaryTerms/${index}/label is absent from the rendered summary`);
+    }
   }
   return errors.length > 0 ? { ok: false, errors } : { ok: true, record: value, gaps: gaps(value) };
 }

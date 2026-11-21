@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/src/authoring/proposal.v1.schema.json",
+  "title": "Mechanic proposal, version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["proposalVersion", "record", "drafting"],
+  "properties": {
+    "proposalVersion": { "const": 1 },
+    "record": { "type": "object" },
+    "drafting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "author"],
+      "properties": {
+        "method": { "enum": ["by-hand", "model-assisted"] },
+        "author": { "$ref": "#/$defs/text" },
+        "model": { "$ref": "#/$defs/text" },
+        "modelInputs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["contributor-notes", "structured-fields"] }
+        }
+      },
+      "if": { "properties": { "method": { "const": "model-assisted" } } },
+      "then": { "required": ["model", "modelInputs"] },
+      "else": { "not": { "anyOf": [{ "required": ["model"] }, { "required": ["modelInputs"] }] } }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewer", "date", "checks"],
+      "properties": {
+        "reviewer": { "$ref": "#/$defs/text" },
+        "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "checks": { "type": "array", "items": { "$ref": "#/$defs/check" } }
+      }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "pattern": "\\S" },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "outcome"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^(/[a-zA-Z0-9]+)+$" },
+        "outcome": { "enum": ["confirmed", "needs-correction", "corrected", "unresolved"] },
+        "note": { "$ref": "#/$defs/text" },
+        "draft": {}
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "outcome": { "enum": ["needs-correction", "corrected"] } } },
+          "then": { "required": ["note"] }
+        },
+        {
+          "if": { "properties": { "outcome": { "const": "corrected" } } },
+          "then": { "required": ["draft"] },
+          "else": { "not": { "required": ["draft"] } }
+        }
+      ]
+    }
+  }
+}

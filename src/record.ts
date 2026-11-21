@@ -41,10 +41,39 @@ export type Condition =
       status: "battle-shocked" | "below-half-strength" | "unravelling";
       at: "now" | "phase-start" | "turn-start";
     }
-  | { kind: "within"; unit: UnitRef; inches: number; of: UnitRef };
+  | { kind: "within"; unit: UnitRef; inches: number; of: UnitRef }
+  // Passes while the unit has been selected for none of these activities this phase.
+  | { kind: "not-selected"; unit: UnitRef; to: ("shoot" | "fight")[] };
+
+export type Roll = "hit" | "wound" | "save" | "advance" | "charge" | "battle-shock";
+// Absent means every weapon the target's models are equipped with.
+export type WeaponType = "ranged" | "melee";
+export type WeaponAbility =
+  | {
+      ability:
+        | "assault"
+        | "blast"
+        | "devastating-wounds"
+        | "hazardous"
+        | "heavy"
+        | "ignores-cover"
+        | "indirect-fire"
+        | "lance"
+        | "lethal-hits"
+        | "pistol"
+        | "precision"
+        | "psychic"
+        | "torrent"
+        | "twin-linked";
+    }
+  | { ability: "melta" | "rapid-fire" | "sustained-hits"; value: number }
+  | { ability: "anti"; keyword: string; threshold: number };
 
 export type Effect =
-  | { kind: "modify-roll"; roll: "hit" | "wound" | "save" | "advance" | "charge" | "battle-shock"; by: number }
+  | { kind: "modify-roll"; roll: Roll; by: number }
+  // `ones` re-rolls only results of 1. `weapons` limits a Hit or Wound roll to attacks made with that type of weapon.
+  | { kind: "re-roll"; roll: Roll; results: "all" | "ones"; weapons?: WeaponType }
+  | { kind: "grant-weapon-abilities"; abilities: WeaponAbility[]; weapons?: WeaponType }
   | {
       kind: "modify-characteristic";
       characteristic: "move" | "toughness" | "save" | "leadership" | "objective-control" | "attacks";

@@ -19,6 +19,8 @@ Each identity kind belongs to exactly one category. An included category holds r
 
 A record names its entry by `kind` and `id`, repeats the identity's `rulesVersion`, gives the `source` it was checked against, and carries its category's facts in `data`. Joins between records come from the identity entry's `references`, not from the record. The category's own work item defines the shape of `data`.
 
+An archive includes the schemas for roster definitions, datasheet profiles, points and their history, mission packs, terrain records, and localisation. It uses PAX path headers for record names longer than the ustar file-name field, so unpacking preserves the full ID.
+
 The build fails when:
 
 - the directory holds anything else, or a category directory holds anything but `.json` records

@@ -14,7 +14,7 @@ Nothing here is published definition data yet. The fixtures are an invented fact
 | `battle-size` | `points` | A battle size a roster can be built for, and its points limit. |
 | `detachment` | `faction` | The faction the detachment belongs to. |
 | `enhancement` | `detachment`, optional `upgrade`, optional `keywords.all` and `keywords.none` | Offered by that detachment to units holding every `all` keyword and no `none` keyword. An `upgrade` may be taken by several units; any other enhancement once per roster. |
-| `unit` | `faction`, `keywords`, `sizes`, optional `modelGroups`, `perRoster`, `limits`, `legends`, `enhancements: false` | `sizes` lists every model count the unit may field. `modelGroups` bounds the sum of counts of its named model IDs. `perRoster` caps its copies, and each of `limits` replaces it in a roster of its `battleSize`. `enhancements: false` bars a unit that the keyword rules would otherwise admit. |
+| `unit` | `faction`, `keywords`, `sizes`, optional `modelGroups`, `optionGroups`, `perRoster`, `limits`, `legends`, `enhancements: false` | `sizes` lists every model count the unit may field. `modelGroups` bounds the sum of counts of its named model IDs, and `optionGroups` the selections several of its options take together. `perRoster` caps its copies, and each of `limits` replaces it in a roster of its `battleSize`. `enhancements: false` bars a unit that the keyword rules would otherwise admit. |
 | `model` | `unit`, `min`, `max`, `wargear`, optional `bySize` | A kind of model in the unit, how many of it the unit fields, and the wargear each one carries by default. A `bySize` row gives its bounds at one total squad size. |
 | `roster-option` | `unit`, optional `carrier`, `choose`, optional `per`, `bySize`, `uniform`, `replaces`, `caps`, `requires`, and `choices` | Wargear the unit may take instead of `replaces`. `choices` are wargear IDs. |
 | `wargear` | optional `includes` | A piece of wargear, or a bundle of the wargear it `includes`. |
@@ -35,6 +35,8 @@ A model or option can specify `bySize: [{ size, min, max }]` for sizes with thei
 
 A unit's `modelGroups` entries give `models`, `min`, `max` and optional `bySize`. The bound applies to the sum across its member IDs, for example when multiple equipment configurations fill the same kind of slot. Individual model bounds and the unit's total remain in force.
 
+A unit's `optionGroups` entries give `options` and `max`. Each member names an `option` of the unit and, optionally, the `choices` of it that count. The group holds at most `max` of those selections for the whole unit at every size, as when two options draw on one slot or offer the same weapon. Only selections the roster lists count, so wargear a unit keeps by default never fills a group, and a group has no minimum.
+
 An option with `requires` is closed until the unit takes one of `requires.choices` from the option `requires.option`, as when a character may take a relic only after swapping its default weapon.
 
 A model loadout that a source writes as separate model entries, one per weapon, is one `model` with a `roster-option` per carrier whose choices are the loadouts as wargear.
@@ -47,6 +49,7 @@ A model loadout that a source writes as separate model entries, one per weapon, 
 - Every ID a record's data names has a record of the right kind and appears in the identity entry's `references`, so a release's `dependsOn` and `unresolvedReferences` see every join.
 - Every unit has at least one model, and every size lies between its models' summed minimums and maximums at that size.
 - Every shared model group includes at least two distinct models that belong to its unit.
+- Every option group names at least two options of its own unit, each once, and only choices those options offer.
 - A model's `min` is no more than its `max`, and an option's `choose.min` no more than its `choose.max`.
 - An option's carrier belongs to its unit, it replaces only wargear its carriers carry, and it does not offer what it replaces.
 - An option caps only wargear it offers. It requires another option of the same unit and choices that option offers, and has no minimum.
@@ -68,6 +71,7 @@ A saved roster names a `faction`, a `detachment`, an optional `battleSize`, and 
 | `model-group-count` | The named models' combined count is outside their shared bounds. |
 | `unit-option`, `option-choice`, `option-count`, `option-uniform` | An option from another unit, wargear the option does not offer, a selection count outside its scaled bounds, or a `uniform` option split between choices or short of its maximum. |
 | `option-cap`, `option-unavailable` | More of some choices than a cap allows, or an option taken before the choice it `requires`. |
+| `option-group-count` | More selections across an option group's members than its `max`. |
 | `option-quantity` | A wargear choice with a negative, fractional or invalid count. |
 | `enhancement-detachment`, `enhancement-keywords`, `enhancement-repeated` | An enhancement from another detachment, on an ineligible unit, or taken twice when it is not an upgrade. |
 | `roster-limit` | More copies of a unit than its limit for the roster's battle size, or `perRoster` when the roster or unit names none. |
@@ -89,7 +93,7 @@ The rules in [When an ID changes](catalogue-identity.md#when-an-id-changes) appl
 - A renamed unit keeps its ID, so an import must use the name in the list's own rules version.
 - A duplicate wargear entry becomes an alias of the one kept.
 - An option split in two is retired with `replacedBy` naming both successors.
-- Battle sizes, caps, and a conditional option first appear in the second release, so the first release's roster has no battle size.
+- Battle sizes, caps, an option group, and a conditional option first appear in the second release, so the first release's roster has no battle size.
 
 [fixtures/roster-definitions](../fixtures/roster-definitions) holds two catalogue release inputs for an invented faction, a points snapshot for the second, and a saved roster for each. [test/roster-definitions.test.ts](../test/roster-definitions.test.ts) builds both releases, checks the history, and covers validation, legality, imports, upgrades, and points joins.
 
@@ -132,7 +136,7 @@ The 78 disagreements first put down to room that is not a multiple of unit size 
 
 These block replacing definitions for Necrons. Each is a shape, source, or consumer change, not a data fix:
 
-1. **Room shared between options.** A campaign character's two ability groups share one slot, and a Legends fortification caps a weapon across two of its options. The format bounds each option separately. These shared limits account for four differences.
+1. **Room shared between options.** A campaign character's two ability groups share one slot, and a Legends fortification caps a weapon across two of its options. Option groups now hold both, and pair probes of the two units agree in 363 of 363 cases ([rerun](definition-cutover.md#shared-option-bounds-rerun)). The four single-option differences remain, because a roster cannot say that it dropped a default from another option.
 2. **Limits outside the roster limit.** One Epic Hero's single copy comes from a rule the conversion does not read as a roster limit. The shape can hold it as `perRoster: 1`, once the source says so.
 3. **Rules outside the shape.** Leader attachments, the Warlord (25 datasheets carry it as a toggle), army-wide enhancement and count limits, and detachment-specific restrictions are roster rules that the app checks separately. Praetorium reads attachment eligibility from datasheet text facts, so it depends on the gameplay reference ([#7](https://github.com/richardsolomou/40k-catalogue/issues/7)).
 4. **Narrow eligibility.** Three enhancement and unit pairs need a rule narrower than shared keywords.
@@ -172,4 +176,4 @@ Run per faction, after the gaps above are closed or the faction's units do not m
 
 ## Decision
 
-Retained. The `wh40k-11e` definitions remain Praetorium's construction source. The shape now reproduces Necrons unit sizes, imports, and wargear and battle-size limits apart from gaps 1 and 2 above, but the roster rules in gap 3 are outside it and no source has a reuse basis. The same scratch probe can run against other factions to measure how often room is shared between options before the shape takes that on. It is not ready for a cutover.
+Retained. The `wh40k-11e` definitions remain Praetorium's construction source. The shape now reproduces Necrons unit sizes, imports, and wargear and battle-size limits apart from gap 2 and the implicit defaults in gap 1, but the roster rules in gap 3 are outside it and no source has a reuse basis. It is not ready for a cutover.

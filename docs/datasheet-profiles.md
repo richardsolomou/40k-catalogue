@@ -74,12 +74,18 @@ The private stage converted the [definition rehearsal](definition-cutover.md)'s 
 | --- | --- |
 | Units with profiles | 5,055 of 6,233. 2,216 from their own faction's datasheet and 2,839 from a shared datasheet whose copies are identical; 1,178 units have no datasheet. |
 | Unit profiles | 6,009, of which 5,481 have no gap. Of the 1,575 in units with several profiles, 1,105 name their models by exact name and 470 have a `models` gap, 4 of them because two profiles match the same model. |
-| Weapon profiles | 29,957, of which 26,282 have no gap. 26,295 join to wargear the unit carries or offers by exact name; 3,662 have a `wargear` gap. |
+| Weapon profiles | 29,957, of which 26,325 have no gap. 26,295 join by exact name and 43 join to the source entry that owns the weapon profile. The other 3,619 have a `wargear` gap. |
 | Unrepresentable values | 95 in all nine versions together: base sizes printed without a size (52), skills or leadership printed without `+` (30), invulnerable saves that differ by model or have two values (8), ranges printed as `?` or `N/A` (4), and armour penetration printed as `-` (1). |
 | Attachment links | 8,899 statements: 8,566 resolve within the unit's faction, 39 to one unit of another faction, 10 to several units and 284 to none. They form 3,777 Leader and 908 support relations in 1,065 records. |
 | Both directions | The source lists a relation on the joining unit, on the unit joined, or both. 3,059 Leader relations appear on both sides, 140 only on the joining unit and 578 only on the unit joined. For support the counts are 861, 28 and 19. The private inventory holds their union for review. It needs a comparison against the actual roster rules before it can decide attachment legality. |
 
-Across the eight retired versions, 33,628 profile IDs are also current and 1,330 belong to units whose current profiles differ because a profile was renamed or removed; that is 90.0% to 99.4% kept per version. Another 12,228 belong to units that have no current datasheet, and 902 to units no longer current.
+### Weapon profile joins
+
+The comparison first keeps the exact-name joins. It then follows every source path from the unit to an unmatched profile. A direct join requires the entry that owns the profile to map to the same carried or offered weapon on every path. That check adds 43 current joins and 125 across nine versions. It agrees with all 52,588 exact-name joins it overlaps. Record IDs and existing joins are preserved.
+
+Of the 3,619 remaining current gaps, 2,669 have a single enclosing choice, 789 have ambiguous ancestry and 161 lack a carried weapon on any path. The candidate keeps the weapon ID unresolved in those cases. An enclosing choice may be a model variant or a bundle, and it differs from the direct weapon in 684 of the 747 cases where both joins can be measured. That relationship can guide a later loadout comparison. All nine versions validate with the direct joins.
+
+Across the eight retired versions, 33,628 profile IDs are also current and 1,330 belong to units whose current profiles differ because a profile was renamed or removed. Each version keeps 90.0% to 99.4% of those IDs. Another 12,228 belong to units that have no current datasheet, and 902 to units no longer current.
 
 The private transport stage joined all 270 datasheets with a transport rule across the nine versions to roster IDs. The existing reader can express 266 capacity records, including 79 of 81 current datasheets. The other four records flag a capacity gap. One current rule's equipment condition resolves to the unit's exact wargear ID.
 

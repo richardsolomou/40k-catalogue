@@ -61,7 +61,7 @@ Each faction's records were joined to its own Munitorum Field Manual file at the
 These are the differences the format or the reference implementation cannot close by data alone, with their denominators at `mfm-1-6`. Retired versions show the same kinds in proportion.
 
 1. **Mixed composition.** 512 unit records have several model kinds whose counts vary, as in kill teams and squads that pick any mix. The format bounds each model separately, so the rest admit or refuse mixes the source does not, and 32 of the 33 left-out units are such mixes that cannot hold their smallest size at all. These units account for 7,560 of the 15,178 option disagreements.
-2. **Caps the format cannot scale.** 698 option choices limit one option in a way no `per` form reproduces across sizes, for 4,582 disagreements. Another 1,366 disagreements are in units where several options disagree together, consistent with room shared between options, and 219 in options whose room does not scale linearly with unit size.
+2. **Caps the format cannot scale.** 698 option choices limit one option in a way no `per` form reproduces across sizes, for 4,582 disagreements. Another 1,366 disagreements are in units where several options disagree together, and 219 in options whose room does not scale linearly with unit size. Room shared between options is measured separately in [Shared option bounds rerun](#shared-option-bounds-rerun).
 3. **Model bounds that scale with size.** 71 loadout choices take models only beyond the default build, at a room that grows with unit size. The format's model `min` and `max` are fixed, so the bound sits on the option instead.
 4. **Sizes the source builder does not enumerate.** Some units take a second leader at their larger size, and lists field sizes Praetorium accepts but its size range does not list. These are among the 393 candidate-only unit-size rejections, which the probe does not separate from mixed composition. Sizes need to come from the source, not from the builder.
 5. **Limits outside the roster limit.** 774 battle-size probes differ, all where Praetorium enforces a limit the conversion does not read as one: allied daemon units in three Chaos factions (768 probes, 288 of them on Epic Heroes), and one Necrons Epic Hero (6).
@@ -109,6 +109,27 @@ The source group was traced for two Leagues of Votann units. Both groups include
 ## Importing named model counts
 
 The private import replay supplied the named model breakdown already present in the translated roster to the optional `modelCounts` input. It compares counts by model ID, ignoring field order and explicit zeros. With only a total, the importer reproduced 58,077 of 70,789 unit compositions and wargear selections. With the named breakdown it reproduced 60,523. The rehearsal measures the import contract using known counts from translated lists. Extraction of the model names from original list text remains a consumer check. [Import contract](roster-definitions.md#imports)
+
+## Shared option bounds rerun
+
+Option groups cap the selections several options of one unit take together and can count only named choices. The private probe compared individual choices and pairs across options in all 1,753 distinct current datasheets. It looked for pairs refused together and choices that only fit when another option drops a default. The comparison found conflicts in 54 datasheets, which account for 141 converted unit records because shared datasheets appear once per faction. In most cases two options offer the same weapon. In some cases two options draw from one slot.
+
+Each set of conflicting choices became a candidate option group with a maximum between 1 and 4. The converter kept a candidate only when `checkRoster` with the group rejects no probed state the evaluator accepts, and agrees on at least one state it did not agree on before. A constant maximum is confirmed only where each member option's own room is fixed, so candidates over an option with `per`, `bySize` or a variable carrier were dropped. The format therefore has no size or carrier form for option groups.
+
+| Check | Without option groups | With option groups |
+| --- | ---: | ---: |
+| Targeted probe: singles and pairs in the 141 units, at every size | 10,302/12,997 | 10,768/12,997 |
+| Necrons targeted probe | 349/363 | 363/363 |
+| Single-option wargear probes | 114,042/129,002 | 114,042/129,002 |
+| Unit sizes, battle-size limits, conditional options | 17,725/17,871, 52,077/52,851, 103/103 | Unchanged |
+| List verdicts | 3,619/4,842 | 3,619/4,842 |
+| Unit verdicts | 69,188/70,789 | 69,188/70,789 |
+
+The rehearsal keeps 306 option groups on 110 units, all with a maximum of 1. Of these, 302 name the choices they count and four count whole options. All 36 faction record sets and the merged 42,643-record release validate. The targeted probe includes cases used to choose the bounds. The list replay and single-option probes exercise the converted records separately. The targeted probe still has disagreements on 33 units, including cases whose shared options scale with model count.
+
+The single-option probe does not change, because it takes one option at a time and keeps sibling defaults that the format leaves implicit. Its four Necrons disagreements are the Hyperscientist taking a Cryptek ability while keeping the default shared ability. A saved roster cannot say that, because a default is never listed. Whole-list agreement does not change, because no list unit takes more than an option group allows.
+
+An earlier candidate set, fitted only on the default builds, rejected 108 Genestealer Cults list units that Praetorium accepts. Its shared room grows with the unit's models. That is why options with scaled room are excluded.
 
 ## Decision
 

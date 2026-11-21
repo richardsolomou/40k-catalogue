@@ -74,6 +74,48 @@ test("a model-assisted draft cannot declare source prose as a model input", () =
   assert.deepEqual(reasons(value), ["/drafting/modelInputs/0 must be equal to one of the allowed values"]);
 });
 
+const attribution = {
+  url: "https://example.org/ember-rules/cinder-ward",
+  revision: "v2.4.0",
+  credit: "Ember Rules contributors",
+  licence: "https://creativecommons.org/licenses/by/4.0/",
+  changes: "Translated the structured trigger and effect into catalogue fields.",
+};
+
+function importedDraft() {
+  const value = corrected();
+  value.drafting = { method: "structured-import", author: "Fixture translator" };
+  return value;
+}
+
+test("a structured import needs source attribution", () => {
+  assert.deepEqual(reasons(importedDraft()), ["a structured import requires record attribution"]);
+});
+
+test("attribution must be reviewed alongside the mechanic", () => {
+  const value = importedDraft();
+  value.record.attribution = attribution;
+  assert.deepEqual(reasons(value), ["/attribution has not been reviewed"]);
+});
+
+test("a release preserves the credit for a reviewed adaptation", (t) => {
+  const value = importedDraft();
+  value.record.attribution = attribution;
+  value.record.conditions = [];
+  value.review.checks = value.review.checks.filter((check: { path: string }) => check.path !== "/conditions/0");
+  value.review.checks.push({ path: "/attribution", outcome: "confirmed" });
+
+  const records = mkdtempSync(join(tmpdir(), "catalogue-attribution-"));
+  t.after(() => rmSync(records, { recursive: true, force: true }));
+  const files = publication(approved(value));
+  writeFileSync(join(records, `${value.record.id}.json`), files[`${value.record.id}.json`]!);
+  writeFileSync(join(records, `${value.record.id}.summary.txt`), files[`${value.record.id}.summary.txt`]!);
+  const release = buildRelease(records, { release: "0.1.0", commit: "a".repeat(40) });
+  if (!release.ok) assert.fail(release.errors.join("\n"));
+  const entry = release.files.get(`records/${value.record.id}.json`);
+  assert.deepEqual(JSON.parse(entry!.toString()).attribution, attribution);
+});
+
 test("an approved proposal publishes the record, its summary, and its review", () => {
   const published = readdirSync(new URL("published/", fixtures));
   const files = publication(approved(corrected()));

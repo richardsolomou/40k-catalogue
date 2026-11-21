@@ -16,6 +16,18 @@ export function setupFor(pack: MissionPack, friendly: string, opposition: string
   return null;
 }
 
+/** The deployment and layout pairs two dispositions can play on: each side has its own primary, and a battlefield must suit both. */
+export function battlefieldsFor(pack: MissionPack, one: string, two: string): { deployment: string; layout: string }[] {
+  const first = setupFor(pack, one, two);
+  const second = setupFor(pack, two, one);
+  if (!first || !second) return [];
+  return pack.layouts.flatMap((layout) =>
+    first.layouts.includes(layout.id) && second.layouts.includes(layout.id)
+      ? layout.deployments.filter((d) => first.deployments.includes(d) && second.deployments.includes(d)).map((deployment) => ({ deployment, layout: layout.id }))
+      : [],
+  );
+}
+
 export function windowOpen(window: ScoringWindow, moment: Moment): boolean {
   if (window.at === "battle-end") return moment.at === "battle-end";
   const { from = 1, to = Infinity } = window.rounds ?? {};

@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from "node:util";
 import { Ajv2020 } from "ajv/dist/2020.js";
-import { renderSummaryBody } from "../render.ts";
+import { renderSummaryData } from "../render.ts";
 import type { MechanicRecord } from "../record.ts";
 import { validate } from "../validate.ts";
 import schema from "./proposal.v1.schema.json" with { type: "json" };
@@ -81,14 +81,14 @@ export function publication(decision: Extract<Decision, { outcome: "approved" }>
     checks: checks.map(({ path, outcome, note, draft }) => ({ path, outcome, note, draft })),
   };
   return {
-    [`${record.id}.json`]: json({ ...record, summary: renderSummaryBody(record) }),
+    [`${record.id}.json`]: json({ ...record, ...renderSummaryData(record) }),
     [`${record.id}.review.json`]: json(review),
   };
 }
 
 // Every part a reviewer must confirm, correct, or mark unresolved before a record is published.
 function reviewableParts(record: MechanicRecord): string[] {
-  const optional = (["attribution", "usage", "duration", "restriction"] as const).filter((key) => record[key] !== undefined);
+  const optional = (["attribution", "summaryTerms", "usage", "duration", "restriction"] as const).filter((key) => record[key] !== undefined);
   const conditions = record.conditions.map((_, i) => `/conditions/${i}`);
   return ["/rulesVersion", "/source", "/trigger", "/target", ...conditions, "/effect", ...optional.map((key) => `/${key}`)];
 }

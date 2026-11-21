@@ -8,6 +8,8 @@ import {
   type Move,
   type OrUnresolved,
   type Restriction,
+  type SummarySpan,
+  type SummaryTerm,
   type Target,
   type Trigger,
   type UnitFilter,
@@ -49,14 +51,31 @@ const WEAPON_ABILITIES = {
   "sustained-hits": "SUSTAINED HITS",
 };
 const CORE_ABILITIES = {
+  "deadly-demise": "Deadly Demise",
   "deep-strike": "Deep Strike",
+  "feel-no-pain": "Feel No Pain",
   "fights-first": "Fights First",
   infiltrators: "Infiltrators",
   "lone-operative": "Lone Operative",
+  scouts: "Scouts",
   stealth: "Stealth",
 };
+const CORE_RULES: Record<string, string> = {
+  "Battle-shock": "battle-shock",
+  "Battle-shocked": "battle-shock",
+  "Below Half-strength": "below-half-strength",
+  "Desperate Escape test": "desperate-escape",
+  "Desperate Escape tests": "desperate-escape",
+  "Engagement Range": "engagement-range",
+  "Fall Back": "fall-back",
+  "mortal wound": "mortal-wounds",
+  "mortal wounds": "mortal-wounds",
+  "Remain Stationary": "remain-stationary",
+  "Remains Stationary": "remain-stationary",
+  "Surge move": "surge-move",
+};
 const AGAINST = { "psychic-attacks": "Psychic Attacks", "mortal-wounds": "mortal wounds" };
-const THRESHOLD_ROLLS = { "deadly-demise": "Deadly Demise roll" };
+const THRESHOLD_ROLLS = { "deadly-demise": `${CORE_ABILITIES["deadly-demise"]} roll` };
 const CHARACTERISTICS = {
   move: "Move",
   toughness: "Toughness",
@@ -69,6 +88,47 @@ const DURATIONS = { "end-of-phase": "the end of the phase", "end-of-turn": "the 
 
 type Names = (ref: UnitRef) => string;
 type UnitCondition = Extract<Condition, { unit: UnitRef }>;
+
+export function renderSummaryData(record: MechanicRecord): { summary: string; summarySpans?: SummarySpan[] } {
+  const summary = renderSummaryBody(record);
+  const terms: SummaryTerm[] = Object.entries(CORE_ABILITIES).map(([id, label]) => ({ label, bold: true, target: { kind: "core-ability", id } }));
+  for (const [label, id] of Object.entries(CORE_RULES)) terms.push({ label, target: { kind: "core-rule", id } });
+
+  const { target, trigger, effect } = record;
+  const filters: UnitFilter[] = [];
+  if (!isUnresolved(target) && "select" in target) filters.push(target.select);
+  if (!isUnresolved(trigger) && "unit" in trigger) filters.push(trigger.unit);
+  if (!isUnresolved(trigger) && trigger.kind === "unit-destroyed") filters.push(trigger.by);
+  for (const filter of filters) {
+    for (const label of filter.keywords ?? []) terms.push({ label, bold: true });
+    for (const label of filter.excludedKeywords ?? []) terms.push({ label: `non-${label}`, bold: true });
+  }
+  if (!isUnresolved(effect) && effect.kind === "grant-weapon-abilities") {
+    for (const ability of effect.abilities) {
+      const label = weaponAbility(ability).slice(1, -1);
+      terms.push({ label, bold: true, target: { kind: "weapon-ability", id: ability.ability } });
+    }
+  }
+  const summarySpans = findSummarySpans(summary, [...terms, ...(record.summaryTerms ?? [])]);
+  return summarySpans.length ? { summary, summarySpans } : { summary };
+}
+
+// Match whole terms at build time. Slices retain the spelling of each occurrence in the summary.
+export function findSummarySpans(summary: string, terms: readonly SummaryTerm[]): SummarySpan[] {
+  const styles = new Map<string, Omit<SummaryTerm, "label">>();
+  for (const { label, ...style } of terms) {
+    const key = label.trim().toLowerCase();
+    if (key) styles.set(key, { ...styles.get(key), ...style });
+  }
+  if (styles.size === 0) return [];
+  const labels = [...styles.keys()].sort((a, b) => b.length - a.length).map(RegExp.escape).join("|");
+  const word = "[\\p{L}\\p{M}\\p{N}_\\p{Pd}]";
+  const pattern = new RegExp(`\\[unresolved:[^\\]]*\\]|(?<!${word})(?:${labels})(?!${word})`, "giu");
+  return [...summary.matchAll(pattern)].flatMap(({ 0: text, index }) => {
+    const style = styles.get(text.toLowerCase());
+    return style ? [{ start: index, end: index + text.length, ...style }] : [];
+  });
+}
 
 export function renderSummary(record: MechanicRecord): string {
   const cost = record.usage?.cp === undefined ? "" : ` (${record.usage.cp} CP)`;
@@ -213,9 +273,10 @@ function effect(e: Effect, target: string, unit: Names): string {
 }
 
 function coreAbility(a: CoreAbility): string {
-  if (a.ability === "scouts") return `Scouts ${a.inches}"`;
-  if (a.ability === "feel-no-pain") return `Feel No Pain ${a.threshold}+${a.against ? ` against ${list(a.against.map((k) => AGAINST[k]), "and")}` : ""}`;
-  return CORE_ABILITIES[a.ability];
+  const name = CORE_ABILITIES[a.ability];
+  if (a.ability === "scouts") return `${name} ${a.inches}"`;
+  if (a.ability === "feel-no-pain") return `${name} ${a.threshold}+${a.against ? ` against ${list(a.against.map((k) => AGAINST[k]), "and")}` : ""}`;
+  return name;
 }
 
 function weaponAbility(a: WeaponAbility): string {

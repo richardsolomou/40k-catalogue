@@ -117,18 +117,10 @@ export function writeRelease(dir: string, files: ReleaseFiles): void {
   }
 }
 
-// An uncompressed ustar archive with fixed metadata, so equal files always give equal bytes on any
-// platform and Node version, which compressed output does not guarantee.
+// An uncompressed tar with fixed metadata and a PAX path header when a name exceeds ustar's fields.
 export function packRelease(files: ReleaseFiles): Buffer {
   const blocks: Buffer[] = [];
-  for (const [path, content] of files) {
-    const body = Buffer.from(content, "utf8");
-    const split = Buffer.byteLength(path) > 100 ? path.lastIndexOf("/") : -1;
-    const name = path.slice(split + 1);
-    const prefix = split === -1 ? "" : path.slice(0, split);
-    if (Buffer.byteLength(name) > 100 || Buffer.byteLength(prefix) > 155) {
-      throw new Error(`${path}: path exceeds the ustar name and prefix limits`);
-    }
+  const append = (name: string, prefix: string, body: Buffer, type = "0") => {
     const header = Buffer.alloc(512);
     header.write(name, 0);
     header.write("0000644\0", 100);
@@ -137,12 +129,29 @@ export function packRelease(files: ReleaseFiles): Buffer {
     header.write(`${body.length.toString(8).padStart(11, "0")}\0`, 124);
     header.write("00000000000\0", 136);
     header.write("        ", 148);
-    header.write("0", 156);
+    header.write(type, 156);
     header.write("ustar\u000000", 257);
     header.write(prefix, 345);
     const checksum = header.reduce((sum, byte) => sum + byte, 0);
     header.write(`${checksum.toString(8).padStart(6, "0")}\0 `, 148);
     blocks.push(header, body, Buffer.alloc((512 - (body.length % 512)) % 512));
+  };
+  for (const [path, content] of files) {
+    const body = Buffer.from(content, "utf8");
+    const split = Buffer.byteLength(path) > 100 ? path.lastIndexOf("/") : -1;
+    const name = path.slice(split + 1);
+    const prefix = split === -1 ? "" : path.slice(0, split);
+    if (Buffer.byteLength(name) <= 100 && Buffer.byteLength(prefix) <= 155) {
+      append(name, prefix, body);
+      continue;
+    }
+    const attribute = ` path=${path}\n`;
+    const attributeBytes = Buffer.byteLength(attribute);
+    let length = attributeBytes + 1;
+    while (length !== attributeBytes + String(length).length) length = attributeBytes + String(length).length;
+    const fallback = sha256(path);
+    append(`pax-${fallback}`, "", Buffer.from(`${length}${attribute}`, "utf8"), "x");
+    append(fallback, "", body);
   }
   blocks.push(Buffer.alloc(1024));
   return Buffer.concat(blocks);

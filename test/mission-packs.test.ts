@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import type { MissionPack } from "../src/mission-packs/pack.ts";
-import { type Banked, type Moment, scoreCard, setupFor } from "../src/mission-packs/play.ts";
+import { compare, type ReferenceCases } from "../src/mission-packs/compare.ts";
+import { type Banked, battlefieldsFor, type Moment, scoreCard, setupFor } from "../src/mission-packs/play.ts";
 import { validatePack } from "../src/mission-packs/validate.ts";
 
 const raw = () => JSON.parse(readFileSync(new URL("../fixtures/mission-packs/synthetic-pack.json", import.meta.url), "utf8"));
@@ -139,4 +140,27 @@ test("an unresolved cap is reported and not enforced", () => {
   p.caps.primary = { unresolved: "the source states no primary cap" };
   const score = scoreCard(p, card(p, "hold-the-line"), [{ award: "hold-each", times: 3 }], commandEnd(2), { round: 11, battle: 39, card: 39 });
   assert.deepEqual([score.vp, score.unenforced], [6, ["primary cap"]]);
+});
+
+test("a table's battlefields suit both sides' primaries", () => {
+  const p = pack();
+  p.primaries[0]!.pairings[1]!.layouts = ["open-ground"];
+  assert.deepEqual(battlefieldsFor(p, "vanguard", "bulwark"), [{ deployment: "split-field", layout: "open-ground" }]);
+});
+
+const cases = (): ReferenceCases => JSON.parse(readFileSync(new URL("../fixtures/mission-packs/synthetic-cases.json", import.meta.url), "utf8"));
+
+test("reference cases that match the pack report no differences", () => {
+  const differences = Object.values(compare(pack(), cases())).flatMap((s) => s.differences);
+  assert.deepEqual(differences, []);
+});
+
+test("reference cases for another pack are rejected", () => {
+  assert.throws(() => compare(pack(), { ...cases(), pack: "synthetic.another-pack" }), /cases name pack synthetic\.another-pack/);
+});
+
+test("a differing amount is reported without either value", () => {
+  const c = cases();
+  c.amounts[0]!.vp = 8;
+  assert.deepEqual(compare(pack(), c).amounts.differences, ["hold-the-line/hold-each x4"]);
 });

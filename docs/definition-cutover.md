@@ -102,6 +102,8 @@ The roster format now supports absolute model counts, option bounds and individu
 
 With the qualified conversion, 114,042 of 129,002 wargear probes match, up from 113,824. All 36 faction record sets and the merged 42,643-record release validate. Whole-list agreement stays at 3,619 of 4,842, and unit verdicts agree in 69,188 of 70,789 cases. The new per-model bounds and import behavior are verified with synthetic cases. A source conversion still needs to supply the bounds for mixed-model compositions.
 
+A separate extraction applied each source group's count bounds to a single model record. Wargear probes rose to 114,357 matches and whole-list agreement fell to 3,379. The candidate retains the earlier bounds. Valid lists can split that group over several model records when equipment differs. The importer must identify those variants together before enforcing the group's total.
+
 ## Importing named model counts
 
 The private import replay supplied the named model breakdown already present in the translated roster to the optional `modelCounts` input. It compares counts by model ID, ignoring field order and explicit zeros. With only a total, the importer reproduced 58,077 of 70,789 unit compositions and wargear selections. With the named breakdown it reproduced 60,523. The rehearsal measures the import contract using known counts from translated lists. Extraction of the model names from original list text remains a consumer check. [Import contract](roster-definitions.md#imports)

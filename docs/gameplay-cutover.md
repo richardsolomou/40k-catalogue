@@ -77,11 +77,11 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 2,521 current drafts that passed automated checks, including 725 stratagems. Of these, 140 use native mechanic records, 2,196 come from pinned 40kdc structured fields, and 147 are core rule or keyword summaries backed by executable evidence or published rules. Another 33 reuse a summary from an identical ability body. Five derived entries also have summaries backed by their linked rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. An earlier pass rewrote 27 drafts with repeated source wording from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 22,447 versioned drafts covering 2,303 distinct pieces of source content.
+The combined queue has 2,629 current drafts that passed automated checks, including 725 faction stratagems. Of these, 140 use native mechanic records, 2,199 come from pinned structured fields and 290 use verified rules or source evidence. The last group includes 150 core rule sections and keyword descriptions, seven core stratagems, 33 summaries reused from identical ability bodies, 12 derived keyword summaries, 85 entries matched to publisher faction packs and three mission entries matched to publisher card images. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. An earlier pass rewrote 27 drafts with repeated source wording from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 23,245 versioned drafts covering 2,344 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,583 with bold spans and 1,460 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Drafts exist for 106 of the 149 linked destinations. The other 43 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,611 with bold spans and 1,556 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Drafts exist for 114 of the 157 linked destinations. The other 43 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 394 entries held by unsupported structure, 179 incomplete drafts, 110 entries with partial facts, 49 derived names and 2,905 in the authoring queue. One native translation is held for a missing mechanical value. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 391 entries held by unsupported structure, 179 incomplete drafts, 110 entries with partial facts, 42 derived names and 2,807 in the authoring queue. One native translation is held for a missing mechanical value. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
 ### CP and Miracle dice
 
@@ -143,11 +143,23 @@ Exact keyword casing and branch checks add 9 stratagem summaries. Each summary p
 
 ### Datasheet-derived keyword links
 
-The source comparison binds 26 datasheet-derived names to their rule in each pinned version. It checks the ability or weapon profile that uses the keyword, its role, and the linked rule’s identity and digest. Five entries also have original summaries supported by the linked mechanics. The other 21 carry their verified destination and any corroborated parameter. Another 28 names remain held, including unresolved variants.
+The source comparison binds 26 datasheet-derived names to their rule in each pinned version. It checks the ability or weapon profile that uses the keyword, its role, and the linked rule’s identity and digest. Twelve entries also have original summaries supported by the linked mechanics. The other 14 carry their verified destination and any corroborated parameter. Another 28 names remain held, including unresolved variants.
+
+### Publisher mission card images
+
+Three current non-award drafts match the full published card image and the pinned mission pack. They cover the Punishment card rule, the BOOBY TRAP action and the Martial Pride twist. Their summaries link directly to the relevant core rule IDs. This evidence applies to the current pack. The Combat Patrol missions and Chapter Approved scoring awards still require their own source checks.
+
+### Publisher faction pack matches
+
+The published faction packs support 80 datasheet ability drafts and five enhancement drafts. The checks bind the card and its full rule body to the source page, then verify the date and content digest for each rules version. The datasheet drafts cover 59 Damaged entries and seven each for Aspect Shrine Token, Daemonic Icon and Instrument of Chaos. Where PDF extraction separates a Damaged heading from its rule, the page coordinates establish which model and wound range the paragraph belongs to.
+
+Three Travelling Players drafts preserve the default roster limit and its explicit overrides. The same structured comparison leaves both Shock Charge entries and Synaptic Strategy held where the rule name or order of use differs.
 
 ### Linked core and weapon rules
 
 The link audit uses pinned executable rules and printed sections to verify destinations against the reference version. The printed rule summaries cover round sequencing and movement. The draft JSON carries the mechanic, the original summary, and references to the supporting tests or published rule sections.
+
+Ten more printed sections cover core concepts, faction and wargear abilities, auras, and Aircraft rules. Three related sections remain held where extra clauses or the timing of a choice still need source verification.
 
 The Pile-In Move draft follows the printed movement and engagement conditions. Objective eligibility differs between print and Datacards for Consolidation, and the timing of fights triggered by that move remains unclear. The Consolidation draft stays held. [Core Rules, pp. 38–42](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=38)
 

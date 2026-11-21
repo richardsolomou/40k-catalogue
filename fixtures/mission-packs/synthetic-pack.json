@@ -1,0 +1,164 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-pack",
+  "id": "synthetic.proving-grounds",
+  "name": "Proving Grounds",
+  "rulesVersion": { "edition": "synthetic", "update": "1" },
+  "source": { "title": "Invented for the mission-pack tests", "page": "none" },
+  "battleRounds": { "count": 4 },
+  "battleReady": { "vp": 6 },
+  "caps": {
+    "primary": { "perRound": 12, "perBattle": 40 },
+    "secondary": { "perRound": 10, "perBattle": 30 },
+    "fixedSecondaryPerCard": { "perBattle": 18 }
+  },
+  "dispositions": [
+    { "id": "vanguard", "name": "Vanguard" },
+    { "id": "bulwark", "name": "Bulwark" }
+  ],
+  "deployments": [
+    { "id": "split-field", "name": "Split Field" },
+    { "id": "corner-clash", "name": "Corner Clash" }
+  ],
+  "layouts": [
+    { "id": "split-field-a", "name": "Split Field A", "deployments": ["split-field"] },
+    { "id": "corner-clash-a", "name": "Corner Clash A", "deployments": ["corner-clash"] },
+    { "id": "open-ground", "name": "Open Ground", "deployments": ["split-field", "corner-clash"] }
+  ],
+  "primaries": [
+    {
+      "id": "hold-the-line",
+      "name": "Hold the Line",
+      "source": { "title": "Invented for the mission-pack tests", "page": "none" },
+      "pairings": [
+        { "friendly": "vanguard", "opposition": "bulwark", "deployments": ["split-field"], "layouts": ["split-field-a", "open-ground"] },
+        { "friendly": "bulwark", "opposition": "vanguard", "deployments": ["split-field"], "layouts": ["split-field-a", "open-ground"] }
+      ],
+      "awards": [
+        {
+          "id": "hold-one",
+          "vp": 3,
+          "count": "once",
+          "criterion": { "summary": "You control at least one objective." },
+          "windows": [
+            { "at": "phase-end", "phase": "command", "turn": "own", "rounds": { "from": 2, "to": 3 } },
+            { "at": "turn-end", "turn": "own", "rounds": { "from": 4 } }
+          ]
+        },
+        {
+          "id": "hold-each",
+          "vp": 2,
+          "count": "each",
+          "max": 6,
+          "criterion": { "summary": "For each objective you control." },
+          "windows": [
+            { "at": "phase-end", "phase": "command", "turn": "own", "rounds": { "from": 2, "to": 3 } },
+            { "at": "turn-end", "turn": "own", "rounds": { "from": 4 } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "last-stand",
+      "name": "Last Stand",
+      "source": { "title": "Invented for the mission-pack tests", "page": "none" },
+      "pairings": [
+        { "friendly": "vanguard", "opposition": "vanguard", "deployments": ["corner-clash"], "layouts": ["corner-clash-a", "open-ground"] },
+        { "friendly": "bulwark", "opposition": "bulwark", "deployments": ["corner-clash"], "layouts": ["corner-clash-a"] }
+      ],
+      "awards": [
+        {
+          "id": "survivor",
+          "vp": 8,
+          "count": "once",
+          "criterion": { "unresolved": "which units count as surviving is not modelled" },
+          "windows": [{ "at": "battle-end" }]
+        }
+      ]
+    }
+  ],
+  "secondaries": [
+    {
+      "id": "scouting-sweep",
+      "name": "Scouting Sweep",
+      "source": { "title": "Invented for the mission-pack tests", "page": "none" },
+      "modes": ["fixed", "tactical"],
+      "whenDrawn": { "action": "redraw", "required": false, "untilRound": 1 },
+      "awards": [
+        {
+          "id": "sweep-fixed",
+          "vp": 2,
+          "count": "each",
+          "modes": ["fixed"],
+          "criterion": { "summary": "For each table quarter you have a unit in." },
+          "windows": [{ "at": "turn-end", "turn": "any" }]
+        },
+        {
+          "id": "sweep-tactical",
+          "vp": 4,
+          "count": "once",
+          "modes": ["tactical"],
+          "criterion": { "summary": "You have units in three or more table quarters." },
+          "windows": [{ "at": "turn-end", "turn": "own" }]
+        }
+      ]
+    },
+    {
+      "id": "watchful-eye",
+      "name": "Watchful Eye",
+      "source": { "title": "Invented for the mission-pack tests", "page": "none" },
+      "modes": ["tactical"],
+      "whenDrawn": { "action": "redraw", "required": false, "ifActive": "scouting-sweep" },
+      "awards": [
+        {
+          "id": "eye-one",
+          "vp": 2,
+          "count": "once",
+          "exclusive": "eye",
+          "criterion": { "summary": "One enemy unit was kept out of your deployment zone." },
+          "windows": [{ "at": "turn-end", "turn": "opponent", "orBattleEnd": true }]
+        },
+        {
+          "id": "eye-all",
+          "vp": 5,
+          "count": "once",
+          "exclusive": "eye",
+          "criterion": { "summary": "Every enemy unit was kept out of your deployment zone." },
+          "windows": [{ "at": "turn-end", "turn": "opponent", "orBattleEnd": true }]
+        }
+      ]
+    },
+    {
+      "id": "relic-hunt",
+      "name": "Relic Hunt",
+      "source": { "title": "Invented for the mission-pack tests", "page": "none" },
+      "modes": ["fixed"],
+      "whenDrawn": { "unresolved": "a draw condition that depends on terrain is not modelled" },
+      "awards": [
+        {
+          "id": "relic",
+          "vp": 5,
+          "count": "each",
+          "criterion": { "summary": "For each relic your units recover." },
+          "windows": [{ "unresolved": "scores when an action completes, which no window value covers" }, { "at": "battle-end" }]
+        }
+      ]
+    }
+  ],
+  "twists": [
+    {
+      "id": "thick-fog",
+      "name": "Thick Fog",
+      "source": { "title": "Invented for the mission-pack tests", "page": "none" },
+      "changesPrimary": false,
+      "effect": { "summary": "Ranged attacks against targets more than 18 inches away subtract 1 from the hit roll." }
+    },
+    {
+      "id": "shifting-front",
+      "name": "Shifting Front",
+      "source": { "title": "Invented for the mission-pack tests", "page": "none" },
+      "changesPrimary": true,
+      "effect": { "unresolved": "how it rewrites the primary awards is not modelled" }
+    }
+  ]
+}

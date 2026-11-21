@@ -6,7 +6,7 @@ Pick an [open issue](https://github.com/richardsolomou/40k-catalogue/issues) who
 
 - Use structured fields and original wording. Include a source reference and a rules version so someone can verify the mechanic.
 - Use synthetic examples for tooling and schema tests. Keep official prose, artwork, PDFs, catalogue exports, and source-derived model inputs out of Git, issues, pull requests, and CI artifacts.
-- Review model-assisted drafts against the source. Check timing, targets, durations, and exceptions. Record any unresolved clause as a gap.
+- Follow the [authoring and review workflow](docs/authoring.md). Review model-assisted drafts against the source and record unresolved clauses as gaps.
 - Before adding or distributing a new source, record its provenance and the basis for the intended reuse. The repository licence covers original project material its contributors have the right to license.
 
 ## Reporting a gap

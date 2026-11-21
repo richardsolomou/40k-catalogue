@@ -242,7 +242,8 @@
                   "modify-roll",
                   "modify-characteristic",
                   "re-roll",
-                  "grant-weapon-abilities"
+                  "grant-weapon-abilities",
+                  "grant-abilities"
                 ]
               }
             },
@@ -901,6 +902,7 @@
             "modify-characteristic",
             "re-roll",
             "grant-weapon-abilities",
+            "grant-abilities",
             "mortal-wounds",
             "roll-threshold",
             "activate-ability",
@@ -1017,6 +1019,37 @@
               },
               "weapons": {
                 "$ref": "#/$defs/weaponType"
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "grant-abilities"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "abilities"
+            ],
+            "properties": {
+              "kind": true,
+              "abilities": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "#/$defs/coreAbility"
+                }
               }
             },
             "type": "object"
@@ -1302,6 +1335,70 @@
               "type": "integer",
               "minimum": 2,
               "maximum": 6
+            }
+          }
+        }
+      ]
+    },
+    "coreAbility": {
+      "type": "object",
+      "required": [
+        "ability"
+      ],
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "ability": {
+              "enum": [
+                "deep-strike",
+                "fights-first",
+                "infiltrators",
+                "lone-operative",
+                "stealth"
+              ]
+            }
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "inches"
+          ],
+          "properties": {
+            "ability": {
+              "const": "scouts"
+            },
+            "inches": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "threshold"
+          ],
+          "properties": {
+            "ability": {
+              "const": "feel-no-pain"
+            },
+            "threshold": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 6
+            },
+            "against": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "enum": [
+                  "psychic-attacks",
+                  "mortal-wounds"
+                ]
+              }
             }
           }
         }

@@ -69,9 +69,15 @@ The 58 public battles on production (read-only through Praetorium's public battl
 - 21 battles with no pack. Their primaries resolve through Praetorium's unscoped disposition keys, which no pack-scoped record targets.
 - 37 battles with the Chapter Approved pack.
   - 29 hold deployment IDs the map resolves: 25 Game Datacards IDs (6 distinct) and 4 King of the Colosseum IDs.
-  - 8 hold one of 3 older slug deployment IDs. Neither Praetorium's current code nor the map resolves them. Each slug equals the slugged name of a current deployment. They are not aliased, because the alias needs the owner's confirmation.
+  - 8 hold one of 3 older slug deployment IDs. The [legacy deployment rehearsal](#legacy-deployment-rehearsal) identifies their original records.
 
 The listing does not expose layout IDs, card keys, twist IDs, or objective keys. Battle logs were not available, so no stored log was replayed through `scoreCard`.
+
+### Legacy deployment rehearsal
+
+The three stored slugs match their original deployment records. The app before its migration to Game Datacards used the source's string ID and applied each zone's offset to its polygon. Five retained snapshots contain the same deployment file at the two 40kdc source revisions. All three maps passed the terrain validator after applying the historical reader's coordinate transform. [Historical reader](https://github.com/richardsolomou/praetorium.gg/blob/4e024359a68bc1fc574a5980a2479472c64ac2ee/src/server/rulesTerrain.ts) · [Pinned deployment source](https://github.com/wn-mitch/40kdc-data/blob/6a2aa2d284cd677bb963a9e3d228d9964212991e/data/core/deployment-patterns.json)
+
+The same-name newer deployments have different objective positions in all three cases. Two also have different zone vertices. The legacy slugs resolve to their own private records. Preserve those historical assignments in the consumer's mapping so a saved battle keeps the map it used.
 
 ## Identity across rules versions
 
@@ -91,6 +97,6 @@ Both identities validate, both releases verify, and the history check reports no
 1. The source-use decision ([#3](source-inventory.md#source-use-decision-for-3)) and a reuse basis for any geometry. Every converted record is `measured`, and its `reuse` is explicitly unresolved.
 2. Authored content: criteria for 131 Chapter Approved and 70 Combat Patrol awards, 70 Combat Patrol windows, 6 twist effects, 2 "when drawn" replacements, card-level modes, cumulative awards, and a ruling on the final-round primary timing.
 3. The King of the Colosseum battlefields are standalone geometry. A lookup must keep them available independently of the mission packs.
-4. Assign stable IDs under the [identity contract](catalogue-identity.md) and validate mappings for the 3 older deployment slugs against the saved battle data.
+4. Assign stable IDs under the [identity contract](catalogue-identity.md) and apply the historical deployment mapping in the consumer. Verify it against stored battle data.
 5. A protected production audit of battle logs, rosters, and sealed events for layout IDs, card keys, twist IDs, and objective keys, plus a `scoreCard` replay of stored logs.
 6. A real release built from tracked inputs, with an archive checksum, before Praetorium switches any pin.

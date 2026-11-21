@@ -77,11 +77,11 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 2,503 current drafts that passed automated checks, including 716 stratagems. Of these, 140 use native mechanic records, 2,179 come from pinned 40kdc structured fields, and 146 are core rule or keyword summaries backed by executable evidence or published rules. Another 33 reuse a summary from an identical ability body. Five derived entries also have summaries backed by their linked rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. An earlier pass rewrote 27 drafts with repeated source wording from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 22,285 versioned drafts covering 2,285 distinct pieces of source content.
+The combined queue has 2,508 current drafts that passed automated checks, including 720 stratagems. Of these, 140 use native mechanic records, 2,183 come from pinned 40kdc structured fields, and 147 are core rule or keyword summaries backed by executable evidence or published rules. Another 33 reuse a summary from an identical ability body. Five derived entries also have summaries backed by their linked rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. An earlier pass rewrote 27 drafts with repeated source wording from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 22,330 versioned drafts covering 2,290 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,573 with bold spans and 1,442 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Drafts exist for 99 of the 139 linked destinations. The other 40 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,577 with bold spans and 1,447 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Drafts exist for 105 of the 146 linked destinations. The other 41 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 411 entries held by unsupported structure, 179 incomplete drafts, 110 entries with partial facts, 49 derived names and 2,906 in the authoring queue. One native translation is held for a missing mechanical value. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 407 entries held by unsupported structure, 179 incomplete drafts, 110 entries with partial facts, 49 derived names and 2,905 in the authoring queue. One native translation is held for a missing mechanical value. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
 ### CP and Miracle dice
 
@@ -94,6 +94,8 @@ Eleven stratagem drafts now describe two mutually exclusive target options and p
 ### Charge target eligibility
 
 Four stratagem drafts specify that the chosen friendly unit must be one the triggering enemy selected for its charge. The checks bind the candidate and the triggering unit to that selection event in the opponent's Charge phase. A comparison that substitutes attack target selection is rejected even though both renderers phrase it the same way. Seven existing target lines now group their keyword options and state the other eligibility requirements separately. Blind Grenades and Suboptimal Facade remain held for target grouping and a regional ownership condition.
+
+A follow-up verifies four of 13 held stratagems by checking the target identity, eligibility conditions and timing. All four retain their 1 CP cost. The other nine have structural gaps or source mismatches.
 
 ### Effect recipients
 
@@ -135,7 +137,9 @@ The source comparison binds 26 datasheet-derived names to their rule in each pin
 
 ### Linked core and weapon rules
 
-The link audit uses pinned executable rules and printed sections to verify destinations against the reference version. The latest pass adds 7 printed rule summaries covering round sequencing and movement. The draft JSON carries the mechanic, the original summary, and references to the supporting tests or published rule sections.
+The link audit uses pinned executable rules and printed sections to verify destinations against the reference version. The printed rule summaries cover round sequencing and movement. The draft JSON carries the mechanic, the original summary, and references to the supporting tests or published rule sections.
+
+The Pile-In Move draft follows the printed movement and engagement conditions. Objective eligibility differs between print and Datacards for Consolidation, and the timing of fights triggered by that move remains unclear. The Consolidation draft stays held. [Core Rules, pp. 38–42](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=38)
 
 The published 11th-edition Core Rules resolve two conflicts between the pinned engines. Devastating Wounds resolves after normal damage and keeps the mortal wounds from a single attack on one model. Lethal Hits gives the attacker a choice to take the automatic wound. The audit also recorded the normal-damage ordering for mortal wounds. [Core Rules, pp. 24, 80 and 82](https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf)
 

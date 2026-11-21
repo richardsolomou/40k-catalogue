@@ -1,6 +1,6 @@
 import { Ajv2020 } from "ajv/dist/2020.js";
 import schema from "../schema/mechanic.v1.schema.json" with { type: "json" };
-import { isUnresolved, type MechanicRecord, type UnitRef } from "./record.ts";
+import { isUnresolved, type MechanicRecord, type Trigger, type UnitRef } from "./record.ts";
 
 export type Gap = { path: string; note: string };
 export type Validation = { ok: true; record: MechanicRecord; gaps: Gap[] } | { ok: false; errors: string[] };
@@ -23,10 +23,23 @@ export function gaps(record: MechanicRecord): Gap[] {
     ["/target", record.target],
     ...record.conditions.map((c, i): [string, object] => [`/conditions/${i}`, c]),
     ["/effect", record.effect],
+    ["/effect/ifBattleShocked", effectPenalty(record.effect)],
     ["/duration", record.duration],
+    ["/restriction", record.restriction],
   ];
   return parts.flatMap(([path, part]) => (part && isUnresolved(part) ? [{ path, note: part.unresolved }] : []));
 }
+
+function effectPenalty(effect: MechanicRecord["effect"]): object | undefined {
+  return !isUnresolved(effect) && effect.kind === "desperate-escape-tests" ? effect.ifBattleShocked : undefined;
+}
+
+// Each unit reference other than this-unit and target is introduced by one kind of trigger.
+const INTRODUCED_BY: Partial<Record<UnitRef, { kinds: Trigger["kind"][]; name: string }>> = {
+  "triggering-unit": { kinds: ["move-end", "move-selected", "unit-destroyed"], name: "a triggering unit" },
+  "triggering-model": { kinds: ["model-destroyed"], name: "a triggering model" },
+  "destroying-unit": { kinds: ["unit-destroyed"], name: "a destroying unit" },
+};
 
 // Unit references must name a unit the record actually introduces, which the schema cannot express.
 function referenceErrors(record: MechanicRecord): string[] {
@@ -44,10 +57,16 @@ function referenceErrors(record: MechanicRecord): string[] {
     refs.push([`/conditions/${i}/of`, c.of]);
     if (c.unit === c.of) errors.push(`/conditions/${i} cannot measure a distance from a unit to itself`);
   });
+  const { effect, restriction } = record;
+  if (!isUnresolved(effect) && effect.kind === "desperate-escape-tests") refs.push(["/effect/unit", effect.unit]);
+  if (restriction && !isUnresolved(restriction)) refs.push(["/restriction/unit", restriction.unit]);
 
-  const hasTriggeringUnit = !isUnresolved(record.trigger) && record.trigger.kind === "move-end";
+  const triggerKind = isUnresolved(record.trigger) ? undefined : record.trigger.kind;
   for (const [path, ref] of refs) {
-    if (ref === "triggering-unit" && !hasTriggeringUnit) errors.push(`${path} refers to a triggering unit, but the trigger has none`);
+    const introduced = INTRODUCED_BY[ref];
+    if (introduced && !(triggerKind && introduced.kinds.includes(triggerKind))) {
+      errors.push(`${path} refers to ${introduced.name}, but the trigger has none`);
+    }
     if (ref === "target" && path.startsWith("/target/")) errors.push(`${path} cannot refer to the target it selects`);
   }
   return errors;

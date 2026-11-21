@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/src/terrain/terrain.v1.schema.json",
+  "title": "Terrain layout or deployment map, format version 1",
+  "type": "object",
+  "required": ["formatVersion", "kind"],
+  "properties": {
+    "formatVersion": { "const": 1 },
+    "kind": { "enum": ["terrain-layout", "deployment-map"] }
+  },
+  "if": { "properties": { "kind": { "const": "terrain-layout" } } },
+  "then": { "$ref": "#/$defs/layout" },
+  "else": { "$ref": "#/$defs/deployment" },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+    "text": { "type": "string", "pattern": "\\S" },
+    "inches": { "type": "number", "exclusiveMinimum": 0 },
+    "rotation": { "type": "number", "minimum": 0, "exclusiveMaximum": 360 },
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": { "x": { "type": "number" }, "y": { "type": "number" } }
+    },
+    "polygon": { "type": "array", "minItems": 3, "items": { "$ref": "#/$defs/point" } },
+    "role": { "enum": ["attacker", "defender"] },
+    "board": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": { "width": { "$ref": "#/$defs/inches" }, "height": { "$ref": "#/$defs/inches" } }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["basis", "note"],
+      "properties": { "basis": { "enum": ["synthetic", "original", "measured"] }, "note": { "$ref": "#/$defs/text" } },
+      "if": { "properties": { "basis": { "const": "measured" } } },
+      "then": {
+        "additionalProperties": false,
+        "required": ["source", "reuse"],
+        "properties": {
+          "basis": true,
+          "note": true,
+          "reuse": { "$ref": "#/$defs/text" },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title"],
+            "anyOf": [{ "required": ["page"] }, { "required": ["url"] }],
+            "properties": {
+              "title": { "$ref": "#/$defs/text" },
+              "page": { "$ref": "#/$defs/text" },
+              "url": { "type": "string", "pattern": "^https://\\S+$" }
+            }
+          }
+        }
+      },
+      "else": { "additionalProperties": false, "properties": { "basis": true, "note": true } }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["formatVersion", "kind", "id", "name", "provenance", "board", "areas"],
+      "properties": {
+        "formatVersion": true,
+        "kind": true,
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/text" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "board": { "$ref": "#/$defs/board" },
+        "areas": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/area" } }
+      }
+    },
+    "area": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "footprint", "outline", "group", "objective", "parts"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "footprint": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["at", "width", "height", "rotation"],
+          "properties": {
+            "at": { "$ref": "#/$defs/point" },
+            "width": { "$ref": "#/$defs/inches" },
+            "height": { "$ref": "#/$defs/inches" },
+            "rotation": { "$ref": "#/$defs/rotation" }
+          }
+        },
+        "outline": { "$ref": "#/$defs/polygon" },
+        "group": { "oneOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "objective": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "at"],
+              "properties": { "id": { "$ref": "#/$defs/id" }, "at": { "$ref": "#/$defs/point" } }
+            },
+            { "type": "null" }
+          ]
+        },
+        "parts": { "type": "array", "items": { "$ref": "#/$defs/part" } }
+      }
+    },
+    "part": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "density", "at", "rotation", "mirror", "roof", "walls"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/text" },
+        "density": { "enum": ["dense", "light"] },
+        "at": { "$ref": "#/$defs/point" },
+        "rotation": { "$ref": "#/$defs/rotation" },
+        "mirror": { "type": "boolean" },
+        "roof": { "oneOf": [{ "$ref": "#/$defs/polygon" }, { "type": "null" }] },
+        "walls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "points", "thickness"],
+            "properties": {
+              "id": { "$ref": "#/$defs/id" },
+              "points": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/point" } },
+              "thickness": { "$ref": "#/$defs/inches" }
+            }
+          }
+        }
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["formatVersion", "kind", "id", "name", "provenance", "board", "zones", "territories", "objectives"],
+      "properties": {
+        "formatVersion": true,
+        "kind": true,
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/text" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "board": { "$ref": "#/$defs/board" },
+        "zones": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/region" } },
+        "territories": { "type": "array", "maxItems": 2, "items": { "$ref": "#/$defs/region" } },
+        "objectives": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "at"],
+            "properties": { "id": { "$ref": "#/$defs/id" }, "at": { "$ref": "#/$defs/point" } }
+          }
+        }
+      }
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "points"],
+      "properties": { "role": { "$ref": "#/$defs/role" }, "points": { "$ref": "#/$defs/polygon" } }
+    }
+  }
+}

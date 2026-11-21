@@ -11,6 +11,7 @@ import {
   type Trigger,
   type UnitFilter,
   type UnitRef,
+  type WeaponAbility,
 } from "./record.ts";
 
 const PHASES = { command: "Command", movement: "Movement", shooting: "Shooting", charge: "Charge", fight: "Fight" };
@@ -25,6 +26,26 @@ const ROLLS = {
   advance: "Advance rolls",
   charge: "Charge rolls",
   "battle-shock": "Battle-shock tests",
+};
+// Bracketed as printed on a datasheet; anti adds its keyword and threshold.
+const WEAPON_ABILITIES = {
+  assault: "ASSAULT",
+  blast: "BLAST",
+  "devastating-wounds": "DEVASTATING WOUNDS",
+  hazardous: "HAZARDOUS",
+  heavy: "HEAVY",
+  "ignores-cover": "IGNORES COVER",
+  "indirect-fire": "INDIRECT FIRE",
+  lance: "LANCE",
+  "lethal-hits": "LETHAL HITS",
+  pistol: "PISTOL",
+  precision: "PRECISION",
+  psychic: "PSYCHIC",
+  torrent: "TORRENT",
+  "twin-linked": "TWIN-LINKED",
+  melta: "MELTA",
+  "rapid-fire": "RAPID FIRE",
+  "sustained-hits": "SUSTAINED HITS",
 };
 const THRESHOLD_ROLLS = { "deadly-demise": "Deadly Demise roll" };
 const CHARACTERISTICS = {
@@ -127,6 +148,7 @@ function mentionsTarget(c: Condition): boolean {
 // Describes the condition with `subject` as its grammatical subject; distance is symmetric, so either end can be the subject.
 function predicate(c: Condition, subject: UnitRef, unit: Names): string {
   if (c.kind === "within") return `is within ${c.inches}" of ${unit(subject === c.unit ? c.of : c.unit)}`;
+  if (c.kind === "not-selected") return `has not been selected to ${list(c.to, "or")} this phase`;
   if (c.at === "now") return `is ${STATUSES[c.status]}`;
   return `was ${STATUSES[c.status]} ${MOMENTS[c.at]}`;
 }
@@ -160,7 +182,18 @@ function effect(e: Effect, target: string, unit: Names): string {
       return `${change(e.by)} ${ROLLS[e.roll]} for ${target}`;
     case "modify-characteristic":
       return `${change(e.by)} the ${CHARACTERISTICS[e.characteristic]} characteristic of ${target}`;
+    case "re-roll": {
+      const rolls = `${ROLLS[e.roll]}${e.results === "ones" ? " of 1" : ""}`;
+      return `re-roll ${rolls} for ${e.weapons ? `${e.weapons} attacks made by ${target}` : target}`;
+    }
+    case "grant-weapon-abilities":
+      return `grant ${list(e.abilities.map(weaponAbility), "and")} to ${e.weapons ? `${e.weapons} weapons` : "weapons"} equipped by models in ${target}`;
   }
+}
+
+function weaponAbility(a: WeaponAbility): string {
+  if (a.ability === "anti") return `[ANTI-${a.keyword.toUpperCase()} ${a.threshold}+]`;
+  return `[${WEAPON_ABILITIES[a.ability]}${"value" in a ? ` ${a.value}` : ""}]`;
 }
 
 function restriction(r: Restriction, unit: Names): string {

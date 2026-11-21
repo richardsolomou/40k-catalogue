@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import type { MissionPack } from "../src/mission-packs/pack.ts";
 import { compare, type ReferenceCases } from "../src/mission-packs/compare.ts";
-import { type Banked, battlefieldsFor, type Moment, scoreCard, setupFor } from "../src/mission-packs/play.ts";
+import { type Banked, battlefieldsFor, type Moment, primaryForDetachment, scoreCard, setupFor } from "../src/mission-packs/play.ts";
 import { validatePack } from "../src/mission-packs/validate.ts";
 
 const raw = () => JSON.parse(readFileSync(new URL("../fixtures/mission-packs/synthetic-pack.json", import.meta.url), "utf8"));
@@ -56,6 +56,26 @@ test("a disposition pairing selects its primary and battlefields", () => {
 
 test("a pairing the pack does not offer has no setup", () => {
   assert.equal(setupFor(pack(), "vanguard", "raiders"), null);
+});
+
+test("a primary can be selected by its detachment ID", () => {
+  const value = raw();
+  value.primaries[0].pairings = [];
+  value.primaries[0].detachment = "flame-wardens";
+  const result = validatePack(value);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  assert.equal(primaryForDetachment(result.pack, "flame-wardens")?.id, "hold-the-line");
+});
+
+test("an unmapped detachment has no assigned primary", () => {
+  assert.equal(primaryForDetachment(pack(), "flame-wardens"), null);
+});
+
+test("rejects two primaries assigned to the same detachment", () => {
+  const value = raw();
+  for (const primary of value.primaries) primary.detachment = "flame-wardens";
+  const result = validatePack(value);
+  assert.deepEqual(result, { ok: false, errors: ['/primaries/1/detachment repeats "flame-wardens"'] });
 });
 
 test("a primary scores at the end of the command phase from its first scoring round", () => {

@@ -59,14 +59,13 @@ function structureErrors(snapshot: PointsSnapshot): string[] {
   return errors;
 }
 
-// Copy ranges must start at the first copy and cover every later copy exactly once, so any copy has one price.
+// Copy ranges are contiguous from the first copy through the last priced copy.
 function tierErrors(errors: string[], path: string, tiers: Tier[]) {
   let next = 1;
   tiers.forEach(({ copies, costs }, i) => {
     if (copies.from !== next) errors.push(`${path}/${i}/copies/from must be ${next}`);
     if (copies.to !== undefined && copies.to < copies.from) errors.push(`${path}/${i}/copies/to is before from`);
     if (copies.to === undefined && i < tiers.length - 1) errors.push(`${path}/${i}/copies must have "to" unless it is the last tier`);
-    if (copies.to !== undefined && i === tiers.length - 1) errors.push(`${path}/${i}/copies must not have "to" in the last tier`);
     next = (copies.to ?? copies.from) + 1;
 
     const rows = new Set<string>();

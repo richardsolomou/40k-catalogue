@@ -27,7 +27,7 @@ export type Award = {
 };
 
 export type Pairing = { friendly: string; opposition: string; deployments: string[]; layouts: string[] };
-export type Primary = { id: string; name: string; source: Source; pairings: Pairing[]; awards: Award[] };
+export type Primary = { id: string; name: string; source: Source; pairings: Pairing[]; detachment?: string; awards: Award[] };
 export type WhenDrawn = { action: "redraw"; required: boolean; untilRound?: number; ifActive?: string };
 export type Secondary = { id: string; name: string; source: Source; modes: Mode[]; awards: Award[]; whenDrawn?: OrUnresolved<WhenDrawn> };
 export type Twist = { id: string; name: string; source: Source; changesPrimary: boolean; effect: OrUnresolved<{ summary: string }> };

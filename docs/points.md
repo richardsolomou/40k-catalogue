@@ -12,7 +12,7 @@ A points snapshot holds every cost for one points update: unit sizes by copy, wa
 | `source` | Where the costs were read: `title`, a `url` or `page`, and the `revision` when the source is versioned. |
 | `basis` | The stated basis for reusing these values, in one sentence. |
 | `factions[].units[]` | `id`, `name`, optional `group` and `legends`, the cost `tiers`, and per-item `wargear`. |
-| `tiers[]` | The `copies` it applies to (`from`, and `to` unless it is the last tier) and its `costs`. Tiers start at the first copy and cover every later copy once. |
+| `tiers[]` | The `copies` it applies to and its `costs`. Ranges start at the first copy and are contiguous. An omitted `to` makes the final tier open-ended. If the final tier has a `to`, later copies return `no-tier`. |
 | `costs[]` | `models` and `points`, plus `composition` when two rows share a model count. |
 | `factions[].detachments[]` | `id`, `name`, `dp`, and `enhancements`. An enhancement with `upgrade: true` is an upgrade. |
 

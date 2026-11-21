@@ -62,6 +62,7 @@ export type MechanicRecord = {
   name: string;
   rulesVersion: { edition: string; update: string };
   source: { title: string; page?: string; url?: string };
+  attribution?: { url: string; revision: string; credit: string; licence: string; changes: string };
   usage?: Usage;
   trigger: OrUnresolved<Trigger>;
   target: OrUnresolved<Target>;

@@ -1,6 +1,6 @@
 # Roadmap
 
-40K Catalogue publishes structured game data and original summaries for third-party apps. Praetorium is the first consumer. The goal is to replace its catalogue inputs where we can establish a basis for reuse, reproduce the relevant gameplay facts, and verify compatibility. Keep app code and app-specific mappings in Praetorium.
+40K Catalogue publishes structured game data and original summaries for third-party apps. Praetorium is the first consumer. The goal is to replace its catalogue inputs where the project can establish a basis for reuse, reproduce the relevant gameplay facts and verify compatibility. Keep app code and app-specific mappings in Praetorium.
 
 ## Start here
 

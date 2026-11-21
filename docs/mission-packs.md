@@ -34,7 +34,7 @@ Trigger windows come from matching `whenText` against six known phrasings. Wordi
 | `secondaries` | Secondary cards, the `modes` (`fixed`, `tactical`) they can be played in, their awards, and an optional `whenDrawn` redraw. |
 | `twists` | Optional battle-wide changes, flagged `changesPrimary` when they rewrite primary scoring. |
 
-An award is `vp` scored `once` or for `each` occurrence, up to an optional `max`, limited to some `modes`, and in an optional `exclusive` group. Awards on one card add up, except that one claim per exclusive group is allowed at a moment. `criterion` is a short summary in our own words. Apps show it for players to confirm; it is not machine-checkable.
+An award is `vp` scored `once` or for `each` occurrence, up to an optional `max`, limited to some `modes`, and in an optional `exclusive` group. Awards on one card add up, except that one claim per exclusive group is allowed at a moment. `criterion` is a short summary in original wording. Apps show it for players to confirm; it is not machine-checkable.
 
 A window is the end of a named `phase`, the end of a `turn` (`own`, `opponent`, `any`), or `battle-end`, optionally limited to `rounds`. `orBattleEnd` on an opponent's-turn window also opens it at the battle end when this player took the last turn, because the opponent's next turn never comes. A battle-end moment with `drawnLastTurn: false`, for a card drawn before that last turn, keeps it closed; without the field it opens. A rule that scores in the command phase but at turn end in the final round is two windows with complementary round ranges.
 

@@ -123,9 +123,14 @@ export function packRelease(files: ReleaseFiles): Buffer {
   const blocks: Buffer[] = [];
   for (const [path, content] of files) {
     const body = Buffer.from(content, "utf8");
-    if (Buffer.byteLength(path) > 100) throw new Error(`${path}: path longer than 100 bytes`);
+    const split = Buffer.byteLength(path) > 100 ? path.lastIndexOf("/") : -1;
+    const name = path.slice(split + 1);
+    const prefix = split === -1 ? "" : path.slice(0, split);
+    if (Buffer.byteLength(name) > 100 || Buffer.byteLength(prefix) > 155) {
+      throw new Error(`${path}: path exceeds the ustar name and prefix limits`);
+    }
     const header = Buffer.alloc(512);
-    header.write(path, 0);
+    header.write(name, 0);
     header.write("0000644\0", 100);
     header.write("0000000\0", 108);
     header.write("0000000\0", 116);
@@ -134,6 +139,7 @@ export function packRelease(files: ReleaseFiles): Buffer {
     header.write("        ", 148);
     header.write("0", 156);
     header.write("ustar\u000000", 257);
+    header.write(prefix, 345);
     const checksum = header.reduce((sum, byte) => sum + byte, 0);
     header.write(`${checksum.toString(8).padStart(6, "0")}\0 `, 148);
     blocks.push(header, body, Buffer.alloc((512 - (body.length % 512)) % 512));
@@ -145,13 +151,8 @@ export function packRelease(files: ReleaseFiles): Buffer {
 // Checks that an unpacked release holds exactly the files its manifest lists, each with its checksum.
 // It does not re-run the validator or renderer, whose later versions must not invalidate old releases.
 export function verifyRelease(dir: string): string[] {
-  const present = new Set<string>();
   const errors: string[] = [];
-  for (const entry of readdirSync(dir, { withFileTypes: true, recursive: true })) {
-    const path = relative(dir, join(entry.parentPath, entry.name)).split("\\").join("/");
-    if (entry.isFile()) present.add(path);
-    else if (!entry.isDirectory()) errors.push(`${path}: not a regular file`);
-  }
+  const present = releaseFiles(dir, errors);
   if (!present.has(MANIFEST)) return [...errors, `${MANIFEST}: missing`];
 
   let manifest: unknown;
@@ -169,25 +170,39 @@ export function verifyRelease(dir: string): string[] {
     if (i > 0 && manifest.records[i - 1].id >= id) errors.push(`/records/${i} is not in ascending id order`);
     listed.push(record, summary);
   });
+  present.delete(MANIFEST);
+  checkReleaseFiles(dir, present, listed, errors);
+  return errors.sort();
+}
+
+export function releaseFiles(dir: string, errors: string[]): Set<string> {
+  const present = new Set<string>();
+  for (const entry of readdirSync(dir, { withFileTypes: true, recursive: true })) {
+    const path = relative(dir, join(entry.parentPath, entry.name)).split("\\").join("/");
+    if (entry.isFile()) present.add(path);
+    else if (!entry.isDirectory()) errors.push(`${path}: not a regular file`);
+  }
+  return present;
+}
+
+export function checkReleaseFiles(dir: string, present: Set<string>, listed: FileRef[], errors: string[]): void {
   for (const { path, sha256: expected } of listed) {
     if (!present.delete(path)) errors.push(`${path}: missing`);
     else if (sha256(readFileSync(join(dir, path))) !== expected) errors.push(`${path}: checksum mismatch`);
   }
-  present.delete(MANIFEST);
   errors.push(...[...present].map((path) => `${path}: not listed in the manifest`));
-  return errors.sort();
 }
 
 function manifestErrors(): string[] {
   return (checkManifest.errors ?? []).map((e) => `${MANIFEST}${e.instancePath || "/"} ${e.message}`);
 }
 
-function sha256(content: string | Buffer): string {
+export function sha256(content: string | Buffer): string {
   return createHash("sha256").update(content).digest("hex");
 }
 
 // Sorted keys, two-space indent, trailing newline. Array order is meaningful and kept.
-function canonicalJson(value: unknown): string {
+export function canonicalJson(value: unknown): string {
   const sort = (v: unknown): unknown =>
     Array.isArray(v)
       ? v.map(sort)

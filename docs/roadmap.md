@@ -41,7 +41,7 @@ Integrate one source at a time. The [cutover tracker](cutover-tracker.md) record
 
 - [Catalogue IDs and versioning](catalogue-identity.md) covers joins across record types, aliases, and historical records. [#14](https://github.com/richardsolomou/40k-catalogue/issues/14)
 - [Authoring and review](authoring.md) turns the pilot workflow into a process contributors can run for other rules. [#15](https://github.com/richardsolomou/40k-catalogue/issues/15)
-- [#16 Validate full-catalogue releases](https://github.com/richardsolomou/40k-catalogue/issues/16) extends the pilot packaging with cross-category validation, compatibility reports, and an inventory of what each release covers.
+- [Catalogue release validation](catalogue-releases.md) extends the pilot packaging with cross-category validation, compatibility reports, and an inventory of what each release covers. [#16](https://github.com/richardsolomou/40k-catalogue/issues/16)
 
 ## Praetorium integration
 

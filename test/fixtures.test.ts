@@ -33,14 +33,18 @@ const expectedErrors: Record<string, string> = {
   "empty-gap-note": `/conditions/0/unresolved must match pattern "\\S"`,
   "immediate-effect-with-duration": "/duration boolean schema is false",
   "lasting-effect-without-duration": "/ must have required property 'duration'",
+  "not-selected-without-activity": "/conditions/0/to must NOT have fewer than 1 items",
   "missing-rules-version": "/ must have required property 'rulesVersion'",
   "missing-source-reference": "/source must match a schema in anyOf",
+  "re-roll-weapons-on-save": "/effect/roll must be equal to one of the allowed values",
+  "re-roll-without-duration": "/ must have required property 'duration'",
   "target-within-itself": "/target/select/within/of cannot refer to the target it selects",
   "triggering-unit-without-trigger-unit": "/target/unit refers to a triggering unit, but the trigger has none",
   "two-usage-limits": "/usage must NOT be valid",
   "unknown-trigger-kind": "/trigger/kind must be equal to one of the allowed values",
   "unsupported-format-version": "/formatVersion must be equal to constant",
   "use-without-windows": "/usage must have required property 'windows'",
+  "weapon-ability-without-value": "/effect/abilities/0 must have required property 'value'",
   "zero-modifier": "/effect/by must NOT be valid",
 };
 

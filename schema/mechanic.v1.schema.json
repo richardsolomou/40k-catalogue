@@ -212,7 +212,16 @@
         },
         "bearerModel": {
           "$ref": "#/$defs/text"
+        },
+        "oncePerPhase": {
+          "const": true
         }
+      },
+      "not": {
+        "required": [
+          "oncePerTurn",
+          "oncePerPhase"
+        ]
       }
     }
   },
@@ -236,6 +245,19 @@
               }
             },
             "type": "object"
+          },
+          "trigger": {
+            "not": {
+              "properties": {
+                "kind": {
+                  "const": "always"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "type": "object"
+            }
           }
         },
         "type": "object"
@@ -275,7 +297,90 @@
       "then": {
         "type": "object",
         "properties": {
-          "duration": false
+          "duration": false,
+          "trigger": {
+            "not": {
+              "type": "object",
+              "required": ["kind"],
+              "properties": { "kind": { "const": "always" } }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "trigger"
+        ],
+        "properties": {
+          "trigger": {
+            "properties": {
+              "kind": {
+                "const": "always"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "duration": false,
+          "target": {
+            "not": {
+              "required": [
+                "select"
+              ],
+              "type": "object"
+            }
+          },
+          "usage": {
+            "propertyNames": {
+              "const": "bearerModel"
+            },
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "trigger"
+        ],
+        "properties": {
+          "trigger": {
+            "properties": {
+              "kind": {
+                "const": "use"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "type": "object",
+        "required": [
+          "usage"
+        ],
+        "properties": {
+          "usage": {
+            "required": [
+              "windows"
+            ],
+            "type": "object"
+          }
         }
       }
     }
@@ -379,7 +484,9 @@
             "move-selected",
             "ability-move",
             "model-destroyed",
-            "unit-destroyed"
+            "unit-destroyed",
+            "always",
+            "use"
           ]
         }
       },
@@ -539,6 +646,29 @@
               "by": {
                 "$ref": "#/$defs/unitFilter"
               }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "always",
+                  "use"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "properties": {
+              "kind": true
             },
             "type": "object"
           }

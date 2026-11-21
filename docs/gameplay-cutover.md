@@ -77,11 +77,21 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 1,778 current drafts that passed automated checks, including 515 stratagems. Of these, 139 use native mechanic records and 1,639 come from pinned 40kdc structured fields. The stratagem renderer adds the phase, turn and target restrictions from the linked stratagem record. Reuse across versions requires matching source content for the same qualified entry. That gives 15,817 versioned drafts across 1,621 distinct pieces of source content.
+The combined queue has 2,013 current drafts that passed automated checks, including 571 stratagems. Of these, 139 use native mechanic records and 1,874 come from pinned 40kdc structured fields. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers. Eight drafts that repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 17,903 versioned drafts across 1,846 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,152 with bold spans and 1,026 with links. The build checks that each link resolves to a rule or keyword record by ID in the relevant version. The destination can still need its own summary. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,275 with bold spans and 1,121 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. All 37 linked destinations still need their own summaries. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 925 entries held by unsupported structure, 206 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,085 needing authoring. Two native translations are held for missing mechanical values. Eight rendered bodies repeat the source wording and are held for rewriting. The comparison also flags shared phrases for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 681 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 3,085 needing authoring. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+
+### Direct structure pilot
+
+The private pilot keeps source-shaped mechanics inside a Catalogue record with its own ID, rules version, summary, links, attribution and review state. It copies the matching 40kdc ability payload, including optional structured fields, and pins the upstream version. It also copies the corresponding typed stratagem row when the match is unique. Source annotations are excluded.
+
+The pinned schemas validate 2,659 current ability payloads and 830 linked stratagem rows. Four additional stratagems need a verified source row. Across nine versions, the pilot validates 23,674 ability payloads. An ability can have valid structure while its summary still needs authoring or review.
+
+### Mission award candidates
+
+The structured award renderer passes all 43 upstream scoring fixtures. It renders 89 candidate award criteria from the Chapter Approved data. A comparison against the pinned mission facts found 28 timing mismatches and 26 awards with additional reference scoring windows. All 89 remain outside the complete-draft count pending review of the criteria and version binding.
 
 The same package has all 25 current Chapter Approved primary card names and 18 secondary card names, with the same number of award rows on each. It has no matches for the 26 current Combat Patrol primary cards. Its terrain data credits Battlemaster for 45 layouts and King of the Colosseum for one. These are separate checks from gameplay coverage. Mission conditions, scoring, source rights and geometry still need their own comparisons.
 

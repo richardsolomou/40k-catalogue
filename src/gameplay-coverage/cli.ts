@@ -5,9 +5,11 @@ import type { MechanicRecord } from "../record.ts";
 import { validate } from "../validate.ts";
 import { coverage, validateInventory, type Mapping } from "./coverage.ts";
 import { inventoryFromDatacards, type DatacardsCore, type DatacardsFaction } from "./datacards.ts";
+import { stageDatacards } from "./stage.ts";
 
 const USAGE = `usage:
   node src/gameplay-coverage/cli.ts inventory <datacards-faction.json> --edition <e> --update <u> --title <t> [--revision <sha>] [--core <core.json>]
+  node src/gameplay-coverage/cli.ts stage <datacards-directory> --edition <e> --update <u> --title <t> --revision <sha>
   node src/gameplay-coverage/cli.ts report <inventory.json> <mapping.json> <record-file-or-dir>... [--entries]`;
 
 const read = (file: string): unknown => JSON.parse(readFileSync(file, "utf8"));
@@ -25,18 +27,23 @@ const recordFiles = (path: string) =>
 
 const [command, ...rest] = process.argv.slice(2);
 switch (command) {
-  case "inventory": {
+  case "inventory":
+  case "stage": {
     const { positionals, values } = parseArgs({
       args: rest,
       allowPositionals: true,
       options: { edition: { type: "string" }, update: { type: "string" }, title: { type: "string" }, revision: { type: "string" }, core: { type: "string" } },
     });
     const file = positionals[0] ?? fail(USAGE);
-    const inventory = inventoryFromDatacards(read(file) as DatacardsFaction, values.core ? (read(values.core) as DatacardsCore) : undefined, {
+    const revision = values.revision ?? (command === "stage" ? fail(USAGE) : undefined);
+    const meta = {
       rulesVersion: { edition: values.edition ?? fail(USAGE), update: values.update ?? fail(USAGE) },
-      source: { title: values.title ?? fail(USAGE), ...(values.revision ? { revision: values.revision } : {}) },
-    });
-    console.log(JSON.stringify(inventory, null, 2));
+      source: { title: values.title ?? fail(USAGE), ...(revision ? { revision } : {}) },
+    };
+    const result = command === "stage"
+      ? stageDatacards(file, meta)
+      : inventoryFromDatacards(read(file) as DatacardsFaction, values.core ? (read(values.core) as DatacardsCore) : undefined, meta);
+    console.log(JSON.stringify(result, null, 2));
     break;
   }
   case "report": {

@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import { test } from "node:test";
+import { validateRelease } from "../src/catalogue-identity/identity.ts";
 import { foldName, normalizeName } from "../src/localisation/normalize.ts";
+import { idsWithin, releaseErrors } from "../src/localisation/release.ts";
 import { indexNames, type Query, type Resolution } from "../src/localisation/resolve.ts";
 import { validateLocalisation, type LocalisationFile } from "../src/localisation/validate.ts";
 
@@ -141,4 +143,90 @@ test("a kind filter excludes entities of other kinds", () => {
 test("an ID cannot change kind or catalogue name between files", () => {
   const renamed: LocalisationFile = { ...es, entries: [{ id: "ashen-wardens", kind: "faction", name: "Ash Wardens", display: "Guardianes" }] };
   assert.throws(() => indexNames([fr, renamed]), /ashen-wardens is a faction named "Ashen Wardens"/);
+});
+
+const checkedRelease = validateRelease(json(new URL("release/", fixtures), "synthetic-update-3.json"));
+if (!checkedRelease.ok) assert.fail(checkedRelease.errors.join("\n"));
+const release = checkedRelease.release;
+const emberCourt = valid(new URL("valid/", fixtures), "ember-court.fr").file;
+const books = indexNames([fr, es, emberCourt]);
+const ashenWardens = idsWithin(release, { kind: "faction", id: "ashen-wardens" });
+const withFirstEntry = (entry: Partial<LocalisationFile["entries"][number]>): LocalisationFile => ({ ...fr, entries: [{ ...fr.entries[0]!, ...entry }] });
+
+for (const name of names(new URL("valid/", fixtures))) {
+  test(`fixture ${name} matches the release it names`, () => {
+    assert.deepEqual(releaseErrors(valid(new URL("valid/", fixtures), name).file, release), []);
+  });
+}
+
+test("a file checked against another rules version is rejected", () => {
+  assert.deepEqual(releaseErrors({ ...fr, rulesVersion: { edition: "Synthetic", update: "Update 2" } }, release), [
+    "/rulesVersion is Synthetic Update 2 but the release is Synthetic Update 3",
+  ]);
+});
+
+test("an ID the release does not publish is reported", () => {
+  assert.deepEqual(releaseErrors(withFirstEntry({ id: "ashen-wardens.ash-host", kind: "detachment" }), release), [
+    "/entries/0 names detachment ashen-wardens.ash-host, which the release does not publish",
+  ]);
+});
+
+test("an ID of another kind is reported as unpublished", () => {
+  assert.deepEqual(releaseErrors(withFirstEntry({ kind: "unit" }), release), ["/entries/0 names unit ashen-wardens, which the release does not publish"]);
+});
+
+test("an alias ID is reported with its canonical ID", () => {
+  assert.deepEqual(releaseErrors(withFirstEntry({ id: "ashen-wardens.cinder-guards", kind: "unit", name: "Cinder Guard" }), release), [
+    "/entries/0/id is an alias of unit ashen-wardens.cinder-guard",
+  ]);
+});
+
+test("a retired entry's alias still requires its canonical ID", () => {
+  const retired = structuredClone(release);
+  const unit = retired.entries.find((entry) => entry.id === "ashen-wardens.cinder-guard")!;
+  unit.retired = { replacedBy: [] };
+  assert.deepEqual(releaseErrors(withFirstEntry({ id: unit.aliases![0], kind: "unit", name: unit.name }), retired), [
+    "/entries/0/id is an alias of unit ashen-wardens.cinder-guard",
+  ]);
+});
+
+test("a catalogue name the release does not give that ID is reported", () => {
+  assert.deepEqual(releaseErrors(withFirstEntry({ name: "Ashen Warden" }), release), [
+    `/entries/0/name is "Ashen Warden" but the release names faction ashen-wardens "Ashen Wardens"`,
+  ]);
+});
+
+test("a printed name two books share is ambiguous without a book", () => {
+  assert.deepEqual(ids(books.resolve("Garde de Cendre")), ["ashen-wardens.cinder-guard", "ember-court.cinder-guard"]);
+});
+
+test("a book's IDs settle a printed name two books share", () => {
+  const resolution = books.resolve("Garde de Cendre", { ids: ashenWardens });
+  assert.ok(resolution.status === "matched" && resolution.id === "ashen-wardens.cinder-guard", JSON.stringify(resolution));
+});
+
+test("a book's IDs include the wargear its models use", () => {
+  assert.ok(ashenWardens.has("ashen-wardens.ember-brazier"));
+});
+
+test("a book's IDs leave out another book's entries", () => {
+  assert.equal(books.resolve("Pique de Cendre", { ids: ashenWardens }).status, "unmatched");
+});
+
+test("a cross-faction attachment does not bring another book's unit into scope", () => {
+  const attached = structuredClone(release);
+  attached.entries.push({
+    kind: "attachment",
+    id: "ashen-wardens.cinder-guard",
+    name: "Cross-faction attachment",
+    references: [{ kind: "unit", id: "ashen-wardens.cinder-guard" }, { kind: "unit", id: "ember-court.cinder-guard" }],
+  });
+  const ids = idsWithin(attached, { kind: "faction", id: "ashen-wardens" });
+  assert.equal(ids.has("ember-court.cinder-guard"), false);
+});
+
+test("a unit's IDs settle wargear its book names twice", () => {
+  const keepers = idsWithin(release, { kind: "unit", id: "ashen-wardens.hearth-keepers" });
+  const resolution = books.resolve("Lame de Tempête", { ids: keepers });
+  assert.ok(resolution.status === "matched" && resolution.id === "ashen-wardens.tempest-blade", JSON.stringify(resolution));
 });

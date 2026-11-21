@@ -8,4 +8,4 @@ The first milestone is four Necrons rules. After the pilot, the goal is to suppl
 
 This is an independent fan project. Games Workshop owns the Warhammer 40,000 marks.
 
-[Roadmap and pilot notes](docs/roadmap.md) · [Open issues](https://github.com/richardsolomou/40k-catalogue/issues) · [Contributing](CONTRIBUTING.md)
+[Roadmap and pilot notes](docs/roadmap.md) · [Record format and local checks](docs/records.md) · [Open issues](https://github.com/richardsolomou/40k-catalogue/issues) · [Contributing](CONTRIBUTING.md)

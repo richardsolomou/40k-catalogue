@@ -231,6 +231,32 @@ test("an import cannot discard a mismatched count for a unit with fixed models",
   });
 });
 
+test("an import preserves a printed mix of named models", () => {
+  const { identity, records } = input("1.1");
+  const leader = `${WARDENS}.leader`;
+  Object.assign(find(records, "model", leader).data, { max: 2 });
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  const printed = { name: "Flame Warden Squad", models: 10, modelCounts: { "Warden Leader": 2, warden: 8 } };
+  assert.deepEqual(importUnit(result.definitions, "synthetic.ember-host", printed), {
+    ok: true, unit: { unit: WARDENS, models: { [leader]: 2, [WARDEN]: 8 } },
+  });
+});
+
+test("an import reports an unknown printed model", () => {
+  const printed = { name: "Flame Warden Squad", models: 5, modelCounts: { "Sentry": 1, "Warden": 4 } };
+  assert.deepEqual(importUnit(v11, "synthetic.ember-host", printed), {
+    ok: false, misses: [{ code: "unknown-model", name: "Sentry" }],
+  });
+});
+
+test("an import rejects a printed mix that disagrees with the unit total", () => {
+  const printed = { name: "Flame Warden Squad", models: 5, modelCounts: { "Warden Leader": 1, "Warden": 5 } };
+  assert.deepEqual(importUnit(v11, "synthetic.ember-host", printed), {
+    ok: false, misses: [{ code: "model-count-mismatch", name: "Flame Warden Squad" }],
+  });
+});
+
 test("an import reports wargear two options offer instead of choosing one", () => {
   const { identity, records } = input("1.1");
   (find(records, "roster-option", `${WARDENS}.projector`).data as any).choices.push("synthetic.cinder-cannon");

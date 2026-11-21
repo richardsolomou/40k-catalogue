@@ -72,7 +72,7 @@ Before reading a roster under another release, pass `rosterRefs(roster)` to [`ch
 
 ## Imports
 
-`importUnit(definitions, faction, printed)` reads a unit as a list prints it, with its name, model count, and the names of wargear beyond the default loadout, into catalogue IDs. Names match exactly, ignoring case and surrounding space. Fixed models keep their count and the one variable model takes the rest. It reports a miss for an unknown or ambiguous unit, several variable models, a count that disagrees with an all-fixed unit, unknown wargear, or wargear that two options offer. Legality is left to `checkRoster`. [Localisation](localisation.md) handles translated and historical names.
+`importUnit(definitions, faction, printed)` reads a list's unit name, model count, and additional wargear into catalogue IDs. Names match exactly, ignoring case and surrounding space. With the optional `modelCounts` breakdown by printed model name, each model must resolve within the unit and the counts must sum to the total. With only a total, fixed models keep their count and a single variable model takes the rest, using the bounds for that unit size. Multiple variable models without a breakdown are ambiguous. The importer reports unknown or ambiguous names and mismatched counts. The caller checks legality with `checkRoster`. [Localisation](localisation.md) handles translated and historical names.
 
 ## Points joins
 

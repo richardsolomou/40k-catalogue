@@ -94,7 +94,8 @@ function namedRefs(kind: ProfileKind, data: any): Ref[] {
 /**
  * Validates profile records against the identity release of their rules version, which also holds the
  * roster entries they name. A record's own unit bounds what else it may name: its models must belong to
- * that unit and its wargear must be carried or offered there, while attachment targets may be any unit.
+ * that unit and its wargear must be carried or offered there, or included by a bundle that is, while
+ * attachment targets may be any unit.
  */
 export function validateProfiles(identityValue: unknown, records: CatalogueRecord[]): ProfilesValidation {
   const identityResult = validateRelease(identityValue);
@@ -137,6 +138,8 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
       for (const id of refsOf(entry, "wargear")) carried.add(id);
     }
   }
+  // A Set visits members added while iterating it, so this adds what carried bundles include at any depth, each once.
+  for (const carried of unitWargear.values()) for (const id of carried) for (const included of refsOf(entries.get(key("wargear", id)), "wargear")) carried.add(included);
 
   for (const [at, profile] of byKey) {
     const kind = at.slice(0, at.indexOf(":")) as ProfileKind;

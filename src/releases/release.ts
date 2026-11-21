@@ -3,21 +3,27 @@ import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { Ajv2020 } from "ajv/dist/2020.js";
 import recordSchema from "../../schema/mechanic.v1.schema.json" with { type: "json" };
-import manifestSchema from "./manifest.v1.schema.json" with { type: "json" };
+import legacyManifestSchema from "./manifest.v1.schema.json" with { type: "json" };
+import manifestSchema from "./manifest.v2.schema.json" with { type: "json" };
 import type { MechanicRecord } from "../record.ts";
-import { renderSummary } from "../render.ts";
 import { validate } from "../validate.ts";
 
 type FileRef = { path: string; sha256: string };
 type RulesVersion = MechanicRecord["rulesVersion"];
+type RecordRef = { id: string; record: FileRef };
 
 export type Manifest = {
-  formatVersion: 1;
+  formatVersion: 2;
   release: string;
   commit: string;
   recordSchema: FileRef & { formatVersion: 1 };
   rulesVersions: RulesVersion[];
-  records: { id: string; record: FileRef; summary: FileRef }[];
+  records: RecordRef[];
+};
+
+type LegacyManifest = Omit<Manifest, "formatVersion" | "records"> & {
+  formatVersion: 1;
+  records: (RecordRef & { summary: FileRef })[];
 };
 
 // Release path to file content, in path order.
@@ -26,84 +32,69 @@ export type Build = { ok: true; files: ReleaseFiles } | { ok: false; errors: str
 
 const MANIFEST = "manifest.json";
 const RECORD_SCHEMA = "schema/mechanic.v1.schema.json";
-const INPUT = /^([a-z0-9]+(?:[.-][a-z0-9]+)*)\.(json|summary\.txt)$/;
+const INPUT = /^[a-z0-9]+(?:[.-][a-z0-9]+)*\.json$/;
 
-const checkManifest = new Ajv2020({ allErrors: true }).compile<Manifest>(manifestSchema);
+const schemas = new Ajv2020({ allErrors: true });
+const checkManifest = schemas.compile<Manifest>(manifestSchema);
+const checkLegacyManifest = schemas.compile<LegacyManifest>(legacyManifestSchema);
 
-// Builds a release from one directory that holds only `<name>.json` records, each beside the reviewed
-// `<name>.summary.txt` it must render. The output depends only on file contents, never on file order,
-// key order, formatting, timestamps, or the machine.
+// Builds from reviewed JSON records. The archive's bytes depend only on the input values and release metadata.
 export function buildRelease(dir: string, { release, commit }: { release: string; commit: string }): Build {
   const errors: string[] = [];
-  const inputs = new Map<string, Map<string, string>>();
+  const records = new Map<string, MechanicRecord>();
+  let hasRecordFile = false;
   const dirents = readdirSync(dir, { withFileTypes: true }).sort((a, b) => (a.name < b.name ? -1 : 1));
   for (const entry of dirents) {
-    if (entry.isFile() && entry.name === "README.md") continue;
-    const match = entry.isFile() ? INPUT.exec(entry.name) : null;
-    if (!match) {
-      errors.push(`${entry.name}: not a record or summary file`);
+    const { name } = entry;
+    const isFile = entry.isFile();
+    if (isFile && name === "README.md") continue;
+    if (!isFile || !INPUT.test(name)) {
+      errors.push(`${name}: not a record file`);
       continue;
     }
-    const [, name, ext] = match;
-    if (!inputs.has(name)) inputs.set(name, new Map());
-    inputs.get(name)!.set(ext, readFileSync(join(dir, entry.name), "utf8"));
-  }
-  if (inputs.size === 0) errors.push(`${dir}: no records`);
-
-  const records = new Map<string, { record: MechanicRecord; summary: string }>();
-  for (const [name, parts] of inputs) {
-    const text = parts.get("json");
-    const reviewed = parts.get("summary.txt");
-    if (text === undefined || reviewed === undefined) {
-      errors.push(`${name}: needs both ${name}.json and ${name}.summary.txt`);
-      continue;
-    }
+    hasRecordFile = true;
     let value: unknown;
     try {
-      value = JSON.parse(text);
+      value = JSON.parse(readFileSync(join(dir, name), "utf8"));
     } catch (error) {
-      errors.push(`${name}.json: ${(error as Error).message}`);
+      errors.push(`${name}: ${(error as Error).message}`);
       continue;
     }
     const result = validate(value);
     if (!result.ok) {
-      errors.push(...result.errors.map((e) => `${name}.json: ${e}`));
+      errors.push(...result.errors.map((e) => `${name}: ${e}`));
       continue;
     }
-    // A release carries only fully reviewed records, so any gap blocks it.
-    errors.push(...result.gaps.map((gap) => `${name}.json: unresolved at ${gap.path}`));
-    const summary = renderSummary(result.record);
-    if (summary !== reviewed.trimEnd()) errors.push(`${name}.summary.txt: does not match the rendered summary`);
-    if (records.has(result.record.id)) errors.push(`${name}.json: duplicate id ${result.record.id}`);
-    records.set(result.record.id, { record: result.record, summary });
+    const { record, gaps } = result;
+    errors.push(...gaps.map((gap) => `${name}: unresolved at ${gap.path}`));
+    if (record.summary === undefined) errors.push(`${name}: /summary is required for a release`);
+    if (records.has(record.id)) errors.push(`${name}: duplicate id ${record.id}`);
+    records.set(record.id, record);
   }
+  if (!hasRecordFile) errors.push(`${dir}: no records`);
   if (errors.length > 0) return { ok: false, errors: errors.sort() };
 
   const files = new Map<string, string>([[RECORD_SCHEMA, canonicalJson(recordSchema)]]);
   const entries: Manifest["records"] = [];
   const rulesVersions = new Map<string, RulesVersion>();
   for (const id of [...records.keys()].sort()) {
-    const { record, summary } = records.get(id)!;
-    const recordFile = { path: `records/${id}.json`, content: canonicalJson(record) };
-    const summaryFile = { path: `summaries/${id}.txt`, content: `${summary}\n` };
-    for (const { path, content } of [recordFile, summaryFile]) files.set(path, content);
-    entries.push({
-      id,
-      record: { path: recordFile.path, sha256: sha256(recordFile.content) },
-      summary: { path: summaryFile.path, sha256: sha256(summaryFile.content) },
-    });
+    const record = records.get(id)!;
+    const path = `records/${id}.json`;
+    const content = canonicalJson(record);
+    files.set(path, content);
+    entries.push({ id, record: { path, sha256: sha256(content) } });
     const { edition, update } = record.rulesVersion;
     rulesVersions.set(JSON.stringify([edition, update]), { edition, update });
   }
   const manifest: Manifest = {
-    formatVersion: 1,
+    formatVersion: 2,
     release,
     commit,
     recordSchema: { formatVersion: 1, path: RECORD_SCHEMA, sha256: sha256(files.get(RECORD_SCHEMA)!) },
     rulesVersions: [...rulesVersions.keys()].sort().map((key) => rulesVersions.get(key)!),
     records: entries,
   };
-  if (!checkManifest(manifest)) return { ok: false, errors: manifestErrors() };
+  if (!checkManifest(manifest)) return { ok: false, errors: manifestErrors(checkManifest) };
   files.set(MANIFEST, canonicalJson(manifest));
   return { ok: true, files: new Map([...files].sort(([a], [b]) => (a < b ? -1 : 1))) };
 }
@@ -170,14 +161,20 @@ export function verifyRelease(dir: string): string[] {
   } catch (error) {
     return [...errors, `${MANIFEST}: ${(error as Error).message}`];
   }
-  if (!checkManifest(manifest)) return [...errors, ...manifestErrors()];
+  const legacy = typeof manifest === "object" && manifest !== null && "formatVersion" in manifest && manifest.formatVersion === 1;
+  const check = legacy ? checkLegacyManifest : checkManifest;
+  if (!check(manifest)) return [...errors, ...manifestErrors(check)];
 
   const listed: FileRef[] = [manifest.recordSchema];
-  manifest.records.forEach(({ id, record, summary }, i) => {
+  const records: readonly (RecordRef & { summary?: FileRef })[] = manifest.records;
+  records.forEach(({ id, record, summary }, i) => {
     if (record.path !== `records/${id}.json`) errors.push(`/records/${i}/record/path must be records/${id}.json`);
-    if (summary.path !== `summaries/${id}.txt`) errors.push(`/records/${i}/summary/path must be summaries/${id}.txt`);
-    if (i > 0 && manifest.records[i - 1].id >= id) errors.push(`/records/${i} is not in ascending id order`);
-    listed.push(record, summary);
+    if (i > 0 && records[i - 1].id >= id) errors.push(`/records/${i} is not in ascending id order`);
+    listed.push(record);
+    if (summary) {
+      if (summary.path !== `summaries/${id}.txt`) errors.push(`/records/${i}/summary/path must be summaries/${id}.txt`);
+      listed.push(summary);
+    }
   });
   present.delete(MANIFEST);
   checkReleaseFiles(dir, present, listed, errors);
@@ -202,8 +199,8 @@ export function checkReleaseFiles(dir: string, present: Set<string>, listed: Fil
   errors.push(...[...present].map((path) => `${path}: not listed in the manifest`));
 }
 
-function manifestErrors(): string[] {
-  return (checkManifest.errors ?? []).map((e) => `${MANIFEST}${e.instancePath || "/"} ${e.message}`);
+function manifestErrors(check: typeof checkManifest | typeof checkLegacyManifest): string[] {
+  return (check.errors ?? []).map((e) => `${MANIFEST}${e.instancePath || "/"} ${e.message}`);
 }
 
 export function sha256(content: string | Buffer): string {

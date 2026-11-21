@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/40k-catalogue/src/releases/manifest.v2.schema.json",
+  "title": "Mechanics release manifest, format version 2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "release", "commit", "recordSchema", "rulesVersions", "records"],
+  "properties": {
+    "formatVersion": { "const": 2 },
+    "release": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "recordSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["formatVersion", "path", "sha256"],
+      "properties": {
+        "formatVersion": { "const": 1 },
+        "path": { "const": "schema/mechanic.v1.schema.json" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "rulesVersions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["edition", "update"],
+        "properties": {
+          "edition": { "type": "string" },
+          "update": { "type": "string" }
+        }
+      }
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "record"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+          "record": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "sha256"],
+            "properties": {
+              "path": { "type": "string" },
+              "sha256": { "$ref": "#/$defs/sha256" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

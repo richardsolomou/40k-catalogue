@@ -42,7 +42,19 @@ export type WeaponProfileData = {
 /** The units this unit may join as a Leader or as a support attachment. */
 export type AttachmentData = { unit: string; leads?: string[]; supports?: string[]; gaps?: Gap[] };
 
-type DataOf = { "unit-profile": UnitProfileData; "weapon-profile": WeaponProfileData; attachment: AttachmentData };
+type TransportPool = { limit: number; count: "models" | "units"; selectors: string[]; maxWounds?: number };
+export type TransportProfileData = {
+  unit: string;
+  capacity?: {
+    loads: TransportPool[][];
+    whenEquipped?: { wargear: string; pool: TransportPool }[];
+    excluded?: { selectors: string[]; except?: string[] }[];
+    space?: { selectors?: string[]; moreWoundsThan?: number; size: number }[];
+  };
+  gaps?: Gap[];
+};
+
+type DataOf = { "unit-profile": UnitProfileData; "weapon-profile": WeaponProfileData; attachment: AttachmentData; "transport-profile": TransportProfileData };
 export type ProfileKind = keyof DataOf;
 export type Profile<K extends ProfileKind = ProfileKind> = { id: string; name: string; data: DataOf[K] };
 
@@ -58,11 +70,12 @@ export type Profiles = {
 
 export type ProfilesValidation = { ok: true; profiles: Profiles } | { ok: false; errors: string[] };
 
-export const KINDS: ProfileKind[] = ["unit-profile", "weapon-profile", "attachment"];
+export const KINDS: ProfileKind[] = ["unit-profile", "weapon-profile", "attachment", "transport-profile"];
 const REQUIRED: Record<ProfileKind, string[]> = {
   "unit-profile": ["movement", "toughness", "save", "wounds", "leadership", "objectiveControl"],
   "weapon-profile": ["wargear", "range", "attacks", "skill", "strength", "armourPenetration", "damage"],
   attachment: [],
+  "transport-profile": ["capacity"],
 };
 
 const ajv = new Ajv2020({ allErrors: true }).addSchema(schema);
@@ -74,6 +87,7 @@ function namedRefs(kind: ProfileKind, data: any): Ref[] {
   const unit = refs("unit", [data.unit]);
   if (kind === "unit-profile") return [...unit, ...refs("model", data.models)];
   if (kind === "weapon-profile") return [...unit, ...refs("wargear", data.wargear ? [data.wargear] : [])];
+  if (kind === "transport-profile") return [...unit, ...refs("wargear", (data as TransportProfileData).capacity?.whenEquipped?.map(({ wargear }) => wargear))];
   return [...unit, ...refs("unit", [...(data.leads ?? []), ...(data.supports ?? [])])];
 }
 
@@ -132,6 +146,7 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
       const target = entries.get(key(ref.kind, ref.id));
       if (!target || target.retired) errors.push(`${at} names ${key(ref.kind, ref.id)}, which is not current in the identity release`);
       else if (!entry.references?.some((r) => r.kind === ref.kind && r.id === ref.id)) errors.push(`${at} names ${key(ref.kind, ref.id)} but its identity entry does not reference it`);
+      if (ref.kind === "wargear" && !unitWargear.get(data.unit)?.has(ref.id)) errors.push(`${at} names wargear:${ref.id}, which unit:${data.unit} neither carries nor offers`);
     }
     const gapped = new Set((profile.data.gaps ?? []).map((gap) => gap.field));
     for (const field of gapped) {
@@ -147,7 +162,10 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
     for (const model of data.models ?? []) {
       if (!refsOf(entries.get(key("model", model)), "unit").includes(data.unit)) errors.push(`${at} names model:${model}, which belongs to another unit`);
     }
-    if (data.wargear && !unitWargear.get(data.unit)?.has(data.wargear)) errors.push(`${at} names wargear:${data.wargear}, which unit:${data.unit} neither carries nor offers`);
+    if (kind === "transport-profile") {
+      const gear = (data as TransportProfileData).capacity?.whenEquipped?.map(({ wargear }) => wargear) ?? [];
+      if (new Set(gear).size !== gear.length) errors.push(`${at} has multiple capacities for the same wargear`);
+    }
     for (const target of [...(data.leads ?? []), ...(data.supports ?? [])]) if (target === data.unit) errors.push(`${at} attaches unit:${target} to itself`);
   }
 
@@ -161,7 +179,11 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
     const models = profiles.flatMap((p) => (p.data as UnitProfileData).models ?? []);
     for (const model of new Set(models)) if (models.indexOf(model) !== models.lastIndexOf(model)) errors.push(`unit:${unit} gives model:${model} more than one profile`);
   }
-  for (const [unit, records] of byUnit.get("attachment")!) if (records.length > 1) errors.push(`unit:${unit} has more than one attachment record`);
+  for (const kind of ["attachment", "transport-profile"] as const) {
+    for (const [unit, records] of byUnit.get(kind)!) {
+      if (records.length > 1) errors.push(`unit:${unit} has more than one ${kind} record`);
+    }
+  }
 
   const links = all("attachment").flatMap(({ data }) => (["leads", "supports"] as const).flatMap((role) => (data[role] ?? []).map((target) => ({ at: `${role}:${target}`, unit: data.unit }))));
   const attached = Map.groupBy(links, (link) => link.at);

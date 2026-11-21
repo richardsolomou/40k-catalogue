@@ -1,6 +1,7 @@
 import {
   isUnresolved,
   type Condition,
+  type CoreAbility,
   type Duration,
   type Effect,
   type MechanicRecord,
@@ -47,6 +48,14 @@ const WEAPON_ABILITIES = {
   "rapid-fire": "RAPID FIRE",
   "sustained-hits": "SUSTAINED HITS",
 };
+const CORE_ABILITIES = {
+  "deep-strike": "Deep Strike",
+  "fights-first": "Fights First",
+  infiltrators: "Infiltrators",
+  "lone-operative": "Lone Operative",
+  stealth: "Stealth",
+};
+const AGAINST = { "psychic-attacks": "Psychic Attacks", "mortal-wounds": "mortal wounds" };
 const THRESHOLD_ROLLS = { "deadly-demise": "Deadly Demise roll" };
 const CHARACTERISTICS = {
   move: "Move",
@@ -194,7 +203,15 @@ function effect(e: Effect, target: string, unit: Names): string {
     }
     case "grant-weapon-abilities":
       return `grant ${list(e.abilities.map(weaponAbility), "and")} to ${e.weapons ? `${e.weapons} weapons` : "weapons"} equipped by models in ${target}`;
+    case "grant-abilities":
+      return `grant ${list(e.abilities.map(coreAbility), "and")} to ${target}`;
   }
+}
+
+function coreAbility(a: CoreAbility): string {
+  if (a.ability === "scouts") return `Scouts ${a.inches}"`;
+  if (a.ability === "feel-no-pain") return `Feel No Pain ${a.threshold}+${a.against ? ` against ${list(a.against.map((k) => AGAINST[k]), "and")}` : ""}`;
+  return CORE_ABILITIES[a.ability];
 }
 
 function weaponAbility(a: WeaponAbility): string {

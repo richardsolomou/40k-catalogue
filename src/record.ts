@@ -69,12 +69,18 @@ export type WeaponAbility =
     }
   | { ability: "melta" | "rapid-fire" | "sustained-hits"; value: number }
   | { ability: "anti"; keyword: string; threshold: number };
+export type CoreAbility =
+  | { ability: "deep-strike" | "fights-first" | "infiltrators" | "lone-operative" | "stealth" }
+  | { ability: "scouts"; inches: number }
+  // Without `against`, Feel No Pain applies to every wound the model would lose.
+  | { ability: "feel-no-pain"; threshold: number; against?: ("psychic-attacks" | "mortal-wounds")[] };
 
 export type Effect =
   | { kind: "modify-roll"; roll: Roll; by: number }
   // `ones` re-rolls only results of 1. `weapons` limits a Hit or Wound roll to attacks made with that type of weapon.
   | { kind: "re-roll"; roll: Roll; results: "all" | "ones"; weapons?: WeaponType }
   | { kind: "grant-weapon-abilities"; abilities: WeaponAbility[]; weapons?: WeaponType }
+  | { kind: "grant-abilities"; abilities: CoreAbility[] }
   | {
       kind: "modify-characteristic";
       characteristic: "move" | "toughness" | "save" | "leadership" | "objective-control" | "attacks";

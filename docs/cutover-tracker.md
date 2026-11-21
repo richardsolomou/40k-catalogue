@@ -36,6 +36,8 @@ The current join checks use the consumer's source IDs and the candidate identity
 
 The separate profile stage captures all 2,470 current unit profiles and 11,302 current weapon profiles by recognised field. The [typed profile rehearsal](datasheet-profiles.md#rehearsal) expands those records across catalogue units that share a datasheet. It reports unmatched wargear, model and attachment links, and records capacity for the transport rules the existing reader can interpret.
 
+The current roster candidate has 306 shared loadout bounds on 110 units. Targeted pair and single-choice agreement rose from 10,302 to 10,768 of 12,997 cases. Whole-list agreement remains 3,619 of 4,842. Direct weapon ancestry adds 125 verified wargear links across the nine versions without changing existing joins. [Loadout comparison](definition-cutover.md#shared-option-bounds-rerun) · [Weapon profile joins](datasheet-profiles.md#weapon-profile-joins)
+
 The nine private aggregate archives verify 174,316 records across rosters, profiles, points, localisation, missions and terrain. The current rules version contributes 80,266. This includes 270 transport records with four capacity gaps. The manifests also pin the separately released original marks and the retained gameplay input. Structural coverage in the archives leaves the source, content review and parity checks above open.
 
 ## Cutover record

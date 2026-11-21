@@ -109,14 +109,13 @@ test("a release preserves the credit for a reviewed adaptation", (t) => {
   t.after(() => rmSync(records, { recursive: true, force: true }));
   const files = publication(approved(value));
   writeFileSync(join(records, `${value.record.id}.json`), files[`${value.record.id}.json`]!);
-  writeFileSync(join(records, `${value.record.id}.summary.txt`), files[`${value.record.id}.summary.txt`]!);
   const release = buildRelease(records, { release: "0.1.0", commit: "a".repeat(40) });
   if (!release.ok) assert.fail(release.errors.join("\n"));
   const entry = release.files.get(`records/${value.record.id}.json`);
   assert.deepEqual(JSON.parse(entry!.toString()).attribution, attribution);
 });
 
-test("an approved proposal publishes the record, its summary, and its review", () => {
+test("an approved proposal publishes a JSON record with its summary and a review", () => {
   const published = readdirSync(new URL("published/", fixtures));
   const files = publication(approved(corrected()));
   assert.deepEqual(Object.keys(files).sort(), published.sort());
@@ -135,6 +134,7 @@ test("the authoring CLI produces input the release builder can package", (t) => 
   writeFileSync(proposalPath, JSON.stringify(value));
   const cli = fileURLToPath(new URL("../src/authoring/cli.ts", import.meta.url));
   execFileSync(process.execPath, [cli, "publish", proposalPath, records, reviews]);
+  assert.deepEqual(readdirSync(records), [`${value.record.id}.json`]);
   assert.deepEqual(readdirSync(reviews), [`${value.record.id}.review.json`]);
   const result = buildRelease(records, { release: "0.1.0", commit: "a".repeat(40) });
   if (!result.ok) assert.fail(result.errors.join("\n"));

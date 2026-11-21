@@ -101,6 +101,7 @@ export type MechanicRecord = {
   formatVersion: 1;
   id: string;
   name: string;
+  summary?: string;
   rulesVersion: { edition: string; update: string };
   source: { title: string; page?: string; url?: string };
   attribution?: { url: string; revision: string; credit: string; licence: string; changes: string };

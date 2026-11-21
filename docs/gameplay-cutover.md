@@ -77,11 +77,11 @@ The private inventory covers 55,329 records across nine rules versions. Grouping
 | Mission actions | 15 |
 | Mission twists | 6 |
 
-The combined queue has 2,392 current drafts that passed automated checks, including 680 stratagems. Of these, 139 use native mechanic records, 2,114 come from pinned 40kdc structured fields, and 139 are core rule or keyword summaries backed by executable evidence or published rules. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. Twenty-seven drafts with repeated source wording were rewritten from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 21,293 versioned drafts across 2,215 distinct pieces of source content.
+The combined queue has 2,482 current drafts that passed automated checks, including 707 stratagems. Of these, 140 use native mechanic records, 2,170 come from pinned 40kdc structured fields, and 139 are core rule or keyword summaries backed by executable evidence or published rules. Another 33 reuse a summary from an identical ability body. The typed renderer handles qualifying unrestricted re-rolls, per-success damage, Battle-shock state and battlefield-to-reserves transfers, aura rules with verified recipients, and targeting clauses whose actor or recipient is carried in another field. Negated phase-selection predicates are rendered when their event, actor and timing agree with the selected stratagem window. An earlier pass rewrote 27 drafts with repeated source wording from their structured fields. Reuse across versions requires matching source content for the same qualified entry. That gives 22,096 versioned drafts across 2,269 distinct pieces of source content.
 
-Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,511 with bold spans and 1,372 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Eighty-eight of the 125 linked destinations have drafts. The other 37 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
+Each draft keeps the body and [bold or link spans](records.md#summaries) inline in JSON with its source and review state. The current drafts include 1,555 with bold spans and 1,422 with links. The build resolves each link to a rule or keyword record by ID in the relevant version. Drafts exist for 90 of the 128 linked destinations. The other 38 remain in the review queue. Printed uppercase keyword labels are retained where the source confirms them.
 
-The current queue also records 441 entries held by unsupported structure, 215 incomplete drafts, 110 entries with partial facts, 54 derived names and 2,946 in the authoring queue. Two native translations are held for missing mechanical values. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
+The current queue also records 420 entries held by unsupported structure, 179 incomplete drafts, 110 entries with partial facts, 54 derived names and 2,913 in the authoring queue. One native translation is held for a missing mechanical value. Shared phrases are flagged for editorial review. Publication still requires a confirmed printed source, rules version, mechanics review and a documented reuse basis under [#7](https://github.com/richardsolomou/40k-catalogue/issues/7).
 
 ### CP and Miracle dice
 
@@ -89,7 +89,7 @@ The player resource comparison adds 23 drafts covering 18 CP gains and five Mira
 
 ### Stratagems with exclusive target options
 
-Eleven stratagem drafts now describe two mutually exclusive target options and preserve the recipients for each option. The checks cover one friendly target entry per mode, different target names and matching effect steps that differ only in their recipient. Twenty-one multi-target entries remain held, including cases with a mode-specific cost, targets selected together and relationships between targets.
+Eleven stratagem drafts now describe two mutually exclusive target options and preserve the recipients for each option. The checks cover one friendly target entry per mode, different target names and matching effect steps that differ only in their recipient. A follow-up recovered 12 of the other 21 multi-target entries, including passenger and transport pairs, ordered friendly and enemy targets, and paid alternate modes. The checks verify target counts, relationships and order, and which targets receive each effect. Nine of those entries remain held.
 
 ### Charge target eligibility
 
@@ -106,6 +106,20 @@ Nineteen stay held for source mismatches, ambiguous recipients, missing selector
 Exact casing and bold checks recover 21 stratagem drafts. Two additional repairs remain held because the typed records lack a distance. Five stratagem selectors pass exact checks for event history and eligibility. The follow-up recipient pass adds 11 drafts where pinned witnesses account for all held recipient fields.
 
 Thirteen designation drafts pass after confirming that the designation's duration and the enclosing duration are identical. Eleven of these need original wording. Two visibility actors and one keyword casing case remain held.
+
+### Identical ability bodies and numeric checks
+
+Thirty-three unit ability records reuse a summary after the pinned card bodies matched across all nine versions. The comparison checks the entire body, mechanical values, casing, and whether the same link destinations apply. Source differences, wording overlap and link scope leave 17 candidates held.
+
+The numeric checks recovered 36 drafts whose distances, dice counts or modifiers were already present in typed fields. Each check ties the value to its mechanical role and to the specific record and source revision. Sixteen of those drafts also use original wording to avoid a repeated source phrase. Values without a verified binding remain held.
+
+### Designation replacement and model removal
+
+Four designation summaries now describe the verified replacement event. Five fight-on-death summaries cover when to remove the model. The checks distinguish event timing, eligibility and recipient, and preserve the source's uppercase labels and stable links. Twelve other candidates in these effect groups remain held for source or timing mismatches.
+
+### Core FAQ source alignment
+
+The 84 indexed Core Rules FAQ and errata entries have no match in the pinned PDF appendix. Its five printed questions also have no matching indexed entry. The indexed records need a source for the applicable rules version before draft review.
 
 ### Linked core and weapon rules
 

@@ -240,7 +240,9 @@
               "kind": {
                 "enum": [
                   "modify-roll",
-                  "modify-characteristic"
+                  "modify-characteristic",
+                  "re-roll",
+                  "grant-weapon-abilities"
                 ]
               }
             },
@@ -753,7 +755,8 @@
         "kind": {
           "enum": [
             "status",
-            "within"
+            "within",
+            "not-selected"
           ]
         }
       },
@@ -834,6 +837,44 @@
             },
             "type": "object"
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "not-selected"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "unit",
+              "to"
+            ],
+            "properties": {
+              "kind": true,
+              "unit": {
+                "$ref": "#/$defs/unitRef"
+              },
+              "to": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "shoot",
+                    "fight"
+                  ]
+                }
+              }
+            },
+            "type": "object"
+          }
         }
       ],
       "type": "object"
@@ -845,6 +886,8 @@
           "enum": [
             "modify-roll",
             "modify-characteristic",
+            "re-roll",
+            "grant-weapon-abilities",
             "mortal-wounds",
             "roll-threshold",
             "activate-ability",
@@ -875,17 +918,92 @@
             "properties": {
               "kind": true,
               "roll": {
-                "enum": [
-                  "hit",
-                  "wound",
-                  "save",
-                  "advance",
-                  "charge",
-                  "battle-shock"
-                ]
+                "$ref": "#/$defs/roll"
               },
               "by": {
                 "$ref": "#/$defs/modifier"
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "re-roll"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "roll",
+              "results"
+            ],
+            "properties": {
+              "kind": true,
+              "roll": {
+                "$ref": "#/$defs/roll"
+              },
+              "results": {
+                "enum": [
+                  "all",
+                  "ones"
+                ]
+              },
+              "weapons": {
+                "$ref": "#/$defs/weaponType"
+              }
+            },
+            "dependentSchemas": {
+              "weapons": {
+                "properties": {
+                  "roll": {
+                    "enum": [
+                      "hit",
+                      "wound"
+                    ]
+                  }
+                }
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "grant-weapon-abilities"
+              }
+            },
+            "required": [
+              "kind"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "abilities"
+            ],
+            "properties": {
+              "kind": true,
+              "abilities": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "#/$defs/weaponAbility"
+                }
+              },
+              "weapons": {
+                "$ref": "#/$defs/weaponType"
               }
             },
             "type": "object"
@@ -1089,6 +1207,92 @@
         }
       ],
       "type": "object"
+    },
+    "roll": {
+      "enum": [
+        "hit",
+        "wound",
+        "save",
+        "advance",
+        "charge",
+        "battle-shock"
+      ]
+    },
+    "weaponType": {
+      "enum": [
+        "ranged",
+        "melee"
+      ]
+    },
+    "weaponAbility": {
+      "type": "object",
+      "required": [
+        "ability"
+      ],
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "ability": {
+              "enum": [
+                "assault",
+                "blast",
+                "devastating-wounds",
+                "hazardous",
+                "heavy",
+                "ignores-cover",
+                "indirect-fire",
+                "lance",
+                "lethal-hits",
+                "pistol",
+                "precision",
+                "psychic",
+                "torrent",
+                "twin-linked"
+              ]
+            }
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "value"
+          ],
+          "properties": {
+            "ability": {
+              "enum": [
+                "melta",
+                "rapid-fire",
+                "sustained-hits"
+              ]
+            },
+            "value": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "additionalProperties": false,
+          "required": [
+            "keyword",
+            "threshold"
+          ],
+          "properties": {
+            "ability": {
+              "const": "anti"
+            },
+            "keyword": {
+              "$ref": "#/$defs/text"
+            },
+            "threshold": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 6
+            }
+          }
+        }
+      ]
     },
     "modifier": {
       "type": "integer",

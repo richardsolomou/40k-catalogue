@@ -4,7 +4,7 @@ Use the original SVG marks to give factions distinct shapes in an app. The [mark
 
 ## Use a mark
 
-1. Pick a mark from the [release archive](https://github.com/richardsolomou/40k-catalogue/releases) or a pinned checkout.
+1. Pick a mark from the [release archive](https://github.com/richardsolomou/vs-data/releases) or a pinned checkout.
 2. Check its file against the `sha256` in the manifest.
 3. Render the SVG directly or apply it as a CSS mask. A mask lets the app set the faction colour separately from the shape.
 

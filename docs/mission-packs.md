@@ -51,4 +51,4 @@ Both print counts, gap paths, and differences by ID, award, and moment only, nev
 
 ## Chapter Approved at the inventory baseline
 
-[Tracking issue](https://github.com/richardsolomou/40k-catalogue/issues/8) · [Archived evidence](https://github.com/richardsolomou/40k-catalogue/blob/80733c1fb93dd338b3078408c7f46c30c4ec422d/docs/mission-packs.md#chapter-approved-at-the-inventory-baseline)
+[Tracking issue](https://github.com/richardsolomou/vs-data/issues/8) · [Archived evidence](https://github.com/richardsolomou/vs-data/blob/80733c1fb93dd338b3078408c7f46c30c4ec422d/docs/mission-packs.md#chapter-approved-at-the-inventory-baseline)

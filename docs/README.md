@@ -1,4 +1,4 @@
-# 40K Catalogue documentation
+# VS Data documentation
 
 ## Releases
 

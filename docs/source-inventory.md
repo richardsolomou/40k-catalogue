@@ -12,4 +12,4 @@ Before distributing adapted data, document the basis for reusing it. The project
 
 Catalogue records use [catalogue IDs and rules versions](catalogue-identity.md). Keep mappings to a consumer's stored IDs or other sources in that consumer.
 
-[Source and migration issues](https://github.com/richardsolomou/40k-catalogue/issues/13) · [Archived source inventory](https://github.com/richardsolomou/40k-catalogue/blob/80733c1fb93dd338b3078408c7f46c30c4ec422d/docs/source-inventory.md)
+[Source and migration issues](https://github.com/richardsolomou/vs-data/issues/13) · [Archived source inventory](https://github.com/richardsolomou/vs-data/blob/80733c1fb93dd338b3078408c7f46c30c4ec422d/docs/source-inventory.md)

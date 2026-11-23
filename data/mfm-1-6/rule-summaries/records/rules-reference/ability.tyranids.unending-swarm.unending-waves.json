@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Unending Swarm",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Pick your ENDLESS MULTITUDE unit immediately after its destruction in any phase. Place an identical replacement in Strategic Reserves at Starting Strength. Use this at most once per battle. This cannot restore a destroyed CHARACTER unit to an Attached unit.",
     "summarySpans": [
       {
@@ -48,6 +59,24 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "battle",
+          "restricted": true,
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ENDLESS MULTITUDE"
+            ],
+            "conditions": [
+              "just-destroyed"
+            ]
+          }
+        },
         "detail": {
           "type": "strategic-ploy",
           "trigger": {

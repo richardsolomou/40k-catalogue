@@ -15,6 +15,12 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own"
+    },
     "summary": "In your Charge phase, spend 1 CP right after a friendly MONSTER or VEHICLE finishes a Charge Move. Use that unit. First pick an enemy unit it engages, then choose one of your charging unit’s models that is engaged with that enemy. Roll D6s equal to the chosen model’s Toughness. Every 1 deals one Mortal Wound to your unit, and every 5+ deals one to the enemy. Cap the damage separately at six Mortal Wounds for each of the two units.",
     "summarySpans": [
       {
@@ -63,6 +69,29 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-ended-charge"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "MONSTER"
+                ]
+              },
+              {
+                "keywords": [
+                  "VEHICLE"
+                ]
+              }
+            ]
+          }
+        },
         "detail": {
           "kind": "core-stratagem",
           "name": "Crushing Impact",

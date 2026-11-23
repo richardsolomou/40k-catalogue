@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Combined Arms",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "When your INFANTRY REGIMENT unit is destroyed, you may spend this Stratagem on it in any phase. Add an identical unit to your army in Strategic Reserves at Starting Strength with every wound restored. Destroyed CHARACTER models from an Attached unit cannot come back this way. Each battle allows a single use.",
     "summarySpans": [
       {
@@ -48,6 +59,25 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "battle",
+          "restricted": true,
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "INFANTRY",
+              "REGIMENT"
+            ],
+            "conditions": [
+              "just-destroyed"
+            ]
+          }
+        },
         "detail": {
           "type": "strategic-ploy",
           "trigger": {

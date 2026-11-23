@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Outlander Claw",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP, as the Fight phase of your opponent's turn ends. Choose one GENESTEALER CULTS VEHICLE or GENESTEALER CULTS MOUNTED unit of yours that is out of Engagement Range of all enemy units and wholly within 9″ of at least one battlefield edge. Lift it off the table; it goes into Strategic Reserves.",
     "summarySpans": [
       {
@@ -54,6 +61,35 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "GENESTEALER CULTS",
+                  "MOUNTED"
+                ]
+              },
+              {
+                "keywords": [
+                  "GENESTEALER CULTS",
+                  "VEHICLE"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-in-engagement-range"
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "detachment": "Outlander Claw",
           "when": {

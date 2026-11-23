@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Scintillating Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "At the end of the opposing Fight phase, pick a LEGIONES DAEMONICA TZEENTCH unit outside enemy Engagement Range. You can spend 1 Flux token to pick up to two such units instead, including engaged units. Move each chosen unit off the battlefield into Strategic Reserves.",
     "summarySpans": [
       {
@@ -74,6 +81,24 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "TZEENTCH"
+            ],
+            "conditions": [
+              "not-in-engagement-range"
+            ]
+          }
+        },
         "detail": {
           "window": [
             "end of opposing Fight phase"

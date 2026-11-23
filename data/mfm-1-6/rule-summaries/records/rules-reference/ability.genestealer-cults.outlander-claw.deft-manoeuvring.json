@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Outlander Claw",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP, in the Shooting phase of your opponent's turn, right after an enemy unit picks its targets. Choose one ATALAN JACKALS or ACHILLES RIDGERUNNERS unit of yours that those attacks are aimed at; until the phase ends its models gain a 4+ invulnerable save.",
     "summarySpans": [
       {
@@ -46,6 +53,33 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ACHILLES RIDGERUNNERS"
+                ]
+              },
+              {
+                "keywords": [
+                  "ATALAN JACKALS"
+                ]
+              }
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
         "detail": {
           "detachment": "Outlander Claw",
           "when": {

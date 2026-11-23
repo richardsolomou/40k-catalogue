@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Spearpoint Task Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "In the enemy Movement phase, react as soon as one of their units finishes a move no farther than 8″ from an unengaged Adeptus Astartes unit of yours with the Infantry, Mounted or Speeder keyword. Choose that friendly unit. It may make a Normal move with a maximum distance of D3+3″.",
     "summarySpans": [
       {
@@ -46,6 +52,41 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "SPEEDER"
+                ]
+              }
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "detachment": "Spearpoint Task Force",
           "trigger": {

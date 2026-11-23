@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Imperialis Fleet",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "wargear"
+    },
     "summary": "When an enemy chooses shooting targets in its Shooting phase, pick a targeted CHARACTER unit with the AGENTS OF THE IMPERIUM keyword. Omit OFFICIO ASSASSINORUM candidates. The model’s invulnerable save becomes 4+ for the remaining phase. Once that shooter has resolved its attacks, the model may make a Normal move capped at 6 inches using FLY. It cannot make this move while within enemy Engagement Range.",
     "summarySpans": [
       {
@@ -74,6 +81,28 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "AGENTS OF THE IMPERIUM",
+              "CHARACTER"
+            ],
+            "excludedKeywords": [
+              "OFFICIO ASSASSINORUM"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
         "detail": {
           "type": "wargear",
           "trigger": {

@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.solar-spearhead.moritoi-ancients",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "summary": "At full Starting Strength, increase a Dreadnought’s OC by 2. If its unit falls under Starting Strength, it re-rolls any Hit dice showing a 1. Under Half-strength, it re-rolls 1s on Wound dice too.",
+    "summarySpans": [
+      {
+        "start": 120,
+        "end": 128,
+        "target": {
+          "kind": "core-rule",
+          "id": "making-attacks"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "target": {
+          "keyword": "DREADNOUGHT"
+        },
+        "effect": {
+          "type": "sequence",
+          "steps": [
+            {
+              "condition": "at-starting-strength",
+              "effect": {
+                "type": "stat-modifier",
+                "stat": "objective-control",
+                "operation": "add",
+                "value": 2
+              }
+            },
+            {
+              "condition": "below-starting-strength",
+              "effect": {
+                "type": "re-roll",
+                "roll": "hit",
+                "subset": "ones",
+                "naturalValue": 1
+              }
+            },
+            {
+              "condition": "below-half-strength",
+              "effect": {
+                "type": "re-roll",
+                "rolls": [
+                  "hit",
+                  "wound"
+                ],
+                "subset": "ones",
+                "naturalValue": 1
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

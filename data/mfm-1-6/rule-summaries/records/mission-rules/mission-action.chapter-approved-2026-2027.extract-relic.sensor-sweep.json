@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-action",
+  "id": "chapter-approved-2026-2027.extract-relic.sensor-sweep",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "summary": "Once per turn during your Shooting phase, one friendly unit in range of a central objective may start this action. The start is barred when exactly one battlefield operation marker remains. If that unit controls the chosen objective as your turn ends, it performs a sensor sweep and removes one battlefield operation marker.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 40,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 74,
+        "end": 91,
+        "bold": true
+      },
+      {
+        "start": 107,
+        "end": 113,
+        "target": {
+          "kind": "core-rule",
+          "id": "performing-actions"
+        }
+      },
+      {
+        "start": 164,
+        "end": 180,
+        "bold": true
+      },
+      {
+        "start": 223,
+        "end": 232,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 255,
+        "end": 278,
+        "bold": true
+      },
+      {
+        "start": 307,
+        "end": 323,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "starts": {
+          "player": "acting-player",
+          "phase": "shooting"
+        },
+        "eligibleUnit": {
+          "side": "friendly",
+          "countPerStart": 1,
+          "position": {
+            "relation": "within-range",
+            "selector": "central-objective"
+          }
+        },
+        "useLimit": {
+          "maxStartsPerOwnTurn": 1
+        },
+        "completes": {
+          "window": "end-of-own-turn",
+          "requires": {
+            "subject": "acting-unit",
+            "predicate": "controls",
+            "object": "selected-objective"
+          }
+        },
+        "effects": [
+          {
+            "kind": "record-unit-result",
+            "unit": "acting-unit",
+            "result": "sensor-sweep"
+          },
+          {
+            "kind": "remove-operation-marker",
+            "count": 1,
+            "area": "battlefield",
+            "ownerSelector": "unspecified"
+          }
+        ],
+        "additionalStartBar": {
+          "selector": "operation-marker",
+          "area": "battlefield",
+          "countExactly": 1
+        }
+      }
+    }
+  }
+}

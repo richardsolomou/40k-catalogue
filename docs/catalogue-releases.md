@@ -17,9 +17,9 @@ A release is built from one tracked directory:
 
 Each identity kind belongs to exactly one category. An included category holds records in this repository. A retained category holds no records and gives a `revision` for each source, such as a commit or an archive version.
 
-A record names its entry by `kind` and `id`, repeats the identity's `rulesVersion`, gives the `source` it was checked against, and carries its category's facts in `data`. Joins between records come from the identity entry's `references`, not from the record. The category's own work item defines the shape of `data`.
+A record names its entry by `kind` and `id`, repeats the identity's `rulesVersion`, gives the `source` it was checked against, and carries its category's facts in `data`. A record adapted from upstream data also gives its `attribution`: the upstream `url`, pinned `revision`, contributor `credit`, `licence` URL and the `changes` made, as in [mechanic records](records.md). Joins between records come from the identity entry's `references`, not from the record. The category's own work item defines the shape of `data`.
 
-An archive includes the schemas for roster definitions, datasheet profiles, points and their history, mission packs, terrain records, and localisation. It uses PAX path headers for record names longer than the ustar file-name field, so unpacking preserves the full ID.
+An archive includes the schemas for roster definitions, datasheet profiles, rule summaries, points and their history, mission packs, terrain records, and localisation. It uses PAX path headers for record names longer than the ustar file-name field, so unpacking preserves the full ID.
 
 The build fails when:
 
@@ -79,7 +79,7 @@ Pass the previous release when building. The build checks it against the [identi
 | `added` | Entries that are new in this release. |
 | `renamed` | Entries whose name changed, with the old and new names. |
 | `aliased` | Earlier IDs that now resolve to another entry, with the `canonical` ID. |
-| `retired` | Entries removed from play since the previous release, with `replacedBy`. An empty list means the entity left the game. |
+| `retired` | Entries removed from play since the previous release, with `replacedBy` and any `sources` that retired them. An empty `replacedBy` means the entity left the game. |
 | `recordsAdded`, `recordsChanged`, `recordsRemoved` | Records that are new, have a different checksum, or are gone. |
 
 The first release reports every entry and record as added.

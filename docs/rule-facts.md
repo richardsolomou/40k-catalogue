@@ -154,11 +154,13 @@ An effect applies to one `role`, `attacker` or `defender`, for the `attacks` it 
 | `unmodifiedSix` | One failed `hit` or `wound` roll per phase becomes an unmodified 6. |
 | `invulnerable`, `save` | An invulnerable save, or a Save characteristic, of this roll. |
 | `improveSave` | The Save characteristic improves `by`, never past `best`. |
+| `wounds` | A change to the Wounds characteristic of the models that gain the effect. |
+| `regainWounds` | Wounds a model regains: a number or dice (`dice` × D`sides` + `bonus`). |
 | `toughness`, `targetToughness`, `targetSaveModifier` | Changes to the defender's Toughness, the target's Toughness, or the target's saving throws. |
 | `damageDivisor`, `damageReduction` | Damage is divided by, or reduced by, this number. |
-| `rolls` | `hitModifier`, `woundModifier` (added to the roll), `hitReroll`, `woundReroll` (`ones` or `failed`), `cover` (the defender has cover) and `singleRerolls` (one `hit`, `wound` or `damage` roll may be re-rolled). |
+| `rolls` | `hitModifier`, `woundModifier` (added to the roll), `hitReroll`, `woundReroll`, `saveReroll` (`ones` or `failed`; `saveReroll` is the defender's saving throws), `cover` (the defender has cover) and `singleRerolls` (one `hit`, `wound`, `damage` or `save` roll may be re-rolled). |
 | `feelNoPain`, `psychicFeelNoPain`, `mortalFeelNoPain` | A Feel No Pain roll against all damage, psychic attacks, or mortal wounds. |
-| `mortalWounds` | Mortal wounds inflicted `before` or `after` the attacks: `rolls` dice per unit, or per model when `perModel`, each mapping a result from `min` to `max` to `damage` (`dice` × D`sides` + `bonus`); `psychic` when they come from a psychic ability, and `sacrifice` for the attacker's own models destroyed first. |
+| `mortalWounds` | Mortal wounds inflicted `before` or `after` the attacks, or `outside-attacks` (at another moment, as the rule's reminder says), at most `max` in all: `rolls` dice per unit, or per model when `perModel`, each mapping a result from `min` to `max` to `damage` (`dice` × D`sides` + `bonus`); `psychic` when they come from a psychic ability, and `sacrifice` for the attacker's own models destroyed first. |
 | `damageReroll` | Damage rolls may be re-rolled: `ones` or `any`. |
 | `unitStat` | A unit characteristic no roll reads (`movement`, `leadership`, `objective-control`) changed by `add`. |
 | `ability` | A named ability the unit gains, such as Stealth. |

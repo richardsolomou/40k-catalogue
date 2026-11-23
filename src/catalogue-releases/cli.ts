@@ -6,7 +6,8 @@ import { buildCatalogueRelease, readCatalogueRelease, verifyCatalogueRelease } f
 
 const usage = "usage: node src/catalogue-releases/cli.ts build <input-dir> <out-dir> <release> [<previous-release-dir>] | verify <release-dir>";
 const [command, ...args] = process.argv.slice(2);
-const git = (...gitArgs: string[]) => execFileSync("git", gitArgs, { encoding: "utf8" }).trim();
+// A catalogue input can list tens of thousands of files, beyond the default output buffer.
+const git = (...gitArgs: string[]) => execFileSync("git", gitArgs, { encoding: "utf8", maxBuffer: 256 * 1024 * 1024 }).trim();
 const fail = (errors: string[]): never => {
   for (const error of errors) console.error(error);
   process.exit(1);

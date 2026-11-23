@@ -5,7 +5,7 @@ import { buildRelease, packRelease, verifyRelease, writeRelease } from "./releas
 
 const usage = "usage: node src/releases/cli.ts build <records-dir> <out-dir> <release> | verify <release-dir>";
 const [command, ...args] = process.argv.slice(2);
-const git = (...gitArgs: string[]) => execFileSync("git", gitArgs, { encoding: "utf8" }).trim();
+const git = (...gitArgs: string[]) => execFileSync("git", gitArgs, { encoding: "utf8", maxBuffer: 256 * 1024 * 1024 }).trim();
 const fail = (errors: string[]) => {
   for (const error of errors) console.error(error);
   process.exit(1);

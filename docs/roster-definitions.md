@@ -76,7 +76,7 @@ A model loadout that a source writes as separate model entries, one per weapon, 
 
 ## MFM 1.6
 
-The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) includes the `rosters` category, built from the official app's data build: factions, battle sizes, Detachments, and every datasheet outside Combat Patrol as one unit, modelled once rather than once per Space Marine chapter. A unit's `aliases` are the BSData entry IDs of the datasheets it stands for (`bsdata.<entry ID with dots>`), so lists saved against BSData IDs resolve. Wargear options the format cannot express exactly are left out and listed in the README: `checkRoster` refuses those choices rather than accept one the app forbids. Enhancement eligibility is in each Enhancement's [rule facts](rule-facts.md).
+The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) includes the `rosters` category in format version 2, built from the official app's data build: factions, battle sizes, Detachments, and every datasheet outside Combat Patrol as one unit, modelled once rather than once per Space Marine chapter. Every wargear option the app allows is stated exactly. A unit's `aliases` are the BSData entry IDs of the datasheets it stands for (`bsdata.<entry ID with dots>`), so lists saved against BSData IDs resolve. Warhammer Legends datasheets the app does not carry are typed from Games Workshop's Legends PDFs where their text states the loadout exactly; the README lists the rest. Enhancement eligibility is in each Enhancement's [rule facts](rule-facts.md).
 
 ## Saved rosters
 

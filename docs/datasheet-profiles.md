@@ -70,7 +70,7 @@ Profiles follow the [identity rules](catalogue-identity.md). A characteristic ch
 
 ## MFM 1.6
 
-The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds a `profiles` category built from the official app's data build: a unit profile for each distinct stat line of every datasheet outside Combat Patrol, and a weapon profile for each profile of every weapon a unit carries or may take. Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, and their weapon profiles name no wargear yet (a `wargear` `no-target` gap). The input's README gives the counts and every gap.
+The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds a `profiles` category built from the official app's data build: a unit profile for each distinct stat line of every datasheet outside Combat Patrol, a weapon profile for each profile of every weapon a unit carries or may take, attachments, and a transport profile for each transport, with its capacity typed from the app's Transport rule and its Firing Deck. Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs; a weapon profile names its wargear wherever the sheet's loadout is typed. The input's README gives the counts and every gap.
 
 ## Rehearsal
 

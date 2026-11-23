@@ -10,27 +10,15 @@
     "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Eradication Cohort",
     "cp": 1,
-    "summary": "During either player's Fight phase, you can use this to select one friendly Adeptus Mechanicus unit that has not been selected to fight this phase, then grant [LANCE] to melee weapons equipped by models in the selected unit until the end of the phase. Use once per phase.",
+    "summary": "Spend 1 CP in any Fight phase, yours or your opponent's, targeting an ADEPTUS MECHANICUS unit in your army; it must not have been chosen to fight yet this phase. For the rest of the phase, that unit's melee weapons gain [LANCE].",
     "summarySpans": [
       {
-        "start": 76,
-        "end": 94,
-        "bold": true
-      },
-      {
-        "start": 160,
-        "end": 165,
+        "start": 220,
+        "end": 227,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -48,50 +36,34 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "use"
-        },
-        "target": {
-          "select": {
-            "side": "friendly",
-            "keywords": [
-              "Adeptus Mechanicus"
-            ]
-          }
-        },
-        "conditions": [
-          {
-            "kind": "not-selected",
-            "unit": "target",
-            "to": [
-              "fight"
-            ]
-          }
-        ],
-        "effect": {
-          "kind": "grant-weapon-abilities",
-          "abilities": [
-            {
-              "ability": "lance"
-            }
-          ],
-          "weapons": "melee"
-        },
-        "duration": {
-          "until": "end-of-phase"
-        },
-        "usage": {
-          "cp": 1,
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Eradication Cohort",
+          "type": "Wargear",
           "windows": [
             {
-              "phase": "fight",
-              "turn": "any"
+              "turn": "either",
+              "phase": "fight"
             }
           ],
-          "oncePerPhase": true
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS MECHANICUS"
+            ],
+            "notSelectedToFightThisPhase": true
+          },
+          "effects": [
+            {
+              "appliesTo": "target-unit-models",
+              "weapons": "melee",
+              "grantWeaponAbility": "LANCE"
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

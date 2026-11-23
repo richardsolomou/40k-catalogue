@@ -10,21 +10,14 @@
     "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "enhancement",
     "group": "Rad-Zone Corps",
-    "summary": "While this model is leading a unit, grant [SUSTAINED HITS 1] to ranged weapons equipped by models in this unit.",
+    "summary": "For an ADEPTUS MECHANICUS model. As long as the bearer leads a unit, the ranged weapons of that unit's models gain [SUSTAINED HITS 1].",
     "summarySpans": [
       {
-        "start": 43,
-        "end": 59,
+        "start": 115,
+        "end": 133,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -42,30 +35,28 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "always"
+        "kind": "enhancement",
+        "detachment": "Rad-Zone Corps",
+        "pointsCost": 20,
+        "eligibility": {
+          "scope": "model",
+          "keywordsAll": [
+            "ADEPTUS MECHANICUS"
+          ]
         },
-        "target": {
-          "unit": "this-unit"
-        },
-        "conditions": [
+        "effects": [
           {
-            "kind": "source-model-leading"
-          }
-        ],
-        "effect": {
-          "kind": "grant-weapon-abilities",
-          "abilities": [
-            {
-              "ability": "sustained-hits",
+            "condition": "bearer-leading-a-unit",
+            "appliesTo": "led-unit-models",
+            "weapons": "ranged",
+            "grantWeaponAbility": {
+              "ability": "SUSTAINED HITS",
               "value": 1
             }
-          ],
-          "weapons": "ranged"
-        }
+          }
+        ]
       }
     }
   }

@@ -14,27 +14,7 @@
     "ruleType": "stratagem",
     "group": "Awakened Dynasty",
     "cp": 1,
-    "summary": "Your Shooting Phase. Pick a NECRONS unit of yours that has yet to be picked to shoot. Through this phase, its models can reroll Hit rolls of 1 when their target is within half the firing weapon’s range. If a NECRONS CHARACTER leads the unit, its models can reroll any Hit roll against targets in that same range instead.",
-    "summarySpans": [
-      {
-        "start": 5,
-        "end": 19,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 28,
-        "end": 35,
-        "bold": true
-      },
-      {
-        "start": 208,
-        "end": 225,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase and pick one of your NECRONS units that has not yet been picked to shoot this phase. For the rest of the phase, when one of its models attacks a target that is within half range, Hit rolls of 1 for that attack can be re-rolled. While the unit is led by a NECRONS CHARACTER, any Hit roll for such an attack can be re-rolled instead.",
     "citations": [
       {
         "type": "app",
@@ -47,131 +27,50 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "conditional",
-            "condition": {
-              "type": "matches",
-              "parameters": {
-                "subject": "defender",
-                "filter": {
-                  "within": {
-                    "of": "attacker",
-                    "range": "half-weapon"
-                  }
-                }
-              }
-            },
-            "effect": {
-              "type": "sequence",
-              "steps": [
-                {
-                  "type": "conditional",
-                  "condition": {
-                    "operator": "not",
-                    "operands": [
-                      {
-                        "type": "attachment",
-                        "parameters": {
-                          "role": "led",
-                          "with": {
-                            "all_of": [
-                              "CHARACTER",
-                              "NECRONS"
-                            ]
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "effect": {
-                    "type": "re-roll",
-                    "target": "this-unit",
-                    "modifier": {
-                      "roll": "hit",
-                      "subset": "ones"
-                    }
-                  }
-                },
-                {
-                  "type": "conditional",
-                  "condition": {
-                    "type": "attachment",
-                    "parameters": {
-                      "role": "led",
-                      "with": {
-                        "all_of": [
-                          "CHARACTER",
-                          "NECRONS"
-                        ]
-                      }
-                    }
-                  },
-                  "effect": {
-                    "type": "re-roll",
-                    "target": "this-unit",
-                    "modifier": {
-                      "roll": "hit",
-                      "result_scope": "any-result"
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "behavior": "activated"
-        },
         "stratagem": {
-          "id": "protocol-of-the-conquering-tyrant-awakened-dynasty-necrons",
-          "cp_cost": 1,
-          "phases": [
-            "shooting"
+          "cpCost": 1,
+          "detachment": "Awakened Dynasty",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
           ],
-          "player_turn": "your-turn",
-          "timing": "once-per-phase",
-          "type": "battle-tactic",
-          "target_restrictions": {
-            "required_keywords": [
-              "Necrons"
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "NECRONS"
             ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "owner": "friendly"
-                    }
-                  }
-                },
-                {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "type": "happened",
-                      "parameters": {
-                        "event": "selected",
-                        "filter": {
-                          "to": "shoot"
-                        },
-                        "window": "phase"
-                      }
-                    }
+            "notSelectedToShootThisPhase": true
+          },
+          "effects": [
+            {
+              "condition": {
+                "targetWithinHalfRange": true
+              },
+              "reroll": "hit",
+              "results": [
+                1
+              ]
+            },
+            {
+              "condition": {
+                "targetWithinHalfRange": true,
+                "ledBy": {
+                  "keywordsAll": [
+                    "NECRONS",
+                    "CHARACTER"
                   ]
                 }
-              ]
+              },
+              "reroll": "hit",
+              "results": "any",
+              "replacesPrevious": true
             }
-          }
-        },
-        "valueRoles": {
-          "1": "reroll result when no Necrons Character leads"
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

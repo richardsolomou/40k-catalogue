@@ -6,10 +6,10 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 5,923 | 5,364 | 559 |
+| `rules-reference` | 5,923 | 5,356 | 567 |
 | `mission-rules` | 236 | 236 | 0 |
 
-Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02. 595 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag. 129 records adapt structured fields from upstream data and carry its `attribution`.
+Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02. 595 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 FAQs and links also name 449 units, 46 detachments, 0 pieces of wargear and 1 publication. They are identity entries of the `rosters` and `publications` categories, which are retained: their records still come from the app build.
 
@@ -24,7 +24,7 @@ FAQs and links also name 449 units, 46 detachments, 0 pieces of wargear and 1 pu
 
 Active entries without a record, by reason. An entry with several reasons is listed under each.
 
-### The rule's text first appears in an app build released after the update's cutoff, and no official source dated before the cutoff prints it (418)
+### The rule's text first appears in an app build released after the update's cutoff, and no official source dated before the cutoff prints it (437)
 
 - `ability` `black-templars.castellan.vehement-aggression`
 - `ability` `black-templars.chaplain-grimaldus.faithful-cenobytes`
@@ -37,6 +37,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
 - `ability` `black-templars.fist-of-the-god-emperor.doctrinal-flexibility`
 - `ability` `black-templars.fist-of-the-god-emperor.oathbound-exemplar`
+- `ability` `black-templars.fist-of-the-god-emperor.righteous-fervour-upgrade`
 - `ability` `black-templars.high-marshal-helbrecht.crusade-of-wrath`
 - `ability` `black-templars.marshal.pious-fervour`
 - `ability` `black-templars.marshals-household.blade-of-detestation`
@@ -49,6 +50,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `black-templars.vow-sworn-crusaders.heresy-begets-retribution`
 - `ability` `black-templars.vow-sworn-crusaders.incendiary-animus`
 - `ability` `black-templars.vow-sworn-crusaders.pious-enmity`
+- `ability` `black-templars.vow-sworn-crusaders.zealous-vanguard`
 - `ability` `blood-angels.angelic-inheritors.blazing-icon`
 - `ability` `blood-angels.angelic-inheritors.instant-of-grace`
 - `ability` `blood-angels.angelic-inheritors.legacy-of-the-angel`
@@ -119,6 +121,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `deathwatch.indomitor-kill-team.indomitor-doctrines`
 - `ability` `deathwatch.spectrus-kill-team.helix-gauntlet`
 - `ability` `deathwatch.talonstrike-kill-team.talonstrike-doctrines`
+- `ability` `deathwatch.watch-captain-artemis.tactical-instinct`
 - `ability` `deathwatch.watch-captain-artemis.unstoppable-champion-once-per-battle-per-army`
 - `ability` `deathwatch.watch-master.strategic-knowledge`
 - `ability` `emperors-children.frenzied-host.frantic-focus`
@@ -135,6 +138,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.ancient-in-terminator-armour.never-shall-the-standard-fall`
 - `ability` `space-marines.ancient-in-terminator-armour.raise-the-banner`
 - `ability` `space-marines.ancient-in-terminator-armour.support`
+- `ability` `space-marines.ancient.honour-of-the-company`
 - `ability` `space-marines.ancient.raise-the-banner`
 - `ability` `space-marines.ancient.support`
 - `ability` `space-marines.apothecary-biologis.support`
@@ -177,11 +181,17 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.ceramite-sentinels.evasive-repositioning`
 - `ability` `space-marines.ceramite-sentinels.spy-skull-data-link`
 - `ability` `space-marines.cerberus.atomantic-arc-reactor`
+- `ability` `space-marines.chaplain-in-terminator-armour.litany-of-hate`
+- `ability` `space-marines.chaplain-in-terminator-armour.zealous-fortitude`
 - `ability` `space-marines.chaplain-on-bike.catechism-of-fire`
+- `ability` `space-marines.chaplain-on-bike.litany-of-hate`
 - `ability` `space-marines.chaplain-with-jump-pack.exhortation-of-rage`
+- `ability` `space-marines.chaplain-with-jump-pack.litany-of-hate`
+- `ability` `space-marines.chaplain.litany-of-hate`
 - `ability` `space-marines.chief-librarian-tigurius.prescience-psychic-level-2`
 - `ability` `space-marines.chief-librarian-tigurius.telepathic-assault-psychic-level-1`
 - `ability` `space-marines.company-heroes.raise-the-banner`
+- `ability` `space-marines.darnath-lysander.icon-of-obstinacy`
 - `ability` `space-marines.deathwatch-support.beacon-angelis`
 - `ability` `space-marines.deathwatch-support.hellfire-rounds`
 - `ability` `space-marines.deathwatch-support.mission-tactics`
@@ -216,8 +226,10 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.gladius-task-force.storm-of-devastation`
 - `ability` `space-marines.gravis-linebreaker-force.annihilating-force`
 - `ability` `space-marines.gravis-linebreaker-force.indefatigable-fortitude`
+- `ability` `space-marines.gravis-linebreaker-force.relentless-advance`
 - `ability` `space-marines.gravis-linebreaker-force.walking-fortress`
 - `ability` `space-marines.gravis-siege-force.annihilating-force`
+- `ability` `space-marines.gravis-siege-force.immovable-conquerors-upgrade`
 - `ability` `space-marines.gravis-siege-force.indomitable-defence`
 - `ability` `space-marines.gravis-siege-force.narthecis-gauntlet`
 - `ability` `space-marines.gravis-siege-force.stand-unyielding`
@@ -242,11 +254,13 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.ironclad-champions.enduring-vengeance`
 - `ability` `space-marines.ironclad-champions.upstoppable-advance`
 - `ability` `space-marines.ironclad-champions.venerable-champion-aura-upgrade`
+- `ability` `space-marines.ironstorm-spearhead.gunnery-honours-upgrade`
 - `ability` `space-marines.ironstorm-spearhead.headhunter-doctrine`
 - `ability` `space-marines.ironstorm-spearhead.ironstorm-auto-targeters`
 - `ability` `space-marines.ironstorm-spearhead.layered-ceramite`
 - `ability` `space-marines.ironstorm-spearhead.redoubtable-machine-spirit-upgrade`
 - `ability` `space-marines.judiciar.support`
+- `ability` `space-marines.judiciar.tempormortis`
 - `ability` `space-marines.kaius-konorius.support`
 - `ability` `space-marines.kaius-konorius.veteran-bodyguard`
 - `ability` `space-marines.kayvaan-shrike.echo-of-the-ravenspire`
@@ -306,6 +320,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.spearpoint-task-force.hunters-instincts`
 - `ability` `space-marines.spearpoint-task-force.mobile-lethality`
 - `ability` `space-marines.spearpoint-task-force.storm-swift-onslaught`
+- `ability` `space-marines.sternguard-veteran-squad.veteran-marksmen`
 - `ability` `space-marines.storm-speeder-hailstrike.hailstrike`
 - `ability` `space-marines.storm-speeder-hammerstrike.hammerstrike`
 - `ability` `space-marines.storm-speeder-thunderstrike.shattered-defences`
@@ -314,12 +329,14 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.stormlance-task-force.hurtling-targets`
 - `ability` `space-marines.stormlance-task-force.lightning-fast-strike`
 - `ability` `space-marines.stormlance-task-force.sudden-onslaught`
+- `ability` `space-marines.stormlance-task-force.supercharged-engines-upgrade`
 - `ability` `space-marines.suboden-khan.skilled-riders`
 - `ability` `space-marines.suboden-khan.spear-of-chogoris`
 - `ability` `space-marines.tactical-brethren.armour-of-contempt`
 - `ability` `space-marines.tactical-brethren.tactical-insight`
 - `ability` `space-marines.tactical-brethren.tactical-mastery`
 - `ability` `space-marines.tacticus-attack-force.martial-paragon`
+- `ability` `space-marines.tacticus-attack-force.spearpoint-war-leader`
 - `ability` `space-marines.tacticus-attack-force.tactical-focus`
 - `ability` `space-marines.tacticus-attack-force.transhuman-swiftness`
 - `ability` `space-marines.tacticus-attack-force.wrath-of-the-chapter`
@@ -331,6 +348,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.techmarine.blessings-of-the-omnissiah`
 - `ability` `space-marines.techmarine.techmarine`
 - `ability` `space-marines.terminator-squad.fury-of-the-first`
+- `ability` `space-marines.terminator-storm-force.champion-of-the-first-company`
 - `ability` `space-marines.terminator-storm-force.corporeum-reliquary`
 - `ability` `space-marines.terminator-storm-force.death-blow`
 - `ability` `space-marines.terminator-storm-force.gunship-extraction`
@@ -387,6 +405,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-wolves.saga-of-the-great-wolf.grimnars-mark`
 - `ability` `space-wolves.saga-of-the-great-wolf.howlmaw`
 - `ability` `space-wolves.saga-of-the-great-wolf.master-of-wolves`
+- `ability` `space-wolves.saga-of-the-great-wolf.skjalds-foretelling`
 - `ability` `space-wolves.saga-of-the-great-wolf.wolf-totems`
 - `ability` `space-wolves.thunderwolf-cavalry.thunderous-charge`
 - `ability` `space-wolves.ulrik-the-slayer.slayers-oath`
@@ -748,11 +767,12 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `weapon-ability` `sustained-hits-1-non-monster-vehicle`
 - `weapon-ability` `sustained-hits-2-non-monster-vehicle`
 
-### The summary is still generated from upstream structured data and awaits a redraft in original wording (177)
+### The summary is still generated from upstream structured data and awaits a redraft in original wording (196)
 
 - `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
 - `ability` `black-templars.fist-of-the-god-emperor.doctrinal-flexibility`
 - `ability` `black-templars.fist-of-the-god-emperor.oathbound-exemplar`
+- `ability` `black-templars.fist-of-the-god-emperor.righteous-fervour-upgrade`
 - `ability` `black-templars.vow-sworn-crusaders.augury-servo-host`
 - `ability` `black-templars.vow-sworn-crusaders.consecrating-aura`
 - `ability` `black-templars.vow-sworn-crusaders.devout-push`
@@ -760,6 +780,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `black-templars.vow-sworn-crusaders.for-the-emperors-honour`
 - `ability` `black-templars.vow-sworn-crusaders.heresy-begets-retribution`
 - `ability` `black-templars.vow-sworn-crusaders.incendiary-animus`
+- `ability` `black-templars.vow-sworn-crusaders.zealous-vanguard`
 - `ability` `blood-angels.angelic-inheritors.blazing-icon`
 - `ability` `blood-angels.angelic-inheritors.instant-of-grace`
 - `ability` `blood-angels.angelic-inheritors.measured-strategist`
@@ -786,6 +807,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `deathwatch.black-spear-task-force.osseus-key-aura`
 - `ability` `deathwatch.black-spear-task-force.the-thief-of-secrets`
 - `ability` `deathwatch.black-spear-task-force.the-tome-of-ectoclades`
+- `ability` `deathwatch.watch-captain-artemis.tactical-instinct`
 - `ability` `emperors-children.frenzied-host.frantic-focus`
 - `ability` `imperial-agents.veiled-blade-elimination-force.ensnaring-trap`
 - `ability` `imperial-agents.watch-master.strategic-acumen`
@@ -794,6 +816,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.aggressor-squad.close-quarters-firestorm`
 - `ability` `space-marines.ancient-in-terminator-armour.never-shall-the-standard-fall`
 - `ability` `space-marines.ancient-in-terminator-armour.raise-the-banner`
+- `ability` `space-marines.ancient.honour-of-the-company`
 - `ability` `space-marines.ancient.raise-the-banner`
 - `ability` `space-marines.apothecary-biologis.vivispectral-analysis-targeting`
 - `ability` `space-marines.apothecary.narthecium`
@@ -816,9 +839,15 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.captain-with-jump-pack.angels-wrath`
 - `ability` `space-marines.captain-with-jump-pack.strategic-acumen`
 - `ability` `space-marines.captain.strategic-acumen`
+- `ability` `space-marines.chaplain-in-terminator-armour.litany-of-hate`
+- `ability` `space-marines.chaplain-in-terminator-armour.zealous-fortitude`
 - `ability` `space-marines.chaplain-on-bike.catechism-of-fire`
+- `ability` `space-marines.chaplain-on-bike.litany-of-hate`
 - `ability` `space-marines.chaplain-with-jump-pack.exhortation-of-rage`
+- `ability` `space-marines.chaplain-with-jump-pack.litany-of-hate`
+- `ability` `space-marines.chaplain.litany-of-hate`
 - `ability` `space-marines.company-heroes.raise-the-banner`
+- `ability` `space-marines.darnath-lysander.icon-of-obstinacy`
 - `ability` `space-marines.devastator-brethren.armour-of-contempt`
 - `ability` `space-marines.devastator-brethren.devastator-mastery`
 - `ability` `space-marines.devastator-brethren.master-forged-firearms`
@@ -834,7 +863,9 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.gladius-task-force.storm-of-devastation`
 - `ability` `space-marines.gravis-linebreaker-force.annihilating-force`
 - `ability` `space-marines.gravis-linebreaker-force.indefatigable-fortitude`
+- `ability` `space-marines.gravis-linebreaker-force.relentless-advance`
 - `ability` `space-marines.gravis-siege-force.annihilating-force`
+- `ability` `space-marines.gravis-siege-force.immovable-conquerors-upgrade`
 - `ability` `space-marines.gravis-siege-force.indomitable-defence`
 - `ability` `space-marines.gravis-siege-force.narthecis-gauntlet`
 - `ability` `space-marines.gravis-siege-force.stand-unyielding`
@@ -851,8 +882,10 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.ironclad-champions.enduring-vengeance`
 - `ability` `space-marines.ironclad-champions.upstoppable-advance`
 - `ability` `space-marines.ironclad-champions.venerable-champion-aura-upgrade`
+- `ability` `space-marines.ironstorm-spearhead.gunnery-honours-upgrade`
 - `ability` `space-marines.ironstorm-spearhead.headhunter-doctrine`
 - `ability` `space-marines.ironstorm-spearhead.layered-ceramite`
+- `ability` `space-marines.judiciar.tempormortis`
 - `ability` `space-marines.kaius-konorius.veteran-bodyguard`
 - `ability` `space-marines.kayvaan-shrike.echo-of-the-ravenspire`
 - `ability` `space-marines.land-raider-crusader.fury-of-the-machine-spirit`
@@ -876,6 +909,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.roboute-guilliman.codex-adept`
 - `ability` `space-marines.roboute-guilliman.leader-of-astartes`
 - `ability` `space-marines.scout-squad.flexible-asset`
+- `ability` `space-marines.sternguard-veteran-squad.veteran-marksmen`
 - `ability` `space-marines.storm-speeder-hailstrike.hailstrike`
 - `ability` `space-marines.storm-speeder-hammerstrike.hammerstrike`
 - `ability` `space-marines.storm-speeder-thunderstrike.shattered-defences`
@@ -883,10 +917,12 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.stormlance-task-force.hurtling-targets`
 - `ability` `space-marines.stormlance-task-force.lightning-fast-strike`
 - `ability` `space-marines.stormlance-task-force.sudden-onslaught`
+- `ability` `space-marines.stormlance-task-force.supercharged-engines-upgrade`
 - `ability` `space-marines.suboden-khan.skilled-riders`
 - `ability` `space-marines.tactical-brethren.armour-of-contempt`
 - `ability` `space-marines.tactical-brethren.tactical-insight`
 - `ability` `space-marines.tactical-brethren.tactical-mastery`
+- `ability` `space-marines.tacticus-attack-force.spearpoint-war-leader`
 - `ability` `space-marines.tacticus-attack-force.tactical-focus`
 - `ability` `space-marines.tacticus-attack-force.transhuman-swiftness`
 - `ability` `space-marines.tacticus-attack-force.wrath-of-the-chapter`
@@ -895,6 +931,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.tacticus-firestorm-force.for-the-emperor`
 - `ability` `space-marines.tacticus-firestorm-force.tempered-in-battle-aura`
 - `ability` `space-marines.terminator-squad.fury-of-the-first`
+- `ability` `space-marines.terminator-storm-force.champion-of-the-first-company`
 - `ability` `space-marines.terminator-storm-force.corporeum-reliquary`
 - `ability` `space-marines.terminator-storm-force.death-blow`
 - `ability` `space-marines.terminator-storm-force.gunship-extraction`
@@ -923,6 +960,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-wolves.saga-of-the-great-wolf.fenrisian-ferocity`
 - `ability` `space-wolves.saga-of-the-great-wolf.grimnars-command`
 - `ability` `space-wolves.saga-of-the-great-wolf.howlmaw`
+- `ability` `space-wolves.saga-of-the-great-wolf.skjalds-foretelling`
 - `ability` `space-wolves.saga-of-the-great-wolf.wolf-totems`
 - `ability` `thousand-sons.rubricae-phalanx.infernal-fusillade`
 - `ability` `world-eaters.berzerker-warband.relentless-rage`

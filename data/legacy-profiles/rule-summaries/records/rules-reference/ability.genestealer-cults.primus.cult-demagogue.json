@@ -10,17 +10,10 @@
     "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "unit-ability",
     "group": "Primus",
-    "summary": "While this model is leading a unit, add 1 to Hit rolls for this unit.",
+    "summary": "As long as this model leads a unit, each attack made by one of that unit's models may get +1 on its Hit roll.",
     "citations": [
       {
         "type": "app",
@@ -31,24 +24,18 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "always"
-        },
-        "target": {
-          "unit": "this-unit"
-        },
-        "conditions": [
-          {
-            "kind": "source-model-leading"
-          }
-        ],
-        "effect": {
-          "kind": "modify-roll",
-          "roll": "hit",
-          "by": 1
+        "ability": {
+          "condition": "this-model-leading-a-unit",
+          "effects": [
+            {
+              "appliesTo": "led-unit",
+              "roll": "hit",
+              "delta": 1,
+              "optional": true
+            }
+          ]
         }
       }
     }

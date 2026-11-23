@@ -14,59 +14,15 @@
     "ruleType": "stratagem",
     "group": "Warpbane Task Force",
     "cp": 1,
-    "summary": "Opponent’s Movement Phase. As it begins, choose a GREY KNIGHTS INFANTRY unit of yours. For that phase, roll a D6 each time a foe is placed on the battlefield within 6″ of your chosen unit or ends a move that close. The trigger covers Normal moves, Advance moves and Fall Back moves. If your Hallowed Ground contains the whole chosen unit, increase the result by 2. A result of 4+ inflicts D3 mortal wounds on the triggering unit.",
+    "summary": "Spend 1 CP as the opposing player's Movement phase begins, targeting one of your GREY KNIGHTS INFANTRY units. For the rest of the phase, whenever an enemy unit gets set up, or finishes a Normal move, an Advance move or a Fall Back move, and ends up within 6\" of the chosen unit, roll a D6, adding 2 when the chosen unit is wholly inside your Hallowed Ground. A total of 4+ deals D3 mortal wounds to that enemy unit.",
     "summarySpans": [
       {
-        "start": 11,
-        "end": 25,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 50,
-        "end": 71,
-        "bold": true
-      },
-      {
-        "start": 234,
-        "end": 246,
-        "target": {
-          "kind": "core-rule",
-          "id": "normal-move"
-        }
-      },
-      {
-        "start": 248,
-        "end": 261,
-        "target": {
-          "kind": "core-rule",
-          "id": "advance-move"
-        }
-      },
-      {
-        "start": 266,
-        "end": 275,
-        "target": {
-          "kind": "core-rule",
-          "id": "fall-back"
-        }
-      },
-      {
-        "start": 291,
-        "end": 306,
+        "start": 342,
+        "end": 357,
+        "bold": true,
         "target": {
           "kind": "ability",
           "id": "grey-knights.warpbane-task-force.hallowed-ground"
-        }
-      },
-      {
-        "start": 392,
-        "end": 405,
-        "target": {
-          "kind": "core-rule",
-          "id": "mortal-wounds"
         }
       }
     ],
@@ -82,176 +38,49 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "ability-part",
-            "trigger": [
-              {
-                "event": "set-up",
-                "subject": {
-                  "owner": "enemy"
-                }
-              },
-              {
-                "event": "move-ended",
-                "subject": {
-                  "owner": "enemy"
-                },
-                "filter": {
-                  "move_types": [
-                    "normal",
-                    "advance",
-                    "fall-back"
-                  ]
-                }
-              }
-            ],
-            "effect": {
-              "type": "conditional",
-              "condition": {
-                "type": "matches",
-                "parameters": {
-                  "subject": "event-subject",
-                  "filter": {
-                    "within": {
-                      "of": "this-unit",
-                      "range": {
-                        "inches": 6
-                      }
-                    }
-                  }
-                }
-              },
-              "effect": {
-                "type": "sequence",
-                "steps": [
-                  {
-                    "type": "conditional",
-                    "condition": {
-                      "type": "in-region",
-                      "parameters": {
-                        "subject": "this-unit",
-                        "region": {
-                          "rule_region": {
-                            "region_id": "hallowed-ground",
-                            "owner_faction": "grey-knights"
-                          }
-                        },
-                        "wholly": true
-                      }
-                    },
-                    "effect": {
-                      "type": "dice-gated",
-                      "dice": "D6+2",
-                      "threshold": 4,
-                      "comparison": "gte",
-                      "on_success": {
-                        "type": "mortal-wounds",
-                        "target": "event-subject",
-                        "modifier": {
-                          "count": "D3"
-                        }
-                      },
-                      "on_fail": null
-                    }
-                  },
-                  {
-                    "type": "conditional",
-                    "condition": {
-                      "operator": "not",
-                      "operands": [
-                        {
-                          "type": "in-region",
-                          "parameters": {
-                            "subject": "this-unit",
-                            "region": {
-                              "rule_region": {
-                                "region_id": "hallowed-ground",
-                                "owner_faction": "grey-knights"
-                              }
-                            },
-                            "wholly": true
-                          }
-                        }
-                      ]
-                    },
-                    "effect": {
-                      "type": "dice-gated",
-                      "dice": "D6",
-                      "threshold": 4,
-                      "comparison": "gte",
-                      "on_success": {
-                        "type": "mortal-wounds",
-                        "target": "event-subject",
-                        "modifier": {
-                          "count": "D3"
-                        }
-                      },
-                      "on_fail": null
-                    }
-                  }
-                ]
-              }
-            }
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "trigger": {
-            "event": "phase-started",
-            "condition": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "phase-is",
-                  "parameters": {
-                    "phase": "movement"
-                  }
-                },
-                {
-                  "type": "player-turn-is",
-                  "parameters": {
-                    "turn": "opponent-turn"
-                  }
-                }
-              ]
-            }
-          },
-          "behavior": "reactive"
-        },
         "stratagem": {
-          "id": "fires-of-covenant-warpbane-task-force-grey-knights",
-          "cp_cost": 1,
-          "phases": [
-            "movement"
+          "cpCost": 1,
+          "detachment": "Warpbane Task Force",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "movement",
+              "timing": "start-of-phase"
+            }
           ],
-          "player_turn": "opponent-turn",
-          "timing": "once-per-phase",
-          "type": "battle-tactic",
-          "target_restrictions": {
-            "required_keywords": [
-              "Grey Knights",
-              "Infantry"
-            ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "eligibility": {
-              "type": "matches",
-              "parameters": {
-                "filter": {
-                  "owner": "friendly"
-                }
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "GREY KNIGHTS",
+              "INFANTRY"
+            ]
+          },
+          "effects": [
+            {
+              "trigger": {
+                "enemyUnitEvents": [
+                  "set-up",
+                  "ends-normal-move",
+                  "ends-advance-move",
+                  "ends-fall-back-move"
+                ],
+                "withinInchesOfTarget": 6
+              },
+              "roll": "D6",
+              "rollModifier": {
+                "add": 2,
+                "condition": "target-unit-wholly-within-own-hallowed-ground"
+              },
+              "success": "4+",
+              "onSuccess": {
+                "mortalWounds": "D3",
+                "to": "triggering-enemy-unit"
               }
             }
-          }
-        },
-        "valueRoles": {
-          "2": "Hallowed Ground bonus to trigger roll",
-          "6": "enemy setup or move-end radius",
-          "D6": "trigger die",
-          "4+": "adjusted roll threshold",
-          "D3": "mortal wounds inflicted on enemy"
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

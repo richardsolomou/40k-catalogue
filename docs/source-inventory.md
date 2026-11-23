@@ -38,7 +38,7 @@ Every summary is original wording, drafted from the official sources alone. Up t
 
 ## Earlier 11th-edition rule summaries
 
-The inputs for the eight earlier rules versions (`data/<version>/rule-summaries/` and `mechanics/`) follow the same rules. Each cites the signed app build in force at its own cutoff instead of build 981: Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02, for `legacy-marine-old`; 2.7.0, data build 963, released 2026-09-30, for `legacy-rosters`; and 2.7.1, data build 972, released 2026-10-02, for the other six. A rule whose text first appears in a later build, or that no official source dated before the cutoff prints, has no record, and its input's README lists it. Their v0.1.0 inputs still carry the 40kdc mechanic records and adapted summaries described above, with its attribution, until their next release.
+The inputs for the eight earlier rules versions (`data/<version>/rule-summaries/`) follow the same rules, with the same redrafts from v0.2.0. Each cites the signed app build in force at its own cutoff instead of build 981: Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02, for `legacy-marine-old`; 2.7.0, data build 963, released 2026-09-30, for `legacy-rosters`; and 2.7.1, data build 972, released 2026-10-02, for the other six. A rule whose text first appears in a later build, or that no official source dated before the cutoff prints, has no record, and its input's README lists it. A summary still rendered from 40kdc data is not published: its entry is unresolved, as for 19 `legacy-marine-old` rules whose text first appears after its cutoff.
 
 ## Interpretations
 

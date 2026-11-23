@@ -9,7 +9,7 @@ Every summary is original wording, checked against the official sources it cites
 | `rules-reference` | 5,931 | 5,918 | 13 |
 | `mission-rules` | 236 | 236 | 0 |
 
-Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30. 741 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag. 140 records adapt structured fields from upstream data and carry its `attribution`.
+Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30. 741 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 FAQs and links also name 449 units, 46 detachments, 0 pieces of wargear and 1 publication. They are identity entries of the `rosters` and `publications` categories, which are retained: their records still come from the app build.
 

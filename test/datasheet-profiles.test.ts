@@ -190,3 +190,12 @@ test("dice amounts must name a die", () => {
   const found = errors((_, recs) => (record(recs, "weapon-profile", `${UNIT}.pyre-lord.ember-staff`).data.damage = "D+3"));
   assert.ok(found.some((e) => e.startsWith(`weapon-profile:${UNIT}.pyre-lord.ember-staff data/damage`)), found.join("\n"));
 });
+
+test("a transport's Firing Deck is a positive number of models", () => {
+  const id = identity("1.1");
+  const recs = profileRecords("1.1");
+  transport(id, recs, { loads: [[transportLoad]] });
+  (recs.at(-1)!.data as { firingDeck?: number }).firingDeck = 0;
+  const result = validateProfiles(id, recs);
+  assert.deepEqual(result.ok ? [] : result.errors, [`transport-profile:${WARDENS} data/firingDeck must be >= 1`]);
+});

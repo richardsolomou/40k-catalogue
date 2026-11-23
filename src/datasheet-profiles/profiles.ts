@@ -51,6 +51,8 @@ export type TransportProfileData = {
     excluded?: { selectors: string[]; except?: string[] }[];
     space?: { selectors?: string[]; moreWoundsThan?: number; size: number }[];
   };
+  /** How many embarked models can shoot as if on the battlefield. */
+  firingDeck?: number;
   gaps?: Gap[];
 };
 

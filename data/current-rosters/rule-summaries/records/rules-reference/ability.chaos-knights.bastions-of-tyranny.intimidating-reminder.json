@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Bastions of Tyranny",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "After your KNIGHT TYRANT shoots in your Shooting phase, mark an enemy it hit. The marked unit takes −1 on its Hit rolls, ending when your next Command phase begins.",
     "summarySpans": [
       {
@@ -63,33 +69,49 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is you",
-          "event": "after friendly shooting"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": "KNIGHT TYRANT"
-        },
-        "effect": {
-          "type": "roll modifier",
-          "recipient": {
-            "side": "enemy",
-            "count": 1,
-            "hitBy": "triggering shooting"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
           },
-          "scope": "attacks made by marked enemy",
-          "roll": "Hit",
-          "amount": -1,
-          "until": "start of your next Command phase"
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "KNIGHT TYRANT"
+            ]
+          }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is you",
+            "event": "after friendly shooting"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": "KNIGHT TYRANT"
+          },
+          "effect": {
+            "type": "roll modifier",
+            "recipient": {
+              "side": "enemy",
+              "count": 1,
+              "hitBy": "triggering shooting"
+            },
+            "scope": "attacks made by marked enemy",
+            "roll": "Hit",
+            "amount": -1,
+            "until": "start of your next Command phase"
+          },
+          "restrictions": []
+        }
       }
     }
   }

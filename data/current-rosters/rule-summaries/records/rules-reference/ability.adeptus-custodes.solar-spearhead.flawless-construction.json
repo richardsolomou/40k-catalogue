@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Solar Spearhead",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in the opposing Shooting phase or in either player's Fight phase, once an enemy unit picks its targets. Choose a single ADEPTUS CUSTODES VEHICLE unit of yours that it aimed at least one attack at. While the phase lasts, an attack against a model in that unit takes −1 to the Wound roll whenever the attack's Strength is higher than the unit's Toughness.",
     "summarySpans": [
       {
@@ -48,12 +56,30 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS CUSTODES",
+              "VEHICLE"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Solar Spearhead",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

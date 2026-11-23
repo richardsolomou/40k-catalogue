@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Needgaârd Oathband",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP. Use it in the Fight phase of either player's turn. Choose one of your LEAGUES OF VOTANN units that is yet to be picked to fight this phase; you may also spend 3YP. Pick one enemy unit in Engagement Range of it. For the rest of the phase, its models' melee attacks against that enemy unit have their Armour Penetration improved by 1, or by 2 if you spent YP on this use.",
     "citations": [
       {
@@ -25,12 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEAGUES OF VOTANN"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Needgaârd Oathband",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

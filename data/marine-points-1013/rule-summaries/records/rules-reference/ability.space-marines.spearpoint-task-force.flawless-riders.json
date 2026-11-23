@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Spearpoint Task Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement",
+        "charge"
+      ],
+      "turn": "own"
+    },
     "summary": "Spend 1 CP in your Movement or Charge phase when one of your ADEPTUS ASTARTES MOUNTED units is picked to move, or when it declares a charge. That unit gains MOBILE.",
     "citations": [
       {
@@ -25,10 +32,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-move"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "MOUNTED"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Spearpoint Task Force",
           "trigger": {
             "windows": [

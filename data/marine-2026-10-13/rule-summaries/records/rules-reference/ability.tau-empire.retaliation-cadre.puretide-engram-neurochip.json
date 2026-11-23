@@ -39,32 +39,42 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Battlesuit",
-            "T’au Empire"
-          ],
-          "excludes": []
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "BATTLESUIT"
+                ],
+                "factionKeywords": [
+                  "T’AU EMPIRE"
+                ]
+              }
+            ]
+          }
         },
-        "trigger": {
-          "event": "target-with-stratagem",
-          "actor": "own-player",
-          "recipient": "bearers-unit",
-          "frequency": "each-targeting"
-        },
-        "effect": {
-          "dice": "D6",
-          "comparison": "at-least",
-          "threshold": 4,
-          "success": {
-            "type": "gain-resource",
-            "recipient": "own-player",
-            "pool": "CP",
-            "amount": 1
+        "detail": {
+          "trigger": {
+            "event": "target-with-stratagem",
+            "actor": "own-player",
+            "recipient": "bearers-unit",
+            "frequency": "each-targeting"
+          },
+          "effect": {
+            "dice": "D6",
+            "comparison": "at-least",
+            "threshold": 4,
+            "success": {
+              "type": "gain-resource",
+              "recipient": "own-player",
+              "pool": "CP",
+              "amount": 1
+            }
           }
         }
       }

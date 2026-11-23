@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Penitent Host",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in your Movement phase once an ADEPTA SORORITAS unit of yours Falls Back; that unit is the target. For the rest of the turn it may, despite having Fallen Back, pick one of two options: shoot, or make a charge declaration. A PENITENT unit may do both instead.",
     "citations": [
       {
@@ -25,12 +32,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-fell-back"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTA SORORITAS"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Penitent Host",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {

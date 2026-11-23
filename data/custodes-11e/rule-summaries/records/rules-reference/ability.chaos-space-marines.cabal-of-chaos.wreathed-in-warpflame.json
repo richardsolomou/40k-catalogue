@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Cabal of Chaos",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "Stratagem, 1 CP. Use it in your Shooting phase at the moment a HERETIC ASTARTES PSYKER unit of yours is picked to shoot; that unit is the target. Its ranged attacks have [IGNORES COVER] for the rest of that phase.",
     "summarySpans": [
       {
@@ -36,11 +42,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-shoot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "HERETIC ASTARTES",
+              "PSYKER"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Cabal of Chaos",
           "trigger": {
             "windows": [

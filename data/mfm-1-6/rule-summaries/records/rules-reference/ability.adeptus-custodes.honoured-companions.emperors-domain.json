@@ -19,25 +19,7 @@
       ],
       "turn": "any"
     },
-    "summary": "Trigger in either Fight phase when you pick a unit to consolidate. It must be friendly and have the ADEPTUS CUSTODES keyword. You may choose Objective Consolidation even if its pre-move conditions fail. The unit may leave enemy Engagement Range, provided it still meets the conditions for that type of move.",
-    "summarySpans": [
-      {
-        "start": 18,
-        "end": 29,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 141,
-        "end": 164,
-        "target": {
-          "kind": "core-rule",
-          "id": "consolidation-move"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in either player's Fight phase when one of your TRUSTED SENTINEL units is chosen to consolidate; that unit is the target. That move may be made in objective consolidation mode even though the Before Moving restrictions of that consolidation move are not met, letting it leave the Engagement Range of enemy units as long as it fulfils that mode's conditions.",
     "citations": [
       {
         "type": "app",
@@ -67,54 +49,27 @@
         },
         "detail": {
           "detachment": "Honoured Companions",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "unit-selected-to-consolidate",
-            "actor": "chosen-unit"
-          },
-          "target": {
-            "controller": "friendly",
-            "entity": "unit",
-            "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
-              "ADEPTUS CUSTODES"
-            ],
-            "condition": {
-              "event": "triggering-unit"
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
             }
+          ],
+          "trigger": "a friendly unit is picked to make a consolidation move",
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "TRUSTED SENTINEL"
+            ],
+            "is": "the unit making that consolidation move"
           },
           "effects": [
             {
-              "action": "allow-consolidation-mode",
-              "actor": "chosen-unit",
-              "mode": "objective",
-              "optional": true,
-              "override": [
-                "before-moving-restrictions"
-              ],
-              "remainingConditions": "as-defined-by-objective-consolidation"
-            },
-            {
-              "action": "allow-exit-engagement-range",
-              "actor": "chosen-unit",
-              "against": "enemy-units",
-              "condition": {
-                "consolidationMode": "objective",
-                "satisfies": "objective-consolidation-remaining-conditions"
-              }
-            }
-          ],
-          "references": [
-            {
-              "kind": "core-section",
-              "id": "4cdf7a87-0914-49e8-b5df-b9f8be4d13c6.3a62f96e-d0db-4791-a020-d8a4317d5823",
-              "mode": "objective"
+              "consolidationMode": "objective",
+              "ignoresBeforeMovingRestrictions": true,
+              "mayLeaveEngagementRange": true,
+              "provided": "the unit meets the objective consolidation mode's conditions"
             }
           ]
         }

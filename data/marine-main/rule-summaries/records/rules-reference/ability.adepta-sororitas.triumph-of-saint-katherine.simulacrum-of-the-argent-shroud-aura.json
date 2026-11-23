@@ -44,39 +44,42 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "role": "aura-option",
-        "activation": {
-          "event": "parent-option-active",
-          "parentAbility": "Relics of the Matriarchs"
-        },
-        "area": {
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 6,
-          "origin": "this-model",
-          "candidate": {
-            "entity": "unit",
-            "side": "friendly",
-            "requireAllKeywords": [
-              "ADEPTA SORORITAS"
+        "detail": {
+          "role": "aura-option",
+          "activation": {
+            "event": "parent-option-active",
+            "parentAbility": "Relics of the Matriarchs"
+          },
+          "area": {
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 6,
+            "origin": "this-model",
+            "candidate": {
+              "entity": "unit",
+              "side": "friendly",
+              "requireAllKeywords": [
+                "ADEPTA SORORITAS"
+              ],
+              "excludeAnyKeywords": []
+            }
+          },
+          "trigger": {
+            "event": "attack",
+            "actor": "model-in-eligible-unit",
+            "mode": "ranged"
+          },
+          "effect": {
+            "rolls": [
+              "wound"
             ],
-            "excludeAnyKeywords": []
+            "optional": false,
+            "unmodifiedFace": 1,
+            "kind": "re-roll"
           }
-        },
-        "trigger": {
-          "event": "attack",
-          "actor": "model-in-eligible-unit",
-          "mode": "ranged"
-        },
-        "effect": {
-          "operation": "re-roll",
-          "rolls": [
-            "wound"
-          ],
-          "optional": false,
-          "unmodifiedFace": 1
         }
       }
     }

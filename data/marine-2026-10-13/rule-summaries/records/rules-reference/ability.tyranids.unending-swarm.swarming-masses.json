@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Unending Swarm",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP, in your own Shooting phase or in either player's Fight phase. Choose one ENDLESS MULTITUDE unit of yours that has neither shot nor fought yet this phase. Until the phase ends, [SUSTAINED HITS 1] applies to its weapons, and if it has 15 or more models, its attacks also score Critical Hits on unmodified Hit rolls of 5+.",
     "summarySpans": [
       {
@@ -59,11 +67,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ENDLESS MULTITUDE"
+            ],
+            "conditions": [
+              "not-selected-to-shoot-or-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Unending Swarm",
           "when": {
             "phases": [

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Persecution Prospect",
-    "summary": "10 points. Bearer must be a LEAGUES OF VOTANN model. During your Shooting phase, once the unit containing the bearer has shot, pick a unit that is a MONSTER or VEHICLE and that at least one of those attacks hit; it is pinned until your next Shooting phase begins.",
+    "summary": "Bearer must be a LEAGUES OF VOTANN model. During your Shooting phase, once the unit containing the bearer has shot, pick a unit that is a MONSTER or VEHICLE and that at least one of those attacks hit; it is pinned until your next Shooting phase begins.",
     "citations": [
       {
         "type": "app",
@@ -24,31 +24,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "enhancement": {
-          "detachment": "Persecution Prospect",
+          "type": "model",
           "points": 10,
           "eligibility": {
-            "keywordsAll": [
-              "LEAGUES OF VOTANN"
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "LEAGUES OF VOTANN"
+                ]
+              }
             ]
-          },
-          "effects": [
-            {
-              "kind": "pinned",
-              "trigger": "your Shooting phase, after the bearer's unit has shot",
-              "select": {
-                "count": 1,
-                "keywordsAny": [
-                  "MONSTER",
-                  "VEHICLE"
-                ],
-                "condition": "hit by one or more of those attacks"
-              },
-              "until": "start-of-your-next-shooting-phase"
-            }
-          ]
+          }
+        },
+        "detail": {
+          "enhancement": {
+            "detachment": "Persecution Prospect",
+            "points": 10,
+            "eligibility": {
+              "keywordsAll": [
+                "LEAGUES OF VOTANN"
+              ]
+            },
+            "effects": [
+              {
+                "kind": "pinned",
+                "trigger": "in your Shooting phase, once the bearer's unit has finished shooting",
+                "select": {
+                  "count": 1,
+                  "keywordsAny": [
+                    "MONSTER",
+                    "VEHICLE"
+                  ],
+                  "condition": "hit by one or more of those attacks"
+                },
+                "until": "start-of-your-next-shooting-phase"
+              }
+            ]
+          }
         }
       }
     }

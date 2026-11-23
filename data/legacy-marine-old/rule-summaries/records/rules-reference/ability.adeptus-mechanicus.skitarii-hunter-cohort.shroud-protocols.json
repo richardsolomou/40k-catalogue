@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Skitarii Hunter Cohort",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in the opposing player's Shooting phase, right after an enemy unit picks its targets, targeting a SKITARII INFANTRY unit in your army that it targeted with at least one attack. For the rest of the phase, an enemy model can shoot at that unit only if the model is within 18\" of it.",
     "citations": [
       {
@@ -25,10 +32,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "SKITARII",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Skitarii Hunter Cohort",
           "type": "Strategic Ploy",
           "windows": [

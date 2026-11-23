@@ -44,41 +44,44 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "limit": {
-          "period": "battle",
-          "scope": "unit",
-          "count": 1
-        },
-        "trigger": {
-          "event": "phase",
-          "phase": "any",
-          "timing": "start",
-          "turn": "either-player"
-        },
-        "selection": {
-          "count": 1,
-          "optional": true,
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 12,
-          "origin": "this-unit",
-          "candidate": {
-            "entity": "unit",
-            "side": "friendly",
-            "requireAllKeywords": [
-              "LEAGUES OF VOTANN"
-            ],
-            "excludeAnyKeywords": []
+        "detail": {
+          "source": "this-unit",
+          "limit": {
+            "period": "battle",
+            "scope": "unit",
+            "count": 1
           },
-          "state": "battle-shocked"
-        },
-        "effect": {
-          "operation": "clear-state",
-          "recipient": "selected-unit",
-          "state": "battle-shocked"
+          "trigger": {
+            "event": "phase",
+            "phase": "any",
+            "timing": "start",
+            "turn": "either-player"
+          },
+          "selection": {
+            "count": 1,
+            "optional": true,
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 12,
+            "origin": "this-unit",
+            "candidate": {
+              "entity": "unit",
+              "side": "friendly",
+              "requireAllKeywords": [
+                "LEAGUES OF VOTANN"
+              ],
+              "excludeAnyKeywords": []
+            },
+            "state": "battle-shocked"
+          },
+          "effect": {
+            "recipient": "selected-unit",
+            "state": "battle-shocked",
+            "kind": "clear-state"
+          }
         }
       }
     }

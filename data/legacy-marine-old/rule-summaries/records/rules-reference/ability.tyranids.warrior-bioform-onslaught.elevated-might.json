@@ -46,42 +46,56 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [],
-          "anyOf": [
-            "Winged Tyranid Prime",
-            "Tyranid Prime with lash whip"
-          ],
-          "equipment": {
-            "requiredFor": "Tyranid Prime",
-            "item": "lash whip"
-          },
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "allow-rerolls",
-            "recipient": "bearer melee attacks",
-            "rolls": [
-              "wound rolls"
-            ],
-            "optional": true
-          },
-          {
-            "operation": "modify-characteristic",
-            "recipient": "bearer melee attacks",
-            "stat": "AP",
-            "adjustment": {
-              "operation": "add",
-              "amount": 1
-            }
+        "enhancement": {
+          "type": "model",
+          "points": 30,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "TYRANIDS"
+                ],
+                "unit": {
+                  "kind": "unit",
+                  "id": "tyranids.tyranid-prime-with-lash-whip"
+                }
+              },
+              {
+                "factionKeywords": [
+                  "TYRANIDS"
+                ],
+                "unit": {
+                  "kind": "unit",
+                  "id": "tyranids.winged-tyranid-prime"
+                }
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer melee attacks",
+              "rolls": [
+                "wound rolls"
+              ],
+              "optional": true,
+              "kind": "allow-rerolls"
+            },
+            {
+              "recipient": "bearer melee attacks",
+              "stat": "AP",
+              "adjustment": {
+                "operation": "add",
+                "amount": 1
+              },
+              "kind": "modify-characteristic"
+            }
+          ]
+        }
       }
     }
   }

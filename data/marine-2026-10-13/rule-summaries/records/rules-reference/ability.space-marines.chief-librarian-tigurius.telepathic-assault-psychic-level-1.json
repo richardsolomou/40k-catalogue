@@ -82,55 +82,58 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "role": "psychic-spell",
-        "psychicLevel": 1,
-        "trigger": {
-          "event": "phase",
-          "phase": "shooting",
-          "timing": "during",
-          "turn": "your-turn"
-        },
-        "condition": {
-          "recipient": "this-unit",
-          "not": "battle-shocked"
-        },
-        "optional": true,
-        "effect": {
-          "operation": "psychic-roll",
-          "dice": {
-            "count": 1,
-            "sides": 6,
-            "additive": 0
+        "detail": {
+          "source": "this-unit",
+          "role": "psychic-spell",
+          "psychicLevel": 1,
+          "trigger": {
+            "event": "phase",
+            "phase": "shooting",
+            "timing": "during",
+            "turn": "your-turn"
           },
-          "sequence": [
-            {
-              "operation": "apply-condition",
-              "condition": "battle-shocked",
-              "recipient": "this-unit",
-              "onResult": 1
+          "condition": {
+            "recipient": "this-unit",
+            "not": "battle-shocked"
+          },
+          "optional": true,
+          "effect": {
+            "dice": {
+              "count": 1,
+              "sides": 6,
+              "additive": 0
             },
-            {
-              "operation": "select-and-inflict-mortal-wounds",
-              "target": {
-                "origin": "this-unit",
-                "comparison": "within",
-                "inclusive": true,
-                "distanceInches": 24,
-                "side": "enemy",
-                "scope": "unit",
-                "visibleTo": "this-unit",
-                "count": 1
+            "sequence": [
+              {
+                "condition": "battle-shocked",
+                "recipient": "this-unit",
+                "onResult": 1,
+                "kind": "apply-condition"
               },
-              "quantity": {
-                "count": 2,
-                "sides": 3,
-                "additive": 0
+              {
+                "target": {
+                  "origin": "this-unit",
+                  "comparison": "within",
+                  "inclusive": true,
+                  "distanceInches": 24,
+                  "side": "enemy",
+                  "scope": "unit",
+                  "visibleTo": "this-unit",
+                  "count": 1
+                },
+                "quantity": {
+                  "count": 2,
+                  "sides": 3,
+                  "additive": 0
+                },
+                "kind": "select-and-inflict-mortal-wounds"
               }
-            }
-          ]
+            ],
+            "kind": "psychic-roll"
+          }
         }
       }
     }

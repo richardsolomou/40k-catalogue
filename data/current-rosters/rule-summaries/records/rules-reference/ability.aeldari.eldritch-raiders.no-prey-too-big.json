@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Eldritch Raiders",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in your Shooting phase on a SHROUD RUNNERS, RANGERS or ANHRATHE unit of yours that has yet to shoot in this phase. Until the phase ends, whenever one of its models attacks with a Strength lower than the highest Toughness among the target unit's models, that attack gets +1 to its Wound roll.",
     "citations": [
       {
@@ -25,10 +32,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ANHRATHE"
+                ]
+              },
+              {
+                "keywords": [
+                  "RANGERS"
+                ]
+              },
+              {
+                "keywords": [
+                  "SHROUD RUNNERS"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Eldritch Raiders",
           "type": "Battle Tactic",
           "windows": [

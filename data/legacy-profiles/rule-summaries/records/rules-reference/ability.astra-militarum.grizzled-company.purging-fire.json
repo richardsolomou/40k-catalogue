@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Grizzled Company",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in your Shooting phase on an ASTRA MILITARUM unit of yours that an Order is affecting and that has not yet shot this phase. If that unit is within an objective marker's range, its models' ranged weapons gain [LETHAL HITS] for the rest of the phase.",
     "citations": [
       {
@@ -25,11 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ASTRA MILITARUM"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Grizzled Company",
           "when": {
             "turn": "own",

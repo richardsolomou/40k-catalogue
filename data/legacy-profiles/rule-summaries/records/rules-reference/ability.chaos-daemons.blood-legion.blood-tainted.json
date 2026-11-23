@@ -46,51 +46,54 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "phase-end",
-          "destruction": {
-            "event": "destroy-unit",
-            "during": "ending-phase",
-            "recipient": {
-              "side": "enemy",
-              "type": "unit"
-            },
-            "actor": {
-              "side": "own-army",
-              "type": "unit",
-              "allKeywords": [
-                "LEGIONES DAEMONICA",
-                "KHORNE"
-              ]
+        "detail": {
+          "trigger": {
+            "event": "phase-end",
+            "destruction": {
+              "event": "destroy-unit",
+              "during": "ending-phase",
+              "recipient": {
+                "side": "enemy",
+                "type": "unit"
+              },
+              "actor": {
+                "side": "own-army",
+                "type": "unit",
+                "allKeywords": [
+                  "LEGIONES DAEMONICA",
+                  "KHORNE"
+                ]
+              }
             }
-          }
-        },
-        "markerCondition": {
-          "relationship": "within-objective-range",
-          "reference": "destroyed-enemy-unit",
-          "at": "start-of-ending-phase"
-        },
-        "controlCondition": {
-          "subject": "destroying-friendly-unit",
-          "metric": "level-of-control",
-          "comparison": "strictly-higher",
-          "at": "ending-phase-end",
-          "objective": "qualified-marker"
-        },
-        "effect": {
-          "type": "retain-objective-control",
-          "owner": "army-of-destroying-unit",
-          "objective": "qualified-marker"
-        },
-        "expiry": {
-          "event": "phase-end",
-          "comparison": {
-            "left": "opponent-level-of-control",
-            "operator": ">",
-            "right": "own-level-of-control",
-            "objective": "same-marker"
+          },
+          "markerCondition": {
+            "relationship": "within-objective-range",
+            "reference": "destroyed-enemy-unit",
+            "at": "start-of-ending-phase"
+          },
+          "controlCondition": {
+            "subject": "destroying-friendly-unit",
+            "metric": "level-of-control",
+            "comparison": "strictly-higher",
+            "at": "ending-phase-end",
+            "objective": "qualified-marker"
+          },
+          "effect": {
+            "type": "retain-objective-control",
+            "owner": "army-of-destroying-unit",
+            "objective": "qualified-marker"
+          },
+          "expiry": {
+            "event": "phase-end",
+            "comparison": {
+              "left": "opponent-level-of-control",
+              "operator": ">",
+              "right": "own-level-of-control",
+              "objective": "same-marker"
+            }
           }
         }
       }

@@ -57,70 +57,73 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "core-concept",
-        "appliesTo": "units with more than one model",
-        "requiredWhen": [
-          "set up",
-          "end of any move"
-        ],
-        "test": {
-          "every": "model in the unit",
-          "allMustHold": true,
-          "conditions": [
-            {
-              "of": "at least one other model in the unit",
-              "horizontalInches": 2,
-              "verticalInches": 5
-            },
-            {
-              "of": "every other model in the unit",
-              "horizontalInches": 9,
-              "verticalInches": 5
+        "detail": {
+          "kind": "core-concept",
+          "appliesTo": "units with more than one model",
+          "requiredWhen": [
+            "set up",
+            "end of any move"
+          ],
+          "test": {
+            "every": "model in the unit",
+            "allMustHold": true,
+            "conditions": [
+              {
+                "of": "at least one other model in the unit",
+                "horizontalInches": 2,
+                "verticalInches": 5
+              },
+              {
+                "of": "every other model in the unit",
+                "horizontalInches": 9,
+                "verticalInches": 5
+              }
+            ],
+            "unitSizeVariant": false
+          },
+          "measuredFrom": {
+            "rule": "01.04",
+            "standardModel": "closest point of the base",
+            "frameModel": {
+              "rule": "17.02",
+              "point": "closest point of the model itself",
+              "unlessStatedOtherwise": true
             }
-          ],
-          "unitSizeVariant": false
-        },
-        "measuredFrom": {
-          "rule": "01.04",
-          "standardModel": "closest point of the base",
-          "frameModel": {
-            "rule": "17.02",
-            "point": "closest point of the model itself",
-            "unlessStatedOtherwise": true
+          },
+          "outOfCoherency": {
+            "checkedAt": "End of Turn step of each turn",
+            "scope": "units on the battlefield",
+            "who": "the unit's controlling player",
+            "action": "remove models one at a time",
+            "until": "the unit is in coherency",
+            "removedModels": {
+              "destroyed": true,
+              "triggersDestroyedRules": false,
+              "scoringStated": false
+            }
+          },
+          "sidePanel": {
+            "printedIn": "p14",
+            "subject": "what coherency is",
+            "numbers": false
+          },
+          "diagram": {
+            "printedIn": "p15",
+            "shows": [
+              "2\" to at least one other model",
+              "9\" to every other model"
+            ],
+            "verticalShown": false,
+            "unitShownInCoherency": true
+          },
+          "faq": {
+            "addedModels": "set up in coherency with that unit's models that were on the battlefield when that phase started",
+            "printedIn": "p88",
+            "gdc": false
           }
-        },
-        "outOfCoherency": {
-          "checkedAt": "End of Turn step of each turn",
-          "scope": "units on the battlefield",
-          "who": "the unit's controlling player",
-          "action": "remove models one at a time",
-          "until": "the unit is in coherency",
-          "removedModels": {
-            "destroyed": true,
-            "triggersDestroyedRules": false,
-            "scoringStated": false
-          }
-        },
-        "sidePanel": {
-          "printedIn": "p14",
-          "subject": "what coherency is",
-          "numbers": false
-        },
-        "diagram": {
-          "printedIn": "p15",
-          "shows": [
-            "2\" to at least one other model",
-            "9\" to every other model"
-          ],
-          "verticalShown": false,
-          "unitShownInCoherency": true
-        },
-        "faq": {
-          "addedModels": "set up in coherency with that unit's models that were on the battlefield when that phase started",
-          "printedIn": "p88",
-          "gdc": false
         }
       }
     }

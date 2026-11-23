@@ -58,52 +58,63 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "phase-end",
-          "phase": "fight",
-          "owner": "either"
-        },
-        "target": {
-          "side": "enemy",
-          "quantifier": "each",
-          "distance": {
-            "relation": "within",
-            "inches": 3,
-            "origin": "bearer"
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "NURGLE"
+                ],
+                "factionKeywords": [
+                  "HERETIC ASTARTES"
+                ]
+              }
+            ]
           }
         },
-        "roll": {
-          "dice": "D6",
-          "perTarget": true,
-          "modifier": {
-            "value": 1,
+        "detail": {
+          "trigger": {
+            "event": "phase-end",
+            "phase": "fight",
+            "owner": "either"
+          },
+          "target": {
+            "side": "enemy",
+            "quantifier": "each",
+            "distance": {
+              "relation": "within",
+              "inches": 3,
+              "origin": "bearer"
+            }
+          },
+          "roll": {
+            "dice": "D6",
+            "perTarget": true,
+            "modifier": {
+              "value": 1,
+              "condition": {
+                "subject": "bearer-unit",
+                "madeDarkPactIn": "trigger-phase",
+                "associatedLeadershipTest": "did-not-fail"
+              }
+            }
+          },
+          "effect": {
+            "type": "deal-mortal-wounds",
+            "amount": {
+              "dice": "D3"
+            },
+            "subject": "unit-bound-to-roll",
             "condition": {
-              "subject": "bearer-unit",
-              "madeDarkPactIn": "trigger-phase",
-              "associatedLeadershipTest": "did-not-fail"
+              "roll": "roll-for-unit",
+              "modifiedThreshold": 4
             }
           }
-        },
-        "effect": {
-          "type": "deal-mortal-wounds",
-          "amount": {
-            "dice": "D3"
-          },
-          "subject": "unit-bound-to-roll",
-          "condition": {
-            "roll": "roll-for-unit",
-            "modifiedThreshold": 4
-          }
-        },
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Nurgle",
-            "Heretic Astartes"
-          ],
-          "excludedKeywords": []
         }
       }
     }

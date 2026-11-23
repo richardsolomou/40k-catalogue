@@ -14,6 +14,12 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "In your Shooting phase, spend 1 CP on a friendly unit with EXPLOSIVES or GRENADES. It must be unengaged, able to shoot and have made no Advance Move this turn. Pick a model from that unit with either keyword. It must be able to see an unengaged enemy unit no more than 8″ away. Choose one such enemy unit. Roll 6D6. That enemy takes a Mortal Wound for every die showing 4 or better.",
     "summarySpans": [
       {
@@ -71,48 +77,75 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "core-stratagem",
-        "name": "Explosives",
-        "ruleNumber": "15.06",
-        "cost": {
-          "cp": 1
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "EXPLOSIVES"
+                ]
+              },
+              {
+                "keywords": [
+                  "GRENADES"
+                ]
+              }
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
         },
-        "when": {
-          "turn": "your",
-          "phase": "shooting"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "unengaged": true,
-          "eligibleToShoot": true,
-          "noAdvanceMoveThisTurn": true,
-          "requiresAny": [
-            "EXPLOSIVES",
-            "GRENADES"
-          ]
-        },
-        "effect": {
-          "sourceModel": {
-            "inStratagemTarget": true,
+        "detail": {
+          "kind": "core-stratagem",
+          "name": "Explosives",
+          "ruleNumber": "15.06",
+          "when": {
+            "turn": "your",
+            "phase": "shooting"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "unengaged": true,
+            "eligibleToShoot": true,
+            "noAdvanceMoveThisTurn": true,
             "requiresAny": [
               "EXPLOSIVES",
               "GRENADES"
             ]
           },
-          "enemyTarget": {
-            "count": 1,
-            "unengaged": true,
-            "withinSourceInches": 8,
-            "visibleToSource": true
-          },
-          "dice": {
-            "count": 6,
-            "sides": 6,
-            "minimumSuccess": 4,
-            "mortalWoundsPerSuccess": 1
+          "effect": {
+            "sourceModel": {
+              "inStratagemTarget": true,
+              "requiresAny": [
+                "EXPLOSIVES",
+                "GRENADES"
+              ]
+            },
+            "enemyTarget": {
+              "count": 1,
+              "unengaged": true,
+              "withinSourceInches": 8,
+              "visibleToSource": true
+            },
+            "dice": {
+              "count": 6,
+              "sides": 6,
+              "minimumSuccess": 4,
+              "mortalWoundsPerSuccess": 1
+            }
           }
         }
       }

@@ -14,7 +14,15 @@
     "ruleType": "stratagem",
     "group": "Talons of the Emperor",
     "cp": 1,
-    "summary": "Spend 1 CP in the opposing Shooting phase or in either player's Fight phase, once an enemy unit picks its targets. Choose a single ADEPTUS CUSTODES unit of yours that it aimed at least one attack at, plus an ANATHEMA PSYKANA unit of yours no more than 6\" from it. While the phase lasts, the attacked unit has Feel No Pain 4+ against mortal wounds and against Psychic attacks.",
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
+    "summary": "Spend 1 CP in the opposing Shooting phase or in either player's Fight phase, once an enemy unit picks its targets. Choose a single ADEPTUS CUSTODES unit of yours that it aimed at least one attack at, plus an ANATHEMA PSYKANA unit of yours no more than 6\" from it. While the phase lasts, the attacked unit gains Feel No Pain 4+, which works only against Psychic attacks or mortal wounds.",
     "summarySpans": [
       {
         "start": 27,
@@ -43,25 +51,25 @@
         "bold": true
       },
       {
-        "start": 309,
-        "end": 324,
+        "start": 311,
+        "end": 326,
         "target": {
           "kind": "core-ability",
           "id": "feel-no-pain"
         }
       },
       {
-        "start": 333,
-        "end": 346,
+        "start": 353,
+        "end": 360,
+        "bold": true
+      },
+      {
+        "start": 372,
+        "end": 385,
         "target": {
           "kind": "core-rule",
           "id": "mortal-wounds"
         }
-      },
-      {
-        "start": 359,
-        "end": 366,
-        "bold": true
       }
     ],
     "citations": [
@@ -74,12 +82,30 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Talons of the Emperor",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

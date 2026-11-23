@@ -55,48 +55,51 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "actor": "mission-player",
-        "gain": {
-          "timing": "each-destruction",
-          "unit": "friendly-destroyer",
-          "destroyedEntity": {
-            "kind": "unit",
-            "allegianceRestriction": null
-          },
-          "status": "consecration"
-        },
-        "use": {
-          "timing": "end-of-own-turn",
-          "mode": "optional",
-          "per": "each-own-consecration-unit",
-          "selector": {
-            "kind": "objective",
-            "count": 1,
-            "withinRangeOf": "consecration-unit",
-            "exclude": [
-              "already-consecrated",
-              "own-home-objective"
-            ]
-          },
-          "effects": [
-            {
-              "kind": "designate-objective",
-              "status": "consecrated"
+        "detail": {
+          "actor": "mission-player",
+          "gain": {
+            "timing": "each-destruction",
+            "unit": "friendly-destroyer",
+            "destroyedEntity": {
+              "kind": "unit",
+              "allegianceRestriction": null
             },
-            {
-              "kind": "place-operation-marker",
-              "owner": "mission-player",
+            "status": "consecration"
+          },
+          "use": {
+            "timing": "end-of-own-turn",
+            "mode": "optional",
+            "per": "each-own-consecration-unit",
+            "selector": {
+              "kind": "objective",
               "count": 1,
-              "withinRangeOf": "selected-objective"
+              "withinRangeOf": "consecration-unit",
+              "exclude": [
+                "already-consecrated",
+                "own-home-objective"
+              ]
             },
-            {
-              "kind": "clear-status",
-              "unit": "consecration-unit",
-              "status": "consecration"
-            }
-          ]
+            "effects": [
+              {
+                "kind": "designate-objective",
+                "status": "consecrated"
+              },
+              {
+                "kind": "place-operation-marker",
+                "owner": "mission-player",
+                "count": 1,
+                "withinRangeOf": "selected-objective"
+              },
+              {
+                "kind": "clear-status",
+                "unit": "consecration-unit",
+                "status": "consecration"
+              }
+            ]
+          }
         }
       }
     }

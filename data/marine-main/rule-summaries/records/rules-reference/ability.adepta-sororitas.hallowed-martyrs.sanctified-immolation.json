@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Hallowed Martyrs",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "In any phase, pick a just-destroyed ADEPTA SORORITAS VEHICLE model of yours that has Deadly Demise. Skip the D6 activation check and inflict the ability’s mortal wounds automatically. The destroyed model is eligible for this Stratagem.",
     "summarySpans": [
       {
@@ -49,10 +60,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "model",
+            "keywords": [
+              "ADEPTA SORORITAS",
+              "VEHICLE"
+            ],
+            "conditions": [
+              "just-destroyed"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "windows": [

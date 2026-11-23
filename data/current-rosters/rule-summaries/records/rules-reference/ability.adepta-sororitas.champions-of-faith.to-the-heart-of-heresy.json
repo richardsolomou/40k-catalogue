@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Champions of Faith",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in any Fight phase on one ADEPTA SORORITAS unit in your army that hasn't yet been picked to fight this phase. Its models' melee weapons get +1 Strength for the rest of the turn. If the unit is Righteous, those melee weapons also have their Armour Penetration improved by 1, but only for the rest of the phase.",
     "citations": [
       {
@@ -25,12 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTA SORORITAS"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Champions of Faith",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

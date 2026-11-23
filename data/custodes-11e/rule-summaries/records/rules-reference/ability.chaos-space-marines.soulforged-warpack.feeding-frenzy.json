@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Soulforged Warpack",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP. Use it in the opposing player's Movement phase at the moment an enemy unit other than a MONSTER or VEHICLE is picked to Fall Back. Pick a HERETIC ASTARTES DAEMON VEHICLE or VASHTORR THE ARKIFANE unit of yours that the enemy unit is engaged with (within Engagement Range). For the rest of the phase, any non-MONSTER, non-VEHICLE enemy unit that Falls Back while within your unit's Engagement Range must have each of its models take a Desperate Escape test, each test taking -1 if the fleeing unit is Battle-shocked.",
     "citations": [
       {
@@ -25,11 +32,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "HERETIC ASTARTES",
+                  "DAEMON",
+                  "VEHICLE"
+                ]
+              },
+              {
+                "keywords": [
+                  "VASHTORR THE ARKIFANE"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Soulforged Warpack",
           "trigger": {
             "windows": [

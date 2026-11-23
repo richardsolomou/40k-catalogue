@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Dread Mob",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement",
+        "charge"
+      ],
+      "turn": "own"
+    },
     "summary": "1 CP, during your own Movement phase or Charge phase, when one of your ORKS WALKER units is picked to move or a charge is declared for it; that unit is the target. It has Mobile for the rest of that phase.",
     "summarySpans": [
       {
@@ -43,11 +50,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-move"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ORKS",
+              "WALKER"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Dread Mob",
           "when": {
             "phases": [

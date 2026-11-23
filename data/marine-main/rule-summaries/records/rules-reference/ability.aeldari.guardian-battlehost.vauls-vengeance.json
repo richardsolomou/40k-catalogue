@@ -14,48 +14,15 @@
     "ruleType": "stratagem",
     "group": "Guardian Battlehost",
     "cp": 1,
-    "summary": "If an enemy destroys your DIRE AVENGERS or GUARDIANS in its Shooting phase or in the Fight phase, select a WAR WALKERS unit. Once that enemy finishes making its attacks, the walkers may fire back using your Shooting phase rules if that enemy is a legal target and the walkers are eligible to shoot. They must fire at the triggering unit. Each battle allows a single use.",
-    "summarySpans": [
-      {
-        "start": 26,
-        "end": 39,
-        "bold": true
-      },
-      {
-        "start": 43,
-        "end": 52,
-        "bold": true
-      },
-      {
-        "start": 60,
-        "end": 74,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 85,
-        "end": 96,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 107,
-        "end": 118,
-        "bold": true
-      },
-      {
-        "start": 207,
-        "end": 221,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      }
-    ],
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
+    "summary": "Spend 1 CP in the Shooting phase of your opponent's turn or in either player's Fight phase, the moment an enemy unit wipes out a DIRE AVENGERS unit or a GUARDIANS unit of yours. Pick one of your WAR WALKERS units. Once the enemy unit's attacks are all resolved, your WAR WALKERS unit may shoot as in your own Shooting phase, but only at that enemy unit, which must be a valid target for it. Usable just once per battle round.",
     "citations": [
       {
         "type": "app",
@@ -66,42 +33,57 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "type": "battle-tactic",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
-            ],
-            "event": "enemy-unit-destroyed-friendly-unit",
-            "destroyedAnyKeyword": [
-              "DIRE AVENGERS",
-              "GUARDIANS"
-            ]
+          "limit": "battle-round",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
           },
           "target": {
-            "owner": "your-army",
             "count": 1,
+            "side": "friendly",
+            "entity": "unit",
             "keywords": [
+              "WAR WALKERS"
+            ]
+          }
+        },
+        "detail": {
+          "detachment": "Guardian Battlehost",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "trigger": "just after an enemy unit destroys a friendly DIRE AVENGERS or GUARDIANS unit",
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
               "WAR WALKERS"
             ]
           },
           "effects": [
             {
-              "kind": "shoot",
-              "optional": true,
-              "asIf": "your-shooting-phase",
-              "after": "triggering-unit-finishes-attacks",
-              "requiresEligibility": true,
-              "onlyTarget": "triggering-unit"
+              "after": "that enemy unit has resolved all its attacks",
+              "shootAsIfOwnShootingPhase": true,
+              "targetsLimitedTo": "that enemy unit, if it is an eligible target"
             }
           ],
-          "restrictions": {
-            "usesPerBattle": 1
+          "limit": {
+            "times": 1,
+            "per": "battle round"
           }
         }
       }

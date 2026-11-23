@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Saga of the Beastslayer",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent"
+    },
     "summary": "Spend 1 CP as the opposing player's Fight phase ends, picking one of your WULFEN, BLOOD CLAWS or THUNDERWOLF CAVALRY units that is unengaged and within 9″ of at least one battlefield edge. Put that unit into strategic reserves.",
     "citations": [
       {
@@ -25,10 +31,42 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "BLOOD CLAWS"
+                ]
+              },
+              {
+                "keywords": [
+                  "THUNDERWOLF CAVALRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "WULFEN"
+                ]
+              }
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Saga of the Beastslayer",
           "trigger": {
             "windows": [

@@ -47,32 +47,37 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "OFFICER"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "apply-additional-order",
-            "recipient": "bearer unit",
-            "trigger": {
-              "event": "unit receives any Order",
-              "issuer": "unspecified"
-            },
-            "condition": "bearer is leading recipient unit",
-            "order": "Take Cover!",
-            "keepsOriginalOrder": true
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "OFFICER"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer unit",
+              "trigger": {
+                "event": "unit receives any Order",
+                "issuer": "unspecified"
+              },
+              "condition": "bearer is leading recipient unit",
+              "order": "Take Cover!",
+              "keepsOriginalOrder": true,
+              "kind": "apply-additional-order"
+            }
+          ]
+        }
       }
     }
   }

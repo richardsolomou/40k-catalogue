@@ -39,37 +39,44 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "HERETIC ASTARTES"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "replace-rule-target",
-            "target": "enemy-unit",
-            "rule": "Slaves to None",
-            "designation": "Vendetta target",
-            "selection": {
-              "count": 1,
-              "optional": true,
-              "visibleTo": "bearer"
-            },
-            "duration": "until-own-player-selects-a-new-vendetta-target"
+        "enhancement": {
+          "type": "model",
+          "points": 35,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "HERETIC ASTARTES"
+                ]
+              }
+            ]
           }
-        ],
-        "trigger": {
-          "event": "own-vendetta-target-destroyed",
-          "requires": "bearer-on-battlefield"
         },
-        "usage": {
-          "limit": "once-per-battle-round"
+        "detail": {
+          "effects": [
+            {
+              "type": "replace-rule-target",
+              "target": "enemy-unit",
+              "rule": "Slaves to None",
+              "designation": "Vendetta target",
+              "selection": {
+                "count": 1,
+                "optional": true,
+                "visibleTo": "bearer"
+              },
+              "duration": "until-own-player-selects-a-new-vendetta-target"
+            }
+          ],
+          "trigger": {
+            "event": "own-vendetta-target-destroyed",
+            "requires": "bearer-on-battlefield"
+          },
+          "usage": {
+            "limit": "once-per-battle-round"
+          }
         }
       }
     }

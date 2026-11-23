@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Servants of Change",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own"
+    },
     "summary": "Spend 1 CP in your Movement phase when one of your INFANTRY or MOUNTED units that is also MUTANT is picked to Advance or Fall Back; that unit is the target. Its ranged attacks gain [ASSAULT] for the rest of the turn, and it stays eligible to shoot and to declare a charge despite that move. The card's phase field says Shooting phase while its timing names your Movement phase, so it does not settle when it is used.",
     "summarySpans": [
       {
@@ -75,10 +81,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-advance-or-fall-back"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY",
+                  "MUTANT"
+                ]
+              },
+              {
+                "keywords": [
+                  "MOUNTED",
+                  "MUTANT"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Servants of Change",
           "trigger": {
             "windows": [

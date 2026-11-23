@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Warhost",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "In your Shooting phase, choose an ASURYANI unit you have yet to pick to shoot. Give its ranged weapons Sustained Hits 1 through phase end. While the unit targets an enemy within 12 inches, 5+ on the hit dice gives a critical hit before modifiers.",
     "summarySpans": [
       {
@@ -49,10 +56,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ASURYANI"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "turn": "your",

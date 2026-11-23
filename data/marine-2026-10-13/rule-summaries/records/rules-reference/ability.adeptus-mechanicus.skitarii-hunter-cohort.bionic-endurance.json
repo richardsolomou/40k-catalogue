@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Skitarii Hunter Cohort",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in the opposing player's Shooting phase or in any Fight phase, right after an enemy unit picks its targets. Choose a unit in your army with one of these keywords that it targeted with at least one attack: SICARIAN, PTERAXII, SYDONIAN. Its models have Feel No Pain 5+ for the rest of the phase.",
     "citations": [
       {
@@ -25,12 +33,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "SICARIAN"
+                ]
+              },
+              {
+                "keywords": [
+                  "PTERAXII"
+                ]
+              },
+              {
+                "keywords": [
+                  "SYDONIAN"
+                ]
+              }
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Skitarii Hunter Cohort",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {

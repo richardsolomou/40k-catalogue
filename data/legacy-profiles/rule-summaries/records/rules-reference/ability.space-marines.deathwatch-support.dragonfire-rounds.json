@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Deathwatch Support",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "As you pick a KILL TEAM to shoot in your Shooting phase, give its ranged attacks IGNORES COVER. You may also reroll its wound rolls of 1.",
     "summarySpans": [
       {
@@ -58,10 +64,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-shoot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "KILL TEAM"
+            ]
+          }
+        },
+        "detail": {
           "type": "",
           "trigger": {
             "turn": "your",
@@ -88,7 +108,7 @@
               "ability": "ignores-cover"
             },
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "wound",
               "result": 1,
               "optional": true

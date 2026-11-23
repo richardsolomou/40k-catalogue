@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Saga of the Beastslayer",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Spend 1 CP in the Fight phase of either turn as a WULFEN, BLOOD CLAWS or THUNDERWOLF CAVALRY unit of yours is chosen to fight; that unit is the target. Its melee attacks gain [LANCE].",
     "citations": [
       {
@@ -25,10 +31,38 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "BLOOD CLAWS"
+                ]
+              },
+              {
+                "keywords": [
+                  "THUNDERWOLF CAVALRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "WULFEN"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Saga of the Beastslayer",
           "trigger": {
             "windows": [

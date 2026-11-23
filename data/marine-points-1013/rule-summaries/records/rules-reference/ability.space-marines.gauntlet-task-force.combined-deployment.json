@@ -76,57 +76,60 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "unit-finished-shooting",
-          "phase": "shooting",
-          "owner": "self",
-          "subject": {
-            "owner": "friendly",
-            "level": "unit",
-            "allOf": [
-              "Adeptus Astartes",
-              "Transport"
-            ]
-          }
-        },
-        "selection": {
-          "count": 1,
-          "optional": true,
-          "target": {
-            "owner": "enemy",
-            "level": "unit",
-            "condition": {
-              "type": "hit-by-triggering-attacks"
+        "detail": {
+          "trigger": {
+            "event": "unit-finished-shooting",
+            "phase": "shooting",
+            "owner": "self",
+            "subject": {
+              "owner": "friendly",
+              "level": "unit",
+              "allOf": [
+                "Adeptus Astartes",
+                "Transport"
+              ]
             }
-          }
-        },
-        "designation": {
-          "state": "assailed",
-          "subject": "selected-enemy",
-          "expires": {
-            "event": "turn-ended",
-            "turn": "triggering"
-          }
-        },
-        "effect": {
-          "type": "weapon-ability-grant",
-          "keyword": "sustained-hits",
-          "extraHits": 1,
-          "attacker": {
-            "level": "unit",
-            "allOf": [
-              "Adeptus Astartes"
-            ],
-            "condition": {
-              "type": "disembarked",
+          },
+          "selection": {
+            "count": 1,
+            "optional": true,
+            "target": {
+              "owner": "enemy",
+              "level": "unit",
+              "condition": {
+                "type": "hit-by-triggering-attacks"
+              }
+            }
+          },
+          "designation": {
+            "state": "assailed",
+            "subject": "selected-enemy",
+            "expires": {
+              "event": "turn-ended",
               "turn": "triggering"
             }
           },
-          "condition": {
-            "type": "attack-target-state",
-            "state": "assailed"
+          "effect": {
+            "type": "weapon-ability-grant",
+            "keyword": "sustained-hits",
+            "extraHits": 1,
+            "attacker": {
+              "level": "unit",
+              "allOf": [
+                "Adeptus Astartes"
+              ],
+              "condition": {
+                "type": "disembarked",
+                "turn": "triggering"
+              }
+            },
+            "condition": {
+              "type": "attack-target-state",
+              "state": "assailed"
+            }
           }
         }
       }

@@ -44,47 +44,56 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "ASURYANI",
-            "MOUNTED"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "roll-for-resource",
-            "target": "own-player",
-            "roll": {
-              "dice": "D6",
-              "count": 1
-            },
-            "modifiers": [
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
               {
-                "delta": 1,
-                "condition": "bearer-outside-own-deployment-zone"
-              },
-              {
-                "delta": 1,
-                "condition": "bearer-inside-opponent-deployment-zone"
+                "keywords": [
+                  "MOUNTED"
+                ],
+                "factionKeywords": [
+                  "ASURYANI"
+                ]
               }
-            ],
-            "modifiersStack": true,
-            "threshold": 5,
-            "resource": "command-point",
-            "amount": 1,
-            "operation": "gain",
-            "additional": true
+            ]
           }
-        ],
-        "trigger": {
-          "phase": "command",
-          "owner": "own-player"
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "roll-for-resource",
+              "target": "own-player",
+              "roll": {
+                "dice": "D6",
+                "count": 1
+              },
+              "modifiers": [
+                {
+                  "delta": 1,
+                  "condition": "bearer-outside-own-deployment-zone"
+                },
+                {
+                  "delta": 1,
+                  "condition": "bearer-inside-opponent-deployment-zone"
+                }
+              ],
+              "modifiersStack": true,
+              "threshold": 5,
+              "resource": "command-point",
+              "amount": 1,
+              "additional": true,
+              "kind": "gain"
+            }
+          ],
+          "trigger": {
+            "phase": "command",
+            "owner": "own-player"
+          }
         }
       }
     }

@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Invasion Fleet",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP, in the Shooting phase of your opponent's turn or in either player's Fight phase, right after an enemy unit picks its targets. Choose one TYRANIDS unit of yours that those attacks are aimed at; until the phase ends its models gain Feel No Pain 6+, improved to Feel No Pain 5+ if the unit is inside your army's Synapse Range.",
     "summarySpans": [
       {
@@ -51,11 +59,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "TYRANIDS"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Invasion Fleet",
           "when": {
             "phases": [

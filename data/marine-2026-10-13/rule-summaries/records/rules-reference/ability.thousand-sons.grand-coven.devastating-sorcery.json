@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Grand Coven",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 2 CP, used in your Shooting phase on one of your THOUSAND SONS PSYKER units that has not yet been picked to shoot this phase. For the rest of the phase, Psychic weapons carried by its models gain 9\" of Range, and when one of its models attacks with a Psychic weapon, both the Hit roll and the Wound roll may be re-rolled.",
     "citations": [
       {
@@ -25,12 +32,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "THOUSAND SONS",
+              "PSYKER"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Grand Coven",
-          "category": "Battle Tactic",
           "trigger": {
             "turn": "own",
             "phases": [
@@ -55,7 +79,7 @@
               "duration": "end-of-phase"
             },
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "rolls": [
                 "hit",
                 "wound"

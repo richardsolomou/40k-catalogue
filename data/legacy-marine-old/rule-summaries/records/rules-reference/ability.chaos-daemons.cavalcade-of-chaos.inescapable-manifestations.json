@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Cavalcade of Chaos",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "1 CP. Use it during the opposing player's Movement phase, at the moment a unit engaged with one of your LEGIONES DAEMONICA MOUNTED units is chosen to fall back. Target your LEGIONES DAEMONICA MOUNTED unit. For the rest of that phase, any enemy unit engaged with it that is chosen to fall back must do so in desperate escape mode; a battle-shocked enemy unit doing so has its hazard rolls reduced by 1.",
     "citations": [
       {
@@ -25,10 +31,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fall-back"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "MOUNTED"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Cavalcade of Chaos",
           "trigger": {
             "windows": [

@@ -67,55 +67,58 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "requiresEquipment": null,
-        "limit": {
-          "period": "battle",
-          "scope": "unit",
-          "count": 1
-        },
-        "trigger": {
-          "event": "phase",
-          "phase": "shooting",
-          "timing": "during",
-          "turn": "controlling-player"
-        },
-        "selection": {
-          "count": 1,
-          "optional": true,
-          "side": "enemy",
-          "entity": "unit",
-          "visibleTo": "this-unit",
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 6,
-          "origin": "this-unit"
-        },
-        "effect": {
-          "operation": "deal-mortal-wounds",
-          "recipient": "selected-unit",
-          "test": {
-            "dice": {
-              "count": 1,
-              "sides": 6,
-              "additive": 0
-            },
-            "minimum": 2
+        "detail": {
+          "source": "this-unit",
+          "requiresEquipment": null,
+          "limit": {
+            "period": "battle",
+            "scope": "unit",
+            "count": 1
           },
-          "default": {
+          "trigger": {
+            "event": "phase",
+            "phase": "shooting",
+            "timing": "during",
+            "turn": "controlling-player"
+          },
+          "selection": {
             "count": 1,
-            "sides": 3,
-            "additive": 0
+            "optional": true,
+            "side": "enemy",
+            "entity": "unit",
+            "visibleTo": "this-unit",
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 6,
+            "origin": "this-unit"
           },
-          "override": {
-            "keyword": "VEHICLE",
-            "amount": {
-              "count": 2,
+          "effect": {
+            "recipient": "selected-unit",
+            "test": {
+              "dice": {
+                "count": 1,
+                "sides": 6,
+                "additive": 0
+              },
+              "minimum": 2
+            },
+            "default": {
+              "count": 1,
               "sides": 3,
               "additive": 0
-            }
+            },
+            "override": {
+              "keyword": "VEHICLE",
+              "amount": {
+                "count": 2,
+                "sides": 3,
+                "additive": 0
+              }
+            },
+            "kind": "deal-mortal-wounds"
           }
         }
       }

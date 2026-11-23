@@ -44,31 +44,34 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "battle-round-start",
-          "battleRound": 1
-        },
-        "selection": {
-          "relationship": "enemy",
-          "maxCount": 1,
-          "optional": true,
-          "designation": "quarry"
-        },
-        "effect": {
-          "appliesTo": "attacks by this unit that target its quarry",
-          "grants": [
-            "DEVASTATING WOUNDS",
-            "PRECISION"
-          ]
-        },
-        "replacement": {
-          "event": "quarry-destroyed",
-          "select": {
+        "detail": {
+          "trigger": {
+            "event": "battle-round-start",
+            "battleRound": 1
+          },
+          "selection": {
             "relationship": "enemy",
-            "count": 1,
+            "maxCount": 1,
+            "optional": true,
             "designation": "quarry"
+          },
+          "effect": {
+            "appliesTo": "attacks by this unit that target its quarry",
+            "grants": [
+              "DEVASTATING WOUNDS",
+              "PRECISION"
+            ]
+          },
+          "replacement": {
+            "event": "quarry-destroyed",
+            "select": {
+              "relationship": "enemy",
+              "count": 1,
+              "designation": "quarry"
+            }
           }
         }
       }

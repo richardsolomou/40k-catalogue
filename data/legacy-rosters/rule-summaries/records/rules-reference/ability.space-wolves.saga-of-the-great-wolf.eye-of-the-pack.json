@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Saga of the Great Wolf",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Spend 1 CP in your Shooting phase or in any Fight phase as an ADEPTUS ASTARTES INFANTRY unit of yours is chosen to attack; that unit is the target. Its attacks may re-roll any Wound roll of 1 or 2.",
     "citations": [
       {
@@ -25,10 +32,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-attack"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Saga of the Great Wolf",
           "trigger": {
             "windows": [
@@ -55,7 +77,7 @@
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "wound",
               "values": [
                 1,

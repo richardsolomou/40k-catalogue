@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Hearthband",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "During the Fight phase, pick one of your LEAGUES OF VOTANN units already selected to fight. The phase’s Pile-In Move and Consolidation Move caps for each model in that unit are 6″ instead of 3″.",
     "summarySpans": [
       {
@@ -56,32 +63,51 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Fight",
-          "turn": "either",
-          "event": "during phase"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEAGUES OF VOTANN"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "keywords": "LEAGUES OF VOTANN",
-          "selectedToFightThisPhase": true
-        },
-        "effect": {
-          "type": "movement limits",
-          "moves": [
-            "Pile-In Move",
-            "Consolidation Move"
-          ],
-          "maximumInches": 6,
-          "replacesMaximumInches": 3,
-          "recipient": "each model in selected unit",
-          "until": "phase ends"
-        },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Fight",
+            "turn": "either",
+            "event": "during phase"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywords": "LEAGUES OF VOTANN",
+            "selectedToFightThisPhase": true
+          },
+          "effect": {
+            "type": "movement limits",
+            "moves": [
+              "Pile-In Move",
+              "Consolidation Move"
+            ],
+            "maximumInches": 6,
+            "replacesMaximumInches": 3,
+            "recipient": "each model in selected unit",
+            "until": "phase ends"
+          },
+          "restrictions": []
+        }
       }
     }
   }

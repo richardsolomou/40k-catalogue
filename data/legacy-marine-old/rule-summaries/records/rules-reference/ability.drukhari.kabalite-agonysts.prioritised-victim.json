@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Kabalite Agonysts",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "In your Shooting phase or either Fight phase, use this as your KABAL or BLADES FOR HIRE unit targets a CHARACTER. Against CHARACTER units this phase, it can reroll 1s on both Hit rolls and Wound rolls.",
     "summarySpans": [
       {
@@ -86,32 +93,60 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phases": [
-            "Shooting phase",
-            "Fight phase"
-          ],
-          "turn": "yours in Shooting; either in Fight",
-          "timing": "as friendly attacker targets a CHARACTER"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "BLADES FOR HIRE"
+                ]
+              },
+              {
+                "keywords": [
+                  "KABAL"
+                ]
+              }
+            ],
+            "more": true
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "label": "KABAL or BLADES FOR HIRE",
-          "bindTo": "triggering attacker"
-        },
-        "effect": {
-          "type": "reroll permitted",
-          "expires": "end of phase",
-          "rolls": [
-            "Hit roll",
-            "Wound roll"
-          ],
-          "onlyNaturalResult": 1,
-          "appliesTo": "attacks targeting CHARACTER units"
+        "detail": {
+          "window": {
+            "phases": [
+              "Shooting phase",
+              "Fight phase"
+            ],
+            "turn": "yours in Shooting; either in Fight",
+            "timing": "as friendly attacker targets a CHARACTER"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "label": "KABAL or BLADES FOR HIRE",
+            "bindTo": "triggering attacker"
+          },
+          "effect": {
+            "type": "reroll permitted",
+            "expires": "end of phase",
+            "rolls": [
+              "Hit roll",
+              "Wound roll"
+            ],
+            "onlyNaturalResult": 1,
+            "appliesTo": "attacks targeting CHARACTER units"
+          }
         }
       }
     }

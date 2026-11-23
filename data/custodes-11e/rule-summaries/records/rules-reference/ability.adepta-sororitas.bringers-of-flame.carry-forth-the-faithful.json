@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Bringers of Flame",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Use this before your ADEPTA SORORITAS TRANSPORT Advances in your Movement phase. You may reroll its Advance roll. For the rest of the turn, its passengers can disembark even after the transport Advances. Each passenger unit’s exit counts as a Normal move. The unit loses eligibility to charge for the turn.",
     "summarySpans": [
       {
@@ -80,10 +87,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "model",
+            "keywords": [
+              "ADEPTA SORORITAS",
+              "TRANSPORT"
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {
@@ -104,7 +128,7 @@
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "optional": true,
               "roll": "advance",
               "subject": "selected-transport"

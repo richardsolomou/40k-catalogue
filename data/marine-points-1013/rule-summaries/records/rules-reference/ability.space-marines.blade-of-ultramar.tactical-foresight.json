@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Blade of Ultramar",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "When an enemy targets your Adeptus Astartes unit in their Shooting phase or either Fight phase, attacks against that unit take -1 to wound if the attack’s Strength exceeds the defender’s Toughness.",
     "summarySpans": [
       {
@@ -58,10 +65,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ]
+          }
+        },
+        "detail": {
           "type": "",
           "trigger": {
             "turn": "either",

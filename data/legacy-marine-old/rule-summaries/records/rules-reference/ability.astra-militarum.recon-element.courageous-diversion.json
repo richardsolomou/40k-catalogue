@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Recon Element",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP as the opponent's Shooting phase begins, on an ASTRA MILITARUM MOUNTED or ASTRA MILITARUM INFANTRY unit you control. Until the phase ends, the unit has Feel No Pain 6+, and every enemy attack made while it is the nearest eligible target suffers -1 to the hit roll. The card does not say whether the penalty is limited to attacks aimed at your unit.",
     "citations": [
       {
@@ -25,11 +32,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ASTRA MILITARUM",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ASTRA MILITARUM",
+                  "MOUNTED"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Recon Element",
           "when": {
             "turn": "opponent",
@@ -67,11 +98,11 @@
                 "amount": 1
               }
             }
+          ],
+          "openQuestions": [
+            "The penalty applies to each enemy attack while your unit is the closest eligible target; the card does not say whether only attacks that target your unit are affected."
           ]
-        },
-        "openQuestions": [
-          "The penalty applies to each enemy attack while your unit is the closest eligible target; the card does not say whether only attacks that target your unit are affected."
-        ]
+        }
       }
     }
   }

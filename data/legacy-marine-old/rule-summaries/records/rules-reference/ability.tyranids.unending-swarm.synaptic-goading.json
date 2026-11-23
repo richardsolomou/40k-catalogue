@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Unending Swarm",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "In any phase, use this just before your ENDLESS MULTITUDE unit begins a Surge move, provided it is within your army’s Synapse Range. You may reroll its D6 distance and may finish as near as possible to the nearest objective marker in place of the nearest enemy unit. Keep every other Surge rule.",
     "summarySpans": [
       {
@@ -57,10 +68,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ENDLESS MULTITUDE"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {
@@ -84,7 +112,7 @@
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "recipient": "target-unit",
               "role": "surge-distance",
               "roll": {

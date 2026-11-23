@@ -48,49 +48,54 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "ADEPTA SORORITAS"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "modify-characteristics",
-            "recipient": "bearer melee weapons",
-            "stats": [
-              "Strength",
-              "Armour Penetration"
-            ],
-            "adjustment": {
-              "operation": "add",
-              "amount": 1
-            }
-          },
-          {
-            "operation": "grant-weapon-ability",
-            "recipient": "bearer melee weapons",
-            "ability": "[PRECISION]"
-          },
-          {
-            "operation": "gain-resource",
-            "recipient": "your Miracle dice pool",
-            "amount": 1,
-            "resource": "Miracle die",
-            "trigger": {
-              "event": "bearer fights",
-              "minimumEnemyModelsDestroyed": 1,
-              "by": "bearer attacks in that fight"
-            }
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "ADEPTA SORORITAS"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer melee weapons",
+              "stats": [
+                "Strength",
+                "Armour Penetration"
+              ],
+              "adjustment": {
+                "operation": "add",
+                "amount": 1
+              },
+              "kind": "modify-characteristics"
+            },
+            {
+              "recipient": "bearer melee weapons",
+              "ability": "[PRECISION]",
+              "kind": "grant-weapon-ability"
+            },
+            {
+              "recipient": "your Miracle dice pool",
+              "amount": 1,
+              "resource": "Miracle die",
+              "trigger": {
+                "event": "bearer fights",
+                "minimumEnemyModelsDestroyed": 1,
+                "by": "bearer attacks in that fight"
+              },
+              "kind": "gain-resource"
+            }
+          ]
+        }
       }
     }
   }

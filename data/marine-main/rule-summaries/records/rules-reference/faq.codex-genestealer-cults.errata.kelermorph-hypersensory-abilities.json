@@ -47,65 +47,68 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "faq": {
-          "entryType": "errata",
-          "publicationId": "bd36dee6-ca32-4d97-8800-ba67cd90e669",
-          "typedMechanics": {
-            "operation": "replace-ability",
-            "abilityQid": "ability:genestealer-cults.kelermorph.hypersensory-abilities",
-            "limit": {
-              "scope": "this-model",
-              "uses": 1,
-              "period": "turn"
+        "detail": {
+          "faq": {
+            "entryType": "errata",
+            "publicationId": "bd36dee6-ca32-4d97-8800-ba67cd90e669",
+            "typedMechanics": {
+              "abilityQid": "ability:genestealer-cults.kelermorph.hypersensory-abilities",
+              "limit": {
+                "scope": "this-model",
+                "uses": 1,
+                "period": "turn"
+              },
+              "trigger": {
+                "side": "opponent",
+                "phase": "movement",
+                "event": "enemy-unit-ends-move",
+                "minimumEnemyUnits": 1,
+                "moveTypes": [
+                  "normal",
+                  "advance",
+                  "fall-back"
+                ],
+                "withinInches": 8
+              },
+              "condition": {
+                "outsideEngagementRangeOfAllEnemies": true
+              },
+              "reaction": {
+                "optional": true,
+                "sequence": [
+                  {
+                    "action": "shoot",
+                    "onlyTarget": "triggering-enemy-unit",
+                    "asIf": "own-shooting-phase"
+                  },
+                  {
+                    "action": "normal-move",
+                    "maximumDistanceInchesDice": "D6",
+                    "embarkPermitted": false
+                  }
+                ]
+              },
+              "targetQids": [],
+              "kind": "replace-ability"
             },
-            "trigger": {
-              "side": "opponent",
-              "phase": "movement",
-              "event": "enemy-unit-ends-move",
-              "minimumEnemyUnits": 1,
-              "moveTypes": [
-                "normal",
-                "advance",
-                "fall-back"
-              ],
-              "withinInches": 8
-            },
-            "condition": {
-              "outsideEngagementRangeOfAllEnemies": true
-            },
-            "reaction": {
-              "optional": true,
-              "sequence": [
-                {
-                  "action": "shoot",
-                  "onlyTarget": "triggering-enemy-unit",
-                  "asIf": "own-shooting-phase"
-                },
-                {
-                  "action": "normal-move",
-                  "maximumDistanceInchesDice": "D6",
-                  "embarkPermitted": false
-                }
-              ]
-            },
-            "targetQids": []
-          },
-          "statedValues": [
-            {
-              "kind": "uses-per-turn",
-              "value": 1
-            },
-            {
-              "kind": "trigger-distance",
-              "value": 8
-            },
-            {
-              "kind": "move-die-sides",
-              "value": 6
-            }
-          ]
+            "statedValues": [
+              {
+                "kind": "uses-per-turn",
+                "value": 1
+              },
+              {
+                "kind": "trigger-distance",
+                "value": 8
+              },
+              {
+                "kind": "move-die-sides",
+                "value": 6
+              }
+            ]
+          }
         }
       }
     }

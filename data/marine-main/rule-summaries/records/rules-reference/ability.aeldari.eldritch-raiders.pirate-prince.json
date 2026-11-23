@@ -47,34 +47,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "unit",
-          "match": "all",
-          "keywords": [
-            "Prince Yriel"
-          ],
-          "excludes": []
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "PRINCE YRIEL"
+                ]
+              }
+            ],
+            "epicHeroes": true
+          }
         },
-        "trigger": {
-          "event": "spend-resource",
-          "actor": "own-player",
-          "pool": "Battle Focus",
-          "amount": 1,
-          "purpose": "Manoeuvre",
-          "recipient": "this-unit",
-          "frequency": "each-spend"
-        },
-        "effect": {
-          "dice": "D6",
-          "comparison": "at-least",
-          "threshold": 3,
-          "success": {
-            "type": "gain-resource",
-            "recipient": "own-player",
+        "detail": {
+          "trigger": {
+            "event": "spend-resource",
+            "actor": "own-player",
             "pool": "Battle Focus",
-            "amount": 1
+            "amount": 1,
+            "purpose": "Manoeuvre",
+            "recipient": "this-unit",
+            "frequency": "each-spend"
+          },
+          "effect": {
+            "dice": "D6",
+            "comparison": "at-least",
+            "threshold": 3,
+            "success": {
+              "type": "gain-resource",
+              "recipient": "own-player",
+              "pool": "Battle Focus",
+              "amount": 1
+            }
           }
         }
       }

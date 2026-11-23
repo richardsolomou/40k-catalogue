@@ -57,46 +57,49 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "attack-step",
-        "ruleNumber": "05.03",
-        "actor": "opposing-player",
-        "steps": [
-          {
-            "order": 1,
-            "name": "Create Groups",
-            "groups": [
-              "one-per-CHARACTER-model",
-              "others-by-identical-W-Sv-InSv"
-            ]
+        "detail": {
+          "kind": "attack-step",
+          "ruleNumber": "05.03",
+          "actor": "opposing-player",
+          "steps": [
+            {
+              "order": 1,
+              "name": "Create Groups",
+              "groups": [
+                "one-per-CHARACTER-model",
+                "others-by-identical-W-Sv-InSv"
+              ]
+            },
+            {
+              "order": 2,
+              "name": "Allocation Order",
+              "applyAll": [
+                "wounded-non-CHARACTER-group-first",
+                "CHARACTER-groups-after-all-non-CHARACTER-groups",
+                "wounded-CHARACTER-groups-before-unwounded-CHARACTER-groups"
+              ]
+            },
+            {
+              "order": 3,
+              "name": "Make Save Rolls",
+              "dicePerWoundingAttack": 1,
+              "diceSides": 6
+            }
+          ],
+          "synonym": {
+            "saving throw": "save roll"
           },
-          {
-            "order": 2,
-            "name": "Allocation Order",
-            "applyAll": [
-              "wounded-non-CHARACTER-group-first",
-              "CHARACTER-groups-after-all-non-CHARACTER-groups",
-              "wounded-CHARACTER-groups-before-unwounded-CHARACTER-groups"
+          "modifiedAttackPools": {
+            "splitBy": "identical-new-profile",
+            "chooser": "active-player",
+            "stepsPerPool": [
+              "05.03",
+              "05.04"
             ]
-          },
-          {
-            "order": 3,
-            "name": "Make Save Rolls",
-            "dicePerWoundingAttack": 1,
-            "diceSides": 6
           }
-        ],
-        "synonym": {
-          "saving throw": "save roll"
-        },
-        "modifiedAttackPools": {
-          "splitBy": "identical-new-profile",
-          "chooser": "active-player",
-          "stepsPerPool": [
-            "05.03",
-            "05.04"
-          ]
         }
       }
     }

@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Cabal of Chaos",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "Pick a HERETIC ASTARTES PSYKER as your Shooting phase begins. Choose one foe it can see, at most 12\" away. On a D6, a 1 gives that foe 1 mortal wound, 2–4 gives it D3 and 5–6 gives it 3. Treat the resulting damage as a Psychic Attack.",
     "summarySpans": [
       {
@@ -47,49 +53,66 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "start of your Shooting phase"
-        ],
-        "target": {
-          "unit": "HERETIC ASTARTES PSYKER",
-          "count": 1
-        },
-        "effect": {
-          "enemy": {
-            "count": 1,
-            "visibleTo": "target PSYKER",
-            "maxDistanceInches": 12
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
           },
-          "roll": "D6",
-          "mortalWounds": [
-            {
-              "roll": [
-                1,
-                1
-              ],
-              "value": 1
-            },
-            {
-              "roll": [
-                2,
-                4
-              ],
-              "value": "D3"
-            },
-            {
-              "roll": [
-                5,
-                6
-              ],
-              "value": 3
-            }
-          ],
-          "isPsychicAttack": true
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "HERETIC ASTARTES",
+              "PSYKER"
+            ]
+          }
         },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "start of your Shooting phase"
+          ],
+          "target": {
+            "unit": "HERETIC ASTARTES PSYKER",
+            "count": 1
+          },
+          "effect": {
+            "enemy": {
+              "count": 1,
+              "visibleTo": "target PSYKER",
+              "maxDistanceInches": 12
+            },
+            "roll": "D6",
+            "mortalWounds": [
+              {
+                "roll": [
+                  1,
+                  1
+                ],
+                "value": 1
+              },
+              {
+                "roll": [
+                  2,
+                  4
+                ],
+                "value": "D3"
+              },
+              {
+                "roll": [
+                  5,
+                  6
+                ],
+                "value": 3
+              }
+            ],
+            "isPsychicAttack": true
+          },
+          "restrictions": []
+        }
       }
     }
   }

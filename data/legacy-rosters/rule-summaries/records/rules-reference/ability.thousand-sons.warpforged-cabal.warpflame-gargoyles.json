@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Warpforged Cabal",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "opponent",
+      "type": "wargear"
+    },
     "summary": "Wargear, 1 CP, used in the opposing player's Charge phase as soon as an enemy unit finishes a Charge move. Choose one of your THOUSAND SONS VEHICLE units that is in Engagement Range of the charging unit and roll six D6; every 5+ inflicts 1 mortal wound on the enemy unit, which then has to test for Battle-shock.",
     "citations": [
       {
@@ -25,12 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-charge"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "THOUSAND SONS",
+              "VEHICLE"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Warpforged Cabal",
-          "category": "Wargear",
           "trigger": {
             "turn": "opponent",
             "phases": [

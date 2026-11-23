@@ -48,29 +48,32 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "scope": "dominatus-event",
-        "role": {
-          "warmaster": "event-organiser"
-        },
-        "permissions": [
-          {
-            "actor": "warmaster",
-            "at": "campaign-phase-start",
-            "operation": "select-location-card",
-            "cardBelongsTo": "current-campaign-phase",
-            "replaces": "location-roll",
-            "optional": true
+        "detail": {
+          "scope": "dominatus-event",
+          "role": {
+            "warmaster": "event-organiser"
           },
-          {
-            "actor": "warmaster",
-            "operation": "require-player-alliance-change",
-            "affected": "player",
-            "optional": true,
-            "scopeReference": "core-rule:event-companion.muster-armies.dominatus"
-          }
-        ]
+          "permissions": [
+            {
+              "actor": "warmaster",
+              "at": "campaign-phase-start",
+              "cardBelongsTo": "current-campaign-phase",
+              "replaces": "location-roll",
+              "optional": true,
+              "kind": "select-location-card"
+            },
+            {
+              "actor": "warmaster",
+              "affected": "player",
+              "optional": true,
+              "scopeReference": "core-rule:event-companion.muster-armies.dominatus",
+              "kind": "require-player-alliance-change"
+            }
+          ]
+        }
       }
     }
   }

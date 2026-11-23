@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Ironclad Champions",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement",
+        "charge"
+      ],
+      "turn": "own"
+    },
     "summary": "Spend 1 CP during your Movement phase or your Charge phase as a DREADNOUGHT unit of yours is chosen to move, or when it declares a charge; that unit is the target and gains MOBILE.",
     "citations": [
       {
@@ -25,10 +32,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-move"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "DREADNOUGHT"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Ironclad Champions",
           "trigger": {
             "windows": [

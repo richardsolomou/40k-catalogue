@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Solar Spearhead",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "In your Shooting phase, spend 1 CP on one ADEPTUS CUSTODES unit of yours that has not shot yet this phase. While the phase lasts, the ranged weapons its models carry gain [IGNORES COVER], and whenever one of its models attacks you may set aside some or every modifier to its Ballistic Skill, to its Hit roll, or to both.",
     "summarySpans": [
       {
@@ -48,12 +55,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Solar Spearhead",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {

@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Throne-bonded Outriders",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own"
+    },
     "summary": "Use this in your Command phase on the IMPERIAL KNIGHTS unit invoking Bondsman. Let it select one more ARMIGER no farther than 18\" away. A candidate currently under Bondsman is ineligible.",
     "summarySpans": [
       {
@@ -70,24 +76,42 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "your Command phase",
-          "friendly Bondsman use"
-        ],
-        "target": {
-          "unit": "IMPERIAL KNIGHTS",
-          "binding": "Bondsman user"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "IMPERIAL KNIGHTS"
+            ]
+          }
         },
-        "effect": {
-          "additionalTargets": 1,
-          "keyword": "ARMIGER",
-          "maxDistanceInches": 18,
-          "exclude": "already affected by a Bondsman ability"
-        },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "your Command phase",
+            "friendly Bondsman use"
+          ],
+          "target": {
+            "unit": "IMPERIAL KNIGHTS",
+            "binding": "Bondsman user"
+          },
+          "effect": {
+            "additionalTargets": 1,
+            "keyword": "ARMIGER",
+            "maxDistanceInches": 18,
+            "exclude": "already affected by a Bondsman ability"
+          },
+          "restrictions": []
+        }
       }
     }
   }

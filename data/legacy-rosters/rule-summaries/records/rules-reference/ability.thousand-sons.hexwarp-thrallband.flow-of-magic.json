@@ -46,53 +46,56 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "detachment-rule",
-        "detachment": "Hexwarp Thrallband",
-        "area": {
-          "name": "Flow of Magic",
-          "always": [
-            "own-deployment-zone"
+        "detail": {
+          "kind": "detachment-rule",
+          "detachment": "Hexwarp Thrallband",
+          "area": {
+            "name": "Flow of Magic",
+            "always": [
+              "own-deployment-zone"
+            ],
+            "conditional": [
+              {
+                "zone": "no-mans-land",
+                "check": "start-of-any-phase",
+                "controlShareAtLeast": 0.5,
+                "duration": "phase"
+              },
+              {
+                "zone": "opponent-deployment-zone",
+                "check": "start-of-any-phase",
+                "controlShareAtLeast": 0.5,
+                "duration": "phase"
+              }
+            ]
+          },
+          "recipients": {
+            "side": "friendly",
+            "keywordsAll": [
+              "THOUSAND SONS"
+            ],
+            "level": "model"
+          },
+          "attacks": [
+            "psychic"
           ],
-          "conditional": [
-            {
-              "zone": "no-mans-land",
-              "check": "start-of-any-phase",
-              "controlShareAtLeast": 0.5,
-              "duration": "phase"
-            },
-            {
-              "zone": "opponent-deployment-zone",
-              "check": "start-of-any-phase",
-              "controlShareAtLeast": 0.5,
-              "duration": "phase"
-            }
-          ]
-        },
-        "recipients": {
-          "side": "friendly",
-          "keywordsAll": [
-            "THOUSAND SONS"
-          ],
-          "level": "model"
-        },
-        "attacks": [
-          "psychic"
-        ],
-        "reroll": {
-          "roll": "wound",
-          "value": 1
-        },
-        "upgrade": {
-          "condition": "model-wholly-within-flow-of-magic",
-          "replacesReroll": true,
-          "rollModifiers": [
-            {
-              "roll": "wound",
-              "delta": 1
-            }
-          ]
+          "reroll": {
+            "roll": "wound",
+            "value": 1
+          },
+          "upgrade": {
+            "condition": "model-wholly-within-flow-of-magic",
+            "replacesReroll": true,
+            "rollModifiers": [
+              {
+                "roll": "wound",
+                "delta": 1
+              }
+            ]
+          }
         }
       }
     }

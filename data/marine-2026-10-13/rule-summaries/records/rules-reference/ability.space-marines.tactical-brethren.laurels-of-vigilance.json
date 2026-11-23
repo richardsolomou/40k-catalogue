@@ -54,45 +54,53 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Adeptus Astartes"
-          ],
-          "excludes": []
+        "enhancement": {
+          "type": "model",
+          "points": 10,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              }
+            ]
+          }
         },
-        "trigger": {
-          "event": "use-stratagem-to-target",
-          "actor": "own-player",
-          "recipient": {
-            "owner": "own-army",
-            "allOf": [
-              "Adeptus Astartes",
-              "Battleline"
-            ],
-            "within": {
-              "inches": 12,
-              "of": "this-model"
-            }
+        "detail": {
+          "trigger": {
+            "event": "use-stratagem-to-target",
+            "actor": "own-player",
+            "recipient": {
+              "owner": "own-army",
+              "allOf": [
+                "Adeptus Astartes",
+                "Battleline"
+              ],
+              "within": {
+                "inches": 12,
+                "of": "this-model"
+              }
+            },
+            "stratagems": [
+              "Fire Overwatch",
+              "Heroic Intervention"
+            ]
           },
-          "stratagems": [
-            "Fire Overwatch",
-            "Heroic Intervention"
-          ]
-        },
-        "effect": {
-          "type": "modify-cp-cost",
-          "operation": "subtract",
-          "amount": 1,
-          "use": "triggering-use"
-        },
-        "usage": {
-          "limit": 1,
-          "per": "battle-round",
-          "scope": "army"
+          "effect": {
+            "type": "modify-cp-cost",
+            "operation": "subtract",
+            "amount": 1,
+            "use": "triggering-use"
+          },
+          "usage": {
+            "limit": 1,
+            "per": "battle-round",
+            "scope": "army"
+          }
         }
       }
     }

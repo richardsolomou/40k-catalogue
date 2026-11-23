@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Bully Boyz",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "As your Meganobz or Nobz are selected to attack in your Shooting phase or either Fight phase, they get Hit rerolls on 1s. If the unit is riled up, it rerolls any Hit roll for that attack sequence.",
     "summarySpans": [
       {
@@ -63,10 +70,33 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-attack"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "MEGANOBZ"
+                ]
+              },
+              {
+                "keywords": [
+                  "NOBZ"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

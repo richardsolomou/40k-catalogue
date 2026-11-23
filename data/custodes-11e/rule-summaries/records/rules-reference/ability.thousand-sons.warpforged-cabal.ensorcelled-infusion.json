@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Warpforged Cabal",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 2 CP, used in your Shooting phase on one of your THOUSAND SONS VEHICLE units that has not yet been picked to shoot this phase, provided it is no more than 6\" from a friendly THOUSAND SONS PSYKER unit. Until the phase ends, VEHICLE models in that unit have [PSYCHIC] on their ranged weapons, and attacks made with those weapons get +1 on the Wound roll.",
     "citations": [
       {
@@ -25,12 +32,30 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "THOUSAND SONS",
+              "VEHICLE"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Warpforged Cabal",
-          "category": "Battle Tactic",
           "trigger": {
             "turn": "own",
             "phases": [

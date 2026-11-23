@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Ordo Hereticus, Purgation Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Choose one of your units during your Shooting phase before you select it to fire. It needs at least one of these keywords: ADEPTUS ARBITES, INQUISITORIAL AGENTS, ORDO HERETICUS. For the rest of the phase, its models can shoot an enemy engaged with your army from 12″ or closer, using ranged weapons without Blast.",
     "summarySpans": [
       {
@@ -58,10 +65,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ARBITES"
+                ]
+              },
+              {
+                "keywords": [
+                  "INQUISITORIAL AGENTS"
+                ]
+              },
+              {
+                "keywords": [
+                  "ORDO HERETICUS"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "windows": [

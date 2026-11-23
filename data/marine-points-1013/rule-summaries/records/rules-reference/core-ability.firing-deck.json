@@ -78,59 +78,62 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "datasheet-ability",
-        "parameter": "X",
-        "holderKeywords": [
-          "TRANSPORT"
-        ],
-        "trigger": {
-          "turn": "yours",
-          "phase": "shooting",
-          "event": "holderSelectedToShoot",
-          "condition": "holderHasEmbarkedUnits",
-          "rule": "10.02"
-        },
-        "steps": [
-          {
-            "step": 1,
-            "select": {
-              "level": "model",
-              "upTo": "X",
-              "pool": "embarkedModels",
-              "excludeIfUnitAlreadySelectedToShootThisPhase": true
-            }
+        "detail": {
+          "kind": "datasheet-ability",
+          "parameter": "X",
+          "holderKeywords": [
+            "TRANSPORT"
+          ],
+          "trigger": {
+            "turn": "yours",
+            "phase": "shooting",
+            "event": "holderSelectedToShoot",
+            "condition": "holderHasEmbarkedUnits",
+            "rule": "10.02"
           },
-          {
-            "step": 2,
-            "select": {
-              "perSelectedModel": 1,
-              "weapons": "ranged",
-              "excludingWeaponAbilities": [
-                "ONE SHOT"
-              ],
-              "rule": "24.26"
+          "steps": [
+            {
+              "step": 1,
+              "select": {
+                "level": "model",
+                "upTo": "X",
+                "pool": "embarkedModels",
+                "excludeIfUnitAlreadySelectedToShootThisPhase": true
+              }
+            },
+            {
+              "step": 2,
+              "select": {
+                "perSelectedModel": 1,
+                "weapons": "ranged",
+                "excludingWeaponAbilities": [
+                  "ONE SHOT"
+                ],
+                "rule": "24.26"
+              }
+            },
+            {
+              "step": 3,
+              "grant": {
+                "to": "holder",
+                "weapons": "step2Selections",
+                "inAdditionToOwn": true,
+                "until": "holderAttacksResolved"
+              }
+            },
+            {
+              "step": 4,
+              "restrict": {
+                "units": "allEmbarkedUnits",
+                "eligibleToShoot": false,
+                "until": "endOfTurn"
+              }
             }
-          },
-          {
-            "step": 3,
-            "grant": {
-              "to": "holder",
-              "weapons": "step2Selections",
-              "inAdditionToOwn": true,
-              "until": "holderAttacksResolved"
-            }
-          },
-          {
-            "step": 4,
-            "restrict": {
-              "units": "allEmbarkedUnits",
-              "eligibleToShoot": false,
-              "until": "endOfTurn"
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

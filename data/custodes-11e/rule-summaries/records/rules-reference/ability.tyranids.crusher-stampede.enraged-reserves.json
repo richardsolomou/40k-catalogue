@@ -31,43 +31,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "TYRANIDS",
-            "MONSTER"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "fight-on-destruction",
-            "recipient": "bearer",
-            "trigger": {
-              "event": "bearer destroyed",
-              "cause": "melee attack",
-              "condition": "bearer has not fought this phase"
-            },
-            "roll": {
-              "count": 1,
-              "sides": 6,
-              "minimum": 3
-            },
-            "onSuccess": {
-              "deferRemoval": true,
-              "fightAfter": "attacking model’s unit finishes its attacks",
-              "canFight": true,
-              "removeAfter": "bearer fights"
-            },
-            "onFailure": "normal removal"
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "MONSTER"
+                ],
+                "factionKeywords": [
+                  "TYRANIDS"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer",
+              "trigger": {
+                "event": "bearer destroyed",
+                "cause": "melee attack",
+                "condition": "bearer has not fought this phase"
+              },
+              "roll": {
+                "count": 1,
+                "sides": 6,
+                "minimum": 3
+              },
+              "onSuccess": {
+                "deferRemoval": true,
+                "fightAfter": "attacking model’s unit finishes its attacks",
+                "canFight": true,
+                "removeAfter": "bearer fights"
+              },
+              "onFailure": "normal removal",
+              "kind": "fight-on-destruction"
+            }
+          ]
+        }
       }
     }
   }

@@ -58,37 +58,44 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Adeptus Astartes Jump Pack"
-          ],
-          "anyOf": [],
-          "excludes": [],
-          "equipment": null,
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "trigger": "bearer unit selected to fight",
-        "effects": [
-          {
-            "recipient": "bearer unit melee attacks",
-            "operation": "choose-one-ability",
-            "actor": "controlling player",
-            "choices": [
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
               {
-                "ability": "LETHAL HITS"
-              },
-              {
-                "ability": "SUSTAINED HITS",
-                "count": 1
+                "keywords": [
+                  "JUMP PACK"
+                ],
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
               }
             ]
           }
-        ]
+        },
+        "detail": {
+          "trigger": "bearer unit selected to fight",
+          "effects": [
+            {
+              "recipient": "bearer unit melee attacks",
+              "actor": "controlling player",
+              "choices": [
+                {
+                  "ability": "LETHAL HITS"
+                },
+                {
+                  "ability": "SUSTAINED HITS",
+                  "count": 1
+                }
+              ],
+              "kind": "choose-one-ability"
+            }
+          ]
+        }
       }
     }
   }

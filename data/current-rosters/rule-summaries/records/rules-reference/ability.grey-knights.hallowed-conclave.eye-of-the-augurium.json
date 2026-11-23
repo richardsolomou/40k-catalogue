@@ -49,33 +49,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Grey Knights"
-          ],
-          "excludes": []
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "GREY KNIGHTS"
+                ]
+              }
+            ]
+          }
         },
-        "trigger": {
-          "event": "use-stratagem-to-target",
-          "actor": "own-player",
-          "recipient": "this-unit",
-          "stratagems": [
-            "Heroic Intervention"
-          ]
-        },
-        "effect": {
-          "permission": "despite-use-on-other-units-this-phase",
-          "cost": {
-            "type": "modify-cp-cost",
-            "operation": "subtract",
-            "amount": 1,
-            "use": "triggering-use"
+        "detail": {
+          "trigger": {
+            "event": "use-stratagem-to-target",
+            "actor": "own-player",
+            "recipient": "this-unit",
+            "stratagems": [
+              "Heroic Intervention"
+            ]
           },
-          "doesNotPreventUseOn": "other-units-same-phase"
+          "effect": {
+            "permission": "despite-use-on-other-units-this-phase",
+            "cost": {
+              "type": "modify-cp-cost",
+              "operation": "subtract",
+              "amount": 1,
+              "use": "triggering-use"
+            },
+            "doesNotPreventUseOn": "other-units-same-phase"
+          }
         }
       }
     }

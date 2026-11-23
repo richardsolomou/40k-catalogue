@@ -51,33 +51,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "HERETIC ASTARTES"
-          ],
-          "excludes": [
-            "DAMNED"
-          ],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "force-test",
-            "target": "each-enemy-unit",
-            "test": "Battle-shock",
-            "rangeInches": 6,
-            "rangeOrigin": "bearer-unit",
-            "rangeOverride": {
-              "condition": "setup-using-Deep-Strike",
-              "inches": 12
-            }
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "HERETIC ASTARTES"
+                ]
+              }
+            ],
+            "excludedKeywords": [
+              "DAMNED"
+            ]
           }
-        ],
-        "trigger": "bearer-unit-set-up-on-battlefield"
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "force-test",
+              "target": "each-enemy-unit",
+              "test": "Battle-shock",
+              "rangeInches": 6,
+              "rangeOrigin": "bearer-unit",
+              "rangeOverride": {
+                "condition": "setup-using-Deep-Strike",
+                "inches": 12
+              }
+            }
+          ],
+          "trigger": "bearer-unit-set-up-on-battlefield"
+        }
       }
     }
   }

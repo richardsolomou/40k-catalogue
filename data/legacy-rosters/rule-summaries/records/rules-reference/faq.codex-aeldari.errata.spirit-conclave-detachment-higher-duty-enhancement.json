@@ -43,110 +43,113 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "faq": {
-          "entryType": "errata",
-          "publicationId": "995328e1-ae96-4ef6-b548-c31fad1a06fc",
-          "typedMechanics": {
-            "operation": "replace-enhancement",
-            "effect": {
+        "detail": {
+          "faq": {
+            "entryType": "errata",
+            "publicationId": "995328e1-ae96-4ef6-b548-c31fad1a06fc",
+            "typedMechanics": {
               "effect": {
-                "type": "conditional",
-                "condition": {
-                  "operator": "and",
-                  "operands": [
-                    {
-                      "operator": "and",
-                      "operands": [
-                        {
-                          "type": "phase-is",
-                          "parameters": {
-                            "phase": "movement"
-                          }
-                        },
-                        {
-                          "type": "player-turn-is",
-                          "parameters": {
-                            "turn": "opponent-turn"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "matches",
-                      "parameters": {
-                        "subject": "event-subject",
-                        "filter": {
-                          "within": {
-                            "of": "this-unit",
-                            "range": {
-                              "inches": 8
-                            }
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "operator": "not",
-                      "operands": [
-                        {
-                          "type": "matches",
-                          "parameters": {
-                            "filter": {
-                              "state": "engaged"
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
                 "effect": {
-                  "type": "move",
-                  "target": "this-unit",
-                  "modifier": {
-                    "move_type": "normal",
-                    "distance": 6
+                  "type": "conditional",
+                  "condition": {
+                    "operator": "and",
+                    "operands": [
+                      {
+                        "operator": "and",
+                        "operands": [
+                          {
+                            "type": "phase-is",
+                            "parameters": {
+                              "phase": "movement"
+                            }
+                          },
+                          {
+                            "type": "player-turn-is",
+                            "parameters": {
+                              "turn": "opponent-turn"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "matches",
+                        "parameters": {
+                          "subject": "event-subject",
+                          "filter": {
+                            "within": {
+                              "of": "this-unit",
+                              "range": {
+                                "inches": 8
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "operator": "not",
+                        "operands": [
+                          {
+                            "type": "matches",
+                            "parameters": {
+                              "filter": {
+                                "state": "engaged"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect": {
+                    "type": "move",
+                    "target": "this-unit",
+                    "modifier": {
+                      "move_type": "normal",
+                      "distance": 6
+                    }
                   }
-                }
-              },
-              "scope": {
-                "duration": "permanent"
-              },
-              "trigger": {
-                "event": "move-ended",
-                "subject": {
-                  "owner": "enemy"
                 },
-                "optional": true
+                "scope": {
+                  "duration": "permanent"
+                },
+                "trigger": {
+                  "event": "move-ended",
+                  "subject": {
+                    "owner": "enemy"
+                  },
+                  "optional": true
+                },
+                "behavior": "reactive"
               },
-              "behavior": "reactive"
+              "detachmentId": "spirit-conclave",
+              "eligibility": {
+                "scope": "model",
+                "allOf": [
+                  "Spiritseer"
+                ]
+              },
+              "targetQid": "ability:aeldari.spirit-conclave.higher-duty",
+              "minimumTriggeringEnemyUnits": 1,
+              "kind": "replace-enhancement"
             },
-            "detachmentId": "spirit-conclave",
-            "eligibility": {
-              "scope": "model",
-              "allOf": [
-                "Spiritseer"
-              ]
-            },
-            "targetQid": "ability:aeldari.spirit-conclave.higher-duty",
-            "minimumTriggeringEnemyUnits": 1
-          },
-          "statedValues": [
-            {
-              "kind": "trigger-distance",
-              "value": 8
-            },
-            {
-              "kind": "move-maximum",
-              "value": 6
-            },
-            {
-              "kind": "trigger-minimum-enemy-units",
-              "value": 1
-            }
-          ]
+            "statedValues": [
+              {
+                "kind": "trigger-distance",
+                "value": 8
+              },
+              {
+                "kind": "move-maximum",
+                "value": 6
+              },
+              {
+                "kind": "trigger-minimum-enemy-units",
+                "value": 1
+              }
+            ]
+          }
         }
       }
     }

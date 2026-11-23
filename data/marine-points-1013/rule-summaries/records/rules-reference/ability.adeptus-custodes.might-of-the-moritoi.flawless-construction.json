@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Might of the Moritoi",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "In the opposing Shooting phase or in either player's Fight phase, as soon as an enemy unit chooses one of your ADEPTUS CUSTODES WALKER units as a target, spend 1 CP on that unit. Attacks against it whose Strength exceeds its Toughness suffer −1 to their Wound rolls.",
     "summarySpans": [
       {
@@ -48,10 +55,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS CUSTODES",
+              "WALKER"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Might of the Moritoi",
           "trigger": {
             "windows": [

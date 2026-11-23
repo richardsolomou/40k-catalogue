@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Lions of the Emperor",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In either player's Fight phase, spend 1 CP on one ADEPTUS CUSTODES unit of yours that has not been picked to fight yet this phase. While the phase lasts, the melee weapons its models carry gain [PRECISION].",
     "summarySpans": [
       {
@@ -48,12 +55,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Lions of the Emperor",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

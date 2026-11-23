@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Carnival of Excess",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP, used in the Fight phase as soon as one of your own LEGIONS OF EXCESS units has destroyed an enemy unit. The targets are that unit plus one of your EMPEROR'S CHILDREN units no more than 6\" from it that is outside Engagement Range of every enemy unit. The EMPEROR'S CHILDREN unit is allowed to declare a charge, but a unit that charges this way after already having been picked to fight this phase does not get to fight again in this phase.",
     "citations": [
       {
@@ -25,12 +32,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-destroyed-enemy"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "LEGIONS OF EXCESS"
+            ],
+            "conditions": [
+              "not-in-engagement-range"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Carnival of Excess",
-          "category": "Strategic Ploy",
           "trigger": {
             "turn": "either",
             "phases": [

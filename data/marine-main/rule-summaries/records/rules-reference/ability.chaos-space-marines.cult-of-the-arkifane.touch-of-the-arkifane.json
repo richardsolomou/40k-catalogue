@@ -15,6 +15,17 @@
     "ruleType": "stratagem",
     "group": "Cult of the Arkifane",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In any phase, choose a HERETIC ASTARTES unit without DAMNED that is still waiting for selection to attack. If you use Dark Pacts for it before that phase finishes, its weapons can take both abilities on offer.",
     "summarySpans": [
       {
@@ -52,27 +63,49 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "any phase"
-        ],
-        "target": {
-          "unit": "HERETIC ASTARTES",
-          "count": 1,
-          "exclude": [
-            "DAMNED"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "HERETIC ASTARTES"
+            ],
+            "excludedKeywords": [
+              "DAMNED"
+            ],
+            "conditions": [
+              "not-selected-to-shoot-or-fight"
+            ]
+          }
+        },
+        "detail": {
+          "window": [
+            "any phase"
           ],
-          "selectedToShootOrFightThisPhase": false
-        },
-        "effect": {
-          "trigger": "select a Dark Pact for the target",
-          "expiry": "phase end",
-          "recipient": "target weapons",
-          "mayGain": "both Dark Pact abilities"
-        },
-        "restrictions": []
+          "target": {
+            "unit": "HERETIC ASTARTES",
+            "count": 1,
+            "exclude": [
+              "DAMNED"
+            ],
+            "selectedToShootOrFightThisPhase": false
+          },
+          "effect": {
+            "trigger": "select a Dark Pact for the target",
+            "expiry": "phase end",
+            "recipient": "target weapons",
+            "mayGain": "both Dark Pact abilities"
+          },
+          "restrictions": []
+        }
       }
     }
   }

@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Runt Swarm",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "In the enemy Movement phase, use this when an enemy finishes moving within 8\" of your unengaged Gretchin unit. It may make a Normal Move capped at D6\", or choose a fixed 6\" limit if it is an attached unit.",
     "summarySpans": [
       {
@@ -62,10 +68,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "GRETCHIN"
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

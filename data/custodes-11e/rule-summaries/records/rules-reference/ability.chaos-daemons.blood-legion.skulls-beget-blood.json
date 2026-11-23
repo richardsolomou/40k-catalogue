@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Blood Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP. Use it in your Shooting phase. Choose one of your LEGIONES DAEMONICA KHORNE units that is INFANTRY or MOUNTED, has not Fallen Back this turn, and is out of Engagement Range of all enemy units. Pick one enemy unit that your unit can see, that is within 8\" of it, and that is out of Engagement Range of every unit in your army. Roll six D6; each result of 4+ inflicts 1 mortal wound on that enemy unit.",
     "citations": [
       {
@@ -25,12 +32,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "LEGIONES DAEMONICA",
+                  "KHORNE",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "LEGIONES DAEMONICA",
+                  "KHORNE",
+                  "MOUNTED"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-in-engagement-range"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Blood Legion",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Warpbane Task Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP during your Movement phase's Reinforcements step, targeting one of your GREY KNIGHTS INFANTRY units, other than a TERMINATOR unit, that is arriving via Deep Strike this phase. Set it up wholly inside your Hallowed Ground, keeping it more than 6\" horizontally from every enemy unit.",
     "summarySpans": [
       {
@@ -45,10 +52,31 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "reinforcements-step"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GREY KNIGHTS",
+              "INFANTRY"
+            ],
+            "excludedKeywords": [
+              "TERMINATOR"
+            ],
+            "conditions": [
+              "arriving-by-deep-strike"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Warpbane Task Force",
           "type": "Battle Tactic",
           "windows": [

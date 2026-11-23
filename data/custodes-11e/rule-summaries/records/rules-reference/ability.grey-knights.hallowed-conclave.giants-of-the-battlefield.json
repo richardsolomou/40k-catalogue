@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Hallowed Conclave",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in any Fight phase, picking a GREY KNIGHTS TERMINATOR unit of yours that has not yet been chosen to fight in this phase. For the rest of the phase, the melee weapons its models carry get +1 to their Attacks characteristic.",
     "citations": [
       {
@@ -25,10 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GREY KNIGHTS",
+              "TERMINATOR"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Hallowed Conclave",
           "trigger": {
             "windows": [
@@ -60,8 +85,7 @@
               "expires": "end-of-phase"
             }
           ],
-          "restrictions": [],
-          "category": "Battle Tactic"
+          "restrictions": []
         }
       }
     }

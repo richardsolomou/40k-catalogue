@@ -49,43 +49,46 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-model",
-        "trigger": {
-          "event": "phase",
-          "phase": "command",
-          "timing": "during",
-          "turn": "controlling-player"
-        },
-        "selection": {
-          "optional": true,
-          "count": 1,
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 6,
-          "origin": "this-model",
-          "candidate": {
-            "entity": "unit",
-            "side": "friendly",
-            "requireAllKeywords": [
-              "TERMAGANTS"
-            ],
-            "excludeAnyKeywords": []
+        "detail": {
+          "source": "this-model",
+          "trigger": {
+            "event": "phase",
+            "phase": "command",
+            "timing": "during",
+            "turn": "controlling-player"
           },
-          "recipientLimit": {
-            "period": "phase",
-            "scope": "target-unit",
-            "count": 1
-          }
-        },
-        "effect": {
-          "operation": "return-destroyed-models",
-          "recipient": "selected-unit",
-          "count": {
+          "selection": {
+            "optional": true,
             "count": 1,
-            "sides": 3,
-            "additive": 3
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 6,
+            "origin": "this-model",
+            "candidate": {
+              "entity": "unit",
+              "side": "friendly",
+              "requireAllKeywords": [
+                "TERMAGANTS"
+              ],
+              "excludeAnyKeywords": []
+            },
+            "recipientLimit": {
+              "period": "phase",
+              "scope": "target-unit",
+              "count": 1
+            }
+          },
+          "effect": {
+            "recipient": "selected-unit",
+            "count": {
+              "count": 1,
+              "sides": 3,
+              "additive": 3
+            },
+            "kind": "return-destroyed-models"
           }
         }
       }

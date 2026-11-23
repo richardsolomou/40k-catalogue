@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Kauyon",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "opponent",
+      "type": "wargear"
+    },
     "summary": "In the opponent’s Charge phase, react right after an enemy declares a charge. Pick one of the targets with the T’AU EMPIRE INFANTRY keywords and choose a friendly TRANSPORT. The infantry embarks only if every model is within 3 inches of that transport and it has space for the whole unit.",
     "summarySpans": [
       {
@@ -58,10 +65,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase",
+            "after": "enemy-declared-charge"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "T’AU EMPIRE",
+              "INFANTRY"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

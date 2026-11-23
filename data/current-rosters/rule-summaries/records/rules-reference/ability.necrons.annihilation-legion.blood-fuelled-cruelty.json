@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Annihilation Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "battle-tactic"
+    },
     "summary": "In the enemy Movement phase, react immediately when an enemy completes a Fall Back. Pick a friendly unit with either keyword, FLAYED ONES or DESTROYER CULT. At phase start that unit must have been within Engagement Range of the retreating enemy. Roll 1D6. A 2–5 deals D3 mortal wounds to the enemy, and a 6 deals 3. On a 1 there is no damage from this roll. After rolling, your unit may pursue with a Normal move. Its final position must be as near to the retreating enemy as the rules allow.",
     "summarySpans": [
       {
@@ -69,10 +76,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "DESTROYER CULT"
+                ]
+              },
+              {
+                "keywords": [
+                  "FLAYED ONES"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "windows": [

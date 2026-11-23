@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Mont’ka",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "1 CP, in any phase, when one of your T'AU EMPIRE units other than a KROOT unit has just been destroyed; you may target that unit despite it having been destroyed. Until the battle is over, attacks by your non-KROOT T'AU EMPIRE units against the enemy unit that destroyed it may re-roll their Hit rolls.",
     "citations": [
       {
@@ -25,10 +36,31 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "T’AU EMPIRE"
+            ],
+            "excludedKeywords": [
+              "KROOT"
+            ],
+            "conditions": [
+              "just-destroyed"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Mont'ka",
           "when": [
             {

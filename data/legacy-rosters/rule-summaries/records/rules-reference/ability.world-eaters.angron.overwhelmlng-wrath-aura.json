@@ -55,38 +55,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "role": "aura-option",
-        "activation": {
-          "event": "parent-option-active",
-          "parentAbility": "Wrathful Presence"
-        },
-        "area": {
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 6,
-          "origin": "this-model",
-          "candidate": {
-            "entity": "unit",
-            "side": "enemy",
-            "requireAllKeywords": [],
-            "excludeAnyKeywords": []
-          }
-        },
-        "trigger": {
-          "event": "selected-to-move",
-          "move": "fall-back",
-          "actor": "eligible-enemy-unit"
-        },
-        "effect": {
-          "operation": "take-test",
-          "test": "leadership",
-          "optional": false,
-          "onFailure": {
-            "operation": "replace-move",
-            "from": "fall-back",
-            "to": "remain-stationary"
+        "detail": {
+          "role": "aura-option",
+          "activation": {
+            "event": "parent-option-active",
+            "parentAbility": "Wrathful Presence"
+          },
+          "area": {
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 6,
+            "origin": "this-model",
+            "candidate": {
+              "entity": "unit",
+              "side": "enemy",
+              "requireAllKeywords": [],
+              "excludeAnyKeywords": []
+            }
+          },
+          "trigger": {
+            "event": "selected-to-move",
+            "move": "fall-back",
+            "actor": "eligible-enemy-unit"
+          },
+          "effect": {
+            "test": "leadership",
+            "optional": false,
+            "onFailure": {
+              "from": "fall-back",
+              "to": "remain-stationary",
+              "kind": "replace-move"
+            },
+            "kind": "take-test"
           }
         }
       }

@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Shadow Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "When the opposing Fight phase is over, pick from your unengaged units. The two slots are SHADOW LEGION HERETIC ASTARTES and SHADOW LEGION LEGIONES DAEMONICA, with at most one of each. Transfer your picks from play to Strategic Reserves.",
     "summarySpans": [
       {
@@ -60,24 +67,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "end of opposing Fight phase"
-        ],
-        "target": {
-          "maxPerChoice": 1,
-          "choices": [
-            "SHADOW LEGION HERETIC ASTARTES",
-            "SHADOW LEGION LEGIONES DAEMONICA"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "unresolved": "not typed yet; see the summary"
+          }
+        },
+        "detail": {
+          "window": [
+            "end of opposing Fight phase"
           ],
-          "withinEnemyEngagementRange": false
-        },
-        "effect": {
-          "transfer": "battlefield to Strategic Reserves"
-        },
-        "restrictions": []
+          "target": {
+            "maxPerChoice": 1,
+            "choices": [
+              "SHADOW LEGION HERETIC ASTARTES",
+              "SHADOW LEGION LEGIONES DAEMONICA"
+            ],
+            "withinEnemyEngagementRange": false
+          },
+          "effect": {
+            "transfer": "battlefield to Strategic Reserves"
+          },
+          "restrictions": []
+        }
       }
     }
   }

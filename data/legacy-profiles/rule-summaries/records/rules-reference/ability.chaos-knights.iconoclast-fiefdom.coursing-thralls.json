@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Iconoclast Fiefdom",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "As your Shooting phase begins, pick a DAMNED unit. Nominate a foe it can see no farther than 12\" away. Mark that foe as Hunted. Whenever a unit is Hunted, increase its Detection Range by 6\".",
     "summarySpans": [
       {
@@ -57,30 +63,46 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "start of your Shooting phase"
-        ],
-        "target": {
-          "unit": "DAMNED",
-          "count": 1
-        },
-        "effect": {
-          "enemy": {
-            "count": 1,
-            "distanceInches": 12,
-            "visibleTo": "target DAMNED unit"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
           },
-          "marks": "Hunted",
-          "modifier": {
-            "subject": "the Hunted unit",
-            "while": "Hunted",
-            "detectionRangeIncreaseInches": 6
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DAMNED"
+            ]
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "start of your Shooting phase"
+          ],
+          "target": {
+            "unit": "DAMNED",
+            "count": 1
+          },
+          "effect": {
+            "enemy": {
+              "count": 1,
+              "distanceInches": 12,
+              "visibleTo": "target DAMNED unit"
+            },
+            "marks": "Hunted",
+            "modifier": {
+              "subject": "the Hunted unit",
+              "while": "Hunted",
+              "detectionRangeIncreaseInches": 6
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

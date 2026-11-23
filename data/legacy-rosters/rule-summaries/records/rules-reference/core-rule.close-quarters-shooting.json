@@ -136,108 +136,111 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "shooting-type",
-        "phase": "shooting",
-        "chosenIn": "10.02",
-        "eligibility": {
-          "all": [
-            "unit-engaged",
-            "no-advance-move-this-turn",
+        "detail": {
+          "kind": "shooting-type",
+          "phase": "shooting",
+          "chosenIn": "10.02",
+          "eligibility": {
+            "all": [
+              "unit-engaged",
+              "no-advance-move-this-turn",
+              {
+                "any": [
+                  {
+                    "hasWeaponWithAbility": "CLOSE-QUARTERS",
+                    "min": 1
+                  },
+                  {
+                    "unitKeyword": "MONSTER/VEHICLE"
+                  }
+                ]
+              }
+            ]
+          },
+          "targeting": {
+            "allModels": {
+              "mayTarget": "enemy-units-your-unit-is-engaged-with"
+            }
+          },
+          "modelGroups": [
             {
-              "any": [
+              "models": {
+                "keyword": "MONSTER/VEHICLE"
+              },
+              "printedStructure": "black bullet with a lead clause 'each attack by such a model', then two white sub-bullets",
+              "perAttack": [
                 {
-                  "hasWeaponWithAbility": "CLOSE-QUARTERS",
-                  "min": 1
+                  "subItem": 1,
+                  "hitRollModifier": -1,
+                  "unless": {
+                    "all": [
+                      {
+                        "weaponAbility": "CLOSE-QUARTERS"
+                      },
+                      {
+                        "target": "unit-your-unit-is-engaged-with"
+                      }
+                    ]
+                  }
                 },
                 {
-                  "unitKeyword": "MONSTER/VEHICLE"
+                  "subItem": 2,
+                  "if": {
+                    "weaponAbility": "BLAST"
+                  },
+                  "cannotTarget": "unit-your-unit-is-engaged-with",
+                  "dependsOnSubItem1": false
                 }
-              ]
+              ],
+              "weaponRestriction": null,
+              "targetRestriction": null
+            },
+            {
+              "models": {
+                "keyword": "non-MONSTER/non-VEHICLE"
+              },
+              "weaponRestriction": {
+                "onlyWeaponsWithAbility": "CLOSE-QUARTERS"
+              },
+              "targetRestriction": "enemy-units-engaged-with-your-unit",
+              "blastRuleStatedHere": false
+            }
+          ],
+          "effect": {
+            "action": "shoot",
+            "procedure": "04.00"
+          },
+          "after": {
+            "until": "end-of-phase",
+            "cannot": "start-an-action"
+          },
+          "faq": [
+            {
+              "page": 88,
+              "inGdc": false,
+              "question": "in Close-Quarters Shooting, may MONSTER/VEHICLE models target an engaged unit with Blast weapons",
+              "answer": "no"
+            },
+            {
+              "page": 88,
+              "inGdc": false,
+              "question": "when shooting at an engaged MONSTER/VEHICLE unit, may models target it with Blast weapons",
+              "answer": "no",
+              "scope": "not limited to 10.06"
+            }
+          ],
+          "gdcDifferences": [
+            {
+              "field": "whileShooting",
+              "kind": "missing-space",
+              "where": "non-MONSTER/non-VEHICLE item label",
+              "tokensOtherwiseIdentical": true
             }
           ]
-        },
-        "targeting": {
-          "allModels": {
-            "mayTarget": "enemy-units-your-unit-is-engaged-with"
-          }
-        },
-        "modelGroups": [
-          {
-            "models": {
-              "keyword": "MONSTER/VEHICLE"
-            },
-            "printedStructure": "black bullet with a lead clause 'each attack by such a model', then two white sub-bullets",
-            "perAttack": [
-              {
-                "subItem": 1,
-                "hitRollModifier": -1,
-                "unless": {
-                  "all": [
-                    {
-                      "weaponAbility": "CLOSE-QUARTERS"
-                    },
-                    {
-                      "target": "unit-your-unit-is-engaged-with"
-                    }
-                  ]
-                }
-              },
-              {
-                "subItem": 2,
-                "if": {
-                  "weaponAbility": "BLAST"
-                },
-                "cannotTarget": "unit-your-unit-is-engaged-with",
-                "dependsOnSubItem1": false
-              }
-            ],
-            "weaponRestriction": null,
-            "targetRestriction": null
-          },
-          {
-            "models": {
-              "keyword": "non-MONSTER/non-VEHICLE"
-            },
-            "weaponRestriction": {
-              "onlyWeaponsWithAbility": "CLOSE-QUARTERS"
-            },
-            "targetRestriction": "enemy-units-engaged-with-your-unit",
-            "blastRuleStatedHere": false
-          }
-        ],
-        "effect": {
-          "action": "shoot",
-          "procedure": "04.00"
-        },
-        "after": {
-          "until": "end-of-phase",
-          "cannot": "start-an-action"
-        },
-        "faq": [
-          {
-            "page": 88,
-            "inGdc": false,
-            "question": "in Close-Quarters Shooting, may MONSTER/VEHICLE models target an engaged unit with Blast weapons",
-            "answer": "no"
-          },
-          {
-            "page": 88,
-            "inGdc": false,
-            "question": "when shooting at an engaged MONSTER/VEHICLE unit, may models target it with Blast weapons",
-            "answer": "no",
-            "scope": "not limited to 10.06"
-          }
-        ],
-        "gdcDifferences": [
-          {
-            "field": "whileShooting",
-            "kind": "missing-space",
-            "where": "non-MONSTER/non-VEHICLE item label",
-            "tokensOtherwiseIdentical": true
-          }
-        ]
+        }
       }
     }
   }

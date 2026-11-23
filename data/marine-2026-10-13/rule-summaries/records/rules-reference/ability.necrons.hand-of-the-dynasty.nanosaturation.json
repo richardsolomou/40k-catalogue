@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Hand of the Dynasty",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent"
+    },
     "summary": "1 CP, in the opposing player's Shooting phase, once an enemy unit has finished shooting after targeting one of your NECRON WARRIORS or IMMORTALS units. That unit of yours fires with snap shooting, and while doing so the enemy unit is its only allowed target.",
     "citations": [
       {
@@ -25,10 +31,34 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "IMMORTALS"
+                ]
+              },
+              {
+                "keywords": [
+                  "NECRON WARRIORS"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Hand of the Dynasty",
           "when": [
             {

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Spirit Conclave",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP as your Movement phase begins, on a WRAITHGUARD or WRAITHBLADES unit of yours. Choose an objective marker that you control and that the unit stands within range of. You keep that marker under your control until a phase ends with the opposing player holding a higher Level of Control over it than you.",
     "citations": [
       {
@@ -25,10 +32,33 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "WRAITHBLADES"
+                ]
+              },
+              {
+                "keywords": [
+                  "WRAITHGUARD"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Spirit Conclave",
           "type": "Strategic Ploy",
           "windows": [

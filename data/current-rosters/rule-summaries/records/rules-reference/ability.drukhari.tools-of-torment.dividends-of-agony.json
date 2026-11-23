@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Tools of Torment",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "When friendly HAEMONCULUS COVENS destroy an enemy unit in the Fight phase, pick an enemy visible to them and within 12″. Force a Battle-shock Roll at −1 for the enemy you picked.",
     "summarySpans": [
       {
@@ -56,32 +62,48 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Fight",
-          "turn": "either",
-          "event": "friendly unit destroys enemy unit"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": "HAEMONCULUS COVENS"
-        },
-        "effect": {
-          "type": "forced roll",
-          "roll": "Battle-shock",
-          "amount": -1,
-          "recipient": {
-            "side": "enemy",
-            "count": 1,
-            "withinInches": 12,
-            "visibleTo": "triggering friendly unit"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-destroyed-enemy"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "HAEMONCULUS COVENS"
+            ]
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Fight",
+            "turn": "either",
+            "event": "friendly unit destroys enemy unit"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": "HAEMONCULUS COVENS"
+          },
+          "effect": {
+            "type": "forced roll",
+            "roll": "Battle-shock",
+            "amount": -1,
+            "recipient": {
+              "side": "enemy",
+              "count": 1,
+              "withinInches": 12,
+              "visibleTo": "triggering friendly unit"
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

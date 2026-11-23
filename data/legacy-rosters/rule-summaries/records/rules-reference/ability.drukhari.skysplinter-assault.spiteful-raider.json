@@ -47,37 +47,42 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "DRUKHARI"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "gain-resource",
-            "recipient": "your Pain token pool",
-            "amount": 1,
-            "additional": true,
-            "trigger": {
-              "event": "bearer unit destroys enemy unit",
-              "phase": "Fight",
-              "objectiveCondition": {
-                "subject": "destroyed enemy unit",
-                "inRangeOfObjectiveMarker": true,
-                "minimumMarkers": 1,
-                "checkedAt": "bearer unit selected to fight"
+        "enhancement": {
+          "type": "model",
+          "points": 10,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "DRUKHARI"
+                ]
               }
-            }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "your Pain token pool",
+              "amount": 1,
+              "additional": true,
+              "trigger": {
+                "event": "bearer unit destroys enemy unit",
+                "phase": "Fight",
+                "objectiveCondition": {
+                  "subject": "destroyed enemy unit",
+                  "inRangeOfObjectiveMarker": true,
+                  "minimumMarkers": 1,
+                  "checkedAt": "bearer unit selected to fight"
+                }
+              },
+              "kind": "gain-resource"
+            }
+          ]
+        }
       }
     }
   }

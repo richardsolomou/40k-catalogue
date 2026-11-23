@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Synaptic Nexus",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In your Shooting phase or either Fight phase, choose a SYNAPSE unit that you have yet to pick for shooting or fighting this phase. Choose an enemy visible to that unit and within 24 inches of it. Until phase end, whenever a TYRANIDS model attacks that enemy and its unit is within 6 inches of the selected SYNAPSE unit, re-roll any Hit or Wound roll of 1.",
     "summarySpans": [
       {
@@ -58,10 +66,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "SYNAPSE"
+            ],
+            "conditions": [
+              "not-selected-to-shoot-or-fight"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "turn": "either",
@@ -88,7 +114,7 @@
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "rolls": [
                 "hit",
                 "wound"

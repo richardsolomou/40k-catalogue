@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Hearthguard Covenant",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "In your Shooting phase, use this as your EINHYR HEARTHGUARD are chosen to shoot. Their ranged attacks gain +1 Strength for the phase. Spend 1 YP if you want those attacks to gain SUSTAINED HITS 1 as well.",
     "summarySpans": [
       {
@@ -49,33 +55,49 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phases": [
-            "Shooting phase"
-          ],
-          "turn": "yours",
-          "timing": "on selection to shoot"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-shoot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "EINHYR HEARTHGUARD"
+            ]
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "label": "EINHYR HEARTHGUARD",
-          "bindTo": "shooting unit"
-        },
-        "effect": {
-          "expires": "end of phase",
-          "type": "weapon changes",
-          "attackType": "ranged",
-          "strength": 1,
-          "optional": {
-            "spend": {
-              "amount": 1,
-              "resource": "YP"
-            },
-            "ability": "SUSTAINED HITS 1"
+        "detail": {
+          "window": {
+            "phases": [
+              "Shooting phase"
+            ],
+            "turn": "yours",
+            "timing": "on selection to shoot"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "label": "EINHYR HEARTHGUARD",
+            "bindTo": "shooting unit"
+          },
+          "effect": {
+            "expires": "end of phase",
+            "type": "weapon changes",
+            "attackType": "ranged",
+            "strength": 1,
+            "optional": {
+              "spend": {
+                "amount": 1,
+                "resource": "YP"
+              },
+              "ability": "SUSTAINED HITS 1"
+            }
           }
         }
       }

@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Helhunt Lance",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Once an enemy has fired in the opposing Shooting phase, pick a CHAOS KNIGHTS unit of yours that lost at least one wound to those attacks. The selected unit can Surge Move, using D6″ as its maximum distance.",
     "summarySpans": [
       {
@@ -56,29 +63,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is opponent",
-          "event": "after enemy shooting"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "keywords": "CHAOS KNIGHTS",
-          "lostWounds": {
-            "minimum": 1,
-            "cause": "triggering attacks"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "CHAOS KNIGHTS"
+            ],
+            "more": true
           }
         },
-        "effect": {
-          "type": "optional move",
-          "move": "Surge Move",
-          "maximumInches": "D6"
-        },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is opponent",
+            "event": "after enemy shooting"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywords": "CHAOS KNIGHTS",
+            "lostWounds": {
+              "minimum": 1,
+              "cause": "triggering attacks"
+            }
+          },
+          "effect": {
+            "type": "optional move",
+            "move": "Surge Move",
+            "maximumInches": "D6"
+          },
+          "restrictions": []
+        }
       }
     }
   }

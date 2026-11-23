@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Blade of Ultramar",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "When you nominate the Adeptus Astartes unit to shoot in your Shooting phase, its ranged attacks gain IGNORES COVER.",
     "summarySpans": [
       {
@@ -49,10 +56,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "type": "",
           "trigger": {
             "turn": "your",

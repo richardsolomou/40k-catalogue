@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Final Day",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP, in the Fight phase of either turn. Pick one GENESTEALER CULTS unit of yours not yet chosen to fight in this phase. Until the phase ends, its models may re-roll Wound rolls of 1 when attacking; against an enemy unit that has a friendly TYRANIDS unit within 6″ of it, they may re-roll any Wound roll instead.",
     "summarySpans": [
       {
@@ -43,11 +50,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GENESTEALER CULTS"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Final Day",
           "when": {
             "phase": "fight",

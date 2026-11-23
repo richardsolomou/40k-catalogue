@@ -45,90 +45,93 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "faq": {
-          "entryType": "errata",
-          "publicationId": "87f1c81a-f2a3-41d6-b010-d8cb53c23816",
-          "typedMechanics": {
-            "operation": "replace-enhancement",
-            "effect": {
+        "detail": {
+          "faq": {
+            "entryType": "errata",
+            "publicationId": "87f1c81a-f2a3-41d6-b010-d8cb53c23816",
+            "typedMechanics": {
               "effect": {
-                "type": "conditional",
-                "condition": {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "type": "matches",
-                      "parameters": {
-                        "filter": {
-                          "state": "engaged"
+                "effect": {
+                  "type": "conditional",
+                  "condition": {
+                    "operator": "not",
+                    "operands": [
+                      {
+                        "type": "matches",
+                        "parameters": {
+                          "filter": {
+                            "state": "engaged"
+                          }
                         }
                       }
-                    }
-                  ]
-                },
-                "effect": {
-                  "type": "sequence",
-                  "steps": [
-                    {
-                      "type": "set-up",
-                      "target": "this-unit",
-                      "modifier": {
-                        "to": "strategic-reserves",
-                        "arrives": "next-movement-phase",
-                        "allow_first_round": true
+                    ]
+                  },
+                  "effect": {
+                    "type": "sequence",
+                    "steps": [
+                      {
+                        "type": "set-up",
+                        "target": "this-unit",
+                        "modifier": {
+                          "to": "strategic-reserves",
+                          "arrives": "next-movement-phase",
+                          "allow_first_round": true
+                        }
+                      },
+                      {
+                        "type": "ability-grant",
+                        "target": "this-unit",
+                        "modifier": {
+                          "ability": "deep-strike"
+                        }
                       }
-                    },
-                    {
-                      "type": "ability-grant",
-                      "target": "this-unit",
-                      "modifier": {
-                        "ability": "deep-strike"
-                      }
-                    }
-                  ]
-                }
-              },
-              "scope": {
-                "duration": "until-next-shooting-phase"
-              },
-              "trigger": {
-                "event": "turn-ended",
-                "condition": {
-                  "type": "player-turn-is",
-                  "parameters": {
-                    "turn": "opponent-turn"
+                    ]
                   }
                 },
-                "optional": true
+                "scope": {
+                  "duration": "until-next-shooting-phase"
+                },
+                "trigger": {
+                  "event": "turn-ended",
+                  "condition": {
+                    "type": "player-turn-is",
+                    "parameters": {
+                      "turn": "opponent-turn"
+                    }
+                  },
+                  "optional": true
+                },
+                "usage": {
+                  "frequency": "n-per-battle",
+                  "count": 1,
+                  "per": "army"
+                },
+                "behavior": "reactive"
               },
-              "usage": {
-                "frequency": "n-per-battle",
-                "count": 1,
-                "per": "army"
+              "detachmentId": "awakened-dynasty",
+              "eligibility": {
+                "scope": "model",
+                "allOf": [
+                  "Necrons"
+                ]
               },
-              "behavior": "reactive"
+              "targetQid": "ability:necrons.awakened-dynasty.veil-of-darkness",
+              "kind": "replace-enhancement"
             },
-            "detachmentId": "awakened-dynasty",
-            "eligibility": {
-              "scope": "model",
-              "allOf": [
-                "Necrons"
-              ]
-            },
-            "targetQid": "ability:necrons.awakened-dynasty.veil-of-darkness"
-          },
-          "statedValues": [
-            {
-              "kind": "army-use-limit",
-              "value": 1
-            },
-            {
-              "kind": "first-battle-round",
-              "value": 1
-            }
-          ]
+            "statedValues": [
+              {
+                "kind": "army-use-limit",
+                "value": 1
+              },
+              {
+                "kind": "first-battle-round",
+                "value": 1
+              }
+            ]
+          }
         }
       }
     }

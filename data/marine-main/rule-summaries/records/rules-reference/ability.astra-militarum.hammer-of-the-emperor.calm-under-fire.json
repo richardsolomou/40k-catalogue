@@ -62,28 +62,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "VEHICLE",
-            "OFFICER"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "issue-same-order",
-            "target": "another-squadron-unit"
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "OFFICER",
+                  "VEHICLE"
+                ]
+              }
+            ]
           }
-        ],
-        "trigger": "bearer-issues-order-to-squadron-unit",
-        "usage": {
-          "optional": true,
-          "limit": "once-per-turn"
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "issue-same-order",
+              "target": "another-squadron-unit"
+            }
+          ],
+          "trigger": "bearer-issues-order-to-squadron-unit",
+          "usage": {
+            "optional": true,
+            "limit": "once-per-turn"
+          }
         }
       }
     }

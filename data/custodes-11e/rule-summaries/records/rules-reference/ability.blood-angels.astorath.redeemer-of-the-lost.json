@@ -42,33 +42,36 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "delayed-removal-on-destruction",
-        "trigger": {
-          "phase": "fight",
-          "event": "model-in-own-unit-destroyed",
-          "ownUnitSelectedToFightThisPhase": false
-        },
-        "roll": {
-          "die": "D6",
-          "modifier": {
-            "add": 1,
-            "requires": {
-              "destroyedModelEngagedWithEnemyUnit": true,
-              "enemyUnitToughness": "at-least-own-unit-toughness"
+        "detail": {
+          "kind": "delayed-removal-on-destruction",
+          "trigger": {
+            "phase": "fight",
+            "event": "model-in-own-unit-destroyed",
+            "ownUnitSelectedToFightThisPhase": false
+          },
+          "roll": {
+            "die": "D6",
+            "modifier": {
+              "add": 1,
+              "requires": {
+                "destroyedModelEngagedWithEnemyUnit": true,
+                "enemyUnitToughness": "at-least-own-unit-toughness"
+              }
             }
-          }
-        },
-        "success": {
-          "modifiedRollAtLeast": 4,
-          "leaveDestroyedModelOnBattlefield": true,
-          "removeAtFirstOf": [
-            "own-unit-finishes-fighting",
-            "phase-ends"
-          ]
-        },
-        "failure": "normal-removal"
+          },
+          "success": {
+            "modifiedRollAtLeast": 4,
+            "leaveDestroyedModelOnBattlefield": true,
+            "removeAtFirstOf": [
+              "own-unit-finishes-fighting",
+              "phase-ends"
+            ]
+          },
+          "failure": "normal-removal"
+        }
       }
     }
   }

@@ -42,38 +42,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "ASTRA MILITARUM",
-            "INFANTRY",
-            "OFFICER"
-          ]
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY",
+                  "OFFICER"
+                ],
+                "factionKeywords": [
+                  "ASTRA MILITARUM"
+                ]
+              }
+            ]
+          }
         },
-        "order": {
-          "name": "Move to the Shadows",
-          "sourceQid": "ability:astra-militarum.grizzled-company.spec-ops-veteran",
-          "category": "Order",
-          "availableTo": "bearer",
-          "availableWhen": "choosing-an-order-for-bearer-to-issue",
-          "optional": true,
-          "baseRuleQid": "ability:astra-militarum.voice-of-command"
-        },
-        "effect": {
-          "trigger": {
-            "event": "target-selected",
-            "attackType": "ranged",
-            "target": "unit-under-this-order",
-            "repeat": "each"
+        "detail": {
+          "order": {
+            "name": "Move to the Shadows",
+            "sourceQid": "ability:astra-militarum.grizzled-company.spec-ops-veteran",
+            "category": "Order",
+            "availableTo": "bearer",
+            "availableWhen": "choosing-an-order-for-bearer-to-issue",
+            "optional": true,
+            "baseRuleQid": "ability:astra-militarum.voice-of-command"
           },
-          "grant": {
-            "ability": "stealth",
-            "recipient": "models-in-targeted-unit"
-          },
-          "expires": {
-            "event": "triggering-attack-resolved"
+          "effect": {
+            "trigger": {
+              "event": "target-selected",
+              "attackType": "ranged",
+              "target": "unit-under-this-order",
+              "repeat": "each"
+            },
+            "grant": {
+              "ability": "stealth",
+              "recipient": "models-in-targeted-unit"
+            },
+            "expires": {
+              "event": "triggering-attack-resolved"
+            }
           }
         }
       }

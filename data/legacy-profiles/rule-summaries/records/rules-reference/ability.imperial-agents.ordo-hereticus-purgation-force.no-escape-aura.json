@@ -50,43 +50,52 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "selected-for-move",
-          "move": "fall-back",
-          "side": "enemy",
-          "distance": {
-            "relation": "within",
-            "inches": 6,
-            "origin": "bearer"
-          },
-          "repeat": "each"
-        },
-        "test": {
-          "kind": "leadership",
-          "actor": "selected-unit",
-          "required": true,
-          "timing": "before-move"
-        },
-        "branches": [
-          {
-            "result": "pass",
-            "action": "allow-selected-fall-back"
-          },
-          {
-            "result": "fail",
-            "action": "replace-selected-move",
-            "replacement": "remain-stationary",
-            "mandatory": true
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INQUISITOR"
+                ]
+              }
+            ]
           }
-        ],
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Inquisitor"
-          ],
-          "excludedKeywords": []
+        },
+        "detail": {
+          "trigger": {
+            "event": "selected-for-move",
+            "move": "fall-back",
+            "side": "enemy",
+            "distance": {
+              "relation": "within",
+              "inches": 6,
+              "origin": "bearer"
+            },
+            "repeat": "each"
+          },
+          "test": {
+            "kind": "leadership",
+            "actor": "selected-unit",
+            "required": true,
+            "timing": "before-move"
+          },
+          "branches": [
+            {
+              "result": "pass",
+              "action": "allow-selected-fall-back"
+            },
+            {
+              "result": "fail",
+              "action": "replace-selected-move",
+              "replacement": "remain-stationary",
+              "mandatory": true
+            }
+          ]
         }
       }
     }

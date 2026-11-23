@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Ghosts of the Webway",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in any phase when one of your HARLEQUINS CHARACTER models has just been destroyed; that model can be the target despite its destruction. When the phase ends, return it to the battlefield as near as possible to the spot where it was destroyed, outside Engagement Range of all enemy units, with half its starting wounds. No model can be targeted by this Stratagem more than once per battle.",
     "citations": [
       {
@@ -25,10 +36,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "perTarget": "battle",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "model",
+            "keywords": [
+              "HARLEQUINS",
+              "CHARACTER"
+            ],
+            "conditions": [
+              "just-destroyed"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Ghosts of the Webway",
           "type": "Strategic Ploy",
           "windows": [

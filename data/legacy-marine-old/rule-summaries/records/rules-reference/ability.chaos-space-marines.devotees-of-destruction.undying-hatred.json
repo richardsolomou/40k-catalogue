@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Devotees of Destruction",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent"
+    },
     "summary": "Use as an enemy picks your HAVOCS or OBLITERATORS as a target in its Shooting phase. Attacks into that unit take −1 on Wound rolls when their Strength exceeds the unit’s Toughness.",
     "summarySpans": [
       {
@@ -53,32 +59,57 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phases": [
-            "Shooting phase"
-          ],
-          "turn": "opponent",
-          "timing": "enemy selects a qualifying unit as an attack target"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "HAVOCS"
+                ]
+              },
+              {
+                "keywords": [
+                  "OBLITERATORS"
+                ]
+              }
+            ]
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "label": "HAVOCS or OBLITERATORS",
-          "bindTo": "triggering defender"
-        },
-        "effect": {
-          "type": "roll modifier",
-          "roll": "Wound roll",
-          "amount": -1,
-          "attackType": "any",
-          "appliesTo": "attacks against that friendly unit",
-          "condition": {
-            "attackCharacteristic": "Strength",
-            "comparison": "greater than",
-            "defendingCharacteristic": "Toughness"
+        "detail": {
+          "window": {
+            "phases": [
+              "Shooting phase"
+            ],
+            "turn": "opponent",
+            "timing": "enemy selects a qualifying unit as an attack target"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "label": "HAVOCS or OBLITERATORS",
+            "bindTo": "triggering defender"
+          },
+          "effect": {
+            "type": "roll modifier",
+            "roll": "Wound roll",
+            "amount": -1,
+            "attackType": "any",
+            "appliesTo": "attacks against that friendly unit",
+            "condition": {
+              "attackCharacteristic": "Strength",
+              "comparison": "greater than",
+              "defendingCharacteristic": "Toughness"
+            }
           }
         }
       }

@@ -99,94 +99,97 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "battle-round-started",
-          "round": 1
-        },
-        "target": {
-          "owner": "friendly",
-          "level": "unit",
-          "allOf": [
-            "TYRANIDS"
+        "detail": {
+          "trigger": {
+            "event": "battle-round-started",
+            "round": 1
+          },
+          "target": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "TYRANIDS"
+            ]
+          },
+          "selection": {
+            "type": "hyper-adaptation",
+            "count": 1
+          },
+          "expires": {
+            "event": "battle-ended"
+          },
+          "branches": [
+            {
+              "name": "Swarming Instincts",
+              "attacker": {
+                "owner": "friendly",
+                "level": "model",
+                "allOf": [
+                  "TYRANIDS"
+                ]
+              },
+              "attackTarget": {
+                "level": "unit",
+                "anyOf": [
+                  "INFANTRY",
+                  "SWARM"
+                ]
+              },
+              "effect": {
+                "type": "weapon-ability-grant",
+                "keyword": "sustained-hits",
+                "extraHits": 1
+              }
+            },
+            {
+              "name": "Hyper-aggression",
+              "attacker": {
+                "owner": "friendly",
+                "level": "model",
+                "allOf": [
+                  "TYRANIDS"
+                ]
+              },
+              "attackTarget": {
+                "level": "unit",
+                "anyOf": [
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              },
+              "effect": {
+                "type": "weapon-ability-grant",
+                "keyword": "lethal-hits"
+              }
+            },
+            {
+              "name": "Hive Predators",
+              "attacker": {
+                "owner": "friendly",
+                "level": "model",
+                "allOf": [
+                  "TYRANIDS"
+                ]
+              },
+              "attackTarget": {
+                "level": "unit",
+                "allOf": [
+                  "CHARACTER"
+                ]
+              },
+              "condition": {
+                "type": "critical-hit"
+              },
+              "effect": {
+                "type": "weapon-ability-grant",
+                "keyword": "precision"
+              }
+            }
           ]
-        },
-        "selection": {
-          "type": "hyper-adaptation",
-          "count": 1
-        },
-        "expires": {
-          "event": "battle-ended"
-        },
-        "branches": [
-          {
-            "name": "Swarming Instincts",
-            "attacker": {
-              "owner": "friendly",
-              "level": "model",
-              "allOf": [
-                "TYRANIDS"
-              ]
-            },
-            "attackTarget": {
-              "level": "unit",
-              "anyOf": [
-                "INFANTRY",
-                "SWARM"
-              ]
-            },
-            "effect": {
-              "type": "weapon-ability-grant",
-              "keyword": "sustained-hits",
-              "extraHits": 1
-            }
-          },
-          {
-            "name": "Hyper-aggression",
-            "attacker": {
-              "owner": "friendly",
-              "level": "model",
-              "allOf": [
-                "TYRANIDS"
-              ]
-            },
-            "attackTarget": {
-              "level": "unit",
-              "anyOf": [
-                "MONSTER",
-                "VEHICLE"
-              ]
-            },
-            "effect": {
-              "type": "weapon-ability-grant",
-              "keyword": "lethal-hits"
-            }
-          },
-          {
-            "name": "Hive Predators",
-            "attacker": {
-              "owner": "friendly",
-              "level": "model",
-              "allOf": [
-                "TYRANIDS"
-              ]
-            },
-            "attackTarget": {
-              "level": "unit",
-              "allOf": [
-                "CHARACTER"
-              ]
-            },
-            "condition": {
-              "type": "critical-hit"
-            },
-            "effect": {
-              "type": "weapon-ability-grant",
-              "keyword": "precision"
-            }
-          }
-        ]
+        }
       }
     }
   }

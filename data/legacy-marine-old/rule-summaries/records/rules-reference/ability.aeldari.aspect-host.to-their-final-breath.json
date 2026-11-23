@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Aspect Host",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "React in the Fight phase to an enemy naming one of your units as an attack target. The eligible keywords are ASPECT WARRIORS and AVATAR OF KHAINE. You can discard one Aspect Shrine token held by the unit. Through phase end, roll one D6 for each of its models destroyed before fighting. Add 1 if you discarded the token. A result of 4+ keeps the model on the table. It can fight once the attacker finishes all its attacks, and comes off afterward.",
     "summarySpans": [
       {
@@ -45,10 +52,37 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ASPECT WARRIORS"
+                ]
+              },
+              {
+                "keywords": [
+                  "AVATAR OF KHAINE"
+                ]
+              }
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "windows": [

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Pactbound Zealots",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in the opposing player's Shooting phase, once an enemy unit has chosen its targets, on one of your HERETIC ASTARTES units that it targeted with at least one attack. That unit has Stealth for the rest of the phase; should that unit be NURGLE, only models within 18\" of it can target it with ranged attacks during that time.",
     "summarySpans": [
       {
@@ -36,10 +43,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "HERETIC ASTARTES"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Pactbound Zealots",
           "type": "Strategic Ploy",
           "windows": [

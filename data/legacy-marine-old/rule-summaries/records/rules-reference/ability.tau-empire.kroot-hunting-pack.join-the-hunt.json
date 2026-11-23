@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Kroot Hunting Pack",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Select a recently destroyed unit from your army in any phase. Eligible units carry KROOT INFANTRY. KROOT HOUNDS units also qualify. Add a copy at Starting Strength to Strategic Reserves. The Stratagem can be used once in the battle and never returns a destroyed CHARACTER unit to an Attached unit.",
     "summarySpans": [
       {
@@ -50,10 +61,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "battle",
+          "restricted": true,
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "KROOT",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "KROOT",
+                  "HOUNDS"
+                ]
+              }
+            ],
+            "conditions": [
+              "just-destroyed"
+            ]
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "turn": "either",

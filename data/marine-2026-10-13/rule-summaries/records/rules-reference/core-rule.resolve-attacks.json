@@ -25,51 +25,54 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "resolve-attacks",
-        "sequence": [
-          "choose-targeted-enemy-unit",
-          "choose-weapon-with-pending-attacks-against-target",
-          "gather-attack-dice",
-          "resolve-gathered-attacks",
-          "repeat-for-same-target-until-complete",
-          "repeat-for-other-targets-until-complete"
-        ],
-        "dice": {
-          "sides": 6,
-          "countPerWeapon": "attacks-assigned-to-target",
-          "oneDieRepresents": "one-attack"
-        },
-        "combinePendingAttacks": {
-          "sameTargetRequired": true,
-          "matchingCharacteristics": [
-            "BS-or-WS",
-            "S",
-            "AP",
-            "D"
+        "detail": {
+          "kind": "resolve-attacks",
+          "sequence": [
+            "choose-targeted-enemy-unit",
+            "choose-weapon-with-pending-attacks-against-target",
+            "gather-attack-dice",
+            "resolve-gathered-attacks",
+            "repeat-for-same-target-until-complete",
+            "repeat-for-other-targets-until-complete"
           ],
-          "sameApplicableRulesAndAbilitiesRequired": true,
-          "gatherTogether": true
-        },
-        "meleeSplit": {
-          "declareAt": "select-targets",
-          "minimumAssignedPerChosenTarget": 1,
-          "gatherOnlyAttacksAssignedToCurrentTarget": true
-        },
-        "reselection": {
-          "when": "original-target-becomes-ineligible",
-          "mayChoose": true,
-          "chooser": "controlling-player"
-        },
-        "completion": {
-          "rangedWeapon": "all-its-attacks-resolved",
-          "meleeWeapon": "all-its-attacks-resolved",
-          "modelShot": "all-its-ranged-weapons-shot",
-          "modelFought": "all-its-selected-melee-weapons-fought",
-          "unitShotOrFought": "its-attacking-models-resolved-all-their-attacks",
-          "unitCountsAsShotOrFoughtWithNoAttacks": false,
-          "unitFinishedMakingAttacks": "its-attacks-resolved"
+          "dice": {
+            "sides": 6,
+            "countPerWeapon": "attacks-assigned-to-target",
+            "oneDieRepresents": "one-attack"
+          },
+          "combinePendingAttacks": {
+            "sameTargetRequired": true,
+            "matchingCharacteristics": [
+              "BS-or-WS",
+              "S",
+              "AP",
+              "D"
+            ],
+            "sameApplicableRulesAndAbilitiesRequired": true,
+            "gatherTogether": true
+          },
+          "meleeSplit": {
+            "declareAt": "select-targets",
+            "minimumAssignedPerChosenTarget": 1,
+            "gatherOnlyAttacksAssignedToCurrentTarget": true
+          },
+          "reselection": {
+            "when": "original-target-becomes-ineligible",
+            "mayChoose": true,
+            "chooser": "controlling-player"
+          },
+          "completion": {
+            "rangedWeapon": "all-its-attacks-resolved",
+            "meleeWeapon": "all-its-attacks-resolved",
+            "modelShot": "all-its-ranged-weapons-shot",
+            "modelFought": "all-its-selected-melee-weapons-fought",
+            "unitShotOrFought": "its-attacking-models-resolved-all-their-attacks",
+            "unitCountsAsShotOrFoughtWithNoAttacks": false,
+            "unitFinishedMakingAttacks": "its-attacks-resolved"
+          }
         }
       }
     }

@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Starshatter Arsenal",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "2 CP, in the opposing player's Shooting phase or in a Fight phase of either turn, right after an enemy unit picks its targets. Choose one NECRONS MOUNTED or NECRONS VEHICLE unit of yours, other than a TITANIC unit, that it picked as a target for at least one attack. For the rest of this phase, when an attack aimed at one of your unit's models has a higher Strength than your unit's Toughness, that attack's Wound roll gets -1.",
     "citations": [
       {
@@ -25,10 +33,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "NECRONS",
+                  "VEHICLE"
+                ]
+              },
+              {
+                "keywords": [
+                  "NECRONS",
+                  "MOUNTED"
+                ]
+              }
+            ],
+            "excludedKeywords": [
+              "TITANIC"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Starshatter Arsenal",
           "when": [
             {

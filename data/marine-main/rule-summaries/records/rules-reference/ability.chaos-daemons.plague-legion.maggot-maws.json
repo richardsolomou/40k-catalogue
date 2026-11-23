@@ -75,60 +75,69 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "characterOnly": true,
-          "match": "all",
-          "keywords": [
-            "LEGIONES DAEMONICA",
-            "NURGLE"
-          ],
-          "excludes": []
-        },
-        "trigger": {
-          "phase": "shooting",
-          "owner": "own-player",
-          "timing": "during"
-        },
-        "selection": {
-          "actor": "own-player",
-          "target": "enemy-unit",
-          "count": 1,
-          "rangeInches": 6,
-          "origin": "bearer-model",
-          "comparison": "within"
-        },
-        "effects": [
-          {
-            "type": "force-test",
-            "test": "battle-shock",
-            "target": "selected-enemy-unit",
-            "order": 1
-          },
-          {
-            "type": "roll-for-mortal-wounds",
-            "target": "selected-enemy-unit",
-            "order": 2,
-            "after": "test",
-            "requiresTestResult": false,
-            "roll": {
-              "dice": "D6",
-              "count": 1
-            },
-            "minimum": 3,
-            "mortalWounds": "D3"
-          },
-          {
-            "type": "suppress-mortal-wounds",
-            "trigger": "each-use-of-this-enhancement",
-            "sourceRuleQid": "ability:chaos-daemons.the-shadow-of-chaos",
-            "sourceRuleSection": "Daemonic Terror",
-            "scope": "this-use",
-            "preservesOtherEffects": true
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "NURGLE"
+                ],
+                "factionKeywords": [
+                  "LEGIONES DAEMONICA"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "trigger": {
+            "phase": "shooting",
+            "owner": "own-player",
+            "timing": "during"
+          },
+          "selection": {
+            "actor": "own-player",
+            "target": "enemy-unit",
+            "count": 1,
+            "rangeInches": 6,
+            "origin": "bearer-model",
+            "comparison": "within"
+          },
+          "effects": [
+            {
+              "type": "force-test",
+              "test": "battle-shock",
+              "target": "selected-enemy-unit",
+              "order": 1
+            },
+            {
+              "type": "roll-for-mortal-wounds",
+              "target": "selected-enemy-unit",
+              "order": 2,
+              "after": "test",
+              "requiresTestResult": false,
+              "roll": {
+                "dice": "D6",
+                "count": 1
+              },
+              "minimum": 3,
+              "mortalWounds": "D3"
+            },
+            {
+              "type": "suppress-mortal-wounds",
+              "trigger": "each-use-of-this-enhancement",
+              "sourceRuleQid": "ability:chaos-daemons.the-shadow-of-chaos",
+              "sourceRuleSection": "Daemonic Terror",
+              "scope": "this-use",
+              "preservesOtherEffects": true
+            }
+          ]
+        }
       }
     }
   }

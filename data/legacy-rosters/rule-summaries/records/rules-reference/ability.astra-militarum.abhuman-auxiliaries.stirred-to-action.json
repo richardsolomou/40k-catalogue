@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Abhuman Auxiliaries",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent"
+    },
     "summary": "Spend 1 CP in the opponent's Shooting phase, once an enemy unit has finished shooting after targeting an unengaged BULLGRYN SQUAD or OGRYN SQUAD unit of yours, on that BULLGRYN SQUAD or OGRYN SQUAD unit. It may make a surge move, going no further than D6\".",
     "citations": [
       {
@@ -25,11 +31,37 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "BULLGRYN SQUAD"
+                ]
+              },
+              {
+                "keywords": [
+                  "OGRYN SQUAD"
+                ]
+              }
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Abhuman Auxiliaries",
           "when": {
             "turn": "opponent",

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Hallowed Martyrs",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in any Fight phase on one ADEPTA SORORITAS unit in your army that hasn't yet been picked to fight this phase. For the rest of the phase, its models may re-roll Hit rolls for their melee attacks, and if the unit counts as Below Half-strength they may re-roll those attacks' Wound rolls too.",
     "citations": [
       {
@@ -25,12 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTA SORORITAS"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Hallowed Martyrs",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {
@@ -50,13 +73,13 @@
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "hit",
               "attackType": "melee",
               "duration": "phase"
             },
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "wound",
               "attackType": "melee",
               "duration": "phase",

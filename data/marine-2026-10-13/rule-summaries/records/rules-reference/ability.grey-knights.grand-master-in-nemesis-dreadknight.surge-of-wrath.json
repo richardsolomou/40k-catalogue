@@ -60,37 +60,40 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "actor": "this-model",
-        "trigger": "each-melee-attack",
-        "target": {
-          "entity": "unit",
-          "anyKeyword": [
-            "MONSTER",
-            "VEHICLE"
+        "detail": {
+          "actor": "this-model",
+          "trigger": "each-melee-attack",
+          "target": {
+            "entity": "unit",
+            "anyKeyword": [
+              "MONSTER",
+              "VEHICLE"
+            ]
+          },
+          "effects": [
+            {
+              "roll": "hit",
+              "optional": true,
+              "independent": true,
+              "kind": "re-roll"
+            },
+            {
+              "roll": "wound",
+              "optional": true,
+              "independent": true,
+              "kind": "re-roll"
+            },
+            {
+              "roll": "damage",
+              "optional": true,
+              "independent": true,
+              "kind": "re-roll"
+            }
           ]
-        },
-        "effects": [
-          {
-            "roll": "hit",
-            "operation": "reroll",
-            "optional": true,
-            "independent": true
-          },
-          {
-            "roll": "wound",
-            "operation": "reroll",
-            "optional": true,
-            "independent": true
-          },
-          {
-            "roll": "damage",
-            "operation": "reroll",
-            "optional": true,
-            "independent": true
-          }
-        ]
+        }
       }
     }
   }

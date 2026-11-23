@@ -9,7 +9,7 @@ Every summary is original wording, checked against the official sources it cites
 | `rules-reference` | 5,941 | 5,940 | 1 |
 | `mission-rules` | 291 | 240 | 51 |
 
-6,179 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 1 record that no app row carries cites only the dated Games Workshop page that prints it. 1,235 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,179 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 1 record that no app row carries cites only the dated Games Workshop page that prints it. 1,214 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`.
 

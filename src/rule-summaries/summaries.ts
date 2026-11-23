@@ -3,18 +3,19 @@ import { resolve, validateRelease, type Ref, type Release } from "../catalogue-i
 import type { CatalogueRecord } from "../catalogue-releases/catalogue.ts";
 import { validate as validateMechanic } from "../validate.ts";
 import factsSchema from "./facts.v1.schema.json" with { type: "json" };
-import schema from "./summaries.v1.schema.json" with { type: "json" };
+import { links, parseSummary } from "./markdown.ts";
+export { links, parseSummary, plain } from "./markdown.ts";
+import schema from "./summaries.v2.schema.json" with { type: "json" };
 
-// Mirrors summaries.v1.schema.json, which is the contract consumers rely on.
+// Mirrors summaries.v2.schema.json, which is the contract consumers rely on.
 export type Citation =
   | { type: "app"; title: string; appVersion: string; dataBuild: number; releaseDate: string }
   | { type: "publisher"; title: string; page?: string; url: string };
-export type SummarySpan = { start: number; end: number; bold?: true; target?: Ref };
 /** Typed facts in a named format; VS Data checks `vs-data-facts` version `1` against its schema and `vs-data-mechanic` version `1` as mechanic fields. */
 export type Facts = { format: string; version?: string; fields: Record<string, unknown> };
 export type SummaryData = {
+  /** Markdown in the summary grammar: paragraphs, lists, bold and `vsdata:` links (see markdown.ts). */
   summary: string;
-  summarySpans?: SummarySpan[];
   citations: Citation[];
   /** The open questions the summary's reading rests on. */
   interpretation?: { question: string }[];
@@ -169,13 +170,11 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
         else if (!entry.references?.some((r) => key(r) === key(detachment))) errors.push(`${at} names ${key(detachment)} but its identity entry does not reference it`);
       }
     }
-    const { summary: text, summarySpans = [], facts } = summary.data;
-    summarySpans.forEach(({ start, end }, i) => {
-      if (end <= start || end > text.length) errors.push(`${at} span ${i} does not lie within the summary`);
-      else if (i > 0 && start < summarySpans[i - 1].end) errors.push(`${at} span ${i} overlaps or precedes the span before it`);
-    });
+    const { summary: text, facts } = summary.data;
+    const parsed = parseSummary(text);
+    if (!parsed.ok) errors.push(`${at} summary ${parsed.error}`);
     // A summary may link its own rule's name, which needs no reference.
-    const named = [...summarySpans.flatMap((s) => (s.target ? [s.target] : [])), ...((summary.data as FaqData).amends ?? [])].filter((ref) => key(ref) !== at);
+    const named = [...(parsed.ok ? links(parsed.blocks) : []), ...((summary.data as FaqData).amends ?? [])].filter((ref) => key(ref) !== at);
     for (const ref of named) {
       const target = entries.get(key(ref));
       if (!target || target.retired) errors.push(`${at} names ${key(ref)}, which is not current in the identity release`);

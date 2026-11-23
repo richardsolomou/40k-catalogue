@@ -1,6 +1,6 @@
 # Rule summaries
 
-A rule summary gives players one rule in plain language, with bold keywords and links to related rules, and names the official sources it was checked against. Summaries are the `data` of two [catalogue release](catalogue-releases.md) categories, one record per [identity](catalogue-identity.md) entry: `rules-reference` for abilities, core rules, keywords and FAQs, and `mission-rules` for mission cards, awards, actions and twists. The contract is [src/rule-summaries/summaries.v1.schema.json](../src/rule-summaries/summaries.v1.schema.json) plus the rules below, and [src/rule-summaries/summaries.ts](../src/rule-summaries/summaries.ts) is a reference implementation of both.
+A rule summary gives players one rule in plain language, laid out in short paragraphs and lists with bold keywords and links to related rules, and names the official sources it was checked against. Summaries are the `data` of two [catalogue release](catalogue-releases.md) categories, one record per [identity](catalogue-identity.md) entry: `rules-reference` for abilities, core rules, keywords and FAQs, and `mission-rules` for mission cards, awards, actions and twists. The contract is [src/rule-summaries/summaries.v2.schema.json](../src/rule-summaries/summaries.v2.schema.json), format version 2, plus the rules below, and [src/rule-summaries/summaries.ts](../src/rule-summaries/summaries.ts) is a reference implementation of both. Format version 1 carried plain text with `summarySpans` offsets; version 2 replaces them with the summary text below.
 
 A rule that the [mechanic format](records.md) fully describes also ships as a mechanic record. Its summary record carries the same structured fields as typed facts.
 
@@ -32,13 +32,27 @@ The record's display name is its identity entry's `name`.
 
 | Field | Meaning |
 | --- | --- |
-| `summary` | The rule in original wording. |
-| `summarySpans` | Bold and link ranges within `summary`, as in [mechanic summaries](records.md#summaries): UTF-16 offsets with an exclusive end, in ascending order and never overlapping. A link names its destination by `{ kind, id }` in the record's rules version. |
+| `summary` | The rule in original wording, as [summary text](#summary-text). |
 | `citations` | The official sources the summary was checked against, described below. |
 | `interpretation` | Open questions the summary's reading rests on, each as `{ question }`. The summary states the reading the project chose. Show the flag so players know the source leaves the point open. |
 | `facts` | Optional typed facts as `{ format, version, fields }`. |
 
 The record's `source` locates the printed rule, so it is the publisher document where there is one, else the app build. A record that adapts upstream data carries an `attribution`, as any [catalogue record](catalogue-releases.md#inputs) can.
+
+## Summary text
+
+`summary` is Markdown restricted to a small grammar, so any CommonMark renderer shows it as intended and a consumer that needs plain text can strip it with `plain(summary)` from [src/rule-summaries/markdown.ts](../src/rule-summaries/markdown.ts), which `summaries.ts` re-exports.
+
+- **Blocks.** Blocks are separated by exactly one blank line (`\n\n`). A block is a paragraph, an unordered list or an ordered list. Render them in order: a paragraph as a paragraph, a list as a list.
+- **Paragraphs.** One or more lines. Lines within a paragraph are separated by a single line break, which CommonMark renders as a space and `plain` keeps as a line break.
+- **Lists.** Every line of the block is an item. Unordered items begin with a hyphen and a space, and ordered items with `1.`, `2.` and so on and a space, numbered from 1 without gaps. An item is one line. Lists do not nest, and two lists of the same type are never adjacent, since CommonMark would merge them.
+- **Bold.** `**text**`, which may wrap text or a single link, never nested, and placed where CommonMark opens and closes bold.
+- **Links.** `[text](vsdata:<kind>/<id>)` names a catalogue entry by its identity `kind` and `id` in the record's rules version. A rule may link its own name. No other link scheme is allowed.
+- **Nothing else.** No headings, quotes, code, HTML, images, tables, italics, strikethrough, escapes, entities, bare URLs or indentation. Lines carry no leading or trailing whitespace, and literal square brackets, such as `[ASSAULT]`, are plain text unless they form a link.
+
+A summary typically opens with a short lead sentence, then lists the parallel parts of the rule, such as steps, options or conditions, one per item.
+
+`parseSummary(summary)` returns the blocks, each line as a list of text, bold and link parts, or the first thing the grammar does not allow. `plain(summary)` removes bold and link markup and keeps the layout: paragraphs separated by a blank line, a paragraph's lines and a list's items by a line break, and each item's marker.
 
 ## Citations
 
@@ -66,8 +80,8 @@ Identity entries without a record are listed as `unresolved`, and their category
 `validateSummaries(identity, records)` takes the identity release that holds the summary entries and every rule they name. It checks each record's `data` against its kind and these rules, which the schema cannot express:
 
 - Every record uses the identity release's rules version, its entry is current, and an entry has at most one record.
-- Spans lie within the summary, in ascending order, without overlapping.
-- Every rule a span links to or an FAQ amends is current and appears in the identity entry's `references`, so a release's `dependsOn` and `unresolvedReferences` include it. A summary may link its own rule's name without a reference.
+- The summary parses with the [summary text](#summary-text) grammar.
+- Every rule a summary links to or an FAQ amends is current and appears in the identity entry's `references`, so a release's `dependsOn` and `unresolvedReferences` include it. A summary may link its own rule's name without a reference.
 - A Stratagem has a `cp` cost, and no other ability has a cost or Stratagem timing.
 - A Stratagem's `windows` give each of its `phases` in order, with turns that differ, and its `turn` is `any`.
 - Only a Stratagem or Enhancement names a `detachment`, which is current and appears in its identity entry's `references`.

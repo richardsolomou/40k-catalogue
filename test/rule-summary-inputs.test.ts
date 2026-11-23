@@ -9,7 +9,8 @@ import { validatePack } from "../src/mission-packs/validate.ts";
 import { validateSnapshot } from "../src/points/validate.ts";
 import { KINDS as DEFINITION_KINDS, validateDefinitions } from "../src/roster-definitions/definitions.ts";
 import { buildRelease } from "../src/releases/release.ts";
-import { validateSummaries } from "../src/rule-summaries/summaries.ts";
+import { parseSummary, validateSummaries } from "../src/rule-summaries/summaries.ts";
+import { commonmark } from "./commonmark.ts";
 
 const data = fileURLToPath(new URL("../data/", import.meta.url));
 const json = (path: string): any => JSON.parse(readFileSync(path, "utf8"));
@@ -35,6 +36,17 @@ for (const version of versions) {
       records().filter((r) => SUMMARY_KINDS.has(r.kind)),
     );
     if (!result.ok) assert.fail(result.errors.slice(0, 20).join("\n"));
+  });
+
+  test(`CommonMark reads every ${version} summary as the strict parser does`, () => {
+    const differ = records()
+      .filter((r) => SUMMARY_KINDS.has(r.kind))
+      .filter((r) => {
+        const { summary } = r.data as { summary: string };
+        const parsed = parseSummary(summary);
+        return !parsed.ok || JSON.stringify(parsed.blocks) !== JSON.stringify(commonmark(summary));
+      });
+    assert.deepEqual(differ.map((r) => `${r.kind}:${r.id}`), []);
   });
 
   test(`every ${version} mission pack validates as a mission pack under its record's ID`, () => {

@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.rad-zone-corps.baleful-halo",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Rad-Zone Corps",
+    "cp": 2,
+    "summary": "In either Fight phase, react once a foe has picked its attack targets. Pick a non-Vehicle Adeptus Mechanicus unit of yours from among those targets. If that defender has Battleline, you may also pick a friendly Skitarii unit without Battleline at most 6″ from the defender. Until this phase ends, apply a −1 penalty to Wound rolls for attacks against either chosen unit.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 319,
+        "end": 330,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "detachment": "Rad-Zone Corps",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "after-attacker-selects-targets",
+            "actor": "enemy-unit",
+            "timing": "immediately-after"
+          },
+          "target": {
+            "primary": {
+              "entity": "unit",
+              "count": 1,
+              "controller": "friendly",
+              "allKeywords": [
+                "ADEPTUS MECHANICUS"
+              ],
+              "excludedKeywords": [
+                "VEHICLE"
+              ],
+              "selectedForAtLeastOneAttackBy": "triggering-enemy"
+            },
+            "additional": {
+              "entity": "unit",
+              "count": 1,
+              "controller": "friendly",
+              "allKeywords": [
+                "SKITARII"
+              ],
+              "excludedKeywords": [
+                "BATTLELINE"
+              ],
+              "optional": true,
+              "requiresPrimaryKeyword": "BATTLELINE",
+              "distanceInches": 6,
+              "boundary": "at-most",
+              "relativeTo": "primary-defender"
+            }
+          },
+          "effects": [
+            {
+              "action": "modify-wound-roll",
+              "amount": -1,
+              "attackers": "all",
+              "recipient": "attacks-against-either-selected-defender",
+              "expires": "end-of-fight-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

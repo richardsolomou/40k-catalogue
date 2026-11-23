@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.thulia-ghuld.fanatical-devotion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Thulia Ghuld",
+    "summary": "If you select this Rod of the War Forge option as your Command phase begins, Ghuld can choose a friendly unit 6″ away or closer. It must be SKITARII or THULIA GHULD. After Advancing, the chosen unit can still shoot and declare charges that turn. The permission expires as your next Command phase begins.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 39,
+        "target": {
+          "kind": "ability",
+          "id": "adeptus-mechanicus.thulia-ghuld.rod-of-the-war-forge"
+        }
+      },
+      {
+        "start": 55,
+        "end": 68,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 140,
+        "end": 148,
+        "bold": true
+      },
+      {
+        "start": 152,
+        "end": 164,
+        "bold": true
+      },
+      {
+        "start": 172,
+        "end": 181,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 282,
+        "end": 295,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "Command",
+          "side": "own",
+          "step": "start",
+          "requiresSelectionFrom": "Rod of the War Forge"
+        },
+        "optional": true,
+        "target": {
+          "count": 1,
+          "side": "friendly",
+          "anyKeyword": [
+            "SKITARII",
+            "THULIA GHULD"
+          ],
+          "withinInches": 6,
+          "origin": "owner model"
+        },
+        "until": {
+          "phase": "Command",
+          "side": "own",
+          "step": "start",
+          "occurrence": "next"
+        },
+        "effect": {
+          "afterMove": "Advance",
+          "mayShoot": true,
+          "mayDeclareCharge": true,
+          "moveTiming": "same turn"
+        }
+      }
+    }
+  }
+}

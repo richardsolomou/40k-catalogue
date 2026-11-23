@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.ordo-xenos-alien-hunters.amulet-of-auto-chastisement",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Ordo Xenos, Alien Hunters",
+    "summary": "Only a WATCH MASTER model can take this. As the opponent's Shooting phase begins, pick one enemy VEHICLE unit, other than a TITANIC unit, that the bearer can see within 12\". That unit takes a Leadership test. If it passes, its models subtract 1 from their Hit rolls for the rest of that phase; if it fails, it cannot shoot in that phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "enhancement": {
+          "detachment": "Ordo Xenos, Alien Hunters",
+          "pointsCost": 25,
+          "eligibility": {
+            "scope": "model",
+            "keywordsAll": [
+              "WATCH MASTER"
+            ]
+          },
+          "effects": [
+            {
+              "timing": {
+                "turn": "opponent",
+                "phase": "shooting",
+                "point": "start"
+              },
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsAll": [
+                  "VEHICLE"
+                ],
+                "excludesKeywords": [
+                  "TITANIC"
+                ],
+                "withinInches": 12,
+                "visibleToBearer": true
+              },
+              "test": "Leadership",
+              "onPass": {
+                "duration": "end-of-phase",
+                "hitRollModifier": {
+                  "direction": "subtract",
+                  "amount": 1
+                }
+              },
+              "onFail": {
+                "notEligibleToShoot": "this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.recon-element.tripwires",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Recon Element",
+    "summary": "Only ASTRA MILITARUM INFANTRY models can take this. Whenever an INFANTRY or MOUNTED enemy unit finishes a Fall Back, Charge, Advance or Normal move no more than 8\" from the bearer's unit, you roll a D6; on a 4+ that enemy unit becomes stunned until your next turn starts. While stunned, its models subtract 1 from their Hit rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "enhancement": {
+          "detachment": "Recon Element",
+          "pointsCost": 20,
+          "eligibility": {
+            "scope": "model",
+            "keywordsAll": [
+              "ASTRA MILITARUM",
+              "INFANTRY"
+            ]
+          },
+          "effects": [
+            {
+              "trigger": {
+                "enemyKeywordsAny": [
+                  "INFANTRY",
+                  "MOUNTED"
+                ],
+                "event": "ends-normal-advance-charge-or-fall-back-move",
+                "withinInchesOfBearerUnit": 8
+              },
+              "roll": {
+                "dice": "D6",
+                "successOn": "4+"
+              },
+              "onSuccess": {
+                "status": "stunned",
+                "until": "start-of-your-next-turn",
+                "whileStunned": {
+                  "hitRollModifier": {
+                    "direction": "subtract",
+                    "amount": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

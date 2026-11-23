@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.retaliation-cadre.fail-safe-detonator",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Retaliation Cadre",
+    "cp": 2,
+    "summary": "When a BATTLESUIT model from your T’AU EMPIRE army dies, choose a result of 1 or 6 for its Deadly Demise instead of rolling. If it has no such ability, check each unit within 6\" before removing the model. Roll a D6 per unit, dealing it D3 mortal wounds on a 4+.",
+    "summarySpans": [
+      {
+        "start": 91,
+        "end": 104,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "deadly-demise"
+        }
+      },
+      {
+        "start": 239,
+        "end": 252,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-friendly-model-destroyed",
+            "destroyed": {
+              "keywords": [
+                "T’AU EMPIRE BATTLESUIT"
+              ]
+            }
+          },
+          "target": {
+            "fromTrigger": "destroyed-model",
+            "entity": "model"
+          },
+          "effects": [
+            {
+              "action": "replace-deadly-demise-roll-with-chosen-result",
+              "actor": "you",
+              "recipient": "destroyed-model",
+              "resultOptions": [
+                1,
+                6
+              ],
+              "condition": "destroyed-model-has-deadly-demise"
+            },
+            {
+              "action": "inflict-mortal-wounds",
+              "actor": "destroyed-model",
+              "recipient": "every-unit-in-range",
+              "distance": {
+                "unit": "inch",
+                "amount": 6,
+                "from": "destroyed-model",
+                "comparator": "at-most"
+              },
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1
+              },
+              "rollPer": "unit-in-range",
+              "minimumRoll": 4,
+              "mortalWoundsPerSuccess": {
+                "kind": "die",
+                "sides": 3,
+                "count": 1
+              },
+              "condition": "destroyed-model-lacks-deadly-demise",
+              "timing": "before-model-removal"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

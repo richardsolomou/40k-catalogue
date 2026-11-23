@@ -1,0 +1,190 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.penitent-host.desperate-for-redemption",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Penitent Host",
+    "summary": "Pick up to one Vow of Atonement as your Command phase opens. Keep it until your next Command phase begins. Spend each vow at most once per battle. Your PENITENT models gain +3\" Move under Path of the Penitent. Absolution in Battle gives those models’ melee weapons +1 Attacks and +1 Strength through the phase when their unit is picked to fight after a Charge Move that turn. Death Before Disgrace applies to a PENITENT model slain in melee before fighting that phase. Test once with D6. A 2+ keeps it in play. After the attacker resolves its attacks, the model may fight. Then remove it.",
+    "summarySpans": [
+      {
+        "start": 40,
+        "end": 53,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 85,
+        "end": 98,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 152,
+        "end": 160,
+        "bold": true
+      },
+      {
+        "start": 329,
+        "end": 344,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 353,
+        "end": 364,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 411,
+        "end": 419,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "phase-started",
+          "phase": "command",
+          "owner": "self"
+        },
+        "selection": {
+          "type": "vow-choice",
+          "maximum": 1,
+          "optional": true,
+          "limitPerOption": {
+            "count": 1,
+            "period": "battle"
+          }
+        },
+        "activeFor": "friendly-army",
+        "expires": {
+          "event": "next-phase-started",
+          "phase": "command",
+          "owner": "self"
+        },
+        "branches": [
+          {
+            "name": "The Path of the Penitent",
+            "target": {
+              "owner": "friendly",
+              "level": "model",
+              "allOf": [
+                "PENITENT"
+              ]
+            },
+            "effect": {
+              "type": "stat-modifier",
+              "stat": "move",
+              "operation": "add",
+              "value": 3,
+              "unit": "inches"
+            }
+          },
+          {
+            "name": "Absolution in Battle",
+            "trigger": {
+              "event": "selected-to-fight",
+              "subject": "friendly-unit"
+            },
+            "condition": {
+              "type": "move-completed",
+              "move": "charge",
+              "turn": "triggering",
+              "subject": "selected-unit"
+            },
+            "target": {
+              "owner": "friendly",
+              "level": "model",
+              "allOf": [
+                "PENITENT"
+              ],
+              "inUnit": "selected-unit"
+            },
+            "expires": {
+              "event": "phase-ended",
+              "phase": "triggering"
+            },
+            "effects": [
+              {
+                "type": "stat-modifier",
+                "stat": "attacks",
+                "operation": "add",
+                "value": 1,
+                "attackType": "melee"
+              },
+              {
+                "type": "stat-modifier",
+                "stat": "strength",
+                "operation": "add",
+                "value": 1,
+                "attackType": "melee"
+              }
+            ]
+          },
+          {
+            "name": "Death Before Disgrace",
+            "trigger": {
+              "event": "model-destroyed",
+              "cause": "melee-attack"
+            },
+            "target": {
+              "owner": "friendly",
+              "level": "model",
+              "allOf": [
+                "PENITENT"
+              ]
+            },
+            "condition": {
+              "type": "has-not-fought",
+              "phase": "triggering",
+              "subject": "destroyed-model"
+            },
+            "roll": {
+              "dice": "D6",
+              "count": 1,
+              "threshold": 2
+            },
+            "effect": {
+              "type": "fight-on-death",
+              "deferRemoval": true,
+              "fightOptional": true,
+              "timing": {
+                "event": "unit-finished-attacks",
+                "subject": "attacking-unit"
+              },
+              "removal": "after-fight-opportunity"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

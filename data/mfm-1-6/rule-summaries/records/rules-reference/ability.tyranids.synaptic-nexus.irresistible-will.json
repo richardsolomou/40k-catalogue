@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.synaptic-nexus.irresistible-will",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Synaptic Nexus",
+    "cp": 1,
+    "summary": "In your Shooting phase or either Fight phase, choose a SYNAPSE unit that you have yet to pick for shooting or fighting this phase. Choose an enemy visible to that unit and within 24 inches of it. Until phase end, whenever a TYRANIDS model attacks that enemy and its unit is within 6 inches of the selected SYNAPSE unit, re-roll any Hit or Wound roll of 1.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 33,
+        "end": 44,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 55,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 224,
+        "end": 232,
+        "bold": true
+      },
+      {
+        "start": 306,
+        "end": 313,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight",
+              "shooting"
+            ],
+            "event": "phase-window"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "SYNAPSE"
+            ],
+            "notYetSelectedToShootOrFightThisPhase": true,
+            "additional": {
+              "owner": "enemy",
+              "count": 1,
+              "rangeInches": 24,
+              "from": "selected-synapse-unit",
+              "visibleTo": "selected-synapse-unit"
+            }
+          },
+          "effects": [
+            {
+              "kind": "reroll",
+              "rolls": [
+                "hit",
+                "wound"
+              ],
+              "rerollResults": [
+                1
+              ],
+              "subject": "friendly-tyranids-models-attacking-selected-enemy",
+              "condition": {
+                "attackerUnitWithinInches": 6,
+                "from": "selected-synapse-unit"
+              }
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

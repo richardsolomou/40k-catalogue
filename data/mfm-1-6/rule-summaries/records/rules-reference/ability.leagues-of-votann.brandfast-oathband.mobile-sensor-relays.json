@@ -1,0 +1,127 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.brandfast-oathband.mobile-sensor-relays",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Brandfast Oathband",
+    "summary": "Firebase Control (Aura) — A unit from your army with the INFANTRY and LEAGUES OF VOTANN keywords gets [SUSTAINED HITS 1] on its ranged weapons while wholly within 6″ of one of your TRANSPORT units with the LEAGUES OF VOTANN keyword.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 22,
+        "bold": true
+      },
+      {
+        "start": 57,
+        "end": 65,
+        "bold": true
+      },
+      {
+        "start": 70,
+        "end": 87,
+        "bold": true
+      },
+      {
+        "start": 102,
+        "end": 120,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 181,
+        "end": 190,
+        "bold": true
+      },
+      {
+        "start": 206,
+        "end": 223,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "passive",
+        "scope": {
+          "duration": "permanent"
+        },
+        "effect": {
+          "type": "ability-grant",
+          "target": {
+            "owner": "friendly",
+            "all_of": [
+              "LEAGUES OF VOTANN",
+              "TRANSPORT"
+            ]
+          },
+          "modifier": {
+            "ability": {
+              "ability_id": "mobile-sensor-relays-leagues-of-votann",
+              "definition_id": "firebase-control"
+            },
+            "definition": {
+              "type": "ability-part",
+              "name": "Firebase Control",
+              "effect": {
+                "type": "aura",
+                "target": "friendly-within-aura",
+                "modifier": {
+                  "range": {
+                    "inches": 6
+                  },
+                  "effect": {
+                    "type": "weapon-ability-grant",
+                    "target": "recipient",
+                    "modifier": {
+                      "keywords": [
+                        {
+                          "keyword_id": "sustained-hits",
+                          "parameters": {
+                            "value": 1
+                          }
+                        }
+                      ],
+                      "weapons": {
+                        "type": "ranged"
+                      }
+                    }
+                  },
+                  "wholly": true,
+                  "eligible": {
+                    "owner": "friendly",
+                    "all_of": [
+                      "INFANTRY",
+                      "LEAGUES OF VOTANN"
+                    ]
+                  },
+                  "of": "this-unit"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

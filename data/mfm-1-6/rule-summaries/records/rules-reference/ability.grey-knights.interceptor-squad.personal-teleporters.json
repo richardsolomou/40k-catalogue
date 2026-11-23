@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.interceptor-squad.personal-teleporters",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Interceptor Squad",
+    "summary": "In your Shooting phase, once this unit has finished shooting and is outside Engagement Range of every enemy unit, it may make a Normal move (6″ at most), handled as if your Movement phase were under way. A unit that does so cannot declare a charge for the rest of the turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Interceptor Squad",
+        "trigger": {
+          "event": "this-unit-has-shot",
+          "window": {
+            "phase": "shooting",
+            "turn": "own"
+          },
+          "condition": "not within Engagement Range of any enemy unit"
+        },
+        "effects": [
+          {
+            "kind": "normal-move",
+            "maxDistanceInches": 6,
+            "optional": true,
+            "asIfMovementPhase": true
+          },
+          {
+            "kind": "forbid-charge",
+            "expires": "end-of-turn",
+            "condition": "move was made"
+          }
+        ]
+      }
+    }
+  }
+}

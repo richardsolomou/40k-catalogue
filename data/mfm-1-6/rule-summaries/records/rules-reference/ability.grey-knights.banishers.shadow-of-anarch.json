@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.banishers.shadow-of-anarch",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Banishers",
+    "cp": 1,
+    "summary": "Spend 1 CP during the opposing player's Movement phase just as an enemy unit completes a Normal move, an Advance move or a Fall Back move. Pick one of your GREY KNIGHTS PSYKER units that is no more than 8″ from the enemy unit that moved and outside Engagement Range of every enemy unit. Your unit may either make a Normal move (6″ at most) or, provided it has Deep Strike, go into Strategic Reserves.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Banishers",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-ends-normal-advance-or-fall-back-move"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "GREY KNIGHTS",
+              "PSYKER"
+            ],
+            "withinInchesOfTrigger": 8,
+            "notWithinEngagementRangeOfEnemy": true
+          },
+          "effects": [
+            {
+              "kind": "choice",
+              "options": [
+                {
+                  "kind": "normal-move",
+                  "maxDistanceInches": 6
+                },
+                {
+                  "kind": "place-into-strategic-reserves",
+                  "condition": "unit has the Deep Strike ability"
+                }
+              ]
+            }
+          ],
+          "restrictions": [],
+          "category": "Epic Deed"
+        }
+      }
+    }
+  }
+}

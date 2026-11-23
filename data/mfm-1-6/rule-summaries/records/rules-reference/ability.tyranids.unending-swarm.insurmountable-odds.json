@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.unending-swarm.insurmountable-odds",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Unending Swarm",
+    "summary": "After an enemy unit finishes shooting in its Shooting phase, check which of your ENDLESS MULTITUDE units had models destroyed by those attacks. Those units may surge move, with D6″ as the maximum distance.",
+    "summarySpans": [
+      {
+        "start": 45,
+        "end": 59,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 81,
+        "end": 98,
+        "bold": true
+      },
+      {
+        "start": 116,
+        "end": 125,
+        "bold": true
+      },
+      {
+        "start": 160,
+        "end": 170,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-moves"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "reactive",
+        "trigger": {
+          "event": "attacks-resolved",
+          "filter": {
+            "kind": "shoot"
+          },
+          "subject": {
+            "owner": "enemy"
+          }
+        },
+        "scope": {
+          "duration": "permanent"
+        },
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "shooting"
+                }
+              },
+              {
+                "type": "player-turn-is",
+                "parameters": {
+                  "turn": "opponent-turn"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "happened",
+              "parameters": {
+                "event": "model-destroyed",
+                "object": {
+                  "level": "model",
+                  "member_of": "recipient"
+                },
+                "filter": {
+                  "by": "event-subject"
+                },
+                "window": "event"
+              }
+            },
+            "effect": {
+              "type": "move",
+              "target": {
+                "owner": "friendly",
+                "all_of": [
+                  "ENDLESS MULTITUDE"
+                ]
+              },
+              "modifier": {
+                "move_type": "surge",
+                "distance": "D6"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

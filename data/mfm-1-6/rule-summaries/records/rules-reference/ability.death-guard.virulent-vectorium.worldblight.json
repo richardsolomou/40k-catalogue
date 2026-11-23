@@ -1,0 +1,169 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.virulent-vectorium.worldblight",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Virulent Vectorium",
+    "summary": "Secure your controlled objectives as your Command phase ends if a DEATH GUARD unit from your army is in range. Your control then persists until the opponent takes the objective. Enemies in range of objectives secured this way count as Afflicted while you still control those objectives.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 6,
+        "target": {
+          "kind": "core-rule",
+          "id": "secured-objectives"
+        }
+      },
+      {
+        "start": 42,
+        "end": 55,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 66,
+        "end": 77,
+        "bold": true
+      },
+      {
+        "start": 167,
+        "end": 176,
+        "bold": true
+      },
+      {
+        "start": 209,
+        "end": 216,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "secured-objectives"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "reactive",
+        "trigger": {
+          "event": "phase-ended",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "command"
+                }
+              },
+              {
+                "type": "player-turn-is",
+                "parameters": {
+                  "turn": "your-turn"
+                }
+              }
+            ]
+          }
+        },
+        "scope": {
+          "duration": "permanent"
+        },
+        "effect": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "for-each-unit",
+              "selector": {
+                "filter": {
+                  "owner": "friendly",
+                  "all_of": [
+                    "DEATH GUARD"
+                  ]
+                }
+              },
+              "effect": {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "objective-sticky",
+                    "target": "recipient"
+                  },
+                  {
+                    "type": "designate",
+                    "target": "recipient",
+                    "modifier": {
+                      "subject": {
+                        "objective": {
+                          "controlled_by_unit": "recipient"
+                        }
+                      },
+                      "tag": "secured"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "ability-part",
+              "effect": {
+                "type": "for-each-unit",
+                "selector": {
+                  "filter": {
+                    "owner": "enemy"
+                  }
+                },
+                "effect": {
+                  "type": "conditional",
+                  "condition": {
+                    "type": "matches",
+                    "parameters": {
+                      "subject": "recipient",
+                      "filter": {
+                        "within": {
+                          "of": {
+                            "objective": {
+                              "controlled_by": "friendly",
+                              "designated": "secured"
+                            }
+                          },
+                          "range": "objective-control"
+                        }
+                      }
+                    }
+                  },
+                  "effect": {
+                    "type": "designate",
+                    "target": "recipient",
+                    "modifier": {
+                      "tag": "afflicted"
+                    }
+                  }
+                }
+              },
+              "duration": "control-lost"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.veiled-blade-elimination-force.blind-grenades",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Imperial Agents Faction Pack: Version 1.3",
+    "page": "3",
+    "url": "https://assets.warhammer-community.com/eng_14-10_wh40k_-faction_pack_imperial_agents-5bv5lemlti-phvkqckp17.pdf#page=3"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Veiled Blade Elimination Force",
+    "cp": 1,
+    "summary": "React immediately after the enemy declares a charge in its Charge phase. Pick one friendly charge target outside enemy Engagement Range. It must be a VINDICARE ASSASSIN or have both GRENADES and AGENTS OF THE IMPERIUM. Through phase end, subtract 1 from the charger’s Charge rolls. Subtract 2 instead for a VINDICARE ASSASSIN pick.",
+    "summarySpans": [
+      {
+        "start": 59,
+        "end": 71,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 119,
+        "end": 135,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 150,
+        "end": 168,
+        "bold": true
+      },
+      {
+        "start": 182,
+        "end": 190,
+        "bold": true
+      },
+      {
+        "start": 195,
+        "end": 217,
+        "bold": true
+      },
+      {
+        "start": 307,
+        "end": 325,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Imperial Agents Faction Pack: Version 1.3",
+        "page": "3",
+        "url": "https://assets.warhammer-community.com/eng_14-10_wh40k_-faction_pack_imperial_agents-5bv5lemlti-phvkqckp17.pdf#page=3"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-declares-charge",
+            "actor": "enemy-charging-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "alternatives": [
+              {
+                "keywords": [
+                  "AGENTS OF THE IMPERIUM",
+                  "GRENADES"
+                ],
+                "operator": "all"
+              },
+              {
+                "keywords": [
+                  "VINDICARE ASSASSIN"
+                ]
+              }
+            ],
+            "state": "not-within-engagement-range-of-any-enemy-units",
+            "triggerRelation": {
+              "event": "charge-target-of-triggering-enemy"
+            }
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "recipient": "triggering-enemy-charging-unit",
+              "roll": "charge",
+              "operation": "subtract",
+              "amount": 1,
+              "replacement": {
+                "condition": {
+                  "targetKeywords": [
+                    "VINDICARE ASSASSIN"
+                  ]
+                },
+                "amount": 2
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.honoured-companions.avenge-the-fallen",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "In either player’s Fight phase, use this as you pick one of your TRUSTED SENTINEL units to fight if it’s below Starting Strength. For that fight, increase its melee Attacks by 2 for every model except CHARACTER models.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 65,
+        "end": 81,
+        "bold": true
+      },
+      {
+        "start": 201,
+        "end": 210,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "select-friendly-unit-to-fight",
+            "condition": "below-starting-strength"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "entity": "unit",
+            "keywords": [
+              "TRUSTED SENTINEL"
+            ],
+            "binding": "unit-selected-to-fight"
+          },
+          "effects": [
+            {
+              "action": "modify-attack",
+              "weapon": "melee",
+              "actor": "models-in-target-unit",
+              "excludeKeywords": [
+                "CHARACTER"
+              ],
+              "modifier": 2,
+              "duration": "triggering-fight"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

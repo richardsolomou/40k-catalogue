@@ -1,0 +1,190 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.data-psalm-conclave.benedictions-of-the-omnissiah",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Data-psalm Conclave",
+    "summary": "As the first battle round opens, choose a benediction for your Cult Mechanicus units. It stays active through battle end. PANEGYRIC PROCESSION improves AP by 1 for each CULT MECHANICUS model’s ranged attack against a target at half range or closer. CITATION IN SAVAGERY checks a CULT MECHANICUS unit when you pick it to fight. If it completed a Charge Move that turn, give its models’ melee attacks +1 Attacks and +1 Strength through phase end.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-battle-round"
+        }
+      },
+      {
+        "start": 63,
+        "end": 78,
+        "bold": true
+      },
+      {
+        "start": 122,
+        "end": 142,
+        "bold": true
+      },
+      {
+        "start": 152,
+        "end": 154,
+        "target": {
+          "kind": "core-rule",
+          "id": "weapons"
+        }
+      },
+      {
+        "start": 169,
+        "end": 184,
+        "bold": true
+      },
+      {
+        "start": 249,
+        "end": 269,
+        "bold": true
+      },
+      {
+        "start": 279,
+        "end": 294,
+        "bold": true
+      },
+      {
+        "start": 309,
+        "end": 325,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 345,
+        "end": 356,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "60ecf26b-0c2b-4ea3-8a29-5f06bd02f6d8",
+          "faction": "Adeptus Mechanicus",
+          "detachmentId": "a6cedc66-4c91-4957-b8c3-fa1b30fd8f5a",
+          "detachment": "Data-psalm Conclave",
+          "uniqueTags": [
+            {
+              "id": "f5bbc0e8-1dc0-469c-9eb5-e18926f88df7",
+              "name": {
+                "en": "Data-psalm"
+              }
+            }
+          ],
+          "sourceId": "a6cedc66-4c91-4957-b8c3-fa1b30fd8f5a:benedictions-of-the-omnissiah",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "trigger": {
+          "event": "battle-round-started",
+          "round": 1
+        },
+        "selection": {
+          "count": 1,
+          "optional": false
+        },
+        "target": {
+          "owner": "friendly",
+          "level": "unit",
+          "allOf": [
+            "Cult Mechanicus"
+          ]
+        },
+        "expires": {
+          "event": "battle-ended"
+        },
+        "options": [
+          {
+            "name": "PANEGYRIC PROCESSION",
+            "trigger": {
+              "event": "attack-made",
+              "attackType": "ranged"
+            },
+            "actor": {
+              "owner": "friendly",
+              "level": "model",
+              "allOf": [
+                "CULT MECHANICUS"
+              ]
+            },
+            "targetCondition": {
+              "distance": "within-half-weapon-range"
+            },
+            "effect": {
+              "type": "stat-modifier",
+              "stat": "armour-penetration",
+              "operation": "improve",
+              "value": 1
+            }
+          },
+          {
+            "name": "CITATION IN SAVAGERY",
+            "trigger": {
+              "event": "selected-to-fight"
+            },
+            "actor": {
+              "owner": "friendly",
+              "level": "unit",
+              "allOf": [
+                "CULT MECHANICUS"
+              ]
+            },
+            "condition": {
+              "type": "move-completed",
+              "move": "charge",
+              "turn": "triggering"
+            },
+            "target": "models-in-triggering-unit",
+            "effects": [
+              {
+                "type": "stat-modifier",
+                "stat": "attacks",
+                "operation": "add",
+                "value": 1,
+                "attackType": "melee"
+              },
+              {
+                "type": "stat-modifier",
+                "stat": "strength",
+                "operation": "add",
+                "value": 1,
+                "attackType": "melee"
+              }
+            ],
+            "expires": {
+              "event": "phase-ended",
+              "phase": "triggering"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

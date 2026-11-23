@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.veiled-blade-elimination-force.extremis-sanction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Veiled Blade Elimination Force",
+    "summary": "Your OFFICIO ASSASSINORUM units may use each of Shieldbreaker, Soulless Horror and Overkill two times per battle rather than once, though never twice in a single battle round. While mustering, each OFFICIO ASSASSINORUM unit automatically gains its matching Extremis ability and its points cost rises by the listed amount; a unit that would take the army over the battle's points limit cannot be included. Decoy Targets (CALLIDUS ASSASSIN, +15 points): up to two times per battle, during a Movement phase of yours, pick another friendly INFANTRY model on the battlefield that is outside Engagement Range of all enemies. It is destroyed without triggering any destroyed-model rules, and the Callidus is removed and placed again as near as possible to that spot, outside Engagement Range of every enemy unit; this happens at most once per battle round. Esoteric Explosives (CULEXUS ASSASSIN, +10 points): whenever the Grenades Stratagem targets it, each D6 of 3+ rather than 4+ inflicts 1 mortal wound. Intraneural Biotech (EVERSOR ASSASSIN, +15 points): Heroic Intervention can target it even if that Stratagem was already used this phase; that use costs 1 CP less, and other units can still receive that Stratagem in the same phase. Micromelta Rounds (VINDICARE ASSASSIN, +20 points): its exitus rifle gains anti-VEHICLE 4+ and anti-MONSTER 4+.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Veiled Blade Elimination Force",
+        "abilityUses": {
+          "abilities": [
+            "Overkill",
+            "Soulless Horror",
+            "Shieldbreaker"
+          ],
+          "keywordsAll": [
+            "OFFICIO ASSASSINORUM"
+          ],
+          "perBattle": 2,
+          "maxPerBattleRound": 1
+        },
+        "muster": {
+          "grant": "matching-extremis-ability",
+          "pointsIncrease": "listed",
+          "overLimit": "unit-excluded"
+        },
+        "extremis": {
+          "Decoy Targets": {
+            "bearer": "CALLIDUS ASSASSIN",
+            "points": 15,
+            "usesPerBattle": 2,
+            "maxPerBattleRound": 1,
+            "phase": "own-movement",
+            "sacrifice": {
+              "side": "friendly",
+              "scope": "other-model",
+              "keywordsAll": [
+                "INFANTRY"
+              ],
+              "onBattlefield": true,
+              "engaged": false,
+              "destroyedTriggers": "ignored"
+            },
+            "relocate": {
+              "setUp": "as-close-as-possible-to-sacrificed-model",
+              "engaged": false
+            }
+          },
+          "Esoteric Explosives": {
+            "bearer": "CULEXUS ASSASSIN",
+            "points": 10,
+            "stratagem": "Grenades",
+            "dice": "D6",
+            "mortalWoundThreshold": "3+",
+            "replaces": "4+",
+            "mortalWoundsPerSuccess": 1
+          },
+          "Intraneural Biotech": {
+            "bearer": "EVERSOR ASSASSIN",
+            "points": 15,
+            "stratagem": "Heroic Intervention",
+            "ignoresPriorUseThisPhase": true,
+            "cpModifier": -1,
+            "blocksOtherUnits": false
+          },
+          "Micromelta Rounds": {
+            "bearer": "VINDICARE ASSASSIN",
+            "points": 20,
+            "weapon": "exitus rifle",
+            "grants": [
+              {
+                "anti": "MONSTER",
+                "threshold": "4+"
+              },
+              {
+                "anti": "VEHICLE",
+                "threshold": "4+"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

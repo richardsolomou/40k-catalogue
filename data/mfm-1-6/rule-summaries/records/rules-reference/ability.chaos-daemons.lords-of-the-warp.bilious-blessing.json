@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.lords-of-the-warp.bilious-blessing",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Chaos Daemons Faction Pack: Version 1.2",
+    "page": "121",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_chaos_daemons-e67vyzvv3x-mownb49uc3.pdf#page=121"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Lords of the Warp",
+    "cp": 1,
+    "summary": "As your Shooting phase begins, pick a Nurgle Character from your Legiones Daemonica units. Monsters cannot be chosen. Choose one enemy unit it can see within 8\". Roll seven D6 and deal the enemy 1 mortal wound per 4+.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 197,
+        "end": 209,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Daemons Faction Pack: Version 1.2",
+        "page": "121",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_chaos_daemons-e67vyzvv3x-mownb49uc3.pdf#page=121"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "LEGIONES DAEMONICA CHARACTER NURGLE"
+            ],
+            "excludingKeywords": [
+              "MONSTER"
+            ]
+          },
+          "effects": [
+            {
+              "action": "inflict-mortal-wounds",
+              "recipient": "selected-enemy-unit",
+              "minimumRoll": 4,
+              "mortalWoundsPerSuccess": 1,
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 7
+              },
+              "actor": "target-unit",
+              "selectRecipient": {
+                "owner": "opponent",
+                "entity": "unit",
+                "count": 1,
+                "visibleFrom": "target-unit",
+                "distance": {
+                  "unit": "inch",
+                  "amount": 8,
+                  "from": "target-unit",
+                  "comparator": "at-most"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

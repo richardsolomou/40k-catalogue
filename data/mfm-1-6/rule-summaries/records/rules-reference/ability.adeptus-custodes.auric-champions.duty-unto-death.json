@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.auric-champions.duty-unto-death",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "In either Fight phase, react when an enemy picks an Adeptus Custodes unit of yours as a target. If a model from that unit is destroyed before its unit is picked to fight, roll a D6. Add 1 for a Character. On 3+, remove the model only after its unit finishes fighting. If the phase ends first, remove it then.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Auric Champions",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-targets-friendly"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "controller": "friendly",
+            "allKeywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "relation": "enemy-target"
+          },
+          "effects": [
+            {
+              "action": "delay-destroyed-model-removal",
+              "condition": "unit-not-selected-to-fight-this-phase",
+              "dice": "D6",
+              "threshold": "3+",
+              "characterRollModifier": 1,
+              "expiresAtFirst": [
+                "unit-finishes-fighting",
+                "phase-end"
+              ]
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

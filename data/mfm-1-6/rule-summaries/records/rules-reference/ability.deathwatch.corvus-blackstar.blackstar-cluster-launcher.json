@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "deathwatch.corvus-blackstar.blackstar-cluster-launcher",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Corvus Blackstar",
+    "summary": "In your Movement Phase, this unit can bomb one enemy unit it has just crossed using a Normal Move. Roll 6D6 against that target. Each die of 4+ deals one Mortal Wound.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 86,
+        "end": 97,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 154,
+        "end": 166,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "type": "flyover-mortal-wounds",
+        "trigger": {
+          "event": "move-completed",
+          "phase": "your-movement",
+          "moves": [
+            "normal"
+          ]
+        },
+        "actor": "this-unit",
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "max": 1,
+          "optional": true,
+          "passedOverByActorDuringTriggeringMove": true
+        },
+        "dice": {
+          "count": 6,
+          "sides": 6
+        },
+        "threshold": {
+          "comparison": "at-least",
+          "value": 4
+        },
+        "damage": {
+          "recipient": "selected-unit",
+          "mortalWoundsPerSuccess": 1
+        }
+      }
+    }
+  }
+}

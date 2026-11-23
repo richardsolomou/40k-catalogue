@@ -1,0 +1,166 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "inflict-damage",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "19",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=19"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "05. Attack Sequence",
+    "ruleNumber": "05.04",
+    "summary": "The defending player takes the save rolls singly, lowest result first, stopping once every attack is dealt with or the whole target unit is destroyed; any attacks still left over are then lost. For each roll: 1) pick a model from the current allocation group, choosing one that has already lost wounds whenever possible; 2) test the result in this order and apply the first test that fits: an unmodified 1 inflicts damage; if the group’s models have an InSv and the roll equals or beats it, the attack fails; if the roll, after adjusting it by the weapon’s AP, equals or beats the model’s Sv, the attack fails; anything else inflicts damage; 3) on damage, the model loses wounds equal to the attack’s D and is destroyed once its remaining wounds reach 0 or below. The current group begins as the group declared first and passes to the next group once every model in it has been destroyed. For modifying damage see 02.02.01. A model has suffered damage as soon as an attack allocated to it reaches Resolve Damage, even if a rule then ignores or prevents the wound loss. A unit is destroyed once all its models are. On a model’s destruction, resolve its on-destruction rules first and only then take it off the battlefield; if it has such rules and an attack caused its destruction, by default both happen only after the attacking unit has finished its attacks. Unless stated otherwise, models and units that have been destroyed lose access to their abilities, and rules can neither select nor target them. An enemy counts as your kill, or your army’s, only if an attack by one of your models or one of your player rules destroyed it. Fight on death: a model allowed to attack after being destroyed is left in play until its unit has been chosen to attack and has made its attacks, or the phase ends, if sooner; then its destruction rules resolve and it is removed. If such a model must fight straight after the attacking unit, it instead stays until its own unit has fought or the phase ends, so the unit fights together and Stratagems used on that unit also apply to it. To measure to a destroyed model, use any point its base covered beforehand, or any part of the model if it is a VEHICLE or has no base (WALKER models with a base use the base); to measure to a destroyed unit, use the last of its models to be destroyed. Example: AP -1 turns a 3 rolled for a save into a 2, which fails against Sv 2+ or better. Worked examples resolve boltguns, bolt pistols and a heavy bolter (BS 3+ and 4+, wounding T 3 on 3+) against Sv 3+ and InSv 5+, and an attached Saint Celestine unit whose CHARACTER group is ordered last.",
+    "summarySpans": [
+      {
+        "start": 2183,
+        "end": 2190,
+        "bold": true
+      },
+      {
+        "start": 2207,
+        "end": 2213,
+        "bold": true
+      },
+      {
+        "start": 2585,
+        "end": 2594,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "19",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=19"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "attack-step",
+        "ruleNumber": "05.04",
+        "actor": "opposing-player",
+        "order": "lowest-save-result-first",
+        "stopWhen": [
+          "all-attacks-resolved",
+          "target-unit-destroyed"
+        ],
+        "excessAttacks": "lost",
+        "steps": [
+          {
+            "order": 1,
+            "name": "Select Model",
+            "from": "current-allocation-group",
+            "preferWounded": true
+          },
+          {
+            "order": 2,
+            "name": "Check Save Roll",
+            "firstMatch": [
+              {
+                "if": "unmodified-roll",
+                "value": 1,
+                "result": "inflicts-damage"
+              },
+              {
+                "if": "group-has-InSv-and-roll-at-least-InSv",
+                "result": "fails"
+              },
+              {
+                "if": "roll-modified-by-AP-at-least-Sv",
+                "result": "fails"
+              },
+              {
+                "if": "otherwise",
+                "result": "inflicts-damage"
+              }
+            ]
+          },
+          {
+            "order": 3,
+            "name": "Resolve Damage",
+            "woundsLost": "attack-D",
+            "destroyedAtOrBelow": 0
+          }
+        ],
+        "currentGroup": {
+          "start": "first-in-allocation-order",
+          "advance": "next-group-when-all-destroyed"
+        },
+        "modifyingDamageRef": "02.02.01",
+        "suffersDamage": "attack-reaches-resolve-damage",
+        "destroyed": {
+          "unitWhen": "all-models-destroyed",
+          "order": [
+            "resolve-destroyed-triggers",
+            "remove"
+          ],
+          "attackTriggersDeferredUntilAttacksResolved": true,
+          "unlessOtherwiseStated": true,
+          "destroyedCannotUseOrBeTargeted": true,
+          "destroyedByYou": [
+            "attack-by-your-model",
+            "your-player-rule"
+          ]
+        },
+        "fightOnDeath": {
+          "staysUntil": [
+            "unit-selected-and-attacked",
+            "end-of-phase"
+          ],
+          "fightImmediatelyAfterVariant": {
+            "staysUntil": [
+              "unit-fought",
+              "end-of-phase"
+            ],
+            "stratagemsOnUnitAffectModel": true
+          }
+        },
+        "measureToDestroyed": {
+          "model": "any-point-of-former-base-or-hull",
+          "hullIf": [
+            "no-base",
+            "VEHICLE"
+          ],
+          "hullExcept": "WALKER-with-base",
+          "unit": "last-model-destroyed"
+        },
+        "examples": {
+          "apModifier": -1,
+          "apExample": {
+            "roll": 3,
+            "modified": 2,
+            "failsAgainstSv": "2+"
+          },
+          "ballisticSkill": [
+            "3+",
+            "4+"
+          ],
+          "strength": [
+            4,
+            5
+          ],
+          "toughness": 3,
+          "woundOn": "3+",
+          "targetSv": "3+",
+          "targetInSv": "5+",
+          "attachedExample": "Saint Celestine"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.brotherhood-strike.purgation-pattern",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Brotherhood Strike",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Shooting phase, picking one of your GREY KNIGHTS units that was set up with Deep Strike earlier this turn and that hasn't been chosen to shoot yet in this phase. For the rest of the phase, the weapons its models carry gain [SUSTAINED HITS 1].",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Brotherhood Strike",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "event": "phase-step"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "GREY KNIGHTS"
+            ],
+            "setUpThisTurnUsing": "Deep Strike",
+            "notYetSelectedThisPhase": [
+              "shoot"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "grant-weapon-ability",
+              "ability": "SUSTAINED HITS",
+              "value": 1,
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": [],
+          "category": "Battle Tactic"
+        }
+      }
+    }
+  }
+}

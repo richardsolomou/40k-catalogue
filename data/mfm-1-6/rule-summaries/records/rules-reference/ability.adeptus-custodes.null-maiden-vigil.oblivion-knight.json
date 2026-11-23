@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.null-maiden-vigil.oblivion-knight",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "summary": "When the bearer’s unit attacks, add 1 to its Hit rolls. Also increase its Wound rolls by 1 against PSYKER units or units that are Battle-shocked.",
+    "summarySpans": [
+      {
+        "start": 45,
+        "end": 54,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 74,
+        "end": 85,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "characterOnly": true,
+          "keywords": [
+            "ANATHEMA PSYKANA"
+          ]
+        },
+        "trigger": {
+          "event": "attack-by-model-in-bearer-unit"
+        },
+        "effects": [
+          {
+            "type": "roll-modifier",
+            "roll": "hit",
+            "value": 1,
+            "recipient": "triggering-bearer-unit-attack",
+            "expiry": "after-this-roll"
+          },
+          {
+            "type": "roll-modifier",
+            "roll": "wound",
+            "value": 1,
+            "recipient": "triggering-bearer-unit-attack",
+            "targetAny": [
+              {
+                "keyword": "PSYKER"
+              },
+              {
+                "state": "battle-shocked"
+              }
+            ],
+            "expiry": "after-this-roll"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.ordo-hereticus-purgation-force.stun-grenades",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ordo Hereticus, Purgation Force",
+    "cp": 1,
+    "summary": "Spend 1 CP as any phase other than the Command phase begins. Choose a GRENADES unit of yours with the ADEPTUS ARBITES, INQUISITORIAL AGENTS or ORDO HERETICUS keyword that has no enemy units within Engagement Range. Pick one enemy unit, other than a MONSTER or VEHICLE, that your unit can see within 8\". That enemy takes a Battle-shock test; also, for the rest of the phase its models subtract 1 from their Hit rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Wargear",
+          "detachment": "Ordo Hereticus, Purgation Force",
+          "when": {
+            "timing": "start-of-any-phase",
+            "excludingPhases": [
+              "command"
+            ]
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              "ADEPTUS ARBITES",
+              "INQUISITORIAL AGENTS",
+              "ORDO HERETICUS"
+            ],
+            "keywordsAll": [
+              "GRENADES"
+            ],
+            "notWithinEngagementRange": true
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "withinInches": 8,
+                "visible": true,
+                "excludesKeywords": [
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              },
+              "battleShockTest": true,
+              "duration": "end-of-phase",
+              "selectedUnitHitRollModifier": {
+                "direction": "subtract",
+                "amount": 1
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

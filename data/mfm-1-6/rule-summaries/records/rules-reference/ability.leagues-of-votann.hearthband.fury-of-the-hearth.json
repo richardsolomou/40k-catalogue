@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.hearthband.fury-of-the-hearth",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Leagues of Votann Faction Pack: Version 1.2",
+    "page": "6",
+    "url": "https://assets.warhammer-community.com/eng_14-10_wh40k_faction_pack_leagues_of_votann-os3nsdjlao-buac8a7pzn.pdf#page=6"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hearthband",
+    "cp": 1,
+    "summary": "In your Shooting phase, choose EINHYR HEARTHGUARD still waiting to shoot. Its models’ ranged weapons add 1 to Strength this phase. Spend 1 YP on this use to give those weapons SUSTAINED HITS 1 for this phase too.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 31,
+        "end": 49,
+        "bold": true
+      },
+      {
+        "start": 139,
+        "end": 141,
+        "target": {
+          "kind": "ability",
+          "id": "leagues-of-votann.prioritised-efficiency"
+        }
+      },
+      {
+        "start": 176,
+        "end": 192,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Leagues of Votann Faction Pack: Version 1.2",
+        "page": "6",
+        "url": "https://assets.warhammer-community.com/eng_14-10_wh40k_faction_pack_leagues_of_votann-os3nsdjlao-buac8a7pzn.pdf#page=6"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "EINHYR HEARTHGUARD"
+            ],
+            "eligibility": "not-yet-selected-to-shoot"
+          },
+          "effects": [
+            {
+              "action": "modify-weapon-characteristic",
+              "characteristic": "strength",
+              "operation": "add",
+              "amount": 1,
+              "recipient": "ranged-weapons-of-target-unit-models",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "grant-weapon-ability",
+              "ability": "sustained-hits",
+              "value": 1,
+              "recipient": "ranged-weapons-of-target-unit-models",
+              "condition": {
+                "pool": "yield-points",
+                "spentOnThisUse": 1
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

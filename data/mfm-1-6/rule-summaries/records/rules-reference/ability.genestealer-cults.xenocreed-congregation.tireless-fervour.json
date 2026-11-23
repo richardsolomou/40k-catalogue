@@ -1,0 +1,145 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.xenocreed-congregation.tireless-fervour",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Xenocreed Congregation",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Charge phase on a unit of NEOPHYTE HYBRIDS, ACOLYTE HYBRIDS or HYBRID METAMORPHS that has yet to declare a charge. That unit may declare a charge despite having Advanced or Fallen Back this turn. At its declaration, you may invoke the second part to reroll its charge roll. If you invoke it, end the move in engagement with an enemy unit that a friendly CHARACTER unit is also engaging.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 31,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 45,
+        "end": 61,
+        "bold": true
+      },
+      {
+        "start": 63,
+        "end": 78,
+        "bold": true
+      },
+      {
+        "start": 82,
+        "end": 99,
+        "bold": true
+      },
+      {
+        "start": 180,
+        "end": 188,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 192,
+        "end": 203,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 280,
+        "end": 291,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      },
+      {
+        "start": 327,
+        "end": 337,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 373,
+        "end": 382,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "phase": "charge",
+            "turn": "your"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "bind": "selected-unit",
+            "keywordsAnyOf": [
+              "ACOLYTE HYBRIDS",
+              "HYBRID METAMORPHS",
+              "NEOPHYTE HYBRIDS"
+            ],
+            "hasDeclaredChargeThisPhase": false
+          },
+          "effects": [
+            {
+              "action": "permit-charge-declaration",
+              "actor": "selected-unit",
+              "despiteThisTurn": [
+                "advance",
+                "fall-back"
+              ]
+            },
+            {
+              "action": "invoke-second-part",
+              "optional": true,
+              "event": "selected-unit-declares-charge",
+              "additionalCp": 0,
+              "grants": "reroll-charge-roll",
+              "actor": "selected-unit",
+              "requiredEndpoint": {
+                "engagedWith": {
+                  "owner": "enemy",
+                  "entity": "unit",
+                  "engagedWith": {
+                    "owner": "friendly",
+                    "entity": "unit",
+                    "keywordsAllOf": [
+                      "CHARACTER"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

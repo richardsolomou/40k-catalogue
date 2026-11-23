@@ -1,0 +1,157 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.plague-legion.melancholic-miasma",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Plague Legion",
+    "summary": "An enemy unit counts as in The Shadow of Chaos if it is within 9″ of a friendly LEGIONES DAEMONICA NURGLE unit. In the Command phase, pick one enemy unit in The Shadow of Chaos to test for Battle-shock.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 46,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-daemons.the-shadow-of-chaos"
+        }
+      },
+      {
+        "start": 80,
+        "end": 105,
+        "bold": true
+      },
+      {
+        "start": 119,
+        "end": 132,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 157,
+        "end": 176,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-daemons.the-shadow-of-chaos"
+        }
+      },
+      {
+        "start": 180,
+        "end": 201,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "passive",
+        "scope": {
+          "duration": "permanent"
+        },
+        "effect": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "conditional",
+              "condition": {
+                "type": "matches",
+                "parameters": {
+                  "subject": "recipient",
+                  "filter": {
+                    "within": {
+                      "of": {
+                        "owner": "friendly",
+                        "all_of": [
+                          "LEGIONES DAEMONICA",
+                          "NURGLE"
+                        ]
+                      },
+                      "range": {
+                        "inches": 9
+                      }
+                    }
+                  }
+                }
+              },
+              "effect": {
+                "type": "counts-as",
+                "target": {
+                  "owner": "enemy"
+                },
+                "modifier": {
+                  "in_region": {
+                    "rule_region": {
+                      "region_id": "the-shadow-of-chaos",
+                      "owner_faction": "chaos-daemons"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "select-units",
+              "selector": {
+                "filter": {
+                  "owner": "enemy"
+                },
+                "count": {
+                  "min": 1,
+                  "max": 1
+                },
+                "eligibility": {
+                  "type": "in-region",
+                  "parameters": {
+                    "subject": "selected-unit",
+                    "region": {
+                      "rule_region": {
+                        "region_id": "the-shadow-of-chaos",
+                        "owner_faction": "chaos-daemons"
+                      }
+                    }
+                  }
+                }
+              },
+              "effect": {
+                "type": "conditional",
+                "condition": {
+                  "type": "phase-is",
+                  "parameters": {
+                    "phase": "command"
+                  }
+                },
+                "effect": {
+                  "type": "test",
+                  "target": "selected-unit",
+                  "modifier": {
+                    "test": "battle-shock"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

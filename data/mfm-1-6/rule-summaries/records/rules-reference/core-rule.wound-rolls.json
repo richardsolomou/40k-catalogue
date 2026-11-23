@@ -1,0 +1,127 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "wound-rolls",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "18",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=18"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "05. Attack Sequence",
+    "ruleNumber": "05.02",
+    "summary": "Each hit gets its own D6 wound roll, checked against a table where the first row that fits decides it: an unmodified 1 fails, an unmodified 6 is a critical wound, a result at or above the required number wounds, and anything else fails. Compare the attack’s Strength with the target’s Toughness. Use 2+ at twice Toughness or above, and 6+ at half Toughness or below. Between those extremes, use 3+, 4+ or 5+ for Strength above, equal to or below Toughness, respectively.",
+    "summarySpans": [
+      {
+        "start": 147,
+        "end": 161,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "18",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=18"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "attack-sequence-step",
+        "step": 2,
+        "of": "05.00",
+        "roll": {
+          "per": "hit",
+          "dice": "1D6"
+        },
+        "evaluation": "first-matching-row",
+        "rows": [
+          {
+            "order": 1,
+            "if": {
+              "unmodifiedRoll": 1
+            },
+            "result": "fail"
+          },
+          {
+            "order": 2,
+            "if": {
+              "unmodifiedRoll": 6
+            },
+            "result": "critical-wound"
+          },
+          {
+            "order": 3,
+            "if": {
+              "rollAtLeast": "required-result"
+            },
+            "result": "wound"
+          },
+          {
+            "order": 4,
+            "if": "any-other-result",
+            "result": "fail"
+          }
+        ],
+        "requiredResult": [
+          {
+            "atLeast": 2,
+            "strengthToToughnessRatio": {
+              "minInclusive": 2
+            }
+          },
+          {
+            "atLeast": 3,
+            "strengthToToughnessRatio": {
+              "minExclusive": 1,
+              "maxExclusive": 2
+            }
+          },
+          {
+            "atLeast": 4,
+            "strengthToToughnessRatio": {
+              "equalTo": 1
+            }
+          },
+          {
+            "atLeast": 5,
+            "strengthToToughnessRatio": {
+              "minExclusive": 0.5,
+              "maxExclusive": 1
+            }
+          },
+          {
+            "atLeast": 6,
+            "strengthToToughnessRatio": {
+              "maxInclusive": 0.5
+            }
+          }
+        ],
+        "diceValuesSource": {
+          "pdf": "dice glyph images (read from rendered crops, see glyphs)",
+          "gdc": "digits"
+        },
+        "gdcOnly": {
+          "bodyguardToughnessClause": true,
+          "printedAt": "19.02",
+          "classification": "reminder of printed 19.02",
+          "adopted": false
+        }
+      }
+    }
+  }
+}

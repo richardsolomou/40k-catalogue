@@ -1,0 +1,220 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.spearhead-at-arms.knightly-teachings",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Spearhead-at-Arms",
+    "summary": "When a friendly model uses a Bondsman ability, you may expand its selection to include zero to 3 friendly ARMIGER models. This applies only if no friendly model has used that same ability earlier in the turn. Choose models within 12″ of the user that are free of an existing Bondsman effect. An Honoured army instead uses a range of 15″. End the effect when your following Command phase begins.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 37,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.bondsman"
+        }
+      },
+      {
+        "start": 106,
+        "end": 113,
+        "bold": true
+      },
+      {
+        "start": 275,
+        "end": 283,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.bondsman"
+        }
+      },
+      {
+        "start": 295,
+        "end": 303,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.code-chivalric"
+        }
+      },
+      {
+        "start": 373,
+        "end": 386,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "reactive",
+        "trigger": {
+          "event": "used",
+          "subject": {
+            "owner": "friendly",
+            "level": "model"
+          },
+          "filter": {
+            "kind": "ability",
+            "ability_keyword": "BONDSMAN"
+          },
+          "binds_event_variable": "ability-use",
+          "optional": true
+        },
+        "scope": {
+          "duration": "resolution"
+        },
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "happened",
+                "parameters": {
+                  "event": "used",
+                  "subject": {
+                    "owner": "friendly",
+                    "level": "model",
+                    "excluding": {
+                      "event_var": "ability-use"
+                    }
+                  },
+                  "filter": {
+                    "kind": "ability",
+                    "same_rule_as": {
+                      "event_var": "ability-use"
+                    }
+                  },
+                  "window": "turn"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "conditional",
+                "condition": {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "type": "army-state",
+                      "parameters": {
+                        "owner": "friendly",
+                        "state": "honoured"
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "ability-modifier",
+                  "target": {
+                    "event_var": "ability-use"
+                  },
+                  "modifier": {
+                    "ability": {
+                      "event": "used",
+                      "event_var": "ability-use"
+                    },
+                    "aspect": "selection",
+                    "operation": "set",
+                    "selection": {
+                      "filter": {
+                        "owner": "friendly",
+                        "all_of": [
+                          "ARMIGER"
+                        ],
+                        "level": "model",
+                        "not_designated": "bondsman-affected",
+                        "within": {
+                          "range": {
+                            "inches": 12
+                          },
+                          "of": {
+                            "event_var": "ability-use"
+                          }
+                        }
+                      },
+                      "count": {
+                        "min": 0,
+                        "max": 3
+                      }
+                    },
+                    "recipient_duration": "until-next-command-phase"
+                  }
+                }
+              },
+              {
+                "type": "conditional",
+                "condition": {
+                  "type": "army-state",
+                  "parameters": {
+                    "owner": "friendly",
+                    "state": "honoured"
+                  }
+                },
+                "effect": {
+                  "type": "ability-modifier",
+                  "target": {
+                    "event_var": "ability-use"
+                  },
+                  "modifier": {
+                    "ability": {
+                      "event": "used",
+                      "event_var": "ability-use"
+                    },
+                    "aspect": "selection",
+                    "operation": "set",
+                    "selection": {
+                      "filter": {
+                        "owner": "friendly",
+                        "all_of": [
+                          "ARMIGER"
+                        ],
+                        "level": "model",
+                        "not_designated": "bondsman-affected",
+                        "within": {
+                          "range": {
+                            "inches": 15
+                          },
+                          "of": {
+                            "event_var": "ability-use"
+                          }
+                        }
+                      },
+                      "count": {
+                        "min": 0,
+                        "max": 3
+                      }
+                    },
+                    "recipient_duration": "until-next-command-phase"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

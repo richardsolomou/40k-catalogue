@@ -1,0 +1,56 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.stormsword.concussive-wave",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Stormsword",
+    "summary": "In your Shooting phase, right after the Stormsword siege cannon on this model picks a target, roll a D6 for that target and for each other unit no more than 3\" from it, whichever side it belongs to; on a 5+ that unit is hit by a concussive wave. Once this model has finished its attacks against the target this phase, each unit hit by a concussive wave takes D3 mortal wounds.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "timing": {
+          "turn": "own",
+          "phase": "shooting",
+          "point": "just-after-selecting-target",
+          "weapon": "Stormsword siege cannon"
+        },
+        "rollFor": [
+          "target-unit",
+          {
+            "anyOtherUnitWithinInchesOfTarget": 3
+          }
+        ],
+        "roll": {
+          "dice": "D6",
+          "successOn": "5+"
+        },
+        "onSuccess": {
+          "status": "struck-by-concussive-wave"
+        },
+        "after": "this-model-finishes-attacks-against-target",
+        "eachStruckUnit": {
+          "mortalWounds": "D3",
+          "dieSides": 3
+        }
+      }
+    }
+  }
+}

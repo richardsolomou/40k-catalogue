@@ -1,0 +1,115 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.spearpoint-task-force.mobile-lethality",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Spearpoint Task Force",
+    "cp": 1,
+    "summary": "Use this when you pick one of your Adeptus Astartes units in your Movement phase to Advance or Fall Back. Picking Fall Back does not cost the unit its ability to shoot. The unit’s ranged attacks gain Assault.",
+    "summarySpans": [
+      {
+        "start": 66,
+        "end": 80,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 84,
+        "end": 91,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 95,
+        "end": 104,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 114,
+        "end": 123,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 200,
+        "end": 207,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "assault"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Spearpoint Task Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ],
+            "event": "unit-selected-for-move",
+            "oneOf": [
+              "advance",
+              "fall-back"
+            ]
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "allKeywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "condition": "triggering-unit"
+          },
+          "effects": [
+            {
+              "action": "preserve-shooting-eligibility",
+              "actor": "chosen-unit",
+              "ignoreDisqualifyingMove": "fall-back"
+            },
+            {
+              "action": "grant-weapon-ability",
+              "actor": "chosen-unit",
+              "attackType": "ranged",
+              "ability": "assault"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

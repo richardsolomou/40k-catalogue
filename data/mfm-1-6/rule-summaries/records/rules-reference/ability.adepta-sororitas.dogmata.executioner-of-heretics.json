@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.dogmata.executioner-of-heretics",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Dogmata",
+    "summary": "This model’s 6″ aura worsens Leadership by 1 for every model in an enemy unit in range.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 39,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-model",
+        "aura": {
+          "emitter": {
+            "entity": "model",
+            "selector": "this-model"
+          },
+          "recipient": {
+            "side": "enemy",
+            "entity": "unit",
+            "allKeywords": [],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-model",
+            "to": "recipient-unit",
+            "kind": "within",
+            "distanceInches": 6
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "characteristic-modifier",
+            "recipient": "models-in-recipient-unit",
+            "characteristic": "leadership",
+            "operation": "worsen",
+            "amount": 1
+          }
+        ]
+      }
+    }
+  }
+}

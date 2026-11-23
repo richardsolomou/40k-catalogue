@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.vulkan-hestan.seeker-of-the-unfound",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Vulkan He’stan",
+    "summary": "On its first battlefield setup, have the player pick an objective. Whenever the model is in range of that marker, set its Objective Control to 10 and Leadership to 5+, and give it Feel No Pain 4+.",
+    "summarySpans": [
+      {
+        "start": 122,
+        "end": 139,
+        "bold": true
+      },
+      {
+        "start": 150,
+        "end": 160,
+        "bold": true
+      },
+      {
+        "start": 180,
+        "end": 195,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "trigger": {
+          "kind": "model-setup",
+          "firstOnBattlefield": true
+        },
+        "selection": {
+          "kind": "objective",
+          "count": 1
+        },
+        "condition": {
+          "modelWithinRangeOf": "selected-objective"
+        },
+        "effects": [
+          {
+            "recipient": "datasheet-model",
+            "stat": "OC",
+            "setTo": 10
+          },
+          {
+            "recipient": "datasheet-model",
+            "stat": "Ld",
+            "setTo": 5,
+            "comparator": "at-least"
+          },
+          {
+            "recipient": "datasheet-model",
+            "grant": "Feel No Pain 4+",
+            "threshold": 4
+          }
+        ]
+      }
+    }
+  }
+}

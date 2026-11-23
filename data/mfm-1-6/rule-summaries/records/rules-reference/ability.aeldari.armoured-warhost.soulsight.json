@@ -1,0 +1,102 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.armoured-warhost.soulsight",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Aeldari Faction Pack: Version 1.4",
+    "page": "2",
+    "url": "https://assets.warhammer-community.com/eng_14-10_wh40k_-faction_pack_aeldari-seqmcs1mu0-g8gzewikcm.pdf#page=2"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Armoured Warhost",
+    "cp": 1,
+    "summary": "In your Shooting phase, use this as you pick an Aeldari Vehicle to shoot. During its shooting, you may reroll one roll of each kind: Hit, Wound and Damage.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 48,
+        "end": 63,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Aeldari Faction Pack: Version 1.4",
+        "page": "2",
+        "url": "https://assets.warhammer-community.com/eng_14-10_wh40k_-faction_pack_aeldari-seqmcs1mu0-g8gzewikcm.pdf#page=2"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "select-friendly-unit-to-shoot",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Aeldari Vehicle"
+            ],
+            "mode": "trigger-unit"
+          },
+          "effects": [
+            {
+              "kind": "optional-rerolls",
+              "recipient": "target-unit-attacks",
+              "when": "target-unit-shoots",
+              "limits": [
+                {
+                  "roll": "hit",
+                  "count": 1
+                },
+                {
+                  "roll": "wound",
+                  "count": 1
+                },
+                {
+                  "roll": "damage",
+                  "count": 1
+                }
+              ],
+              "duration": {
+                "until": "triggering-shooting-ends"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

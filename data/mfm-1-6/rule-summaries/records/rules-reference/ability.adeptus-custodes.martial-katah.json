@@ -1,0 +1,251 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.martial-katah",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "Ready each friendly Adeptus Custodes unit that has Martial Ka’tah when your Command phase starts. A readied unit may use one Ka’tah at the listed time, then loses its readied state. As the Fight phase begins, Dacatarai lets the chosen unit re-roll melee Hit rolls that show 1 against enemies other than MONSTER or VEHICLE units. At that phase’s start, Kaptaris gives incoming melee attacks against the chosen unit −1 to hit. Rendax gives the chosen unit [LETHAL HITS: MONSTER/VEHICLE] on melee attacks when it is picked to fight. In your Command phase, Conservai lets a chosen unit start an action despite being engaged or battle-shocked, and stay eligible to shoot despite starting an action, through turn end. As you pick a unit to move in your Movement phase, Calistus lets its models pass through all other models on a Normal, Advance or Fall Back move. As you pick a unit to shoot in your Shooting phase, Salvus lets it ignore modifiers to BS and to its hit and wound rolls.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 36,
+        "bold": true
+      },
+      {
+        "start": 76,
+        "end": 89,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 100,
+        "end": 107,
+        "bold": true
+      },
+      {
+        "start": 167,
+        "end": 174,
+        "bold": true
+      },
+      {
+        "start": 189,
+        "end": 200,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 209,
+        "end": 218,
+        "bold": true
+      },
+      {
+        "start": 352,
+        "end": 360,
+        "bold": true
+      },
+      {
+        "start": 425,
+        "end": 431,
+        "bold": true
+      },
+      {
+        "start": 454,
+        "end": 484,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 538,
+        "end": 551,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 553,
+        "end": 562,
+        "bold": true
+      },
+      {
+        "start": 591,
+        "end": 597,
+        "target": {
+          "kind": "core-rule",
+          "id": "actions"
+        }
+      },
+      {
+        "start": 623,
+        "end": 637,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 686,
+        "end": 692,
+        "target": {
+          "kind": "core-rule",
+          "id": "actions"
+        }
+      },
+      {
+        "start": 747,
+        "end": 761,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 763,
+        "end": 771,
+        "bold": true
+      },
+      {
+        "start": 894,
+        "end": 908,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 910,
+        "end": 916,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "per-unit-readied-options",
+        "initial": {
+          "phase": "command",
+          "owner": "self",
+          "at": "start",
+          "subject": {
+            "owner": "friendly",
+            "keyword": "Adeptus Custodes",
+            "requiresAbility": true
+          }
+        },
+        "optional": true,
+        "maxPerReadiedState": 1,
+        "consumeReadiedOnUse": true,
+        "options": [
+          {
+            "name": "Dacatarai",
+            "at": "fight-phase-start",
+            "expires": "fight-phase-end",
+            "recipient": "selected-friendly-readied-unit",
+            "effect": {
+              "kind": "re-roll",
+              "roll": "hit",
+              "face": 1,
+              "attack": "outgoing-melee",
+              "enemyTargetExcludesAny": [
+                "MONSTER",
+                "VEHICLE"
+              ]
+            }
+          },
+          {
+            "name": "Kaptaris",
+            "at": "fight-phase-start",
+            "expires": "fight-phase-end",
+            "recipient": "selected-friendly-readied-unit",
+            "effect": {
+              "kind": "roll-modifier",
+              "roll": "hit",
+              "value": -1,
+              "attack": "incoming-melee"
+            }
+          },
+          {
+            "name": "Rendax",
+            "at": "selected-to-fight-in-fight-phase",
+            "expires": "fight-phase-end",
+            "recipient": "selected-friendly-readied-unit",
+            "effect": {
+              "kind": "weapon-ability-grant",
+              "weapon": "melee",
+              "ability": "Lethal Hits",
+              "enemyTargetRequiresAny": [
+                "MONSTER",
+                "VEHICLE"
+              ]
+            }
+          },
+          {
+            "name": "Conservai",
+            "at": "own-command-phase",
+            "recipient": "selected-friendly-readied-unit",
+            "expires": "turn-end",
+            "effect": {
+              "mayStartActionDespite": [
+                "engaged",
+                "battle-shocked"
+              ],
+              "mayShootDespite": "starting-action"
+            }
+          },
+          {
+            "name": "Calistus",
+            "at": "selected-to-move-in-own-movement-phase",
+            "expires": "end-of-selected-move",
+            "recipient": "selected-friendly-readied-unit",
+            "effect": {
+              "moveTypes": [
+                "normal",
+                "advance",
+                "fall-back"
+              ],
+              "passThrough": "models"
+            }
+          },
+          {
+            "name": "Salvus",
+            "at": "selected-to-shoot-in-own-shooting-phase",
+            "expires": "end-of-selected-shooting",
+            "recipient": "selected-friendly-readied-unit",
+            "effect": {
+              "optional": true,
+              "mayIgnoreModifiersTo": [
+                "BS",
+                "hit-roll",
+                "wound-roll"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

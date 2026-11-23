@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.dread-host.preternatural-rapidity",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "In your Movement phase, use this as one of your ADEPTUS CUSTODES units finishes its Advance move. It can still charge that turn.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 48,
+        "end": 64,
+        "bold": true
+      },
+      {
+        "start": 84,
+        "end": 96,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 111,
+        "end": 117,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ],
+            "event": "friendly-unit-ends-advance-move"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "binding": "advancing-unit"
+          },
+          "effects": [
+            {
+              "action": "allow-charge-despite-advancing",
+              "recipient": "target-unit",
+              "duration": "current-turn"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

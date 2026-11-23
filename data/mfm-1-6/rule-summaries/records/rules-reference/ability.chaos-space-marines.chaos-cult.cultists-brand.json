@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.chaos-cult.cultists-brand",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Chaos Cult",
+    "summary": "Give this to a DAMNED model or a DARK APOSTLE. You may re-roll the unit’s rolls to Advance or charge if all its other models have DAMNED. Leave Dark Disciples out of that check.",
+    "summarySpans": [
+      {
+        "start": 83,
+        "end": 90,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 94,
+        "end": 100,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "requiresCharacter": true,
+          "anyKeywords": [
+            "DARK APOSTLE",
+            "DAMNED"
+          ]
+        },
+        "condition": {
+          "unit": "bearer-unit",
+          "quantifier": "every",
+          "test": "has-keyword",
+          "keyword": "DAMNED",
+          "exclude": [
+            {
+              "role": "bearer"
+            },
+            {
+              "model": "Dark Disciples",
+              "unit": "bearer-unit"
+            }
+          ]
+        },
+        "effect": {
+          "operation": "reroll",
+          "optional": true,
+          "recipient": "bearer-unit",
+          "rolls": [
+            "advance",
+            "charge"
+          ]
+        }
+      }
+    }
+  }
+}

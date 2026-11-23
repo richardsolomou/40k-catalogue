@@ -1,0 +1,68 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "core.extra-attacks",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "weapon-ability",
+    "group": "Core",
+    "summary": "Extra Attacks. When the unit fights, pick every weapon with this tag that each model carries. Pick one other melee weapon for that model if it has one. Resolve attacks from all the picked weapons.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 13,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "extra-attacks"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "weapon-ability",
+        "trigger": {
+          "event": "unit-fights",
+          "minimumQualifyingWeaponsPerModel": 1
+        },
+        "selection": {
+          "step": "04.01",
+          "per": "model-with-extra-attacks-weapon",
+          "extraWeapons": "all",
+          "mandatory": true,
+          "otherMeleeWeapon": {
+            "count": 1,
+            "condition": "if-possible"
+          }
+        },
+        "effect": {
+          "attackWith": "all-selected-extra-weapons",
+          "inAdditionToOtherAttacks": true
+        },
+        "attachment": {
+          "kind": "weapon-ability",
+          "role": "weapons",
+          "sourceId": "weapon-ability:extra-attacks",
+          "referenceQid": "weapon-ability:extra-attacks"
+        }
+      }
+    }
+  }
+}

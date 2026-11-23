@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "core.devastating-wounds-non-monster-vehicle",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "weapon-ability",
+    "group": "Core",
+    "summary": "[DEVASTATING WOUNDS] versus non-MONSTER/VEHICLE units. Works only against a target unit with no MONSTER or VEHICLE model in it. A critical wound then ends the attack and inflicts mortal wounds equal to its Damage after normal damage, capped at one model per critical wound with the excess lost.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 47,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "devastating-wounds-non-monster-vehicle"
+        }
+      },
+      {
+        "start": 96,
+        "end": 103,
+        "bold": true
+      },
+      {
+        "start": 107,
+        "end": 114,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "qualified-weapon-ability",
+        "label": "DEVASTATING WOUNDS: non-MONSTER/VEHICLE",
+        "baseRule": "weapon-ability:devastating-wounds",
+        "targetGate": {
+          "scope": "per-attack",
+          "target": "unit",
+          "noneOfKeywords": [
+            "MONSTER",
+            "VEHICLE"
+          ],
+          "unitHasEveryModelKeyword": true,
+          "mixedUnitExcluded": true,
+          "ruleRefs": [
+            "02.05.01",
+            "24.01"
+          ]
+        },
+        "trigger": "critical-wound",
+        "effect": {
+          "attackSequenceEnds": true,
+          "mortalWounds": "weapon-damage-characteristic",
+          "timing": "after-normal-damage-from-those-attacks",
+          "modelCapPerCriticalWound": 1,
+          "discardExcess": true
+        },
+        "example": {
+          "damage": 3,
+          "mortalWounds": 3,
+          "woundsToDestroyOneModel": 2,
+          "lost": 1
+        },
+        "attachment": {
+          "kind": "weapon-ability",
+          "role": "weapons",
+          "sourceId": "weapon-ability:devastating-wounds-non-monster-vehicle",
+          "referenceQid": "weapon-ability:devastating-wounds-non-monster-vehicle"
+        }
+      }
+    }
+  }
+}

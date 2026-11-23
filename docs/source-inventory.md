@@ -25,8 +25,10 @@ A record built from upstream structured data carries an `attribution`: the upstr
 
 The [MFM 1.6 rule summaries](../data/mfm-1-6/rule-summaries/README.md) and [mechanics](../data/mfm-1-6/mechanics/README.md) cite official sources only:
 
-- Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14. It is the signed build in force at the update's cutoff, and every record cites it.
-- Games Workshop's faction packs and other rules PDFs on warhammer-community.com, by their printed title and the page that prints the rule, for 900 records.
+- Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14. It is the signed build in force at the update's cutoff, and every record but one cites it.
+- Games Workshop's faction packs and other rules PDFs on warhammer-community.com, by their printed title and the page that prints the rule, for 1,235 records. One erratum, first printed in a dated publisher update the app build does not yet carry, cites that page alone.
+
+The units, detachments, wargear and publications that FAQs amend are identity entries of the retained `rosters` and `publications` categories, which still come from the app build.
 
 Drafting also used Game Datacards' community data as private evidence, checked against the app build. It is not a cited source, and none of its text is published.
 

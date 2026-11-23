@@ -23,7 +23,7 @@ A record built from upstream structured data carries an `attribution`: the upstr
 
 ## MFM 1.6 rule summaries
 
-The [MFM 1.6 rule summaries](../data/mfm-1-6/rule-summaries/README.md) and [mechanics](../data/mfm-1-6/mechanics/README.md) cite official sources only:
+The [MFM 1.6 rule summaries](../data/mfm-1-6/rule-summaries/README.md) cite official sources only:
 
 - Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14. It is the signed build in force at the update's cutoff, and every record but one cites it.
 - Games Workshop's faction packs and other rules PDFs on warhammer-community.com, by their printed title and the page that prints the rule, for 1,235 records. One erratum, first printed in a dated publisher update the app build does not yet carry, cites that page alone.
@@ -32,11 +32,11 @@ The units, detachments, wargear and publications that FAQs amend are identity en
 
 Drafting also used Game Datacards' community data as private evidence, checked against the app build. It is not a cited source, and none of its text is published.
 
-Every summary is original wording. 168 records adapt structured fields from [40kdc-data](https://github.com/wn-mitch/40kdc-data) and carry its attribution under CC BY 4.0: the 140 mechanic records, translated from its ability records, and 28 summaries whose typed facts use its Stratagem timing and target records. The other records are drafted from the official sources alone.
+Every summary is original wording, drafted from the official sources alone. Up to v0.2.0, 168 records adapted structured fields from [40kdc-data](https://github.com/wn-mitch/40kdc-data) under CC BY 4.0: 140 mechanic records translated from its ability records, and 28 summaries whose typed facts used its Stratagem timing and target records. From v0.3.0 they are redrafted from the official text with their own typed facts, so no MFM 1.6 record carries 40kdc attribution and MFM 1.6 has no mechanics input: a mechanic record's summary is rendered from its structured fields, which were the 40kdc translation.
 
 ## Earlier 11th-edition rule summaries
 
-The inputs for the eight earlier rules versions (`data/<version>/rule-summaries/` and `mechanics/`) follow the same rules. Each cites the signed app build in force at its own cutoff instead of build 981: Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02, for `legacy-marine-old`; 2.7.0, data build 963, released 2026-09-30, for `legacy-rosters`; and 2.7.1, data build 972, released 2026-10-02, for the other six. A rule whose text first appears in a later build, or that no official source dated before the cutoff prints, has no record, and its input's README lists it.
+The inputs for the eight earlier rules versions (`data/<version>/rule-summaries/` and `mechanics/`) follow the same rules. Each cites the signed app build in force at its own cutoff instead of build 981: Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02, for `legacy-marine-old`; 2.7.0, data build 963, released 2026-09-30, for `legacy-rosters`; and 2.7.1, data build 972, released 2026-10-02, for the other six. A rule whose text first appears in a later build, or that no official source dated before the cutoff prints, has no record, and its input's README lists it. Their v0.1.0 inputs still carry the 40kdc mechanic records and adapted summaries described above, with its attribution, until their next release.
 
 ## Interpretations
 

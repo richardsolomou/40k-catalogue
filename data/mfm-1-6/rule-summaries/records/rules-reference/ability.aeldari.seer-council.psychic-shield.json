@@ -10,43 +10,11 @@
     "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Seer Council",
     "cp": 1,
-    "summary": "Opponent’s Shooting Phase. React once an enemy unit has picked its shooting targets. Choose one of the ASURYANI INFANTRY units it picked from your army within 9″ of a friendly ASURYANI PSYKER model, excluding WRAITH CONSTRUCT units. Through this phase, enemy models more than 18″ away cannot choose your unit for ranged attacks.",
-    "summarySpans": [
-      {
-        "start": 11,
-        "end": 25,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 103,
-        "end": 120,
-        "bold": true
-      },
-      {
-        "start": 176,
-        "end": 191,
-        "bold": true
-      },
-      {
-        "start": 209,
-        "end": 225,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in the Shooting phase of your opponent's turn, as soon as an enemy unit has chosen its targets. Pick one ASURYANI INFANTRY unit of yours, other than a WRAITH CONSTRUCT unit, that the enemy unit chose as a target for at least one attack and that is within 9\" of at least one ASURYANI PSYKER model from your army. Until the phase ends, only models within 18\" of it may aim ranged attacks at it.",
     "citations": [
       {
         "type": "app",
@@ -59,114 +27,42 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "conditional",
-            "condition": {
-              "type": "matches",
-              "parameters": {
-                "subject": "attacker",
-                "filter": {
-                  "within": {
-                    "of": "this-unit",
-                    "range": {
-                      "inches": 18
-                    }
-                  }
-                }
-              }
-            },
-            "effect": {
-              "type": "targeting",
-              "target": {
-                "owner": "enemy"
-              },
-              "modifier": {
-                "by": {
-                  "owner": "enemy"
-                },
-                "may": "target",
-                "kind": "attack",
-                "weapons": {
-                  "type": "ranged"
-                },
-                "target": "this-unit"
-              }
-            }
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "trigger": {
-            "event": "targets-selected",
-            "filter": {
-              "kind": "attack"
-            },
-            "subject": {
-              "owner": "enemy"
-            },
-            "object": "this-unit"
-          },
-          "behavior": "reactive"
-        },
         "stratagem": {
-          "id": "psychic-shield-seer-council-aeldari",
-          "cp_cost": 1,
-          "phases": [
-            "shooting"
+          "cpCost": 1,
+          "detachment": "Seer Council",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "after-enemy-unit-selects-targets"
+            }
           ],
-          "player_turn": "opponent-turn",
-          "timing": "once-per-phase",
-          "type": "strategic-ploy",
-          "target_restrictions": {
-            "required_keywords": [
-              "Asuryani",
-              "Infantry"
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ASURYANI",
+              "INFANTRY"
             ],
-            "excluded_keywords": [
-              "Wraith Construct"
+            "keywordsNone": [
+              "WRAITH CONSTRUCT"
             ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "bound_to": "attacked-unit",
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "owner": "friendly"
-                    }
-                  }
-                },
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "within": {
-                        "of": {
-                          "owner": "friendly",
-                          "all_of": [
-                            "ASURYANI",
-                            "PSYKER"
-                          ]
-                        },
-                        "range": {
-                          "inches": 9
-                        }
-                      }
-                    }
-                  }
-                }
+            "targetedByThatEnemyUnit": true,
+            "withinInchesOfFriendly": {
+              "inches": 9,
+              "keywordsAll": [
+                "ASURYANI",
+                "PSYKER"
               ]
             }
-          }
-        },
-        "valueRoles": {
-          "9": "eligibility range to friendly Psyker",
-          "18": "maximum range of enemy attacking model"
+          },
+          "effects": [
+            {
+              "rangedAttacksAgainstUnitOnlyFromWithinInches": 18
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

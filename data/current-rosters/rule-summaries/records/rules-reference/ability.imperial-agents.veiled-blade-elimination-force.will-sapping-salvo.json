@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Veiled Blade Elimination Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in your Shooting phase on one of your AGENTS OF THE IMPERIUM INFANTRY units that has not yet shot this phase. For the rest of that phase, its models' ranged weapons gain [SUSTAINED HITS 1], and a CULEXUS ASSASSIN unit also has the Damage of those ranged weapons set to 3 for the rest of that phase.",
     "citations": [
       {
@@ -25,11 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "AGENTS OF THE IMPERIUM",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Veiled Blade Elimination Force",
           "when": {
             "turn": "own",

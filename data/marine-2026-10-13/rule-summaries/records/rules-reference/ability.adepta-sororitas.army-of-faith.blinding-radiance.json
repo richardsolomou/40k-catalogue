@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Army of Faith",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP as soon as an enemy unit picks its targets. Use it in the Shooting phase on your opponent’s turn or the Fight phase on either turn. Choose one of your targeted ADEPTA SORORITAS units with INFANTRY, or pick a friendly JUMP PACK unit with ADEPTA SORORITAS no more than 3 inches from an Infantry unit that meets the first option. Every attack against your chosen unit takes a −1 Hit roll modifier through phase end. If your pick belongs to your army and has JUMP PACK, the penalty also applies to attacks against friendly units with both ADEPTA SORORITAS and INFANTRY while they are within 3 inches of your pick, through that same phase.",
     "summarySpans": [
       {
@@ -43,92 +51,112 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cost": {
-          "commandPoints": 1
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTA SORORITAS",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ],
+            "more": true
+          }
         },
-        "activation": {
-          "phaseAnyOf": [
-            {
-              "phase": "shooting",
-              "turn": "opponent"
-            },
-            {
-              "phase": "fight",
-              "turn": "either"
-            }
-          ],
-          "event": "immediately-after-targets-selected",
-          "actor": "enemy-unit"
-        },
-        "target": {
-          "entity": "unit",
-          "count": 1,
-          "anyOf": [
-            {
-              "controller": "you",
-              "allKeywords": [
-                "ADEPTA SORORITAS",
-                "INFANTRY"
-              ],
-              "selectedAsTargetOfAtLeastOneAttackBy": "triggering-enemy-unit"
-            },
-            {
-              "controller": "friendly",
-              "allKeywords": [
-                "ADEPTA SORORITAS",
-                "JUMP PACK"
-              ],
-              "within": {
-                "inches": 3,
-                "atSelection": true,
-                "unitMeeting": {
-                  "controller": "you",
-                  "allKeywords": [
-                    "ADEPTA SORORITAS",
-                    "INFANTRY"
-                  ],
-                  "selectedAsTargetOfAtLeastOneAttackBy": "triggering-enemy-unit"
+        "detail": {
+          "activation": {
+            "phaseAnyOf": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-targets-selected",
+            "actor": "enemy-unit"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "anyOf": [
+              {
+                "controller": "you",
+                "allKeywords": [
+                  "ADEPTA SORORITAS",
+                  "INFANTRY"
+                ],
+                "selectedAsTargetOfAtLeastOneAttackBy": "triggering-enemy-unit"
+              },
+              {
+                "controller": "friendly",
+                "allKeywords": [
+                  "ADEPTA SORORITAS",
+                  "JUMP PACK"
+                ],
+                "within": {
+                  "inches": 3,
+                  "atSelection": true,
+                  "unitMeeting": {
+                    "controller": "you",
+                    "allKeywords": [
+                      "ADEPTA SORORITAS",
+                      "INFANTRY"
+                    ],
+                    "selectedAsTargetOfAtLeastOneAttackBy": "triggering-enemy-unit"
+                  }
                 }
               }
-            }
-          ]
-        },
-        "effect": {
-          "expires": "end-of-triggering-phase",
-          "chosenUnit": {
-            "event": "attack-targets-chosen-unit",
-            "repeat": "each",
-            "statistic": "hit-roll",
-            "modifier": -1
+            ]
           },
-          "jumpPackBranch": {
-            "condition": {
-              "chosenUnitController": "you",
-              "chosenUnitAllKeywords": [
-                "ADEPTA SORORITAS",
-                "JUMP PACK"
-              ]
-            },
-            "recipient": {
-              "controller": "friendly",
-              "entity": "unit",
-              "allKeywords": [
-                "ADEPTA SORORITAS",
-                "INFANTRY"
-              ],
-              "within": {
-                "inches": 3,
-                "of": "chosen-unit",
-                "checked": "while-attack-targets-recipient"
-              }
-            },
-            "effect": {
-              "event": "attack-targets-recipient",
+          "effect": {
+            "expires": "end-of-triggering-phase",
+            "chosenUnit": {
+              "event": "attack-targets-chosen-unit",
               "repeat": "each",
               "statistic": "hit-roll",
               "modifier": -1
+            },
+            "jumpPackBranch": {
+              "condition": {
+                "chosenUnitController": "you",
+                "chosenUnitAllKeywords": [
+                  "ADEPTA SORORITAS",
+                  "JUMP PACK"
+                ]
+              },
+              "recipient": {
+                "controller": "friendly",
+                "entity": "unit",
+                "allKeywords": [
+                  "ADEPTA SORORITAS",
+                  "INFANTRY"
+                ],
+                "within": {
+                  "inches": 3,
+                  "of": "chosen-unit",
+                  "checked": "while-attack-targets-recipient"
+                }
+              },
+              "effect": {
+                "event": "attack-targets-recipient",
+                "repeat": "each",
+                "statistic": "hit-roll",
+                "modifier": -1
+              }
             }
           }
         }

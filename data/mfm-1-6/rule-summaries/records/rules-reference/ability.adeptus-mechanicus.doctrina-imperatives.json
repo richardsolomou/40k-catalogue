@@ -12,24 +12,24 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "When a battle round starts, you may select one imperative. Through round end, each of your units with Doctrina Imperatives gains the selected effects. PROTECTOR IMPERATIVE grants [HEAVY] to its ranged weapons and improves their Ballistic Skill by 1. Apply −1 to incoming melee Hit rolls if the unit is within 6″ of a friendly ADEPTUS MECHANICUS BATTLELINE unit. CONQUEROR IMPERATIVE grants [ASSAULT] to its ranged weapons and improves its melee weapons’ Weapon Skill by 1. Under the same 6″ condition, improve the Armour Penetration of attacks made by models in the unit by 1.",
+    "summary": "At the start of each battle round you may choose one of the two imperatives below; until that round ends it applies to your army, and every unit of yours with this ability gains its effects. PROTECTOR IMPERATIVE: the unit's ranged weapons gain [HEAVY] and their Ballistic Skill improves by 1; while the unit is BATTLELINE itself or has another ADEPTUS MECHANICUS BATTLELINE unit of yours no more than 6\" away, melee attacks aimed at it subtract 1 from their Hit rolls. CONQUEROR IMPERATIVE: its ranged weapons gain [ASSAULT] and the Weapon Skill of its melee weapons improves by 1; under that same BATTLELINE condition, each attack its models make has its Armour Penetration improved by 1.",
     "summarySpans": [
       {
-        "start": 7,
-        "end": 19,
+        "start": 21,
+        "end": 33,
         "target": {
           "kind": "core-rule",
           "id": "start-of-battle-round"
         }
       },
       {
-        "start": 151,
-        "end": 171,
+        "start": 191,
+        "end": 211,
         "bold": true
       },
       {
-        "start": 179,
-        "end": 186,
+        "start": 244,
+        "end": 251,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -37,26 +37,13 @@
         }
       },
       {
-        "start": 277,
-        "end": 286,
-        "target": {
-          "kind": "core-rule",
-          "id": "making-attacks"
-        }
-      },
-      {
-        "start": 326,
-        "end": 355,
+        "start": 469,
+        "end": 489,
         "bold": true
       },
       {
-        "start": 362,
-        "end": 382,
-        "bold": true
-      },
-      {
-        "start": 390,
-        "end": 399,
+        "start": 515,
+        "end": 524,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -98,11 +85,20 @@
               },
               "conditional": {
                 "within": {
-                  "owner": "friendly",
-                  "faction": "ADEPTUS MECHANICUS",
-                  "keyword": "BATTLELINE",
-                  "withinInches": 6,
-                  "atLeast": 1
+                  "or": [
+                    {
+                      "self": {
+                        "keyword": "BATTLELINE"
+                      }
+                    },
+                    {
+                      "owner": "friendly",
+                      "faction": "ADEPTUS MECHANICUS",
+                      "keyword": "BATTLELINE",
+                      "withinInches": 6,
+                      "atLeast": 1
+                    }
+                  ]
                 },
                 "attack": "incoming-melee",
                 "roll": "hit",
@@ -122,11 +118,20 @@
               },
               "conditional": {
                 "within": {
-                  "owner": "friendly",
-                  "faction": "ADEPTUS MECHANICUS",
-                  "keyword": "BATTLELINE",
-                  "withinInches": 6,
-                  "atLeast": 1
+                  "or": [
+                    {
+                      "self": {
+                        "keyword": "BATTLELINE"
+                      }
+                    },
+                    {
+                      "owner": "friendly",
+                      "faction": "ADEPTUS MECHANICUS",
+                      "keyword": "BATTLELINE",
+                      "withinInches": 6,
+                      "atLeast": 1
+                    }
+                  ]
                 },
                 "attack": "outgoing",
                 "stat": "AP",

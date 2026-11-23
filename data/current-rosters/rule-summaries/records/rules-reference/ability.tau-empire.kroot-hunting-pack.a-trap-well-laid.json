@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Kroot Hunting Pack",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Pick KROOT that still have to shoot in your Shooting phase or fight in either Fight phase. Once they attack, mark one enemy unit they hit or one that is Battle-shocked. For this phase, models in your KROOT units improve AP by 1 against that enemy unless their own unit is Battle-shocked.",
     "summarySpans": [
       {
@@ -69,10 +77,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "KROOT"
+            ],
+            "conditions": [
+              "not-selected-to-shoot-or-fight"
+            ]
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "windows": [

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Khorne Daemonkin",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "In your Command phase, choose a WORLD EATERS unit, then measure 6 inches from it to select a nearby BLOOD LEGIONS unit. Restore models to the BLOOD LEGIONS unit with every wound intact. The caps are one destroyed MOUNTED model, D3 for destroyed BEAST models, or D6 for destroyed INFANTRY models. Destroyed CHARACTER models cannot be returned to Attached units.",
     "summarySpans": [
       {
@@ -70,10 +77,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "WORLD EATERS"
+            ]
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "turn": "your",

@@ -43,133 +43,136 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "faq": {
-          "entryType": "errata",
-          "publicationId": "1b005241-163d-4acc-a924-247912c8f99b",
-          "typedMechanics": {
-            "operation": "replace-enhancement",
-            "effect": {
+        "detail": {
+          "faq": {
+            "entryType": "errata",
+            "publicationId": "1b005241-163d-4acc-a924-247912c8f99b",
+            "typedMechanics": {
               "effect": {
-                "type": "sequence",
-                "steps": [
-                  {
-                    "type": "sequence",
-                    "steps": [
-                      {
-                        "type": "permission",
-                        "target": "this-unit",
-                        "modifier": {
-                          "activity": "shoot",
-                          "allow": true,
-                          "after": [
-                            "fall-back"
-                          ]
-                        }
-                      },
-                      {
-                        "type": "permission",
-                        "target": "this-unit",
-                        "modifier": {
-                          "activity": "declare-charge",
-                          "allow": true,
-                          "after": [
-                            "fall-back"
-                          ]
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "conditional",
-                    "condition": {
-                      "operator": "and",
-                      "operands": [
+                "effect": {
+                  "type": "sequence",
+                  "steps": [
+                    {
+                      "type": "sequence",
+                      "steps": [
                         {
-                          "type": "matches",
-                          "parameters": {
-                            "filter": {
-                              "designated": "focus-of-hatred"
-                            }
+                          "type": "permission",
+                          "target": "this-unit",
+                          "modifier": {
+                            "activity": "shoot",
+                            "allow": true,
+                            "after": [
+                              "fall-back"
+                            ]
                           }
                         },
                         {
-                          "type": "happened",
-                          "parameters": {
-                            "event": "move-ended",
-                            "filter": {
-                              "move_types": [
-                                "fall-back"
-                              ]
-                            },
-                            "window": "turn"
+                          "type": "permission",
+                          "target": "this-unit",
+                          "modifier": {
+                            "activity": "declare-charge",
+                            "allow": true,
+                            "after": [
+                              "fall-back"
+                            ]
                           }
                         }
                       ]
                     },
-                    "effect": {
-                      "type": "sequence",
-                      "steps": [
-                        {
-                          "type": "roll-modifier",
-                          "target": "this-unit",
-                          "modifier": {
-                            "roll": "hit",
-                            "operation": "add",
-                            "value": 1
-                          }
-                        },
-                        {
-                          "type": "ability-part",
-                          "trigger": {
-                            "event": "targets-selected",
-                            "filter": {
-                              "kind": "charge"
+                    {
+                      "type": "conditional",
+                      "condition": {
+                        "operator": "and",
+                        "operands": [
+                          {
+                            "type": "matches",
+                            "parameters": {
+                              "filter": {
+                                "designated": "focus-of-hatred"
+                              }
                             }
                           },
-                          "effect": {
+                          {
+                            "type": "happened",
+                            "parameters": {
+                              "event": "move-ended",
+                              "filter": {
+                                "move_types": [
+                                  "fall-back"
+                                ]
+                              },
+                              "window": "turn"
+                            }
+                          }
+                        ]
+                      },
+                      "effect": {
+                        "type": "sequence",
+                        "steps": [
+                          {
                             "type": "roll-modifier",
                             "target": "this-unit",
                             "modifier": {
-                              "roll": "charge",
+                              "roll": "hit",
                               "operation": "add",
                               "value": 1
                             }
+                          },
+                          {
+                            "type": "ability-part",
+                            "trigger": {
+                              "event": "targets-selected",
+                              "filter": {
+                                "kind": "charge"
+                              }
+                            },
+                            "effect": {
+                              "type": "roll-modifier",
+                              "target": "this-unit",
+                              "modifier": {
+                                "roll": "charge",
+                                "operation": "add",
+                                "value": 1
+                              }
+                            }
                           }
-                        }
-                      ]
+                        ]
+                      }
                     }
-                  }
+                  ]
+                },
+                "scope": {
+                  "duration": "permanent"
+                },
+                "behavior": "reactive"
+              },
+              "detachmentId": "veterans-of-the-long-war",
+              "eligibility": {
+                "scope": "model",
+                "allOf": [
+                  "Heretic Astartes"
+                ],
+                "excludes": [
+                  "Damned"
                 ]
               },
-              "scope": {
-                "duration": "permanent"
+              "targetQid": "ability:chaos-space-marines.veterans-of-the-long-war.eager-for-vengeance",
+              "kind": "replace-enhancement"
+            },
+            "statedValues": [
+              {
+                "kind": "hit-bonus",
+                "value": 1
               },
-              "behavior": "reactive"
-            },
-            "detachmentId": "veterans-of-the-long-war",
-            "eligibility": {
-              "scope": "model",
-              "allOf": [
-                "Heretic Astartes"
-              ],
-              "excludes": [
-                "Damned"
-              ]
-            },
-            "targetQid": "ability:chaos-space-marines.veterans-of-the-long-war.eager-for-vengeance"
-          },
-          "statedValues": [
-            {
-              "kind": "hit-bonus",
-              "value": 1
-            },
-            {
-              "kind": "charge-bonus",
-              "value": 1
-            }
-          ]
+              {
+                "kind": "charge-bonus",
+                "value": 1
+              }
+            ]
+          }
         }
       }
     }

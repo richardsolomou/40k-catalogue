@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Farseekers",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "In the enemy’s Movement phase, use this upon completion of an enemy move no more than 8″ from your PIONEERS. The PIONEERS may move D3+3″ or less using Normal Move rules.",
     "summarySpans": [
       {
@@ -54,28 +60,48 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Movement",
-          "turn": "active player is opponent",
-          "event": "enemy completes a move"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "PIONEERS"
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": "PIONEERS",
-          "withinInches": 8,
-          "relativeTo": "enemy at end of move"
-        },
-        "effect": {
-          "type": "optional move",
-          "move": "Normal Move",
-          "maximumInches": "D3+3"
-        },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Movement",
+            "turn": "active player is opponent",
+            "event": "enemy completes a move"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": "PIONEERS",
+            "withinInches": 8,
+            "relativeTo": "enemy at end of move"
+          },
+          "effect": {
+            "type": "optional move",
+            "move": "Normal Move",
+            "maximumInches": "D3+3"
+          },
+          "restrictions": []
+        }
       }
     }
   }

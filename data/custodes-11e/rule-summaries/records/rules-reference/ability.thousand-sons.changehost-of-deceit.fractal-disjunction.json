@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Changehost of Deceit",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "As soon as an enemy declares targets in its Shooting phase, choose one SCINTILLATING LEGIONS unit it targeted, excluding MONSTERS. For the rest of that phase only models within 18\" can target it with ranged attacks.",
     "summarySpans": [
       {
@@ -45,10 +52,31 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "SCINTILLATING LEGIONS"
+            ],
+            "excludedKeywords": [
+              "MONSTER"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "windows": [

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Phobos Shadow Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "During your Shooting phase or either Fight phase, use this as a you select a hidden friendly Phobos unit for attacks. Give its attacks +1 Strength and Lethal Hits.",
     "summarySpans": [
       {
@@ -66,10 +73,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-attack"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "PHOBOS"
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

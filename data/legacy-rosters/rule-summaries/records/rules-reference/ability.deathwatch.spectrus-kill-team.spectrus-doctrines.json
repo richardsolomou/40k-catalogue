@@ -13,14 +13,22 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Spectrus Kill Team",
-    "summary": "At the end of your opponent's Fight phase, you may use this ability, while the unit is unengaged, the unit can be placed into Strategic Reserves.",
+    "summary": "When the Fight phase of your opponent's turn ends, you may put this unit into Strategic Reserves, provided no enemy unit is engaged with it.",
     "summarySpans": [
       {
-        "start": 30,
-        "end": 41,
+        "start": 9,
+        "end": 20,
         "target": {
           "kind": "core-rule",
           "id": "fight-phase"
+        }
+      },
+      {
+        "start": 78,
+        "end": 96,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
         }
       }
     ],
@@ -34,56 +42,59 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "effect": {
-          "type": "conditional",
-          "condition": {
-            "operator": "not",
-            "operands": [
-              {
-                "type": "matches",
-                "parameters": {
-                  "filter": {
-                    "state": "engaged"
+        "detail": {
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "operator": "not",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "state": "engaged"
+                    }
                   }
                 }
+              ]
+            },
+            "effect": {
+              "type": "set-up",
+              "target": "this-unit",
+              "modifier": {
+                "to": "strategic-reserves"
               }
-            ]
-          },
-          "effect": {
-            "type": "set-up",
-            "target": "this-unit",
-            "modifier": {
-              "to": "strategic-reserves"
             }
-          }
-        },
-        "scope": {
-          "duration": "permanent"
-        },
-        "trigger": {
-          "event": "phase-ended",
-          "condition": {
-            "operator": "and",
-            "operands": [
-              {
-                "type": "phase-is",
-                "parameters": {
-                  "phase": "fight"
-                }
-              },
-              {
-                "type": "player-turn-is",
-                "parameters": {
-                  "turn": "opponent-turn"
-                }
-              }
-            ]
           },
-          "optional": true
-        },
-        "behavior": "reactive"
+          "scope": {
+            "duration": "permanent"
+          },
+          "trigger": {
+            "event": "phase-ended",
+            "condition": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "phase-is",
+                  "parameters": {
+                    "phase": "fight"
+                  }
+                },
+                {
+                  "type": "player-turn-is",
+                  "parameters": {
+                    "turn": "opponent-turn"
+                  }
+                }
+              ]
+            },
+            "optional": true
+          },
+          "behavior": "reactive"
+        }
       }
     }
   }

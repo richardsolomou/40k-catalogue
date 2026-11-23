@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Army of Faith",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "React immediately when an ADEPTA SORORITAS unit of yours suffers a mortal wound. Pick it or a unit of yours up to 3\" away with ADEPTA SORORITAS JUMP PACK. The chosen unit’s models get Feel No Pain 5+ against mortal wounds through phase end. If your pick is ADEPTA SORORITAS JUMP PACK, the same protection covers models in your friendly ADEPTA SORORITAS units while those units are up to 3\" from it.",
     "summarySpans": [
       {
@@ -55,10 +66,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-suffered-mortal-wound"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTA SORORITAS"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "windows": [

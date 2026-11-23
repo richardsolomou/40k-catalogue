@@ -39,38 +39,46 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Necrons"
-          ],
-          "excludes": []
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "NECRONS"
+                ]
+              }
+            ]
+          }
         },
-        "trigger": {
-          "event": "select-as-stratagem-target",
-          "actor": "own-player",
-          "recipient": "bearers-unit",
-          "frequency": "each-selection"
-        },
-        "effect": {
-          "dice": "D6",
-          "bonus": {
-            "amount": 1,
-            "condition": {
-              "subject": "stratagem-target",
-              "withinRangeOf": "one-or-more-objectives"
-            }
+        "detail": {
+          "trigger": {
+            "event": "select-as-stratagem-target",
+            "actor": "own-player",
+            "recipient": "bearers-unit",
+            "frequency": "each-selection"
           },
-          "comparison": "at-least",
-          "threshold": 4,
-          "success": {
-            "type": "gain-resource",
-            "recipient": "own-player",
-            "pool": "CP",
-            "amount": 1
+          "effect": {
+            "dice": "D6",
+            "bonus": {
+              "amount": 1,
+              "condition": {
+                "subject": "stratagem-target",
+                "withinRangeOf": "one-or-more-objectives"
+              }
+            },
+            "comparison": "at-least",
+            "threshold": 4,
+            "success": {
+              "type": "gain-resource",
+              "recipient": "own-player",
+              "pool": "CP",
+              "amount": 1
+            }
           }
         }
       }

@@ -45,42 +45,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Infantry Warboss"
-          ],
-          "anyOf": [],
-          "excludes": [],
-          "equipment": null,
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "trigger": {
-          "event": "bearer destroyed",
-          "timing": "end of that phase"
-        },
-        "limit": {
-          "uses": 1,
-          "per": "battle",
-          "sharedBy": "army"
-        },
-        "effects": [
-          {
-            "recipient": "destroyed bearer",
-            "operation": "return-model",
-            "actor": "controlling player",
-            "roll": "D6",
-            "dice": 1,
-            "minimum": 2,
-            "woundsRemaining": 3,
-            "destination": "battlefield, as close as possible to destruction location",
-            "mustBeUnengaged": true
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY",
+                  "WARBOSS"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "trigger": {
+            "event": "bearer destroyed",
+            "timing": "end of that phase"
+          },
+          "limit": {
+            "uses": 1,
+            "per": "battle",
+            "sharedBy": "army"
+          },
+          "effects": [
+            {
+              "recipient": "destroyed bearer",
+              "actor": "controlling player",
+              "roll": "D6",
+              "dice": 1,
+              "minimum": 2,
+              "woundsRemaining": 3,
+              "destination": "battlefield, as close as possible to destruction location",
+              "mustBeUnengaged": true,
+              "kind": "return-model"
+            }
+          ]
+        }
       }
     }
   }

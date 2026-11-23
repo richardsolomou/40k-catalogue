@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Spirit Conclave",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in your Charge phase once one of your WRAITHBLADES, WRAITHLORD or WRAITHKNIGHT units finishes a Charge move; that unit is the target. Choose an enemy unit in Engagement Range of it and roll dice: one D6 per WRAITHBLADES model it contains, four D6 for a WRAITHLORD, or six D6 for a WRAITHKNIGHT. Each result of 3+ inflicts 1 mortal wound on the chosen enemy unit.",
     "citations": [
       {
@@ -25,10 +32,38 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-ended-charge"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "WRAITHBLADES"
+                ]
+              },
+              {
+                "keywords": [
+                  "WRAITHLORD"
+                ]
+              },
+              {
+                "keywords": [
+                  "WRAITHKNIGHT"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Spirit Conclave",
           "type": "Battle Tactic",
           "windows": [

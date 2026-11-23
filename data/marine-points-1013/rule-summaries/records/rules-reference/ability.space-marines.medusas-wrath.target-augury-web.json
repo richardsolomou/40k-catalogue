@@ -50,45 +50,58 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "TECHMARINE"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "grant-attack-ability",
-            "target": "selected-friendly-model-attacks",
-            "ability": "[LETHAL HITS]",
-            "duration": "until-start-of-next-own-command-phase"
+        "enhancement": {
+          "type": "model",
+          "points": 30,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "TECHMARINE"
+                ]
+              },
+              {
+                "unit": {
+                  "kind": "unit",
+                  "id": "space-marines.techmarine"
+                }
+              }
+            ]
           }
-        ],
-        "trigger": {
-          "phase": "movement",
-          "owner": "own-player",
-          "timing": [
-            "start-of-bearer-unit-move",
-            "end-of-bearer-unit-move"
-          ]
         },
-        "selection": {
-          "actor": "own-player",
-          "optional": true,
-          "count": 1,
-          "target": "friendly-model",
-          "keywords": [
-            "ADEPTUS ASTARTES",
-            "VEHICLE"
+        "detail": {
+          "effects": [
+            {
+              "type": "grant-attack-ability",
+              "target": "selected-friendly-model-attacks",
+              "ability": "[LETHAL HITS]",
+              "duration": "until-start-of-next-own-command-phase"
+            }
           ],
-          "distanceInches": 3,
-          "comparison": "within-inclusive",
-          "origin": "bearer-unit"
+          "trigger": {
+            "phase": "movement",
+            "owner": "own-player",
+            "timing": [
+              "start-of-bearer-unit-move",
+              "end-of-bearer-unit-move"
+            ]
+          },
+          "selection": {
+            "actor": "own-player",
+            "optional": true,
+            "count": 1,
+            "target": "friendly-model",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "VEHICLE"
+            ],
+            "distanceInches": 3,
+            "comparison": "within-inclusive",
+            "origin": "bearer-unit"
+          }
         }
       }
     }

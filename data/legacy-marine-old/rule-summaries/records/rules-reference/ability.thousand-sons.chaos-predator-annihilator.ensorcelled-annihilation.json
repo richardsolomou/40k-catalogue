@@ -65,38 +65,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "actor": "this-model",
-        "trigger": "each-ranged-attack",
-        "target": {
-          "entity": "unit",
-          "anyKeyword": [
-            "Monster",
-            "Vehicle"
-          ]
-        },
-        "condition": {
-          "event": "target-already-hit-in-this-phase",
-          "minimumHits": 1,
-          "sourceArmy": "own",
-          "sourceKeyword": "Thousand Sons",
-          "attackAbility": "psychic",
-          "sourceEntity": "model"
-        },
-        "effects": [
-          {
-            "roll": "hit",
-            "operation": "reroll",
-            "optional": true
+        "detail": {
+          "actor": "this-model",
+          "trigger": "each-ranged-attack",
+          "target": {
+            "entity": "unit",
+            "anyKeyword": [
+              "Monster",
+              "Vehicle"
+            ]
           },
-          {
-            "roll": "damage",
-            "operation": "reroll",
-            "optional": true
-          }
-        ],
-        "independentChoices": true
+          "condition": {
+            "event": "target-already-hit-in-this-phase",
+            "minimumHits": 1,
+            "sourceArmy": "own",
+            "sourceKeyword": "Thousand Sons",
+            "attackAbility": "psychic",
+            "sourceEntity": "model"
+          },
+          "effects": [
+            {
+              "roll": "hit",
+              "optional": true,
+              "kind": "re-roll"
+            },
+            {
+              "roll": "damage",
+              "optional": true,
+              "kind": "re-roll"
+            }
+          ],
+          "independentChoices": true
+        }
       }
     }
   }

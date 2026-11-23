@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Veiled Blade Elimination Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Right after an enemy chooses targets in its Shooting phase, pick an INFANTRY unit of yours among its targets that has AGENTS OF THE IMPERIUM. Through phase end, enemy models can make ranged attacks against the pick only from up to 18\" away. Lone Operative on the pick reduces that limit to 6\".",
     "summarySpans": [
       {
@@ -45,10 +52,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "AGENTS OF THE IMPERIUM",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "windows": [

@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Blitz Brigade",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own"
+    },
     "summary": "1 CP, in your Charge phase, once a WAGON unit of yours finishes a Charge move; that unit is the target. Every enemy unit engaged with it has to roll for Battle-shock, applying -1 to that roll.",
     "summarySpans": [
       {
@@ -43,11 +49,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-ended-charge"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "WAGON"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Blitz Brigade",
           "when": {
             "phase": "charge",

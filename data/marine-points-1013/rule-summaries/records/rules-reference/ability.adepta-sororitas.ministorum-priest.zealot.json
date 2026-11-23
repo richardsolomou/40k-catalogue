@@ -44,40 +44,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "actor": "this-model",
-        "optional": true,
-        "limit": {
-          "count": 1,
-          "period": "battle",
-          "scope": "this-model"
-        },
-        "activation": {
-          "timing": "during",
-          "phases": [
+        "detail": {
+          "actor": "this-model",
+          "optional": true,
+          "limit": {
+            "count": 1,
+            "period": "battle",
+            "scope": "this-model"
+          },
+          "activation": {
+            "timing": "during",
+            "phases": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "duration": "through-end-of-activation-phase",
+          "recipient": {
+            "entity": "weapon",
+            "equippedBy": "this-model",
+            "type": "melee"
+          },
+          "effects": [
             {
-              "phase": "fight",
-              "turn": "either"
+              "characteristic": "attacks",
+              "modifier": 3
+            },
+            {
+              "characteristic": "strength",
+              "modifier": 3
             }
           ]
-        },
-        "duration": "through-end-of-activation-phase",
-        "recipient": {
-          "entity": "weapon",
-          "equippedBy": "this-model",
-          "type": "melee"
-        },
-        "effects": [
-          {
-            "characteristic": "attacks",
-            "modifier": 3
-          },
-          {
-            "characteristic": "strength",
-            "modifier": 3
-          }
-        ]
+        }
       }
     }
   }

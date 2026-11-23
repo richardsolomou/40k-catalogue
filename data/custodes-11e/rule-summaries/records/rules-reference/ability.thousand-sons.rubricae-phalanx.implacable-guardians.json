@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Rubricae Phalanx",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Immediately after an enemy picks its targets in their Shooting phase, choose a RUBRIC MARINES PSYKER unit among those targets. Through the rest of the phase, subtract 1 Damage from each attack allocated to a PSYKER model in that unit.",
     "summarySpans": [
       {
@@ -45,10 +52,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "RUBRIC MARINES",
+              "PSYKER"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "turn": "opponent",

@@ -42,37 +42,48 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "enhancement",
-        "detachment": "Outlander Claw",
-        "pointsCost": 10,
-        "eligibility": {
-          "scope": "model",
-          "keywordsAll": [
-            "GENESTEALER CULTS",
-            "MOUNTED"
-          ]
-        },
-        "effects": [
-          {
-            "trigger": {
-              "phase": "shooting",
-              "turn": "own",
-              "event": "bearer-has-shot"
-            },
-            "select": {
-              "count": 1,
-              "side": "enemy",
-              "condition": "hit-by-cult-sniper-rifle-attacks"
-            },
-            "roll": "hit",
-            "change": 1,
-            "direction": "decrease",
-            "appliesTo": "attacks-by-selected-unit",
-            "duration": "start-of-your-next-shooting-phase"
+        "enhancement": {
+          "type": "model",
+          "points": 10,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "MOUNTED"
+                ],
+                "factionKeywords": [
+                  "GENESTEALER CULTS"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Outlander Claw",
+          "effects": [
+            {
+              "trigger": {
+                "phase": "shooting",
+                "turn": "own",
+                "event": "bearer-has-shot"
+              },
+              "select": {
+                "count": 1,
+                "side": "enemy",
+                "condition": "hit-by-cult-sniper-rifle-attacks"
+              },
+              "roll": "hit",
+              "change": 1,
+              "direction": "decrease",
+              "appliesTo": "attacks-by-selected-unit",
+              "duration": "start-of-your-next-shooting-phase"
+            }
+          ]
+        }
       }
     }
   }

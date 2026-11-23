@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Brood Brothers Auxilia",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP, in your Shooting phase right after one of your ASTRA MILITARUM units has shot; that unit is the target. Pick one enemy unit struck by at least one of its attacks. Until the turn ends, the Fire Overwatch Stratagem cannot target that enemy unit, and whenever a GENESTEALER CULTS unit of yours declares a charge against it, you may re-roll its Charge roll.",
     "summarySpans": [
       {
@@ -51,11 +58,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ASTRA MILITARUM"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Brood Brothers Auxilia",
           "when": {
             "phase": "shooting",

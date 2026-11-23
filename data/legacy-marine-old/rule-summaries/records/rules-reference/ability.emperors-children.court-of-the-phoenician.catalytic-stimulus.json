@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Court of the Phoenician",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "After an enemy shoots in the opposing Shooting phase, pick an EMPEROR’S CHILDREN unit of yours that took at least one wound from that shooting. It can Surge Move up to D6″.",
     "summarySpans": [
       {
@@ -49,29 +56,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is opponent",
-          "event": "after enemy shooting"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "keywords": "EMPEROR'S CHILDREN",
-          "lostWounds": {
-            "minimum": 1,
-            "cause": "triggering attacks"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "EMPEROR’S CHILDREN"
+            ],
+            "more": true
           }
         },
-        "effect": {
-          "type": "optional move",
-          "move": "Surge Move",
-          "maximumInches": "D6"
-        },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is opponent",
+            "event": "after enemy shooting"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywords": "EMPEROR'S CHILDREN",
+            "lostWounds": {
+              "minimum": 1,
+              "cause": "triggering attacks"
+            }
+          },
+          "effect": {
+            "type": "optional move",
+            "move": "Surge Move",
+            "maximumInches": "D6"
+          },
+          "restrictions": []
+        }
       }
     }
   }

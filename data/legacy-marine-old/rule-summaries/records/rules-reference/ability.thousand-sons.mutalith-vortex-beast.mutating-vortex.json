@@ -55,41 +55,44 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-model",
-        "timing": "end-of-own-movement-phase",
-        "affected": {
-          "side": "enemy",
-          "entity": "unit",
-          "rangeInches": 6
-        },
-        "dice": {
-          "sides": 6,
-          "count": 1,
-          "scope": "per-affected-unit"
-        },
-        "outcomes": [
-          {
-            "minimum": 2,
-            "maximum": 3,
-            "mortalWounds": 1
+        "detail": {
+          "source": "this-model",
+          "timing": "end-of-own-movement-phase",
+          "affected": {
+            "side": "enemy",
+            "entity": "unit",
+            "rangeInches": 6
           },
-          {
-            "minimum": 4,
-            "maximum": 5,
-            "mortalWoundsDiceSides": 3
+          "dice": {
+            "sides": 6,
+            "count": 1,
+            "scope": "per-affected-unit"
           },
-          {
-            "result": 6,
-            "mortalWoundsDiceSides": 6
+          "outcomes": [
+            {
+              "minimum": 2,
+              "maximum": 3,
+              "mortalWounds": 1
+            },
+            {
+              "minimum": 4,
+              "maximum": 5,
+              "mortalWoundsDiceSides": 3
+            },
+            {
+              "result": 6,
+              "mortalWoundsDiceSides": 6
+            }
+          ],
+          "followUp": {
+            "recipient": "every-enemy-unit-in-range",
+            "test": "battle-shock",
+            "required": true,
+            "independentOfDamageRoll": true
           }
-        ],
-        "followUp": {
-          "recipient": "every-enemy-unit-in-range",
-          "test": "battle-shock",
-          "required": true,
-          "independentOfDamageRoll": true
         }
       }
     }

@@ -58,40 +58,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "lethalIntent": {
-          "trigger": "opponent-shooting-phase-end",
-          "requires": "friendly-ynnari-destroyed-during-phase",
-          "selection": {
-            "count": 1,
-            "unit": "friendly-ynnari-infantry-or-mounted",
-            "distanceInches": 6,
-            "from": "friendly-ynnari-destroyed-that-phase"
+        "detail": {
+          "lethalIntent": {
+            "trigger": "opponent-shooting-phase-end",
+            "requires": "friendly-ynnari-destroyed-during-phase",
+            "selection": {
+              "count": 1,
+              "unit": "friendly-ynnari-infantry-or-mounted",
+              "distanceInches": 6,
+              "from": "friendly-ynnari-destroyed-that-phase"
+            },
+            "optionalMove": {
+              "type": "normal",
+              "maxInches": "D6+1"
+            }
           },
-          "optionalMove": {
-            "type": "normal",
+          "lethalSurge": {
+            "cap": {
+              "count": 1,
+              "per": "turn"
+            },
+            "unit": "friendly-ynnari",
+            "when": "performing-fade-back-agile-manoeuvre",
+            "replace": "normal-move",
+            "with": "surge-move",
             "maxInches": "D6+1"
-          }
-        },
-        "lethalSurge": {
-          "cap": {
-            "count": 1,
-            "per": "turn"
           },
-          "unit": "friendly-ynnari",
-          "when": "performing-fade-back-agile-manoeuvre",
-          "replace": "normal-move",
-          "with": "surge-move",
-          "maxInches": "D6+1"
-        },
-        "lethalReprisal": {
-          "trigger": "fight-phase-start",
-          "choose": 1,
-          "unit": "friendly-ynnari-below-starting-strength",
-          "exclude": "titanic",
-          "grant": "fights-first",
-          "expires": "fight-phase-end"
+          "lethalReprisal": {
+            "trigger": "fight-phase-start",
+            "choose": 1,
+            "unit": "friendly-ynnari-below-starting-strength",
+            "exclude": "titanic",
+            "grant": "fights-first",
+            "expires": "fight-phase-end"
+          }
         }
       }
     }

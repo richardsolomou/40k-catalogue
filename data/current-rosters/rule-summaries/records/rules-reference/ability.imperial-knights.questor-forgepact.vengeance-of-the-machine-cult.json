@@ -15,6 +15,16 @@
     "ruleType": "stratagem",
     "group": "Questor Forgepact",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "When an enemy unit destroys your Imperial Knights Titanic, mark that enemy. Pick an Adeptus Mechanicus unit. For the rest of the battle it may reroll Wound rolls against the marked unit.",
     "summarySpans": [
       {
@@ -58,10 +68,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-destroyed"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS MECHANICUS"
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

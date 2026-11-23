@@ -59,52 +59,59 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "THOUSAND SONS"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "select-units",
-            "target": "own-army",
-            "choice": {
-              "operator": "one-of",
-              "options": [
-                {
-                  "count": 2,
-                  "keywordsAll": [
-                    "RUBRICAE",
-                    "BATTLELINE"
-                  ]
-                },
-                {
-                  "count": 1,
-                  "keywordsAll": [
-                    "RUBRICAE"
-                  ],
-                  "keywordsNone": [
-                    "BATTLELINE"
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "type": "grant-ability",
-            "target": "models-in-chosen-units",
-            "ability": "Infiltrators"
+        "enhancement": {
+          "type": "model",
+          "points": 30,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "THOUSAND SONS"
+                ]
+              }
+            ]
           }
-        ],
-        "trigger": {
-          "step": "Declare Battle Formations",
-          "point": "start"
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "select-units",
+              "target": "own-army",
+              "choice": {
+                "operator": "one-of",
+                "options": [
+                  {
+                    "count": 2,
+                    "keywordsAll": [
+                      "RUBRICAE",
+                      "BATTLELINE"
+                    ]
+                  },
+                  {
+                    "count": 1,
+                    "keywordsAll": [
+                      "RUBRICAE"
+                    ],
+                    "keywordsNone": [
+                      "BATTLELINE"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "grant-ability",
+              "target": "models-in-chosen-units",
+              "ability": "Infiltrators"
+            }
+          ],
+          "trigger": {
+            "step": "Declare Battle Formations",
+            "point": "start"
+          }
         }
       }
     }

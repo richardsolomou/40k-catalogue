@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Warrior Bioform Onslaught",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "When you pick friendly TYRANID WARRIORS to shoot in your Shooting phase, give IGNORE COVER to its ranged attacks.",
     "summarySpans": [
       {
@@ -49,26 +55,38 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is you",
-          "event": "friendly unit selected to shoot"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-shoot"
+          },
+          "target": {
+            "unresolved": "not typed yet; see the summary"
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": "TYRANID WARRIORS"
-        },
-        "effect": {
-          "type": "ranged attack cover bypass",
-          "scope": "triggering shooting",
-          "ignoreCover": true
-        },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is you",
+            "event": "friendly unit selected to shoot"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": "TYRANID WARRIORS"
+          },
+          "effect": {
+            "type": "ranged attack cover bypass",
+            "scope": "triggering shooting",
+            "ignoreCover": true
+          },
+          "restrictions": []
+        }
       }
     }
   }

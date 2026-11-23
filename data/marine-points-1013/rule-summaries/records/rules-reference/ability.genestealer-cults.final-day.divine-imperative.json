@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Final Day",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "In your Charge phase, use this when a GENESTEALER CULTS unit declares a charge within 12\" of an engaged friendly TYRANIDS unit. Give the charger +1 to its Charge rolls. You may also reroll them, but if you take that option, its Charge Move must finish engaged with an enemy already engaged with one of your TYRANIDS units.",
     "summarySpans": [
       {
@@ -75,27 +82,44 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "own Charge phase",
-          "friendly GENESTEALER CULTS declares a charge"
-        ],
-        "target": {
-          "unit": "GENESTEALER CULTS",
-          "binding": "charging unit",
-          "withinInches": 12,
-          "near": "engaged friendly TYRANIDS unit"
-        },
-        "effect": {
-          "chargeModifier": 1,
-          "optionalReroll": {
-            "rolls": "charging unit’s Charge rolls",
-            "chargeMoveMustEnd": "engaged with an enemy already engaged with friendly TYRANIDS"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-declared-charge"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "GENESTEALER CULTS"
+            ],
+            "more": true
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "own Charge phase",
+            "friendly GENESTEALER CULTS declares a charge"
+          ],
+          "target": {
+            "unit": "GENESTEALER CULTS",
+            "binding": "charging unit",
+            "withinInches": 12,
+            "near": "engaged friendly TYRANIDS unit"
+          },
+          "effect": {
+            "chargeModifier": 1,
+            "optionalReroll": {
+              "rolls": "charging unit’s Charge rolls",
+              "chargeMoveMustEnd": "engaged with an enemy already engaged with friendly TYRANIDS"
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

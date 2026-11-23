@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Path of the Outcast",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "After friendly RANGERS or SHROUD RUNNERS shoot in your Shooting phase, choose an enemy they hit. If the chosen enemy survived, it takes a −1 penalty on a Battle-shock Roll it must make now.",
     "summarySpans": [
       {
@@ -54,37 +60,62 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is you",
-          "event": "after friendly shooting"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
             "anyOf": [
-              "RANGERS",
-              "SHROUD RUNNERS"
+              {
+                "keywords": [
+                  "RANGERS"
+                ]
+              },
+              {
+                "keywords": [
+                  "SHROUD RUNNERS"
+                ]
+              }
             ]
           }
         },
-        "effect": {
-          "type": "forced roll",
-          "recipient": {
-            "side": "enemy",
-            "count": 1,
-            "hitBy": "triggering shooting"
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is you",
+            "event": "after friendly shooting"
           },
-          "condition": "recipient survived",
-          "roll": "Battle-shock",
-          "amount": -1
-        },
-        "restrictions": []
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": {
+              "anyOf": [
+                "RANGERS",
+                "SHROUD RUNNERS"
+              ]
+            }
+          },
+          "effect": {
+            "type": "forced roll",
+            "recipient": {
+              "side": "enemy",
+              "count": 1,
+              "hitBy": "triggering shooting"
+            },
+            "condition": "recipient survived",
+            "roll": "Battle-shock",
+            "amount": -1
+          },
+          "restrictions": []
+        }
       }
     }
   }

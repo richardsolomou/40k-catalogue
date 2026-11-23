@@ -66,37 +66,40 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "condition": {
-          "subject": "enemy-unit",
-          "engagedOnlyWith": "FORTIFICATION units"
-        },
-        "effects": [
-          {
-            "operation": "allow-selection-as-ranged-target",
-            "target": "qualified-enemy-unit"
+        "detail": {
+          "condition": {
+            "subject": "enemy-unit",
+            "engagedOnlyWith": "FORTIFICATION units"
           },
-          {
-            "operation": "modify-hit-roll",
-            "target": "qualified-enemy-unit",
-            "attackType": "ranged",
-            "modifier": {
-              "operation": "subtract",
-              "magnitude": 1
+          "effects": [
+            {
+              "target": "qualified-enemy-unit",
+              "kind": "allow-selection-as-ranged-target"
             },
-            "except": "close-quarters-shooting"
-          },
-          {
-            "operation": "automatically-pass-rolls",
-            "roll": "hazard",
-            "trigger": "qualified-enemy-unit-selected-to-make-fall-back-move",
-            "requires": {
-              "battleShocked": false
+            {
+              "target": "qualified-enemy-unit",
+              "attackType": "ranged",
+              "modifier": {
+                "operation": "subtract",
+                "magnitude": 1
+              },
+              "except": "close-quarters-shooting",
+              "kind": "modify-hit-roll"
             },
-            "scope": "all-triggered-hazard-rolls"
-          }
-        ]
+            {
+              "roll": "hazard",
+              "trigger": "qualified-enemy-unit-selected-to-make-fall-back-move",
+              "requires": {
+                "battleShocked": false
+              },
+              "scope": "all-triggered-hazard-rolls",
+              "kind": "automatically-pass-rolls"
+            }
+          ]
+        }
       }
     }
   }

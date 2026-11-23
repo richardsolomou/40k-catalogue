@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Banishers",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "epic-deed"
+    },
     "summary": "Spend 1 CP during the opposing player's Movement phase just as an enemy unit completes a Normal move, an Advance move or a Fall Back move. Pick one of your GREY KNIGHTS PSYKER units that is no more than 8″ from the enemy unit that moved and outside Engagement Range of every enemy unit. Your unit may either make a Normal move (6″ at most) or, provided it has Deep Strike, go into Strategic Reserves.",
     "citations": [
       {
@@ -25,10 +32,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GREY KNIGHTS",
+              "PSYKER"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Banishers",
           "trigger": {
             "windows": [
@@ -65,8 +89,7 @@
               ]
             }
           ],
-          "restrictions": [],
-          "category": "Epic Deed"
+          "restrictions": []
         }
       }
     }

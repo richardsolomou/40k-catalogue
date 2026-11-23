@@ -42,39 +42,48 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "limit": {
-          "count": 1,
-          "period": "battle"
-        },
-        "trigger": {
-          "timing": "after",
-          "action": "fight",
-          "actor": "bearers-unit",
-          "gate": {
-            "event": "model-destroyed",
-            "modelKeyword": "CHARACTER",
-            "minimum": 1,
-            "cause": "attacks-made-in-that-fight"
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "BIOLOGUS PUTRIFIER"
+                ]
+              }
+            ]
           }
         },
-        "choice": {
-          "count": 1,
-          "from": "Manifold Maladies"
-        },
-        "effect": {
-          "recipient": "each-enemy-unit-while-Afflicted",
-          "plague": "selected",
-          "cumulativeWithOtherPlagues": true,
-          "ends": "battle-end"
-        },
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Biologus Putrifier"
-          ],
-          "excludedKeywords": []
+        "detail": {
+          "limit": {
+            "count": 1,
+            "period": "battle"
+          },
+          "trigger": {
+            "timing": "after",
+            "action": "fight",
+            "actor": "bearers-unit",
+            "gate": {
+              "event": "model-destroyed",
+              "modelKeyword": "CHARACTER",
+              "minimum": 1,
+              "cause": "attacks-made-in-that-fight"
+            }
+          },
+          "choice": {
+            "count": 1,
+            "from": "Manifold Maladies"
+          },
+          "effect": {
+            "recipient": "each-enemy-unit-while-Afflicted",
+            "plague": "selected",
+            "cumulativeWithOtherPlagues": true,
+            "ends": "battle-end"
+          }
         }
       }
     }

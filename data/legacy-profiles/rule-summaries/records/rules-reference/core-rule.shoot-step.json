@@ -66,54 +66,57 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "phase-step",
-        "phase": "shooting",
-        "actor": "active-player",
-        "loop": {
-          "unitsAtATime": 1,
-          "until": "all-chosen-units-selected-and-attacks-resolved",
-          "optionalPerUnit": true
-        },
-        "eligibility": {
-          "all": [
-            "on-battlefield",
-            "not-already-selected-to-shoot-this-phase"
-          ]
-        },
-        "subSteps": [
-          {
-            "order": 1,
-            "name": "Select Unit",
-            "select": {
-              "count": 1,
-              "side": "friendly",
-              "constraint": "eligible-to-shoot"
-            },
-            "setsState": "selected-to-shoot"
+        "detail": {
+          "kind": "phase-step",
+          "phase": "shooting",
+          "actor": "active-player",
+          "loop": {
+            "unitsAtATime": 1,
+            "until": "all-chosen-units-selected-and-attacks-resolved",
+            "optionalPerUnit": true
           },
-          {
-            "order": 2,
-            "name": "Select Shooting Type",
-            "choose": {
-              "count": 1,
-              "constraint": "unit-eligible"
+          "eligibility": {
+            "all": [
+              "on-battlefield",
+              "not-already-selected-to-shoot-this-phase"
+            ]
+          },
+          "subSteps": [
+            {
+              "order": 1,
+              "name": "Select Unit",
+              "select": {
+                "count": 1,
+                "side": "friendly",
+                "constraint": "eligible-to-shoot"
+              },
+              "setsState": "selected-to-shoot"
             },
-            "then": "resolve"
-          }
-        ],
-        "shootingTypes": {
-          "listed": [
-            "10.04",
-            "10.05",
-            "10.06",
-            "10.07"
+            {
+              "order": 2,
+              "name": "Select Shooting Type",
+              "choose": {
+                "count": 1,
+                "constraint": "unit-eligible"
+              },
+              "then": "resolve"
+            }
           ],
-          "exhaustive": false
-        },
-        "noSkip": {
-          "allUnitsSelected": false
+          "shootingTypes": {
+            "listed": [
+              "10.04",
+              "10.05",
+              "10.06",
+              "10.07"
+            ],
+            "exhaustive": false
+          },
+          "noSkip": {
+            "allUnitsSelected": false
+          }
         }
       }
     }

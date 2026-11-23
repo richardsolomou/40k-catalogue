@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Corsair Coterie",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in your Shooting phase on a SHROUD RUNNERS or RANGERS unit of yours that has yet to shoot in this phase. For the rest of the phase, its models' ranged weapons have [RAPID FIRE 1] and [IGNORES COVER], and those weapons have their Armour Penetration improved by 1.",
     "citations": [
       {
@@ -25,10 +32,36 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "RANGERS"
+                ]
+              },
+              {
+                "keywords": [
+                  "SHROUD RUNNERS"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Corsair Coterie",
           "type": "Strategic Ploy",
           "windows": [

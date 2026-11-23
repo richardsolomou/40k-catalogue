@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Canoptek Court",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Right after an enemy declares a charge in its Charge phase, choose one of the charged CANOPTEK units wholly inside your Power Matrix. Resolve its Reanimation Protocols before the charge proceeds.",
     "summarySpans": [
       {
@@ -56,10 +63,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-declared-charge"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "CANOPTEK"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "windows": [

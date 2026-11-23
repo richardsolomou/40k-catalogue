@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Xenocult Masses",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "As your Shooting phase begins, choose a friendly unit in a terrain feature. Enemy units in that same terrain area get +6″ Detection Range.",
     "summarySpans": [
       {
@@ -47,26 +53,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is you",
-          "event": "phase opens"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "NEOPHYTE HYBRIDS"
+            ],
+            "more": true
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "keywords": null,
-          "within": "terrain area"
-        },
-        "effect": {
-          "type": "Detection Range modifier",
-          "recipient": "enemy units within same terrain area",
-          "amountInches": 6
-        },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is you",
+            "event": "phase opens"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywords": null,
+            "within": "terrain area"
+          },
+          "effect": {
+            "type": "Detection Range modifier",
+            "recipient": "enemy units within same terrain area",
+            "amountInches": 6
+          },
+          "restrictions": []
+        }
       }
     }
   }

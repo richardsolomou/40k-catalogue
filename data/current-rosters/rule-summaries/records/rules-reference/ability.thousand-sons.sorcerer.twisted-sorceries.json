@@ -60,44 +60,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "actor": "this-model",
-        "optional": true,
-        "limit": {
-          "count": 1,
-          "period": "battle",
-          "scope": "this-model"
-        },
-        "activation": {
-          "timing": "during",
-          "phases": [
+        "detail": {
+          "actor": "this-model",
+          "optional": true,
+          "limit": {
+            "count": 1,
+            "period": "battle",
+            "scope": "this-model"
+          },
+          "activation": {
+            "timing": "during",
+            "phases": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "duration": "through-end-of-activation-phase",
+          "recipient": {
+            "entity": "weapon",
+            "equippedBy": "this-model",
+            "keyword": "PSYCHIC"
+          },
+          "effects": [
             {
-              "phase": "shooting",
-              "turn": "own"
+              "characteristic": "attacks",
+              "modifier": 3
             },
             {
-              "phase": "fight",
-              "turn": "either"
+              "characteristic": "strength",
+              "modifier": 3
             }
           ]
-        },
-        "duration": "through-end-of-activation-phase",
-        "recipient": {
-          "entity": "weapon",
-          "equippedBy": "this-model",
-          "keyword": "PSYCHIC"
-        },
-        "effects": [
-          {
-            "characteristic": "attacks",
-            "modifier": 3
-          },
-          {
-            "characteristic": "strength",
-            "modifier": 3
-          }
-        ]
+        }
       }
     }
   }

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Hearthband",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP. Use it in your Movement phase's Reinforcements step. Choose one of your LEAGUES OF VOTANN units that has Deep Strike and is in Reserves. For the rest of the phase, when it arrives by Deep Strike you may place it anywhere on the battlefield as long as it is over 6\" horizontally from every enemy unit. It cannot declare a charge this turn.",
     "citations": [
       {
@@ -25,12 +32,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "reinforcements-step"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEAGUES OF VOTANN"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Hearthband",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {
@@ -60,7 +82,7 @@
           ],
           "duration": "end-of-phase",
           "restrictions": [
-            "not eligible to declare a charge until the end of the turn"
+            "cannot declare a charge for the rest of the turn"
           ]
         }
       }

@@ -51,44 +51,51 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "ASTRA MILITARUM",
-            "OFFICER"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "add-order-option",
-            "recipient": "Order selection for bearer",
-            "actor": "you",
-            "optional": true,
-            "trigger": "choose an Order for bearer to issue",
-            "order": "Target Weak Spot (Order)",
-            "orderedEffect": {
-              "operation": "modify-characteristic",
-              "recipient": "ranged attack by a model in the ordered unit",
-              "condition": {
-                "target": "enemy unit",
-                "distanceInches": 12,
-                "comparison": "within"
-              },
-              "stat": "Armour Penetration",
-              "adjustment": {
-                "operation": "add",
-                "amount": 1
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "OFFICER"
+                ],
+                "factionKeywords": [
+                  "ASTRA MILITARUM"
+                ]
               }
-            }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "Order selection for bearer",
+              "actor": "you",
+              "optional": true,
+              "trigger": "choose an Order for bearer to issue",
+              "order": "Target Weak Spot (Order)",
+              "orderedEffect": {
+                "recipient": "ranged attack by a model in the ordered unit",
+                "condition": {
+                  "target": "enemy unit",
+                  "distanceInches": 12,
+                  "comparison": "within"
+                },
+                "stat": "Armour Penetration",
+                "adjustment": {
+                  "operation": "add",
+                  "amount": 1
+                },
+                "kind": "modify-characteristic"
+              },
+              "kind": "add-order-option"
+            }
+          ]
+        }
       }
     }
   }

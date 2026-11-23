@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Hearthfyre Arsenal",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP. Use it in your Shooting phase, right after one of your IRONKIN STEELJACKS, ARKANYST EVALUATOR or BRÔKHYR units has shot; that unit is the target. If it Remained Stationary earlier this turn in your Movement phase, it may now make a Normal move.",
     "citations": [
       {
@@ -25,12 +32,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "BRÔKHYR"
+                ]
+              },
+              {
+                "keywords": [
+                  "IRONKIN STEELJACKS"
+                ]
+              },
+              {
+                "keywords": [
+                  "ARKANYST EVALUATOR"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Hearthfyre Arsenal",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {

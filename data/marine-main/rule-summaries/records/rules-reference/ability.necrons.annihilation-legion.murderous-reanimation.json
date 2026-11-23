@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Annihilation Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In either Fight phase, pick a unit with FLAYED ONES or DESTROYER CULT immediately after it destroys an enemy unit. It must be at or above Half-strength. Trigger its Reanimation Protocols.",
     "summarySpans": [
       {
@@ -53,10 +60,34 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "DESTROYER CULT"
+                ]
+              },
+              {
+                "keywords": [
+                  "FLAYED ONES"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "turn": "either",

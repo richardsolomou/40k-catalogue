@@ -24,49 +24,65 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "enhancement": {
-          "detachment": "Ordo Xenos, Alien Hunters",
-          "pointsCost": 25,
+          "type": "model",
+          "points": 25,
           "eligibility": {
-            "scope": "model",
-            "keywordsAll": [
-              "WATCH MASTER"
-            ]
-          },
-          "effects": [
-            {
-              "timing": {
-                "turn": "opponent",
-                "phase": "shooting",
-                "point": "start"
-              },
-              "select": {
-                "side": "enemy",
-                "count": 1,
-                "keywordsAll": [
-                  "VEHICLE"
-                ],
-                "excludesKeywords": [
-                  "TITANIC"
-                ],
-                "withinInches": 12,
-                "visibleToBearer": true
-              },
-              "test": "Leadership",
-              "onPass": {
-                "duration": "end-of-phase",
-                "hitRollModifier": {
-                  "direction": "subtract",
-                  "amount": 1
-                }
-              },
-              "onFail": {
-                "notEligibleToShoot": "this-phase"
+            "anyOf": [
+              {
+                "keywords": [
+                  "WATCH MASTER"
+                ]
               }
-            }
-          ]
+            ]
+          }
+        },
+        "detail": {
+          "enhancement": {
+            "detachment": "Ordo Xenos, Alien Hunters",
+            "pointsCost": 25,
+            "eligibility": {
+              "scope": "model",
+              "keywordsAll": [
+                "WATCH MASTER"
+              ]
+            },
+            "effects": [
+              {
+                "timing": {
+                  "turn": "opponent",
+                  "phase": "shooting",
+                  "point": "start"
+                },
+                "select": {
+                  "side": "enemy",
+                  "count": 1,
+                  "keywordsAll": [
+                    "VEHICLE"
+                  ],
+                  "excludesKeywords": [
+                    "TITANIC"
+                  ],
+                  "withinInches": 12,
+                  "visibleToBearer": true
+                },
+                "test": "Leadership",
+                "onPass": {
+                  "duration": "end-of-phase",
+                  "hitRollModifier": {
+                    "direction": "subtract",
+                    "amount": 1
+                  }
+                },
+                "onFail": {
+                  "notEligibleToShoot": "this-phase"
+                }
+              }
+            ]
+          }
         }
       }
     }

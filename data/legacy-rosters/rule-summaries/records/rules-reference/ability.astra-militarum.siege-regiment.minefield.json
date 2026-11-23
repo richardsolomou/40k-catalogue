@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Siege Regiment",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "opponent",
+      "type": "wargear"
+    },
     "summary": "Spend 1 CP as the opponent's Charge phase begins, on one of your PLATOON units. Until the phase is over, whenever an enemy unit finishes a Charge move inside your unit's Engagement Range, roll one D6 for every model the enemy unit contains; every 5+ deals 1 mortal wound to it, with no more than 6 mortal wounds inflicted this way.",
     "citations": [
       {
@@ -25,11 +32,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Wargear",
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "PLATOON"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Siege Regiment",
           "when": {
             "turn": "opponent",

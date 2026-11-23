@@ -24,37 +24,40 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "ability": {
-          "when": {
-            "turn": "own",
-            "phase": "shooting"
-          },
-          "trigger": "after-this-unit-has-shot",
-          "select": {
-            "side": "enemy",
-            "count": 1,
-            "hitByThoseAttacks": {
-              "minimum": 1
+        "detail": {
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            "trigger": "after-this-unit-has-shot",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitByThoseAttacks": {
+                "minimum": 1
+              }
+            },
+            "effects": [
+              {
+                "appliesTo": {
+                  "side": "friendly",
+                  "keywordsAll": [
+                    "AELDARI"
+                  ]
+                },
+                "againstSelectedUnit": true,
+                "characteristic": "AP",
+                "improveBy": 1
+              }
+            ],
+            "duration": "end-of-phase",
+            "limit": {
+              "perSelectedUnit": "once-per-turn"
             }
-          },
-          "effects": [
-            {
-              "appliesTo": {
-                "side": "friendly",
-                "keywordsAll": [
-                  "AELDARI"
-                ]
-              },
-              "againstSelectedUnit": true,
-              "characteristic": "AP",
-              "improveBy": 1
-            }
-          ],
-          "duration": "end-of-phase",
-          "limit": {
-            "perSelectedUnit": "once-per-turn"
           }
         }
       }

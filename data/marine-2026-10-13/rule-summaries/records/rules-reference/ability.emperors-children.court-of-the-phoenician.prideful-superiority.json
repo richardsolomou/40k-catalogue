@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Court of the Phoenician",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 2 CP, used in the Fight phase on one of your EMPEROR'S CHILDREN units that has not yet been picked to fight this phase. For the rest of the phase, when a model in that unit attacks a CHARACTER, both its Hit roll and its Wound roll may be re-rolled.",
     "citations": [
       {
@@ -25,12 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "EMPEROR’S CHILDREN"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Court of the Phoenician",
-          "category": "Battle Tactic",
           "trigger": {
             "turn": "either",
             "phases": [
@@ -48,7 +71,7 @@
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "rolls": [
                 "hit",
                 "wound"

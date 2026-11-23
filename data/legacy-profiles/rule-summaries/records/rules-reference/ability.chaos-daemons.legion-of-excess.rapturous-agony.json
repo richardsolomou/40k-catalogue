@@ -15,6 +15,17 @@
     "ruleType": "stratagem",
     "group": "Legion of Excess",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Use when an enemy targets one of your units with LEGIONES DAEMONICA and SLAANESH during its Shooting phase or during the Fight phase. The selected unit cannot have MONSTER or VEHICLE. Its attackers take −1 on Wound rolls if their attack’s Strength exceeds the defender’s Toughness.",
     "summarySpans": [
       {
@@ -78,37 +89,55 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phases": [
-            "Shooting phase",
-            "Fight phase"
-          ],
-          "turn": "opponent in Shooting; either in Fight",
-          "timing": "enemy selects a qualifying unit as an attack target"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "SLAANESH"
+            ],
+            "more": true
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "label": "LEGIONES DAEMONICA SLAANESH",
-          "bindTo": "triggering defender",
-          "excludedKeywords": [
-            "MONSTER",
-            "VEHICLE"
-          ]
-        },
-        "effect": {
-          "type": "roll modifier",
-          "roll": "Wound roll",
-          "amount": -1,
-          "attackType": "any",
-          "appliesTo": "attacks against that friendly unit",
-          "condition": {
-            "attackCharacteristic": "Strength",
-            "comparison": "greater than",
-            "defendingCharacteristic": "Toughness"
+        "detail": {
+          "window": {
+            "phases": [
+              "Shooting phase",
+              "Fight phase"
+            ],
+            "turn": "opponent in Shooting; either in Fight",
+            "timing": "enemy selects a qualifying unit as an attack target"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "label": "LEGIONES DAEMONICA SLAANESH",
+            "bindTo": "triggering defender",
+            "excludedKeywords": [
+              "MONSTER",
+              "VEHICLE"
+            ]
+          },
+          "effect": {
+            "type": "roll modifier",
+            "roll": "Wound roll",
+            "amount": -1,
+            "attackType": "any",
+            "appliesTo": "attacks against that friendly unit",
+            "condition": {
+              "attackCharacteristic": "Strength",
+              "comparison": "greater than",
+              "defendingCharacteristic": "Toughness"
+            }
           }
         }
       }

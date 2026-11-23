@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Skysplinter Assault",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in your Shooting phase on a DRUKHARI unit of yours that disembarked this turn from a TRANSPORT and has yet to shoot in this phase. For the rest of the phase, its models' ranged weapons have [SUSTAINED HITS 1], or [SUSTAINED HITS 2] if its keywords include KABALITE WARRIORS, or include HAND OF THE ARCHON.",
     "citations": [
       {
@@ -25,10 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DRUKHARI"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Skysplinter Assault",
           "type": "Battle Tactic",
           "windows": [

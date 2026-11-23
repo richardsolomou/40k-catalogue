@@ -82,103 +82,106 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "move-type",
-        "phase": "fight",
-        "chosenIn": "12.02",
-        "maximumDistanceInches": 3,
-        "eligibility": {
-          "context": "fight-phase",
-          "anyOf": [
-            {
-              "state": "engaged",
-              "rule": "03.04"
-            },
-            {
-              "state": "made-charge-move",
-              "window": "this-turn",
-              "rule": "11.04"
-            },
-            {
-              "state": "selected-for-overrun-fight",
-              "window": "this-phase",
-              "rule": "12.06"
-            }
-          ],
-          "notYetFoughtBar": null
-        },
-        "effect": {
-          "action": "move",
-          "procedure": "03.00"
-        },
-        "beforeMoving": {
-          "select": "pile-in-targets",
-          "cases": [
+        "detail": {
+          "kind": "move-type",
+          "phase": "fight",
+          "chosenIn": "12.02",
+          "maximumDistanceInches": 3,
+          "eligibility": {
+            "context": "fight-phase",
+            "anyOf": [
+              {
+                "state": "engaged",
+                "rule": "03.04"
+              },
+              {
+                "state": "made-charge-move",
+                "window": "this-turn",
+                "rule": "11.04"
+              },
+              {
+                "state": "selected-for-overrun-fight",
+                "window": "this-phase",
+                "rule": "12.06"
+              }
+            ],
+            "notYetFoughtBar": null
+          },
+          "effect": {
+            "action": "move",
+            "procedure": "03.00"
+          },
+          "beforeMoving": {
+            "select": "pile-in-targets",
+            "cases": [
+              {
+                "order": 1,
+                "if": "unit-engaged",
+                "targets": "all-enemy-units-engaged-with-it"
+              },
+              {
+                "order": 2,
+                "otherwise": true,
+                "targets": {
+                  "count": {
+                    "min": 1
+                  },
+                  "of": "enemy-units",
+                  "within": {
+                    "inches": 5,
+                    "of": "your-unit"
+                  }
+                }
+              }
+            ],
+            "ifNoEligibleTargets": null
+          },
+          "whileMoving": [
             {
               "order": 1,
-              "if": "unit-engaged",
-              "targets": "all-enemy-units-engaged-with-it"
+              "each": "model",
+              "if": "in-base-contact-with-enemy-model",
+              "cannotMove": true
             },
             {
               "order": 2,
-              "otherwise": true,
-              "targets": {
-                "count": {
-                  "min": 1
-                },
-                "of": "enemy-units",
-                "within": {
-                  "inches": 5,
-                  "of": "your-unit"
-                }
-              }
+              "each": "moved-model",
+              "must": "nearer-to-nearest-pile-in-target",
+              "ifAble": false
+            },
+            {
+              "order": 3,
+              "each": "moved-model",
+              "must": "engaged-with-nearest-pile-in-target",
+              "ifAble": true
             }
           ],
-          "ifNoEligibleTargets": null
-        },
-        "whileMoving": [
-          {
-            "order": 1,
-            "each": "model",
-            "if": "in-base-contact-with-enemy-model",
-            "cannotMove": true
-          },
-          {
-            "order": 2,
-            "each": "moved-model",
-            "must": "nearer-to-nearest-pile-in-target",
-            "ifAble": false
-          },
-          {
-            "order": 3,
-            "each": "moved-model",
-            "must": "engaged-with-nearest-pile-in-target",
-            "ifAble": true
-          }
-        ],
-        "afterMoving": [
-          {
-            "order": 1,
-            "unit": "must-be-engaged"
-          },
-          {
-            "order": 2,
-            "each": "model-engaged-at-move-start",
-            "keeps": "engagement-with-same-enemy-unit"
-          }
-        ],
-        "failureOutcomeStatedHere": false,
-        "selectionOrderStatedHere": false,
-        "printedFields": [
-          "maximumDistance",
-          "eligibleIf",
-          "effect",
-          "beforeMoving",
-          "whileMoving",
-          "afterMoving"
-        ],
-        "faq": "the p87 pass answer names a pile-in move; no FAQ entry changes 12.03"
+          "afterMoving": [
+            {
+              "order": 1,
+              "unit": "must-be-engaged"
+            },
+            {
+              "order": 2,
+              "each": "model-engaged-at-move-start",
+              "keeps": "engagement-with-same-enemy-unit"
+            }
+          ],
+          "failureOutcomeStatedHere": false,
+          "selectionOrderStatedHere": false,
+          "printedFields": [
+            "maximumDistance",
+            "eligibleIf",
+            "effect",
+            "beforeMoving",
+            "whileMoving",
+            "afterMoving"
+          ],
+          "faq": "the p87 pass answer names a pile-in move; no FAQ entry changes 12.03"
+        }
       }
     }
   }

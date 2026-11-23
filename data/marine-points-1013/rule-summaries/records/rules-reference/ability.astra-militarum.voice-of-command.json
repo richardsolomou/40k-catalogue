@@ -133,99 +133,102 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "issue-orders",
-        "armyFaction": "ASTRA MILITARUM",
-        "issuer": {
-          "scope": "model",
-          "keyword": "OFFICER",
-          "owner": "friendly",
-          "countPerBattleRound": "issuer-datasheet"
-        },
-        "optional": true,
-        "recipient": {
-          "owner": "friendly",
-          "countPerOrder": 1,
-          "withinInchesOfOfficer": 6,
-          "eligible": "issuer-datasheet",
-          "benefitsRequireKeyword": "ASTRA MILITARUM",
-          "excludeState": "battle-shocked"
-        },
-        "timings": [
-          {
+        "detail": {
+          "kind": "issue-orders",
+          "armyFaction": "ASTRA MILITARUM",
+          "issuer": {
+            "scope": "model",
+            "keyword": "OFFICER",
+            "owner": "friendly",
+            "countPerBattleRound": "issuer-datasheet"
+          },
+          "optional": true,
+          "recipient": {
+            "owner": "friendly",
+            "countPerOrder": 1,
+            "withinInchesOfOfficer": 6,
+            "eligible": "issuer-datasheet",
+            "benefitsRequireKeyword": "ASTRA MILITARUM",
+            "excludeState": "battle-shocked"
+          },
+          "timings": [
+            {
+              "phase": "command",
+              "owner": "self"
+            },
+            {
+              "phase": "any",
+              "at": "end",
+              "ifIssuerThisPhase": [
+                "disembarked-from-transport",
+                "set-up-on-battlefield"
+              ]
+            }
+          ],
+          "expiration": {
             "phase": "command",
-            "owner": "self"
-          },
-          {
-            "phase": "any",
-            "at": "end",
-            "ifIssuerThisPhase": [
-              "disembarked-from-transport",
-              "set-up-on-battlefield"
+            "owner": "self",
+            "occurrence": "next",
+            "at": "start",
+            "alsoOn": [
+              "recipient-becomes-battle-shocked",
+              "replaced-by-subsequent-order"
             ]
-          }
-        ],
-        "expiration": {
-          "phase": "command",
-          "owner": "self",
-          "occurrence": "next",
-          "at": "start",
-          "alsoOn": [
-            "recipient-becomes-battle-shocked",
-            "replaced-by-subsequent-order"
+          },
+          "simultaneousLimit": {
+            "count": 1,
+            "unlessSpecifiedOtherwise": true
+          },
+          "orders": [
+            {
+              "name": "MOVE! MOVE! MOVE!",
+              "characteristic": "Move",
+              "operation": "add",
+              "amount": 3,
+              "unit": "inches"
+            },
+            {
+              "name": "FIX BAYONETS!",
+              "characteristic": "Weapon Skill",
+              "weapons": "melee",
+              "operation": "improve",
+              "amount": 1
+            },
+            {
+              "name": "TAKE AIM!",
+              "characteristic": "Ballistic Skill",
+              "weapons": "ranged",
+              "operation": "improve",
+              "amount": 1
+            },
+            {
+              "name": "FIRST RANK, FIRE! SECOND RANK, FIRE!",
+              "characteristic": "Attacks",
+              "weapons": "Rapid Fire",
+              "operation": "increase",
+              "amount": 1
+            },
+            {
+              "name": "TAKE COVER!",
+              "characteristic": "Save",
+              "operation": "improve",
+              "amount": 1,
+              "best": "3+"
+            },
+            {
+              "name": "DUTY AND HONOUR!",
+              "characteristics": [
+                "Leadership",
+                "Objective Control"
+              ],
+              "operation": "improve",
+              "amount": 1
+            }
           ]
-        },
-        "simultaneousLimit": {
-          "count": 1,
-          "unlessSpecifiedOtherwise": true
-        },
-        "orders": [
-          {
-            "name": "MOVE! MOVE! MOVE!",
-            "characteristic": "Move",
-            "operation": "add",
-            "amount": 3,
-            "unit": "inches"
-          },
-          {
-            "name": "FIX BAYONETS!",
-            "characteristic": "Weapon Skill",
-            "weapons": "melee",
-            "operation": "improve",
-            "amount": 1
-          },
-          {
-            "name": "TAKE AIM!",
-            "characteristic": "Ballistic Skill",
-            "weapons": "ranged",
-            "operation": "improve",
-            "amount": 1
-          },
-          {
-            "name": "FIRST RANK, FIRE! SECOND RANK, FIRE!",
-            "characteristic": "Attacks",
-            "weapons": "Rapid Fire",
-            "operation": "increase",
-            "amount": 1
-          },
-          {
-            "name": "TAKE COVER!",
-            "characteristic": "Save",
-            "operation": "improve",
-            "amount": 1,
-            "best": "3+"
-          },
-          {
-            "name": "DUTY AND HONOUR!",
-            "characteristics": [
-              "Leadership",
-              "Objective Control"
-            ],
-            "operation": "improve",
-            "amount": 1
-          }
-        ]
+        }
       }
     }
   }

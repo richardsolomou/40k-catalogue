@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Haloscreed Battle Clade",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Pick a SKORPIUS DUNERIDER that has yet to be chosen to move in your Movement phase. For the rest of the turn, an ADEPTUS MECHANICUS unit that disembarks from it after its Normal Move may still declare a charge.",
     "summarySpans": [
       {
@@ -69,24 +76,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "your Movement phase"
-        ],
-        "target": {
-          "unit": "SKORPIUS DUNERIDER",
-          "count": 1,
-          "selectedToMove": false
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "model",
+            "keywords": [
+              "SKORPIUS DUNERIDER"
+            ],
+            "conditions": [
+              "not-selected-to-move"
+            ]
+          }
         },
-        "effect": {
-          "passengers": "ADEPTUS MECHANICUS",
-          "trigger": "disembark from target after its Normal Move",
-          "canDeclareCharge": true,
-          "expiry": "turn end"
-        },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "your Movement phase"
+          ],
+          "target": {
+            "unit": "SKORPIUS DUNERIDER",
+            "count": 1,
+            "selectedToMove": false
+          },
+          "effect": {
+            "passengers": "ADEPTUS MECHANICUS",
+            "trigger": "disembark from target after its Normal Move",
+            "canDeclareCharge": true,
+            "expiry": "turn end"
+          },
+          "restrictions": []
+        }
       }
     }
   }

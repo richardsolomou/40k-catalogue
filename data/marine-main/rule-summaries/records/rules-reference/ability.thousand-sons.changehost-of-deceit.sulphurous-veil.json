@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Changehost of Deceit",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP, used in the opposing player's Shooting phase or in the Fight phase once an enemy unit has picked its targets. Choose one unit of yours that is THOUSAND SONS or else SCINTILLATING LEGIONS and that at least one of those attacks is aimed at; for the rest of the phase, attacks aimed at it take -1 to their Hit rolls.",
     "citations": [
       {
@@ -25,12 +33,38 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "THOUSAND SONS"
+                ]
+              },
+              {
+                "keywords": [
+                  "SCINTILLATING LEGIONS"
+                ]
+              }
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Changehost of Deceit",
-          "category": "Battle Tactic",
           "trigger": {
             "turn": "either",
             "phases": [

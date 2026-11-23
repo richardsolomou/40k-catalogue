@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Hearthguard Covenant",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own"
+    },
     "summary": "Use this when EINHYR HEARTHGUARD are chosen for a Deep Strike Ingress Move in your Movement phase. Placement may include the enemy deployment zone or anywhere else on the table, provided the horizontal distance to every enemy unit exceeds 6\". The arriving unit remains ineligible to charge through turn end.",
     "summarySpans": [
       {
@@ -56,27 +62,46 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "your Movement phase",
-          "when selected for a Deep Strike Ingress Move"
-        ],
-        "target": {
-          "unit": "EINHYR HEARTHGUARD",
-          "binding": "arriving unit"
-        },
-        "effect": {
-          "setup": {
-            "anywhereOnBattlefield": true,
-            "includesOpponentDeploymentZone": true,
-            "horizontalEnemyDistanceStrictlyGreaterThanInches": 6
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
           },
-          "cannotDeclareCharge": true,
-          "chargeRestrictionExpiry": "turn end"
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "EINHYR HEARTHGUARD"
+            ],
+            "more": true
+          }
         },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "your Movement phase",
+            "when selected for a Deep Strike Ingress Move"
+          ],
+          "target": {
+            "unit": "EINHYR HEARTHGUARD",
+            "binding": "arriving unit"
+          },
+          "effect": {
+            "setup": {
+              "anywhereOnBattlefield": true,
+              "includesOpponentDeploymentZone": true,
+              "horizontalEnemyDistanceStrictlyGreaterThanInches": 6
+            },
+            "cannotDeclareCharge": true,
+            "chargeRestrictionExpiry": "turn end"
+          },
+          "restrictions": []
+        }
       }
     }
   }

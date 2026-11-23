@@ -62,38 +62,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "role": "psychic",
-        "source": "this-model",
-        "trigger": {
-          "event": "phase",
-          "phase": "shooting",
-          "turn": "your-turn",
-          "timing": "start"
-        },
-        "target": {
-          "origin": "this-model",
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 12,
-          "side": "enemy",
-          "count": 1,
-          "visible": true
-        },
-        "effect": {
-          "operation": "take-test",
-          "test": "battle-shock",
-          "rollModifier": {
-            "operation": "subtract",
-            "characteristic": "battle-shock",
-            "amount": 2,
-            "ifTargetHas": "INFANTRY"
+        "detail": {
+          "role": "psychic",
+          "source": "this-model",
+          "trigger": {
+            "event": "phase",
+            "phase": "shooting",
+            "turn": "your-turn",
+            "timing": "start"
           },
-          "onFailure": {
-            "operation": "inflict-mortal-wounds",
-            "amount": 3,
-            "recipient": "selected-unit"
+          "target": {
+            "origin": "this-model",
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 12,
+            "side": "enemy",
+            "count": 1,
+            "visible": true
+          },
+          "effect": {
+            "test": "battle-shock",
+            "rollModifier": {
+              "operation": "subtract",
+              "characteristic": "battle-shock",
+              "amount": 2,
+              "ifTargetHas": "INFANTRY"
+            },
+            "onFailure": {
+              "amount": 3,
+              "recipient": "selected-unit",
+              "kind": "inflict-mortal-wounds"
+            },
+            "kind": "take-test"
           }
         }
       }

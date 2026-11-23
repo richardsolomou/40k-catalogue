@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Cavalcade of Chaos",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own"
+    },
     "summary": "From battle start, you can use this as the Movement phase finishes. Pick one of your units in Strategic Reserves with LEGIONES DAEMONICA MOUNTED and let it enter via an Ingress Move.",
     "summarySpans": [
       {
@@ -64,22 +70,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 2,
-        "window": [
-          "end of the Movement phase",
-          "available from battle start"
-        ],
-        "target": {
-          "unit": "LEGIONES DAEMONICA MOUNTED",
-          "count": 1,
-          "location": "Strategic Reserves"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "MOUNTED"
+            ],
+            "more": true
+          }
         },
-        "effect": {
-          "permission": "make an Ingress Move"
-        },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "end of the Movement phase",
+            "available from battle start"
+          ],
+          "target": {
+            "unit": "LEGIONES DAEMONICA MOUNTED",
+            "count": 1,
+            "location": "Strategic Reserves"
+          },
+          "effect": {
+            "permission": "make an Ingress Move"
+          },
+          "restrictions": []
+        }
       }
     }
   }

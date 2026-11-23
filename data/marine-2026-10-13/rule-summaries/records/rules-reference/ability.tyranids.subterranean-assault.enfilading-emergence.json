@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Subterranean Assault",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP, as your Movement phase ends. Choose one TYRANIDS unit of yours that arrived as Reinforcements earlier this turn. Until your next Fight phase is over, its models' weapons gain [IGNORES COVER] as well as [SUSTAINED HITS 1].",
     "summarySpans": [
       {
@@ -59,11 +66,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "TYRANIDS"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Subterranean Assault",
           "when": {
             "phase": "movement",

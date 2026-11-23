@@ -70,44 +70,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "activation": {
-          "parent": "Warmaster",
-          "actor": "controlling-player",
-          "recipient": "this-model",
-          "trigger": {
-            "turn": "own",
-            "phase": "command"
+        "detail": {
+          "activation": {
+            "parent": "Warmaster",
+            "actor": "controlling-player",
+            "recipient": "this-model",
+            "trigger": {
+              "turn": "own",
+              "phase": "command"
+            },
+            "selection": {
+              "pool": "named-parent-options",
+              "minimum": 1,
+              "maximum": 1,
+              "selectedOptionRequired": true
+            },
+            "duration": "until-start-of-next-own-command-phase"
           },
-          "selection": {
-            "pool": "named-parent-options",
-            "minimum": 1,
-            "maximum": 1,
-            "selectedOptionRequired": true
+          "recipient": {
+            "side": "friendly",
+            "entity": "unit",
+            "allKeywords": [
+              "HERETIC ASTARTES"
+            ],
+            "anyKeywords": [
+              "INFANTRY",
+              "MOUNTED"
+            ],
+            "excludedKeywords": [
+              "DAMNED"
+            ],
+            "measure": "within",
+            "rangeInches": 6,
+            "origin": "this-model"
           },
-          "duration": "until-start-of-next-own-command-phase"
-        },
-        "recipient": {
-          "side": "friendly",
-          "entity": "unit",
-          "allKeywords": [
-            "HERETIC ASTARTES"
-          ],
-          "anyKeywords": [
-            "INFANTRY",
-            "MOUNTED"
-          ],
-          "excludedKeywords": [
-            "DAMNED"
-          ],
-          "measure": "within",
-          "rangeInches": 6,
-          "origin": "this-model"
-        },
-        "effect": {
-          "recipient": "models-in-qualifying-unit",
-          "invulnerableSave": 4
+          "effect": {
+            "recipient": "models-in-qualifying-unit",
+            "invulnerableSave": 4
+          }
         }
       }
     }

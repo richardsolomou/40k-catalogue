@@ -51,37 +51,51 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "conditional-melee-target-permission",
-        "eligibility": {
-          "scope": "unit",
-          "keywordsAll": [
-            "LEGIONES DAEMONICA",
-            "MOUNTED"
-          ]
+        "enhancement": {
+          "type": "upgrade",
+          "points": 10,
+          "perRoster": 3,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "MOUNTED"
+                ],
+                "factionKeywords": [
+                  "LEGIONES DAEMONICA"
+                ]
+              }
+            ],
+            "nonCharacters": true
+          }
         },
-        "trigger": {
-          "phase": "fight",
-          "event": "upgraded-unit-selected-to-fight",
-          "upgradedUnitMadeChargeMoveThisTurn": true
-        },
-        "activation": {
-          "optional": true
-        },
-        "permission": {
-          "stage": "determine-models-that-can-fight",
-          "attacker": "model-in-upgraded-unit",
-          "target": "enemy-unit",
-          "maximumDistance": {
-            "amount": 3,
-            "unit": "inch",
-            "from": "attacking-model",
-            "to": "target-enemy-unit",
-            "inclusive": true
+        "detail": {
+          "kind": "conditional-melee-target-permission",
+          "trigger": {
+            "phase": "fight",
+            "event": "upgraded-unit-selected-to-fight",
+            "upgradedUnitMadeChargeMoveThisTurn": true
           },
-          "requiresTargetEngagedWith": "upgraded-unit",
-          "allowance": "target-that-enemy-unit"
+          "activation": {
+            "optional": true
+          },
+          "permission": {
+            "stage": "determine-models-that-can-fight",
+            "attacker": "model-in-upgraded-unit",
+            "target": "enemy-unit",
+            "maximumDistance": {
+              "amount": 3,
+              "unit": "inch",
+              "from": "attacking-model",
+              "to": "target-enemy-unit",
+              "inclusive": true
+            },
+            "requiresTargetEngagedWith": "upgraded-unit",
+            "allowance": "target-that-enemy-unit"
+          }
         }
       }
     }

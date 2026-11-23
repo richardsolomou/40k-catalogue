@@ -54,58 +54,61 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "effects": [
-          {
-            "trigger": {
-              "event": "setup",
-              "actor": "this-unit"
+        "detail": {
+          "source": "this-unit",
+          "effects": [
+            {
+              "trigger": {
+                "event": "setup",
+                "actor": "this-unit"
+              },
+              "eachPart": {
+                "minimumOtherParts": 1,
+                "origin": "part",
+                "comparison": "within",
+                "inclusive": true,
+                "distanceInches": 1
+              },
+              "kind": "require-part-placement"
             },
-            "operation": "require-part-placement",
-            "eachPart": {
-              "minimumOtherParts": 1,
-              "origin": "part",
-              "comparison": "within",
-              "inclusive": true,
-              "distanceInches": 1
+            {
+              "trigger": {
+                "event": "phase",
+                "phase": "movement",
+                "timing": "end",
+                "turn": "either-turn"
+              },
+              "recipient": {
+                "origin": "this-unit",
+                "comparison": "within",
+                "inclusive": true,
+                "distanceInches": 6,
+                "side": "friendly",
+                "scope": "unit",
+                "requireAllKeywords": [
+                  "ORKS",
+                  "VEHICLE"
+                ],
+                "selection": "all"
+              },
+              "quantity": {
+                "count": 1,
+                "sides": 3,
+                "additive": 0
+              },
+              "usage": {
+                "limit": 1,
+                "period": "turn",
+                "per": "recipient-unit",
+                "sharedBy": "this-ability"
+              },
+              "kind": "heal"
             }
-          },
-          {
-            "trigger": {
-              "event": "phase",
-              "phase": "movement",
-              "timing": "end",
-              "turn": "either-turn"
-            },
-            "operation": "heal",
-            "recipient": {
-              "origin": "this-unit",
-              "comparison": "within",
-              "inclusive": true,
-              "distanceInches": 6,
-              "side": "friendly",
-              "scope": "unit",
-              "requireAllKeywords": [
-                "ORKS",
-                "VEHICLE"
-              ],
-              "selection": "all"
-            },
-            "quantity": {
-              "count": 1,
-              "sides": 3,
-              "additive": 0
-            },
-            "usage": {
-              "limit": 1,
-              "period": "turn",
-              "per": "recipient-unit",
-              "sharedBy": "this-ability"
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

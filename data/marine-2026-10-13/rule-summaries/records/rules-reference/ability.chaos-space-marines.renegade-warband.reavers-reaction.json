@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Renegade Warband",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "React to an enemy unit finishing its shooting during its Shooting phase. Choose one friendly HERETIC ASTARTES unit that took a hit from that volley, excluding MONSTERS and VEHICLES. The pick may make a Normal Move capped at D6 inches.",
     "summarySpans": [
       {
@@ -65,10 +72,30 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "HERETIC ASTARTES"
+            ],
+            "excludedKeywords": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "windows": [

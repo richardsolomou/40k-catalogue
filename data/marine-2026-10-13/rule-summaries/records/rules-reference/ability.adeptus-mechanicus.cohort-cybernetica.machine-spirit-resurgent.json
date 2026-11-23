@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Cohort Cybernetica",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own",
+      "type": "epic-deed"
+    },
     "summary": "Epic Deed. Spend 1 CP in your Command phase on one LEGIO CYBERNETICA unit or one ADEPTUS MECHANICUS VEHICLE unit in your army that is under its Starting Strength. Until your following Command phase begins, its models' attacks may re-roll their Hit rolls, and while the unit counts as Below Half-strength they may re-roll their Wound rolls too.",
     "citations": [
       {
@@ -25,12 +32,36 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "LEGIO CYBERNETICA"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS MECHANICUS",
+                  "VEHICLE"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Cohort Cybernetica",
-          "category": "Epic Deed",
           "trigger": {
             "windows": [
               {
@@ -59,18 +90,18 @@
             "condition": "below-starting-strength",
             "startingStrengthTerms": {
               "term": "below Starting Strength",
-              "definition": "core rule 01.02.01: with a Starting Strength of 1, the model's remaining wounds are less than its W characteristic; with 2 or more, the unit has fewer models than its Starting Strength",
+              "definition": "core rule 01.02.01: a unit with Starting Strength 1 counts once its model has lost at least one wound; a unit with Starting Strength 2 or more counts once fewer of its models remain than its Starting Strength",
               "signedSelector": "/data/rule_container_component/1577"
             }
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "hit",
               "duration": "until-start-of-next-own-command-phase"
             },
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "wound",
               "condition": "unit-below-half-strength",
               "duration": "until-start-of-next-own-command-phase"

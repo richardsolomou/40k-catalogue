@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Green Tide",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "1 CP, in the Fight phase of either turn, when a BOYZ unit of yours that charged this turn is picked to fight; that unit is the target. For the rest of that phase, its melee attacks get +1 Attacks.",
     "summarySpans": [
       {
@@ -35,11 +41,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "BOYZ"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Green Tide",
           "when": {
             "phase": "fight",

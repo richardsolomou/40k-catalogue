@@ -34,7 +34,7 @@ The units, detachments, wargear and publications that FAQs amend and Enhancement
 
 Drafting also used Game Datacards' community data as private evidence, checked against the app build. It is not a cited source, and none of its text is published.
 
-Every summary is original wording, drafted from the official sources alone. Up to v0.2.0, 168 records adapted structured fields from [40kdc-data](https://github.com/wn-mitch/40kdc-data) under CC BY 4.0: 140 mechanic records translated from its ability records, and 28 summaries whose typed facts used its Stratagem timing and target records. From v0.3.0 they are redrafted from the official text with their own typed facts, so no MFM 1.6 record carries 40kdc attribution and MFM 1.6 has no mechanics input: a mechanic record's summary is rendered from its structured fields, which were the 40kdc translation.
+Every summary is original wording, drafted from the official sources alone. No summary or typed fact repeats ten consecutive words of the official text; lists of unit and rule names are exact game names and don't count. Up to v0.2.0, 168 records adapted structured fields from [40kdc-data](https://github.com/wn-mitch/40kdc-data) under CC BY 4.0: 140 mechanic records translated from its ability records, and 28 summaries whose typed facts used its Stratagem timing and target records. From v0.3.0 they are redrafted from the official text with their own typed facts, so no MFM 1.6 record carries 40kdc attribution and MFM 1.6 has no mechanics input: a mechanic record's summary is rendered from its structured fields, which were the 40kdc translation.
 
 ## Earlier 11th-edition rule summaries
 

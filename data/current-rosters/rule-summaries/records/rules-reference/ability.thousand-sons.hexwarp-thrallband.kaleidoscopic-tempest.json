@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Hexwarp Thrallband",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "battle-tactic"
+    },
     "summary": "In the opposing Shooting phase, wait for an enemy to finish picking targets, then choose a targeted THOUSAND SONS PSYKER unit. It has Stealth. It also has −3″ Detection Range if wholly inside your Flow of Magic.",
     "summarySpans": [
       {
@@ -69,34 +76,55 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is opponent",
-          "event": "enemy completes target selection"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "keywords": "THOUSAND SONS PSYKER",
-          "namedIn": "triggering attack targets"
-        },
-        "effect": {
-          "type": "ability grant with conditional modifier",
-          "grant": "Stealth",
-          "modifier": {
-            "attribute": "Detection Range",
-            "inches": -3,
-            "if": {
-              "measure": "wholly within",
-              "area": "your Flow of Magic",
-              "subject": "chosen unit"
-            }
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "THOUSAND SONS",
+              "PSYKER"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is opponent",
+            "event": "enemy completes target selection"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywords": "THOUSAND SONS PSYKER",
+            "namedIn": "triggering attack targets"
+          },
+          "effect": {
+            "type": "ability grant with conditional modifier",
+            "grant": "Stealth",
+            "modifier": {
+              "attribute": "Detection Range",
+              "inches": -3,
+              "if": {
+                "measure": "wholly within",
+                "area": "your Flow of Magic",
+                "subject": "chosen unit"
+              }
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

@@ -82,38 +82,45 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "unit",
-          "match": "all",
-          "keywords": [
-            "Nobz"
-          ],
-          "anyOf": [],
-          "excludes": [],
-          "equipment": null,
-          "characterOnly": false,
-          "equipableByNonCharacter": true
-        },
-        "trigger": "an enemy unit engaged with the upgrade unit is selected to make a fall-back move",
-        "effects": [
-          {
-            "recipient": "that enemy unit",
-            "operation": "force-move-mode",
-            "mode": "desperate escape"
-          },
-          {
-            "recipient": "that enemy unit",
-            "operation": "modify-roll",
-            "roll": "hazard rolls for that desperate escape",
-            "adjustment": {
-              "operation": "subtract",
-              "amount": 1
-            },
-            "condition": "upgrade unit riled up"
+        "enhancement": {
+          "type": "upgrade",
+          "points": 15,
+          "perRoster": 3,
+          "eligibility": {
+            "anyOf": [
+              {
+                "unit": {
+                  "kind": "unit",
+                  "id": "orks.nobz"
+                }
+              }
+            ],
+            "nonCharacters": true
           }
-        ]
+        },
+        "detail": {
+          "trigger": "an enemy unit engaged with the upgrade unit is selected to make a fall-back move",
+          "effects": [
+            {
+              "recipient": "that enemy unit",
+              "mode": "desperate escape",
+              "kind": "force-move-mode"
+            },
+            {
+              "recipient": "that enemy unit",
+              "roll": "hazard rolls for that desperate escape",
+              "adjustment": {
+                "operation": "subtract",
+                "amount": 1
+              },
+              "condition": "upgrade unit riled up",
+              "kind": "modify-roll"
+            }
+          ]
+        }
       }
     }
   }

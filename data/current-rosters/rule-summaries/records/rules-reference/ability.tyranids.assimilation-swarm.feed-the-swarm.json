@@ -59,55 +59,58 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "phase": "command",
-          "player": "self"
-        },
-        "origin": {
-          "owner": "friendly",
-          "allOf": [
-            "HARVESTER"
-          ],
-          "quantifier": "each"
-        },
-        "selection": {
-          "owner": "friendly",
-          "allOf": [
-            "TYRANIDS"
-          ],
-          "rangeInches": 6,
-          "count": 1,
-          "optional": true,
-          "maxRegenerationsPerRecipientPerPhase": 1
-        },
-        "choices": [
-          {
-            "type": "heal",
-            "selectModels": 1,
-            "recipient": "selected-unit-model",
-            "maxLostWoundsRestored": "D3+1"
+        "detail": {
+          "trigger": {
+            "phase": "command",
+            "player": "self"
           },
-          {
-            "type": "return-destroyed-models",
-            "unitAllOf": [
-              "INFANTRY"
+          "origin": {
+            "owner": "friendly",
+            "allOf": [
+              "HARVESTER"
             ],
-            "modelNoneOf": [
-              "CHARACTERS"
+            "quantifier": "each"
+          },
+          "selection": {
+            "owner": "friendly",
+            "allOf": [
+              "TYRANIDS"
             ],
-            "woundsOnReturn": "full",
-            "maxModels": 1,
-            "countOverride": {
+            "rangeInches": 6,
+            "count": 1,
+            "optional": true,
+            "maxRegenerationsPerRecipientPerPhase": 1
+          },
+          "choices": [
+            {
+              "type": "heal",
+              "selectModels": 1,
+              "recipient": "selected-unit-model",
+              "maxLostWoundsRestored": "D3+1"
+            },
+            {
+              "type": "return-destroyed-models",
               "unitAllOf": [
-                "ENDLESS MULTITUDE"
+                "INFANTRY"
               ],
-              "maxModels": 3
+              "modelNoneOf": [
+                "CHARACTERS"
+              ],
+              "woundsOnReturn": "full",
+              "maxModels": 1,
+              "countOverride": {
+                "unitAllOf": [
+                  "ENDLESS MULTITUDE"
+                ],
+                "maxModels": 3
+              }
             }
-          }
-        ],
-        "choosePerRegeneration": 1
+          ],
+          "choosePerRegeneration": 1
+        }
       }
     }
   }

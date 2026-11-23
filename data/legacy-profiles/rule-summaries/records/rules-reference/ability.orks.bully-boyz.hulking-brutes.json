@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Bully Boyz",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent"
+    },
     "summary": "React when an enemy picks one of your MEGANOBZ or NOBZ units as a target during the opposing Shooting phase. For 1 CP, impose −1 on wound rolls for ranged attacks into that unit when the attack’s Strength is higher than the unit’s Toughness. Choose the 2 CP option for the same penalty on every ranged attack targeting the unit.",
     "summarySpans": [
       {
@@ -53,10 +59,36 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "MEGANOBZ"
+                ]
+              },
+              {
+                "keywords": [
+                  "NOBZ"
+                ]
+              }
+            ]
+          },
+          "extraCp": {
+            "cp": 1
+          }
+        },
+        "detail": {
           "trigger": {
             "phase": "shooting",
             "turn": "opponents",

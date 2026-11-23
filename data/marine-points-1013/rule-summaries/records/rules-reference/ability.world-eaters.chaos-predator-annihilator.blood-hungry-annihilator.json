@@ -49,32 +49,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-model",
-        "trigger": "each-ranged-attack-by-this-model",
-        "target": {
-          "selection": "closest-eligible",
-          "anyKeyword": [
-            "MONSTER",
-            "VEHICLE"
-          ],
-          "measure": "within",
-          "rangeInches": 18,
-          "origin": "this-model"
-        },
-        "effects": [
-          {
-            "roll": "wound",
-            "operation": "reroll",
-            "optional": true
+        "detail": {
+          "source": "this-model",
+          "trigger": "each-ranged-attack-by-this-model",
+          "target": {
+            "selection": "closest-eligible",
+            "anyKeyword": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "measure": "within",
+            "rangeInches": 18,
+            "origin": "this-model"
           },
-          {
-            "roll": "damage",
-            "operation": "reroll",
-            "optional": true
-          }
-        ]
+          "effects": [
+            {
+              "roll": "wound",
+              "optional": true,
+              "kind": "re-roll"
+            },
+            {
+              "roll": "damage",
+              "optional": true,
+              "kind": "re-roll"
+            }
+          ]
+        }
       }
     }
   }

@@ -45,61 +45,64 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "faq": {
-          "entryType": "errata",
-          "publicationId": "31cf0b5f-c858-4b3c-bcfb-a2721b043eec",
-          "typedMechanics": {
-            "operation": "add-ability",
-            "abilityQid": "ability:adeptus-mechanicus.cybernetica-datasmith.data-severed",
-            "effect": {
+        "detail": {
+          "faq": {
+            "entryType": "errata",
+            "publicationId": "31cf0b5f-c858-4b3c-bcfb-a2721b043eec",
+            "typedMechanics": {
+              "abilityQid": "ability:adeptus-mechanicus.cybernetica-datasmith.data-severed",
               "effect": {
-                "type": "conditional",
-                "condition": {
-                  "type": "model-count",
-                  "parameters": {
-                    "subject": "this-unit",
-                    "keyword": "KASTELAN ROBOT",
-                    "max": 0
+                "effect": {
+                  "type": "conditional",
+                  "condition": {
+                    "type": "model-count",
+                    "parameters": {
+                      "subject": "this-unit",
+                      "keyword": "KASTELAN ROBOT",
+                      "max": 0
+                    }
+                  },
+                  "effect": {
+                    "type": "sequence",
+                    "steps": [
+                      {
+                        "type": "rule-state",
+                        "target": "this-unit",
+                        "modifier": {
+                          "direction": "suppressed",
+                          "rule_kind": "keyword",
+                          "rule": "VEHICLE"
+                        }
+                      },
+                      {
+                        "type": "keyword-grant",
+                        "target": "this-unit",
+                        "modifier": {
+                          "keywords": [
+                            "INFANTRY"
+                          ]
+                        }
+                      }
+                    ]
                   }
                 },
-                "effect": {
-                  "type": "sequence",
-                  "steps": [
-                    {
-                      "type": "rule-state",
-                      "target": "this-unit",
-                      "modifier": {
-                        "direction": "suppressed",
-                        "rule_kind": "keyword",
-                        "rule": "VEHICLE"
-                      }
-                    },
-                    {
-                      "type": "keyword-grant",
-                      "target": "this-unit",
-                      "modifier": {
-                        "keywords": [
-                          "INFANTRY"
-                        ]
-                      }
-                    }
-                  ]
-                }
+                "scope": {
+                  "duration": "permanent"
+                },
+                "behavior": "passive"
               },
-              "scope": {
-                "duration": "permanent"
-              },
-              "behavior": "passive"
-            }
-          },
-          "statedValues": [
-            {
-              "kind": "qualifying-robots-maximum",
-              "value": 0
-            }
-          ]
+              "kind": "add-ability"
+            },
+            "statedValues": [
+              {
+                "kind": "qualifying-robots-maximum",
+                "value": 0
+              }
+            ]
+          }
         }
       }
     }

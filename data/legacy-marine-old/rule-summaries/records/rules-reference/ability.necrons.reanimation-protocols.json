@@ -51,39 +51,42 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "heal-or-return-model",
-        "armyFaction": "NECRONS",
-        "trigger": {
-          "owner": "self",
-          "phase": "command",
-          "time": "end"
-        },
-        "eligible": {
-          "owner": "friendly",
-          "scope": "unit",
-          "hasAbility": true,
-          "onBattlefield": true
-        },
-        "pool": "D3",
-        "order": [
-          {
-            "kind": "heal",
-            "target": "wounded-model-in-unit",
-            "wounds": 1
+        "detail": {
+          "kind": "heal-or-return-model",
+          "armyFaction": "NECRONS",
+          "trigger": {
+            "owner": "self",
+            "phase": "command",
+            "time": "end"
           },
-          {
-            "kind": "return-model",
-            "if": [
-              "no-wounded-models-remain",
-              "below-starting-strength"
-            ],
-            "target": "destroyed-model-from-unit",
-            "woundsRemaining": 1
-          }
-        ],
-        "repeat": "one-wound-at-a-time-until-pool-spent-or-unit-restored"
+          "eligible": {
+            "owner": "friendly",
+            "scope": "unit",
+            "hasAbility": true,
+            "onBattlefield": true
+          },
+          "pool": "D3",
+          "order": [
+            {
+              "kind": "heal",
+              "target": "wounded-model-in-unit",
+              "wounds": 1
+            },
+            {
+              "kind": "return-model",
+              "if": [
+                "no-wounded-models-remain",
+                "below-starting-strength"
+              ],
+              "target": "destroyed-model-from-unit",
+              "woundsRemaining": 1
+            }
+          ],
+          "repeat": "one-wound-at-a-time-until-pool-spent-or-unit-restored"
+        }
       }
     }
   }

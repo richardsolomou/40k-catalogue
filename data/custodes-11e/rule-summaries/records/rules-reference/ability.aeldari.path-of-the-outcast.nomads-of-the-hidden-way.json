@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Path of the Outcast",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "Once your RANGERS or SHROUD RUNNERS have fired in your Shooting phase, they may move up to D6″ as a Normal Move or embark in a Transport. They lose charge eligibility for the rest of the turn.",
     "summarySpans": [
       {
@@ -54,44 +60,69 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is you",
-          "event": "after friendly shooting"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
             "anyOf": [
-              "RANGERS",
-              "SHROUD RUNNERS"
+              {
+                "keywords": [
+                  "RANGERS"
+                ]
+              },
+              {
+                "keywords": [
+                  "SHROUD RUNNERS"
+                ]
+              }
             ]
           }
         },
-        "effect": {
-          "type": "optional choice and charge bar",
-          "options": [
-            {
-              "move": "Normal Move",
-              "maximumInches": "D6"
-            },
-            {
-              "action": "embark",
-              "destination": "eligible Transport"
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is you",
+            "event": "after friendly shooting"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": {
+              "anyOf": [
+                "RANGERS",
+                "SHROUD RUNNERS"
+              ]
             }
-          ],
-          "chargeRestriction": {
-            "action": "declare charge",
-            "eligible": false,
-            "until": "turn ends"
-          }
-        },
-        "restrictions": []
+          },
+          "effect": {
+            "type": "optional choice and charge bar",
+            "options": [
+              {
+                "move": "Normal Move",
+                "maximumInches": "D6"
+              },
+              {
+                "action": "embark",
+                "destination": "eligible Transport"
+              }
+            ],
+            "chargeRestriction": {
+              "action": "declare charge",
+              "eligible": false,
+              "until": "turn ends"
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

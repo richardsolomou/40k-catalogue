@@ -39,39 +39,46 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "LEGIONES DAEMONICA",
-            "SLAANESH",
-            "MONSTER"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "recover-lost-wounds",
-            "recipient": "bearer",
-            "actor": "bearer",
-            "optional": true,
-            "timing": {
-              "phase": "Fight",
-              "at": "end",
-              "side": "either player"
-            },
-            "condition": {
-              "minimumEnemyModelsDestroyed": 1,
-              "by": "bearer attacks in that Fight phase"
-            },
-            "maximum": "D3"
+        "enhancement": {
+          "type": "model",
+          "points": 10,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "MONSTER",
+                  "SLAANESH"
+                ],
+                "factionKeywords": [
+                  "LEGIONES DAEMONICA"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer",
+              "actor": "bearer",
+              "optional": true,
+              "timing": {
+                "phase": "Fight",
+                "at": "end",
+                "side": "either player"
+              },
+              "condition": {
+                "minimumEnemyModelsDestroyed": 1,
+                "by": "bearer attacks in that Fight phase"
+              },
+              "maximum": "D3",
+              "kind": "recover-lost-wounds"
+            }
+          ]
+        }
       }
     }
   }

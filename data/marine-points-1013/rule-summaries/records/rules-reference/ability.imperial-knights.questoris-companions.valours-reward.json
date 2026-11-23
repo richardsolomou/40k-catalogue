@@ -34,38 +34,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "appliesTo": {
-          "type": "enhancement",
-          "owner": "this-detachment"
-        },
-        "rules": [
-          {
-            "type": "supports-state",
-            "subject": "enhancement",
-            "state": "expended"
+        "detail": {
+          "appliesTo": {
+            "type": "enhancement",
+            "owner": "this-detachment"
           },
-          {
-            "type": "prohibit-activity",
-            "activity": "use-enhancement",
-            "subject": "enhancement",
-            "while": {
+          "rules": [
+            {
+              "type": "supports-state",
+              "subject": "enhancement",
               "state": "expended"
+            },
+            {
+              "type": "prohibit-activity",
+              "activity": "use-enhancement",
+              "subject": "enhancement",
+              "while": {
+                "state": "expended"
+              }
+            },
+            {
+              "type": "clear-state",
+              "state": "expended",
+              "subject": "each-expended-enhancement",
+              "trigger": {
+                "event": "fulfil-oath",
+                "owner": "own-player",
+                "ability": "Code Chivalric",
+                "repeat": "each"
+              }
             }
-          },
-          {
-            "type": "clear-state",
-            "state": "expended",
-            "subject": "each-expended-enhancement",
-            "trigger": {
-              "event": "fulfil-oath",
-              "owner": "own-player",
-              "ability": "Code Chivalric",
-              "repeat": "each"
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

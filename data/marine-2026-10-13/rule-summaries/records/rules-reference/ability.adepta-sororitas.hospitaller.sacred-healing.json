@@ -52,56 +52,59 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-model",
-        "trigger": {
-          "event": "phase",
-          "phase": "command",
-          "timing": "during",
-          "turn": "your-turn"
-        },
-        "condition": "this-model-leading-a-unit",
-        "optional": true,
-        "effect": {
-          "operation": "choose-one",
-          "options": [
-            {
-              "effect": {
-                "operation": "return-destroyed-models",
-                "recipient": "led-unit",
-                "quantity": {
-                  "comparison": "at-most",
-                  "value": 1
-                },
-                "excludeAnyKeywords": [
-                  "CHARACTER"
-                ]
-              }
-            },
-            {
-              "cost": {
-                "operation": "discard-miracle-dice",
-                "quantity": 1,
-                "timing": "before-effect"
+        "detail": {
+          "source": "this-model",
+          "trigger": {
+            "event": "phase",
+            "phase": "command",
+            "timing": "during",
+            "turn": "your-turn"
+          },
+          "condition": "this-model-leading-a-unit",
+          "optional": true,
+          "effect": {
+            "options": [
+              {
+                "effect": {
+                  "recipient": "led-unit",
+                  "quantity": {
+                    "comparison": "at-most",
+                    "value": 1
+                  },
+                  "excludeAnyKeywords": [
+                    "CHARACTER"
+                  ],
+                  "kind": "return-destroyed-models"
+                }
               },
-              "effect": {
-                "operation": "return-destroyed-models",
-                "recipient": "led-unit",
-                "quantity": {
-                  "comparison": "at-most",
-                  "value": {
-                    "count": 1,
-                    "sides": 3,
-                    "additive": 1
-                  }
+              {
+                "cost": {
+                  "quantity": 1,
+                  "timing": "before-effect",
+                  "kind": "discard-miracle-dice"
                 },
-                "excludeAnyKeywords": [
-                  "CHARACTER"
-                ]
+                "effect": {
+                  "recipient": "led-unit",
+                  "quantity": {
+                    "comparison": "at-most",
+                    "value": {
+                      "count": 1,
+                      "sides": 3,
+                      "additive": 1
+                    }
+                  },
+                  "excludeAnyKeywords": [
+                    "CHARACTER"
+                  ],
+                  "kind": "return-destroyed-models"
+                }
               }
-            }
-          ]
+            ],
+            "kind": "choose-one"
+          }
         }
       }
     }

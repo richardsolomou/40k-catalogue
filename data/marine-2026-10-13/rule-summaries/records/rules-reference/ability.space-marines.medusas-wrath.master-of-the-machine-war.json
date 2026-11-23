@@ -63,53 +63,62 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "in-phase",
-          "phase": "movement",
-          "owner": "self"
-        },
-        "selection": {
-          "side": "friendly",
-          "level": "unit",
-          "allKeywords": [
-            "ADEPTUS ASTARTES",
-            "VEHICLE"
-          ],
-          "count": 1,
-          "optional": true,
-          "distance": {
-            "type": "within",
-            "inches": 6,
-            "origin": "bearer-model"
-          },
-          "visibility": {
-            "observer": "bearer-model",
-            "subject": "selected-unit"
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              }
+            ]
           }
         },
-        "effect": {
-          "type": "activate-ability-option",
-          "ability": "Combat Doctrines",
-          "options": [
-            "Tactical Doctrine",
-            "Devastator Doctrine"
-          ],
-          "choose": 1,
-          "recipient": "selected-vehicle-unit"
-        },
-        "expiry": {
-          "event": "next-phase-start",
-          "phase": "command",
-          "owner": "self"
-        },
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Adeptus Astartes"
-          ],
-          "excludedKeywords": []
+        "detail": {
+          "trigger": {
+            "event": "in-phase",
+            "phase": "movement",
+            "owner": "self"
+          },
+          "selection": {
+            "side": "friendly",
+            "level": "unit",
+            "allKeywords": [
+              "ADEPTUS ASTARTES",
+              "VEHICLE"
+            ],
+            "count": 1,
+            "optional": true,
+            "distance": {
+              "type": "within",
+              "inches": 6,
+              "origin": "bearer-model"
+            },
+            "visibility": {
+              "observer": "bearer-model",
+              "subject": "selected-unit"
+            }
+          },
+          "effect": {
+            "type": "activate-ability-option",
+            "ability": "Combat Doctrines",
+            "options": [
+              "Tactical Doctrine",
+              "Devastator Doctrine"
+            ],
+            "choose": 1,
+            "recipient": "selected-vehicle-unit"
+          },
+          "expiry": {
+            "event": "next-phase-start",
+            "phase": "command",
+            "owner": "self"
+          }
         }
       }
     }

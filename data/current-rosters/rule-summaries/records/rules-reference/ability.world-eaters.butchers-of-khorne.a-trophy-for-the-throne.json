@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Butchers of Khorne",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Stratagem, 1 CP. Use it in any Fight phase at the moment a TERMINATOR SQUAD unit of yours is picked to fight; that unit is the target. For the rest of that phase, its attacks against a MONSTER or VEHICLE unit get +1 on their Wound rolls.",
     "citations": [
       {
@@ -25,11 +31,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "TERMINATOR SQUAD"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Butchers of Khorne",
           "trigger": {
             "windows": [

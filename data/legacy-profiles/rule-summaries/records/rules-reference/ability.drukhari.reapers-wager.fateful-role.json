@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Reaper’s Wager",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in the Fight phase of either turn, right after an enemy unit picks its targets, on a HARLEQUINS or DRUKHARI unit of yours that it targeted with at least one attack. Until the phase ends, whenever a model in that unit that has not yet fought this phase is destroyed, roll a D6, adding 1 if the unit is on the losing side of the wager, and keep it in play on a 4+: it may fight once every attack from the attacker's unit is resolved, and is then removed.",
     "citations": [
       {
@@ -25,10 +32,37 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "DRUKHARI"
+                ]
+              },
+              {
+                "keywords": [
+                  "HARLEQUINS"
+                ]
+              }
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Reaper’s Wager",
           "type": "Strategic Ploy",
           "windows": [

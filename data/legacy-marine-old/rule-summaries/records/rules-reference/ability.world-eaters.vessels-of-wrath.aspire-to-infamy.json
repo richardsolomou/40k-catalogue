@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Vessels of Wrath",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "During the Fight phase, this applies on selecting a WORLD EATERS CHARACTER unit to fight. Its CHARACTER models get +1 Attacks and +2 Strength for melee attacks. Exclude EPIC HERO units.",
     "summarySpans": [
       {
@@ -45,32 +51,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Fight",
-          "turn": "either",
-          "event": "friendly qualifying unit selected to fight"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": "WORLD EATERS CHARACTER",
-          "excludedKeywords": [
-            "EPIC HERO"
-          ]
-        },
-        "effect": {
-          "type": "attack characteristic modifiers",
-          "scope": "melee attacks of CHARACTER models in the target",
-          "modifiers": {
-            "Attacks": 1,
-            "Strength": 2
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "WORLD EATERS",
+              "CHARACTER"
+            ],
+            "more": true
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Fight",
+            "turn": "either",
+            "event": "friendly qualifying unit selected to fight"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": "WORLD EATERS CHARACTER",
+            "excludedKeywords": [
+              "EPIC HERO"
+            ]
+          },
+          "effect": {
+            "type": "attack characteristic modifiers",
+            "scope": "melee attacks of CHARACTER models in the target",
+            "modifiers": {
+              "Attacks": 1,
+              "Strength": 2
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

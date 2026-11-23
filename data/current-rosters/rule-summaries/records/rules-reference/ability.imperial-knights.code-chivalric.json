@@ -33,101 +33,104 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "oath-and-permanent-quality",
-        "armyFaction": "IMPERIAL KNIGHTS",
-        "selection": {
-          "timing": "read-mission-rules-step-end",
-          "required": true,
-          "deedCount": 1,
-          "qualityCount": 1,
-          "methods": [
-            "choose",
-            "independent-table-roll"
+        "detail": {
+          "kind": "oath-and-permanent-quality",
+          "armyFaction": "IMPERIAL KNIGHTS",
+          "selection": {
+            "timing": "read-mission-rules-step-end",
+            "required": true,
+            "deedCount": 1,
+            "qualityCount": 1,
+            "methods": [
+              "choose",
+              "independent-table-roll"
+            ],
+            "die": "D6"
+          },
+          "oath": {
+            "fulfilment": "first-completed-selected-deed",
+            "honouredUntil": "battle-end",
+            "award": {
+              "cp": 2,
+              "cpIfEitherRandom": 3,
+              "exemptFromExtraCpLimit": 1
+            }
+          },
+          "deeds": [
+            {
+              "id": "lay-low-the-tyrant",
+              "d6Results": [
+                1,
+                2
+              ],
+              "chooseAt": "battle-start",
+              "object": "enemy-character-model",
+              "count": 1,
+              "fulfilledAt": "end-of-either-turn",
+              "condition": "chosen-model-destroyed"
+            },
+            {
+              "id": "reclaim-the-realm",
+              "d6Results": [
+                3,
+                4
+              ],
+              "fulfilledAt": "end-of-opponents-turn",
+              "condition": "control-more-objectives-than-opponent"
+            },
+            {
+              "id": "reap-a-great-tally",
+              "d6Results": [
+                5,
+                6
+              ],
+              "fulfilledAt": "end-of-battle-round",
+              "measure": "enemy-units-destroyed-this-round",
+              "comparison": "greater-than-battle-round-number",
+              "countsUnitsSubsequentlyReturned": true,
+              "firstRoundMinimum": 2
+            }
           ],
-          "die": "D6"
-        },
-        "oath": {
-          "fulfilment": "first-completed-selected-deed",
-          "honouredUntil": "battle-end",
-          "award": {
-            "cp": 2,
-            "cpIfEitherRandom": 3,
-            "exemptFromExtraCpLimit": 1
-          }
-        },
-        "deeds": [
-          {
-            "id": "lay-low-the-tyrant",
-            "d6Results": [
-              1,
-              2
-            ],
-            "chooseAt": "battle-start",
-            "object": "enemy-character-model",
-            "count": 1,
-            "fulfilledAt": "end-of-either-turn",
-            "condition": "chosen-model-destroyed"
-          },
-          {
-            "id": "reclaim-the-realm",
-            "d6Results": [
-              3,
-              4
-            ],
-            "fulfilledAt": "end-of-opponents-turn",
-            "condition": "control-more-objectives-than-opponent"
-          },
-          {
-            "id": "reap-a-great-tally",
-            "d6Results": [
-              5,
-              6
-            ],
-            "fulfilledAt": "end-of-battle-round",
-            "measure": "enemy-units-destroyed-this-round",
-            "comparison": "greater-than-battle-round-number",
-            "countsUnitsSubsequentlyReturned": true,
-            "firstRoundMinimum": 2
-          }
-        ],
-        "qualityDuration": "battle",
-        "qualityRecipient": "all-models-in-army",
-        "qualities": [
-          {
-            "id": "martial-valour",
-            "d6Results": [
-              1,
-              2
-            ],
-            "owner": "model",
-            "trigger": "selected-to-shoot-or-fight",
-            "choice": [
-              "one-hit-reroll",
-              "one-wound-reroll"
-            ]
-          },
-          {
-            "id": "eager-for-the-challenge",
-            "d6Results": [
-              3,
-              4
-            ],
-            "moveInchesAdd": 2,
-            "advanceAdd": 1,
-            "chargeAdd": 1
-          },
-          {
-            "id": "legacy-unsullied",
-            "d6Results": [
-              5,
-              6
-            ],
-            "objectiveControlImprove": 2,
-            "leadershipImprove": 1
-          }
-        ]
+          "qualityDuration": "battle",
+          "qualityRecipient": "all-models-in-army",
+          "qualities": [
+            {
+              "id": "martial-valour",
+              "d6Results": [
+                1,
+                2
+              ],
+              "owner": "model",
+              "trigger": "selected-to-shoot-or-fight",
+              "choice": [
+                "one-hit-reroll",
+                "one-wound-reroll"
+              ]
+            },
+            {
+              "id": "eager-for-the-challenge",
+              "d6Results": [
+                3,
+                4
+              ],
+              "moveInchesAdd": 2,
+              "advanceAdd": 1,
+              "chargeAdd": 1
+            },
+            {
+              "id": "legacy-unsullied",
+              "d6Results": [
+                5,
+                6
+              ],
+              "objectiveControlImprove": 2,
+              "leadershipImprove": 1
+            }
+          ]
+        }
       }
     }
   }

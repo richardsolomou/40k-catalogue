@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Blade of Ultramar",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "In the opposing player’s Movement phase, use this when an enemy finishes moving 8 inches or less from one of your units. That unit needs the Adeptus Astartes Infantry/Mounted keyword and must be unengaged. It may make a normal move, with D3+3 inches setting the limit.",
     "summarySpans": [
       {
@@ -54,10 +60,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              }
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "",
           "trigger": {
             "turn": "opponent",

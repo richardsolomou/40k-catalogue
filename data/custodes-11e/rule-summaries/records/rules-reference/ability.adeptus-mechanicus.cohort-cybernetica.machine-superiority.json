@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Cohort Cybernetica",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own",
+      "type": "epic-deed"
+    },
     "summary": "Epic Deed. Spend 1 CP in your Command phase on one LEGIO CYBERNETICA unit or one ADEPTUS MECHANICUS VEHICLE unit in your army. For the rest of the turn it may shoot despite having Fallen Back. You may also disregard some or all modifiers applied to its characteristics and to every roll or test taken for it, though modifiers to saving throws still apply.",
     "citations": [
       {
@@ -25,12 +32,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "LEGIO CYBERNETICA"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS MECHANICUS",
+                  "VEHICLE"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Cohort Cybernetica",
-          "category": "Epic Deed",
           "trigger": {
             "windows": [
               {

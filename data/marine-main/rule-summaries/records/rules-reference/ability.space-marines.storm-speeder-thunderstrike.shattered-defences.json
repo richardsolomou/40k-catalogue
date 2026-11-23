@@ -24,43 +24,46 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "unit-ability",
-        "datasheet": "Storm Speeder Thunderstrike",
-        "trigger": {
-          "event": "this-unit-has-shot",
-          "window": {
-            "phase": "shooting",
-            "turn": "own"
-          }
-        },
-        "select": {
-          "side": "enemy",
-          "count": 1,
-          "hitByThoseAttacks": true,
-          "keywordsAny": [
-            "MONSTER",
-            "VEHICLE"
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Storm Speeder Thunderstrike",
+          "trigger": {
+            "event": "this-unit-has-shot",
+            "window": {
+              "phase": "shooting",
+              "turn": "own"
+            }
+          },
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "hitByThoseAttacks": true,
+            "keywordsAny": [
+              "MONSTER",
+              "VEHICLE"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "characteristic-modifier",
+              "characteristic": "AP",
+              "delta": 1,
+              "attackType": "ranged",
+              "attackers": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES"
+                ]
+              },
+              "condition": "attack targets the selected unit",
+              "expires": "end-of-phase",
+              "durationBasis": "core 01.02.02 persisting rules effects"
+            }
           ]
-        },
-        "effects": [
-          {
-            "kind": "characteristic-modifier",
-            "characteristic": "AP",
-            "delta": 1,
-            "attackType": "ranged",
-            "attackers": {
-              "side": "friendly",
-              "keywordsAll": [
-                "ADEPTUS ASTARTES"
-              ]
-            },
-            "condition": "attack targets the selected unit",
-            "expires": "end-of-phase",
-            "durationBasis": "core 01.02.02 persisting rules effects"
-          }
-        ]
+        }
       }
     }
   }

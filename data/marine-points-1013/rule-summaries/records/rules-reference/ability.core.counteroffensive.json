@@ -15,6 +15,12 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent"
+    },
     "summary": "Use it in your opponent's Fight phase, during the Fight step, right after an enemy unit finishes resolving its attacks, on a friendly unit eligible to fight. Until the phase ends it gains the Fights First ability, and you must pick it as your next unit to fight. Like any Stratagem, it can be used only once in a phase.",
     "summarySpans": [
       {
@@ -75,44 +81,55 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "core-stratagem",
-        "category": "Core Stratagem",
-        "when": {
-          "turn": "opponent",
-          "phase": "fight",
-          "step": "fight",
-          "stepRule": "12.04",
-          "point": "just-after-enemy-unit-resolved-attacks"
-        },
-        "target": {
-          "count": 1,
-          "side": "friendly",
-          "eligibleToFight": true,
-          "eligibilityRule": "12.04"
-        },
-        "effect": {
-          "duration": "end-of-phase",
-          "grant": {
-            "ability": "Fights First",
-            "rule": "24.13"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "unresolved": "not typed yet; see the summary"
           },
-          "selection": {
-            "mustBeNextSelectedToFight": true,
-            "rule": "12.04"
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "more": true
           }
         },
-        "frequency": {
-          "printedOnRecord": null,
-          "general": {
-            "rule": "15.01",
-            "limit": "once-per-phase",
-            "scope": "same Stratagem"
+        "detail": {
+          "kind": "core-stratagem",
+          "when": {
+            "turn": "opponent",
+            "phase": "fight",
+            "step": "fight",
+            "stepRule": "12.04",
+            "point": "just-after-enemy-unit-resolved-attacks"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "eligibleToFight": true,
+            "eligibilityRule": "12.04"
+          },
+          "effect": {
+            "duration": "end-of-phase",
+            "grant": {
+              "ability": "Fights First",
+              "rule": "24.13"
+            },
+            "selection": {
+              "mustBeNextSelectedToFight": true,
+              "rule": "12.04"
+            }
+          },
+          "frequency": {
+            "printedOnRecord": null,
+            "general": {
+              "rule": "15.01",
+              "limit": "once-per-phase",
+              "scope": "same Stratagem"
+            }
           }
-        },
-        "cost": {
-          "cp": 2
         }
       }
     }

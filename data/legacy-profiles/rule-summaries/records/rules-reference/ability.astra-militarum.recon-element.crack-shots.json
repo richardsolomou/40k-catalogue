@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Recon Element",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in your Shooting phase, targeting a PLATOON unit in your army; it must not have been chosen to shoot yet this phase. For the rest of the phase, that unit's ranged weapons gain [PRECISION].",
     "summarySpans": [
       {
@@ -36,10 +43,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "PLATOON"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Recon Element",
           "type": "Battle Tactic",
           "windows": [

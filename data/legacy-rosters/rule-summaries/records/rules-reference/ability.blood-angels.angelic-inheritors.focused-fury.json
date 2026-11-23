@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Angelic Inheritors",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Use in the Fight phase as you pick one of your units with ADEPTUS ASTARTES to fight. Its melee attacks gain LETHAL HITS. If it is a Character unit, you can choose LETHAL HITS plus LANCE instead.",
     "summarySpans": [
       {
@@ -72,10 +78,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

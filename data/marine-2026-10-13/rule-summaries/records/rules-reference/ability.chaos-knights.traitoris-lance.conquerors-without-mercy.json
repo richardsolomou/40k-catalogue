@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Traitoris Lance",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In the Fight phase, pick a CHAOS KNIGHTS model that charged this turn and is still waiting to be selected to fight. Improve its melee weapons’ AP by 1 through phase end. After it finishes attacking, if the model’s attacks destroyed any enemy units, test all enemies no farther than 6 inches from it for Battle-shock.",
     "summarySpans": [
       {
@@ -40,10 +47,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "model",
+            "keywords": [
+              "CHAOS KNIGHTS"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "turn": "either",

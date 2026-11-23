@@ -31,32 +31,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "MEMNYR STRATEGIST"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "top-up-resource",
-            "target": "own-player",
-            "resource": "YP",
-            "total": 3,
-            "counts": "YP-gained-during-own-turn"
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "MEMNYR STRATEGIST"
+                ]
+              }
+            ]
           }
-        ],
-        "trigger": {
-          "event": "end-of-own-turn",
-          "conditions": [
-            "bearer-on-battlefield",
-            "YP-gained-this-turn-below-3"
-          ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "top-up-resource",
+              "target": "own-player",
+              "resource": "YP",
+              "total": 3,
+              "counts": "YP-gained-during-own-turn"
+            }
+          ],
+          "trigger": {
+            "event": "end-of-own-turn",
+            "conditions": [
+              "bearer-on-battlefield",
+              "YP-gained-this-turn-below-3"
+            ]
+          }
         }
       }
     }

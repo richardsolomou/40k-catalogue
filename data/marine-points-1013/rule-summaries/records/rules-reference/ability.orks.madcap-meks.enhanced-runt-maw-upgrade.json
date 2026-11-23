@@ -50,42 +50,49 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Big Mek with Shokk Attack Gun"
-          ],
-          "anyOf": [],
-          "excludes": [],
-          "equipment": "Shokk Attack Gun",
-          "characterOnly": false,
-          "equipableByNonCharacter": true
-        },
-        "trigger": "after bearer unit shoots",
-        "effects": [
-          {
-            "recipient": "one enemy unit hit by the bearer unit’s attacks",
-            "operation": "apply-state",
-            "actor": "controlling player",
-            "select": 1,
-            "state": "infested with Snotlings",
-            "expires": "start of your next turn",
-            "whileActive": [
+        "enhancement": {
+          "type": "upgrade",
+          "points": 10,
+          "perRoster": 3,
+          "eligibility": {
+            "anyOf": [
               {
-                "recipient": "infested enemy unit",
-                "operation": "modify-roll",
-                "roll": "leadership rolls",
-                "adjustment": {
-                  "operation": "subtract",
-                  "amount": 1
+                "unit": {
+                  "kind": "unit",
+                  "id": "orks.big-mek-with-shokk-attack-gun"
                 }
               }
-            ]
+            ],
+            "nonCharacters": true
           }
-        ]
+        },
+        "detail": {
+          "trigger": "after bearer unit shoots",
+          "effects": [
+            {
+              "recipient": "one enemy unit hit by the bearer unit’s attacks",
+              "actor": "controlling player",
+              "select": 1,
+              "state": "infested with Snotlings",
+              "expires": "start of your next turn",
+              "whileActive": [
+                {
+                  "recipient": "infested enemy unit",
+                  "roll": "leadership rolls",
+                  "adjustment": {
+                    "operation": "subtract",
+                    "amount": 1
+                  },
+                  "kind": "modify-roll"
+                }
+              ],
+              "kind": "apply-state"
+            }
+          ]
+        }
       }
     }
   }

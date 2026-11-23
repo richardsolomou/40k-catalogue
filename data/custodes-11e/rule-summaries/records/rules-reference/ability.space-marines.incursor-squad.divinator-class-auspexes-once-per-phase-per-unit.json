@@ -34,37 +34,40 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "limit": {
-          "period": "phase",
-          "scope": "unit",
-          "count": 1
-        },
-        "trigger": {
-          "phase": "shooting",
-          "turn": "controlling-player",
-          "event": "friendly-adeptus-astartes-unit-selected-to-shoot",
-          "optional": true
-        },
-        "selection": {
-          "count": 1,
-          "side": "enemy",
-          "entity": "unit",
-          "visibleTo": "owning-unit",
-          "maxDistanceInches": 18,
-          "origin": "owning-unit"
-        },
-        "effect": {
-          "operation": "apply-status",
-          "status": "scanned",
-          "recipient": "selected-enemy-unit",
-          "expires": "end-of-triggering-shooting-phase",
-          "whileActive": {
-            "operation": "allow-reroll",
-            "attacks": "ranged-attacks-targeting-selected-enemy-unit",
-            "roll": "hit",
-            "value": 1
+        "detail": {
+          "limit": {
+            "period": "phase",
+            "scope": "unit",
+            "count": 1
+          },
+          "trigger": {
+            "phase": "shooting",
+            "turn": "controlling-player",
+            "event": "friendly-adeptus-astartes-unit-selected-to-shoot",
+            "optional": true
+          },
+          "selection": {
+            "count": 1,
+            "side": "enemy",
+            "entity": "unit",
+            "visibleTo": "owning-unit",
+            "maxDistanceInches": 18,
+            "origin": "owning-unit"
+          },
+          "effect": {
+            "status": "scanned",
+            "recipient": "selected-enemy-unit",
+            "expires": "end-of-triggering-shooting-phase",
+            "whileActive": {
+              "attacks": "ranged-attacks-targeting-selected-enemy-unit",
+              "roll": "hit",
+              "value": 1,
+              "kind": "allow-reroll"
+            },
+            "kind": "apply-status"
           }
         }
       }

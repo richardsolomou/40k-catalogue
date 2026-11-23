@@ -53,47 +53,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "target": {
-          "owner": "friendly",
-          "level": "unit",
-          "allOf": [
-            "GREY KNIGHTS",
-            "VEHICLE"
+        "detail": {
+          "target": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "GREY KNIGHTS",
+              "VEHICLE"
+            ]
+          },
+          "trigger": {
+            "event": "advances"
+          },
+          "effects": [
+            {
+              "type": "skip-roll",
+              "roll": "advance"
+            },
+            {
+              "type": "stat-modifier",
+              "stat": "move",
+              "operation": "add",
+              "value": 6,
+              "unit": "inches",
+              "recipient": "models-in-triggering-unit",
+              "expires": {
+                "event": "phase-ended",
+                "phase": "triggering"
+              }
+            },
+            {
+              "type": "weapon-ability-grant",
+              "keyword": "assault",
+              "attackType": "ranged",
+              "recipient": "weapons-of-models-in-triggering-unit",
+              "expires": {
+                "event": "turn-ended",
+                "turn": "triggering"
+              }
+            }
           ]
-        },
-        "trigger": {
-          "event": "advances"
-        },
-        "effects": [
-          {
-            "type": "skip-roll",
-            "roll": "advance"
-          },
-          {
-            "type": "stat-modifier",
-            "stat": "move",
-            "operation": "add",
-            "value": 6,
-            "unit": "inches",
-            "recipient": "models-in-triggering-unit",
-            "expires": {
-              "event": "phase-ended",
-              "phase": "triggering"
-            }
-          },
-          {
-            "type": "weapon-ability-grant",
-            "keyword": "assault",
-            "attackType": "ranged",
-            "recipient": "weapons-of-models-in-triggering-unit",
-            "expires": {
-              "event": "turn-ended",
-              "turn": "triggering"
-            }
-          }
-        ]
+        }
       }
     }
   }

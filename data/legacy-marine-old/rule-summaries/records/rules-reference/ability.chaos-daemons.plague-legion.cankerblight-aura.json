@@ -76,45 +76,56 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "failed-battle-shock-test",
-          "quantifier": "each",
-          "target": "enemy-unit",
-          "maxDistanceInches": 6,
-          "distanceFrom": "bearer",
-          "excludedUnitKeywords": [
-            "MONSTER",
-            "VEHICLE"
-          ]
-        },
-        "activation": {
-          "actor": "bearer",
-          "optional": true,
-          "type": "aura"
-        },
-        "effectsOnActivation": [
-          {
-            "action": "destroy-model",
-            "quantity": 1,
-            "unit": "tested-unit",
-            "modelChosenBy": "tested-unit-controller"
-          },
-          {
-            "action": "suppress-mortal-wounds",
-            "rule": "ability:chaos-daemons.the-shadow-of-chaos",
-            "clause": "Daemonic Terror",
-            "ruleOwner": "enhancement-owner"
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "NURGLE"
+                ],
+                "factionKeywords": [
+                  "LEGIONES DAEMONICA"
+                ]
+              }
+            ]
           }
-        ],
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Nurgle",
-            "Legiones Daemonica"
-          ],
-          "excludedKeywords": []
+        },
+        "detail": {
+          "trigger": {
+            "event": "failed-battle-shock-test",
+            "quantifier": "each",
+            "target": "enemy-unit",
+            "maxDistanceInches": 6,
+            "distanceFrom": "bearer",
+            "excludedUnitKeywords": [
+              "MONSTER",
+              "VEHICLE"
+            ]
+          },
+          "activation": {
+            "actor": "bearer",
+            "optional": true,
+            "type": "aura"
+          },
+          "effectsOnActivation": [
+            {
+              "action": "destroy-model",
+              "quantity": 1,
+              "unit": "tested-unit",
+              "modelChosenBy": "tested-unit-controller"
+            },
+            {
+              "action": "suppress-mortal-wounds",
+              "rule": "ability:chaos-daemons.the-shadow-of-chaos",
+              "clause": "Daemonic Terror",
+              "ruleOwner": "enhancement-owner"
+            }
+          ]
         }
       }
     }

@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Taktikal Brigade",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "1 CP, as the Movement phase of your opponent's turn ends. Choose one BOYZ, KOMMANDOS or STORMBOYZ unit of yours that is now unengaged but started the phase engaged; it may move up to 6″ as a Normal move.",
     "summarySpans": [
       {
@@ -35,11 +41,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "BOYZ"
+                ]
+              },
+              {
+                "keywords": [
+                  "KOMMANDOS"
+                ]
+              },
+              {
+                "keywords": [
+                  "STORMBOYZ"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Taktikal Brigade",
           "when": {
             "phase": "movement",

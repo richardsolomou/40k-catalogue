@@ -44,38 +44,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "role": "aura-option",
-        "activation": {
-          "event": "parent-option-active",
-          "parentAbility": "Warmaster"
-        },
-        "area": {
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 6,
-          "origin": "this-model",
-          "candidate": {
-            "entity": "unit",
-            "side": "friendly",
-            "requireAllKeywords": [
-              "HERETIC ASTARTES"
+        "detail": {
+          "role": "aura-option",
+          "activation": {
+            "event": "parent-option-active",
+            "parentAbility": "Warmaster"
+          },
+          "area": {
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 6,
+            "origin": "this-model",
+            "candidate": {
+              "entity": "unit",
+              "side": "friendly",
+              "requireAllKeywords": [
+                "HERETIC ASTARTES"
+              ],
+              "excludeAnyKeywords": []
+            }
+          },
+          "trigger": {
+            "event": "attack",
+            "actor": "model-in-eligible-unit",
+            "mode": "any"
+          },
+          "effect": {
+            "rolls": [
+              "hit"
             ],
-            "excludeAnyKeywords": []
+            "optional": true,
+            "kind": "re-roll"
           }
-        },
-        "trigger": {
-          "event": "attack",
-          "actor": "model-in-eligible-unit",
-          "mode": "any"
-        },
-        "effect": {
-          "operation": "re-roll",
-          "rolls": [
-            "hit"
-          ],
-          "optional": true
         }
       }
     }

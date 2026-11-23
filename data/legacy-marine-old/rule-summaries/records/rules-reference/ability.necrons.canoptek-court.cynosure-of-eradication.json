@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Canoptek Court",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 2 CP as your Shooting phase begins, or as the Fight phase of either player's turn begins. Pick a unit of yours with the CRYPTEK or CANOPTEK keyword that stands wholly inside the Power Matrix of your army. For the rest of the phase, [DEVASTATING WOUNDS] applies to the weapons of every CRYPTEK and CANOPTEK model in that unit.",
     "summarySpans": [
       {
@@ -36,10 +44,34 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "CRYPTEK"
+                ]
+              },
+              {
+                "keywords": [
+                  "CANOPTEK"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Canoptek Court",
           "type": "Battle Tactic",
           "windows": [

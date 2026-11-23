@@ -129,74 +129,77 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "resource-driven-stance",
-        "armyFaction": "LEAGUES OF VOTANN",
-        "recipient": "friendly-units",
-        "initial": {
-          "at": "battle-start",
-          "mode": "Hostile Acquisition",
-          "expires": "start-of-first-own-command-phase"
-        },
-        "reevaluate": {
-          "phase": "command",
-          "owner": "self",
-          "at": "end",
-          "afterGainingYield": true,
-          "expires": "start-of-next-own-command-phase",
-          "whenBelow7": "Hostile Acquisition",
-          "whenAtLeast7": "Fortify Takeover",
-          "recalculateOnOtherBalanceChange": false
-        },
-        "modes": {
-          "hostileAcquisition": {
-            "hitRollAdd": 1,
-            "when": "enemy-target-in-range-of-any-objective-marker",
-            "optionalRerolls": [
-              "advance",
-              "charge"
-            ]
+        "detail": {
+          "kind": "resource-driven-stance",
+          "armyFaction": "LEAGUES OF VOTANN",
+          "recipient": "friendly-units",
+          "initial": {
+            "at": "battle-start",
+            "mode": "Hostile Acquisition",
+            "expires": "start-of-first-own-command-phase"
           },
-          "fortifyTakeover": {
-            "hitRollAdd": 1,
-            "when": "attacking-unit-in-range-of-own-controlled-objective-marker",
-            "incoming": {
-              "excludesRecipientKeyword": "VEHICLE",
-              "when": "attack-strength-greater-than-recipient-toughness",
-              "woundRollModifier": -1
-            }
-          }
-        },
-        "yield": {
-          "resource": "YP",
-          "owner": "self",
-          "gain": {
+          "reevaluate": {
             "phase": "command",
-            "player": "either",
+            "owner": "self",
             "at": "end",
-            "perMetCondition": 1,
-            "conditions": [
-              {
-                "ownZoneControlledMarkersMin": 1
-              },
-              {
-                "fromRound": 2,
-                "outsideOwnZoneControlledMarkersMin": 1
-              },
-              {
-                "fromRound": 2,
-                "outsideOwnZoneControlledMarkersMin": 2
-              },
-              {
-                "fromRound": 2,
-                "compareControlledMarkers": "more-than-opponent"
-              }
-            ]
+            "afterGainingYield": true,
+            "expires": "start-of-next-own-command-phase",
+            "whenBelow7": "Hostile Acquisition",
+            "whenAtLeast7": "Fortify Takeover",
+            "recalculateOnOtherBalanceChange": false
           },
-          "spend": {
-            "timing": "as-required-by-rule",
-            "balanceFloor": 0
+          "modes": {
+            "hostileAcquisition": {
+              "hitRollAdd": 1,
+              "when": "enemy-target-in-range-of-any-objective-marker",
+              "optionalRerolls": [
+                "advance",
+                "charge"
+              ]
+            },
+            "fortifyTakeover": {
+              "hitRollAdd": 1,
+              "when": "attacking-unit-in-range-of-own-controlled-objective-marker",
+              "incoming": {
+                "excludesRecipientKeyword": "VEHICLE",
+                "when": "attack-strength-greater-than-recipient-toughness",
+                "woundRollModifier": -1
+              }
+            }
+          },
+          "yield": {
+            "resource": "YP",
+            "owner": "self",
+            "gain": {
+              "phase": "command",
+              "player": "either",
+              "at": "end",
+              "perMetCondition": 1,
+              "conditions": [
+                {
+                  "ownZoneControlledMarkersMin": 1
+                },
+                {
+                  "fromRound": 2,
+                  "outsideOwnZoneControlledMarkersMin": 1
+                },
+                {
+                  "fromRound": 2,
+                  "outsideOwnZoneControlledMarkersMin": 2
+                },
+                {
+                  "fromRound": 2,
+                  "compareControlledMarkers": "more-than-opponent"
+                }
+              ]
+            },
+            "spend": {
+              "timing": "as-required-by-rule",
+              "balanceFloor": 0
+            }
           }
         }
       }

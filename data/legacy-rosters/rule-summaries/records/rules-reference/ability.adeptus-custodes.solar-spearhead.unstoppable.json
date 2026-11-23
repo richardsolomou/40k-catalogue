@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Solar Spearhead",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in your Movement or Charge phase on one of your ADEPTUS CUSTODES MOUNTED or ADEPTUS CUSTODES VEHICLE units. Until that phase ends, its models can pass through terrain features whenever they move. The card's phase field lists only the Movement phase while its timing also names your Charge phase, so it does not settle whether it can be used in the Charge phase.",
     "summarySpans": [
       {
@@ -45,12 +52,36 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS CUSTODES",
+                  "VEHICLE"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS CUSTODES",
+                  "MOUNTED"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Solar Spearhead",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {

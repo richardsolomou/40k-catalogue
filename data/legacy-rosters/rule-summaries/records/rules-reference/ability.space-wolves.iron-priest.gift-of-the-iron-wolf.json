@@ -72,63 +72,66 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "trigger": {
-          "event": "move",
-          "actor": "this-unit",
-          "timings": [
-            "start",
-            "end"
-          ],
-          "phase": "movement",
-          "turn": "your-turn"
-        },
-        "target": {
-          "origin": "this-model",
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 3,
-          "side": "friendly",
-          "scope": "vehicle",
-          "count": 1,
-          "requireAllKeywords": [
-            "SPACE WOLVES",
-            "VEHICLE"
-          ]
-        },
-        "effects": [
-          {
-            "operation": "heal",
-            "recipient": "selected-vehicle",
-            "quantity": {
-              "count": 1,
-              "sides": 3,
-              "additive": 0
-            }
-          },
-          {
-            "operation": "ignore-modifiers",
-            "recipient": "selected-vehicle-model",
-            "rolls": [
-              "hit",
-              "wound"
+        "detail": {
+          "source": "this-unit",
+          "trigger": {
+            "event": "move",
+            "actor": "this-unit",
+            "timings": [
+              "start",
+              "end"
             ],
-            "optional": true,
-            "expiry": {
-              "event": "phase",
-              "phase": "movement",
-              "timing": "start",
-              "turn": "next-your-turn"
+            "phase": "movement",
+            "turn": "your-turn"
+          },
+          "target": {
+            "origin": "this-model",
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 3,
+            "side": "friendly",
+            "scope": "vehicle",
+            "count": 1,
+            "requireAllKeywords": [
+              "SPACE WOLVES",
+              "VEHICLE"
+            ]
+          },
+          "effects": [
+            {
+              "recipient": "selected-vehicle",
+              "quantity": {
+                "count": 1,
+                "sides": 3,
+                "additive": 0
+              },
+              "kind": "heal"
+            },
+            {
+              "recipient": "selected-vehicle-model",
+              "rolls": [
+                "hit",
+                "wound"
+              ],
+              "optional": true,
+              "expiry": {
+                "event": "phase",
+                "phase": "movement",
+                "timing": "start",
+                "turn": "next-your-turn"
+              },
+              "kind": "ignore-modifiers"
             }
+          ],
+          "usage": {
+            "limit": 1,
+            "period": "phase",
+            "per": "vehicle-model",
+            "sharedBy": "this-ability"
           }
-        ],
-        "usage": {
-          "limit": 1,
-          "period": "phase",
-          "per": "vehicle-model",
-          "sharedBy": "this-ability"
         }
       }
     }

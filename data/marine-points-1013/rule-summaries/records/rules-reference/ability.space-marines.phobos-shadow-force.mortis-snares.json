@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Phobos Shadow Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own"
+    },
     "summary": "As your Movement phase closes, pick an unengaged Phobos or Scout Squad unit. Snare one objective it controls. Roll a D6 when an enemy finishes moving in the snared objective’s range. A result of 2+ deals D6 mortal wounds to the enemy and clears the snare.",
     "summarySpans": [
       {
@@ -82,10 +88,34 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "PHOBOS"
+                ]
+              },
+              {
+                "keywords": [
+                  "SCOUT SQUAD"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Shield Host",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "wargear"
+    },
     "summary": "In your Shooting phase, spend 1 CP on one ADEPTUS CUSTODES unit of yours, not an ANATHEMA PSYKANA unit, that has not shot yet this phase. Choose one of two abilities, [LETHAL HITS] and [SUSTAINED HITS 1]; while the phase lasts, its models' ranged weapons have the chosen one.",
     "summarySpans": [
       {
@@ -61,12 +68,31 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "excludedKeywords": [
+              "ANATHEMA PSYKANA"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Shield Host",
-          "category": "Wargear",
           "trigger": {
             "windows": [
               {

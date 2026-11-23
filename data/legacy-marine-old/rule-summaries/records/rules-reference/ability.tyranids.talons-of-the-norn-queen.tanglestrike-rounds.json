@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Talons of the Norn Queen",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "After a NORN ASSIMILATOR shoots in your Shooting phase, target that model’s unit and pick one enemy its attacks hit. That enemy is Tethered and loses 2\" from its Move until your next Command phase starts.",
     "summarySpans": [
       {
@@ -53,30 +59,46 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "your Shooting phase",
-          "after NORN ASSIMILATOR has shot"
-        ],
-        "target": {
-          "unit": "NORN ASSIMILATOR",
-          "binding": "triggering unit"
-        },
-        "effect": {
-          "enemy": {
-            "count": 1,
-            "hitBy": "triggering NORN ASSIMILATOR attacks"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
           },
-          "condition": "Tethered",
-          "moveModifier": {
-            "operation": "subtract",
-            "inches": 2
-          },
-          "expiry": "start of your next Command phase"
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "NORN ASSIMILATOR"
+            ]
+          }
         },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "your Shooting phase",
+            "after NORN ASSIMILATOR has shot"
+          ],
+          "target": {
+            "unit": "NORN ASSIMILATOR",
+            "binding": "triggering unit"
+          },
+          "effect": {
+            "enemy": {
+              "count": 1,
+              "hitBy": "triggering NORN ASSIMILATOR attacks"
+            },
+            "condition": "Tethered",
+            "moveModifier": {
+              "operation": "subtract",
+              "inches": 2
+            },
+            "expiry": "start of your next Command phase"
+          },
+          "restrictions": []
+        }
       }
     }
   }

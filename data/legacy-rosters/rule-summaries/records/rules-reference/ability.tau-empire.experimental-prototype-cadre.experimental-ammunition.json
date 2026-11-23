@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Experimental Prototype Cadre",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "When you select a friendly BATTLESUIT CHARACTER to shoot in your Shooting phase, give its ranged weapons +1 Strength for the phase. You may also improve their Armour Penetration by 1 if you give them HAZARDOUS.",
     "summarySpans": [
       {
@@ -56,36 +62,53 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phases": [
-            "Shooting phase"
-          ],
-          "turn": "yours",
-          "timing": "on selection to shoot"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-shoot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "BATTLESUIT",
+              "CHARACTER"
+            ]
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "label": "BATTLESUIT CHARACTER",
-          "bindTo": "shooting unit"
-        },
-        "effect": {
-          "expires": "end of phase",
-          "type": "weapon change choice",
-          "attackType": "ranged",
-          "options": [
-            {
-              "strength": 1
-            },
-            {
-              "strength": 1,
-              "armourPenetrationImprovement": 1,
-              "addAbility": "HAZARDOUS"
-            }
-          ]
+        "detail": {
+          "window": {
+            "phases": [
+              "Shooting phase"
+            ],
+            "turn": "yours",
+            "timing": "on selection to shoot"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "label": "BATTLESUIT CHARACTER",
+            "bindTo": "shooting unit"
+          },
+          "effect": {
+            "expires": "end of phase",
+            "type": "weapon change choice",
+            "attackType": "ranged",
+            "options": [
+              {
+                "strength": 1
+              },
+              {
+                "strength": 1,
+                "armourPenetrationImprovement": 1,
+                "addAbility": "HAZARDOUS"
+              }
+            ]
+          }
         }
       }
     }

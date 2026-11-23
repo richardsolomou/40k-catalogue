@@ -15,6 +15,16 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Use it in any phase, right after a friendly unit or model makes an Advance, Charge, Damage, Hazard, Hit, Save or Wound roll, or rolls for how many attacks a weapon gets. Pick that unit or model and roll again. When several dice were thrown, you choose a single die to reroll; Charge rolls are the exception and get rerolled completely. Like any Stratagem, it can be used only once in a phase.",
     "summarySpans": [
       {
@@ -90,45 +100,58 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "core-stratagem",
-        "category": "Core Stratagem",
-        "when": {
-          "turn": null,
-          "phase": "any",
-          "point": "just-after-roll",
-          "rolls": [
-            "advance",
-            "charge",
-            "damage",
-            "hazard",
-            "hit",
-            "save",
-            "wound",
-            "number-of-attacks"
-          ]
-        },
-        "target": {
-          "count": 1,
-          "subject": "the-rolling-unit-or-model",
-          "side": "friendly"
-        },
-        "effect": {
-          "action": "re-roll",
-          "multipleDice": "choose-one-die",
-          "chargeRoll": "re-roll-in-full"
-        },
-        "frequency": {
-          "printedOnRecord": null,
-          "general": {
-            "rule": "15.01",
-            "limit": "once-per-phase",
-            "scope": "same Stratagem"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "more": true
           }
         },
-        "cost": {
-          "cp": 1
+        "detail": {
+          "kind": "core-stratagem",
+          "when": {
+            "turn": null,
+            "phase": "any",
+            "point": "just-after-roll",
+            "rolls": [
+              "advance",
+              "charge",
+              "damage",
+              "hazard",
+              "hit",
+              "save",
+              "wound",
+              "number-of-attacks"
+            ]
+          },
+          "target": {
+            "count": 1,
+            "subject": "the-rolling-unit-or-model",
+            "side": "friendly"
+          },
+          "effect": {
+            "action": "re-roll",
+            "multipleDice": "choose-one-die",
+            "chargeRoll": "re-roll-in-full"
+          },
+          "frequency": {
+            "printedOnRecord": null,
+            "general": {
+              "rule": "15.01",
+              "limit": "once-per-phase",
+              "scope": "same Stratagem"
+            }
+          }
         }
       }
     }

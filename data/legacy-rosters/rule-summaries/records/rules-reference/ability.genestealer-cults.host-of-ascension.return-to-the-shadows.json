@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Host of Ascension",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP, as the Fight phase of your opponent's turn ends. Choose one INFANTRY unit with the GENESTEALER CULTS keyword that is out of Engagement Range of all enemy units. Lift it off the table; it goes into Strategic Reserves.",
     "summarySpans": [
       {
@@ -51,11 +58,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GENESTEALER CULTS",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "not-in-engagement-range"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Host of Ascension",
           "when": {
             "phase": "fight",

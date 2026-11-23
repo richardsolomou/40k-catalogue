@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Murdertalon Raiders",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Stratagem, 1 CP. Use it in any Fight phase at the moment one of your HERETIC ASTARTES INFANTRY FLY units is picked to fight, provided it made a Charge move earlier this turn; that unit is the target. Its melee attacks have [LANCE] for the rest of that phase.",
     "summarySpans": [
       {
@@ -36,11 +42,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "HERETIC ASTARTES",
+              "INFANTRY",
+              "FLY"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Murdertalon Raiders",
           "trigger": {
             "windows": [

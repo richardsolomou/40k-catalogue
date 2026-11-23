@@ -64,53 +64,56 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "wargear-bearer",
-        "limit": {
-          "period": "battle",
-          "scope": "bearer",
-          "count": 1
-        },
-        "trigger": {
-          "event": "phase",
-          "phase": "any",
-          "timing": "start",
-          "turn": "either-player"
-        },
-        "selection": {
-          "count": 1,
-          "optional": true,
-          "side": "enemy",
-          "entity": "unit",
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 3,
-          "origin": "bearer"
-        },
-        "effect": {
-          "operation": "deal-mortal-wounds",
-          "recipient": "selected-unit",
-          "test": {
-            "dice": {
-              "count": 1,
-              "sides": 6,
-              "additive": 0
-            },
-            "minimum": 2
+        "detail": {
+          "source": "wargear-bearer",
+          "limit": {
+            "period": "battle",
+            "scope": "bearer",
+            "count": 1
           },
-          "default": {
+          "trigger": {
+            "event": "phase",
+            "phase": "any",
+            "timing": "start",
+            "turn": "either-player"
+          },
+          "selection": {
             "count": 1,
-            "sides": 3,
-            "additive": 0
+            "optional": true,
+            "side": "enemy",
+            "entity": "unit",
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 3,
+            "origin": "bearer"
           },
-          "override": {
-            "keyword": "VEHICLE",
-            "amount": {
-              "count": 2,
+          "effect": {
+            "recipient": "selected-unit",
+            "test": {
+              "dice": {
+                "count": 1,
+                "sides": 6,
+                "additive": 0
+              },
+              "minimum": 2
+            },
+            "default": {
+              "count": 1,
               "sides": 3,
               "additive": 0
-            }
+            },
+            "override": {
+              "keyword": "VEHICLE",
+              "amount": {
+                "count": 2,
+                "sides": 3,
+                "additive": 0
+              }
+            },
+            "kind": "deal-mortal-wounds"
           }
         }
       }

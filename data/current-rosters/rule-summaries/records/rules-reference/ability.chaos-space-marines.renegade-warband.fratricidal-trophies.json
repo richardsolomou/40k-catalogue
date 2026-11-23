@@ -42,32 +42,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "choose-doctrine",
-          "selector": "own-player",
-          "recipient": "bearer-unit"
+        "enhancement": {
+          "type": "model",
+          "points": 5,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "TERMINATOR"
+                ],
+                "factionKeywords": [
+                  "HERETIC ASTARTES"
+                ]
+              }
+            ]
+          }
         },
-        "effect": {
-          "type": "reroll",
-          "roll": "hit",
-          "subset": "any",
-          "optional": true,
-          "actor": "model-in-bearer-unit",
-          "on": "each-attack"
-        },
-        "expiry": {
-          "event": "turn-end",
-          "turn": "trigger-turn"
-        },
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Terminator",
-            "Heretic Astartes"
-          ],
-          "excludedKeywords": []
+        "detail": {
+          "trigger": {
+            "event": "choose-doctrine",
+            "selector": "own-player",
+            "recipient": "bearer-unit"
+          },
+          "effect": {
+            "type": "reroll",
+            "roll": "hit",
+            "subset": "any",
+            "optional": true,
+            "actor": "model-in-bearer-unit",
+            "on": "each-attack"
+          },
+          "expiry": {
+            "event": "turn-end",
+            "turn": "trigger-turn"
+          }
         }
       }
     }

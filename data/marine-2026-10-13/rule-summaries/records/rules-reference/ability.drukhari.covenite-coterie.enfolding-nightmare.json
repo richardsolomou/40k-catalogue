@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Covenite Coterie",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in the opposing player's Shooting phase, right after an enemy unit finishes shooting, on a HAEMONCULUS COVENS unit of yours that it targeted with at least one attack. Your unit may then make a surge move, travelling no more than D6\".",
     "citations": [
       {
@@ -25,10 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "HAEMONCULUS COVENS"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Covenite Coterie",
           "type": "Strategic Ploy",
           "windows": [

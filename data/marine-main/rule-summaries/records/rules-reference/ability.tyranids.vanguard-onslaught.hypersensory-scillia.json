@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Vanguard Onslaught",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 2 CP, in the Movement phase of your opponent's turn, once an enemy unit has finished a Normal move, Advance move or Fall Back move. Choose as many as two VANGUARD INVADER units of yours, or a single other TYRANIDS INFANTRY unit, each no more than 8″ from that enemy unit and none of them in Engagement Range of any enemy unit. Each may move up to 6″ as a Normal move.",
     "summarySpans": [
       {
@@ -51,11 +58,21 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "unresolved": "not typed yet; see the summary"
+          }
+        },
+        "detail": {
           "detachment": "Vanguard Onslaught",
           "when": {
             "phase": "movement",

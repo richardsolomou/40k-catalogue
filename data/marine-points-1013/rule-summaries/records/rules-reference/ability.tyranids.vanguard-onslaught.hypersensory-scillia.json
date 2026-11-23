@@ -25,7 +25,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "Strategic Ploy, 2 CP, in the [Movement phase](vsdata:core-rule/movement-phase) of your opponent's turn, once an enemy unit has finished a Normal move, Advance move or [Fall Back](vsdata:core-rule/fall-back) move. Choose as many as two VANGUARD INVADER units of yours, or a single other TYRANIDS INFANTRY unit, each no more than 8″ from that enemy unit and none of them in [Engagement Range](vsdata:core-rule/engagement-range) of any enemy unit. Each may move up to 6″ as a Normal move.",
+    "summary": "Spend 2 CP in the opposing player's [Movement phase](vsdata:core-rule/movement-phase), right after an enemy unit finishes a Normal move, Advance move or [Fall Back](vsdata:core-rule/fall-back) move.\n\nPick up to 2 **VANGUARD INVADER** units of yours, or 1 other **TYRANIDS INFANTRY** unit of yours, no more than 8\" from that enemy unit; none may be in [Engagement Range](vsdata:core-rule/engagement-range) of any enemy unit. Each may move up to 6\" as a Normal move.",
     "citations": [
       {
         "type": "app",
@@ -50,11 +50,21 @@
             "unresolved": "not typed yet; see the summary"
           }
         },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "movement",
+              "turn": "opponent"
+            }
+          ]
+        },
         "detail": {
           "detachment": "Vanguard Onslaught",
           "when": {
             "phase": "movement",
             "turn": "opponent",
+            "timing": "just-after",
             "event": "enemy-unit-ended-move",
             "moveTypes": [
               "normal",
@@ -74,9 +84,13 @@
               },
               {
                 "count": 1,
+                "other": true,
                 "keywordsAll": [
                   "TYRANIDS",
                   "INFANTRY"
+                ],
+                "keywordsNone": [
+                  "VANGUARD INVADER"
                 ]
               }
             ]

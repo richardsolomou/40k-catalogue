@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "battle-tactic"
     },
-    "summary": "Costs 1 CP. In your [Charge phase](vsdata:core-rule/charge-phase), use this once your **IRONKIN STEELJACKS** finish charging. You can spend 1 Yield Point. Pick an enemy in [Engagement Range](vsdata:core-rule/engagement-range) of the Steeljacks and roll a D6 per Steeljack model. If you spent the point, roll another D6 per model in the enemy unit, counting neither **MONSTERS** nor **VEHICLES**. Each 4+ deals 1 mortal wound to the enemy, up to 6 in total.",
+    "summary": "Spend 1 CP in your [Charge phase](vsdata:core-rule/charge-phase) right after one of your **IRONKIN STEELJACKS** units finishes a Charge move; that unit is the target.\n\n1. You may spend 2 Yield Points (2YP) on this use.\n2. Pick 1 enemy unit (not **MONSTERS** or **VEHICLES**) in [Engagement Range](vsdata:core-rule/engagement-range) of that **IRONKIN STEELJACKS** unit.\n3. Roll a D6 per model in the **IRONKIN STEELJACKS** unit, plus 2 more D6 when YP were spent on this use.\n4. Each 4+ deals 1 mortal wound to the enemy unit, up to 6 in total.",
     "citations": [
       {
         "type": "app",
@@ -53,6 +53,18 @@
             ]
           }
         },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "charge",
+              "turn": "own"
+            }
+          ]
+        },
+        "combat": {
+          "unresolved": "Withheld as a class: independent reviews found 7 of 72 sampled combat readings of Stratagems wrong or partly wrong, above the 2% this reading may ship with."
+        },
         "detail": {
           "type": "battle-tactic",
           "trigger": {
@@ -62,7 +74,7 @@
                 "turn": "your"
               }
             ],
-            "event": "just-after-friendly-unit-makes-charge-move"
+            "event": "just-after-friendly-unit-ends-charge-move"
           },
           "target": {
             "owner": "your-army",
@@ -71,31 +83,33 @@
             "keywords": [
               "IRONKIN STEELJACKS"
             ],
-            "state": "just-made-charge-move"
+            "state": "just-ended-charge-move"
           },
           "effects": [
             {
               "action": "spend-yield-points",
-              "amount": 1,
-              "optional": true
+              "amount": 2,
+              "currency": "YP",
+              "optional": true,
+              "per": "each-use"
             },
             {
               "action": "select-enemy-unit",
               "count": 1,
+              "excludedKeywords": [
+                "MONSTER",
+                "VEHICLE"
+              ],
               "condition": "within-engagement-range-of-target-unit",
               "bind": "enemy"
             },
             {
               "action": "roll-dice",
               "dice": "D6",
-              "normalCount": "one-per-model-in-target-unit",
-              "extra": {
-                "condition": "spent-yield-point-for-this-use",
-                "count": "one-per-model-in-marked-enemy-unit",
-                "excluded": [
-                  "MONSTER",
-                  "VEHICLE"
-                ]
+              "count": "one-per-model-in-target-unit",
+              "extraDice": {
+                "condition": "spent-yield-points-this-use",
+                "count": 2
               },
               "onResult": {
                 "atLeast": 4,

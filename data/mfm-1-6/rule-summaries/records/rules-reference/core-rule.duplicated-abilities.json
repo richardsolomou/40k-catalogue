@@ -15,7 +15,7 @@
     "document": "Core Rules",
     "section": "24. Core Abilities",
     "ruleNumber": "24.02",
-    "summary": "Count repeated copies of an ability once. Whoever rolls decides which copy governs the roll. Make a fresh choice for duplicate weapon abilities whenever the unit uses that weapon to attack. When the ability has to work across every model, use the smallest value among them, as with **[Scouts](vsdata:core-rule/scouts)**. Examples include distance (**[Scouts 6″](vsdata:core-rule/scouts)** or **[8″](vsdata:core-rule/scouts)**), extra hit count (**[[SUSTAINED HITS 1]](vsdata:core-rule/sustained-hits)** or **[[SUSTAINED HITS 2]](vsdata:core-rule/sustained-hits)**), and target-specific thresholds (**[[ANTI-VEHICLE 4+]](vsdata:core-rule/anti)** or **[[ANTI-INFANTRY 2+]](vsdata:core-rule/anti)**).",
+    "summary": "Copies of one core or weapon ability never stack, even if their numbers or keywords differ; the controlling player picks which one applies at a time. For weapon abilities, pick again each time the unit attacks, at the Select Weapons step. For example:\n\n- **[Scouts](vsdata:core-rule/scouts)**: use a distance every model in the unit has (8″ if all have both 6″ and 8″), otherwise the lowest (6″ if 1 model has only 6″ and 5 have 8″).\n- **[[SUSTAINED HITS 1]](vsdata:core-rule/sustained-hits)** and **[[SUSTAINED HITS 2]](vsdata:core-rule/sustained-hits)** are duplicates despite different numbers.\n- **[[ANTI-VEHICLE 4+]](vsdata:core-rule/anti)** and **[[ANTI-INFANTRY 2+]](vsdata:core-rule/anti)** are duplicates despite different keywords.",
     "citations": [
       {
         "type": "app",
@@ -36,51 +36,69 @@
       "version": "1",
       "fields": {
         "detail": {
+          "kind": "core-rule",
           "duplicatesStack": false,
-          "whenChoiceIsNeeded": {
-            "roll": {
-              "actor": "controlling-player-making-roll",
-              "decision": "one-instance-for-that-roll"
-            },
-            "duplicateWeaponAbilities": {
-              "timing": "each-time-the-unit-makes-attacks-with-the-weapon",
-              "decision": "one-variant"
-            }
+          "appliesTo": [
+            "core ability",
+            "weapon ability"
+          ],
+          "evenIfNumbersOrKeywordsDiffer": true,
+          "choice": {
+            "by": "controlling player",
+            "picks": "one instance to apply at any one time"
           },
-          "lowestValueException": {
-            "scope": "ability-that-every-model-in-the-unit-must-use",
-            "reducer": "minimum-across-models"
+          "weaponAbilityChoice": {
+            "timing": "each time the unit makes attacks",
+            "step": "Select Weapons"
+          },
+          "scouts": {
+            "mayUse": "a distance every model in the unit has",
+            "otherwise": "the lowest distance",
+            "examples": [
+              {
+                "everyModelHasInches": [
+                  6,
+                  8
+                ],
+                "mayUseInches": 8
+              },
+              {
+                "models": [
+                  {
+                    "count": 1,
+                    "scoutsInches": 6
+                  },
+                  {
+                    "count": 5,
+                    "scoutsInches": 8
+                  }
+                ],
+                "mustUseInches": 6
+              }
+            ]
           },
           "printedIllustrations": [
             {
-              "kind": "range-variants",
-              "label": "Scouts",
-              "valuesInches": [
-                6,
-                8
-              ]
-            },
-            {
-              "kind": "count-variants",
               "label": "Sustained Hits",
-              "counts": [
+              "values": [
                 1,
                 2
-              ]
+              ],
+              "duplicate": true
             },
             {
-              "kind": "keyword-and-threshold-variants",
               "label": "Anti",
               "values": [
                 {
-                  "keyword": "INFANTRY",
-                  "threshold": 2
+                  "keyword": "VEHICLE",
+                  "threshold": "4+"
                 },
                 {
-                  "keyword": "VEHICLE",
-                  "threshold": 4
+                  "keyword": "INFANTRY",
+                  "threshold": "2+"
                 }
-              ]
+              ],
+              "duplicate": true
             }
           ]
         }

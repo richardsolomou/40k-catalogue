@@ -37,7 +37,7 @@
         }
       ]
     },
-    "summary": "Costs 1 CP. When your [Shooting phase](vsdata:core-rule/shooting-phase) opens or a [Fight phase](vsdata:core-rule/fight-phase) begins, choose a **TITANIC CHAOS KNIGHTS** unit, or choose up to two with **WAR DOG**. Your choices must have yet to be picked to shoot or fight. Nominate one foe they are all eligible to attack. Any nominee attacking this phase has to direct every attack into that foe, gaining **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)** on those attacks.",
+    "summary": "Spend 1 CP as your Shooting phase or either player's Fight phase starts. Pick 1 **TITANIC CHAOS KNIGHTS** unit of yours and up to 2 friendly **WAR DOG** units, none yet picked to shoot or fight in this phase.\n\nChoose 1 enemy unit that every one of the chosen **CHAOS KNIGHTS** units can target. For the rest of the phase, whenever one of them is picked to shoot or fight and can still target that enemy unit:\n\n- All its attacks must target that enemy unit.\n- Those attacks gain **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)**.",
     "citations": [
       {
         "type": "app",
@@ -88,36 +88,56 @@
           ]
         },
         "detail": {
-          "window": [
-            "start of your Shooting phase or either Fight phase"
+          "type": "battle-tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "start-of-phase"
+            },
+            {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "start-of-phase"
+            }
           ],
           "target": {
-            "options": [
+            "side": "friendly",
+            "units": [
               {
-                "unit": "TITANIC CHAOS KNIGHTS",
-                "count": 1
+                "count": 1,
+                "keywordsAll": [
+                  "TITANIC",
+                  "CHAOS KNIGHTS"
+                ]
               },
               {
-                "unit": "WAR DOG",
-                "maxCount": 2
+                "maxCount": 2,
+                "keywordsAll": [
+                  "WAR DOG"
+                ]
               }
             ],
-            "selectedToShootOrFightThisPhase": false
+            "notSelectedToShootOrFightThisPhase": true
           },
-          "effect": {
-            "enemy": {
-              "count": 1,
-              "mustBeEligibleFor": "each nominated friendly unit"
+          "effects": [
+            {
+              "selectEnemy": {
+                "count": 1,
+                "eligibleTargetFor": "each selected CHAOS KNIGHTS unit"
+              }
             },
-            "expiry": "phase end",
-            "attackOption": {
-              "selectedTo": "shoot or fight",
-              "targetWithAllAttacks": "one nominated enemy only",
-              "grantOnThoseAttacks": "sustained-hits",
-              "value": 1
+            {
+              "duration": "end-of-phase",
+              "whenSelectedToShootOrFight": true,
+              "condition": "that enemy unit is an eligible target",
+              "onlyTarget": "that enemy unit",
+              "grantWeaponAbility": {
+                "name": "SUSTAINED HITS",
+                "value": 1
+              }
             }
-          },
-          "restrictions": []
+          ]
         }
       }
     }

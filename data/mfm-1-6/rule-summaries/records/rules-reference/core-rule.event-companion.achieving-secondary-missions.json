@@ -14,7 +14,7 @@
   "data": {
     "document": "Event Companion",
     "section": "Event Companion",
-    "summary": "At the close of either turn, the player who just acted checks scoring first, followed by the other player. For each Secondary Mission whose conditions you first satisfied that turn, you can claim the listed VP. If you claim it for a Tactical Mission, discard that card. Then, on your own turn and only when using Tactical Missions, you may discard any number of active Secondary Missions for a single award of 1 CP if you discard at least one.",
+    "summary": "As each player's turn ends, both players resolve these steps, the active player first:\n\n1. Score the VP of each Secondary Mission whose conditions you met, if you choose. With Tactical Secondary Missions, discard each one scored; it is achieved.\n2. Then, in your own turn and only with Tactical Secondary Missions, you may discard 1 or more active Secondary Missions; doing so gains 1 CP in total.",
     "citations": [
       {
         "type": "app",
@@ -35,18 +35,19 @@
       "version": "1",
       "fields": {
         "detail": {
-          "timing": "end of either turn",
-          "firstToResolve": "active side",
+          "timing": "end of each player's turn",
+          "order": "both players, starting with the player whose turn it is",
           "actor": "player",
           "score": {
-            "trigger": "first meeting the conditions of a Secondary Mission that turn",
-            "award": "printed VP",
+            "condition": "met the conditions of one or more Secondary Missions",
+            "award": "VP on each such card",
             "optional": true,
-            "discardIfScoredTactical": true
+            "discardAsAchievedIfTactical": true
           },
           "optionalDiscard": {
+            "after": "scoring",
             "ownTurnOnly": true,
-            "requires": "Tactical Missions",
+            "requires": "Tactical Secondary Missions",
             "minimumCards": 1,
             "from": "active Secondary Missions",
             "totalCP": 1

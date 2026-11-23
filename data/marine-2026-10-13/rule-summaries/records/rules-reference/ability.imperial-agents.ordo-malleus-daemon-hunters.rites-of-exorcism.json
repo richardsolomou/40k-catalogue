@@ -36,7 +36,7 @@
         }
       ]
     },
-    "summary": "Costs 1 CP. During your [Shooting phase](vsdata:core-rule/shooting-phase) or either [Fight phase](vsdata:core-rule/fight-phase), select one of your units using these keywords as alternatives: **INQUISITOR**, **INQUISITORIAL AGENTS** and **ORDO MALLEUS**. Find one enemy **DAEMON** no more than 12 inches away and visible to the selected unit. Test that enemy for Battle-shock. If it fails, attacks from your **AGENTS OF THE IMPERIUM** gain [**[DEVASTATING WOUNDS](vsdata:weapon-ability/devastating-wounds)**] against it for this phase.",
+    "summary": "Spend 1 CP in your [Shooting phase](vsdata:core-rule/shooting-phase) or in either player's [Fight phase](vsdata:core-rule/fight-phase) on 1 **INQUISITOR**, **INQUISITORIAL AGENTS** or **ORDO MALLEUS** unit of yours.\n\nPick 1 enemy **DAEMON** unit visible to the chosen unit and within 12\" of it; that enemy unit takes a Battle-shock test. On a failed test, for the rest of the phase, attacks by your **AGENTS OF THE IMPERIUM** units against it have **[[DEVASTATING WOUNDS]](vsdata:weapon-ability/devastating-wounds)**.",
     "citations": [
       {
         "type": "app",
@@ -78,13 +78,41 @@
             ]
           }
         },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "own"
+            },
+            {
+              "at": "phase-start",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ]
+        },
+        "combat": {
+          "unresolved": "Withheld as a class: independent reviews found 7 of 72 sampled combat readings of Stratagems wrong or partly wrong, above the 2% this reading may ship with."
+        },
+        "references": [
+          {
+            "kind": "weapon-ability",
+            "id": "devastating-wounds"
+          }
+        ],
         "detail": {
           "type": "strategic-ploy",
           "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
             ],
             "event": "phase-window"
           },

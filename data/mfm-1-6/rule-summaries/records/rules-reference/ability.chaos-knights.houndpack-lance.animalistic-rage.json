@@ -36,7 +36,7 @@
         }
       ]
     },
-    "summary": "Costs 1 CP. When an enemy attack destroys your WAR DOG, use this in the Fight phase or during the opposing Shooting phase. Before resolving Deadly Demise, the WAR DOG may shoot or fight. The destroyer is the sole possible target. An ineligible destroyer prevents the retaliation. Resolve Deadly Demise normally after the shooting or fighting and any Consolidation.",
+    "summary": "Spend 1 CP in the opposing player's Shooting phase or in either player's Fight phase, right after one of your **WAR DOG** units is destroyed, if it had not yet been **selected to attack** in this phase. That unit can be the target despite having just been destroyed.\n\n1. Before Deadly Demise is resolved for it, it can shoot or fight, aiming only at the enemy unit that destroyed it, provided it can legally target that enemy unit.\n2. After that and any Consolidation moves, resolve Deadly Demise normally.",
     "citations": [
       {
         "type": "app",
@@ -83,6 +83,7 @@
           "whileDestroyed": true
         },
         "detail": {
+          "type": "battle-tactic",
           "detachment": "Houndpack Lance",
           "trigger": {
             "windows": [
@@ -104,6 +105,7 @@
             "allKeywords": [
               "WAR DOG"
             ],
+            "notSelectedToAttackThisPhase": true,
             "condition": "unit-destroyed-by-triggering-attack",
             "eligibleImmediatelyAfterDestruction": true
           },
@@ -117,7 +119,7 @@
               ],
               "before": "deadly-demise",
               "onlyTarget": "destroying-enemy-unit",
-              "condition": "destroyer-eligible-for-chosen-activation"
+              "condition": "destroyer-eligible-target"
             },
             {
               "action": "resolve-deadly-demise-normally",

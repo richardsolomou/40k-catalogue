@@ -12,7 +12,7 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "As your **[Command phase](vsdata:core-rule/command-phase)** begins, you may choose one combat doctrine from the three below. Until your next Command phase starts, it applies to every friendly **ADEPTUS ASTARTES** unit that has this ability. **Assault Doctrine**: an **[advance move](vsdata:core-rule/advance-move)** leaves the unit still able to declare a charge later that turn. **Devastator Doctrine**: **[[ASSAULT]](vsdata:weapon-ability/assault)** applies to the unit's ranged attacks. **Tactical Doctrine**: a **[fall-back move](vsdata:core-rule/fall-back)** leaves the unit still able to shoot and to declare a charge later that turn. Unless a rule says otherwise, your army may choose each combat doctrine only once per battle, and a unit can have just one combat doctrine active; if some rule activates a new one for that unit, the earlier one stops applying to it.",
+    "summary": "As your **[Command phase](vsdata:core-rule/command-phase)** begins, you may choose one of the 3 combat doctrines below. Until your next Command phase starts, it applies to every friendly **ADEPTUS ASTARTES** unit that has this ability.\n\n- **Assault Doctrine**: the unit can still declare a charge after making an **[advance move](vsdata:core-rule/advance-move)** that turn.\n- **Devastator Doctrine**: **[[ASSAULT]](vsdata:weapon-ability/assault)** applies to the unit's ranged attacks.\n- **Tactical Doctrine**: the unit can still shoot and declare a charge after making a **[fall-back move](vsdata:core-rule/fall-back)** that turn.\n\nUnless a rule says otherwise:\n\n- Your army may choose each combat doctrine only once per battle.\n- A unit can have just one combat doctrine active; if a rule activates a new one for it, the earlier one stops applying.",
     "citations": [
       {
         "type": "app",
@@ -26,6 +26,128 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "roster": {
+          "movement": [
+            "advance-and-charge"
+          ]
+        },
+        "combat": {
+          "applies": {
+            "reachesAttached": true
+          },
+          "readings": [
+            {
+              "choices": [],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "Assault Doctrine",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  },
+                  {
+                    "option": "Devastator Doctrine",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      }
+                    ]
+                  },
+                  {
+                    "option": "Tactical Doctrine",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "advance-move"
+          },
+          {
+            "kind": "core-rule",
+            "id": "fall-back"
+          },
+          {
+            "kind": "weapon-ability",
+            "id": "assault"
+          }
+        ],
         "detail": {
           "kind": "army-rule-choice",
           "trigger": {

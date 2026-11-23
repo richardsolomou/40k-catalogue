@@ -12,7 +12,7 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "At the start of each [battle round](vsdata:core-rule/start-of-battle-round) you may choose one of the two imperatives below; until that round ends it applies to your army, and every unit of yours with this ability gains its effects. **PROTECTOR IMPERATIVE**: the unit's ranged weapons gain **[[HEAVY]](vsdata:weapon-ability/heavy)** and their Ballistic Skill improves by 1; while the unit is BATTLELINE itself or has another ADEPTUS MECHANICUS BATTLELINE unit of yours no more than 6\" away, melee attacks aimed at it subtract 1 from their Hit rolls. **CONQUEROR IMPERATIVE**: its ranged weapons gain **[[ASSAULT]](vsdata:weapon-ability/assault)** and the Weapon Skill of its melee weapons improves by 1; under that same BATTLELINE condition, each attack its models make has its Armour Penetration improved by 1.",
+    "summary": "As each [battle round](vsdata:core-rule/start-of-battle-round) starts, you may choose one of the 2 imperatives below. Until that round ends it applies to your army, and every unit of yours with this ability gains its effects.\n\n**PROTECTOR IMPERATIVE** gives the unit:\n\n- **[[HEAVY]](vsdata:weapon-ability/heavy)** on its ranged weapons.\n- Ballistic Skill of its ranged weapons improved by 1.\n- −1 to the Hit rolls of melee attacks aimed at it, while it is **BATTLELINE** itself or has another **ADEPTUS MECHANICUS BATTLELINE** unit of yours no more than 6\" away.\n\n**CONQUEROR IMPERATIVE** gives the unit:\n\n- **[[ASSAULT]](vsdata:weapon-ability/assault)** on its ranged weapons.\n- Weapon Skill of its melee weapons improved by 1.\n- Armour Penetration improved by 1 on each attack its models make, under that same **BATTLELINE** condition.",
     "citations": [
       {
         "type": "app",
@@ -26,6 +26,2256 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "round-start",
+              "turn": "any"
+            }
+          ]
+        },
+        "combat": {
+          "applies": {
+            "reachesAttached": true
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "defender",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "hitModifier": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged",
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "armour-penetration",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated",
+                        "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "defender",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "hitModifier": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated",
+                        "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged",
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "armour-penetration",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "defender",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "hitModifier": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged",
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "armour-penetration",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "defender",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "hitModifier": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "armour-penetration",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated",
+                        "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "defender",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "hitModifier": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated",
+                        "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "armour-penetration",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "defender",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "hitModifier": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "armour-penetration",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "defender",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "hitModifier": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "armour-penetration",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated",
+                        "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "defender",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "hitModifier": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated",
+                        "label": "Within 6\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "armour-penetration",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "PROTECTOR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "HEAVY"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "ballistic-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "CONQUEROR IMPERATIVE",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "weapon-skill",
+                        "add": -1
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "PROTECTOR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "HEAVY"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "characteristic": {
+                          "name": "ballistic-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "defender",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "hitModifier": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "CONQUEROR IMPERATIVE",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "weapon-skill",
+                          "add": -1
+                        }
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "characteristic": {
+                          "name": "armour-penetration",
+                          "add": -1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "ask": {
+                  "unitHas": "BATTLELINE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 0
+              },
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "reading": 2
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "unitHas": "BATTLELINE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 3
+              },
+              {
+                "reading": 4
+              }
+            ],
+            [
+              {
+                "reading": 5
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "unitHas": "BATTLELINE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 6
+              },
+              {
+                "reading": 7
+              }
+            ],
+            [
+              {
+                "reading": 8
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 1,
+            "own.many.known": 0,
+            "own.many.unknown": 1,
+            "leading.one.known": 0,
+            "leading.one.unknown": 1,
+            "leading.many.known": 0,
+            "leading.many.unknown": 1,
+            "aura.one.known": 0,
+            "aura.one.unknown": 1,
+            "aura.many.known": 0,
+            "aura.many.unknown": 1,
+            "stratagem-shooting.one.known": 2,
+            "stratagem-shooting.one.unknown": 3,
+            "stratagem-shooting.many.known": 2,
+            "stratagem-shooting.many.unknown": 3,
+            "stratagem-fight.one.known": 4,
+            "stratagem-fight.one.unknown": 5,
+            "stratagem-fight.many.known": 4,
+            "stratagem-fight.many.unknown": 5,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 1,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 1,
+            "army.one.known": 0,
+            "army.one.unknown": 1,
+            "army.many.known": 0,
+            "army.many.unknown": 1
+          }
+        },
+        "references": [
+          {
+            "kind": "weapon-ability",
+            "id": "assault"
+          },
+          {
+            "kind": "weapon-ability",
+            "id": "heavy"
+          }
+        ],
         "detail": {
           "kind": "round-stance-choice",
           "timing": "battle-round-start",

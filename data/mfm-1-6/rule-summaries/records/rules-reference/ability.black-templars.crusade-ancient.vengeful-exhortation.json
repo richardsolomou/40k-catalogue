@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Crusade Ancient",
-    "summary": "In the [Fight phase](vsdata:core-rule/fight-phase), the Crusade Ancient can activate this ability. Roll a D6 if a model in the Crusade Ancient’s unit is destroyed and the Crusade Ancient’s unit still awaits its fight activation. A 4+ keeps the destroyed model in play to fight on the same activation as the Crusade Ancient’s unit. If they have yet to fight when the phase closes, fight then. Remove the destroyed model once it has fought.",
+    "summary": "You may activate this ability in the Fight phase. If you do, whenever one of this unit's models is **destroyed**, if the unit is yet to be **selected to fight** in this phase, roll 1 D6.\n\nOn a 4+, leave that model on the battlefield. Remove it when this unit has fought or as the phase ends, whichever comes first.",
     "citations": [
       {
         "type": "app",
@@ -28,18 +28,7 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "fight",
-              "turn": "any"
-            },
-            {
-              "at": "phase-end",
-              "phase": "any",
-              "turn": "any"
-            }
-          ]
+          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
           "activation": {
@@ -48,8 +37,8 @@
           },
           "trigger": {
             "event": "model destroyed",
-            "model": "member of owner unit",
-            "modelUnitHasNotBeenSelectedToFight": true
+            "model": "member of this unit",
+            "thisUnitNotYetSelectedToFightThisPhase": true
           },
           "roll": {
             "die": "D6",
@@ -57,8 +46,7 @@
           },
           "effect": {
             "delayRemoval": true,
-            "fightWithItsUnitOrAtPhaseEnd": true,
-            "removeAfterFighting": true
+            "removeWhen": "this unit has fought or the phase ends, whichever comes first"
           }
         }
       }

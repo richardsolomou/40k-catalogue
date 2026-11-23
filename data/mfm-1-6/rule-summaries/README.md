@@ -6,12 +6,12 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,184 | 6,183 | 1 |
+| `rules-reference` | 6,184 | 6,180 | 4 |
 | `mission-rules` | 291 | 240 | 51 |
 
-6,248 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 175 records that no app row carries cite only the dated Games Workshop page that prints it. 1,377 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,248 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 172 records that no app row carries cite only the dated Games Workshop page that prints it. 1,297 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2425, `grants` 337, `weaponAbilities` 98, `reminder` 2123, `reserves` 1, `invulnerableSave` 105, `upgradesWeapon` 22, `roster` 67, `attachment` 48, `references` 990 (4,033 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2456, `grants` 336, `weaponAbilities` 98, `reminder` 2141, `reserves` 1, `invulnerableSave` 105, `upgradesWeapon` 23, `roster` 69, `attachment` 48, `references` 990 (4,064 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,061 units with roster definitions (1,312 wargear options), 1,121 stat lines and 5,177 weapon profiles, and the `mfm-1-6` points snapshot of 1,060 units, 256 Detachments and 817 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 337 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `mfm-1-6-legends` snapshot, the costs of 327 of them from the Munitorum Field Manual's Legends section. 321 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (32 of them with options left out, listed below), and their weapon profiles name that wargear.
 
@@ -118,6 +118,12 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `unit` `space-marines.fire-raptor-gunship`
 - `unit` `tau-empire.aunva`
 - `unit` `unaligned-forces.imperial-fortress-walls`
+
+### The summary or typed facts repeat a run of the official wording and await a redraft (3)
+
+- `ability` `astra-militarum.regimental-attaches.aeronautica-commander`
+- `ability` `astra-militarum.trojan-support-vehicle.support-vehicle`
+- `ability` `space-wolves.hounds-of-morkai.morkais-howl`
 
 ### A wargear named by other records that has no record of its own (1)
 

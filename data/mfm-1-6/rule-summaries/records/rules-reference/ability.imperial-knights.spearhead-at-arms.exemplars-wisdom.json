@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "battle-tactic"
     },
-    "summary": "Costs 1 CP. In your [Shooting phase](vsdata:core-rule/shooting-phase), react as soon as your TITANIC Knight finishes firing. Choose the **IMPERIAL KNIGHTS TITANIC** model plus at least one friendly **ARMIGER** under its [Bondsman](vsdata:ability/imperial-knights.bondsman) effect. Mark one enemy hit by that shooting. Through phase end, your **ARMIGER** models improve AP by 1 when attacking that enemy.",
+    "summary": "Spend 1 CP in your [Shooting phase](vsdata:core-rule/shooting-phase), right after an **IMPERIAL KNIGHTS TITANIC** model of yours has shot. The targets are that model and at least 1 friendly **ARMIGER** model that its [Bondsman](vsdata:ability/imperial-knights.bondsman) ability affects.\n\nPick 1 enemy unit hit by at least 1 of those attacks. For the rest of that phase, improve the AP of each attack a chosen **ARMIGER** model makes against that enemy unit by 1.",
     "citations": [
       {
         "type": "app",
@@ -65,138 +65,7 @@
           ]
         },
         "combat": {
-          "applies": {
-            "target": {
-              "anyOf": [
-                [
-                  "IMPERIAL KNIGHTS TITANIC"
-                ]
-              ]
-            }
-          },
-          "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "selected-target"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "characteristic": {
-                        "name": "armour-penetration",
-                        "add": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "attacker"
-              ]
-            },
-            {
-              "choices": [],
-              "default": 0
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "for-units",
-                      "keywords": [
-                        "ARMIGER"
-                      ]
-                    },
-                    {
-                      "kind": "selected-target"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "characteristic": {
-                        "name": "armour-penetration",
-                        "add": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "attacker"
-              ]
-            }
-          ],
-          "trees": [
-            [
-              {
-                "ask": {
-                  "unitHas": "ARMIGER"
-                },
-                "yes": 1,
-                "no": 2
-              },
-              {
-                "reading": 0
-              },
-              {
-                "reading": 1
-              }
-            ],
-            [
-              {
-                "reading": 2
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 1,
-            "own.many.known": 0,
-            "own.many.unknown": 1,
-            "leading.one.known": 0,
-            "leading.one.unknown": 1,
-            "leading.many.known": 0,
-            "leading.many.unknown": 1,
-            "aura.one.known": 0,
-            "aura.one.unknown": 1,
-            "aura.many.known": 0,
-            "aura.many.unknown": 1,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
-            "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 1,
-            "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 1,
-            "army.one.known": 0,
-            "army.one.unknown": 1,
-            "army.many.known": 0,
-            "army.many.unknown": 1
-          }
+          "unresolved": "Withheld as a class: independent reviews found 7 of 72 sampled combat readings of Stratagems wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
           "type": "battle-tactic",
@@ -242,7 +111,7 @@
               "characteristic": "armour-penetration",
               "operation": "improve",
               "amount": 1,
-              "actor": "each-friendly-armiger-model",
+              "actor": "each-targeted-armiger-model",
               "attackTarget": "marked-enemy",
               "duration": {
                 "until": "end-of-this-phase"

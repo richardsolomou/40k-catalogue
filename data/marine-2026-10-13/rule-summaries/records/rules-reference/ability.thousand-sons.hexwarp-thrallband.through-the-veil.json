@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "epic-deed"
     },
-    "summary": "Costs 1 CP. At the start of Reinforcements in your [Movement phase](vsdata:core-rule/movement-phase), choose one unit from Reserves. **RUBRIC MARINES** get [Deep Strike](vsdata:core-ability/deep-strike) for this phase. **SCARAB OCCULT TERMINATORS** can use [Deep Strike](vsdata:core-ability/deep-strike) to set up wholly in the [Flow of Magic](vsdata:ability/thousand-sons.hexwarp-thrallband.flow-of-magic), keeping each enemy model more than 6\" away. Terminators deployed this way cannot charge that turn.",
+    "summary": "Spend 1 CP as your Movement phase's Reinforcements step begins, on 1 **RUBRIC MARINES** or **SCARAB OCCULT TERMINATORS** unit of yours in Strategic Reserves.\n\n- A **RUBRIC MARINES** unit has [Deep Strike](vsdata:core-ability/deep-strike) for the rest of the phase.\n- A **SCARAB OCCULT TERMINATOR** unit set up with [Deep Strike](vsdata:core-ability/deep-strike) may be placed anywhere wholly inside the [Flow of Magic](vsdata:ability/thousand-sons.hexwarp-thrallband.flow-of-magic) of your army, with every enemy model over 6\" away horizontally.\n- A **SCARAB OCCULT TERMINATORS** unit targeted by this Stratagem cannot declare a charge that turn.",
     "citations": [
       {
         "type": "app",
@@ -49,6 +49,18 @@
             "unresolved": "not typed yet; see the summary"
           }
         },
+        "grants": {
+          "unresolved": "Withheld as a class: independent reviews found 1 of 4 sampled ability grants of Stratagems wrong or partly wrong, above the 2% this reading may ship with."
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "movement",
+              "turn": "own"
+            }
+          ]
+        },
         "detail": {
           "type": "epic-deed",
           "trigger": {
@@ -64,12 +76,11 @@
             "owner": "your-army",
             "entity": "unit",
             "count": 1,
-            "keywords": [],
             "anyKeyword": [
               "RUBRIC MARINES",
               "SCARAB OCCULT TERMINATORS"
             ],
-            "location": "reserves"
+            "location": "strategic-reserves"
           },
           "effects": [
             {
@@ -89,14 +100,15 @@
               "event": "set-up-using-deep-strike",
               "condition": {
                 "keyword": "SCARAB OCCULT TERMINATOR",
-                "region": "flow-of-magic",
+                "region": "army-flow-of-magic",
                 "relation": "wholly-within"
               },
               "distance": {
                 "unit": "inch",
                 "amount": 6,
-                "from": "each-enemy-model",
-                "comparator": "more-than"
+                "from": "every-enemy-model",
+                "comparator": "more-than",
+                "horizontal": true
               }
             }
           ],
@@ -106,7 +118,7 @@
               "recipient": "target-unit",
               "condition": {
                 "keyword": "SCARAB OCCULT TERMINATORS",
-                "state": "set-up-using-this-stratagem"
+                "state": "targeted-by-this-stratagem"
               },
               "duration": {
                 "until": "turn-end"

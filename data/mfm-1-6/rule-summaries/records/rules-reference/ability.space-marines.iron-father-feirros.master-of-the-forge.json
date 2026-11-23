@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Iron Father Feirros",
-    "summary": "As your [Movement phase](vsdata:core-rule/movement-phase) finishes, Feirros can pick one **ADEPTUS ASTARTES VEHICLE** model from your army within 3″ of him. It heals 3 wounds. The same model may ignore modifiers to Movement and Ballistic Skill. It can also disregard modifiers on **[Hit rolls](vsdata:core-rule/hit-rolls)** or **[Wound rolls](vsdata:core-rule/wound-rolls)**. Both permissions end when your next [Movement phase](vsdata:core-rule/movement-phase) begins.",
+    "summary": "In your [Movement phase](vsdata:core-rule/movement-phase), as this unit begins or finishes its move, you may pick 1 **ADEPTUS ASTARTES VEHICLE** model from your army 3\" or less from this model:\n\n- It **heals** 3 wounds.\n- Until your next [Movement phase](vsdata:core-rule/movement-phase) starts, its attacks may ignore any modifiers to its **BS**, **[Hit rolls](vsdata:core-rule/hit-rolls)** and **[wound rolls](vsdata:core-rule/wound-rolls)**.",
     "citations": [
       {
         "type": "app",
@@ -28,83 +28,20 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "movement",
-              "turn": "own"
-            }
-          ]
+          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
         },
         "combat": {
-          "applies": {
-            "target": {
-              "anyOf": [
-                [
-                  "ADEPTUS ASTARTES VEHICLE"
-                ]
-              ]
-            },
-            "recipient": {
-              "target": {
-                "anyOf": [
-                  [
-                    "ADEPTUS ASTARTES VEHICLE"
-                  ]
-                ]
-              }
-            }
-          },
-          "readings": [
-            {
-              "roles": [
-                "attacker"
-              ]
-            }
-          ],
-          "trees": [
-            [
-              {
-                "reading": 0
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 0,
-            "own.many.known": 0,
-            "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
-            "aura.one.known": 0,
-            "aura.one.unknown": 0,
-            "aura.many.known": 0,
-            "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 0,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 0,
-            "stratagem-fight.one.known": 0,
-            "stratagem-fight.one.unknown": 0,
-            "stratagem-fight.many.known": 0,
-            "stratagem-fight.many.unknown": 0,
-            "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 0,
-            "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 0,
-            "army.one.known": 0,
-            "army.one.unknown": 0,
-            "army.many.known": 0,
-            "army.many.unknown": 0
-          }
+          "unresolved": "Withheld as a class: independent reviews found 9 of 157 sampled combat readings of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
           "trigger": {
             "phase": "Movement",
             "side": "own",
-            "step": "end"
+            "event": "this unit's move",
+            "timings": [
+              "start",
+              "end"
+            ]
           },
           "optional": true,
           "target": {
@@ -124,10 +61,9 @@
             },
             {
               "ignoreModifiersTo": [
-                "Movement",
-                "Ballistic Skill",
+                "BS",
                 "Hit rolls",
-                "Wound rolls"
+                "wound rolls"
               ],
               "optional": true,
               "until": {
@@ -135,7 +71,8 @@
                 "side": "own",
                 "occurrence": "next",
                 "step": "start"
-              }
+              },
+              "appliesTo": "attacks made by the selected VEHICLE model"
             }
           ]
         }

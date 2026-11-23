@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "epic-deed"
     },
-    "summary": "Costs 1 CP. In your [Command phase](vsdata:core-rule/command-phase), choose a model with the **IMPERIAL KNIGHTS** and **TITANIC** keywords in range of a marker you control. Keep the marker and count your [Level of Control](vsdata:core-rule/level-of-control) there as at least 5. This ends at the close of a phase in which the opponent has the higher value.",
+    "summary": "Spend 1 CP as your [Command phase](vsdata:core-rule/command-phase) ends on 1 **IMPERIAL KNIGHTS TITANIC** model of yours in range of one of your controlled objective markers.\n\nYour side's [Level of Control](vsdata:core-rule/level-of-control) at that marker is at least 5 until a phase ends with the opponent holding a higher Level of Control there than you.",
     "citations": [
       {
         "type": "app",
@@ -70,10 +70,10 @@
             "windows": [
               {
                 "phase": "command",
-                "turn": "your"
+                "turn": "your",
+                "timing": "end-of-phase"
               }
-            ],
-            "event": "during-phase"
+            ]
           },
           "target": {
             "owner": "your-army",
@@ -91,19 +91,11 @@
           },
           "effects": [
             {
-              "action": "retain-objective-control",
-              "recipient": "affected-marker",
-              "owner": "your-army",
-              "duration": {
-                "until": "end-of-phase-when-opposing-level-of-control-exceeds-yours"
-              }
-            },
-            {
               "action": "set-minimum-level-of-control",
               "recipient": "your-side-at-affected-marker",
               "minimum": 5,
               "duration": {
-                "until": "objective-retention-ends"
+                "until": "end-of-phase-when-opposing-level-of-control-exceeds-yours"
               }
             }
           ]

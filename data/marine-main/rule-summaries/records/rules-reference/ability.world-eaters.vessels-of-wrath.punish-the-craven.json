@@ -24,7 +24,7 @@
       ],
       "turn": "opponent"
     },
-    "summary": "Costs 1 CP. In the opposing [Movement phase](vsdata:core-rule/movement-phase), when an enemy is chosen for a [Fall-Back Move](vsdata:core-rule/fall-back) while engaged with your **WORLD EATERS** CHARACTER, pick that CHARACTER unit. If the enemy takes the move while engaged with it, it must make a [Desperate Escape roll](vsdata:core-rule/desperate-escape). If the enemy is [Battle-shocked](vsdata:core-rule/battle-shock), apply −1 to all those rolls.",
+    "summary": "Spend 1 CP in the opponent's [Movement phase](vsdata:core-rule/movement-phase), as soon as an enemy unit is chosen for a **[fall-back move](vsdata:core-rule/fall-back)**, if it is **engaged** with a **WORLD EATERS CHARACTER** unit of yours. The target is that **CHARACTER** unit.\n\nFor the rest of that phase, each enemy unit chosen for a **fall-back move** while **engaged** with your unit must make it in **[desperate escape](vsdata:core-rule/desperate-escape-2)** mode. If the retreating unit is **[battle-shocked](vsdata:core-rule/battle-shock)**, its **[hazard rolls](vsdata:core-rule/hazard-rolls)** for that move get -1.",
     "citations": [
       {
         "type": "app",
@@ -54,11 +54,30 @@
             "more": true
           }
         },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "movement",
+              "turn": "opponent"
+            }
+          ]
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "desperate-escape-2"
+          },
+          {
+            "kind": "core-rule",
+            "id": "fall-back"
+          }
+        ],
         "detail": {
           "window": {
             "phase": "Movement",
-            "turn": "active player is opponent",
-            "event": "enemy selected for Fall-Back Move while engaged with friendly CHARACTER"
+            "turn": "opponent",
+            "event": "enemy unit selected to make a fall-back move while engaged with a friendly WORLD EATERS CHARACTER unit"
           },
           "target": {
             "side": "friendly",
@@ -67,15 +86,16 @@
             "binding": "engaged friendly unit from trigger"
           },
           "effect": {
-            "type": "forced Desperate Escape roll",
-            "cause": "enemy actually makes Fall-Back Move while engaged with target",
-            "recipient": "triggering enemy unit",
-            "forcedRolls": 1,
-            "modifier": {
+            "type": "forced fall-back mode",
+            "mode": "desperate escape",
+            "recipient": "each enemy unit engaged with the target that is selected to make a fall-back move",
+            "hazardRollModifier": {
               "amount": -1,
-              "if": "triggering enemy is Battle-shocked"
+              "if": "that enemy unit is battle-shocked"
             }
           },
+          "duration": "end-of-phase",
+          "durationBasis": "Core Rules 01.02.02: the effect has no printed duration, so it lasts for the rest of the phase it was used in.",
           "restrictions": []
         }
       }

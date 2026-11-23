@@ -12,7 +12,7 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "If LEAGUES OF VOTANN is your Army Faction, every LEAGUES OF VOTANN unit in your army has either the Hostile Acquisition ability or the Fortify Takeover ability (never both), decided by your Yield points (YP). The battle opens with Hostile Acquisition active, lasting until your first Command phase begins. As each of your Command phases ends, count your YP: under 7 gives Hostile Acquisition and 7 or more gives Fortify Takeover, and that ability holds until your following Command phase begins. Hostile Acquisition: a model in the unit adds 1 to its Hit roll when attacking an enemy unit that is within range of at least one objective marker, and the unit may re-roll its Advance and Charge rolls. Fortify Takeover: while the unit stands in range of at least one objective marker you control, each attack its models make against an enemy unit gets +1 to hit; and when an attack aimed at the unit has a Strength above the unit's Toughness, subtract 1 from that Wound roll unless the unit is a VEHICLE. YP: at the end of every Command phase, yours or your opponent's, you get 1YP when you control an objective marker inside your deployment zone. From battle round 2 onward, add 1YP for each of these that is true: you control an objective marker outside your deployment zone; two or more of the objective markers you control are outside it; your controlled objective markers outnumber your opponent's. In your own turn, add these YP before deciding which ability applies. A rule that costs YP can be used only if you have enough to pay the full amount, and paying lowers your total, which never drops below 0. Gaining or spending YP at other times never switches the ability; it changes only as your Command phase ends.",
+    "summary": "With **LEAGUES OF VOTANN** as your Army Faction, your **LEAGUES OF VOTANN** units use either Hostile Acquisition or Fortify Takeover, never both, depending on your Yield points (YP):\n\n- When the battle begins, they have Hostile Acquisition until your first Command phase starts.\n- As each of your Command phases ends, they get Hostile Acquisition with under 7YP, or Fortify Takeover with 7YP or more, until your next Command phase starts.\n\nThe ability changes only then; gaining or spending YP at other times does not switch it.\n\n**Hostile Acquisition**:\n\n- The unit's models get +1 to hit when attacking an enemy unit that is in range of at least 1 objective marker.\n- The unit's Advance and Charge rolls can be re-rolled.\n\n**Fortify Takeover**:\n\n- While the unit is in range of at least 1 objective marker you control, its models get +1 to hit when attacking enemy units.\n- Unless the unit is a **VEHICLE**, attacks against it whose Strength exceeds its Toughness get -1 to the Wound roll.\n\nAs every Command phase ends, yours or your opponent's, controlling at least 1 objective marker in your deployment zone earns you 1YP. From battle round 2, you also gain 1YP for each of these that is true:\n\n- At least 1 objective marker you control is outside your deployment zone.\n- At least 2 objective markers you control are outside your deployment zone.\n- Your controlled objective markers outnumber your opponent's.\n\nIn your turn, gain these YP before checking which ability applies. A rule that costs YP can be used only if you can pay all of it; paying lowers your YP, which never goes below 0.",
     "citations": [
       {
         "type": "app",
@@ -41,7 +41,897 @@
           ]
         },
         "combat": {
-          "unresolved": "An independent review against the official text found this reading wrong or incomplete; it stays withheld until a fix is reviewed again."
+          "applies": {
+            "reachesAttached": true
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "option": "Hostile Acquisition",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "Hostile Acquisition",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "Hostile Acquisition",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Not VEHICLE"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Not VEHICLE"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "Hostile Acquisition",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "Hostile Acquisition",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "Hostile Acquisition",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Not VEHICLE"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Not VEHICLE"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "Hostile Acquisition",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "Hostile Acquisition",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "option": "Hostile Acquisition",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Not VEHICLE"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Fortify Takeover",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "On an objective you control"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Not VEHICLE"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "condition": "stronger",
+                      "rolls": {
+                        "woundModifier": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "ask": {
+                  "unitHas": "VEHICLE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 0
+              },
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "reading": 2
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "unitHas": "VEHICLE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 3
+              },
+              {
+                "reading": 4
+              }
+            ],
+            [
+              {
+                "reading": 5
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "unitHas": "VEHICLE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 6
+              },
+              {
+                "reading": 7
+              }
+            ],
+            [
+              {
+                "reading": 8
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 1,
+            "own.many.known": 0,
+            "own.many.unknown": 1,
+            "leading.one.known": 0,
+            "leading.one.unknown": 1,
+            "leading.many.known": 0,
+            "leading.many.unknown": 1,
+            "aura.one.known": 0,
+            "aura.one.unknown": 1,
+            "aura.many.known": 0,
+            "aura.many.unknown": 1,
+            "stratagem-shooting.one.known": 2,
+            "stratagem-shooting.one.unknown": 3,
+            "stratagem-shooting.many.known": 2,
+            "stratagem-shooting.many.unknown": 3,
+            "stratagem-fight.one.known": 4,
+            "stratagem-fight.one.unknown": 5,
+            "stratagem-fight.many.known": 4,
+            "stratagem-fight.many.unknown": 5,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 1,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 1,
+            "army.one.known": 0,
+            "army.one.unknown": 1,
+            "army.many.known": 0,
+            "army.many.unknown": 1
+          }
         },
         "detail": {
           "kind": "army-rule-alternating-abilities",

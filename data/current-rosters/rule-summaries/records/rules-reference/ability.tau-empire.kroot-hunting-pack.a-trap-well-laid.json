@@ -36,7 +36,7 @@
         }
       ]
     },
-    "summary": "Costs 1 CP. Pick **KROOT** that still have to shoot in your [Shooting phase](vsdata:core-rule/shooting-phase) or fight in either [Fight phase](vsdata:core-rule/fight-phase). Once they attack, mark one enemy unit they hit or one that is [Battle-shocked](vsdata:core-rule/battle-shock). For this phase, models in your **KROOT** units improve AP by 1 against that enemy unless their own unit is [Battle-shocked](vsdata:core-rule/battle-shock).",
+    "summary": "Spend 1 CP in your [Shooting phase](vsdata:core-rule/shooting-phase) or either player's [Fight phase](vsdata:core-rule/fight-phase) on a **KROOT** unit of yours not yet picked to shoot or fight in this phase.\n\nWhen the chosen unit's attacks this phase are resolved, pick 1 enemy unit that at least one of them hit. For the rest of the phase, whenever a **KROOT** model of yours attacks that enemy unit, improve the attack's Armour Penetration by 1, unless the attacker's unit is [Battle-shocked](vsdata:core-rule/battle-shock).",
     "citations": [
       {
         "type": "app",
@@ -66,6 +66,23 @@
               "not-selected-to-shoot-or-fight"
             ]
           }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "own"
+            },
+            {
+              "at": "phase-start",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ]
+        },
+        "combat": {
+          "unresolved": "Withheld as a class: independent reviews found 7 of 72 sampled combat readings of Stratagems wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
           "type": "battle-tactic",
@@ -97,16 +114,11 @@
           "effects": [
             {
               "action": "mark-enemy-unit",
-              "timing": "after-target-unit-shoots-or-fights",
+              "timing": "after-target-unit-resolves-its-attacks-this-phase",
               "recipient": {
                 "owner": "opponent",
                 "count": 1,
-                "eligibility": {
-                  "any": [
-                    "hit-by-at-least-one-target-unit-attack",
-                    "battle-shocked"
-                  ]
-                }
+                "eligibility": "hit-by-at-least-one-target-unit-attack"
               }
             },
             {

@@ -25,7 +25,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "Costs 1 CP. In the enemy [Shooting phase](vsdata:core-rule/shooting-phase), react when enemy fire destroys one of your **AGENTS OF THE IMPERIUM** units. Choose a surviving friendly unit no more than 6″ from the casualty. The eligible keywords are **ADEPTUS ARBITES**, **INQUISITORIAL AGENTS**, and **ORDO HERETICUS**. After the attacker has fired, your pick may shoot as in your own [Shooting phase](vsdata:core-rule/shooting-phase) if eligible, and may fire only at that attacker.",
+    "summary": "Spend 1 CP in the opponent's [Shooting phase](vsdata:core-rule/shooting-phase), right after attacks by an enemy unit destroy an **AGENTS OF THE IMPERIUM** unit of yours. Pick 1 **ADEPTUS ARBITES**, **INQUISITORIAL AGENTS** or **ORDO HERETICUS** unit of yours no more than 6\" from the destroyed unit (not the destroyed unit itself).\n\nOnce the attacker finishes shooting, the chosen unit may shoot as though in your own [Shooting phase](vsdata:core-rule/shooting-phase), but only at that enemy unit, provided it is eligible as a target.",
     "citations": [
       {
         "type": "app",
@@ -69,6 +69,16 @@
             "more": true
           }
         },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "opponent"
+            }
+          ],
+          "whileDestroyed": true
+        },
         "detail": {
           "type": "strategic-ploy",
           "trigger": {
@@ -105,9 +115,9 @@
               "action": "allow-out-of-phase-shooting",
               "recipient": "target-unit",
               "asIf": "your-shooting-phase",
-              "condition": "eligible-to-shoot",
               "timing": "after-attacking-enemy-unit-has-shot",
-              "permittedTarget": "the-enemy-unit-that-destroyed-your-unit"
+              "permittedTarget": "the-enemy-unit-that-destroyed-your-unit",
+              "permittedTargetMustBeEligible": true
             }
           ]
         }

@@ -36,7 +36,7 @@
         }
       ]
     },
-    "summary": "Costs 1 CP. In your [Shooting phase](vsdata:core-rule/shooting-phase) or either [Fight phase](vsdata:core-rule/fight-phase), choose a **SYNAPSE** unit that you have yet to pick for shooting or fighting this phase. Choose an enemy visible to that unit and within 24 inches of it. Until phase end, whenever a **TYRANIDS** model attacks that enemy and its unit is within 6 inches of the selected **SYNAPSE** unit, re-roll any Hit or Wound roll of 1.",
+    "summary": "Spend 1 CP in your [Shooting phase](vsdata:core-rule/shooting-phase) or either player's [Fight phase](vsdata:core-rule/fight-phase). Pick 1 **SYNAPSE** unit of yours not yet picked to shoot or fight in this phase, and 1 enemy unit visible to it and within 24\" of it.\n\nFor the rest of the phase, if a friendly **TYRANIDS** model attacks that enemy unit and the attacker's unit is no more than 6\" from your **SYNAPSE** unit, Hit and Wound rolls of 1 for that attack may be re-rolled.",
     "citations": [
       {
         "type": "app",
@@ -68,13 +68,35 @@
             "more": true
           }
         },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "own"
+            },
+            {
+              "at": "phase-start",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ]
+        },
+        "combat": {
+          "unresolved": "Withheld as a class: independent reviews found 7 of 72 sampled combat readings of Stratagems wrong or partly wrong, above the 2% this reading may ship with."
+        },
         "detail": {
           "type": "battle-tactic",
           "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
             ],
             "event": "phase-window"
           },
@@ -103,6 +125,7 @@
               "rerollResults": [
                 1
               ],
+              "optional": true,
               "subject": "friendly-tyranids-models-attacking-selected-enemy",
               "condition": {
                 "attackerUnitWithinInches": 6,

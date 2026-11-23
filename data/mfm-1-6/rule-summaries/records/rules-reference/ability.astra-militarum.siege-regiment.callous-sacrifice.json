@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "battle-tactic"
     },
-    "summary": "Costs 1 CP. During your [Shooting phase](vsdata:core-rule/shooting-phase), pick a **PLATOON** of yours that is engaged with the enemy. Through phase end you can fire ranged weapons at enemies engaged with that **platoon**. Once a firing unit resolves its attacks, roll a D6 per wound its fire took from an enemy model engaged with the **platoon**. For every 4+, choose a model from your **platoon** to destroy.",
+    "summary": "Spend 1 CP in your [Shooting phase](vsdata:core-rule/shooting-phase) on 1 **PLATOON** unit of yours in Engagement Range of 1 or more enemy units. For the rest of that phase:\n\n- enemy units do not count as being in your unit's Engagement Range when ranged weapons pick targets\n- for each wound lost by an enemy model, if its unit is in your unit's Engagement Range, roll a D6: on a 4+, 1 model in your unit is destroyed once the attacking unit finishes its attacks",
     "citations": [
       {
         "type": "app",
@@ -97,14 +97,17 @@
               "action": "roll-per-wound-lost",
               "dice": "D6",
               "affected": "enemy-model-in-engagement-range-of-selected-platoon",
-              "timing": "after-firing-unit-finishes-its-attacks",
-              "condition": "wound-lost-to-ranged-attack",
+              "condition": "any-wound-lost",
+              "duration": {
+                "until": "end-of-this-phase"
+              },
               "onResult": {
                 "atLeast": 4,
                 "result": {
-                  "action": "destroy-selected-friendly-model",
+                  "action": "friendly-model-destroyed",
                   "count": 1,
-                  "fromEntity": "target-unit"
+                  "fromEntity": "target-unit",
+                  "timing": "after-attacking-unit-finishes-its-attacks"
                 }
               }
             }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Maulerfiend",
-    "summary": "You can use [Heroic Intervention](vsdata:core-rule/heroic-intervention) on the Maulerfiend’s unit after another unit has used it that phase. Reduce the cost of this use by 1 CP. Other units can still use the Stratagem that phase. When the Maulerfiend’s unit charges, check whether a friendly **PSYKER** unit up to 12″ from it was charged. If so it can re-roll its Charge roll, and must end its Charge move against the enemy that charged the **PSYKER**.",
+    "summary": "This unit is a valid target for the **[Heroic Intervention](vsdata:core-rule/heroic-intervention)** Stratagem whatever other uses it has had this phase. When you target it this way:\n\n- that use costs 1 CP less\n- other units can still receive the Stratagem in this phase\n- if an engaged **PSYKER** unit of yours is up to 12\" away as this unit declares the charge that use allows, you may use the rest of this ability\n\nWhen you do, this unit:\n\n- may re-roll the Charge roll\n- must finish the Charge move engaged with any enemy unit already engaged with that **PSYKER** unit",
     "citations": [
       {
         "type": "app",
@@ -42,11 +42,12 @@
             "otherUnitsRetainAccess": true
           },
           "charge": {
-            "trigger": "owner unit charges after a friendly PSYKER unit was charged",
+            "trigger": "owner unit declares the charge granted by that Heroic Intervention use while a friendly engaged PSYKER unit is within range",
+            "onlyWithHeroicInterventionUse": true,
             "maximumInchesFromOwnerUnitToPsykerUnit": 12,
             "optional": true,
             "mayRerollOwnChargeRoll": true,
-            "mustEndChargeAgainstEnemyThatChargedPsyker": true
+            "mustEndChargeMoveEngagedWith": "an enemy unit engaged with that friendly PSYKER unit"
           }
         }
       }

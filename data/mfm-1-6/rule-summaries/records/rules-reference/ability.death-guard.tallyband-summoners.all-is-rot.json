@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.tallyband-summoners.all-is-rot",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Tallyband Summoners",
+    "cp": 1,
+    "summary": "During your Shooting phase, pick one of your PLAGUE LEGIONS units that is engaged. Ranged weapons can fire into the enemy units engaging it for the rest of the phase. Once a firing unit finishes, take one D6 per wound it removed from enemy models engaged with your pick. The friendly unit takes 1 mortal wound per 5+.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 45,
+        "end": 59,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "PLAGUE LEGIONS"
+            ],
+            "state": "within-enemy-engagement-range"
+          },
+          "effects": [
+            {
+              "action": "permit-targeting-engaged-enemies-with-ranged-weapons",
+              "enemy": "unit-in-engagement-range-of-selected-plague-legions-unit",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "roll-per-wound-lost",
+              "dice": "D6",
+              "affected": "enemy-model-in-engagement-range-of-selected-unit",
+              "timing": "after-firing-unit-finishes-its-attacks",
+              "condition": "wound-lost-to-ranged-attack",
+              "onResult": {
+                "atLeast": 5,
+                "result": {
+                  "action": "inflict-mortal-wounds",
+                  "amount": 1,
+                  "recipient": "target-unit"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

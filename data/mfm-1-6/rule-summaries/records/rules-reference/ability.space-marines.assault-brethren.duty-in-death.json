@@ -1,0 +1,115 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.assault-brethren.duty-in-death",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Assault Brethren",
+    "cp": 1,
+    "summary": "In the Fight phase, use this when an enemy chooses your unit with Adeptus Astartes as its target. For each destroyed model while that unit still awaits selection to fight, roll a D6. Add 1 if it is using assault doctrine. A 4+ keeps the model until the unit finishes fighting or the phase ends, whichever is earlier.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 66,
+        "end": 82,
+        "bold": true
+      },
+      {
+        "start": 107,
+        "end": 116,
+        "bold": true
+      },
+      {
+        "start": 204,
+        "end": 220,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "space-marines.combat-doctrines"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-targets-friendly-unit",
+            "actor": "enemy-unit",
+            "recipient": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Adeptus Astartes"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "delay-destroyed-model-removal",
+              "recipient": "model-in-target-unit",
+              "trigger": {
+                "event": "model-destroyed",
+                "targetUnitSelection": "not-selected-to-fight-this-phase"
+              },
+              "roll": {
+                "die": "D6",
+                "sides": 6,
+                "count": 1,
+                "success": {
+                  "atLeast": 4
+                },
+                "modifier": {
+                  "delta": 1,
+                  "condition": {
+                    "targetDoctrine": "assault"
+                  }
+                }
+              },
+              "duration": {
+                "untilFirst": [
+                  "target-unit-finishes-fighting",
+                  "current-phase-ends"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

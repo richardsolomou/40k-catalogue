@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.reapers-wager.fateful-role",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Reaper’s Wager",
+    "cp": 1,
+    "summary": "Spend 1 CP in the Fight phase of either turn, right after an enemy unit picks its targets, on a HARLEQUINS or DRUKHARI unit of yours that it targeted with at least one attack. Until the phase ends, whenever a model in that unit that has not yet fought this phase is destroyed, roll a D6, adding 1 if the unit is on the losing side of the wager, and keep it in play on a 4+: it may fight once every attack from the attacker's unit is resolved, and is then removed.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Reaper’s Wager",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "timing": "after-enemy-unit-selects-targets",
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              "DRUKHARI",
+              "HARLEQUINS"
+            ],
+            "targetedByThatEnemyUnit": true
+          },
+          "effects": [
+            {
+              "trigger": "model-destroyed-before-it-fought-this-phase",
+              "roll": "D6",
+              "add": {
+                "value": 1,
+                "condition": "unit-losing-the-wager"
+              },
+              "threshold": "4+",
+              "onSuccess": {
+                "remainsInPlay": true,
+                "fightsAfter": "attacking-unit-finishes-attacks",
+                "thenRemoved": true
+              }
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

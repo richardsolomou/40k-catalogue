@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.guardians-of-the-throne.shield-of-honour",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "As the Fight phase opens, choose one of your units with ADEPTUS CUSTODES plus either INFANTRY or MOUNTED. If an engaged enemy model directs any of its attacks elsewhere as it picks targets, subtract 1 from every hit and wound roll for that model’s attacks.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Guardians of the Throne",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "bind": "chosen-unit",
+            "allKeywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "anyKeywords": [
+              "INFANTRY",
+              "MOUNTED"
+            ]
+          },
+          "effects": [
+            {
+              "action": "modify-rolls",
+              "recipient": "engaged-enemy-model-attacks",
+              "rolls": [
+                "hit",
+                "wound"
+              ],
+              "modifier": -1,
+              "condition": {
+                "event": "model-selects-attack-targets",
+                "model": "enemy-model-engaged-with-chosen-unit",
+                "test": "has-attack-assigned-elsewhere"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

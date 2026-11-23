@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.grav-assault-force.victory-before-death",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "Spend 1 CP in any phase when one of your GRAV-ASSAULT units is destroyed while in range of an objective; the destroyed unit can still be chosen as the target. Pick an objective that the unit controlled when it was destroyed and that has no enemy units in range, ignoring AIRCRAFT. That objective becomes secured.",
+    "summarySpans": [
+      {
+        "start": 304,
+        "end": 311,
+        "target": {
+          "kind": "core-rule",
+          "id": "secured-objectives"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Grav-Assault Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "friendly-unit-destroyed-within-objective-range",
+            "keywordsAll": [
+              "GRAV-ASSAULT"
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "sameAs": "destroyed-unit",
+            "targetableWhileDestroyed": true
+          },
+          "effects": [
+            {
+              "kind": "secure-objective",
+              "select": 1,
+              "conditions": [
+                "controlled-by-target-when-destroyed",
+                "no-enemy-units-within-range"
+              ],
+              "excludedEnemyKeywords": [
+                "AIRCRAFT"
+              ]
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

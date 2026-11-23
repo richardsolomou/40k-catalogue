@@ -1,0 +1,168 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.persecution-prospect.claimstaker-reflex",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Persecution Prospect",
+    "cp": 1,
+    "summary": "Immediately after an enemy’s Normal Move, Advance or Fall Back in its Movement phase, pick a LEAGUES OF VOTANN unit within 8\". ARTILLERY and VEHICLE units are excluded. The unit may make a Normal Move up to D6\", or up to 6\" if you spend 2 YP on this use. It cannot embark in a TRANSPORT during this move.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 40,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 70,
+        "end": 84,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 93,
+        "end": 110,
+        "bold": true
+      },
+      {
+        "start": 127,
+        "end": 136,
+        "bold": true
+      },
+      {
+        "start": 141,
+        "end": 148,
+        "bold": true
+      },
+      {
+        "start": 189,
+        "end": 200,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 239,
+        "end": 241,
+        "target": {
+          "kind": "ability",
+          "id": "leagues-of-votann.prioritised-efficiency"
+        }
+      },
+      {
+        "start": 265,
+        "end": 271,
+        "target": {
+          "kind": "core-rule",
+          "id": "embarking"
+        }
+      },
+      {
+        "start": 277,
+        "end": 286,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-move",
+            "moveTypes": [
+              "normal",
+              "advance",
+              "fall-back"
+            ]
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "LEAGUES OF VOTANN"
+            ],
+            "excludingKeywords": [
+              "ARTILLERY",
+              "VEHICLE"
+            ],
+            "distance": {
+              "unit": "inch",
+              "amount": 8,
+              "from": "trigger-enemy-unit",
+              "comparator": "at-most"
+            }
+          },
+          "effects": [
+            {
+              "action": "spend-resource",
+              "pool": "yield-points",
+              "amount": 2,
+              "optional": true,
+              "limit": "once-per-use"
+            },
+            {
+              "action": "make-move",
+              "moveType": "normal",
+              "recipient": "target-unit",
+              "optional": true,
+              "distanceCap": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1,
+                "unit": "inch"
+              },
+              "replacement": {
+                "condition": "paid-2-yp-on-this-use",
+                "distanceCap": {
+                  "unit": "inch",
+                  "amount": 6,
+                  "from": "move-start",
+                  "comparator": "at-most"
+                }
+              }
+            }
+          ],
+          "restrictions": [
+            {
+              "action": "forbid-embark",
+              "recipient": "target-unit",
+              "window": "during-this-normal-move"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

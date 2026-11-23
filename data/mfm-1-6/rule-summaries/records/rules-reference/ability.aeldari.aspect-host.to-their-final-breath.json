@@ -1,0 +1,115 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.aspect-host.to-their-final-breath",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Aspect Host",
+    "cp": 1,
+    "summary": "React in the Fight phase to an enemy naming one of your units as an attack target. The eligible keywords are ASPECT WARRIORS and AVATAR OF KHAINE. You can discard one Aspect Shrine token held by the unit. Through phase end, roll one D6 for each of its models destroyed before fighting. Add 1 if you discarded the token. A result of 4+ keeps the model on the table. It can fight once the attacker finishes all its attacks, and comes off afterward.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 24,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 109,
+        "end": 124,
+        "bold": true
+      },
+      {
+        "start": 129,
+        "end": 145,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "just-after-enemy-selects-attack-targets"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ASPECT WARRIORS",
+              "AVATAR OF KHAINE"
+            ],
+            "keywordMatch": "any",
+            "state": "selected-as-target-of-attacking-enemy-unit"
+          },
+          "effects": [
+            {
+              "action": "remove-token",
+              "resource": "aspect-shrine",
+              "quantity": 1,
+              "fromEntity": "target-unit",
+              "optional": true
+            },
+            {
+              "action": "roll-per-model",
+              "dice": "D6",
+              "recipient": "target-unit-model-destroyed-before-it-has-fought",
+              "modifier": {
+                "add": 1,
+                "condition": "aspect-shrine-token-removed-for-this-use"
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              },
+              "threshold": {
+                "atLeast": 4,
+                "modified": true
+              },
+              "onSuccess": [
+                {
+                  "action": "delay-removal"
+                },
+                {
+                  "action": "can-fight",
+                  "timing": "after-attacking-unit-finishes-its-attacks"
+                },
+                {
+                  "action": "remove-model",
+                  "timing": "after-its-fight"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

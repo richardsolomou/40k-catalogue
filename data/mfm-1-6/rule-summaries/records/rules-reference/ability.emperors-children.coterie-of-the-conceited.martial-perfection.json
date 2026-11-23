@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.coterie-of-the-conceited.martial-perfection",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "attribution": {
+    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
+    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
+    "credit": "Alpaca Software and the 40kdc community contributors",
+    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Coterie of the Conceited",
+    "cp": 1,
+    "summary": "During either player's Fight phase, you can use this to select one friendly Emperor’s Children unit that has not been selected to fight this phase, then re-roll Hit rolls for the selected unit until the end of the phase. Use once per phase.",
+    "summarySpans": [
+      {
+        "start": 76,
+        "end": 94,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-mechanic",
+      "version": "1",
+      "fields": {
+        "trigger": {
+          "kind": "use"
+        },
+        "target": {
+          "select": {
+            "side": "friendly",
+            "keywords": [
+              "Emperor’s Children"
+            ]
+          }
+        },
+        "conditions": [
+          {
+            "kind": "not-selected",
+            "unit": "target",
+            "to": [
+              "fight"
+            ]
+          }
+        ],
+        "effect": {
+          "kind": "re-roll",
+          "roll": "hit",
+          "results": "all"
+        },
+        "duration": {
+          "until": "end-of-phase"
+        },
+        "usage": {
+          "cp": 1,
+          "windows": [
+            {
+              "phase": "fight",
+              "turn": "any"
+            }
+          ],
+          "oncePerPhase": true
+        }
+      }
+    }
+  }
+}

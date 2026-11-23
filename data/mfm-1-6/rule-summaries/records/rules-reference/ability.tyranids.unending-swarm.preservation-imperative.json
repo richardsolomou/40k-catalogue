@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.unending-swarm.preservation-imperative",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Unending Swarm",
+    "cp": 1,
+    "summary": "In the opponent’s Shooting phase, act right after an enemy picks its targets. Select one of your ENDLESS MULTITUDE units it targeted. BLAST treats that unit as under five models until the phase ends.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 32,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 97,
+        "end": 114,
+        "bold": true
+      },
+      {
+        "start": 134,
+        "end": 139,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "blast"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-selects-attack-targets",
+            "proximity": "immediate"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "ENDLESS MULTITUDE"
+            ],
+            "selection": "target-of-one-or-more-triggering-enemy-attacks"
+          },
+          "effects": [
+            {
+              "kind": "treat-unit-size-as-below",
+              "threshold": 5,
+              "subject": "selected-unit",
+              "appliesFor": "blast-only",
+              "until": "end-of-phase"
+            }
+          ],
+          "type": "strategic-ploy"
+        }
+      }
+    }
+  }
+}

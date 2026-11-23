@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.trajann-valoris.captain-general-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Trajann Valoris",
+    "summary": "Friendly ADEPTUS CUSTODES units within 6″ of Trajann may re-roll a 1 on hit rolls or wound rolls. Exclude MONSTER and VEHICLE units.",
+    "summarySpans": [
+      {
+        "start": 9,
+        "end": 25,
+        "bold": true
+      },
+      {
+        "start": 39,
+        "end": 41,
+        "bold": true
+      },
+      {
+        "start": 72,
+        "end": 81,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 85,
+        "end": 96,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 106,
+        "end": 113,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 125,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "aura": {
+          "source": "this-model",
+          "distanceInches": 6,
+          "comparison": "within",
+          "inclusive": true,
+          "candidate": {
+            "entity": "unit",
+            "side": "friendly",
+            "keywords": [
+              "ADEPTUS CUSTODES"
+            ]
+          }
+        },
+        "trigger": {
+          "event": "attack",
+          "actor": "eligible-unit-models",
+          "mode": "any"
+        },
+        "excludeCandidateKeywords": [
+          "MONSTER",
+          "VEHICLE"
+        ],
+        "effects": [
+          {
+            "operation": "re-roll",
+            "optional": true,
+            "rolls": [
+              "hit"
+            ],
+            "faces": [
+              1
+            ]
+          },
+          {
+            "operation": "re-roll",
+            "optional": true,
+            "rolls": [
+              "wound"
+            ],
+            "faces": [
+              1
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

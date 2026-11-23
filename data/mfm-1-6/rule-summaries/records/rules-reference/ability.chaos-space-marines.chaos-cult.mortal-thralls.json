@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.chaos-cult.mortal-thralls",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Chaos Cult",
+    "cp": 1,
+    "summary": "After an enemy unit picks its targets in its Shooting phase, choose one friendly HERETIC ASTARTES unit it aimed at with at least one attack. Pick a friendly DAMNED unit no more than 3″ away and in sight of your first selection as well as the attacker. For the rest of the phase, if an attack against your first selection reaches its wound roll while the DAMNED unit remains on the battlefield, check whether the attacking model can see and legally target the DAMNED unit. If it can, skip that wound roll and deal Mortal Wounds to the DAMNED unit equal to the attack’s Damage.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Chaos Cult",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "after": "enemy-unit-selects-targets"
+          },
+          "target": {
+            "selections": [
+              {
+                "entity": "unit",
+                "controller": "friendly",
+                "count": 1,
+                "allKeywords": [
+                  "HERETIC ASTARTES"
+                ],
+                "bind": "protected",
+                "condition": "targeted-by-at-least-one-attack-of-triggering-unit"
+              },
+              {
+                "entity": "unit",
+                "controller": "friendly",
+                "count": 1,
+                "allKeywords": [
+                  "DAMNED"
+                ],
+                "bind": "screen",
+                "within": {
+                  "of": "protected",
+                  "inches": 3
+                },
+                "visibleTo": [
+                  "protected",
+                  "triggering-unit"
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "replace-wound-roll-with-mortal-wounds",
+              "recipient": "screen",
+              "amount": "attack-damage-characteristic",
+              "duration": "through-phase-end",
+              "condition": {
+                "event": "opponent-would-roll-to-wound-protected",
+                "screen": "on-battlefield",
+                "visibleTo": "attacking-model",
+                "eligibleTargetFor": "that-attack"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

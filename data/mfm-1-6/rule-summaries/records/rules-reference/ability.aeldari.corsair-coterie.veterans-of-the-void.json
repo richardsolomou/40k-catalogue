@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.corsair-coterie.veterans-of-the-void",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Aeldari Faction Pack: Version 1.0",
+    "page": "10",
+    "url": "https://assets.warhammer-community.com/eng_09-06_warhammer40000_faction_pack_aeldari-glkjirbhiw-9udkry7xbr.pdf#page=10"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Corsair Coterie",
+    "summary": "During roster building, an ANHRATHE unit may take a single Corsair Enhancement. Across the roster, use each option at most once. Add its listed price to the recipient’s points. Leave the upgraded unit out if the resulting army total would be over the battle’s budget.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 35,
+        "bold": true
+      },
+      {
+        "start": 251,
+        "end": 266,
+        "target": {
+          "kind": "core-rule",
+          "id": "fill-your-army-roster"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Aeldari Faction Pack: Version 1.0",
+        "page": "10",
+        "url": "https://assets.warhammer-community.com/eng_09-06_warhammer40000_faction_pack_aeldari-glkjirbhiw-9udkry7xbr.pdf#page=10"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "add-unit-to-army-roster",
+          "eligibleUnit": {
+            "allKeywords": [
+              "ANHRATHE"
+            ]
+          },
+          "detachment": "Corsair Coterie"
+        },
+        "permission": {
+          "type": "assign-enhancement",
+          "category": "Corsair Enhancement",
+          "optional": true,
+          "maxPerUnit": 1
+        },
+        "restriction": {
+          "type": "unique-option",
+          "scope": "entire-army",
+          "maxCopiesPerOption": 1
+        },
+        "cost": {
+          "type": "add-points",
+          "recipient": "enhanced-unit",
+          "amount": "listed-enhancement-surcharge",
+          "basis": "listed-amount-for-recipient-unit"
+        },
+        "inclusionGate": {
+          "type": "army-points-ceiling",
+          "check": "after-surcharge",
+          "operator": "<=",
+          "limit": "battle-points-limit",
+          "onFailure": "exclude-enhanced-unit"
+        }
+      }
+    }
+  }
+}

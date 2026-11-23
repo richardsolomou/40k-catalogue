@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.deffkilla-wartrike.get-back-in-da-race-once-per-battle-round-per-army",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Deffkilla Wartrike",
+    "summary": "Your army gets one use each battle round. In your Movement phase, use this when the Wartrike’s unit sets off or completes its move. Choose a friendly unit with the Speed Freeks keyword no more than 6\" from the Wartrike’s unit. That unit and all units aboard it clear Battle-shock and become Riled Up. The state expires for all recipients when your next turn begins.",
+    "summarySpans": [
+      {
+        "start": 164,
+        "end": 176,
+        "bold": true
+      },
+      {
+        "start": 291,
+        "end": 299,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "orks.waaagh"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "usage": {
+          "maximum": 1,
+          "period": "battle-round",
+          "scope": "army",
+          "optional": true
+        },
+        "trigger": {
+          "turn": "own",
+          "phase": "movement",
+          "actor": "owning-unit",
+          "events": [
+            "move-start",
+            "move-end"
+          ]
+        },
+        "target": {
+          "selection": {
+            "count": 1,
+            "relationship": "friendly",
+            "keyword": "Speed Freeks",
+            "rangeInches": 6,
+            "measuredFrom": "owning-unit"
+          },
+          "alsoAffects": {
+            "unit": "every-embarked-unit",
+            "embarkedIn": "selected-unit",
+            "applySelectionFilters": false
+          }
+        },
+        "effect": {
+          "recipients": [
+            "selected-unit",
+            "every-embarked-unit"
+          ],
+          "clearStatus": {
+            "status": "battle-shocked",
+            "timing": "resolution",
+            "requiresPriorStatus": false
+          },
+          "grantState": {
+            "state": "Riled Up",
+            "ruleQid": "ability:orks.waaagh",
+            "expiry": {
+              "event": "turn-start",
+              "turn": "controlling-player-next"
+            }
+          }
+        }
+      }
+    }
+  }
+}

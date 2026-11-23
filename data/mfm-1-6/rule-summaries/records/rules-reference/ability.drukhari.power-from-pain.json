@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.power-from-pain",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "Every Drukhari unit has its own Pain ability, whose effect is local to that unit. A Drukhari army may fuel those abilities with its shared Pain pool. Other rules can still allow token use for Enhancements or Stratagems. Add one token at the opening of your Command phase, one whenever an enemy unit dies and one each time an opponent’s unit fails its Battle-shock test. Credits go into the pool and payments come out of it. The individual Pain ability sets the spending window. Paying empowers the unit through phase end and turns on all its applicable Pain abilities. When you empower an Attached unit, that applies to the Leader and Bodyguard together without a second payment.",
+    "summarySpans": [
+      {
+        "start": 257,
+        "end": 270,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 351,
+        "end": 368,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "shared-resource-with-per-unit-empowerment",
+        "armyFaction": "DRUKHARI",
+        "unitAbility": {
+          "allFactionUnits": true,
+          "effectScope": "bearer-unit"
+        },
+        "pool": {
+          "name": "Pain",
+          "owner": "army",
+          "gain": [
+            {
+              "event": "phase-start",
+              "phase": "command",
+              "phaseOwner": "self",
+              "amount": 1
+            },
+            {
+              "event": "unit-destroyed",
+              "unitOwner": "opponent",
+              "amount": 1
+            },
+            {
+              "event": "battle-shock-test-failed",
+              "unitOwner": "opponent",
+              "amount": 1
+            }
+          ],
+          "gainCreditsPool": true,
+          "spendDebitsSamePool": true,
+          "additionalUseCanBeGrantedBy": [
+            "enhancement",
+            "stratagem"
+          ]
+        },
+        "spend": {
+          "timing": "unit-pain-ability",
+          "recipient": "selected-unit",
+          "duration": "through-phase-end",
+          "grants": "all-applicable-pain-abilities",
+          "whenAttached": {
+            "beneficiaries": [
+              "leader",
+              "bodyguard"
+            ],
+            "additionalPayment": false
+          }
+        }
+      }
+    }
+  }
+}

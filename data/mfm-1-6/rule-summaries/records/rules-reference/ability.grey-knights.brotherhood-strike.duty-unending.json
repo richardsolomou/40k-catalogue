@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.brotherhood-strike.duty-unending",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Brotherhood Strike",
+    "cp": 1,
+    "summary": "During the Movement phase on your opponent’s turn, wait for an enemy to Fall Back after being in Engagement Range of your GREY KNIGHTS. Pick an unengaged GREY KNIGHTS unit. If it has Deep Strike, you may put it in Strategic Reserves.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 97,
+        "end": 113,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 122,
+        "end": 134,
+        "bold": true
+      },
+      {
+        "start": 154,
+        "end": 166,
+        "bold": true
+      },
+      {
+        "start": 183,
+        "end": 194,
+        "target": {
+          "kind": "core-ability",
+          "id": "deep-strike"
+        }
+      },
+      {
+        "start": 214,
+        "end": 232,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "movement"
+            ],
+            "event": "enemy-unit-falls-back-from-engagement-range-of-friendly-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "GREY KNIGHTS"
+            ],
+            "outsideEnemyEngagementRange": true
+          },
+          "effects": [
+            {
+              "kind": "place-in-strategic-reserves",
+              "subject": "selected-unit",
+              "optional": true,
+              "condition": {
+                "hasAbility": "deep-strike"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

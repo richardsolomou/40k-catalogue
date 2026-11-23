@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.rubricae-phalanx.risen-rubricae",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Rubricae Phalanx",
+    "summary": "Model eligibility. THOUSAND SONS. As Declare Battle Formations begins, choose from your army. Pick either 2 units with both RUBRICAE and BATTLELINE, or 1 other RUBRICAE unit. Their models get Infiltrators.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 32,
+        "bold": true
+      },
+      {
+        "start": 37,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 124,
+        "end": 132,
+        "bold": true
+      },
+      {
+        "start": 137,
+        "end": 147,
+        "bold": true
+      },
+      {
+        "start": 160,
+        "end": 168,
+        "bold": true
+      },
+      {
+        "start": 192,
+        "end": 204,
+        "target": {
+          "kind": "core-rule",
+          "id": "infiltrators"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "THOUSAND SONS"
+          ],
+          "excludes": [],
+          "characterOnly": true
+        },
+        "effects": [
+          {
+            "type": "select-units",
+            "target": "own-army",
+            "choice": {
+              "operator": "one-of",
+              "options": [
+                {
+                  "count": 2,
+                  "keywordsAll": [
+                    "RUBRICAE",
+                    "BATTLELINE"
+                  ]
+                },
+                {
+                  "count": 1,
+                  "keywordsAll": [
+                    "RUBRICAE"
+                  ],
+                  "keywordsNone": [
+                    "BATTLELINE"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "grant-ability",
+            "target": "models-in-chosen-units",
+            "ability": "Infiltrators"
+          }
+        ],
+        "trigger": {
+          "step": "Declare Battle Formations",
+          "point": "start"
+        }
+      }
+    }
+  }
+}

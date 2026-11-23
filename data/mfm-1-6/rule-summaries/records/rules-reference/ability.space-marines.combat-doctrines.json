@@ -1,0 +1,134 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.combat-doctrines",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "As your Command phase begins, you may choose a Combat Doctrine for your friendly Adeptus Astartes units. It lasts until your next Command phase begins. Assault Doctrine lets a unit declare a charge after an advance move that turn. Devastator Doctrine gives its ranged attacks [Assault]. Tactical Doctrine permits shooting and declaring charges that turn, even after a fall-back move. Each unit may use a given doctrine only once each battle unless another rule provides an exception. If a fresh doctrine takes effect for a unit, its previous doctrine ends.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 81,
+        "end": 97,
+        "bold": true
+      },
+      {
+        "start": 130,
+        "end": 143,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 152,
+        "end": 168,
+        "bold": true
+      },
+      {
+        "start": 207,
+        "end": 219,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 231,
+        "end": 250,
+        "bold": true
+      },
+      {
+        "start": 276,
+        "end": 285,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "assault"
+        }
+      },
+      {
+        "start": 287,
+        "end": 304,
+        "bold": true
+      },
+      {
+        "start": 368,
+        "end": 382,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-stance-selection",
+        "trigger": {
+          "phase": "command",
+          "owner": "self",
+          "at": "start"
+        },
+        "optional": true,
+        "count": 1,
+        "subject": {
+          "owner": "friendly",
+          "keyword": "Adeptus Astartes"
+        },
+        "expires": "start-of-next-own-command-phase",
+        "maxUsesPerUnitPerDoctrinePerBattle": 1,
+        "unlessOtherwiseStated": true,
+        "newDoctrineEndsPrevious": true,
+        "choices": [
+          {
+            "name": "Assault Doctrine",
+            "after": "advance-move-this-turn",
+            "allow": [
+              "declare-charge"
+            ]
+          },
+          {
+            "name": "Devastator Doctrine",
+            "recipient": "ranged-attacks",
+            "grant": "assault"
+          },
+          {
+            "name": "Tactical Doctrine",
+            "after": "fall-back-move-this-turn",
+            "allow": [
+              "shoot",
+              "declare-charge"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

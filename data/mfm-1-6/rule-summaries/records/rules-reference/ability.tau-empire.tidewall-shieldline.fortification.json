@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.tidewall-shieldline.fortification",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Tidewall Shieldline",
+    "summary": "An enemy within Engagement Range solely of your FORTIFICATIONS remains eligible for ranged targeting. Apply −1 to the Hit roll for each such attack made without a Pistol. If that enemy Falls Back while Battle-shocked, waive the Desperate Escape Test for each of its models whose route crosses no enemy model.",
+    "summarySpans": [
+      {
+        "start": 16,
+        "end": 32,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 48,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 126,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 163,
+        "end": 169,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "pistol"
+        }
+      },
+      {
+        "start": 185,
+        "end": 195,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 228,
+        "end": 249,
+        "target": {
+          "kind": "core-rule",
+          "id": "desperate-escape"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "condition": {
+          "subject": "enemy-unit",
+          "engagedWith": {
+            "side": "your-army",
+            "keyword": "FORTIFICATIONS",
+            "minUnits": 1,
+            "exclusive": true
+          }
+        },
+        "targeting": {
+          "attackType": "ranged",
+          "maySelectEngagedEnemy": true,
+          "perAttackModifier": {
+            "roll": "Hit",
+            "amount": -1,
+            "exceptWeaponAbility": "Pistol"
+          }
+        },
+        "movement": {
+          "subject": "models-in-that-enemy-unit",
+          "move": "Fall-Back Move",
+          "waives": "Desperate Escape Test",
+          "waiverCause": "Battle-shocked while falling back",
+          "crossingEnemyModelsStillRequiresTest": true,
+          "grantsPassThroughPermission": false
+        }
+      }
+    }
+  }
+}

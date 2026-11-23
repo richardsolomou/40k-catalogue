@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "event-companion.main-engagement",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Event Companion",
+    "section": "Teams Event Companion",
+    "summary": "In this part of the team pairing system, run three private selections, with a joint reveal after each one. First, both teams nominate a defender. Next, each side offers two of its unassigned players as attackers for the opposing defender. Finally, both teams accept one offered attacker for their own defender. Lock in those two games and have each defender announce a layout. Pair the two declined attackers together. For that game, use layouts A, B and C in rounds 1, 2 and 3, respectively. Start the rotation again for later rounds.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 39,
+        "target": {
+          "kind": "core-rule",
+          "id": "event-companion.pairing-system"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "mode": "teams",
+        "teamSelections": [
+          {
+            "action": "nominate own defender",
+            "countEach": 1,
+            "private": true,
+            "reveal": "simultaneous"
+          },
+          {
+            "action": "offer remaining players against opposing defender",
+            "countEach": 2,
+            "role": "attacker",
+            "private": true,
+            "reveal": "simultaneous"
+          },
+          {
+            "action": "accept offered attacker for own defender",
+            "countEach": 1,
+            "private": true,
+            "reveal": "simultaneous"
+          }
+        ],
+        "pairing": {
+          "selectedAttackerAgainst": "opposing defender",
+          "defenderMatches": 2,
+          "layoutChooser": "defender",
+          "remainingMatch": "declined attacker versus declined attacker",
+          "remainingMatchLayoutRotation": {
+            "round1": "A",
+            "round2": "B",
+            "round3": "C",
+            "repeats": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.montka.combat-debarkation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Mont’ka",
+    "cp": 1,
+    "summary": "In your Shooting phase, pick a unit with T'AU EMPIRE INFANTRY that got out of a TRANSPORT earlier in the turn. Until this phase ends, each model can reroll its wound roll against its closest enemy unit.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 41,
+        "end": 61,
+        "bold": true
+      },
+      {
+        "start": 80,
+        "end": 89,
+        "bold": true
+      },
+      {
+        "start": 160,
+        "end": 170,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "turn": "your",
+            "phases": [
+              "shooting"
+            ],
+            "event": "phase",
+            "window": {
+              "shooting": "your"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "T'AU EMPIRE INFANTRY"
+            ],
+            "disembarked": {
+              "from": [
+                "TRANSPORT"
+              ],
+              "window": "this-turn"
+            }
+          },
+          "effects": [
+            {
+              "kind": "reroll",
+              "roll": "wound",
+              "result": "any",
+              "conditions": {
+                "attack": "each-model-attack",
+                "enemy": "closest-enemy-unit-to-attacking-model"
+              },
+              "optional": true
+            }
+          ],
+          "duration": {
+            "until": "end-of-phase"
+          }
+        }
+      }
+    }
+  }
+}

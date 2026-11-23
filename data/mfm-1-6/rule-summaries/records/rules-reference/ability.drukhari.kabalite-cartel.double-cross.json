@@ -1,0 +1,142 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.kabalite-cartel.double-cross",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Kabalite Cartel",
+    "cp": 1,
+    "summary": "In the Fight phase, react when an enemy picks its attacks’ targets. Of its targets, pick one of your units with either keyword: KABAL, BLADES FOR HIRE. Separately pick a friendly DRUKHARI unit without VEHICLE. Through phase end, when an attack would be allocated to a model in the first unit, measure Engagement Range from the attacking model to the second unit. If it is within range, skip the save. Use the attack’s Damage characteristic as the number of mortal wounds for the second unit.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 128,
+        "end": 133,
+        "bold": true
+      },
+      {
+        "start": 135,
+        "end": 150,
+        "bold": true
+      },
+      {
+        "start": 179,
+        "end": 187,
+        "bold": true
+      },
+      {
+        "start": 201,
+        "end": 208,
+        "bold": true
+      },
+      {
+        "start": 301,
+        "end": 317,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 457,
+        "end": 470,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-enemy-selects-attack-targets"
+          },
+          "target": {
+            "all": [
+              {
+                "owner": "your-army",
+                "entity": "unit",
+                "keywords": [],
+                "count": 1,
+                "binding": "protected-unit",
+                "keywordsAny": [
+                  "KABAL",
+                  "BLADES FOR HIRE"
+                ],
+                "state": "targeted-by-triggering-enemy-attacks"
+              },
+              {
+                "owner": "your-army",
+                "entity": "unit",
+                "keywords": [
+                  "DRUKHARI"
+                ],
+                "count": 1,
+                "binding": "receiver",
+                "exclude": [
+                  "VEHICLE"
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "skip-saving-throw",
+              "event": "would-allocate-attack-to-protected-unit-model",
+              "condition": {
+                "entity": "receiver",
+                "withinEngagementRangeOf": "attacking-model"
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "inflict-mortal-wounds-instead-of-save",
+              "recipient": "receiver",
+              "amountFrom": "damage-characteristic-of-that-attack",
+              "condition": "skip-saving-throw-via-this-stratagem",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

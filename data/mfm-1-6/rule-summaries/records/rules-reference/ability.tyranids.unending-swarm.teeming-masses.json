@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.unending-swarm.teeming-masses",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Unending Swarm",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP, in the Shooting phase of your opponent's turn or in either player's Fight phase, right after an enemy unit picks its targets. Choose one ENDLESS MULTITUDE unit of yours that those attacks are aimed at; until the phase ends, attacks against it suffer -1 to Hit rolls.",
+    "summarySpans": [
+      {
+        "start": 28,
+        "end": 42,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 89,
+        "end": 100,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 277,
+        "end": 286,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Unending Swarm",
+          "when": {
+            "phases": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ENDLESS MULTITUDE"
+            ],
+            "condition": "targeted-by-that-enemy-unit"
+          },
+          "effects": [
+            {
+              "incomingAttacks": "all",
+              "roll": "hit",
+              "change": 1,
+              "direction": "decrease",
+              "duration": "end-of-phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

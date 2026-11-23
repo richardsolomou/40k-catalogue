@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.windrider-host.daring-riders",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Windrider Host",
+    "cp": 1,
+    "summary": "Spend 1 CP during your Movement phase's Reinforcements step on a VYPER or ASURYANI MOUNTED unit of yours that is in Reserves. For the rest of the phase, when that unit arrives from Reserves it may be placed anywhere on the battlefield more than 6\" horizontally from every enemy unit. If it is placed within 8\" horizontally of any enemy unit, it cannot declare a charge this turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Windrider Host",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement",
+              "step": "reinforcements"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              "ASURYANI MOUNTED",
+              "VYPER"
+            ],
+            "inReserves": true
+          },
+          "effects": [
+            {
+              "setUpFromReserves": {
+                "anywhere": true,
+                "moreThanInchesHorizontallyFromEnemyUnits": 6
+              },
+              "duration": "end-of-phase"
+            },
+            {
+              "condition": {
+                "setUpWithinInchesHorizontallyOfEnemyUnit": 8
+              },
+              "cannotDeclareCharge": true,
+              "duration": "end-of-turn"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

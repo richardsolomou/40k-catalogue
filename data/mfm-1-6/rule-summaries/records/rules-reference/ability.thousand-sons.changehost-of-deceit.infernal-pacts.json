@@ -1,0 +1,222 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.changehost-of-deceit.infernal-pacts",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Changehost of Deceit",
+    "summary": "Daemonic Illusions (Aura) — A friendly SCINTILLATING LEGIONS unit protects a visible friendly PSYKER from the THOUSAND SONS within 6″. For incoming ranged attacks, it saves on a 4+ invulnerable save. Mortal Sorcery (Aura) — A friendly THOUSAND SONS unit confers Cabal of Sorcerers on friendly SCINTILLATING LEGIONS PSYKER units it sees within 6″.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 24,
+        "bold": true
+      },
+      {
+        "start": 39,
+        "end": 60,
+        "bold": true
+      },
+      {
+        "start": 94,
+        "end": 100,
+        "bold": true
+      },
+      {
+        "start": 110,
+        "end": 123,
+        "bold": true
+      },
+      {
+        "start": 200,
+        "end": 220,
+        "bold": true
+      },
+      {
+        "start": 235,
+        "end": 248,
+        "bold": true
+      },
+      {
+        "start": 262,
+        "end": 280,
+        "target": {
+          "kind": "ability",
+          "id": "thousand-sons.cabal-of-sorcerers"
+        }
+      },
+      {
+        "start": 293,
+        "end": 321,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "passive",
+        "scope": {
+          "duration": "permanent"
+        },
+        "effect": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "ability-grant",
+              "target": {
+                "owner": "friendly",
+                "all_of": [
+                  "SCINTILLATING LEGIONS"
+                ]
+              },
+              "modifier": {
+                "ability": {
+                  "ability_id": "infernal-pacts-thousand-sons",
+                  "definition_id": "daemonic-illusions"
+                },
+                "definition": {
+                  "type": "ability-part",
+                  "name": "Daemonic Illusions",
+                  "effect": {
+                    "type": "conditional",
+                    "condition": {
+                      "operator": "and",
+                      "operands": [
+                        {
+                          "type": "matches",
+                          "parameters": {
+                            "subject": "recipient",
+                            "filter": {
+                              "within": {
+                                "of": "this-unit",
+                                "range": {
+                                  "inches": 6
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "matches",
+                          "parameters": {
+                            "subject": "recipient",
+                            "filter": {
+                              "visible": {
+                                "to": "this-unit"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "attack-is",
+                          "parameters": {
+                            "attack_type": "ranged"
+                          }
+                        }
+                      ]
+                    },
+                    "effect": {
+                      "type": "invulnerable-save",
+                      "target": {
+                        "owner": "friendly",
+                        "all_of": [
+                          "PSYKER",
+                          "THOUSAND SONS"
+                        ]
+                      },
+                      "modifier": {
+                        "invuln_sv": 4
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "ability-grant",
+              "target": {
+                "owner": "friendly",
+                "all_of": [
+                  "THOUSAND SONS"
+                ]
+              },
+              "modifier": {
+                "ability": {
+                  "ability_id": "infernal-pacts-thousand-sons",
+                  "definition_id": "mortal-sorcery"
+                },
+                "definition": {
+                  "type": "ability-part",
+                  "name": "Mortal Sorcery",
+                  "effect": {
+                    "type": "conditional",
+                    "condition": {
+                      "operator": "and",
+                      "operands": [
+                        {
+                          "type": "matches",
+                          "parameters": {
+                            "subject": "recipient",
+                            "filter": {
+                              "within": {
+                                "of": "this-unit",
+                                "range": {
+                                  "inches": 6
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "matches",
+                          "parameters": {
+                            "subject": "recipient",
+                            "filter": {
+                              "visible": {
+                                "to": "this-unit"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "effect": {
+                      "type": "ability-grant",
+                      "target": {
+                        "owner": "friendly",
+                        "all_of": [
+                          "PSYKER",
+                          "SCINTILLATING LEGIONS"
+                        ]
+                      },
+                      "modifier": {
+                        "ability": "cabal-of-sorcerers-thousand-sons"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

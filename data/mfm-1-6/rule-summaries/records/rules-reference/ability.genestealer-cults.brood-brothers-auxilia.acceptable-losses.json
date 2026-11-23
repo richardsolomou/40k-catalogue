@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.brood-brothers-auxilia.acceptable-losses",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Brood Brothers Auxilia",
+    "cp": 2,
+    "summary": "Choose a friendly ASTRA MILITARUM unit in your Shooting phase. Identify an enemy in Engagement Range of at least one friendly GENESTEALER CULTS unit. That enemy is a legal ranged target for your chosen unit through phase end. When your chosen unit finishes attacking, test each engaged Cults unit with a separate D6. A result of 5+ deals D3+1 mortal wounds to the Cults unit tested.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 33,
+        "bold": true
+      },
+      {
+        "start": 47,
+        "end": 61,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 84,
+        "end": 100,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 126,
+        "end": 143,
+        "bold": true
+      },
+      {
+        "start": 343,
+        "end": 356,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ASTRA MILITARUM"
+            ]
+          },
+          "effects": [
+            {
+              "action": "mark-enemy-unit",
+              "count": 1,
+              "condition": "within-engagement-range-of-at-least-one-friendly-genestealer-cults-unit",
+              "bind": "enemy"
+            },
+            {
+              "action": "permit-ranged-targeting-of-marked-enemy",
+              "recipient": "target-unit",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "roll-per-unit",
+              "dice": "D6",
+              "eligible": "friendly-genestealer-cults-unit-engaging-marked-enemy",
+              "timing": "after-target-unit-has-finished-making-its-attacks",
+              "onResult": {
+                "atLeast": 5,
+                "result": {
+                  "action": "inflict-mortal-wounds",
+                  "amount": "D3+1",
+                  "recipient": "tested-friendly-unit"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

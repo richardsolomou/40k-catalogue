@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.triumph-of-saint-katherine.simulacrum-of-the-argent-shroud-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Triumph of Saint Katherine",
+    "summary": "While this relic is active, ranged attacks from friendly ADEPTA SORORITAS units no farther than 6″ from this model re-roll Wound results of 1.",
+    "summarySpans": [
+      {
+        "start": 57,
+        "end": 73,
+        "bold": true
+      },
+      {
+        "start": 96,
+        "end": 98,
+        "bold": true
+      },
+      {
+        "start": 123,
+        "end": 128,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "aura-option",
+        "activation": {
+          "event": "parent-option-active",
+          "parentAbility": "Relics of the Matriarchs"
+        },
+        "area": {
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 6,
+          "origin": "this-model",
+          "candidate": {
+            "entity": "unit",
+            "side": "friendly",
+            "requireAllKeywords": [
+              "ADEPTA SORORITAS"
+            ],
+            "excludeAnyKeywords": []
+          }
+        },
+        "trigger": {
+          "event": "attack",
+          "actor": "model-in-eligible-unit",
+          "mode": "ranged"
+        },
+        "effect": {
+          "operation": "re-roll",
+          "rolls": [
+            "wound"
+          ],
+          "optional": false,
+          "unmodifiedFace": 1
+        }
+      }
+    }
+  }
+}

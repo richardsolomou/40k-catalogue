@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.blade-champion.sword-of-the-throne",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Blade Champion",
+    "summary": "As the first battle round opens, name one enemy unit as this model’s mark. The model adds +1 to Wound rolls against its mark. Whenever the mark is destroyed, name another enemy unit to replace it.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-battle-round"
+        }
+      },
+      {
+        "start": 69,
+        "end": 73,
+        "bold": true
+      },
+      {
+        "start": 96,
+        "end": 107,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 120,
+        "end": 124,
+        "bold": true
+      },
+      {
+        "start": 139,
+        "end": 143,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": "start-of-first-battle-round",
+        "duration": "battle",
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "count": 1
+        },
+        "activeDesignationsPerBearer": 1,
+        "replacement": {
+          "trigger": "designated-unit-destroyed",
+          "selection": "one-enemy-unit",
+          "optional": false
+        },
+        "type": "designated-target-wound-modifier",
+        "tag": "mark",
+        "initialSelectionOptional": false,
+        "attacker": "this-model",
+        "target": "mark",
+        "roll": "wound",
+        "modifier": {
+          "operation": "add",
+          "value": 1
+        }
+      }
+    }
+  }
+}

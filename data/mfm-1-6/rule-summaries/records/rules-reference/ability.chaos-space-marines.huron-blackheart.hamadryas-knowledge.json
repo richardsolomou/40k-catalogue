@@ -1,0 +1,103 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.huron-blackheart.hamadryas-knowledge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Huron Blackheart",
+    "summary": "This model’s unit can react once per battle round if it’s outside enemy Engagement Range. When an enemy finishes an Advance Move, a Fall Back Move or a Normal Move no more than 8″ away, the unit may take a Normal Move capped at D3+3″.",
+    "summarySpans": [
+      {
+        "start": 72,
+        "end": 88,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 132,
+        "end": 146,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 152,
+        "end": 163,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 177,
+        "end": 179,
+        "bold": true
+      },
+      {
+        "start": 206,
+        "end": 217,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 228,
+        "end": 233,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "this-model-unit",
+        "useLimit": {
+          "count": 1,
+          "period": "battle-round",
+          "scope": "this-ability"
+        },
+        "trigger": {
+          "side": "enemy",
+          "entity": "unit",
+          "timing": "ends-move",
+          "moveTypes": [
+            "normal",
+            "advance",
+            "fall-back"
+          ],
+          "maximumInches": 8,
+          "measurementOrigin": "this-model-unit"
+        },
+        "condition": "actor-outside-all-enemy-engagement-ranges",
+        "optional": true,
+        "effect": {
+          "move": "normal",
+          "maxDistanceInches": {
+            "diceSides": 3,
+            "bonus": 3
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.combined-arms.coordinated-action",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Combined Arms",
+    "cp": 1,
+    "summary": "At any phase start, pick your REGIMENT and a friendly SQUADRON it can see within 6″. Choose an active Order on either unit. The other unit gains the same Order for the rest of the phase.",
+    "summarySpans": [
+      {
+        "start": 30,
+        "end": 38,
+        "bold": true
+      },
+      {
+        "start": 54,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 102,
+        "end": 107,
+        "target": {
+          "kind": "ability",
+          "id": "astra-militarum.voice-of-command"
+        }
+      },
+      {
+        "start": 154,
+        "end": 159,
+        "target": {
+          "kind": "ability",
+          "id": "astra-militarum.voice-of-command"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "start-of-any-phase"
+          },
+          "target": [
+            {
+              "owner": "your-army",
+              "entity": "unit",
+              "count": 1,
+              "keywords": [
+                "REGIMENT"
+              ],
+              "bind": "first"
+            },
+            {
+              "owner": "your-army",
+              "entity": "unit",
+              "count": 1,
+              "keywords": [
+                "SQUADRON"
+              ],
+              "bind": "second",
+              "distance": {
+                "unit": "inch",
+                "amount": 6,
+                "comparator": "at-most",
+                "fromEntity": "first"
+              },
+              "visibleTo": "first"
+            }
+          ],
+          "effects": [
+            {
+              "action": "share-order",
+              "count": 1,
+              "source": "either-selected-unit",
+              "fromActiveOrders": true,
+              "recipient": "other-selected-unit",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

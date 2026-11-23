@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.big-mek-in-mega-armour.fix-dat-armour-up-once-per-battle-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Big Mek in Mega Armour",
+    "summary": "This unit heals 3 lost wounds in your Command phase, with one use for the unit per battle. Put a Grot Oiler token beside the unit to track the use and remove it when spent.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 15,
+        "bold": true
+      },
+      {
+        "start": 38,
+        "end": 51,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 97,
+        "end": 107,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "limit": {
+          "count": 1,
+          "period": "battle",
+          "counterOwner": "source-unit",
+          "resetsAt": "new-battle"
+        },
+        "trigger": {
+          "phase": "command",
+          "turn": "own"
+        },
+        "effects": [
+          {
+            "recipient": "this-unit",
+            "operation": "heal-lost-wounds",
+            "amount": 3
+          },
+          {
+            "operation": "remove-reminder-token",
+            "token": "Grot Oiler",
+            "owner": "this-unit"
+          }
+        ],
+        "setup": {
+          "operation": "place-reminder-token-beside-unit",
+          "token": "Grot Oiler",
+          "count": 1
+        }
+      }
+    }
+  }
+}

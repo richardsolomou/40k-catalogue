@@ -1,0 +1,98 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.invasion-fleet.rapid-regeneration",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Invasion Fleet",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP, in the Shooting phase of your opponent's turn or in either player's Fight phase, right after an enemy unit picks its targets. Choose one TYRANIDS unit of yours that those attacks are aimed at; until the phase ends its models gain Feel No Pain 6+, improved to Feel No Pain 5+ if the unit is inside your army's Synapse Range.",
+    "summarySpans": [
+      {
+        "start": 28,
+        "end": 42,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 89,
+        "end": 100,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 251,
+        "end": 266,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Invasion Fleet",
+          "when": {
+            "phases": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "TYRANIDS"
+            ],
+            "condition": "targeted-by-that-enemy-unit"
+          },
+          "effects": [
+            {
+              "grantAbility": "Feel No Pain",
+              "threshold": "6+",
+              "duration": "end-of-phase"
+            },
+            {
+              "ifWithin": "synapse-range",
+              "grantAbility": "Feel No Pain",
+              "threshold": "5+",
+              "replaces": "6+"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

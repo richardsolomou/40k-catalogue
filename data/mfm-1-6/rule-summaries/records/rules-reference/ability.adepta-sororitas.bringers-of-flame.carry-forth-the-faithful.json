@@ -1,0 +1,128 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.bringers-of-flame.carry-forth-the-faithful",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Bringers of Flame",
+    "cp": 1,
+    "summary": "Use this before your ADEPTA SORORITAS TRANSPORT Advances in your Movement phase. You may reroll its Advance roll. For the rest of the turn, its passengers can disembark even after the transport Advances. Each passenger unit’s exit counts as a Normal move. The unit loses eligibility to charge for the turn.",
+    "summarySpans": [
+      {
+        "start": 21,
+        "end": 47,
+        "bold": true
+      },
+      {
+        "start": 48,
+        "end": 56,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 65,
+        "end": 79,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 100,
+        "end": 107,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 159,
+        "end": 168,
+        "target": {
+          "kind": "core-rule",
+          "id": "disembarking"
+        }
+      },
+      {
+        "start": 194,
+        "end": 202,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 243,
+        "end": 254,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ],
+            "event": "before-friendly-transport-advances"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "model",
+            "count": 1,
+            "keywords": [
+              "ADEPTA SORORITAS TRANSPORT"
+            ],
+            "selection": "transport-from-trigger"
+          },
+          "effects": [
+            {
+              "kind": "reroll",
+              "optional": true,
+              "roll": "advance",
+              "subject": "selected-transport"
+            },
+            {
+              "kind": "allow-disembark-after-advance",
+              "optional": true,
+              "subject": "passengers-of-selected-transport",
+              "until": "end-of-turn",
+              "onDisembark": {
+                "countsAs": "normal-move",
+                "chargeIneligibleUntil": "end-of-turn"
+              }
+            }
+          ],
+          "type": "strategic-ploy"
+        }
+      }
+    }
+  }
+}

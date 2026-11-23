@@ -18,6 +18,12 @@ A points snapshot holds every cost for one points update: unit sizes by copy, wa
 
 Any `points` or `dp` can be `{ "unresolved": "<what is missing>" }` when the source lists the entry without a usable value. The validator reports each one by JSON pointer.
 
+## In catalogue releases
+
+A catalogue release carries a snapshot as one record of kind `points-snapshot` in the `points` category, with the update ID as its record ID and the snapshot as its `data`. Its units, wargear and detachments are the release's `unit`, `wargear` and `detachment` entries, a wargear `item` is a wargear ID, and an enhancement's `id` is the ID of its `ability` rule summary, so the cost and the rule join by one ID. The record's identity entry references every entry the snapshot names.
+
+Where the source prices one model count differently by circumstance, such as in another faction's army or in a particular Detachment, each row's `composition` says which circumstance it is (`in an army of Agents of the Imperium`, or `in the <Detachment> Detachment`), and other rows sharing a model count name the models they hold.
+
 ## Looking up a cost
 
 `lookupPoints(snapshot, ref)` takes a unit, wargear item, detachment, or enhancement by ID. For a unit it also takes the model count, which copy of the unit this is (from 1), and a composition when one is needed. It returns `{ ok: true, points }` or a miss with a reason:

@@ -55,7 +55,7 @@ test("each pilot record has no outstanding mechanics gaps", () => {
 
 test("a recorded Battle-shock penalty applies to each Desperate Escape test", () => {
   const melding = record("phase-melding");
-  assert.match(renderSummary(melding), /if it is Battle-shocked, subtract 1 from each test\.$/);
+  assert.match(renderSummary(melding), /if it is Battle-shocked, each test gets -1\.$/);
 });
 
 test("Reletavistic Tether's charge restriction is checked even when the distance boundary is unresolved", () => {

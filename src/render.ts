@@ -21,7 +21,7 @@ const PHASES = { command: "Command", movement: "Movement", shooting: "Shooting",
 const TURNS = { own: "your", opponent: "your opponent's", any: "each" };
 const MOVES = { normal: "Normal", advance: "Advance", "fall-back": "Fall Back", charge: "Charge", ingress: "Ingress" };
 const STATUSES = { "battle-shocked": "Battle-shocked", "below-half-strength": "Below Half-strength", unravelling: "Unravelling" };
-const MOMENTS = { "phase-start": "at the start of the phase", "turn-start": "at the start of the turn" };
+const MOMENTS = { "phase-start": "when the phase began", "turn-start": "when the turn began" };
 const ROLLS = {
   hit: "Hit rolls",
   wound: "Wound rolls",
@@ -84,7 +84,7 @@ const CHARACTERISTICS = {
   "objective-control": "Objective Control",
   attacks: "Attacks",
 };
-const DURATIONS = { "end-of-phase": "the end of the phase", "end-of-turn": "the end of the turn", "end-of-battle-round": "the end of the battle round" };
+const DURATIONS = { "end-of-phase": "the phase", "end-of-turn": "the turn", "end-of-battle-round": "the battle round" };
 
 type Names = (ref: UnitRef) => string;
 type UnitCondition = Extract<Condition, { unit: UnitRef }>;
@@ -168,7 +168,7 @@ export function renderSummaryBody(record: MechanicRecord): string {
   const gate = kind === "always" ? "while" : "if";
   if (checks.length > 0) {
     const predicates = checks.map((c) => or(c, (c) => c.kind === "source-model-leading"
-      ? "this model is leading a unit"
+      ? "this model leads a unit"
       : `${unit(c.unit)} ${predicate(c, c.unit, unit)}`));
     clauses.push(`${gate} ${list(predicates, "and")}`);
   }
@@ -194,19 +194,19 @@ function trigger(t: Trigger): string {
     case "move-end":
       return `when ${filter(t.unit)} ends ${article(moves(t.moves))} move`;
     case "move-selected":
-      return `when ${filter(t.unit)} is selected to make ${article(moves(t.moves))} move`;
+      return `as ${filter(t.unit)} is picked for ${article(moves(t.moves))} move`;
     case "ability-move":
       return `when this unit makes ${article(moves(t.moves))} move using ${t.ability}`;
     case "model-destroyed":
       return `when ${article(`${filterWords(t.unit)} model`)} is destroyed${t.beforeRoll ? `, before its ${THRESHOLD_ROLLS[t.beforeRoll]}` : ""}`;
     case "unit-destroyed":
-      return `when ${filter(t.unit)} is destroyed by ${filter(t.by)}`;
+      return `when ${filter(t.by)} destroys ${filter(t.unit)}`;
     // Neither has a moment of its own: an always-on effect has no lead, and a use is timed by its usage windows.
     case "always":
     case "use":
       return "";
     default:
-      return `at the ${t.kind === "phase-start" ? "start" : "end"} of ${TURNS[t.turn]} ${PHASES[t.phase]} phase`;
+      return `as ${TURNS[t.turn]} ${PHASES[t.phase]} phase ${t.kind === "phase-start" ? "begins" : "ends"}`;
   }
 }
 
@@ -234,7 +234,7 @@ function predicate(c: UnitCondition, subject: UnitRef, unit: Names): string {
 
 function select(t: Extract<Target, { select: unknown }>, eligibility: UnitCondition[], unit: Names): string {
   const { within } = t.select;
-  const chosen = `select one ${filterWords(t.select)} unit`;
+  const chosen = `pick one ${filterWords(t.select)} unit`;
   const range = within && `within ${within.inches === "engagement-range" ? "Engagement Range" : `${within.inches}"`} of ${unit(within.of)}`;
   if (eligibility.length === 0) return range ? `${chosen} ${range}` : chosen;
   const rules = eligibility.map((c) => predicate(c, "target", unit));
@@ -252,15 +252,15 @@ function effect(e: Effect, target: string, unit: Names): string {
       return `activate the ${e.ability} of ${target}`;
     case "desperate-escape-tests": {
       const tested = unit(e.unit);
-      const penalty = or(e.ifBattleShocked, (p) => `${change(p.by)} each test`);
+      const penalty = or(e.ifBattleShocked, (p) => `each test gets ${signed(p.by)}`);
       return `when ${tested} makes its Fall Back move, take one Desperate Escape test for each model in it, and if it is Battle-shocked, ${penalty}`;
     }
     case "enemy-distance":
       return `${target} can end that move more than ${e.inches}" from every enemy unit${e.horizontal ? ", measured horizontally" : ""}`;
     case "modify-roll":
-      return `${change(e.by)} ${ROLLS[e.roll]} for ${target}`;
+      return `${target} gets ${signed(e.by)} to ${ROLLS[e.roll]}`;
     case "modify-characteristic":
-      return `${change(e.by)} the ${CHARACTERISTICS[e.characteristic]} characteristic of ${target}`;
+      return `${target} gets ${signed(e.by)} ${CHARACTERISTICS[e.characteristic]}`;
     case "re-roll": {
       const rolls = `${ROLLS[e.roll]}${e.results === "ones" ? " of 1" : ""}`;
       return `re-roll ${rolls} for ${e.weapons ? `${e.weapons} attacks made by ${target}` : target}`;
@@ -275,7 +275,7 @@ function effect(e: Effect, target: string, unit: Names): string {
 function coreAbility(a: CoreAbility): string {
   const name = CORE_ABILITIES[a.ability];
   if (a.ability === "scouts") return `${name} ${a.inches}"`;
-  if (a.ability === "feel-no-pain") return `${name} ${a.threshold}+${a.against ? ` against ${list(a.against.map((k) => AGAINST[k]), "and")}` : ""}`;
+  if (a.ability === "feel-no-pain") return `${name} ${a.threshold}+${a.against ? `, only versus ${list(a.against.map((k) => AGAINST[k]), "and")}` : ""}`;
   return name;
 }
 
@@ -288,12 +288,12 @@ function restriction(r: Restriction, unit: Names): string {
   return `if ${unit(r.unit)} is within ${r.ifWithinEnemy}" of an enemy unit at the end of that move, it cannot declare a charge ${duration({ until: r.until })}`;
 }
 
-function change(by: number): string {
-  return by > 0 ? `add ${by} to` : `subtract ${-by} from`;
+function signed(by: number): string {
+  return by > 0 ? `+${by}` : `-${-by}`;
 }
 
 function duration(d: Duration): string {
-  return `until ${DURATIONS[d.until]}`;
+  return `for the rest of ${DURATIONS[d.until]}`;
 }
 
 function filter(f: UnitFilter): string {

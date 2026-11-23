@@ -13,18 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Asmodai",
-    "summary": "The unit may re-roll its melee hit rolls.",
-    "summarySpans": [
-      {
-        "start": 31,
-        "end": 40,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      }
-    ],
+    "summary": "As long as this model leads a unit, models in that unit may re-roll Hit rolls for their melee attacks.",
     "citations": [
       {
         "type": "app",
@@ -39,10 +28,13 @@
       "version": "1",
       "fields": {
         "detail": {
-          "recipient": "owning unit",
-          "attackType": "melee",
-          "roll": "hit",
-          "kind": "optional-re-roll"
+          "ability": {
+            "condition": "this model is leading a unit",
+            "attackers": "models in the led unit",
+            "attackType": "melee",
+            "reroll": "hit",
+            "optional": true
+          }
         }
       }
     }

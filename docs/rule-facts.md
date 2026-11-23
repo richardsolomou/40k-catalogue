@@ -36,6 +36,7 @@ Typed blocks are closed: every field is listed here, and a value the source leav
 | `points` | Its points cost, as the Enhancement prints it. |
 | `perRoster` | How many times one army may include it, when more than once. |
 | `outsideLimit` | `true` when it does not count towards the army's Enhancement limit. |
+| `eligibility.basis` | Where the eligibility comes from: `app-eligibility-rows`, the app build's typed eligibility rows, or `rule-text`, the Enhancement's own rule text ("… model only"), used where the build has no usable rows for it. |
 | `eligibility.anyOf` | The bearer qualifies when it matches any entry. An entry lists `keywords` and `factionKeywords` the bearer must all have, or names one `unit` by catalogue reference, or both. |
 | `eligibility.excludedKeywords` | Keywords that disqualify a bearer. |
 | `eligibility.requiredWargear` | Wargear the bearer must have, by name. |

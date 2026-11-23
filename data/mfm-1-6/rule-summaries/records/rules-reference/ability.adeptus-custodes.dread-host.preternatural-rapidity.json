@@ -19,38 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "In your Movement phase, use this as one of your ADEPTUS CUSTODES units finishes its Advance move. It can still charge that turn.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 48,
-        "end": 64,
-        "bold": true
-      },
-      {
-        "start": 84,
-        "end": 96,
-        "target": {
-          "kind": "core-rule",
-          "id": "advance-move"
-        }
-      },
-      {
-        "start": 111,
-        "end": 117,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Movement phase right after an ADEPTUS CUSTODES unit of yours ends an Advance move. Having Advanced does not stop that unit from declaring a charge this turn.",
     "citations": [
       {
         "type": "app",
@@ -85,29 +54,25 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "your"
-              }
-            ],
-            "event": "friendly-unit-ends-advance-move"
-          },
+          "detachment": "Dread Host",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            }
+          ],
+          "trigger": "a friendly unit ends an advance move",
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "entity": "unit",
-            "keywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "binding": "advancing-unit"
+            "is": "the unit that advanced"
           },
           "effects": [
             {
-              "action": "allow-charge-despite-advancing",
-              "recipient": "target-unit",
-              "duration": "current-turn"
+              "advanceDoesNotPreventCharge": true
             }
           ]
         }

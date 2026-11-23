@@ -13,30 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Krieg Combat Engineers",
-    "summary": "The mine’s bearer can use it at the opening of your Shooting phase, once per battle. Select one enemy unit the bearer can see at a distance of up to 9″. Roll a D6. A 3+ deals D3 mortal wounds. Roll twice that many dice against a VEHICLE (2D3).",
-    "summarySpans": [
-      {
-        "start": 52,
-        "end": 66,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 178,
-        "end": 191,
-        "target": {
-          "kind": "core-rule",
-          "id": "mortal-wounds"
-        }
-      },
-      {
-        "start": 229,
-        "end": 236,
-        "bold": true
-      }
-    ],
+    "summary": "Once per battle, as your Shooting phase begins, you may pick an enemy unit that the bearer can see and that is within 9\" of it, then roll a D6. On a 3+, the picked unit takes D3 mortal wounds, raised to 2D3 if the target has the VEHICLE or FORTIFICATIONS keyword.",
     "citations": [
       {
         "type": "app",
@@ -51,43 +28,34 @@
       "version": "1",
       "fields": {
         "detail": {
-          "source": "bearer",
-          "actor": "controlling-player",
-          "limit": {
-            "count": 1,
-            "period": "battle",
-            "scope": "bearer"
-          },
-          "activation": {
-            "phase": "shooting",
-            "turn": "own",
-            "timing": "start",
-            "optional": true
-          },
-          "selection": {
-            "entity": "unit",
-            "side": "enemy",
-            "visibleTo": "bearer",
-            "count": 1,
-            "measure": "within",
-            "origin": "bearer",
-            "rangeInches": 9
-          },
-          "die": "D6",
-          "threshold": 3,
-          "recipient": "selected-enemy-unit",
-          "effects": [
-            {
-              "targetKeyword": "VEHICLE",
+          "ability": {
+            "uses": {
+              "perBattle": 1
+            },
+            "when": {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "start-of-phase"
+            },
+            "optional": true,
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "visibleToBearer": true,
+              "withinInches": 9
+            },
+            "roll": "D6",
+            "successOn": "3+",
+            "mortalWounds": "D3",
+            "ifTargetKeywordAny": {
+              "keywords": [
+                "VEHICLE",
+                "FORTIFICATIONS"
+              ],
               "mortalWounds": "2D3",
               "diceCount": 2
-            },
-            {
-              "otherwise": true,
-              "mortalWounds": "D3",
-              "diceCount": 1
             }
-          ]
+          }
         }
       }
     }

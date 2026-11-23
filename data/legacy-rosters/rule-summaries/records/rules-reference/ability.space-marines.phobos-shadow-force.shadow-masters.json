@@ -13,19 +13,21 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Phobos Shadow Force",
-    "summary": "If one of your units with SCOUT SQUAD or PHOBOS is shot, choose a response. You can ignore those attacks for Hidden eligibility or roll D6 for the maximum distance in inches of a Normal Move. Taking the move bars charge declarations for the rest of that turn.",
+    "summary": "After a PHOBOS or SCOUT SQUAD unit of yours shoots, choose one: the attacks it just made do not stop it from being hidden; or it may move up to D6\" as a Normal move, after which it cannot declare a charge for the rest of that turn.",
     "summarySpans": [
       {
-        "start": 109,
-        "end": 115,
+        "start": 115,
+        "end": 121,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "hidden"
         }
       },
       {
-        "start": 179,
-        "end": 190,
+        "start": 153,
+        "end": 164,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "normal-move"
@@ -46,27 +48,31 @@
       "version": "1",
       "fields": {
         "detail": {
+          "kind": "detachment-rule",
+          "detachment": "Phobos Shadow Force",
           "trigger": {
-            "friendly": true,
-            "anyKeyword": [
-              "Phobos",
-              "Scout Squad"
-            ],
-            "after": "unit has been shot",
-            "requiresHit": false
+            "event": "unit-has-shot",
+            "unit": {
+              "side": "friendly",
+              "keywordsAny": [
+                "PHOBOS",
+                "SCOUT SQUAD"
+              ]
+            },
+            "shooter": "that-unit"
           },
-          "oneOf": [
+          "chooseOne": [
             {
-              "preserves": "Hidden eligibility",
-              "against": "those attacks"
+              "effect": "its-attacks-do-not-prevent-hidden"
             },
             {
-              "move": "Normal Move",
+              "effect": "normal-move",
               "optional": true,
-              "maximumDistanceInches": {
-                "die": "D6"
-              },
-              "cannotDeclareChargeUntil": "end of turn"
+              "maxInches": "D6",
+              "then": {
+                "cannotDeclareCharge": true,
+                "until": "end-of-turn"
+              }
             }
           ]
         }

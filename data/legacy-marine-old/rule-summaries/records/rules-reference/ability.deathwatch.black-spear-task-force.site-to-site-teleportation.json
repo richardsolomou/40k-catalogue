@@ -21,58 +21,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "As the enemy Fight phase ends, pick an unengaged friendly ADEPTUS ASTARTES INFANTRY unit and transfer it to Strategic Reserves. If it has KILL TEAM, it gains Deep Strike until your next Movement phase finishes.",
-    "summarySpans": [
-      {
-        "start": 13,
-        "end": 24,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 39,
-        "end": 48,
-        "bold": true
-      },
-      {
-        "start": 58,
-        "end": 83,
-        "bold": true
-      },
-      {
-        "start": 108,
-        "end": 126,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "strategic-reserves"
-        }
-      },
-      {
-        "start": 138,
-        "end": 147,
-        "bold": true
-      },
-      {
-        "start": 158,
-        "end": 169,
-        "bold": true,
-        "target": {
-          "kind": "core-ability",
-          "id": "deep-strike"
-        }
-      },
-      {
-        "start": 186,
-        "end": 200,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP when the Fight phase of your opponent's turn ends. Pick a maximum of two KILL TEAM units of yours, or else one ADEPTUS ASTARTES INFANTRY unit of yours that is not a KILL TEAM unit, none of which may be in Engagement Range of an enemy unit. Take them off the battlefield and move them to Strategic Reserves; until your next Movement phase ends, any of their models lacking Deep Strike have it.",
     "citations": [
       {
         "type": "app",
@@ -96,48 +45,39 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "opponent"
-              }
-            ],
-            "event": "phase-end"
+          "detachment": "Black Spear Task Force",
+          "window": {
+            "turn": "opponent",
+            "phase": "fight",
+            "timing": "end-of-phase"
           },
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
-            "count": 1,
-            "mode": "choose",
-            "keywords": [
-              "ADEPTUS ASTARTES INFANTRY"
-            ],
-            "state": "unengaged"
-          },
-          "effects": [
-            {
-              "kind": "place-in-reserves",
-              "recipient": "target-unit",
-              "reserves": "strategic"
-            },
-            {
-              "kind": "conditional",
-              "condition": {
-                "targetHas": "Kill Team"
+            "side": "friendly",
+            "options": [
+              {
+                "maxCount": 2,
+                "keywordsAll": [
+                  "KILL TEAM"
+                ]
               },
-              "effects": [
-                {
-                  "kind": "unit-ability-grant",
-                  "recipient": "target-unit",
-                  "ability": "Deep Strike",
-                  "duration": {
-                    "until": "end-of-your-next-movement-phase"
-                  }
-                }
-              ]
+              {
+                "count": 1,
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ],
+                "otherThanKillTeam": true
+              }
+            ],
+            "notWithinEngagementRangeOfEnemy": true
+          },
+          "effect": {
+            "removeAndPlaceIn": "Strategic Reserves",
+            "grantDeepStrike": {
+              "to": "models without Deep Strike",
+              "until": "end of your next Movement phase"
             }
-          ]
+          }
         }
       }
     }

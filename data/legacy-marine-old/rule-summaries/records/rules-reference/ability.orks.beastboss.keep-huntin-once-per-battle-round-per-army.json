@@ -13,31 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Beastboss",
-    "summary": "During your Movement phase, you can use this at the start or finish of the owning unit’s move. Pick a friendly BEAST SNAGGA unit no more than 6\" away. It stops being battle-shocked until your next turn starts. Limit one use per army per battle round.",
-    "summarySpans": [
-      {
-        "start": 12,
-        "end": 26,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 111,
-        "end": 123,
-        "bold": true
-      },
-      {
-        "start": 166,
-        "end": 180,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      }
-    ],
+    "summary": "Once per battle round for your whole army: in your Movement phase, as this unit begins or finishes its move, you may pick a BEAST SNAGGA unit of yours that is no more than 6\" from this unit. That unit stops being battle-shocked and becomes riled up until your next turn starts.",
     "citations": [
       {
         "type": "app",
@@ -53,25 +29,36 @@
       "fields": {
         "detail": {
           "usage": {
-            "uses": 1,
+            "count": 1,
             "period": "battle round",
             "scope": "army"
           },
-          "timing": {
-            "phase": "own movement",
-            "points": [
-              "move start",
-              "move end"
+          "when": {
+            "phase": "your Movement phase",
+            "moments": [
+              "start of this unit's move",
+              "end of this unit's move"
             ]
           },
-          "target": {
+          "optional": true,
+          "select": {
+            "side": "friendly",
             "count": 1,
-            "friendly": true,
-            "keyword": "Beast Snagga",
-            "rangeInches": 6
+            "keywordsAll": [
+              "BEAST SNAGGA"
+            ],
+            "withinInches": 6,
+            "of": "this unit"
           },
-          "effect": "ends Battle-shock until start of own next turn",
-          "optional": true
+          "effects": [
+            {
+              "battleShocked": false
+            },
+            {
+              "status": "riled up",
+              "until": "start of your next turn"
+            }
+          ]
         }
       }
     }

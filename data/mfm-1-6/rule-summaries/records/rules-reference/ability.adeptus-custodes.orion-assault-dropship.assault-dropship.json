@@ -14,38 +14,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Orion Assault Dropship",
-    "summary": "If a unit gets out of this TRANSPORT before the vehicle moves, that unit may charge through turn end even if it Advances.",
-    "summarySpans": [
-      {
-        "start": 10,
-        "end": 18,
-        "target": {
-          "kind": "core-rule",
-          "id": "disembarking"
-        }
-      },
-      {
-        "start": 27,
-        "end": 36,
-        "bold": true
-      },
-      {
-        "start": 77,
-        "end": 83,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-move"
-        }
-      },
-      {
-        "start": 112,
-        "end": 120,
-        "target": {
-          "kind": "core-rule",
-          "id": "advance-move"
-        }
-      }
-    ],
+    "summary": "In your Movement phase, if an ADEPTUS CUSTODES unit of yours makes a tactical disembark move out of this model and later makes an Advance move, that Advance does not stop it from being able to declare a charge.",
     "citations": [
       {
         "type": "app",
@@ -81,16 +50,24 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "action": "disembark",
-            "from": "this TRANSPORT",
-            "beforeTransportMoves": true
-          },
-          "duration": "through the end of the turn",
-          "effect": {
-            "subject": "disembarking unit",
-            "chargeEligible": true,
-            "evenAfter": "Advance move"
+          "ability": {
+            "name": "Assault Dropship",
+            "when": {
+              "turn": "own",
+              "phase": "movement"
+            },
+            "appliesTo": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS CUSTODES"
+              ],
+              "madeTacticalDisembarkMoveFromThisModel": true
+            },
+            "effect": {
+              "afterAdvanceMove": {
+                "eligibleToDeclareCharge": true
+              }
+            }
           }
         }
       }

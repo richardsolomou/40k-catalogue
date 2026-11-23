@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.gladius-task-force.storm-of-devastation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Gladius Task Force",
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
+    "summary": "Spend 1 CP in your Shooting phase. Pick one ADEPTUS ASTARTES unit of yours that has not yet been chosen to shoot in that phase. Until the phase ends, the ranged weapons its models carry gain [IGNORES COVER], and if the Devastator Doctrine is affecting the unit, those weapons also get 1 better Armour Penetration for the same time.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
+          "detachment": "Gladius Task Force",
+          "type": "Battle Tactic",
+          "window": {
+            "turn": "own",
+            "phase": "shooting"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "notSelectedToShootThisPhase": true
+          },
+          "effects": [
+            {
+              "weapons": "ranged weapons equipped by models in the unit",
+              "weaponAbility": "IGNORES COVER"
+            },
+            {
+              "condition": "unit is under the effects of the Devastator Doctrine",
+              "weapons": "those ranged weapons",
+              "characteristic": "Armour Penetration",
+              "improve": 1
+            }
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "name": "Storm of devastation",
+            "trigger": "when the unit is selected to shoot",
+            "effects": [
+              {
+                "attackType": "ranged",
+                "weaponAbility": "IGNORES COVER"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

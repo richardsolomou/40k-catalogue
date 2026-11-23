@@ -12,114 +12,72 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "For an ASTRA MILITARUM Army Faction, OFFICER models may issue Orders. Use each OFFICER’s datasheet for its Orders per battle round and eligible recipients. For each Order choose one eligible friendly unit up to 6″ from the issuer. Your Command phase is the normal window for Orders. In any phase when an OFFICER exits a TRANSPORT or arrives on the battlefield, they may also give Orders as that phase ends. An Order runs until your next Command phase starts. Unless a rule specifies otherwise, a unit keeps only one Order and a later Order supersedes the earlier one. Battle-shock stops both issuing an Order to that unit and any Order already affecting it. Only ASTRA MILITARUM units can benefit. MOVE! MOVE! MOVE! adds 3″ Move. FIX BAYONETS! improves melee Weapon Skill by 1. TAKE AIM! improves ranged Ballistic Skill by 1. The FIRST RANK, FIRE! SECOND RANK, FIRE! Order increases the Attacks of Rapid Fire weapons by 1. TAKE COVER! improves Save by 1 to a best of 3+. DUTY AND HONOUR! improves Leadership and Objective Control by 1.",
+    "summary": "For an ASTRA MILITARUM Army Faction, OFFICER models with this ability may issue Orders. The number of Orders an OFFICER can give in each battle round, and the units allowed to receive them, are set by its datasheet. For each Order, choose which Order from the list that follows, then pick an eligible friendly unit up to 6\" from the issuing OFFICER model. OFFICER models give Orders during your Command phase, and also at the close of any phase in which they got out of a TRANSPORT or were placed on the battlefield. An Order affects its unit until your next Command phase starts. Unless a rule specifies otherwise, a unit keeps only one Order and a later Order supersedes the earlier one. Battle-shocked units cannot be issued Orders, and an Order stops affecting a unit that becomes Battle-shocked. Only the ASTRA MILITARUM models in that unit benefit from an Order. MOVE! MOVE! MOVE!: +3\" Move. FIX BAYONETS!: melee weapons improve their Weapon Skill by 1. TAKE AIM!: +1 to the Ballistic Skill of ranged weapons. FIRST RANK, FIRE! SECOND RANK, FIRE!: Rapid Fire weapons improve their Attacks by 1. TAKE COVER!: Save improves by 1, but not past 3+. DUTY AND HONOUR!: Leadership and Objective Control improve by 1.",
     "summarySpans": [
-      {
-        "start": 7,
-        "end": 22,
-        "bold": true
-      },
       {
         "start": 23,
         "end": 35,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "select-army-faction"
         }
       },
       {
-        "start": 37,
-        "end": 44,
-        "bold": true
-      },
-      {
-        "start": 79,
-        "end": 86,
-        "bold": true
-      },
-      {
-        "start": 118,
-        "end": 130,
+        "start": 137,
+        "end": 149,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "start-of-battle-round"
         }
       },
       {
-        "start": 236,
-        "end": 249,
+        "start": 395,
+        "end": 408,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "command-phase"
         }
       },
       {
-        "start": 304,
-        "end": 311,
-        "bold": true
-      },
-      {
-        "start": 437,
-        "end": 450,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 568,
-        "end": 580,
+        "start": 690,
+        "end": 704,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "battle-shock"
         }
       },
       {
-        "start": 663,
-        "end": 678,
-        "bold": true
-      },
-      {
-        "start": 698,
-        "end": 715,
-        "bold": true
-      },
-      {
-        "start": 730,
-        "end": 743,
-        "bold": true
-      },
-      {
-        "start": 778,
-        "end": 787,
-        "bold": true
-      },
-      {
-        "start": 830,
-        "end": 847,
-        "bold": true
-      },
-      {
-        "start": 848,
-        "end": 866,
+        "start": 869,
+        "end": 885,
         "bold": true
       },
       {
         "start": 898,
-        "end": 908,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "rapid-fire"
-        }
-      },
-      {
-        "start": 923,
-        "end": 934,
+        "end": 910,
         "bold": true
       },
       {
-        "start": 971,
-        "end": 987,
+        "start": 960,
+        "end": 968,
+        "bold": true
+      },
+      {
+        "start": 1016,
+        "end": 1051,
+        "bold": true
+      },
+      {
+        "start": 1101,
+        "end": 1111,
+        "bold": true
+      },
+      {
+        "start": 1151,
+        "end": 1166,
         "bold": true
       }
     ],
@@ -142,81 +100,73 @@
           "issuer": {
             "scope": "model",
             "keyword": "OFFICER",
-            "owner": "friendly",
-            "countPerBattleRound": "issuer-datasheet"
+            "withThisAbility": true,
+            "ordersPerBattleRound": "issuer-datasheet"
           },
-          "optional": true,
           "recipient": {
-            "owner": "friendly",
+            "side": "friendly",
             "countPerOrder": 1,
-            "withinInchesOfOfficer": 6,
+            "withinInchesOfIssuer": 6,
             "eligible": "issuer-datasheet",
-            "benefitsRequireKeyword": "ASTRA MILITARUM",
             "excludeState": "battle-shocked"
+          },
+          "benefitAppliesTo": {
+            "scope": "model",
+            "keyword": "ASTRA MILITARUM"
           },
           "timings": [
             {
-              "phase": "command",
-              "owner": "self"
+              "turn": "own",
+              "phase": "command"
             },
             {
               "phase": "any",
-              "at": "end",
+              "timing": "end-of-phase",
               "ifIssuerThisPhase": [
                 "disembarked-from-transport",
                 "set-up-on-battlefield"
               ]
             }
           ],
-          "expiration": {
-            "phase": "command",
-            "owner": "self",
-            "occurrence": "next",
-            "at": "start",
-            "alsoOn": [
-              "recipient-becomes-battle-shocked",
-              "replaced-by-subsequent-order"
-            ]
-          },
-          "simultaneousLimit": {
+          "duration": "until-start-of-next-own-command-phase",
+          "endsIf": [
+            "recipient-becomes-battle-shocked",
+            "replaced-by-later-order"
+          ],
+          "ordersAtOnce": {
             "count": 1,
-            "unlessSpecifiedOtherwise": true
+            "unlessOtherwiseStated": true
           },
           "orders": [
             {
               "name": "MOVE! MOVE! MOVE!",
               "characteristic": "Move",
-              "operation": "add",
-              "amount": 3,
+              "add": 3,
               "unit": "inches"
             },
             {
               "name": "FIX BAYONETS!",
-              "characteristic": "Weapon Skill",
               "weapons": "melee",
-              "operation": "improve",
-              "amount": 1
+              "characteristic": "Weapon Skill",
+              "improve": 1
             },
             {
               "name": "TAKE AIM!",
-              "characteristic": "Ballistic Skill",
               "weapons": "ranged",
-              "operation": "improve",
-              "amount": 1
+              "characteristic": "Ballistic Skill",
+              "improve": 1
             },
             {
               "name": "FIRST RANK, FIRE! SECOND RANK, FIRE!",
-              "characteristic": "Attacks",
               "weapons": "Rapid Fire",
-              "operation": "increase",
-              "amount": 1
+              "characteristic": "Attacks",
+              "improve": 1
             },
             {
               "name": "TAKE COVER!",
               "characteristic": "Save",
-              "operation": "improve",
-              "amount": 1,
-              "best": "3+"
+              "improve": 1,
+              "bestPossible": "3+"
             },
             {
               "name": "DUTY AND HONOUR!",
@@ -224,8 +174,7 @@
                 "Leadership",
                 "Objective Control"
               ],
-              "operation": "improve",
-              "amount": 1
+              "improve": 1
             }
           ]
         }

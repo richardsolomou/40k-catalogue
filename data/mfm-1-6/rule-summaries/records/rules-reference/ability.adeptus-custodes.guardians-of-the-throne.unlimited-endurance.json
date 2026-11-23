@@ -19,25 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "In your Movement phase, react just as one of your units with ADEPTUS CUSTODES completes its Advance. Give its ranged attacks [ASSAULT] and lift the charge restriction imposed by that Advance. This lasts through the turn.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 126,
-        "end": 133,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "assault"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Movement phase just after one of your ADEPTUS CUSTODES units ends an Advance move. For the remainder of the turn, the unit gains [ASSAULT] on its ranged attacks, and its Advance does not stop it from being able to declare a charge.",
     "citations": [
       {
         "type": "app",
@@ -132,45 +114,31 @@
         ],
         "detail": {
           "detachment": "Guardians of the Throne",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "own"
-              }
-            ],
-            "event": "advance-move-ended",
-            "actor": "chosen-unit"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            }
+          ],
+          "trigger": "a friendly unit ends an advance move",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "condition": {
-              "event": "triggering-unit"
-            }
+            "is": "the unit that advanced"
           },
           "effects": [
             {
-              "action": "grant-weapon-ability",
-              "recipient": "ranged-attacks-of-chosen-unit",
-              "ability": "assault"
+              "attackType": "ranged",
+              "weaponAbility": "ASSAULT"
             },
             {
-              "action": "remove-eligibility-block",
-              "recipient": "chosen-unit",
-              "blockedAction": "declare-charge",
-              "cause": "triggering-advance"
+              "advanceDoesNotPreventCharge": true
             }
           ],
-          "duration": {
-            "until": "turn-end",
-            "turn": "own"
-          }
+          "duration": "end-of-turn"
         }
       }
     }

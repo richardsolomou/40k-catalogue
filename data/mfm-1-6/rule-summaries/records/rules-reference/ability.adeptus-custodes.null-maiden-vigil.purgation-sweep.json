@@ -19,25 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "When you choose a WITCHSEEKER SQUAD to shoot in your Shooting phase, its [TORRENT] attacks gain 1 Attack. Against a PSYKER or Battle-shocked unit, those attacks gain 2 Attacks instead.",
-    "summarySpans": [
-      {
-        "start": 74,
-        "end": 81,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "torrent"
-        }
-      },
-      {
-        "start": 126,
-        "end": 140,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase as a WITCHSEEKER SQUAD unit of yours is picked to shoot. For the rest of that phase, its [TORRENT] attacks get +1 Attacks, or +2 Attacks instead when they target a PSYKER unit or a unit that is Battle-shocked.",
     "citations": [
       {
         "type": "app",
@@ -124,39 +106,30 @@
         ],
         "detail": {
           "detachment": "Null Maiden Vigil",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "your"
-              }
-            ],
-            "event": "friendly-selected-to-shoot"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "trigger": "a friendly unit is selected to shoot",
           "target": {
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "controller": "friendly",
-            "allKeywords": [
+            "keywordsAll": [
               "WITCHSEEKER SQUAD"
             ],
-            "relation": "selected-unit"
+            "is": "the unit selected to shoot"
           },
           "effects": [
             {
-              "action": "modify-attacks",
-              "requiredWeaponAbility": "TORRENT",
-              "amount": 1,
-              "replaceWith": {
-                "amount": 2,
-                "targetAny": [
-                  "PSYKER",
-                  "BATTLE-SHOCKED"
-                ]
-              }
+              "attacksWithWeaponAbility": "TORRENT",
+              "characteristic": "A",
+              "delta": 1,
+              "deltaIfTargetPsykerOrBattleShocked": 2
             }
           ],
-          "restrictions": []
+          "duration": "end-of-phase"
         }
       }
     }

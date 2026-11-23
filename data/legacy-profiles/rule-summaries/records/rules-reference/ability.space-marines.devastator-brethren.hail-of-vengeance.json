@@ -20,30 +20,25 @@
       ],
       "turn": "opponent"
     },
-    "summary": "When enemy fire in the opponent’s Shooting phase kills a model in one of your ADEPTUS ASTARTES units, pick an ADEPTUS ASTARTES unit. It can use normal shooting against the attacker alone.",
+    "summary": "Spend 2 CP in the opponent's Shooting phase, right after an enemy unit finishes shooting, if its attacks destroyed a model from one of your ADEPTUS ASTARTES units. Target that ADEPTUS ASTARTES unit: it shoots, using normal shooting, and while doing so it may target only that enemy unit.",
     "summarySpans": [
       {
-        "start": 34,
-        "end": 48,
+        "start": 29,
+        "end": 43,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "shooting-phase"
         }
       },
       {
-        "start": 78,
-        "end": 94,
-        "bold": true
-      },
-      {
-        "start": 110,
-        "end": 126,
-        "bold": true
-      },
-      {
-        "start": 144,
-        "end": 159,
-        "bold": true
+        "start": 216,
+        "end": 231,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-shooting"
+        }
       }
     ],
     "citations": [
@@ -75,36 +70,31 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "opponent"
-              }
-            ],
-            "event": "after-enemy-shooting-destroys-friendly-model",
-            "destroyed": {
-              "entity": "model",
-              "unitKeywords": [
-                "Adeptus Astartes"
-              ]
+          "detachment": "Devastator Brethren",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting"
             }
+          ],
+          "trigger": {
+            "event": "enemy-unit-has-shot",
+            "condition": "those-attacks-destroyed-a-model-in-friendly-unit",
+            "unitKeywords": [
+              "ADEPTUS ASTARTES"
+            ]
           },
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
-            "count": 1,
-            "keywords": [
-              "Adeptus Astartes"
+            "unit": "the-unit-that-lost-the-model",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
             ]
           },
           "effects": [
             {
               "action": "shoot",
-              "actor": "target-unit",
-              "attackTarget": "trigger-enemy-unit-only",
               "mode": "normal-shooting",
-              "optional": true
+              "onlyTarget": "the-enemy-unit-that-shot"
             }
           ]
         }

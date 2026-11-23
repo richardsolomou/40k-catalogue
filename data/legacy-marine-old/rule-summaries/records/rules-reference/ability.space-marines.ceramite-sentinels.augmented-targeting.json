@@ -21,53 +21,7 @@
       "turn": "own",
       "type": "battle-tactic"
     },
-    "summary": "When you select a Adeptus Astartes unit to attack in your Shooting phase or either Fight phase, choose one ability for its attacks. Pick SUSTAINED HITS 1 or LETHAL HITS. An entrenched unit gets the pair.",
-    "summarySpans": [
-      {
-        "start": 18,
-        "end": 34,
-        "bold": true
-      },
-      {
-        "start": 58,
-        "end": 72,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 83,
-        "end": 94,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 137,
-        "end": 153,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "sustained-hits"
-        }
-      },
-      {
-        "start": 157,
-        "end": 168,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "lethal-hits"
-        }
-      },
-      {
-        "start": 173,
-        "end": 183,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase. Pick one ADEPTUS ASTARTES unit of yours that has not yet been chosen to shoot in this phase, then choose [SUSTAINED HITS 1] or [LETHAL HITS]. Until that phase ends, its models' ranged weapons gain the chosen ability; if the unit is Entrenched, they gain both [SUSTAINED HITS 1] and [LETHAL HITS] instead.",
     "citations": [
       {
         "type": "app",
@@ -99,53 +53,63 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
-            ],
-            "event": "friendly-selected-to-attack",
-            "window": {
-              "shooting": "your",
-              "fight": "either"
+          "detachment": "Ceramite Sentinels",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "notSelectedToShootThisPhase": true
           },
           "effects": [
             {
-              "kind": "choose-one-ability",
-              "subject": "selected-unit-attacks",
-              "options": [
+              "weapons": "ranged",
+              "chooseOne": [
                 {
-                  "ability": "lethal-hits"
+                  "weaponAbility": "SUSTAINED HITS",
+                  "value": 1
                 },
                 {
-                  "ability": "sustained-hits",
-                  "value": 1
+                  "weaponAbility": "LETHAL HITS"
                 }
               ]
             },
             {
-              "kind": "grant-both-instead",
-              "condition": "selected-unit-entrenched",
-              "options": [
+              "ifUnitStatus": "Entrenched",
+              "weapons": "ranged",
+              "insteadBoth": [
                 {
-                  "ability": "lethal-hits"
+                  "weaponAbility": "SUSTAINED HITS",
+                  "value": 1
                 },
                 {
-                  "ability": "sustained-hits",
-                  "value": 1
+                  "weaponAbility": "LETHAL HITS"
                 }
               ]
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsNewerText": {
+            "windows": [
+              {
+                "turn": "own",
+                "phase": "shooting"
+              },
+              {
+                "turn": "either",
+                "phase": "fight"
+              }
+            ],
+            "attacks": "all of the unit's attacks"
+          }
         }
       }
     }

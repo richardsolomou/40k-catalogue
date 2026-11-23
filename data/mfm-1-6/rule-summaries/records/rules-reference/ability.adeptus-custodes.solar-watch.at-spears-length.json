@@ -19,25 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "In your Movement phase, play this as you pick one of your units with ADEPTUS CUSTODES to Fall Back. That particular move leaves its shooting eligibility intact.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 89,
-        "end": 98,
-        "target": {
-          "kind": "core-rule",
-          "id": "fall-back"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Movement phase as one of your ADEPTUS CUSTODES units is picked to Fall Back. Falling Back that way does not make the unit ineligible to shoot this turn.",
     "citations": [
       {
         "type": "app",
@@ -73,34 +55,26 @@
         ],
         "detail": {
           "detachment": "Solar Watch",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "own"
-              }
-            ],
-            "event": "unit-selected-for-fall-back",
-            "actor": "chosen-unit"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            }
+          ],
+          "trigger": "a friendly unit is selected to make a fall-back move",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "condition": {
-              "event": "triggering-unit"
-            }
+            "is": "the unit making that fall-back move"
           },
           "effects": [
             {
-              "action": "remove-eligibility-block",
-              "recipient": "chosen-unit",
-              "blockedAction": "shoot",
-              "cause": "triggering-fall-back"
+              "fallBackDoesNotPrevent": [
+                "shoot"
+              ]
             }
           ]
         }

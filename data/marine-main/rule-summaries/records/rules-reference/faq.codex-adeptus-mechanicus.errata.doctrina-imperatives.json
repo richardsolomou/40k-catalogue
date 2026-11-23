@@ -19,15 +19,33 @@
         "id": "adeptus-mechanicus.doctrina-imperatives"
       }
     ],
-    "summary": "Protector Imperative gives ranged weapons [HEAVY] and +1 Ballistic Skill. Apply a −1 melee hit modifier against a defender that is BATTLELINE or within 6 inches of friendly ADEPTUS MECHANICUS BATTLELINE. Conqueror Imperative gives ranged weapons [ASSAULT] and melee weapons +1 Weapon Skill. The same proximity or keyword condition gives that unit’s attacks +1 Armour Penetration.",
+    "summary": "Errata to Doctrina Imperatives. Protector Imperative gives ranged weapons [HEAVY] and +1 Ballistic Skill. Apply a −1 melee hit modifier against a defender that is BATTLELINE or within 6 inches of your ADEPTUS MECHANICUS BATTLELINE units. Conqueror Imperative gives ranged weapons [ASSAULT] and melee weapons +1 Weapon Skill. The same proximity or keyword condition gives that unit’s attacks +1 Armour Penetration.",
     "summarySpans": [
       {
-        "start": 0,
-        "end": 11,
+        "start": 10,
+        "end": 30,
         "bold": true,
         "target": {
           "kind": "ability",
           "id": "adeptus-mechanicus.doctrina-imperatives"
+        }
+      },
+      {
+        "start": 74,
+        "end": 81,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "heavy"
+        }
+      },
+      {
+        "start": 280,
+        "end": 289,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "assault"
         }
       }
     ],
@@ -53,27 +71,28 @@
         "detail": {
           "faq": {
             "entryType": "errata",
-            "publicationId": "31cf0b5f-c858-4b3c-bcfb-a2721b043eec",
-            "typedMechanics": {
-              "battlelineCondition": {
-                "selfKeyword": "battleline",
-                "orFriendlyKeywords": [
-                  "adeptus-mechanicus",
-                  "battleline"
-                ],
-                "withinInches": 6
-              },
-              "protector": {
-                "rangedAbility": "heavy",
-                "rangedBallisticSkillImprovement": 1,
-                "conditionalIncomingMeleeHitModifier": -1
-              },
-              "conqueror": {
-                "rangedAbility": "assault",
-                "meleeWeaponSkillImprovement": 1,
-                "conditionalAttackArmourPenetrationImprovement": 1
-              },
-              "kind": "replace-imperatives"
+            "target": "Doctrina Imperatives",
+            "battlelineCondition": {
+              "unitHasKeyword": "BATTLELINE",
+              "orWithinInchesOfFriendly": 6,
+              "friendlyKeywordsAll": [
+                "ADEPTUS MECHANICUS",
+                "BATTLELINE"
+              ]
+            },
+            "protector": {
+              "rangedAbility": "[HEAVY]",
+              "ballisticSkillImprovement": 1,
+              "ifBattlelineCondition": {
+                "incomingMeleeHitRollSubtract": 1
+              }
+            },
+            "conqueror": {
+              "rangedAbility": "[ASSAULT]",
+              "meleeWeaponSkillImprovement": 1,
+              "ifBattlelineCondition": {
+                "armourPenetrationImprovement": 1
+              }
             }
           }
         }

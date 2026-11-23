@@ -12,25 +12,7 @@
   },
   "data": {
     "ruleType": "detachment-rule",
-    "summary": "Apply −1 to wound rolls if the target of a ranged attack is an ADEPTUS CUSTODES unit within objective range. Exclude VEHICLE units.",
-    "summarySpans": [
-      {
-        "start": 12,
-        "end": 23,
-        "target": {
-          "kind": "core-rule",
-          "id": "making-attacks"
-        }
-      },
-      {
-        "start": 92,
-        "end": 107,
-        "target": {
-          "kind": "core-rule",
-          "id": "objectives"
-        }
-      }
-    ],
+    "summary": "Each friendly ADEPTUS CUSTODES unit, MONSTER and VEHICLE units aside, that is in range of an objective marker is harder to hurt at range: ranged attacks against it that have a Strength above its Toughness get -1 to their wound rolls. Favoured ka’tah: Salvus. When you pick the Salvus ka’tah ability for a unit, that unit's ranged attacks also get +6\" Range, on top of the normal Salvus effect.",
     "citations": [
       {
         "type": "app",
@@ -98,28 +80,36 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "event": "attack",
-            "attackType": "ranged"
-          },
-          "target": {
-            "level": "unit",
-            "allOf": [
+          "kind": "detachment-rule",
+          "detachment": "Aquilan Shield",
+          "condition": {
+            "side": "friendly",
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "noneOf": [
+            "keywordsNone": [
+              "MONSTER",
               "VEHICLE"
             ],
-            "range": {
-              "type": "within-objective-range",
-              "quantifier": "any"
-            }
+            "withinObjectiveRange": true
           },
-          "effect": {
-            "type": "roll-modifier",
-            "roll": "wound",
-            "operation": "subtract",
-            "value": 1
+          "effects": [
+            {
+              "attacksTargetingUnit": "ranged",
+              "attackerStrengthGreaterThanTargetToughness": true,
+              "roll": "wound",
+              "modifier": "subtract",
+              "value": 1
+            }
+          ],
+          "favouredKatah": {
+            "name": "Salvus",
+            "additionalEffect": {
+              "recipient": "unit-using-Salvus",
+              "attackType": "ranged",
+              "characteristic": "Range",
+              "deltaInches": 6
+            }
           }
         }
       }

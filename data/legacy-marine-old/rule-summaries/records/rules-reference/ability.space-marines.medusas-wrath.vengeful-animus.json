@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.medusas-wrath.vengeful-animus",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Medusa's Wrath",
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "epic-deed"
+    },
+    "summary": "Spend 1 CP in any phase, as soon as one of your ADEPTUS ASTARTES VEHICLE models with Deadly Demise is destroyed. Pick that model; it remains a valid target despite having been destroyed. It skips the D6 roll that decides whether its Deadly Demise inflicts mortal wounds: it inflicts them automatically.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "model",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "VEHICLE"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
+          "detachment": "Ironstorm Spearhead",
+          "type": "Epic Deed",
+          "window": {
+            "turn": "either",
+            "phase": "any",
+            "timing": "just after a friendly ADEPTUS ASTARTES VEHICLE model with Deadly Demise is destroyed"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "scope": "model",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "VEHICLE"
+            ],
+            "hasAbility": "Deadly Demise",
+            "theDestroyedModel": true,
+            "eligibleThoughDestroyed": true
+          },
+          "effects": [
+            {
+              "ability": "Deadly Demise",
+              "skipRoll": "D6",
+              "mortalWounds": "inflicted automatically"
+            }
+          ],
+          "duration": "instant",
+          "cardPrintsOtherText": {
+            "detachment": "Medusa's Wrath",
+            "type": "",
+            "target": {
+              "scope": "unit",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES",
+                "VEHICLE"
+              ]
+            },
+            "timing": "when the unit is destroyed, before rolling for Deadly Demise",
+            "effect": {
+              "deadlyDemiseRolls": "changed to an unmodified result",
+              "result": 6
+            }
+          }
+        }
+      }
+    }
+  }
+}

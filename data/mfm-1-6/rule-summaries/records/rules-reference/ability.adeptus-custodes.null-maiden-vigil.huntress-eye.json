@@ -12,25 +12,7 @@
   },
   "data": {
     "ruleType": "enhancement",
-    "summary": "During your Movement phase, you may pick one enemy unit that your bearer’s unit can see within 12 inches. The chosen unit immediately rolls for Battle-shock with a −1 penalty.",
-    "summarySpans": [
-      {
-        "start": 12,
-        "end": 26,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 144,
-        "end": 156,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      }
-    ],
+    "summary": "For an ANATHEMA PSYKANA model. During your Movement phase, an enemy unit that is visible to this model's unit and within 12\" of it may be chosen; that enemy unit must then roll for battle-shock, taking -1 on that roll.",
     "citations": [
       {
         "type": "app",
@@ -48,6 +30,7 @@
           "type": "model",
           "points": 10,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -73,29 +56,24 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "phase": "movement",
-            "owner": "own-player",
-            "timing": "during"
-          },
-          "selection": {
-            "actor": "own-player",
-            "target": "enemy-unit",
-            "count": 1,
-            "optional": true,
-            "visible": true,
-            "rangeInches": 12,
-            "origin": "bearer-unit",
-            "comparison": "within"
-          },
+          "kind": "enhancement",
+          "detachment": "Null Maiden Vigil",
           "effects": [
             {
-              "type": "make-roll",
+              "when": {
+                "turn": "own",
+                "phase": "movement"
+              },
+              "optional": true,
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "visible": true,
+                "withinInches": 12
+              },
               "roll": "battle-shock",
-              "recipient": "selected-enemy-unit",
-              "timing": "immediate",
-              "modifier": -1,
-              "modifierExpiry": "after-this-roll"
+              "modifier": "subtract",
+              "value": 1
             }
           ]
         }

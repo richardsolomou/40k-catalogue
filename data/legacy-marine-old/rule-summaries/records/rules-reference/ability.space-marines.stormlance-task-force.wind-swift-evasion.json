@@ -21,49 +21,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "When a Fight phase closes, choose a unit that took part in the fighting. It must be ADEPTUS ASTARTES MOUNTED. It may make a Normal Move if unengaged, or Fall Back if engaged.",
-    "summarySpans": [
-      {
-        "start": 7,
-        "end": 18,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 84,
-        "end": 108,
-        "bold": true
-      },
-      {
-        "start": 124,
-        "end": 135,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "normal-move"
-        }
-      },
-      {
-        "start": 139,
-        "end": 148,
-        "bold": true
-      },
-      {
-        "start": 153,
-        "end": 162,
-        "target": {
-          "kind": "core-rule",
-          "id": "fall-back"
-        }
-      },
-      {
-        "start": 166,
-        "end": 173,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in the Movement phase of your opponent's turn, just as an enemy unit completes a move, whether a Normal move, an Advance or a Fall Back. Pick one ADEPTUS ASTARTES INFANTRY or ADEPTUS ASTARTES MOUNTED unit of yours that has that enemy unit within 8\" of it and is outside Engagement Range of every enemy unit. Your unit may then make a Normal move, going no more than 6\".",
     "citations": [
       {
         "type": "app",
@@ -106,40 +64,60 @@
           }
         },
         "detail": {
+          "detachment": "Stormlance Task Force",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "movement"
+            }
+          ],
           "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "phase-end"
+            "event": "enemy-unit-ends-move",
+            "moves": [
+              "normal",
+              "advance",
+              "fall-back"
+            ]
           },
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "Adeptus Astartes Mounted"
+            "keywordsAnyGroup": [
+              [
+                "ADEPTUS ASTARTES",
+                "INFANTRY"
+              ],
+              [
+                "ADEPTUS ASTARTES",
+                "MOUNTED"
+              ]
             ],
-            "eligibility": "fought-this-phase"
+            "withinInchesOfThatEnemyUnit": 8,
+            "notWithinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "action": "make-move",
-              "actor": "target-unit",
-              "moveType": "normal",
-              "optional": true,
-              "condition": "target-unit-unengaged"
-            },
-            {
-              "action": "make-move",
-              "actor": "target-unit",
-              "moveType": "fall-back",
-              "optional": true,
-              "condition": "target-unit-engaged"
+              "move": "normal",
+              "maxInches": 6,
+              "optional": true
             }
-          ]
+          ],
+          "duration": "instant",
+          "cardPrintsNewerText": {
+            "windows": [
+              {
+                "turn": "either",
+                "phase": "fight",
+                "timing": "end-of-phase"
+              }
+            ],
+            "target": "ADEPTUS ASTARTES MOUNTED unit eligible to fight this phase",
+            "effects": [
+              "normal move if unengaged",
+              "fall-back move if engaged"
+            ]
+          }
         }
       }
     }

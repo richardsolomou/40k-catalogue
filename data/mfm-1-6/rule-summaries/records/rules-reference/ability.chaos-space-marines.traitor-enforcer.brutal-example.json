@@ -13,7 +13,18 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Traitor Enforcer",
-    "summary": "Once each turn, while the TRAITOR ENFORCER leads its unit, you can use Fire Overwatch on that unit for 0 CP, including after another unit from your army uses it. The TRAITOR ENFORCER loses this ability when the last model in its Bodyguard unit dies.",
+    "summary": "Usable once per turn, provided this unit leads another unit and includes a TRAITOR ENFORCER model: the Fire Overwatch Stratagem can then target the unit it is leading for 0CP, even if another unit of yours was already its target earlier in the same turn. Every use of this ability destroys one of that unit's Bodyguard models.",
+    "summarySpans": [
+      {
+        "start": 103,
+        "end": 117,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "core.fire-overwatch"
+        }
+      }
+    ],
     "citations": [
       {
         "type": "app",
@@ -33,14 +44,19 @@
             "period": "turn",
             "optional": true
           },
-          "condition": "owner model is leading a unit",
+          "condition": {
+            "thisUnitIsLeading": true,
+            "containsModelKeyword": "TRAITOR ENFORCER"
+          },
           "effect": {
             "stratagem": "Fire Overwatch",
-            "target": "owner unit",
-            "CP": 0,
-            "canFollowOtherOwnUnitUse": true
+            "target": "the unit being led",
+            "cpCost": 0,
+            "ignoresOncePerTurnUseOnOtherUnit": true
           },
-          "expires": "last Bodyguard model destroyed"
+          "costPerUse": {
+            "destroyBodyguardModels": 1
+          }
         }
       }
     }

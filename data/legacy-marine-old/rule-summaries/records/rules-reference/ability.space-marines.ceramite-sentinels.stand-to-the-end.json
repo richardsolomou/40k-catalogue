@@ -21,54 +21,7 @@
       "turn": "any",
       "type": "epic-deed"
     },
-    "summary": "When an enemy targets your ADEPTUS ASTARTES unit in its Shooting phase or either Fight phase, incoming wound rolls take a -1 penalty if the attack’s Strength exceeds the defender’s Toughness or if the defender is entrenched.",
-    "summarySpans": [
-      {
-        "start": 27,
-        "end": 43,
-        "bold": true
-      },
-      {
-        "start": 56,
-        "end": 70,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 81,
-        "end": 92,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 103,
-        "end": 114,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      },
-      {
-        "start": 147,
-        "end": 148,
-        "bold": true
-      },
-      {
-        "start": 179,
-        "end": 180,
-        "bold": true
-      },
-      {
-        "start": 213,
-        "end": 223,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in either player's Fight phase, right after an enemy unit selects its targets, choosing an ADEPTUS ASTARTES unit of yours that at least one of those attacks is aimed at. For the rest of the phase, whenever a model in that unit is destroyed before it has fought this phase, roll a D6 and add 1 to it if the unit is ENTRENCHED; if the total is 4+, leave the model in play: once the attacking unit is done attacking, it can fight, and it is removed from play afterwards.",
     "citations": [
       {
         "type": "app",
@@ -101,48 +54,43 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
-            ],
-            "event": "enemy-targets-selected",
-            "window": {
-              "shooting": "opponent",
-              "fight": "either"
+          "detachment": "Ceramite Sentinels",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight",
+              "trigger": "just after an enemy unit has selected its targets"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "ADEPTUS ASTARTES"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "targetedByAttackingUnit": true
           },
           "effects": [
             {
-              "kind": "modifier",
-              "subject": "attacks",
-              "characteristic": "wound-roll",
-              "delta": -1,
-              "conditions": {
-                "attacks": "against-selected-unit",
-                "anyOf": [
-                  {
-                    "comparison": {
-                      "left": "attack-strength",
-                      "operator": "greater-than",
-                      "right": "target-toughness"
-                    }
-                  },
-                  {
-                    "selectedUnitState": "entrenched"
-                  }
-                ]
+              "trigger": "a model in the target unit is destroyed",
+              "condition": "that model has not fought this phase",
+              "roll": "D6",
+              "rollBonusIfKeyword": {
+                "keyword": "ENTRENCHED",
+                "add": 1
+              },
+              "threshold": "4+",
+              "onSuccess": {
+                "notRemovedYet": true,
+                "mayFightAfterAttackingUnitFinishes": true,
+                "thenRemoved": true
               }
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "woundRollPenalty": 1
+          }
         }
       }
     }

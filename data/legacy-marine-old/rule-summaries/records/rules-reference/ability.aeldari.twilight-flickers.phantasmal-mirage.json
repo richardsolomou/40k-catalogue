@@ -20,31 +20,7 @@
       ],
       "turn": "own"
     },
-    "summary": "In your Shooting phase, your HARLEQUINS may move again after firing. Use Normal Move rules and a D6″ maximum. The unit loses charge eligibility for the rest of the turn.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 29,
-        "end": 39,
-        "bold": true
-      },
-      {
-        "start": 73,
-        "end": 84,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "normal-move"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase once a HARLEQUINS VEHICLE unit of yours has shot. That unit may move up to D6\" as a Normal move, and afterwards it cannot declare a charge for the rest of the turn.",
     "citations": [
       {
         "type": "app",
@@ -74,30 +50,36 @@
           }
         },
         "detail": {
-          "window": {
-            "phase": "Shooting",
-            "turn": "active player is you",
-            "event": "after friendly shooting"
+          "detachment": "Twilight Flickers",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "trigger": {
+            "event": "friendly-unit-has-shot"
           },
           "target": {
             "side": "friendly",
             "count": 1,
-            "binding": "triggering unit",
-            "keywords": "HARLEQUINS"
+            "keywordsAll": [
+              "HARLEQUINS",
+              "VEHICLE"
+            ]
           },
-          "effect": {
-            "type": "optional move and charge bar",
-            "move": {
-              "kind": "Normal Move",
-              "maximumInches": "D6"
+          "effects": [
+            {
+              "move": "normal",
+              "maximumInches": {
+                "dice": "D6"
+              }
             },
-            "chargeRestriction": {
-              "action": "declare charge",
-              "eligible": false,
-              "until": "turn ends"
+            {
+              "eligibleToDeclareCharge": false,
+              "duration": "end-of-turn"
             }
-          },
-          "restrictions": []
+          ]
         }
       }
     }

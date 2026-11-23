@@ -13,28 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Sanguinary Guard",
-    "summary": "If the attack’s Strength exceeds this unit’s Toughness, apply −1 to the wound roll for attacks against this unit.",
-    "summarySpans": [
-      {
-        "start": 16,
-        "end": 24,
-        "bold": true
-      },
-      {
-        "start": 45,
-        "end": 54,
-        "bold": true
-      },
-      {
-        "start": 72,
-        "end": 82,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      }
-    ],
+    "summary": "While a CHARACTER model leads this unit, melee attacks aimed at this unit suffer -1 to the Wound roll.",
     "citations": [
       {
         "type": "app",
@@ -49,22 +28,17 @@
       "version": "1",
       "fields": {
         "detail": {
-          "subtype": "short-defense",
-          "recipient": "this unit",
-          "appliesTo": "attacks",
-          "qualification": {
-            "attackStrengthExceedsTargetToughness": true
-          },
-          "amount": -1,
-          "magnitude": 1,
-          "incoming": {
-            "recipient": "this unit",
-            "trigger": "targets"
-          },
-          "effect": {
+          "ability": {
+            "condition": {
+              "ledByModelWithKeyword": "CHARACTER"
+            },
+            "appliesTo": "melee attacks targeting this unit",
             "roll": "wound",
             "delta": -1,
-            "kind": "modify-roll"
+            "magnitude": 1
+          },
+          "cardPrintsOtherText": {
+            "onlyWhenAttackStrengthExceedsToughness": true
           }
         }
       }

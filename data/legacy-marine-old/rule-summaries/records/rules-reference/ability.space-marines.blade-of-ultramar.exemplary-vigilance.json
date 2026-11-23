@@ -21,31 +21,7 @@
       "turn": "own",
       "type": "battle-tactic"
     },
-    "summary": "When you nominate the ADEPTUS ASTARTES unit to shoot in your Shooting phase, its ranged attacks gain [IGNORES COVER].",
-    "summarySpans": [
-      {
-        "start": 22,
-        "end": 38,
-        "bold": true
-      },
-      {
-        "start": 61,
-        "end": 75,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 102,
-        "end": 115,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "ignores-cover"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase, picking an ADEPTUS ASTARTES unit of yours that has not yet been chosen to shoot this phase. For the rest of the phase, its models' ranged weapons gain [IGNORES COVER]; if the Devastator Doctrine applies to the unit, those weapons also get 1 better Armour Penetration for the rest of the phase.",
     "citations": [
       {
         "type": "app",
@@ -77,30 +53,34 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "your",
-            "phases": [
-              "shooting"
-            ],
-            "event": "friendly-selected-to-shoot",
-            "window": {
-              "shooting": "your"
+          "detachment": "Blade of Ultramar",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "notSelectedToShootThisPhase": true
           },
           "effects": [
             {
-              "kind": "grant-ability",
-              "subject": "selected-unit-ranged-attacks",
-              "ability": "ignores-cover"
+              "weapons": "ranged weapons of models in the target unit",
+              "grantWeaponAbility": "IGNORES COVER"
+            },
+            {
+              "condition": "unit is under the Devastator Doctrine",
+              "weapons": "ranged weapons of models in the target unit",
+              "characteristic": "AP",
+              "improveBy": 1
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

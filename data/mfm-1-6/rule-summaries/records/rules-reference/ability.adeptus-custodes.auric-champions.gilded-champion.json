@@ -23,17 +23,7 @@
       ],
       "turn": "any"
     },
-    "summary": "In any phase, pick a friendly Character model from Adeptus Custodes just after it uses a datasheet ability limited to one use per unit per battle. The model gets one extra use of that ability in a later phase. Each model can receive this Stratagem only once in the battle.",
-    "summarySpans": [
-      {
-        "start": 233,
-        "end": 247,
-        "target": {
-          "kind": "core-rule",
-          "id": "using-stratagems"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in any phase after an ADEPTUS CUSTODES CHARACTER model of yours has used a datasheet ability that each unit may use only once per battle. That model may use the same ability one more time, but not again in the current phase. A model can be the target only once per battle.",
     "citations": [
       {
         "type": "app",
@@ -67,40 +57,32 @@
         },
         "detail": {
           "detachment": "Auric Champions",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "any",
-                "turn": "either"
-              }
-            ],
-            "event": "friendly-model-used-once-per-battle-per-unit-datasheet-ability"
-          },
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "any"
+            }
+          ],
+          "trigger": "a friendly model has used a datasheet ability limited to once per battle, per unit",
           "target": {
-            "entity": "model",
+            "side": "friendly",
+            "scope": "model",
             "count": 1,
-            "controller": "friendly",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES",
               "CHARACTER"
             ],
-            "relation": "triggering-model"
+            "is": "the model that used the ability"
           },
           "effects": [
             {
-              "action": "grant-additional-datasheet-ability-use",
-              "count": 1,
-              "ability": "triggering-ability",
-              "samePhaseAllowed": false
+              "additionalUsesOfThatAbility": 1,
+              "notInSamePhase": true
             }
           ],
-          "restrictions": [
-            {
-              "limit": 1,
-              "per": "model",
-              "reset": "battle"
-            }
-          ]
+          "limits": {
+            "sameModelPerBattle": 1
+          }
         }
       }
     }

@@ -13,28 +13,7 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Shadowmark Talon",
-    "summary": "Model eligibility — ADEPTUS ASTARTES INFANTRY. Give the bearer’s unit Infiltrators.",
-    "summarySpans": [
-      {
-        "start": 20,
-        "end": 36,
-        "bold": true
-      },
-      {
-        "start": 37,
-        "end": 45,
-        "bold": true
-      },
-      {
-        "start": 70,
-        "end": 82,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "infiltrators"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS ASTARTES INFANTRY model. As long as the bearer leads a unit, every model in that unit has Infiltrators.",
     "citations": [
       {
         "type": "app",
@@ -52,6 +31,7 @@
           "type": "model",
           "points": 25,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "keywords": [
@@ -65,11 +45,13 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Shadowmark Talon",
           "effects": [
             {
-              "type": "grant-ability",
-              "target": "bearers-unit",
-              "ability": "Infiltrators"
+              "condition": "bearer is leading a unit",
+              "appliesTo": "models in the led unit",
+              "grantAbility": "Infiltrators"
             }
           ]
         }

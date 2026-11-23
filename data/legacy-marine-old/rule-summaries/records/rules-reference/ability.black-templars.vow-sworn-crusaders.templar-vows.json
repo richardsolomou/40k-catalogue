@@ -1,0 +1,173 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.vow-sworn-crusaders.templar-vows",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Vow-sworn Crusaders",
+    "summary": "If ADEPTUS ASTARTES is your Army Faction, choose one Vow as the first battle round starts; it is active for the ADEPTUS ASTARTES units in your army, and each unit it is active for gains that Vow's ability. Abhor the Witch, Destroy the Witch: melee attacks the unit makes against a PSYKER unit gain [PRECISION]; and when the unit declares a charge while it has an enemy PSYKER unit within 12\", you may let it re-roll the charge roll, but that charge must then end with it engaged with at least one of those PSYKER units. Accept any Challenge, no Matter the Odds: whenever one of the unit's models attacks in melee with a Strength no higher than the target's Toughness, that attack gets +1 to its Wound roll. Suffer Not the Unclean to Live: the unit can still declare a charge after Falling Back that turn, and its Pile-in and Consolidation moves need not end nearer to the nearest enemy model, provided each ends as near as possible to the nearest enemy unit. Uphold the Honour of the Emperor (INFANTRY units only): as your Command phase ends, any objective marker you hold that the unit is in range of stays under your control until, as some phase ends, the opponent has a higher Level of Control over it than you; and in missions that use Actions, the unit can start an Action during a turn when it Advanced. No end is given for how long the chosen Vow stays active.",
+    "summarySpans": [
+      {
+        "start": 206,
+        "end": 240,
+        "bold": true
+      },
+      {
+        "start": 520,
+        "end": 560,
+        "bold": true
+      },
+      {
+        "start": 707,
+        "end": 737,
+        "bold": true
+      },
+      {
+        "start": 959,
+        "end": 991,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "armyRule": {
+            "faction": "Black Templars",
+            "condition": {
+              "armyFaction": "ADEPTUS ASTARTES"
+            },
+            "timing": "start of the first battle round",
+            "select": {
+              "count": 1,
+              "of": "Vow"
+            },
+            "appliesTo": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES"
+              ]
+            },
+            "duration": "not printed",
+            "vows": [
+              {
+                "name": "Abhor the Witch, Destroy the Witch",
+                "effects": [
+                  {
+                    "attackType": "melee",
+                    "targetKeywordsAll": [
+                      "PSYKER"
+                    ],
+                    "weaponAbility": "PRECISION"
+                  },
+                  {
+                    "trigger": "this unit declares a charge",
+                    "condition": {
+                      "enemyKeywordsAll": [
+                        "PSYKER"
+                      ],
+                      "withinInches": 12
+                    },
+                    "optional": true,
+                    "reroll": "charge roll",
+                    "requirement": "the charge move must end engaged with at least one of those enemy PSYKER units"
+                  }
+                ]
+              },
+              {
+                "name": "Accept any Challenge, no Matter the Odds",
+                "effects": [
+                  {
+                    "attackType": "melee",
+                    "condition": "attack Strength is less than or equal to target Toughness",
+                    "roll": "wound",
+                    "delta": 1
+                  }
+                ]
+              },
+              {
+                "name": "Suffer Not the Unclean to Live",
+                "effects": [
+                  {
+                    "mayDeclareChargeInTurnItFellBack": true
+                  },
+                  {
+                    "moves": [
+                      "Pile-in",
+                      "Consolidation"
+                    ],
+                    "needNotEndCloserToClosestEnemyModel": true,
+                    "condition": "ends as close as possible to the closest enemy unit"
+                  }
+                ]
+              },
+              {
+                "name": "Uphold the Honour of the Emperor",
+                "eligibility": {
+                  "keywordsAll": [
+                    "INFANTRY"
+                  ]
+                },
+                "effects": [
+                  {
+                    "timing": "end of your Command phase",
+                    "condition": "this unit is in range of an objective marker you control",
+                    "effect": "that objective marker remains yours until the opponent's Level of Control over it exceeds yours at the end of a phase"
+                  },
+                  {
+                    "condition": "the mission features Actions",
+                    "effect": "eligible to start an Action in a turn in which it Advanced"
+                  }
+                ]
+              }
+            ]
+          },
+          "openQuestions": [
+            "The rule names no end for the chosen Vow."
+          ],
+          "cardPrintsOtherText": {
+            "ruleType": "detachment rule",
+            "detachment": "Vow-sworn Crusaders",
+            "vowCount": 3,
+            "duration": "until the end of the battle",
+            "abhorTheWitch": {
+              "weaponAbilities": [
+                "PRECISION",
+                "LANCE"
+              ]
+            },
+            "acceptAnyChallenge": {
+              "condition": "target Toughness greater than this unit's Strength",
+              "roll": "wound",
+              "delta": 1
+            },
+            "upholdTheHonour": {
+              "timing": "end of your Movement phase",
+              "effect": "objective secured",
+              "advanceDoesNotPreventStartingAction": true
+            },
+            "restriction": "BLACK TEMPLARS units allowed; no ADEPTUS ASTARTES units drawn from any other Chapter"
+          }
+        }
+      }
+    }
+  }
+}

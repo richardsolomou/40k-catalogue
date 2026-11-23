@@ -21,29 +21,20 @@
       ],
       "turn": "own"
     },
-    "summary": "Once your RANGERS or SHROUD RUNNERS have fired in your Shooting phase, they may move up to D6″ as a Normal Move or embark in a TRANSPORT. They lose charge eligibility for the rest of the turn.",
+    "summary": "Spend 1 CP in your Shooting phase after one of your RANGERS or SHROUD RUNNERS units has shot; that unit is the target. It may move up to D6″ with a Normal move. Until the turn ends, it cannot declare a charge, and it cannot embark within a TRANSPORT either.",
     "summarySpans": [
       {
-        "start": 10,
-        "end": 17,
-        "bold": true
-      },
-      {
-        "start": 21,
-        "end": 35,
-        "bold": true
-      },
-      {
-        "start": 55,
-        "end": 69,
+        "start": 19,
+        "end": 33,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "shooting-phase"
         }
       },
       {
-        "start": 100,
-        "end": 111,
+        "start": 148,
+        "end": 159,
         "bold": true,
         "target": {
           "kind": "core-rule",
@@ -100,41 +91,35 @@
           }
         ],
         "detail": {
-          "window": {
-            "phase": "Shooting",
-            "turn": "active player is you",
-            "event": "after friendly shooting"
-          },
+          "detachment": "Path of the Outcast",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting",
+              "event": "a friendly RANGERS or SHROUD RUNNERS unit has shot"
+            }
+          ],
           "target": {
-            "side": "friendly",
-            "count": 1,
-            "binding": "triggering unit",
-            "keywords": {
-              "anyOf": [
-                "RANGERS",
-                "SHROUD RUNNERS"
-              ]
-            }
+            "fromTrigger": true,
+            "keywordsAny": [
+              "RANGERS",
+              "SHROUD RUNNERS"
+            ]
           },
-          "effect": {
-            "type": "optional choice and charge bar",
-            "options": [
-              {
-                "move": "Normal Move",
-                "maximumInches": "D6"
-              },
-              {
-                "action": "embark",
-                "destination": "eligible Transport"
-              }
-            ],
-            "chargeRestriction": {
-              "action": "declare charge",
-              "eligible": false,
-              "until": "turn ends"
+          "effects": [
+            {
+              "move": "normal",
+              "maxInches": "D6",
+              "optional": true
+            },
+            {
+              "notEligibleTo": [
+                "declare a charge",
+                "embark within a TRANSPORT"
+              ],
+              "duration": "end-of-turn"
             }
-          },
-          "restrictions": []
+          ]
         }
       }
     }

@@ -23,17 +23,7 @@
       ],
       "turn": "any"
     },
-    "summary": "When a phase concludes, restore readiness to one of your units with ADEPTUS CUSTODES if it is currently unready. Each unit can benefit once per battle round.",
-    "summarySpans": [
-      {
-        "start": 144,
-        "end": 156,
-        "target": {
-          "kind": "core-rule",
-          "id": "the-battle-round"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP at the end of any phase and pick one ADEPTUS CUSTODES unit of yours that is not readied; that unit becomes readied. Each unit can be its target no more than once in a battle round.",
     "citations": [
       {
         "type": "app",
@@ -65,41 +55,29 @@
         },
         "detail": {
           "detachment": "Emperor’s Chosen",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "any",
-                "turn": "either"
-              }
-            ],
-            "event": "phase-end"
-          },
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "any",
+              "timing": "end-of-phase"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "condition": {
-              "readied": false
-            }
+            "readied": false
           },
           "effects": [
             {
-              "action": "set-readied",
-              "recipient": "chosen-unit",
-              "value": true
+              "becomes": "readied"
             }
           ],
-          "restrictions": [
-            {
-              "maxUses": 1,
-              "scope": "target-unit",
-              "period": "battle-round"
-            }
-          ]
+          "limits": {
+            "sameUnitPerBattleRound": 1
+          }
         }
       }
     }

@@ -19,17 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "Play this when you choose a unit to shoot in your Shooting phase. Your chosen unit needs GRAV-ASSAULT. It can disregard modifiers to its Ballistic Skill and hit rolls.",
-    "summarySpans": [
-      {
-        "start": 50,
-        "end": 64,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase as one of your GRAV-ASSAULT units is picked to shoot. For the rest of that phase, that unit may ignore any modifiers applied to its Ballistic Skill or to its hit rolls.",
     "citations": [
       {
         "type": "app",
@@ -216,38 +206,30 @@
         ],
         "detail": {
           "detachment": "Grav-Assault Force",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "own"
-              }
-            ],
-            "event": "unit-selected-to-shoot",
-            "actor": "chosen-unit"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "trigger": "a friendly unit is selected to shoot",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "GRAV-ASSAULT"
             ],
-            "condition": {
-              "event": "triggering-unit"
-            }
+            "is": "the unit selected to shoot"
           },
           "effects": [
             {
-              "action": "allow-ignore-modifiers",
-              "recipient": "chosen-unit",
-              "inputs": [
-                "ballistic-skill",
+              "mayIgnoreModifiers": [
+                "BS",
                 "hit-roll"
               ]
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

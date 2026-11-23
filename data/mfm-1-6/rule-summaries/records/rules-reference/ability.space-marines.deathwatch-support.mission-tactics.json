@@ -13,75 +13,11 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Deathwatch Support",
-    "summary": "Combat Doctrines unlock these tactics for friendly KILL TEAM units that have this rule. Furor Tactics gives their weapons [SUSTAINED HITS 1] in devastator doctrine. Malleus Tactics gives their weapons [LETHAL HITS] in tactical doctrine. Purgatus Tactics gives their weapons [PRECISION] when their target is an enemy within 9″ in assault doctrine. You may include up to 500 points of DEATHWATCH units, which cannot provide your WARLORD. This Detachment provides Enhancements for KILL TEAM units.",
+    "summary": "Each friendly KILL TEAM unit that has this ability gains three abilities: Purgatus Tactics, Furor Tactics and Malleus Tactics. Purgatus Tactics: while it has the assault doctrine active, its attacks against enemy units within 9\" of it have [PRECISION]. Furor Tactics: [SUSTAINED HITS 1] on the unit's attacks while it has the devastator doctrine active. Malleus Tactics: [LETHAL HITS] on its attacks while it has the tactical doctrine active.\nYour army may include DEATHWATCH units even though their Chapter faction keyword differs from the rest of your army, up to a combined 500 points. Unless a rule says otherwise, no DEATHWATCH model can be picked as your WARLORD when mustering your army. KILL TEAM units can take Enhancements only from this detachment. These are exceptions to the army rules for Space Marine Chapters.",
     "summarySpans": [
       {
-        "start": 0,
-        "end": 16,
-        "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
-        }
-      },
-      {
-        "start": 51,
-        "end": 60,
-        "bold": true
-      },
-      {
-        "start": 88,
-        "end": 101,
-        "bold": true
-      },
-      {
-        "start": 122,
-        "end": 140,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "sustained-hits"
-        }
-      },
-      {
-        "start": 144,
-        "end": 163,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
-        }
-      },
-      {
-        "start": 165,
-        "end": 180,
-        "bold": true
-      },
-      {
-        "start": 201,
-        "end": 214,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "lethal-hits"
-        }
-      },
-      {
-        "start": 218,
-        "end": 235,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
-        }
-      },
-      {
-        "start": 237,
-        "end": 253,
-        "bold": true
-      },
-      {
-        "start": 274,
-        "end": 285,
+        "start": 240,
+        "end": 251,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -89,28 +25,22 @@
         }
       },
       {
-        "start": 329,
-        "end": 345,
+        "start": 268,
+        "end": 286,
         "bold": true,
         "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
         }
       },
       {
-        "start": 383,
-        "end": 393,
-        "bold": true
-      },
-      {
-        "start": 427,
-        "end": 434,
-        "bold": true
-      },
-      {
-        "start": 478,
-        "end": 487,
-        "bold": true
+        "start": 371,
+        "end": 384,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
       }
     ],
     "citations": [
@@ -183,223 +113,53 @@
           }
         ],
         "detail": {
-          "behavior": "activated",
-          "scope": {
-            "duration": "permanent"
-          },
-          "effect": {
-            "type": "sequence",
-            "steps": [
+          "grantedAbilities": {
+            "recipients": {
+              "side": "friendly",
+              "keywordsAll": [
+                "KILL TEAM"
+              ],
+              "hasAbility": "Mission Tactics"
+            },
+            "abilities": [
               {
-                "type": "sequence",
-                "steps": [
-                  {
-                    "type": "ability-grant",
-                    "target": {
-                      "owner": "friendly",
-                      "all_of": [
-                        "KILL TEAM"
-                      ],
-                      "has_ability": [
-                        "mission-tactics-deathwatch-support-deathwatch"
-                      ]
-                    },
-                    "modifier": {
-                      "ability": {
-                        "ability_id": "mission-tactics-deathwatch-support-deathwatch",
-                        "definition_id": "furor-tactics"
-                      },
-                      "definition": {
-                        "type": "ability-part",
-                        "name": "Furor Tactics",
-                        "effect": {
-                          "type": "conditional",
-                          "condition": {
-                            "type": "rule-active",
-                            "parameters": {
-                              "rule": {
-                                "ability_id": "combat-doctrines-adeptus-astartes",
-                                "option_id": "devastator-doctrine"
-                              }
-                            }
-                          },
-                          "effect": {
-                            "type": "weapon-ability-grant",
-                            "target": "this-unit",
-                            "modifier": {
-                              "keywords": [
-                                {
-                                  "keyword_id": "sustained-hits",
-                                  "parameters": {
-                                    "value": 1
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "type": "ability-grant",
-                    "target": {
-                      "owner": "friendly",
-                      "all_of": [
-                        "KILL TEAM"
-                      ],
-                      "has_ability": [
-                        "mission-tactics-deathwatch-support-deathwatch"
-                      ]
-                    },
-                    "modifier": {
-                      "ability": {
-                        "ability_id": "mission-tactics-deathwatch-support-deathwatch",
-                        "definition_id": "malleus-tactics"
-                      },
-                      "definition": {
-                        "type": "ability-part",
-                        "name": "Malleus Tactics",
-                        "effect": {
-                          "type": "conditional",
-                          "condition": {
-                            "type": "rule-active",
-                            "parameters": {
-                              "rule": {
-                                "ability_id": "combat-doctrines-adeptus-astartes",
-                                "option_id": "tactical-doctrine"
-                              }
-                            }
-                          },
-                          "effect": {
-                            "type": "weapon-ability-grant",
-                            "target": "this-unit",
-                            "modifier": {
-                              "keywords": [
-                                {
-                                  "keyword_id": "lethal-hits"
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "type": "ability-grant",
-                    "target": {
-                      "owner": "friendly",
-                      "all_of": [
-                        "KILL TEAM"
-                      ],
-                      "has_ability": [
-                        "mission-tactics-deathwatch-support-deathwatch"
-                      ]
-                    },
-                    "modifier": {
-                      "ability": {
-                        "ability_id": "mission-tactics-deathwatch-support-deathwatch",
-                        "definition_id": "purgatus-tactics"
-                      },
-                      "definition": {
-                        "type": "ability-part",
-                        "name": "Purgatus Tactics",
-                        "effect": {
-                          "type": "conditional",
-                          "condition": {
-                            "operator": "and",
-                            "operands": [
-                              {
-                                "type": "rule-active",
-                                "parameters": {
-                                  "rule": {
-                                    "ability_id": "combat-doctrines-adeptus-astartes",
-                                    "option_id": "assault-doctrine"
-                                  }
-                                }
-                              },
-                              {
-                                "type": "matches",
-                                "parameters": {
-                                  "subject": "defender",
-                                  "filter": {
-                                    "owner": "enemy"
-                                  }
-                                }
-                              },
-                              {
-                                "type": "matches",
-                                "parameters": {
-                                  "subject": "defender",
-                                  "filter": {
-                                    "within": {
-                                      "of": "this-unit",
-                                      "range": {
-                                        "inches": 9
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            ]
-                          },
-                          "effect": {
-                            "type": "weapon-ability-grant",
-                            "target": "this-unit",
-                            "modifier": {
-                              "keywords": [
-                                {
-                                  "keyword_id": "precision"
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
+                "name": "Furor Tactics",
+                "whileDoctrineActive": "devastator doctrine",
+                "attacks": "all",
+                "grant": "[SUSTAINED HITS 1]",
+                "value": 1
               },
               {
-                "type": "army-rule",
-                "target": "this-unit",
-                "modifier": {
-                  "rule": "composition",
-                  "with": {
-                    "all_of": [
-                      "DEATHWATCH"
-                    ]
-                  },
-                  "max": 500,
-                  "measure": "points"
-                }
+                "name": "Malleus Tactics",
+                "whileDoctrineActive": "tactical doctrine",
+                "attacks": "all",
+                "grant": "[LETHAL HITS]"
               },
               {
-                "type": "army-rule",
-                "target": {
-                  "owner": "friendly",
-                  "all_of": [
-                    "DEATHWATCH"
-                  ]
-                },
-                "modifier": {
-                  "rule": "warlord-forbidden"
-                }
-              },
-              {
-                "type": "army-rule",
-                "target": {
-                  "owner": "friendly",
-                  "all_of": [
-                    "KILL TEAM"
-                  ]
-                },
-                "modifier": {
-                  "rule": "enhancement-source"
-                }
+                "name": "Purgatus Tactics",
+                "whileDoctrineActive": "assault doctrine",
+                "attacks": "against an enemy unit within range",
+                "rangeInches": 9,
+                "grant": "[PRECISION]"
               }
             ]
+          },
+          "deathwatchAllies": {
+            "unitsKeyword": "DEATHWATCH",
+            "ignoresChapterFactionKeywordMatch": true,
+            "maxCombinedPoints": 500,
+            "warlordBan": {
+              "keyword": "DEATHWATCH",
+              "unlessOtherwiseStated": true
+            },
+            "enhancementRestriction": {
+              "unitsKeyword": "KILL TEAM",
+              "onlyFromThisDetachment": true
+            }
+          },
+          "exceptionTo": {
+            "rule": "Space Marine Chapters Army Rules",
+            "page": 156
           }
         }
       }

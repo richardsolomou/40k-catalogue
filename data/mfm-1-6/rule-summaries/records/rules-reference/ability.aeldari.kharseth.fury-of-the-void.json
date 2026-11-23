@@ -13,30 +13,16 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Kharseth",
-    "summary": "Once this model’s unit finishes firing during your Shooting phase, pick one enemy the model struck with its Dread of the Deep Void. AELDARI attackers from your army gain +1 Strength against that choice until the turn closes.",
+    "summary": "Once this model’s unit finishes firing during your Shooting phase, choose an enemy unit hit by at least one Dread of the Deep Void attack this model made. That unit is riven until the turn ends, and each attack made by one of your AELDARI models against a riven unit gets +1 Strength.",
     "summarySpans": [
       {
         "start": 51,
         "end": 65,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "shooting-phase"
         }
-      },
-      {
-        "start": 108,
-        "end": 113,
-        "bold": true
-      },
-      {
-        "start": 132,
-        "end": 139,
-        "bold": true
-      },
-      {
-        "start": 173,
-        "end": 181,
-        "bold": true
       }
     ],
     "citations": [
@@ -111,23 +97,24 @@
           }
         },
         "detail": {
-          "actor": "controlling-player",
-          "timing": "after-this-model-unit-shoots-in-own-shooting-phase",
-          "selection": {
-            "side": "enemy",
-            "entity": "unit",
-            "count": 1,
-            "minimumHitsFromNamedWeapon": 1,
-            "weapon": "Dread of the Deep Void",
-            "optional": false
-          },
-          "duration": "through-end-of-turn",
-          "effect": {
-            "actor": "own-army-model",
-            "keyword": "Aeldari",
-            "trigger": "each-attack-targeting-selected-unit",
-            "characteristic": "strength",
-            "modifier": 1
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "after this model's unit has shot"
+            },
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitByWeapon": "Dread of the Deep Void",
+              "minHits": 1
+            },
+            "state": "riven",
+            "duration": "end-of-turn",
+            "whileRiven": {
+              "attackers": "friendly AELDARI models",
+              "strengthBonus": 1
+            }
           }
         }
       }

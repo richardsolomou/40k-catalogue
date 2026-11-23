@@ -12,33 +12,7 @@
   },
   "data": {
     "ruleType": "detachment-rule",
-    "summary": "At muster, a friendly ANATHEMA PSYKANA CHARACTER can serve as WARLORD. Your PROSECUTOR SQUADS gain BATTLELINE. All friendly ANATHEMA PSYKANA units project Creeping Dread (Aura). In the enemy Command phase’s Battle-shock step, each enemy up to 12 inches from the emitter rolls for Battle-shock with a penalty of 1 if it has PSYKER or is below its starting strength.",
-    "summarySpans": [
-      {
-        "start": 191,
-        "end": 204,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 207,
-        "end": 224,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock-step"
-        }
-      },
-      {
-        "start": 270,
-        "end": 292,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      }
-    ],
+    "summary": "As you muster your army, you may pick an ANATHEMA PSYKANA CHARACTER model of yours as your WARLORD. PROSECUTOR SQUAD units in your army gain the BATTLELINE keyword. Every friendly ANATHEMA PSYKANA unit carries the Creeping Dread (Aura) ability: during the opponent's Command phase, at its Battle-shock step, every enemy PSYKER unit, and every enemy unit below its starting strength, within 12\" of that ANATHEMA PSYKANA unit must roll for battle-shock, taking -1 on that roll.",
     "citations": [
       {
         "type": "app",
@@ -59,45 +33,59 @@
           }
         ],
         "detail": {
+          "kind": "detachment-rule",
           "detachment": "Null Maiden Vigil",
           "muster": {
-            "mayMakeWarlord": {
+            "optional": true,
+            "warlord": {
               "side": "friendly",
-              "allKeywords": [
-                "Anathema Psykana",
-                "Character"
-              ],
-              "entity": "model"
+              "scope": "model",
+              "keywordsAll": [
+                "ANATHEMA PSYKANA",
+                "CHARACTER"
+              ]
             }
           },
-          "grantBattleline": {
-            "side": "friendly",
-            "unit": "Prosecutor Squad"
-          },
-          "aura": {
-            "name": "Creeping Dread",
-            "emitter": {
+          "grantKeyword": {
+            "units": {
               "side": "friendly",
-              "keyword": "Anathema Psykana",
-              "entity": "unit"
-            },
-            "timing": {
-              "phase": "Command",
-              "whose": "opponent",
-              "step": "Battle-shock"
-            },
-            "recipient": {
-              "side": "enemy",
-              "maximumRangeInches": 12,
-              "anyOf": [
-                "Psyker",
-                "below-starting-strength"
+              "keywordsAll": [
+                "PROSECUTOR SQUAD"
               ]
             },
-            "roll": {
-              "type": "battle-shock",
-              "modifier": -1,
-              "penaltyMagnitude": 1
+            "keyword": "BATTLELINE"
+          },
+          "grantAbility": {
+            "units": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ANATHEMA PSYKANA"
+              ]
+            },
+            "ability": "Creeping Dread (Aura)",
+            "when": {
+              "turn": "opponent",
+              "phase": "command",
+              "step": "battle-shock"
+            },
+            "affects": {
+              "side": "enemy",
+              "withinInches": 12,
+              "anyOf": [
+                {
+                  "keywordsAll": [
+                    "PSYKER"
+                  ]
+                },
+                {
+                  "belowStartingStrength": true
+                }
+              ]
+            },
+            "effect": {
+              "roll": "battle-shock",
+              "modifier": "subtract",
+              "value": 1
             }
           }
         }

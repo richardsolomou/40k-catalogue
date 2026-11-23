@@ -13,32 +13,20 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Imperialis Fleet",
-    "summary": "Model eligibility — AGENTS OF THE IMPERIUM. When the bearer is picked to fight, choose one enemy unit in its Engagement Range and roll a D6. A 4+ deals 1 mortal wound to that unit. Allocate it as if it had [PRECISION].",
+    "summary": "For an AGENTS OF THE IMPERIUM model. As the bearer is picked to fight, you roll three D6; each 4+ inflicts 1 mortal wound on an enemy unit that is within the bearer’s Engagement Range. Allocate those mortal wounds as if they had [PRECISION].",
     "summarySpans": [
       {
-        "start": 20,
-        "end": 42,
-        "bold": true
-      },
-      {
-        "start": 109,
-        "end": 125,
+        "start": 167,
+        "end": 183,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "engagement-range"
         }
       },
       {
-        "start": 154,
-        "end": 166,
-        "target": {
-          "kind": "core-rule",
-          "id": "mortal-wounds"
-        }
-      },
-      {
-        "start": 207,
-        "end": 216,
+        "start": 229,
+        "end": 240,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -63,6 +51,7 @@
           "type": "model",
           "points": 10,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -73,14 +62,23 @@
           }
         },
         "detail": {
-          "trigger": "bearer selected to fight",
-          "target": "one enemy unit within Engagement Range of bearer",
-          "effect": {
-            "roll": "D6",
-            "success": "4+",
-            "mortalWounds": 1,
-            "allocation": "as if PRECISION"
-          }
+          "kind": "enhancement",
+          "detachment": "Imperialis Fleet",
+          "effects": [
+            {
+              "when": "each time the bearer is selected to fight",
+              "roll": {
+                "count": 3,
+                "die": "D6"
+              },
+              "successOn": "4+",
+              "perSuccess": {
+                "mortalWounds": 1,
+                "target": "one enemy unit within Engagement Range of the bearer"
+              },
+              "allocation": "as if [PRECISION]"
+            }
+          ]
         }
       }
     }

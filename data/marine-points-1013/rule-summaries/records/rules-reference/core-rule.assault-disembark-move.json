@@ -14,12 +14,25 @@
     "document": "Core Rules",
     "section": "18. Transports",
     "ruleNumber": "18.06",
-    "summary": "A unit needs a rule that lets it make an Assault Disembark Move. It must be riding in a TRANSPORT already on the battlefield. Neither boarding that TRANSPORT nor an Advance or Fall Back by the TRANSPORT can have happened this phase. Follow the Set Up procedure. Place every model entirely within 3 inches of the TRANSPORT.",
+    "summary": "A unit can make an Assault Disembark Move only when another rule grants this move type, and only if all of these are true: it is aboard a TRANSPORT model currently on the battlefield; it did not board that TRANSPORT during this phase; and that TRANSPORT has not advanced or fallen back during this phase. The unit is placed by the Set Up procedure (03.02 in the Core Rules), with every model wholly within 3\" of that TRANSPORT.",
     "summarySpans": [
       {
-        "start": 244,
-        "end": 250,
-        "bold": true
+        "start": 19,
+        "end": 41,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "assault-disembark-move"
+        }
+      },
+      {
+        "start": 331,
+        "end": 337,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "set-up"
+        }
       }
     ],
     "citations": [
@@ -37,31 +50,34 @@
       "fields": {
         "detail": {
           "kind": "move-type",
-          "trigger": {
-            "grantRequired": true,
-            "source": "another-rule"
-          },
+          "ruleNumber": "18.06",
+          "grantedBy": "another rule naming this move type",
           "eligibility": {
             "all": [
-              "embarked-in-transport-model-on-battlefield",
-              "did-not-embark-in-that-transport-this-phase",
-              "transport-did-not-advance-this-phase",
-              "transport-did-not-fall-back-this-phase"
+              "embarked within a TRANSPORT model on the battlefield",
+              "did not embark within that TRANSPORT this phase",
+              "that TRANSPORT made no advance move this phase",
+              "that TRANSPORT made no fall-back move this phase"
             ]
           },
           "effect": {
-            "procedure": {
-              "ruleNumber": "03.02",
-              "id": "8c6aa4e8-26ce-4a49-ba07-8275ea6deeea"
-            },
-            "kind": "set-up-unit"
+            "procedure": "Set Up",
+            "procedureRule": "03.02",
+            "procedureRuleParts": [
+              3,
+              2
+            ]
           },
           "placement": {
-            "recipient": "every-model-in-unit",
-            "mode": "wholly-within",
-            "distanceInches": 3,
-            "from": "transport-model"
-          }
+            "models": "every model in the unit",
+            "mode": "wholly within",
+            "setUpDistanceInches": 3,
+            "from": "that TRANSPORT"
+          },
+          "ruleNumberParts": [
+            18,
+            6
+          ]
         }
       }
     }

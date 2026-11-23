@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Krieg Command Squad",
-    "summary": "When you issue an Order with Servo-scribes, you may add a second Order. You can use Servo-scribes once in the battle.",
+    "summary": "Once per battle, when the Lord Commissar gives an Order, it may give one extra Order as well.",
     "citations": [
       {
         "type": "app",
@@ -28,19 +28,14 @@
       "version": "1",
       "fields": {
         "detail": {
-          "limit": {
-            "count": 1,
-            "per": "battle"
-          },
-          "trigger": {
-            "event": "issue Orders",
-            "actor": "owner unit"
-          },
-          "optional": true,
-          "effect": {
-            "orders": {
-              "operation": "add",
-              "count": 1
+          "ability": {
+            "uses": {
+              "perBattle": 1
+            },
+            "trigger": "the Lord Commissar issues an Order",
+            "optional": true,
+            "effect": {
+              "additionalOrders": 1
             }
           }
         }

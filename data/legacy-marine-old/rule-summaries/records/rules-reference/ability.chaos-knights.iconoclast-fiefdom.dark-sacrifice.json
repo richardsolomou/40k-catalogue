@@ -20,19 +20,20 @@
       ],
       "turn": "own"
     },
-    "summary": "In your Command phase, choose a CHAOS KNIGHTS model with a friendly DAMNED unit no farther than 9\" away. Pick a DAMNED model within 9\" of that CHAOS KNIGHTS model. Roll D3+3 and deal that many mortal wounds to the DAMNED model’s unit. Heal that CHAOS KNIGHTS model by the rolled total.",
+    "summary": "Spend 1 CP in your Command phase. Target one DAMNED unit of yours (not ACCURSED CULTISTS units) that is 9\" or less from one of your CHAOS KNIGHTS models. Pick a CHAOS KNIGHTS model that is no more than 9\" from that DAMNED unit, then roll D3+3: the DAMNED unit takes mortal wounds equal to the result, and the CHAOS KNIGHTS model heals the same number of wounds.",
     "summarySpans": [
       {
-        "start": 8,
-        "end": 21,
+        "start": 19,
+        "end": 32,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "command-phase"
         }
       },
       {
-        "start": 193,
-        "end": 206,
+        "start": 266,
+        "end": 279,
         "bold": true,
         "target": {
           "kind": "core-rule",
@@ -72,66 +73,45 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "command",
-                "turn": "your"
-              }
-            ],
-            "event": "during-phase"
-          },
+          "detachment": "Iconoclast Fiefdom",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "command"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "model",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "CHAOS KNIGHTS"
+            "entity": "unit",
+            "keywordsAll": [
+              "DAMNED"
             ],
-            "nearFriendly": {
-              "entity": "unit",
-              "keywords": [
-                "DAMNED"
+            "excludedKeywords": [
+              "ACCURSED CULTISTS"
+            ],
+            "requires": {
+              "friendlyModelKeywords": [
+                "CHAOS KNIGHTS"
               ],
-              "distance": {
-                "unit": "inch",
-                "amount": 9,
-                "from": "target-model",
-                "comparator": "at-most"
-              }
+              "withinInches": 9
             }
           },
           "effects": [
             {
-              "action": "select-model",
-              "recipient": "sacrifice-model",
-              "owner": "friendly",
-              "keywords": [
-                "DAMNED"
-              ],
-              "count": 1,
-              "distance": {
-                "unit": "inch",
-                "amount": 9,
-                "from": "target-model",
-                "comparator": "at-most"
+              "select": {
+                "entity": "model",
+                "count": 1,
+                "keywordsAll": [
+                  "CHAOS KNIGHTS"
+                ],
+                "withinInchesOfTarget": 9
               }
             },
             {
-              "action": "inflict-mortal-wounds",
-              "recipient": "unit-containing-sacrifice-model",
-              "amount": {
-                "kind": "die",
-                "sides": 3,
-                "count": 1,
-                "bonus": 3
-              },
-              "bindAmount": "sacrifice-roll"
-            },
-            {
-              "action": "heal",
-              "recipient": "target-model",
-              "amountFrom": "sacrifice-roll"
+              "roll": "D3+3",
+              "targetSuffersMortalWounds": "roll",
+              "selectedModelHeals": "roll"
             }
           ]
         }

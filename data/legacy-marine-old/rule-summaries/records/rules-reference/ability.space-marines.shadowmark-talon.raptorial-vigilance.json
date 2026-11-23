@@ -21,41 +21,7 @@
       "turn": "opponent",
       "type": "battle-tactic"
     },
-    "summary": "During the enemy Movement phase, use this once an enemy ends its move no more than 8 inches from your ADEPTUS ASTARTES INFANTRY unit. The friendly unit must be unengaged. That friendly unit may make a Normal move with a D6-inch cap. A PHOBOS unit or a SCOUT SQUAD uses a fixed cap of 6 inches instead.",
-    "summarySpans": [
-      {
-        "start": 17,
-        "end": 31,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 102,
-        "end": 127,
-        "bold": true
-      },
-      {
-        "start": 160,
-        "end": 169,
-        "bold": true
-      },
-      {
-        "start": 201,
-        "end": 212,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "normal-move"
-        }
-      },
-      {
-        "start": 235,
-        "end": 241,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in the opponent's Movement phase, right after an enemy unit finishes a Fall Back, Normal or Advance move. Pick an ADEPTUS ASTARTES INFANTRY or ADEPTUS ASTARTES MOUNTED unit of yours, within 8\" of that enemy unit and not in Engagement Range of any enemy unit. It may move up to D6\" as a Normal move, or up to 6\" for a PHOBOS or SCOUT SQUAD unit.",
     "citations": [
       {
         "type": "app",
@@ -97,47 +63,37 @@
           }
         },
         "detail": {
-          "trigger": {
-            "turn": "opponent",
-            "phases": [
-              "movement"
-            ],
-            "event": "enemy-finishes-move",
-            "withinInches": {
-              "value": 8,
-              "of": "selected-unit"
+          "detachment": "Shadowmark Talon",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "movement",
+              "trigger": "just after an enemy unit finishes a Normal, Advance or Fall Back move"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "ADEPTUS ASTARTES INFANTRY"
+            "keywordsAny": [
+              "ADEPTUS ASTARTES INFANTRY",
+              "ADEPTUS ASTARTES MOUNTED"
             ],
-            "unengaged": true
+            "withinInchesOfThatEnemyUnit": 8,
+            "notWithinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "kind": "move",
-              "subject": "selected-unit",
-              "move": "normal",
-              "optional": true,
-              "maximumInches": {
-                "dice": "D6"
-              },
-              "alternateMaximum": {
-                "inches": 6,
-                "if": {
-                  "anyOf": [
-                    {
-                      "keyword": "PHOBOS"
-                    },
-                    {
-                      "unitName": "Scout Squad"
-                    }
-                  ]
-                }
-              }
+              "move": "Normal",
+              "maxInches": "D6"
+            },
+            {
+              "ifKeywordsAny": [
+                "PHOBOS",
+                "SCOUT SQUAD"
+              ],
+              "move": "Normal",
+              "maxInches": 6,
+              "replacesPrevious": true
             }
           ]
         }

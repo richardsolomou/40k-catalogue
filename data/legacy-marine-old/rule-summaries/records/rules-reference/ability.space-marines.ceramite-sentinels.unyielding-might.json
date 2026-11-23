@@ -21,32 +21,7 @@
       "turn": "any",
       "type": "battle-tactic"
     },
-    "summary": "In either Command phase, select one ADEPTUS ASTARTES unit in range of an objective. Give it +1 OC for the remainder of the turn.",
-    "summarySpans": [
-      {
-        "start": 10,
-        "end": 23,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 36,
-        "end": 52,
-        "bold": true
-      },
-      {
-        "start": 73,
-        "end": 82,
-        "bold": true
-      },
-      {
-        "start": 95,
-        "end": 97,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in either player's Command phase, picking an ADEPTUS ASTARTES unit of yours that is in Engagement Range of at least one enemy unit. Until your next Command phase starts, its models get +1 Objective Control.",
     "citations": [
       {
         "type": "app",
@@ -78,30 +53,29 @@
           }
         },
         "detail": {
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "command"
-            ],
-            "event": "phase-window"
-          },
+          "detachment": "Ceramite Sentinels",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "command"
+            }
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "ADEPTUS ASTARTES"
             ],
-            "withinObjectiveRange": true
+            "withinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "kind": "modifier",
-              "stat": "objective-control",
-              "amount": 1,
-              "subject": "selected-unit"
+              "characteristic": "OC",
+              "add": 1,
+              "appliesTo": "models in the target unit"
             }
           ],
-          "duration": "end-of-turn"
+          "duration": "until-start-of-your-next-command-phase"
         }
       }
     }

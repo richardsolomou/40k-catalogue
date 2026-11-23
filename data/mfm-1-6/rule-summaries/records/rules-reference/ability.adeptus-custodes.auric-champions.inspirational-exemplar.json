@@ -12,35 +12,7 @@
   },
   "data": {
     "ruleType": "enhancement",
-    "summary": "Model eligibility — ADEPTUS CUSTODES / INFANTRY. Once per battle round, end Battle-shock for a friendly Battle-shocked unit within 9\" of the bearer.",
-    "summarySpans": [
-      {
-        "start": 20,
-        "end": 36,
-        "bold": true
-      },
-      {
-        "start": 39,
-        "end": 47,
-        "bold": true
-      },
-      {
-        "start": 76,
-        "end": 88,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      },
-      {
-        "start": 104,
-        "end": 118,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS CUSTODES INFANTRY model. Once per battle round for your army, as any phase starts, you may pick an ADEPTUS CUSTODES unit of yours that is battle-shocked and no more than 9\" from this model; that unit stops being battle-shocked.",
     "citations": [
       {
         "type": "app",
@@ -58,6 +30,7 @@
           "type": "model",
           "points": 10,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "keywords": [
@@ -80,20 +53,27 @@
           ]
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Auric Champions",
+          "limit": "once-per-battle-round-per-army",
           "effects": [
             {
-              "type": "clear-state",
-              "target": "friendly-unit",
-              "state": "Battle-shocked",
-              "requiresState": "Battle-shocked",
-              "rangeInches": 9,
-              "rangeOrigin": "bearer",
-              "maximumTargets": 1
+              "when": {
+                "timing": "start-of-any-phase"
+              },
+              "optional": true,
+              "select": {
+                "side": "friendly",
+                "count": 1,
+                "keywordsAll": [
+                  "ADEPTUS CUSTODES"
+                ],
+                "battleShocked": true,
+                "withinInches": 9
+              },
+              "effect": "no-longer-battle-shocked"
             }
-          ],
-          "usage": {
-            "limit": "once-per-battle-round"
-          }
+          ]
         }
       }
     }

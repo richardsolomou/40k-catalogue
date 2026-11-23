@@ -19,25 +19,7 @@
       ],
       "turn": "any"
     },
-    "summary": "When you pick an ADEPTUS CUSTODES unit of yours to fight in either Fight phase, its melee attacks may disregard modifiers to both the Hit and Wound rolls.",
-    "summarySpans": [
-      {
-        "start": 67,
-        "end": 78,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 142,
-        "end": 153,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in either player's Fight phase as one of your ADEPTUS CUSTODES units is picked to fight. For the rest of that phase, modifiers to the Hit rolls and Wound rolls of its melee attacks may be ignored.",
     "citations": [
       {
         "type": "app",
@@ -132,36 +114,31 @@
         ],
         "detail": {
           "detachment": "Emissaries Imperatus",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "friendly-selected-to-fight"
-          },
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "trigger": "a friendly unit is selected to fight",
           "target": {
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "controller": "friendly",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "relation": "selected-unit"
+            "is": "the unit selected to fight"
           },
           "effects": [
             {
-              "action": "ignore-roll-modifiers",
-              "optional": true,
               "attackType": "melee",
-              "rolls": [
-                "hit",
-                "wound"
+              "mayIgnoreModifiers": [
+                "hit-roll",
+                "wound-roll"
               ]
             }
           ],
-          "restrictions": []
+          "duration": "end-of-phase"
         }
       }
     }

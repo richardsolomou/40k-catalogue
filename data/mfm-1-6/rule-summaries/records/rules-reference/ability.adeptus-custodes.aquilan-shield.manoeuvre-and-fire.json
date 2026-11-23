@@ -19,25 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "As you select one of your units with ADEPTUS CUSTODES to Fall Back in your Movement phase, lift that move’s restrictions on shooting and on declaring a charge.",
-    "summarySpans": [
-      {
-        "start": 57,
-        "end": 66,
-        "target": {
-          "kind": "core-rule",
-          "id": "fall-back"
-        }
-      },
-      {
-        "start": 75,
-        "end": 89,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Movement phase as one of your ADEPTUS CUSTODES units is picked to Fall Back. Falling Back in this way does not make the unit ineligible to shoot or to declare a charge this turn.",
     "citations": [
       {
         "type": "app",
@@ -73,40 +55,27 @@
         ],
         "detail": {
           "detachment": "Aquilan Shield",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "own"
-              }
-            ],
-            "event": "unit-selected-for-fall-back",
-            "actor": "chosen-unit"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            }
+          ],
+          "trigger": "a friendly unit is selected to make a fall-back move",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "condition": {
-              "event": "triggering-unit"
-            }
+            "is": "the unit making that fall-back move"
           },
           "effects": [
             {
-              "action": "remove-eligibility-block",
-              "recipient": "chosen-unit",
-              "blockedAction": "shoot",
-              "cause": "triggering-fall-back"
-            },
-            {
-              "action": "remove-eligibility-block",
-              "recipient": "chosen-unit",
-              "blockedAction": "declare-charge",
-              "cause": "triggering-fall-back"
+              "fallBackDoesNotPrevent": [
+                "shoot",
+                "declare-charge"
+              ]
             }
           ]
         }

@@ -13,38 +13,16 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Talons of the Norn Queen",
-    "summary": "Units with either the NORN EMISSARY or the NORN ASSIMILATOR datasheet have Protean Purpose. Each can use it once a battle during your Command phase. Make a fresh Singular Purpose choice for that unit, superseding its old choice.",
+    "summary": "Friendly NORN EMISSARY or NORN ASSIMILATOR units have Protean Purpose. Each such unit can use it once per battle, in your Command phase, to redo the unit’s Singular Purpose selection, replacing the earlier one.",
     "summarySpans": [
       {
-        "start": 22,
-        "end": 35,
+        "start": 122,
+        "end": 135,
         "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "tyranids.norn-assimilator.singular-purpose"
-        }
-      },
-      {
-        "start": 43,
-        "end": 59,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "tyranids.norn-emissary.singular-purpose"
-        }
-      },
-      {
-        "start": 134,
-        "end": 147,
         "target": {
           "kind": "core-rule",
           "id": "command-phase"
         }
-      },
-      {
-        "start": 162,
-        "end": 178,
-        "bold": true
       }
     ],
     "citations": [
@@ -61,28 +39,30 @@
       "version": "1",
       "fields": {
         "detail": {
-          "scope": {
-            "owner": "friendly",
-            "level": "unit",
-            "anyOfDatasheets": [
-              "Norn Emissary",
-              "Norn Assimilator"
-            ]
-          },
-          "trigger": {
-            "phase": "command",
-            "player": "self"
-          },
-          "limit": {
-            "count": 1,
-            "period": "battle",
-            "per": "unit"
-          },
-          "effect": {
-            "type": "repeat-named-ability-selection",
-            "ability": "Singular Purpose",
+          "detachment": "Talons of the Norn Queen",
+          "ability": {
+            "name": "Protean Purpose",
+            "bearer": {
+              "side": "friendly",
+              "keywordsAny": [
+                "NORN EMISSARY",
+                "NORN ASSIMILATOR"
+              ]
+            },
+            "limit": {
+              "uses": 1,
+              "per": "battle",
+              "scope": "unit"
+            },
+            "when": {
+              "turn": "own",
+              "phase": "command"
+            },
             "optional": true,
-            "replacePreviousSelection": true
+            "effect": {
+              "newSelectionFor": "Singular Purpose",
+              "replacesPreviousSelection": true
+            }
           }
         }
       }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Emperor's Champion",
-    "summary": "Add 1 to Charge rolls for this unit.",
+    "summary": "This ability has two parts. First: on declaring a charge with this unit while an enemy CHARACTER unit lies within 12\" of it, you may choose to use this part; if you do, the unit may re-roll the Charge roll, but it has to finish its charge move engaged with at least one such enemy CHARACTER unit. Second, usable once per battle across your whole army: during the Fight phase, as this unit is picked to fight while a CHARACTER unit is engaged with it, you may give its melee attacks [DEVASTATING WOUNDS] for the rest of that phase.",
     "citations": [
       {
         "type": "app",
@@ -28,17 +28,45 @@
       "version": "1",
       "fields": {
         "detail": {
-          "trigger": {
-            "kind": "always"
+          "ability": {
+            "parts": [
+              {
+                "trigger": "this unit declares a charge",
+                "condition": {
+                  "side": "enemy",
+                  "keywordsAll": [
+                    "CHARACTER"
+                  ],
+                  "withinInches": 12
+                },
+                "optional": true,
+                "effects": {
+                  "rerollChargeRoll": true,
+                  "mustEndChargeMoveEngagedWithThoseCharacterUnits": true
+                }
+              },
+              {
+                "uses": {
+                  "perBattle": 1,
+                  "scope": "army"
+                },
+                "when": {
+                  "phase": "fight",
+                  "event": "this unit is selected to fight"
+                },
+                "condition": "engaged with a CHARACTER unit",
+                "optional": true,
+                "effect": {
+                  "attackType": "melee",
+                  "weaponAbility": "DEVASTATING WOUNDS"
+                },
+                "duration": "end-of-phase",
+                "durationBasis": "Core Rules 01.02.02: the official text prints no duration, so the effect lasts only for the phase it was applied in."
+              }
+            ]
           },
-          "target": {
-            "unit": "this-unit"
-          },
-          "conditions": [],
-          "effect": {
-            "kind": "modify-roll",
-            "roll": "charge",
-            "by": 1
+          "cardPrintsOtherText": {
+            "chargeRollModifier": 1
           }
         }
       }

@@ -19,25 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "Use during your Shooting phase as you choose a GRAV-ASSAULT unit to shoot. Its ranged attacks gain [ASSAULT].",
-    "summarySpans": [
-      {
-        "start": 16,
-        "end": 30,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 47,
-        "end": 59,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "assault"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase as one of your GRAV-ASSAULT units is picked to shoot. For the rest of that phase, its ranged attacks have [ASSAULT].",
     "citations": [
       {
         "type": "app",
@@ -73,35 +55,28 @@
         ],
         "detail": {
           "detachment": "Grav-Assault Force",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "own"
-              }
-            ],
-            "event": "unit-selected-to-shoot",
-            "actor": "chosen-unit"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "trigger": "a friendly unit is selected to shoot",
           "target": {
-            "controller": "friendly",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "GRAV-ASSAULT"
             ],
-            "condition": {
-              "event": "triggering-unit"
-            }
+            "is": "the unit selected to shoot"
           },
           "effects": [
             {
-              "action": "grant-weapon-ability",
-              "recipient": "ranged-attacks-of-chosen-unit",
-              "ability": "assault"
+              "attackType": "ranged",
+              "weaponAbility": "ASSAULT"
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

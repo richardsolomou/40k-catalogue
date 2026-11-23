@@ -13,56 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Brazen Engines",
-    "summary": "Friendly DAEMON VEHICLE units gain Terror of Khorne: As the Fight phase opens, the bearer may pick an enemy unit engaged with it. Require a battle‑shock roll from that foe, with a −1 modifier. A particular foe can face Terror of Khorne only once in a phase. An ONSLAUGHT unit taken in this detachment is barred from another detachment.",
-    "summarySpans": [
-      {
-        "start": 9,
-        "end": 23,
-        "bold": true
-      },
-      {
-        "start": 35,
-        "end": 52,
-        "bold": true
-      },
-      {
-        "start": 60,
-        "end": 71,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 113,
-        "end": 120,
-        "bold": true
-      },
-      {
-        "start": 140,
-        "end": 157,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      },
-      {
-        "start": 261,
-        "end": 270,
-        "bold": true
-      },
-      {
-        "start": 290,
-        "end": 300,
-        "bold": true
-      },
-      {
-        "start": 324,
-        "end": 334,
-        "bold": true
-      }
-    ],
+    "summary": "Every DAEMON VEHICLE unit of yours has Terror of Khorne: when any Fight phase starts, you may choose one enemy unit that this unit is engaged with, and that enemy must take a battle-shock roll, subtracting 1 from it. No enemy unit can be picked for this more than once in a phase. This detachment carries the ONSLAUGHT tag, so it cannot be combined with another ONSLAUGHT detachment.",
     "citations": [
       {
         "type": "app",
@@ -77,58 +28,34 @@
       "version": "1",
       "fields": {
         "detail": {
-          "scope": {
-            "factionId": "8bd4c67d-4aba-4502-8561-7c6c6faae51d",
-            "faction": "World Eaters",
-            "detachmentId": "b316e2f6-0b93-4805-9b5e-38f050875ad3",
-            "detachment": "Brazen Engines",
-            "uniqueTags": [],
-            "sourceId": "b316e2f6-0b93-4805-9b5e-38f050875ad3:rampaging-terrors",
-            "cardType": "detachmentRule",
-            "cardEdition": "40k-11e"
-          },
-          "grant": {
-            "type": "ability-grant",
+          "grantedAbility": {
             "name": "Terror of Khorne",
-            "bearer": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Daemon",
-                "Vehicle"
+            "recipients": {
+              "side": "friendly",
+              "keywordsAll": [
+                "DAEMON",
+                "VEHICLE"
               ]
             },
-            "trigger": {
-              "event": "phase-started",
-              "phase": "fight",
-              "owner": "either"
-            },
-            "selection": {
+            "when": "start of any Fight phase",
+            "optional": true,
+            "select": {
+              "side": "enemy",
               "count": 1,
-              "optional": true,
-              "target": {
-                "owner": "enemy",
-                "level": "unit",
-                "engagedWith": "bearer-unit"
-              },
-              "limitPerTarget": {
-                "count": 1,
-                "period": "phase"
-              }
+              "engagedWith": "this unit"
             },
             "effect": {
-              "type": "test",
-              "test": "battle-shock",
-              "target": "selected-enemy-unit",
+              "battleShockRoll": true,
               "modifier": -1
+            },
+            "perEnemyUnitLimit": {
+              "count": 1,
+              "period": "phase"
             }
           },
-          "roster": {
-            "type": "detachment-tag-exclusivity",
-            "tag": "onslaught",
-            "scope": "friendly-army",
-            "allowedIn": "this-detachment",
-            "prohibitedIn": "other-detachments"
+          "detachmentTag": {
+            "tag": "ONSLAUGHT",
+            "cannotCombineWithDetachmentTag": "ONSLAUGHT"
           }
         }
       }

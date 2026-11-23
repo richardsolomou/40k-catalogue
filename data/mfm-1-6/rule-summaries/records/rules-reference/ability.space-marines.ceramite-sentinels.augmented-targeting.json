@@ -21,41 +21,32 @@
       ],
       "turn": "any"
     },
-    "summary": "When you select a ADEPTUS ASTARTES unit to attack in your Shooting phase or either Fight phase, choose one ability for its attacks. Pick [SUSTAINED HITS 1] or [LETHAL HITS]. An entrenched unit gets the pair.",
+    "summary": "Spend 1 CP in your Shooting phase or in either player's Fight phase, as an ADEPTUS ASTARTES unit of yours is picked to make its attacks; that unit is the target. For the rest of that phase, its attacks gain your choice of [LETHAL HITS] or [SUSTAINED HITS 1]; if the unit is entrenched, they gain both [LETHAL HITS] and [SUSTAINED HITS 1] instead.",
     "summarySpans": [
       {
-        "start": 18,
-        "end": 34,
-        "bold": true
-      },
-      {
-        "start": 58,
-        "end": 72,
+        "start": 19,
+        "end": 33,
         "target": {
           "kind": "core-rule",
           "id": "shooting-phase"
         }
       },
       {
-        "start": 83,
-        "end": 94,
+        "start": 56,
+        "end": 67,
         "target": {
           "kind": "core-rule",
           "id": "fight-phase"
         }
       },
       {
-        "start": 138,
-        "end": 154,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "sustained-hits"
-        }
+        "start": 75,
+        "end": 91,
+        "bold": true
       },
       {
-        "start": 160,
-        "end": 171,
+        "start": 222,
+        "end": 235,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -63,8 +54,17 @@
         }
       },
       {
-        "start": 177,
-        "end": 187,
+        "start": 239,
+        "end": 257,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 274,
+        "end": 284,
         "bold": true
       }
     ],
@@ -280,53 +280,56 @@
           }
         ],
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
-            ],
-            "event": "friendly-selected-to-attack",
-            "window": {
-              "shooting": "your",
-              "fight": "either"
+          "detachment": "Ceramite Sentinels",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          },
+          ],
+          "trigger": "friendly-unit-selected-to-attack",
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "unitSelectedToAttack": true
           },
           "effects": [
             {
-              "kind": "choose-one-ability",
-              "subject": "selected-unit-attacks",
+              "choose": "one",
+              "attacks": "target-unit",
               "options": [
                 {
-                  "ability": "lethal-hits"
+                  "weaponAbility": "LETHAL HITS"
                 },
                 {
-                  "ability": "sustained-hits",
+                  "weaponAbility": "SUSTAINED HITS",
                   "value": 1
                 }
               ]
             },
             {
-              "kind": "grant-both-instead",
-              "condition": "selected-unit-entrenched",
-              "options": [
+              "condition": "target-unit-entrenched",
+              "attacks": "target-unit",
+              "grantsAllInsteadOfChoice": [
                 {
-                  "ability": "lethal-hits"
+                  "weaponAbility": "LETHAL HITS"
                 },
                 {
-                  "ability": "sustained-hits",
+                  "weaponAbility": "SUSTAINED HITS",
                   "value": 1
                 }
               ]
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "durationBasis": "Core Rules 01.02.02: the card gives no duration, so the granted abilities last only for the phase in which the Stratagem is used."
         }
       }
     }

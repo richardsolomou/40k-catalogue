@@ -19,17 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "In your Command phase, choose one of your units with both TERMINATOR and ADEPTUS CUSTODES. The unit needs 2+ models. Turn each model into its own unit. Set each new unit’s starting strength to one.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 21,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Command phase and pick one ADEPTUS CUSTODES TERMINATOR unit of yours that has 2 or more models. Split it so that every model becomes a separate unit of one model, and the Starting Strength of every one of those new units is 1.",
     "citations": [
       {
         "type": "app",
@@ -61,36 +51,25 @@
         },
         "detail": {
           "detachment": "Lions of the Emperor",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "command",
-                "turn": "own"
-              }
-            ],
-            "event": "phase"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "command"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES",
               "TERMINATOR"
             ],
-            "condition": {
-              "modelCount": {
-                "atLeast": 2
-              }
-            }
+            "minModels": 2
           },
           "effects": [
             {
-              "action": "split-unit",
-              "recipient": "chosen-unit",
-              "modelsPerNewUnit": 1,
-              "newUnitStartingStrength": 1
+              "splitIntoUnitsOfModels": 1,
+              "newUnitsStartingStrength": 1
             }
           ]
         }

@@ -13,32 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "The Silent King",
-    "summary": "Within a 6″ radius of this unit, allied NECRONS units may re-roll their Charge rolls, and their models’ melee attacks have +1 Strength. MONSTERS are excluded from both benefits.",
-    "summarySpans": [
-      {
-        "start": 40,
-        "end": 47,
-        "bold": true
-      },
-      {
-        "start": 72,
-        "end": 84,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-step"
-        }
-      },
-      {
-        "start": 126,
-        "end": 134,
-        "bold": true
-      },
-      {
-        "start": 136,
-        "end": 144,
-        "bold": true
-      }
-    ],
+    "summary": "Each friendly NECRONS unit, other than MONSTER units, that is within 6\" of the Szarekh model in this unit may re-roll its Charge rolls, and melee attacks by its models get +1 Strength.",
     "citations": [
       {
         "type": "app",
@@ -53,31 +28,27 @@
       "version": "1",
       "fields": {
         "detail": {
-          "origin": "this-unit",
-          "recipient": {
-            "side": "friendly",
-            "entity": "unit",
-            "allKeywords": [
-              "NECRONS"
-            ],
-            "excludedKeywords": [
-              "MONSTER"
-            ],
-            "measure": "within",
-            "origin": "this-unit",
-            "rangeInches": 6
+          "aura": {
+            "measureFrom": "this unit's Szarekh model",
+            "withinInches": 6,
+            "recipients": {
+              "side": "friendly",
+              "keywordsAll": [
+                "NECRONS"
+              ],
+              "excludeKeywordsAny": [
+                "MONSTER"
+              ]
+            }
           },
           "effects": [
             {
-              "actor": "recipient-unit",
-              "roll": "charge",
-              "optional": true,
-              "kind": "re-roll"
+              "reroll": "charge",
+              "optional": true
             },
             {
-              "actor": "model-in-recipient",
-              "trigger": "each-melee-attack",
-              "characteristic": "strength",
+              "attacks": "melee",
+              "characteristic": "S",
               "modifier": 1
             }
           ]

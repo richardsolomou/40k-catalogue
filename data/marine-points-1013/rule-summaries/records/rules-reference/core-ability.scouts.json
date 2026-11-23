@@ -12,19 +12,30 @@
   },
   "data": {
     "parameterized": true,
-    "summary": "Scouts X: during Resolve Pre-battle Abilities, a unit whose models all have this ability can do one of two things. A unit in Strategic Reserves may be placed anywhere wholly inside your deployment zone; a unit already wholly inside your deployment zone may instead make a Scout move. A DEDICATED TRANSPORT wholly inside your deployment zone whose embarked models all have this ability is also allowed a Scout move.",
+    "summary": "This ability is always written Scouts X\". During Resolve Pre-battle Abilities, a unit whose models all have it may take exactly one of three options. (1) A unit in Strategic Reserves can be set up anywhere wholly within your own deployment zone. (2) A unit standing wholly within your own deployment zone may perform a Scout move under 24.32. (3) A unit aboard a DEDICATED TRANSPORT that stands wholly within your own deployment zone, where every model aboard that DEDICATED TRANSPORT has Scouts, lets that DEDICATED TRANSPORT perform a Scout move.",
     "summarySpans": [
       {
-        "start": 272,
-        "end": 282,
+        "start": 164,
+        "end": 182,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 319,
+        "end": 329,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "scout-move"
         }
       },
       {
-        "start": 403,
-        "end": 413,
+        "start": 537,
+        "end": 547,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "scout-move"
@@ -45,45 +56,36 @@
       "version": "1",
       "fields": {
         "detail": {
-          "format": "Scouts X",
+          "format": "Scouts X\"",
           "timing": {
-            "step": "Pre-battle Abilities"
+            "step": "Resolve Pre-battle Abilities"
           },
           "condition": {
-            "everyModelHasAbility": true,
-            "optionsToChoose": 1
+            "everyModelHasAbility": true
           },
+          "chooseExactly": 1,
           "options": [
             {
               "state": "in Strategic Reserves",
               "action": "set up",
-              "where": "wholly within own deployment zone"
+              "where": "anywhere wholly within own deployment zone"
             },
             {
               "state": "wholly within own deployment zone",
               "action": "Scout move",
-              "rule": "24.32"
-            }
-          ],
-          "dedicatedTransport": {
-            "allEmbarkedModelsHaveAbility": true,
-            "transportWhollyWithinOwnDeploymentZone": true,
-            "action": "Scout move"
-          },
-          "scoutMove": {
-            "maximumDistance": "X",
-            "eligibleIf": {
-              "step": "Pre-battle Abilities",
-              "whollyWithinOwnDeploymentZone": true
+              "rule": "24.32",
+              "ruleParts": [
+                24,
+                32
+              ]
             },
-            "effect": "move",
-            "afterMoving": {
-              "horizontalDistanceFromEachEnemyUnit": {
-                "greaterThanInches": 8
-              }
+            {
+              "state": "embarked within a DEDICATED TRANSPORT wholly within own deployment zone",
+              "requires": "every model embarked in that DEDICATED TRANSPORT has Scouts",
+              "mover": "the DEDICATED TRANSPORT",
+              "action": "Scout move"
             }
-          },
-          "noDistanceIn2431": true
+          ]
         }
       }
     }

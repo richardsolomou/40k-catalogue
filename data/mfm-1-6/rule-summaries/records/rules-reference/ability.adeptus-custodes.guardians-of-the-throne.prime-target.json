@@ -19,17 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "In your Shooting phase, play this at shooting selection for one of your units with ADEPTUS CUSTODES. Give its ranged attacks three separate rerolls. Use up to one each for hitting, wounding and damage.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase as one of your ADEPTUS CUSTODES units is picked to shoot. For the rest of that phase, when resolving that unit's ranged attacks you may re-roll a single hit roll, a single wound roll and a single damage roll.",
     "citations": [
       {
         "type": "app",
@@ -166,48 +156,41 @@
         },
         "detail": {
           "detachment": "Guardians of the Throne",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "own"
-              }
-            ],
-            "event": "unit-selected-to-shoot",
-            "actor": "chosen-unit"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "trigger": "a friendly unit is selected to shoot",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "condition": {
-              "event": "triggering-unit"
-            }
+            "is": "the unit selected to shoot"
           },
           "effects": [
             {
-              "action": "allow-rerolls",
-              "recipient": "ranged-attacks-of-chosen-unit",
-              "limits": [
+              "attackType": "ranged",
+              "rerolls": [
                 {
                   "roll": "hit",
-                  "maxRerolls": 1
+                  "count": 1
                 },
                 {
                   "roll": "wound",
-                  "maxRerolls": 1
+                  "count": 1
                 },
                 {
                   "roll": "damage",
-                  "maxRerolls": 1
+                  "count": 1
                 }
               ]
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

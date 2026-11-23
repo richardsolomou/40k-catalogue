@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Inquisitorial Agents",
-    "summary": "As a phase begins, an equipped Tome-skull may be spent for its sole use that battle. Pick a unit within 6″ of the Agents. End Battle-shock on a Battle-shocked friendly target, or require an enemy target to test for Battle-shock.",
+    "summary": "This unit gets one use per battle per Tome‐skull it carries. As any phase begins, you may pick one unit up to 6\" away from this unit: either a Battle-shocked friendly AGENTS OF THE IMPERIUM unit, which immediately stops being Battle-shocked, or an enemy unit, which has to make a Battle-shock test.",
     "citations": [
       {
         "type": "app",
@@ -37,28 +37,35 @@
           ]
         },
         "detail": {
-          "usage": {
-            "count": 1,
-            "period": "battle",
-            "scope": "per equipped Tome-skull",
-            "optional": true
-          },
-          "trigger": "start of any phase",
-          "target": {
-            "count": 1,
-            "withinInches": 6,
-            "origin": "owner unit",
-            "alternatives": [
-              {
-                "side": "friendly",
-                "requiredStatus": "Battle-shocked",
-                "effect": "end Battle-shock"
-              },
-              {
-                "side": "enemy",
-                "effect": "take Battle-shock test"
-              }
-            ]
+          "ability": {
+            "usage": {
+              "perBattle": 1,
+              "per": "Tome‐skull equipped"
+            },
+            "when": {
+              "turn": "either",
+              "phase": "any",
+              "timing": "start-of-phase"
+            },
+            "optional": true,
+            "choose": {
+              "count": 1,
+              "withinInchesOfThisUnit": 6,
+              "options": [
+                {
+                  "side": "friendly",
+                  "keywordsAll": [
+                    "AGENTS OF THE IMPERIUM"
+                  ],
+                  "state": "battle-shocked",
+                  "effect": "no-longer-battle-shocked"
+                },
+                {
+                  "side": "enemy",
+                  "effect": "take-battle-shock-test"
+                }
+              ]
+            }
           }
         }
       }

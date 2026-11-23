@@ -13,43 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Chaplain Grimaldus",
-    "summary": "You may select one Temple Relics option as your Command phase begins. Your unit needs a Cenobyte Servitor at that point. This choice improves the unit’s melee AP by 1 and expires as your next Command phase begins.",
-    "summarySpans": [
-      {
-        "start": 19,
-        "end": 32,
-        "target": {
-          "kind": "ability",
-          "id": "black-templars.chaplain-grimaldus.temple-relics"
-        }
-      },
-      {
-        "start": 48,
-        "end": 61,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 88,
-        "end": 105,
-        "bold": true
-      },
-      {
-        "start": 159,
-        "end": 161,
-        "bold": true
-      },
-      {
-        "start": 192,
-        "end": 205,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      }
-    ],
+    "summary": "Melee weapons carried by this unit's models have their Armour Penetration characteristic improved by 1. This is one of the Temple Relics abilities: in your Command phase, if the unit still includes at least one Cenobyte Servitor model, you can pick it, and Chaplain Grimaldus then has it until your next Command phase starts.",
     "citations": [
       {
         "type": "app",
@@ -64,34 +28,23 @@
       "version": "1",
       "fields": {
         "detail": {
-          "activation": {
-            "parent": "Temple Relics",
-            "actor": "controlling-player",
-            "recipient": "this-model",
-            "trigger": {
-              "turn": "own",
-              "phase": "command",
-              "timing": "start"
-            },
-            "selection": {
-              "pool": "named-parent-options",
-              "minimum": 0,
-              "maximum": 1,
-              "selectedOptionRequired": true
-            },
-            "duration": "until-start-of-next-own-command-phase",
-            "condition": {
-              "sourceUnitContains": {
-                "model": "Cenobyte Servitor",
+          "ability": {
+            "appliesTo": "melee weapons of models in this unit",
+            "characteristic": "AP",
+            "improveBy": 1,
+            "grantedBy": {
+              "ability": "Temple Relics",
+              "when": {
+                "turn": "own",
+                "phase": "command"
+              },
+              "condition": {
+                "unitContainsModel": "Cenobyte Servitor",
                 "minimum": 1
-              }
+              },
+              "holder": "Chaplain Grimaldus",
+              "duration": "until-start-of-your-next-command-phase"
             }
-          },
-          "effect": {
-            "recipient": "this-units-melee-attacks",
-            "characteristic": "armour-penetration",
-            "operation": "improve",
-            "amount": 1
           }
         }
       }

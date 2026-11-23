@@ -13,56 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "High Marshal Helbrecht",
-    "summary": "At either Fight phase’s opening, pick up to one foe engaged with the Marshal’s unit. Roll a D6 for the foe. It takes D3 mortal wounds on 2–3, 3 mortal wounds on 4–5, or D3+3 mortal wounds on 6+.",
-    "summarySpans": [
-      {
-        "start": 10,
-        "end": 21,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 120,
-        "end": 133,
-        "target": {
-          "kind": "core-rule",
-          "id": "mortal-wounds"
-        }
-      },
-      {
-        "start": 137,
-        "end": 140,
-        "bold": true
-      },
-      {
-        "start": 144,
-        "end": 157,
-        "target": {
-          "kind": "core-rule",
-          "id": "mortal-wounds"
-        }
-      },
-      {
-        "start": 161,
-        "end": 164,
-        "bold": true
-      },
-      {
-        "start": 174,
-        "end": 187,
-        "target": {
-          "kind": "core-rule",
-          "id": "mortal-wounds"
-        }
-      },
-      {
-        "start": 191,
-        "end": 193,
-        "bold": true
-      }
-    ],
+    "summary": "As each Fight phase begins, in either player's turn, pick one enemy unit in Engagement Range of the unit this model is part of and roll a D6, raising the score by one for each full group of five models that this model's own unit contains. A 2-3 inflicts D3 mortal wounds on the picked unit, a 4-5 inflicts 3, and a 6+ inflicts D3+3.",
     "citations": [
       {
         "type": "app",
@@ -77,34 +28,40 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "controlling-player",
-          "activation": "start-of-fight-phase-either-turn",
-          "selection": {
-            "side": "enemy",
-            "entity": "unit",
-            "maximumCount": 1,
-            "optional": true,
-            "relation": "in-combat-with-this-unit"
-          },
-          "dieSides": 6,
-          "effect": "mortal-wounds-to-selected-unit",
-          "outcomes": [
-            {
-              "minimum": 2,
-              "maximum": 3,
-              "diceSides": 3
+          "ability": {
+            "when": {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "start-of-phase"
             },
-            {
-              "minimum": 4,
-              "maximum": 5,
-              "amount": 3
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "withinEngagementRangeOf": "this model's unit"
             },
-            {
-              "minimum": 6,
-              "diceSides": 3,
-              "bonus": 3
-            }
-          ]
+            "roll": "D6",
+            "rollModifier": {
+              "add": 1,
+              "perModelsInUnit": 5,
+              "countedUnit": "this model's own unit"
+            },
+            "results": [
+              {
+                "min": 2,
+                "max": 3,
+                "mortalWounds": "D3"
+              },
+              {
+                "min": 4,
+                "max": 5,
+                "mortalWounds": 3
+              },
+              {
+                "min": 6,
+                "mortalWounds": "D3+3"
+              }
+            ]
+          }
         }
       }
     }

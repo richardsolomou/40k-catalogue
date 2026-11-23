@@ -13,45 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Ulrik the Slayer",
-    "summary": "Add +1 to Hit for melee attacks from this unit. Against its Slayer’s Oath target they gain +1 to Wound as well, with a single +1 to Hit.",
-    "summarySpans": [
-      {
-        "start": 10,
-        "end": 13,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      },
-      {
-        "start": 60,
-        "end": 73,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "space-wolves.ulrik-the-slayer.slayers-oath"
-        }
-      },
-      {
-        "start": 97,
-        "end": 102,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      },
-      {
-        "start": 132,
-        "end": 135,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      }
-    ],
+    "summary": "As long as this model leads a unit, the melee attacks of that unit's models get +1 to their Hit rolls; if the target unit has the Slayer's Oath keyword belonging to this model, those attacks also get +1 to their Wound rolls.",
     "citations": [
       {
         "type": "app",
@@ -66,22 +28,22 @@
       "version": "1",
       "fields": {
         "detail": {
-          "source": "this-unit",
-          "trigger": "each-melee-attack-by-this-unit",
-          "effects": [
-            {
-              "roll": "hit",
-              "modifier": 1
-            },
-            {
-              "roll": "wound",
-              "modifier": 1,
-              "condition": {
-                "target": "this-units-designated-slayers-oath-unit"
+          "ability": {
+            "condition": "this model is leading a unit",
+            "attackers": "models in the unit this model leads",
+            "attackType": "melee",
+            "effects": [
+              {
+                "roll": "hit",
+                "add": 1
+              },
+              {
+                "roll": "wound",
+                "add": 1,
+                "onlyIf": "target unit has this model's Slayer's Oath keyword"
               }
-            }
-          ],
-          "originalBranchResolution": "alternative-with-shared-hit-bonus"
+            ]
+          }
         }
       }
     }

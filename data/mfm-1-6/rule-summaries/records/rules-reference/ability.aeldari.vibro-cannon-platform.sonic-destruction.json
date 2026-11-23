@@ -13,40 +13,16 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Vibro Cannon Platform",
-    "summary": "During your Shooting phase, this model improves its vibro cannon attacks by 1 AP and 1 Damage against an enemy unit also targeted with at least one vibro cannon attack by another friendly VIBRO CANNON PLATFORM in that phase.",
+    "summary": "During your Shooting phase, whenever this model’s vibro cannon attacks an enemy unit, improve that attack’s Strength, Damage and Armour Penetration by 1 for every other VIBRO CANNON PLATFORM model of yours that has made at least one vibro cannon attack against that same enemy unit in this phase.",
     "summarySpans": [
       {
         "start": 12,
         "end": 26,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "shooting-phase"
         }
-      },
-      {
-        "start": 52,
-        "end": 64,
-        "bold": true
-      },
-      {
-        "start": 78,
-        "end": 80,
-        "bold": true
-      },
-      {
-        "start": 87,
-        "end": 93,
-        "bold": true
-      },
-      {
-        "start": 148,
-        "end": 160,
-        "bold": true
-      },
-      {
-        "start": 188,
-        "end": 200,
-        "bold": true
       }
     ],
     "citations": [
@@ -118,31 +94,19 @@
           }
         },
         "detail": {
-          "source": "this-model",
-          "trigger": {
-            "phase": "shooting",
-            "turn": "own",
-            "event": "each-attack",
-            "weapon": "Vibro Cannon"
-          },
-          "target": {
-            "entity": "unit",
-            "side": "enemy",
-            "alsoTargetedInSamePhase": true,
-            "minOtherFriendlySources": 1,
-            "sourceDatasheet": "Vibro Cannon Platform",
-            "sourceWeapon": "Vibro Cannon"
-          },
-          "effects": [
-            {
-              "characteristic": "armour-penetration",
-              "modifier": 1
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting"
             },
-            {
-              "characteristic": "damage",
-              "modifier": 1
+            "weapon": "vibro cannon",
+            "perQualifyingModel": {
+              "counts": "other friendly VIBRO CANNON PLATFORM models that attacked the same target this phase",
+              "strengthImprovement": 1,
+              "armourPenetrationImprovement": 1,
+              "damageImprovement": 1
             }
-          ]
+          }
         }
       }
     }

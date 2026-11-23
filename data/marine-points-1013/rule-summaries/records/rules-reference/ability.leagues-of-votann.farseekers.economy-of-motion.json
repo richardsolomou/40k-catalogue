@@ -20,36 +20,7 @@
       ],
       "turn": "opponent"
     },
-    "summary": "In the enemy’s Movement phase, use this upon completion of an enemy move no more than 8″ from your PIONEERS. The PIONEERS may move D3+3″ or less using Normal Move rules.",
-    "summarySpans": [
-      {
-        "start": 15,
-        "end": 29,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 99,
-        "end": 107,
-        "bold": true
-      },
-      {
-        "start": 113,
-        "end": 121,
-        "bold": true
-      },
-      {
-        "start": 151,
-        "end": 162,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "normal-move"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in the opponent's Movement phase once any enemy unit finishes a move 8\" or closer to an unengaged PIONEERS unit of yours. That PIONEERS unit may then move up to D3+3\" as a Normal move.",
     "citations": [
       {
         "type": "app",
@@ -82,25 +53,35 @@
           }
         },
         "detail": {
-          "window": {
-            "phase": "Movement",
-            "turn": "active player is opponent",
-            "event": "enemy completes a move"
+          "detachment": "Farseekers",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "movement"
+            }
+          ],
+          "trigger": {
+            "event": "enemy-unit-ends-move",
+            "withinInches": 8,
+            "of": "target"
           },
           "target": {
             "side": "friendly",
             "count": 1,
-            "binding": "triggering unit",
-            "keywords": "PIONEERS",
-            "withinInches": 8,
-            "relativeTo": "enemy at end of move"
+            "keywordsAll": [
+              "PIONEERS"
+            ],
+            "unengaged": true
           },
-          "effect": {
-            "type": "optional move",
-            "move": "Normal Move",
-            "maximumInches": "D3+3"
-          },
-          "restrictions": []
+          "effects": [
+            {
+              "move": "normal",
+              "maximumInches": {
+                "dice": "D3",
+                "add": 3
+              }
+            }
+          ]
         }
       }
     }

@@ -21,39 +21,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "During your Command phase, choose an ADEPTUS ASTARTES unit and pick a combat doctrine. Only that unit gains the chosen doctrine, until your following Command phase starts.",
-    "summarySpans": [
-      {
-        "start": 12,
-        "end": 25,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 37,
-        "end": 53,
-        "bold": true
-      },
-      {
-        "start": 70,
-        "end": 85,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
-        }
-      },
-      {
-        "start": 150,
-        "end": 163,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Command phase and pick one ADEPTUS ASTARTES unit of yours. Choose the Assault Doctrine, Devastator Doctrine or Tactical Doctrine; until your next Command phase starts, that doctrine applies to the chosen unit in place of whichever combat doctrine your army has active. You may choose a doctrine your army has already used earlier in the battle.",
     "citations": [
       {
         "type": "app",
@@ -82,29 +50,33 @@
           }
         },
         "detail": {
-          "trigger": {
-            "turn": "your",
-            "phases": [
-              "command"
-            ],
-            "event": "phase-window"
-          },
+          "detachment": "Blade of Ultramar",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "command"
+            }
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "Adeptus Astartes"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
             ]
           },
           "effects": [
             {
-              "kind": "select-active-rule",
-              "rule": "combat-doctrines",
-              "count": 1,
-              "subject": "selected-unit"
+              "chooseOne": [
+                "Assault Doctrine",
+                "Devastator Doctrine",
+                "Tactical Doctrine"
+              ],
+              "activeFor": "target unit",
+              "replacesArmyActiveDoctrineForUnit": true,
+              "allowedEvenIfAlreadySelectedThisBattle": true
             }
           ],
-          "duration": "start-of-your-next-command-phase"
+          "duration": "until-start-of-your-next-command-phase"
         }
       }
     }

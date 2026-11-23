@@ -21,37 +21,29 @@
       "turn": "own",
       "type": "battle-tactic"
     },
-    "summary": "As your Shooting phase begins, choose one ARMIGER unit benefiting from the Bondsman ability of an IMPERIAL KNIGHTS TITANIC model. Give that unit’s ranged weapons [RAPID FIRE 1] for the rest of this phase.",
+    "summary": "Spend 1 CP as your Shooting phase starts. Target either a single ARMIGER model of yours, or an IMPERIAL KNIGHTS TITANIC model of yours together with at least one friendly ARMIGER model that its Bondsman ability is affecting. Until the phase ends, your ARMIGER models' ranged weapons have [RAPID FIRE 1].",
     "summarySpans": [
       {
-        "start": 8,
-        "end": 22,
+        "start": 19,
+        "end": 33,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "shooting-phase"
         }
       },
       {
-        "start": 42,
-        "end": 49,
-        "bold": true
-      },
-      {
-        "start": 75,
-        "end": 83,
+        "start": 194,
+        "end": 202,
+        "bold": true,
         "target": {
           "kind": "ability",
           "id": "imperial-knights.bondsman"
         }
       },
       {
-        "start": 98,
-        "end": 122,
-        "bold": true
-      },
-      {
-        "start": 163,
-        "end": 175,
+        "start": 288,
+        "end": 302,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -248,32 +240,50 @@
           }
         },
         "detail": {
-          "type": "battle-tactic",
-          "trigger": {
-            "turn": "your",
-            "phases": [
-              "shooting"
-            ],
-            "event": "phase-start"
-          },
-          "target": {
-            "owner": "your-army",
-            "count": 1,
-            "keywords": [
-              "ARMIGER"
-            ],
-            "affectedBy": {
-              "ability": "bondsman",
-              "sourceKeywords": [
-                "IMPERIAL KNIGHTS TITANIC"
-              ]
+          "detachment": "Spearhead-at-Arms",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "start-of-phase"
             }
+          ],
+          "target": {
+            "oneOf": [
+              {
+                "side": "friendly",
+                "count": 1,
+                "entity": "model",
+                "keywordsAll": [
+                  "ARMIGER"
+                ]
+              },
+              {
+                "side": "friendly",
+                "entity": "model",
+                "count": 1,
+                "keywordsAll": [
+                  "IMPERIAL KNIGHTS",
+                  "TITANIC"
+                ],
+                "with": {
+                  "side": "friendly",
+                  "entity": "model",
+                  "minCount": 1,
+                  "keywordsAll": [
+                    "ARMIGER"
+                  ],
+                  "affectedBy": "that-model-Bondsman-ability"
+                }
+              }
+            ]
           },
           "effects": [
             {
-              "kind": "grant-ability",
-              "ability": "rapid-fire",
-              "weapons": "selected-unit-ranged-weapons",
+              "weapons": "ranged",
+              "of": "your-ARMIGER-models",
+              "grant": "RAPID FIRE",
               "value": 1
             }
           ],

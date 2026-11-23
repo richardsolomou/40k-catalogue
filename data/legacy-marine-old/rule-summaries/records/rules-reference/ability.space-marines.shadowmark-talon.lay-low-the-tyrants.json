@@ -21,36 +21,7 @@
       "turn": "any",
       "type": "battle-tactic"
     },
-    "summary": "When selected to fight in either player’s Fight phase, the ADEPTUS ASTARTES INFANTRY unit gains [PRECISION] on its melee attacks.",
-    "summarySpans": [
-      {
-        "start": 5,
-        "end": 22,
-        "bold": true
-      },
-      {
-        "start": 42,
-        "end": 53,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 59,
-        "end": 84,
-        "bold": true
-      },
-      {
-        "start": 97,
-        "end": 106,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "precision"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in either player's Fight phase, picking an ADEPTUS ASTARTES INFANTRY unit of yours that has not yet been chosen to fight this phase. For the rest of the phase, its models' melee weapons have [PRECISION].",
     "citations": [
       {
         "type": "app",
@@ -83,30 +54,29 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight"
-            ],
-            "event": "friendly-selected-to-fight",
-            "window": {
-              "fight": "either"
+          "detachment": "Shadowmark Talon",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes Infantry"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "notSelectedToFightThisPhase": true
           },
           "effects": [
             {
-              "kind": "grant-ability",
-              "subject": "selected-unit-melee-attacks",
-              "ability": "precision"
+              "weapons": "melee weapons of models in the target unit",
+              "grantWeaponAbility": "PRECISION"
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

@@ -14,36 +14,11 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Shadow Legion",
-    "summary": "Army Faction must be LEGIONES DAEMONICA to field this detachment. Its units gain the abilities below by keyword. Murderer’s Cowl. A SHADOW LEGION KHORNE unit that Advanced may shoot and may declare charges that turn. Penumbral Puppetry. Give SHADOW LEGION TZEENTCH units Stealth. Melee attacks against them take −1 to Hit rolls. Gloam Rot. Attacks against a SHADOW LEGION NURGLE unit take −1 to Wound rolls if their Strength exceeds its Toughness. Shadow’s Caress. Enemy units cannot pick SHADOW LEGION SLAANESH units as targets for snap shooting. Disciples of Be’lakor. Give the Chaos Space Marines’ Dark Pacts rule to SHADOW LEGION UNDIVIDED units and let them use it with this Army Faction. Resolve a qualifying BE’LAKOR’s Dark Pacts Leadership test as an automatic pass. In each qualifying unit, SHADOW LEGION HERETIC ASTARTES models gain Deep Strike.",
+    "summary": "You can use this Detachment rule only with LEGIONES DAEMONICA as your Army Faction. Its units gain the abilities below by keyword. Murderer’s Cowl. A SHADOW LEGION KHORNE unit that Advanced may shoot and may declare charges that turn. Penumbral Puppetry. Give SHADOW LEGION TZEENTCH units Stealth. Melee attacks against them take −1 to Hit rolls. Gloam Rot. Attacks against a SHADOW LEGION NURGLE unit take −1 to Wound rolls if their Strength exceeds its Toughness. Shadow’s Caress. Enemy units cannot pick SHADOW LEGION SLAANESH units as targets for snap shooting attacks. Disciples of Be’lakor. SHADOW LEGION UNDIVIDED units have Dark Pacts as an army rule and use it as Codex: Chaos Space Marines describes, despite your Army Faction not being HERETIC ASTARTES. Resolve a qualifying BE’LAKOR’s Dark Pacts Leadership test as an automatic pass. In each qualifying unit, SHADOW LEGION HERETIC ASTARTES models gain Deep Strike.",
     "summarySpans": [
       {
-        "start": 21,
-        "end": 39,
-        "bold": true
-      },
-      {
-        "start": 113,
-        "end": 128,
-        "bold": true
-      },
-      {
-        "start": 132,
-        "end": 152,
-        "bold": true
-      },
-      {
-        "start": 217,
-        "end": 235,
-        "bold": true
-      },
-      {
-        "start": 242,
-        "end": 264,
-        "bold": true
-      },
-      {
-        "start": 271,
-        "end": 278,
+        "start": 289,
+        "end": 296,
         "bold": true,
         "target": {
           "kind": "core-ability",
@@ -51,28 +26,8 @@
         }
       },
       {
-        "start": 329,
-        "end": 338,
-        "bold": true
-      },
-      {
-        "start": 358,
-        "end": 378,
-        "bold": true
-      },
-      {
-        "start": 448,
-        "end": 463,
-        "bold": true
-      },
-      {
-        "start": 489,
-        "end": 511,
-        "bold": true
-      },
-      {
-        "start": 533,
-        "end": 546,
+        "start": 551,
+        "end": 564,
         "bold": true,
         "target": {
           "kind": "core-rule",
@@ -80,44 +35,27 @@
         }
       },
       {
-        "start": 548,
-        "end": 569,
-        "bold": true
-      },
-      {
-        "start": 601,
-        "end": 611,
+        "start": 632,
+        "end": 642,
+        "bold": true,
         "target": {
           "kind": "ability",
           "id": "chaos-space-marines.dark-pacts"
         }
       },
       {
-        "start": 620,
-        "end": 643,
-        "bold": true
-      },
-      {
-        "start": 715,
-        "end": 723,
-        "bold": true
-      },
-      {
-        "start": 726,
-        "end": 736,
+        "start": 797,
+        "end": 807,
+        "bold": true,
         "target": {
           "kind": "ability",
           "id": "chaos-space-marines.dark-pacts"
         }
       },
       {
-        "start": 800,
-        "end": 830,
-        "bold": true
-      },
-      {
-        "start": 843,
-        "end": 854,
+        "start": 914,
+        "end": 925,
+        "bold": true,
         "target": {
           "kind": "core-ability",
           "id": "deep-strike"
@@ -199,148 +137,74 @@
           }
         ],
         "detail": {
-          "detachmentEligibility": {
-            "armyFaction": "Legiones Daemonica"
+          "detachment": "Shadow Legion",
+          "useRequires": {
+            "armyFaction": "LEGIONES DAEMONICA"
           },
-          "branches": [
+          "abilities": [
             {
               "name": "Murderer’s Cowl",
-              "recipient": {
-                "level": "unit",
-                "owner": "friendly",
-                "allOf": [
-                  "Shadow Legion",
-                  "Khorne"
+              "units": {
+                "keywordsAll": [
+                  "SHADOW LEGION",
+                  "KHORNE"
                 ]
               },
-              "condition": {
-                "event": "advanced",
-                "subject": "recipient",
-                "window": "same-turn"
-              },
-              "effects": [
-                {
-                  "type": "permission",
-                  "activity": "shoot"
-                },
-                {
-                  "type": "permission",
-                  "activity": "declare-charge"
-                }
-              ]
+              "afterAdvanceSameTurn": {
+                "eligibleToShoot": true,
+                "eligibleToDeclareCharge": true
+              }
             },
             {
               "name": "Penumbral Puppetry",
-              "recipient": {
-                "level": "unit",
-                "owner": "friendly",
-                "allOf": [
-                  "Shadow Legion",
-                  "Tzeentch"
+              "units": {
+                "keywordsAll": [
+                  "SHADOW LEGION",
+                  "TZEENTCH"
                 ]
               },
-              "effects": [
-                {
-                  "type": "ability-grant",
-                  "abilityId": "stealth"
-                },
-                {
-                  "type": "roll-modifier",
-                  "roll": "hit",
-                  "value": -1,
-                  "subject": "attacker",
-                  "condition": {
-                    "attack": "melee",
-                    "target": "recipient"
-                  }
-                }
-              ]
+              "grants": "Stealth",
+              "incomingMeleeHitRollSubtract": 1
             },
             {
               "name": "Gloam Rot",
-              "recipient": {
-                "level": "unit",
-                "owner": "friendly",
-                "allOf": [
-                  "Shadow Legion",
-                  "Nurgle"
+              "units": {
+                "keywordsAll": [
+                  "SHADOW LEGION",
+                  "NURGLE"
                 ]
               },
-              "effects": [
-                {
-                  "type": "roll-modifier",
-                  "roll": "wound",
-                  "value": -1,
-                  "subject": "attacker",
-                  "condition": {
-                    "target": "recipient",
-                    "comparison": {
-                      "left": "attack-strength",
-                      "operator": "greater-than",
-                      "right": "recipient-toughness"
-                    }
-                  }
-                }
-              ]
+              "incomingWoundRollSubtract": 1,
+              "if": "attack Strength greater than this unit's Toughness"
             },
             {
               "name": "Shadow’s Caress",
-              "recipient": {
-                "level": "unit",
-                "owner": "friendly",
-                "allOf": [
-                  "Shadow Legion",
-                  "Slaanesh"
+              "units": {
+                "keywordsAll": [
+                  "SHADOW LEGION",
+                  "SLAANESH"
                 ]
               },
-              "effects": [
-                {
-                  "type": "target-restriction",
-                  "actor": "enemy-unit",
-                  "activity": "snap-shooting",
-                  "target": "recipient"
-                }
-              ]
+              "cannotBeTargetedBy": "enemy snap shooting attacks"
             },
             {
               "name": "Disciples of Be’lakor",
-              "recipient": {
-                "level": "unit",
-                "owner": "friendly",
-                "allOf": [
-                  "Shadow Legion",
-                  "Undivided"
+              "units": {
+                "keywordsAll": [
+                  "SHADOW LEGION",
+                  "UNDIVIDED"
                 ]
               },
-              "effects": [
-                {
-                  "type": "army-rule-grant",
-                  "ruleId": "ability:chaos-space-marines.dark-pacts",
-                  "rulesAs": "Chaos Space Marines",
-                  "waiveArmyFactionRequirement": "Heretic Astartes"
-                },
-                {
-                  "type": "test-result",
-                  "test": "leadership",
-                  "context": "dark-pacts",
-                  "result": "pass",
-                  "condition": {
-                    "unitIs": "Be'lakor"
-                  }
-                },
-                {
-                  "type": "ability-grant",
-                  "abilityId": "deep-strike",
-                  "target": {
-                    "level": "model",
-                    "in": "recipient",
-                    "allOf": [
-                      "Shadow Legion",
-                      "Heretic Astartes"
-                    ]
-                  }
-                }
-              ]
+              "hasArmyRule": "Dark Pacts",
+              "asDescribedIn": "Codex: Chaos Space Marines",
+              "evenIfArmyFactionNot": "HERETIC ASTARTES",
+              "beLakorAutoPassesDarkPactsLeadershipTest": true,
+              "deepStrikeFor": {
+                "modelKeywordsAll": [
+                  "SHADOW LEGION",
+                  "HERETIC ASTARTES"
+                ]
+              }
             }
           ]
         }

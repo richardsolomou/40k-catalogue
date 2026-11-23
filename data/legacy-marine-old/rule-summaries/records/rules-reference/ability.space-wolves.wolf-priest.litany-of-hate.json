@@ -13,18 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Wolf Priest",
-    "summary": "Apply [LANCE] to melee attacks from this unit.",
-    "summarySpans": [
-      {
-        "start": 7,
-        "end": 12,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "lance"
-        }
-      }
-    ],
+    "summary": "As long as this model leads a unit, the melee attacks of that unit's models get +1 to their Wound rolls.",
     "citations": [
       {
         "type": "app",
@@ -39,13 +28,15 @@
       "version": "1",
       "fields": {
         "detail": {
-          "subtype": "short-grant",
-          "recipient": "this unit",
-          "attackKind": "melee",
-          "appliesTo": "attacks",
-          "grant": {
-            "kind": "weapon-ability",
-            "label": "LANCE"
+          "ability": {
+            "condition": "this model is leading a unit",
+            "attackers": "models in the unit this model leads",
+            "attackType": "melee",
+            "roll": "wound",
+            "add": 1
+          },
+          "cardPrintsOtherText": {
+            "grantsWeaponAbility": "LANCE"
           }
         }
       }

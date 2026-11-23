@@ -13,40 +13,7 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Forgefather's Seekers",
-    "summary": "Model eligibility — ADEPTUS ASTARTES. This unit may disregard modifiers to BS, WS and Hit rolls.",
-    "summarySpans": [
-      {
-        "start": 20,
-        "end": 36,
-        "bold": true
-      },
-      {
-        "start": 75,
-        "end": 77,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "profiles"
-        }
-      },
-      {
-        "start": 79,
-        "end": 81,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "profiles"
-        }
-      },
-      {
-        "start": 86,
-        "end": 95,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS ASTARTES model. As long as the bearer leads a unit, you may, once each turn, change a Hit roll or saving throw just made for one of that unit's models into an unmodified 6.",
     "citations": [
       {
         "type": "app",
@@ -64,6 +31,7 @@
           "type": "model",
           "points": 15,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -74,21 +42,25 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Forgefather's Seekers",
           "effects": [
             {
-              "type": "ignore-modifiers",
-              "target": "this-unit",
-              "characteristics": [
-                "BS",
-                "WS"
-              ],
-              "rolls": [
-                "Hit"
-              ]
+              "condition": "bearer is leading a unit",
+              "limit": "once per turn",
+              "trigger": "after a Hit roll or saving throw is made for a model in the led unit",
+              "changeResultTo": 6,
+              "unmodified": true,
+              "optional": true
             }
           ],
-          "usage": {
-            "optional": true
+          "cardPrintsOtherText": {
+            "ignoreModifiersTo": [
+              "BS",
+              "WS",
+              "Hit rolls"
+            ],
+            "pointsCost": 25
           }
         }
       }

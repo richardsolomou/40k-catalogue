@@ -18,15 +18,24 @@
         "id": "tau-empire.kauyon"
       }
     ],
-    "summary": "Starting in battle round 3, Patient Hunter gives your T’AU EMPIRE models [SUSTAINED HITS 1] on all ranged weapons. A unit Guided through For the Greater Good can disregard Ballistic Skill and Hit-roll modifiers for ranged attacks against its Spotted unit.",
+    "summary": "Errata for the Patient Hunter rule of the Kauyon detachment. In battle rounds 3, 4 and 5 only, ranged weapons of T'AU EMPIRE models in your army have [SUSTAINED HITS 1]. In those battle rounds too, each ranged attack that a model of a Guided unit makes (as described in For the Greater Good) against a Spotted unit may disregard some or all modifiers to its Ballistic Skill and to its Hit roll.",
     "summarySpans": [
       {
-        "start": 28,
-        "end": 42,
+        "start": 15,
+        "end": 29,
         "bold": true,
         "target": {
           "kind": "ability",
           "id": "tau-empire.kauyon.patient-hunter"
+        }
+      },
+      {
+        "start": 150,
+        "end": 168,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
         }
       }
     ],
@@ -51,8 +60,6 @@
               "field": "rule-part-1",
               "componentQid": "ability:tau-empire.kauyon.patient-hunter",
               "change": {
-                "startsBattleRound": 3,
-                "expires": "battle-end",
                 "grant": {
                   "recipient": {
                     "side": "own-army",
@@ -61,7 +68,12 @@
                   },
                   "weapons": "ranged",
                   "ability": "sustained-hits",
-                  "value": 1
+                  "value": 1,
+                  "battleRounds": [
+                    3,
+                    4,
+                    5
+                  ]
                 },
                 "optionalIgnore": {
                   "recipient": "guided-unit",
@@ -71,15 +83,29 @@
                   "modifiers": [
                     "ballistic-skill",
                     "hit-roll"
+                  ],
+                  "battleRounds": [
+                    3,
+                    4,
+                    5
                   ]
-                }
+                },
+                "battleRounds": [
+                  3,
+                  4,
+                  5
+                ]
               },
               "kind": "replace-current-field"
             },
             "statedValues": [
               {
-                "role": "starting-battle-round",
-                "value": 3
+                "role": "battle-rounds",
+                "value": [
+                  3,
+                  4,
+                  5
+                ]
               },
               {
                 "role": "sustained-hits-value",

@@ -19,25 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "Play in your Charge phase when you select one of your units with both TERMINATOR and ADEPTUS CUSTODES to charge. Its arrival by ingress move must have occurred on the current turn. Add 2 to that unit’s charge rolls.",
-    "summarySpans": [
-      {
-        "start": 13,
-        "end": 25,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-phase"
-        }
-      },
-      {
-        "start": 128,
-        "end": 140,
-        "target": {
-          "kind": "core-rule",
-          "id": "ingress-move"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Charge phase as an ADEPTUS CUSTODES TERMINATOR unit of yours, having arrived by an Ingress move earlier this turn, is picked to declare a charge. For the rest of that phase, that unit gets +2 to its charge roll.",
     "citations": [
       {
         "type": "app",
@@ -77,40 +59,30 @@
         ],
         "detail": {
           "detachment": "Lions of the Emperor",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "charge",
-                "turn": "own"
-              }
-            ],
-            "event": "unit-selected-to-declare-charge",
-            "actor": "chosen-unit"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "charge"
+            }
+          ],
+          "trigger": "a friendly unit is selected to declare a charge",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES",
               "TERMINATOR"
             ],
-            "condition": {
-              "event": "made-ingress-move",
-              "period": "this-turn"
-            }
+            "madeIngressMoveThisTurn": true,
+            "is": "the unit declaring the charge"
           },
           "effects": [
             {
-              "action": "modify-rolls",
-              "recipient": "chosen-unit",
-              "rolls": [
-                "charge"
-              ],
-              "modifier": 2
+              "roll": "charge",
+              "delta": 2
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

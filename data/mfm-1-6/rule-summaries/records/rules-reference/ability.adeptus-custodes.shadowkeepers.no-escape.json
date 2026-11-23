@@ -19,41 +19,7 @@
       ],
       "turn": "opponent"
     },
-    "summary": "After a foe finishes falling back during its Movement phase, pick an Infantry unit of yours with Adeptus Custodes that is unengaged and at most 6″ away. It declares a charge. Every charge target must have fallen back this phase and be within the charge’s maximum distance.",
-    "summarySpans": [
-      {
-        "start": 21,
-        "end": 33,
-        "target": {
-          "kind": "core-rule",
-          "id": "fall-back"
-        }
-      },
-      {
-        "start": 122,
-        "end": 131,
-        "target": {
-          "kind": "core-rule",
-          "id": "engagement-range"
-        }
-      },
-      {
-        "start": 156,
-        "end": 173,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-step"
-        }
-      },
-      {
-        "start": 181,
-        "end": 194,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-move"
-        }
-      }
-    ],
+    "summary": "Spend 2 CP in the opponent's Movement phase once an enemy unit has completed a Fall Back move. Pick one ADEPTUS CUSTODES INFANTRY unit of yours that is not engaged and no more than 6\" away from that enemy unit; it declares a charge, and it may only pick charge targets among enemy units that Fell Back in this phase, provided they lie within its maximum charge distance.",
     "citations": [
       {
         "type": "app",
@@ -95,38 +61,29 @@
         ],
         "detail": {
           "detachment": "Shadowkeepers",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "opponents"
-              }
-            ],
-            "event": "enemy-finishes-fall-back"
-          },
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "movement"
+            }
+          ],
+          "trigger": "an enemy unit ends a fall-back move",
           "target": {
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "controller": "friendly",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES",
               "INFANTRY"
             ],
-            "engaged": false,
-            "distanceInches": 6,
-            "boundary": "at-most",
-            "relativeTo": "triggering-enemy"
+            "unengaged": true,
+            "withinInchesOfTriggeringUnit": 6
           },
           "effects": [
             {
-              "action": "declare-charge",
-              "targetFilter": {
-                "madeFallBackThisPhase": true,
-                "withinMaximumChargeDistance": true
-              }
+              "declareCharge": true,
+              "chargeTargetsLimitedTo": "enemy units that fell back in this phase, inside maximum charge distance"
             }
-          ],
-          "restrictions": []
+          ]
         }
       }
     }

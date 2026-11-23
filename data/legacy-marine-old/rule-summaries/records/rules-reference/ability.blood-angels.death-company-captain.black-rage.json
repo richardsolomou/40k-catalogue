@@ -13,46 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Death Company Captain",
-    "summary": "For this unit’s attacks in melee, hit rolls showing 1 may be rolled again. Check for a friendly model with BLOOD ANGELS CHARACTER at 6″ or less from this unit, plus a friendly CHAPLAIN model at 12″ or less from it. If either check fails, this unit has OC 0 and loses access to its fall-back move.",
-    "summarySpans": [
-      {
-        "start": 34,
-        "end": 43,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      },
-      {
-        "start": 107,
-        "end": 129,
-        "bold": true
-      },
-      {
-        "start": 176,
-        "end": 184,
-        "bold": true
-      },
-      {
-        "start": 252,
-        "end": 254,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "level-of-control"
-        }
-      },
-      {
-        "start": 281,
-        "end": 290,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "fall-back"
-        }
-      }
-    ],
+    "summary": "Models in this unit may re-roll Hit rolls for their melee attacks. The unit needs both a friendly BLOOD ANGELS CHARACTER model within 6\" of it and a friendly CHAPLAIN model within 12\" of it; while either is missing, the unit cannot be chosen to Fall Back and it has an Objective Control characteristic of 0.",
     "citations": [
       {
         "type": "app",
@@ -67,43 +28,39 @@
       "version": "1",
       "fields": {
         "detail": {
-          "reroll": {
-            "subject": "this-unit",
-            "attackType": "melee",
-            "roll": "Hit",
-            "eligibleResult": 1,
-            "optional": true
-          },
-          "support": {
-            "allRequiredToAvoidRestriction": [
-              {
-                "side": "friendly",
-                "scope": "model",
-                "selector": [
-                  "Blood Angels",
-                  "Character"
-                ],
-                "rangeInches": 6,
-                "minimumModels": 1
-              },
-              {
-                "side": "friendly",
-                "scope": "model",
-                "selector": [
-                  "Chaplain"
-                ],
-                "rangeInches": 12,
-                "minimumModels": 1
+          "ability": {
+            "reroll": {
+              "attackType": "melee",
+              "roll": "hit"
+            },
+            "restriction": {
+              "unlessAll": [
+                {
+                  "side": "friendly",
+                  "scope": "model",
+                  "keywordsAll": [
+                    "BLOOD ANGELS",
+                    "CHARACTER"
+                  ],
+                  "withinInches": 6
+                },
+                {
+                  "side": "friendly",
+                  "scope": "model",
+                  "keywordsAll": [
+                    "CHAPLAIN"
+                  ],
+                  "withinInches": 12
+                }
+              ],
+              "effects": {
+                "cannotBeSelectedToFallBack": true,
+                "objectiveControl": 0
               }
-            ]
-          },
-          "withoutEitherRequiredSupport": {
-            "subject": "this-unit",
-            "prohibitedMove": "Fall-Back Move",
-            "objectiveControl": {
-              "operation": "set",
-              "value": 0
             }
+          },
+          "cardPrintsOtherText": {
+            "rerollOnlyHitRollsOf": 1
           }
         }
       }

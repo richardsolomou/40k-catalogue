@@ -13,28 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Venerable Dreadnought",
-    "summary": "Friendly ADEPTUS ASTARTES INFANTRY within 6″ of the Venerable Dreadnought may re-roll their attacks’ hit rolls of 1.",
-    "summarySpans": [
-      {
-        "start": 9,
-        "end": 34,
-        "bold": true
-      },
-      {
-        "start": 42,
-        "end": 44,
-        "bold": true
-      },
-      {
-        "start": 101,
-        "end": 110,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      }
-    ],
+    "summary": "This unit's attacks may re-roll a hit roll of 1 as long as at least one ADEPTUS ASTARTES INFANTRY unit of yours lies within 6\" of it.",
     "citations": [
       {
         "type": "app",
@@ -49,34 +28,21 @@
       "version": "1",
       "fields": {
         "detail": {
-          "aura": {
-            "source": "this-unit",
-            "distanceInches": 6,
-            "comparison": "within",
-            "inclusive": true,
-            "candidate": {
-              "entity": "unit",
-              "side": "friendly",
-              "keywords": [
+          "condition": {
+            "friendlyUnitWithin": {
+              "keywordsAll": [
                 "ADEPTUS ASTARTES",
                 "INFANTRY"
-              ]
+              ],
+              "withinInches": 6,
+              "of": "this unit"
             }
           },
-          "trigger": {
-            "event": "attack",
-            "actor": "model-in-eligible-unit",
-            "mode": "any"
-          },
           "effect": {
-            "optional": true,
-            "rolls": [
-              "hit"
-            ],
-            "faces": [
-              1
-            ],
-            "kind": "re-roll"
+            "attacks": "this unit's",
+            "reroll": "hit",
+            "face": 1,
+            "optional": true
           }
         }
       }

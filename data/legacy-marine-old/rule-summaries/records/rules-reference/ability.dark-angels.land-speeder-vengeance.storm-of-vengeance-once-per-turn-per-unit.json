@@ -13,30 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Land Speeder Vengeance",
-    "summary": "When a DARK ANGELS ally is destroyed within a 6″ radius by an enemy unit, this unit may retaliate with Normal Shooting. The only eligible target is that enemy. This works once each turn during the opponent’s Shooting phase.",
-    "summarySpans": [
-      {
-        "start": 7,
-        "end": 18,
-        "bold": true
-      },
-      {
-        "start": 103,
-        "end": 118,
-        "target": {
-          "kind": "core-rule",
-          "id": "normal-shooting"
-        }
-      },
-      {
-        "start": 208,
-        "end": 222,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      }
-    ],
+    "summary": "Once per turn, a single model in your army that has this ability may use it during the Shooting phase of your opponent's turn, when another ADEPTUS ASTARTES unit of yours is destroyed within 6\" of that model. After the attacking unit finishes all its attacks, that model may shoot as if in your own Shooting phase, but it may target only that attacking unit, and only when that unit is an eligible target.",
     "citations": [
       {
         "type": "app",
@@ -51,30 +28,42 @@
       "version": "1",
       "fields": {
         "detail": {
-          "source": "this-unit",
-          "trigger": {
-            "phase": "shooting",
-            "turn": "opponent",
-            "event": "enemy-unit-destroys-friendly-unit",
-            "destroyedUnit": {
-              "allKeywords": [
-                "DARK ANGELS"
+          "ability": {
+            "limit": {
+              "count": 1,
+              "period": "turn",
+              "scope": "one model with this ability in your army"
+            },
+            "trigger": {
+              "turn": "opponent",
+              "phase": "shooting",
+              "event": "another friendly unit is destroyed",
+              "destroyedUnitKeywordsAll": [
+                "ADEPTUS ASTARTES"
               ],
-              "measure": "within",
-              "origin": "this-unit",
-              "rangeInches": 6
+              "withinInches": 6,
+              "of": "this model"
+            },
+            "timing": "after the attacking unit has finished making its attacks",
+            "effect": {
+              "shoot": "as if it were your Shooting phase",
+              "targetRestriction": "only the attacking enemy unit, provided it is an eligible target"
             }
           },
-          "limit": {
-            "count": 1,
-            "period": "turn",
-            "scope": "unit"
-          },
-          "effect": {
-            "action": "normal-shooting",
-            "optional": true,
-            "recipient": "this-unit",
-            "onlyTarget": "destroying-enemy-unit"
+          "cardPrintsOtherText": {
+            "name": "Storm of Vengeance (Once per turn, per unit)",
+            "limit": {
+              "count": 1,
+              "period": "turn",
+              "scope": "per unit"
+            },
+            "destroyedUnitKeywordsAll": [
+              "DARK ANGELS"
+            ],
+            "withinInches": 6,
+            "of": "this unit",
+            "destroyedBy": "the enemy unit's shooting",
+            "shooter": "this unit, using normal shooting"
           }
         }
       }

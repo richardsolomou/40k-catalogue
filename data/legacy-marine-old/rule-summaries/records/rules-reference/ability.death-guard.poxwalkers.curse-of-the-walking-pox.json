@@ -13,37 +13,16 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Poxwalkers",
-    "summary": "For each enemy model other than a MONSTER or VEHICLE that a POXWALKER model in the unit destroys with an attack, you may bring back one of its destroyed POXWALKER models. While TYPHUS leads these POXWALKERS, enemy models he kills with his attacks or Eater Plague count as kills by a POXWALKER in the unit.",
+    "summary": "Whenever an attack by one of this unit’s POXWALKER models destroys an enemy model other than a MONSTER or VEHICLE model, you may bring one destroyed POXWALKER model back into the unit after the unit finishes resolving its attacks. While TYPHUS leads this unit, any enemy model destroyed through the Eater Plague ability of TYPHUS is treated, for this ability, as destroyed by an attack from one of this unit’s POXWALKER models.",
     "summarySpans": [
       {
-        "start": 34,
-        "end": 41,
-        "bold": true
-      },
-      {
-        "start": 45,
-        "end": 52,
-        "bold": true
-      },
-      {
-        "start": 60,
-        "end": 69,
-        "bold": true
-      },
-      {
-        "start": 153,
-        "end": 162,
-        "bold": true
-      },
-      {
-        "start": 177,
-        "end": 183,
-        "bold": true
-      },
-      {
-        "start": 283,
-        "end": 292,
-        "bold": true
+        "start": 299,
+        "end": 311,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "death-guard.typhus.eater-plague"
+        }
       }
     ],
     "citations": [
@@ -60,24 +39,23 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "Poxwalkers",
-          "trigger": {
-            "each": true,
-            "killer": "POXWALKER model in this unit",
-            "source": "attack",
-            "victim": "enemy model other than MONSTER or VEHICLE"
-          },
-          "optionalReturn": {
-            "count": 1,
-            "recipient": "destroyed POXWALKER model from same unit"
-          },
-          "typhusException": {
-            "when": "TYPHUS leading this unit",
-            "qualifyingKills": [
-              "Typhus attacks",
-              "Typhus Eater Plague"
+          "ability": {
+            "trigger": "each attack by a POXWALKER model in this unit that destroys an enemy model",
+            "excludeVictimKeywords": [
+              "MONSTER",
+              "VEHICLE"
             ],
-            "countsAs": "POXWALKER model in this unit for this ability"
+            "effect": {
+              "optional": true,
+              "returnDestroyedModels": 1,
+              "modelKeyword": "POXWALKER",
+              "timing": "after this unit has resolved its attacks"
+            },
+            "typhus": {
+              "while": "TYPHUS is leading this unit",
+              "qualifyingKills": "enemy models destroyed by TYPHUS' Eater Plague ability",
+              "countAs": "killed by a POXWALKER attack of this unit"
+            }
           }
         }
       }

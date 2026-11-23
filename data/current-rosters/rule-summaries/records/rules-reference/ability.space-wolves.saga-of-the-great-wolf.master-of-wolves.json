@@ -13,144 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Saga of the Great Wolf",
-    "summary": "Your ADEPTUS ASTARTES units with this ability, other than MONSTER and VEHICLE units, gain three abilities. Encircling Jaws: under the assault doctrine, the unit adds 1 to its Charge rolls and Advance rolls. Hunter's Eye: under the devastator doctrine, its ranged attacks may re-roll a Hit roll of 1. Ferocious Strike: under the tactical doctrine, its attacks gain [SUSTAINED HITS 1] against an enemy unit that the card describes as \"with\" 9 inches. Your LOGAN GRIMNAR units have Howling Onslaught, which your army can use once per battle during your Command phase; when used, your ADEPTUS ASTARTES MONSTER and VEHICLE units also benefit from Master of Wolves until your next Command phase starts. Restrictions: SPACE WOLVES units are allowed in your army, but ADEPTUS ASTARTES units from any other Chapter are not. The card reads \"with\" rather than \"within\" before the 9-inch distance, so it does not settle which enemy units Ferocious Strike covers.",
-    "summarySpans": [
-      {
-        "start": 5,
-        "end": 21,
-        "bold": true
-      },
-      {
-        "start": 58,
-        "end": 65,
-        "bold": true
-      },
-      {
-        "start": 70,
-        "end": 77,
-        "bold": true
-      },
-      {
-        "start": 107,
-        "end": 122,
-        "bold": true
-      },
-      {
-        "start": 134,
-        "end": 150,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
-        }
-      },
-      {
-        "start": 207,
-        "end": 219,
-        "bold": true
-      },
-      {
-        "start": 231,
-        "end": 250,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
-        }
-      },
-      {
-        "start": 285,
-        "end": 293,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      },
-      {
-        "start": 300,
-        "end": 316,
-        "bold": true
-      },
-      {
-        "start": 328,
-        "end": 345,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
-        }
-      },
-      {
-        "start": 364,
-        "end": 382,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "sustained-hits"
-        }
-      },
-      {
-        "start": 454,
-        "end": 467,
-        "bold": true
-      },
-      {
-        "start": 479,
-        "end": 496,
-        "bold": true
-      },
-      {
-        "start": 550,
-        "end": 563,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 581,
-        "end": 605,
-        "bold": true
-      },
-      {
-        "start": 610,
-        "end": 617,
-        "bold": true
-      },
-      {
-        "start": 642,
-        "end": 658,
-        "bold": true
-      },
-      {
-        "start": 675,
-        "end": 688,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 697,
-        "end": 709,
-        "bold": true
-      },
-      {
-        "start": 711,
-        "end": 723,
-        "bold": true
-      },
-      {
-        "start": 760,
-        "end": 776,
-        "bold": true
-      },
-      {
-        "start": 926,
-        "end": 942,
-        "bold": true
-      }
-    ],
+    "summary": "Friendly ADEPTUS ASTARTES units that have this ability, other than MONSTER or VEHICLE units, gain three abilities. Encircling Jaws: while such a unit has the assault doctrine active, it adds 1 to its charge rolls and its advance rolls. Hunter’s Eye: while it has the devastator doctrine active, its ranged attacks may re-roll a hit roll of 1. Ferocious Strike: while it has the tactical doctrine active, its attacks have [SUSTAINED HITS 1] when they target an enemy unit that is 'with 9\"' of it. LOGAN GRIMNAR units of yours gain Howling Onslaught: your army may use it just once per battle, in your Command phase, and then ADEPTUS ASTARTES MONSTER or VEHICLE units of yours also benefit from Master of Wolves until your next Command phase starts. Restrictions: SPACE WOLVES units are allowed in your army, but ADEPTUS ASTARTES units from any other Chapter are not. The 9\" distance in Ferocious Strike is given as 'with 9\"' rather than 'within 9\"', so which enemy units it covers is left open.",
     "citations": [
       {
         "type": "app",
@@ -185,30 +48,23 @@
           },
           "abilities": {
             "Encircling Jaws": {
-              "doctrine": "assault",
-              "rollModifiers": [
-                {
-                  "roll": "advance",
-                  "delta": 1
-                },
-                {
-                  "roll": "charge",
-                  "delta": 1
-                }
+              "whileDoctrineActive": "assault",
+              "rolls": [
+                "charge",
+                "advance"
+              ],
+              "delta": 1
+            },
+            "Hunter’s Eye": {
+              "whileDoctrineActive": "devastator",
+              "attackType": "ranged",
+              "reroll": "hit",
+              "values": [
+                1
               ]
             },
-            "Hunter's Eye": {
-              "doctrine": "devastator",
-              "attackType": "ranged",
-              "reRoll": {
-                "roll": "hit",
-                "values": [
-                  1
-                ]
-              }
-            },
             "Ferocious Strike": {
-              "doctrine": "tactical",
+              "whileDoctrineActive": "tactical",
               "weaponAbility": "SUSTAINED HITS",
               "value": 1,
               "targetCondition": {
@@ -217,13 +73,24 @@
               }
             },
             "Howling Onslaught": {
-              "recipientsKeywordsAll": [
-                "LOGAN GRIMNAR"
-              ],
-              "limit": "once-per-battle-per-army",
-              "phase": "own-command",
+              "holders": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "LOGAN GRIMNAR"
+                ]
+              },
+              "limit": {
+                "count": 1,
+                "per": "battle",
+                "scope": "army"
+              },
+              "when": {
+                "turn": "own",
+                "phase": "command"
+              },
               "effect": {
-                "extendsRuleTo": {
+                "alsoBenefit": {
+                  "side": "friendly",
                   "keywordsAll": [
                     "ADEPTUS ASTARTES"
                   ],
@@ -232,18 +99,19 @@
                     "VEHICLE"
                   ]
                 },
-                "until": "start-of-your-next-command-phase"
-              }
+                "rule": "Master of Wolves"
+              },
+              "duration": "until-start-of-your-next-command-phase"
             }
           },
-          "armyRestriction": {
-            "allowsKeywords": [
+          "restrictions": {
+            "allowedKeywords": [
               "SPACE WOLVES"
             ],
-            "forbids": "ADEPTUS ASTARTES units from any other Chapter"
+            "forbidden": "ADEPTUS ASTARTES units from any other Chapter"
           },
-          "openPoints": [
-            "Ferocious Strike's range condition is printed as 'with 9 inches', not 'within 9 inches'"
+          "openQuestions": [
+            "Ferocious Strike's range condition is printed as 'with 9\"', not 'within 9\"', so the enemy units it covers are not settled."
           ]
         }
       }

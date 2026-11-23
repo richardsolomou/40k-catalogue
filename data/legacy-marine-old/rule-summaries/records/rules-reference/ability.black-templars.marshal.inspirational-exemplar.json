@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Marshal",
-    "summary": "The unit gets +1 to Hit rolls with melee weapons.",
+    "summary": "While leading a unit, this model lets that unit's models score a Critical Hit with melee attacks whenever the unmodified Hit roll is 5+.",
     "citations": [
       {
         "type": "app",
@@ -28,22 +28,15 @@
       "version": "1",
       "fields": {
         "detail": {
-          "effect": {
-            "type": "roll-modifier",
-            "target": "this-unit",
-            "modifier": {
-              "roll": "hit",
-              "operation": "add",
-              "value": 1,
-              "weapons": {
-                "type": "melee"
-              }
-            }
+          "ability": {
+            "condition": "this model is leading a unit",
+            "appliesTo": "melee attacks by models in the led unit",
+            "criticalHitOn": "5+",
+            "unmodified": true
           },
-          "scope": {
-            "duration": "permanent"
-          },
-          "behavior": "passive"
+          "cardPrintsOtherText": {
+            "meleeHitRollModifier": 1
+          }
         }
       }
     }

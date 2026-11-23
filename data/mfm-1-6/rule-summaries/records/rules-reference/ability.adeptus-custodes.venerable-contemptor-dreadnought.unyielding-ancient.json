@@ -13,30 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Venerable Contemptor Dreadnought",
-    "summary": "The first time the dreadnought is destroyed, its Deadly Demise does not trigger. Roll a D6 as that phase closes. With a 2+, restore the model with D6 wounds left. Place it as near the destruction point as possible, outside every enemy unit’s Engagement Range.",
-    "summarySpans": [
-      {
-        "start": 49,
-        "end": 62,
-        "target": {
-          "kind": "core-rule",
-          "id": "deadly-demise"
-        }
-      },
-      {
-        "start": 120,
-        "end": 122,
-        "bold": true
-      },
-      {
-        "start": 242,
-        "end": 258,
-        "target": {
-          "kind": "core-rule",
-          "id": "engagement-range"
-        }
-      }
-    ],
+    "summary": "Once per battle for this unit, when a phase ends, if this model was destroyed during that phase, roll a D6, and on a result of 2+ set it back on the battlefield, placed as near as it can be to the spot where it was destroyed, not engaged and with 3 wounds left.",
     "citations": [
       {
         "type": "app",
@@ -60,20 +37,21 @@
           ]
         },
         "detail": {
-          "actor": "this-model",
-          "trigger": "first-destruction",
-          "deadlyDemise": false,
-          "timing": "end-of-that-phase",
-          "dieSides": 6,
-          "minimumResult": 2,
-          "effect": {
-            "position": "as-close-as-possible-to-destruction-position",
-            "restriction": "outside-all-enemy-engagement-ranges",
-            "woundsRemainingDice": {
+          "ability": {
+            "name": "Unyielding Ancient",
+            "limit": "once-per-battle-per-unit",
+            "trigger": "end-of-phase-in-which-this-model-was-destroyed",
+            "roll": {
+              "dice": "D6",
               "count": 1,
-              "sides": 6
+              "successOn": "2+"
             },
-            "kind": "return-model-to-battlefield"
+            "effect": {
+              "returnModel": true,
+              "placement": "as-close-as-possible-to-where-destroyed",
+              "unengaged": true,
+              "woundsRemaining": 3
+            }
           }
         }
       }

@@ -13,25 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Aquila Kill Team",
-    "summary": "Against an attack on a mixed-Toughness Aquila Kill Team, take the Toughness from the largest group of models sharing that characteristic. Resolve ties in favour of the highest tied value. Keep using that value for Wound rolls until the attacking models finish their attacks. For Embarking, each Gravis Veteran uses two model spaces and can ride in TRANSPORTS that accept comparable models from other units, even though the Aquila Kill Team lacks the GRAVIS keyword.",
-    "summarySpans": [
-      {
-        "start": 214,
-        "end": 225,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      },
-      {
-        "start": 279,
-        "end": 288,
-        "target": {
-          "kind": "core-rule",
-          "id": "embarking"
-        }
-      }
-    ],
+    "summary": "Whenever this unit is the target of an attack and its models have differing T characteristics, the roll needed to wound uses the T that most of its models have, until the attacking models finish their attacks; if there is a tie for the majority, take the highest of the tied values. When checking which models of this unit fit inside a TRANSPORT, each Gravis Veteran model counts as 2 models for space, but may otherwise ride in any TRANSPORT its unit is allowed to embark within, despite comparable models in other units carrying the GRAVIS keyword.",
     "citations": [
       {
         "type": "app",
@@ -95,19 +77,19 @@
           }
         },
         "detail": {
-          "kind": "mixed-toughness-and-transport-slot-exception",
-          "woundThreshold": {
-            "trigger": "an-attack-targets-this-unit",
-            "requires": "models-have-different-T",
-            "value": "T-shared-by-most-models-in-this-unit",
-            "tie": "highest-tied-T",
-            "expires": "the-attacking-models-have-finished-making-their-attacks"
+          "kind": "mixed-toughness-and-transport-space",
+          "woundToughness": {
+            "trigger": "an attack targets this unit",
+            "requires": "models with different T characteristics",
+            "use": "T of the majority of models",
+            "tie": "highest tied value",
+            "until": "the attacking models have finished making their attacks"
           },
           "transport": {
             "model": "Gravis Veteran",
-            "countAsModels": 2,
-            "eligibility": "transport-that-allows-similar-models-in-other-units",
-            "appliesEvenIfUnitLacksKeyword": "GRAVIS"
+            "spaceAsModels": 2,
+            "mayEmbarkIn": "any TRANSPORT this unit can embark within",
+            "despite": "similar models in other units have GRAVIS"
           }
         }
       }

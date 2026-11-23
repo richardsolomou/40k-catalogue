@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.wrath-of-the-rock.lions-will",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Wrath of the Rock",
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
+    "summary": "Spend 1 CP in either player's Command phase. Pick one ADEPTUS ASTARTES unit of yours that is in Engagement Range of at least one enemy unit. Until your next Command phase starts, its models get +1 to their Objective Control characteristic. Also, until the turn ends, if the unit has none of the DEATHWING, RAVENWING and VEHICLE keywords, attacks made by its models get +1 to their Hit rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "in-engagement-range"
+            ]
+          }
+        },
+        "detail": {
+          "detachment": "Wrath of the Rock",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "command"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "withinEngagementRangeOfEnemy": true
+          },
+          "effects": [
+            {
+              "models": "target unit",
+              "characteristic": "OC",
+              "delta": 1,
+              "duration": "until-start-of-your-next-command-phase"
+            },
+            {
+              "ifUnitKeywordsNone": [
+                "DEATHWING",
+                "RAVENWING",
+                "VEHICLE"
+              ],
+              "attacks": "target-unit-models",
+              "roll": "hit",
+              "delta": 1,
+              "duration": "end-of-turn"
+            }
+          ],
+          "cardPrintsNewerText": {
+            "target": "unit within range of an objective",
+            "ocDelta": 1,
+            "duration": "end-of-turn"
+          }
+        }
+      }
+    }
+  }
+}

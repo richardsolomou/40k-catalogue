@@ -13,30 +13,7 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Shadowmark Talon",
-    "summary": "Model eligibility — ADEPTUS ASTARTES. An ingress move is available to this unit as early as your first Movement phase.",
-    "summarySpans": [
-      {
-        "start": 20,
-        "end": 36,
-        "bold": true
-      },
-      {
-        "start": 41,
-        "end": 53,
-        "target": {
-          "kind": "core-rule",
-          "id": "ingress-move"
-        }
-      },
-      {
-        "start": 103,
-        "end": 117,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS ASTARTES model. In your Movement phase, while the bearer's unit waits in Strategic Reserves, count the battle round as one higher than it really is for the purpose of setting that unit up on the battlefield.",
     "citations": [
       {
         "type": "app",
@@ -54,6 +31,7 @@
           "type": "model",
           "points": 25,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -64,15 +42,19 @@
           }
         },
         "detail": {
-          "trigger": {
-            "player": "you",
-            "phase": "Movement phase",
-            "ordinal": "first"
-          },
-          "permission": {
-            "recipient": "unit containing the bearer",
-            "move": "ingress move"
-          }
+          "kind": "enhancement",
+          "detachment": "Shadowmark Talon",
+          "effects": [
+            {
+              "when": {
+                "turn": "own",
+                "phase": "movement"
+              },
+              "condition": "bearer's unit is in Strategic Reserves",
+              "purpose": "setting up that unit on the battlefield",
+              "battleRoundCountsHigherBy": 1
+            }
+          ]
         }
       }
     }

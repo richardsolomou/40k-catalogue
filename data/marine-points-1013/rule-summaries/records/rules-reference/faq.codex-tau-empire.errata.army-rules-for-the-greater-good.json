@@ -18,15 +18,33 @@
         "id": "tau-empire.for-the-greater-good"
       }
     ],
-    "summary": "A T’AU EMPIRE army can nominate units with this ability as Observers as its Shooting phase starts. Each Observer that can shoot and has yet to be chosen to do so may tag a visible enemy. FORTIFICATIONS and Battle-shocked units cannot tag. A target can be Spotted only once, and the tag expires with the phase. An ability holder guides its fire against Spotted targets unless it is an Observer. Guided attacks against those targets gain one point of Ballistic Skill and, if the matching Observer has Markerlight, [IGNORES COVER] applies to that attack.",
+    "summary": "Errata replacing the For the Greater Good army rule. For a T'AU EMPIRE Army Faction, as your Shooting phase starts you may nominate units of yours that have this ability as Observers. In that Shooting phase, each Observer that is eligible to shoot and has yet to be chosen to do so tags one visible enemy unit as its Spotted unit; Battle-shocked units and FORTIFICATION units cannot tag. A given enemy can be Spotted only once per phase, and every tag expires when the phase ends. Your units with For the Greater Good that are not Observers count as Guided while they target at least one Spotted unit. Until the phase ends, each attack a Guided unit's model makes against a Spotted target gains one point of Ballistic Skill and, if an Observer with the Markerlight keyword did the spotting, [IGNORES COVER] applies to that attack.",
     "summarySpans": [
       {
-        "start": 23,
-        "end": 37,
+        "start": 21,
+        "end": 41,
         "bold": true,
         "target": {
           "kind": "ability",
           "id": "tau-empire.for-the-greater-good"
+        }
+      },
+      {
+        "start": 93,
+        "end": 107,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 791,
+        "end": 806,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "ignores-cover"
         }
       }
     ],
@@ -47,36 +65,48 @@
           "faq": {
             "entryType": "errata",
             "publicationId": "1e7879a0-7da5-4c68-ae93-ada19f02a2de",
-            "typedMechanics": {
-              "armyFaction": "tau-empire",
-              "nominateObservers": {
-                "when": "start-own-shooting-phase",
-                "eligible": "own-ability-holders"
+            "replacesRule": {
+              "armyFaction": "T'AU EMPIRE",
+              "observers": {
+                "when": {
+                  "turn": "own",
+                  "phase": "shooting",
+                  "timing": "start-of-phase"
+                },
+                "optional": true,
+                "eligible": "own-units-with-this-ability"
               },
-              "spot": {
-                "when": "during-own-shooting-phase",
-                "source": "observer",
-                "eligibleToShoot": true,
-                "notSelectedToShoot": true,
-                "excluded": [
-                  "fortification",
+              "spotting": {
+                "when": {
+                  "turn": "own",
+                  "phase": "shooting"
+                },
+                "perObserver": 1,
+                "observerMust": [
+                  "eligible-to-shoot",
+                  "not-selected-to-shoot-this-phase"
+                ],
+                "excludedObservers": [
+                  "FORTIFICATION",
                   "battle-shocked"
                 ],
-                "target": "visible-enemy",
-                "enemyMarkLimitPerPhase": 1,
-                "expires": "end-of-phase"
+                "target": "visible-enemy-unit",
+                "duration": "end-of-phase",
+                "marksPerEnemyUnitPerPhase": 1
               },
               "guided": {
-                "subject": "own-ability-holder",
-                "excludes": "observer",
-                "targetsAtLeastOne": "spotted-unit"
+                "units": "own-units-with-For-the-Greater-Good",
+                "excludes": "Observer units",
+                "while": "targeting-one-or-more-Spotted-units"
               },
-              "perGuidedAttackIntoSpotted": {
-                "ballisticSkillImprovement": 1,
-                "grantIfSpottingObserverHasMarkerlight": "ignores-cover",
-                "expires": "end-of-phase"
-              },
-              "kind": "replace-observer-and-guided-sequence"
+              "guidedAttackVsSpotted": {
+                "ballisticSkillImprove": 1,
+                "duration": "end-of-phase",
+                "grantIfMarkedByObserverWithKeyword": {
+                  "keyword": "Markerlight",
+                  "ability": "IGNORES COVER"
+                }
+              }
             }
           }
         }

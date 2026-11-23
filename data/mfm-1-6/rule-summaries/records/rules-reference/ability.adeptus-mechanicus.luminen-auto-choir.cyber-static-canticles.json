@@ -14,11 +14,12 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Luminen Auto-Choir",
-    "summary": "[LETHAL HITS] applies to friendly CORPUSCARII ranged attacks. A friendly FULGURITE unit can heal itself for D3 wounds once it finishes fighting. Taking this DATA-PSALM detachment prevents taking any other with that keyword.",
+    "summary": "Ranged attacks made by friendly CORPUSCARII units have [LETHAL HITS]. A friendly FULGURITE unit heals D3 wounds whenever it finishes fighting. This detachment carries the DATA-PSALM tag, so no other DATA-PSALM detachment can be taken alongside it.",
     "summarySpans": [
       {
-        "start": 1,
-        "end": 12,
+        "start": 55,
+        "end": 68,
+        "bold": true,
         "target": {
           "kind": "weapon-ability",
           "id": "lethal-hits"
@@ -119,40 +120,39 @@
           }
         ],
         "detail": {
+          "kind": "detachment-rule",
+          "detachment": "Luminen Auto-Choir",
           "effects": [
             {
               "type": "grant-weapon-ability",
               "recipient": {
                 "side": "friendly",
-                "scope": "unit",
-                "allKeywords": [
+                "keywordsAll": [
                   "CORPUSCARII"
                 ]
               },
               "attackType": "ranged",
-              "ability": "Lethal Hits"
+              "ability": "LETHAL HITS"
             },
             {
-              "type": "restore-wounds",
+              "type": "heal",
               "trigger": {
-                "event": "unit-finished-fighting",
+                "event": "unit-has-fought",
                 "unit": {
                   "side": "friendly",
-                  "allKeywords": [
+                  "keywordsAll": [
                     "FULGURITE"
                   ]
                 }
               },
-              "recipient": "trigger-unit",
-              "optional": true,
-              "amount": {
-                "dice": "D3"
-              }
+              "recipient": "that-unit",
+              "optional": false,
+              "amount": "D3"
             }
           ],
           "composition": {
-            "detachmentGrantsKeyword": "DATA-PSALM",
-            "excludesOtherDetachmentsWithKeyword": "DATA-PSALM"
+            "tag": "DATA-PSALM",
+            "cannotBeTakenWithOtherDetachmentsTagged": "DATA-PSALM"
           }
         }
       }

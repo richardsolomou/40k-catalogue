@@ -13,11 +13,11 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Cryptothralls",
-    "summary": "When you Declare Battle Formations, you may join the CRYPTOTHRALLS to one other unit in your army containing a CRYPTEK model. At most one CRYPTOTHRALLS unit can join each eligible unit. Through the battle, its CRYPTOTHRALLS count toward that unit’s Bodyguard models and Starting Strength.",
+    "summary": "As the Declare Battle Formations step begins, this unit may join another unit of yours that a CRYPTEK model is leading; each unit can take at most one CRYPTOTHRALLS unit. If it joins, its models are treated as belonging to that Bodyguard unit for the rest of the battle, and the Starting Strength of that Bodyguard unit goes up by the same number.",
     "summarySpans": [
       {
-        "start": 111,
-        "end": 118,
+        "start": 94,
+        "end": 101,
         "bold": true
       }
     ],
@@ -35,16 +35,16 @@
       "version": "1",
       "fields": {
         "detail": {
-          "trigger": "Declare Battle Formations",
+          "when": "start of the Declare Battle Formations step",
           "optional": true,
-          "attachment": {
-            "recipient": "one other friendly unit with CRYPTEK model",
+          "join": {
+            "recipient": "one other friendly unit being led by a CRYPTEK model",
             "maxCryptothrallsUnitsPerRecipient": 1
           },
           "effect": {
-            "classification": "recipient Bodyguard unit models",
-            "countTowardStartingStrength": true,
-            "duration": "rest of battle"
+            "modelsCountAsPartOf": "that Bodyguard unit",
+            "startingStrengthIncreased": true,
+            "duration": "end-of-battle"
           }
         }
       }

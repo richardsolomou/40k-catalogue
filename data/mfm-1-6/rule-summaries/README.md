@@ -9,7 +9,7 @@ Every summary is original wording, checked against the official sources it cites
 | `rules-reference` | 6,010 | 6,009 | 1 |
 | `mission-rules` | 291 | 240 | 51 |
 
-6,248 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 1 record that no app row carries cites only the dated Games Workshop page that prints it. 1,214 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,248 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 1 record that no app row carries cites only the dated Games Workshop page that prints it. 1,204 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2156, `grants` 310, `weaponAbilities` 39, `reminder` 1166, `reserves` 1, `invulnerableSave` 0, `upgradesWeapon` 6, `roster` 8, `attachment` 48, `references` 1136 (3,407 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 

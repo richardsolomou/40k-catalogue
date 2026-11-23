@@ -13,19 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Roboute Guilliman",
-    "summary": "Friendly ADEPTUS ASTARTES units no farther than 6″ from this unit may reroll 1s on their attacks’ hit rolls and wound rolls.",
-    "summarySpans": [
-      {
-        "start": 98,
-        "end": 107,
-        "bold": true
-      },
-      {
-        "start": 112,
-        "end": 123,
-        "bold": true
-      }
-    ],
+    "summary": "While this model is within 6\" of an ADEPTUS ASTARTES unit from your army, models in that unit have +1 Objective Control, and that unit may re-roll its Leadership and Battle-shock tests.",
     "citations": [
       {
         "type": "app",
@@ -40,26 +28,32 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "datasheet-unit",
-          "kind": "Aura",
-          "continuous": true,
-          "recipient": {
-            "side": "friendly",
-            "keyword": "Adeptus Astartes",
-            "withinSourceUnitInches": 6
-          },
-          "effect": {
-            "attackKind": "all",
-            "optionalRerolls": [
+          "ability": {
+            "aura": true,
+            "appliesTo": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES"
+              ],
+              "withinInches": 6
+            },
+            "effects": [
               {
-                "roll": "hit",
-                "on": 1
+                "characteristic": "OC",
+                "add": 1
               },
               {
-                "roll": "wound",
-                "on": 1
+                "reroll": [
+                  "Battle-shock tests",
+                  "Leadership tests"
+                ],
+                "optional": true
               }
             ]
+          },
+          "cardPrintsOtherText": {
+            "rerollHitRollsOf": 1,
+            "rerollWoundRollsOf": 1
           }
         }
       }

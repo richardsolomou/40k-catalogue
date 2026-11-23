@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.gladius-task-force.a-worthy-death",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Gladius Task Force",
+    "cp": 2,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "epic-deed"
+    },
+    "summary": "Spend 2 CP in the Fight phase of either player's turn, as soon as an enemy unit has chosen its targets. Pick one ADEPTUS ASTARTES unit of yours that is a target of at least one of that enemy unit's attacks. Until the phase ends, whenever one of your unit's models is destroyed before it has fought in this phase, leave it on the battlefield: once the attacking unit has made all its attacks, that model may fight, and it is then removed.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
+          "detachment": "Gladius Task Force",
+          "type": "Epic Deed",
+          "window": {
+            "turn": "either",
+            "phase": "fight",
+            "timing": "just after an enemy unit has selected its targets"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "targetedByThatEnemyUnit": true
+          },
+          "effects": [
+            {
+              "trigger": "a model in your unit is destroyed",
+              "condition": "that model has not fought this phase",
+              "effect": "not removed from play",
+              "then": "it can fight after the attacking unit has finished its attacks, then it is removed from play"
+            }
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "name": "A Worthy Death",
+            "cpCost": 1,
+            "trigger": "an enemy unit targets that unit",
+            "condition": "your unit has yet to be chosen to fight this phase",
+            "roll": {
+              "dice": "D6",
+              "success": "4+"
+            },
+            "removal": "when your unit has fought or the phase ends, whichever comes first"
+          }
+        }
+      }
+    }
+  }
+}

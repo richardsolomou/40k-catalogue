@@ -13,27 +13,16 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Iconoclast Fiefdom",
-    "summary": "Eligible model — CHAOS KNIGHTS. Reduce the cost of your Heroic Intervention stratagem by 1 CP when it targets a friendly DAMNED unit within 6\" of the bearer.",
+    "summary": "For a CHAOS KNIGHTS model only. Using the Heroic Intervention Stratagem on a friendly DAMNED unit costs 1 CP less while that unit is no more than 6\" from this model.",
     "summarySpans": [
       {
-        "start": 17,
-        "end": 30,
-        "bold": true
-      },
-      {
-        "start": 56,
-        "end": 85,
-        "bold": true
-      },
-      {
-        "start": 91,
-        "end": 93,
-        "bold": true
-      },
-      {
-        "start": 121,
-        "end": 127,
-        "bold": true
+        "start": 42,
+        "end": 61,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "core.heroic-intervention"
+        }
       }
     ],
     "citations": [
@@ -53,6 +42,7 @@
           "type": "model",
           "points": 20,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -63,23 +53,21 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Iconoclast Fiefdom",
           "effects": [
             {
-              "recipient": "that use of Heroic Intervention",
-              "actor": "you",
-              "trigger": {
-                "event": "target with stratagem",
-                "stratagem": "Heroic Intervention",
-                "target": "friendly Damned unit",
+              "stratagem": "Heroic Intervention",
+              "whenTargeting": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "DAMNED"
+                ],
                 "withinInches": 6,
-                "measuredFrom": "bearer"
+                "of": "this model"
               },
-              "stat": "CP",
-              "adjustment": {
-                "operation": "subtract",
-                "amount": 1
-              },
-              "kind": "modify-stratagem-cost"
+              "cpModifier": -1,
+              "cpReduction": 1
             }
           ]
         }

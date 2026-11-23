@@ -12,17 +12,7 @@
   },
   "data": {
     "ruleType": "detachment-rule",
-    "summary": "At full Starting Strength, increase a Dreadnought’s OC by 2. If its unit falls under Starting Strength, it re-rolls any Hit dice showing a 1. Under Half-strength, it re-rolls 1s on Wound dice too.",
-    "summarySpans": [
-      {
-        "start": 120,
-        "end": 128,
-        "target": {
-          "kind": "core-rule",
-          "id": "making-attacks"
-        }
-      }
-    ],
+    "summary": "Bonuses for each ADEPTUS CUSTODES DREADNOUGHT unit of yours: while it is at starting strength, it gets +2 OC; while it is below starting strength, each of its attacks may re-roll a hit roll of 1; while it is below half-strength, each of its attacks may re-roll a hit roll of 1 and a wound roll of 1.",
     "citations": [
       {
         "type": "app",
@@ -93,44 +83,42 @@
           }
         ],
         "detail": {
-          "target": {
-            "keyword": "DREADNOUGHT"
-          },
-          "effect": {
-            "type": "sequence",
-            "steps": [
-              {
-                "condition": "at-starting-strength",
-                "effect": {
-                  "type": "stat-modifier",
-                  "stat": "objective-control",
-                  "operation": "add",
-                  "value": 2
-                }
-              },
-              {
-                "condition": "below-starting-strength",
-                "effect": {
-                  "type": "re-roll",
-                  "roll": "hit",
-                  "subset": "ones",
-                  "naturalValue": 1
-                }
-              },
-              {
-                "condition": "below-half-strength",
-                "effect": {
-                  "type": "re-roll",
-                  "rolls": [
-                    "hit",
-                    "wound"
-                  ],
-                  "subset": "ones",
-                  "naturalValue": 1
-                }
-              }
+          "kind": "detachment-rule",
+          "detachment": "Might of the Moritoi",
+          "appliesTo": {
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES",
+              "DREADNOUGHT"
             ]
-          }
+          },
+          "effects": [
+            {
+              "while": "at-starting-strength",
+              "characteristic": "OC",
+              "delta": 2
+            },
+            {
+              "while": "below-starting-strength",
+              "optional": true,
+              "reroll": "hit",
+              "value": 1
+            },
+            {
+              "while": "below-half-strength",
+              "optional": true,
+              "rerolls": [
+                {
+                  "roll": "hit",
+                  "value": 1
+                },
+                {
+                  "roll": "wound",
+                  "value": 1
+                }
+              ]
+            }
+          ]
         }
       }
     }

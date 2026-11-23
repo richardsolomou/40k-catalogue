@@ -22,7 +22,7 @@
       "turn": "any",
       "type": "battle-tactic"
     },
-    "summary": "During Shooting or Fight, this follows either of two events immediately. One of your CHARACTER units from EMPEROR’S CHILDREN becomes Favoured Champions, or your Champions destroy an enemy unit. Select the Champions. Until that phase closes, boost attack Strength by 1 for every model in your other CHARACTER units that have EMPEROR’S CHILDREN.",
+    "summary": "Spend 1 CP in your Shooting phase or in either player's Fight phase, right after an EMPEROR’S CHILDREN CHARACTER unit is chosen as the Favoured Champions of your army, or right after an enemy unit is destroyed by your Favoured Champions unit. It targets the Favoured Champions unit of your army. For the rest of that phase, whenever a model in any other EMPEROR’S CHILDREN CHARACTER unit of yours attacks, that attack gets +1 Strength.",
     "citations": [
       {
         "type": "app",
@@ -106,38 +106,52 @@
         },
         "detail": {
           "detachment": "Slaanesh’s Chosen",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "either"
-              },
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "afterAny": [
-              "friendly-emperors-children-character-unit-becomes-favoured-champions",
-              "favoured-champions-destroy-an-enemy-unit"
-            ]
-          },
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "triggers": [
+            {
+              "event": "unit-becomes-favoured-champions",
+              "keywordsAll": [
+                "EMPEROR’S CHILDREN",
+                "CHARACTER"
+              ],
+              "timing": "just-after"
+            },
+            {
+              "event": "favoured-champions-destroy-enemy-unit",
+              "timing": "just-after"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "allKeywords": [],
-            "condition": "own-favoured-champions-unit"
+            "isFavouredChampions": true
           },
           "effects": [
             {
-              "action": "modify-attack-strength",
-              "recipient": "models-in-friendly-emperors-children-character-units",
-              "exclude": "favoured-champions-unit",
-              "amount": 1,
-              "duration": "through-phase-end"
+              "appliesTo": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "EMPEROR’S CHILDREN",
+                  "CHARACTER"
+                ],
+                "excludeFavouredChampions": true
+              },
+              "attacks": "all",
+              "characteristic": "Strength",
+              "delta": 1
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

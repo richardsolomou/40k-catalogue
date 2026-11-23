@@ -13,43 +13,51 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Defiler",
-    "summary": "For this unit, terrain works the same as for TITANIC models on Normal, Advance and Fall-Back moves. It may cross the Engagement Range of an enemy model while moving. It needs to finish beyond that range.",
+    "summary": "During any Normal move, Advance move or Fall Back move it makes, this unit may pass across models (except TITANIC models) and terrain features. While doing so it may move within Engagement Range of the enemy's models but cannot finish the move inside it, and it passes any Desperate Escape test automatically.",
     "summarySpans": [
       {
-        "start": 45,
-        "end": 52,
-        "bold": true
-      },
-      {
-        "start": 63,
-        "end": 69,
+        "start": 11,
+        "end": 22,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "normal-move"
         }
       },
       {
-        "start": 71,
-        "end": 78,
+        "start": 24,
+        "end": 36,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "advance-move"
         }
       },
       {
-        "start": 83,
-        "end": 98,
+        "start": 40,
+        "end": 54,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "fall-back"
         }
       },
       {
-        "start": 117,
-        "end": 133,
+        "start": 178,
+        "end": 194,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "engagement-range"
+        }
+      },
+      {
+        "start": 273,
+        "end": 294,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "desperate-escape"
         }
       }
     ],
@@ -67,20 +75,25 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "this-unit",
-          "trigger": {
-            "event": "each-move",
-            "eligibleMoves": [
-              "normal",
-              "advance",
-              "fall-back"
-            ]
-          },
-          "permissions": {
-            "terrainTraversal": "same-as-TITANIC",
-            "passThroughEnemyEngagementRange": true
-          },
-          "endRestriction": "outside-enemy-engagement-range"
+          "ability": {
+            "trigger": {
+              "moves": [
+                "normal",
+                "advance",
+                "fall-back"
+              ]
+            },
+            "permissions": {
+              "moveThroughModels": true,
+              "excludedModelKeywords": [
+                "TITANIC"
+              ],
+              "moveThroughTerrainFeatures": true,
+              "mayMoveWithinEngagementRangeOfEnemy": true
+            },
+            "endRestriction": "not-within-engagement-range-of-enemy",
+            "desperateEscapeTests": "auto-pass"
+          }
         }
       }
     }

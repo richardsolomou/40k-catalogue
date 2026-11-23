@@ -13,27 +13,44 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Spearpoint Task Force",
-    "summary": "You may take one extra Assault or Tactical Doctrine selection per battle. Add 1 to Advance rolls for friendly ADEPTUS ASTARTES MOUNTED or ADEPTUS ASTARTES SPEEDER units. Once the battle’s first Fight phase closes, friendly units with SUBODEN KHAN can invoke Wrath of the First Khan if they were eligible to fight. If unengaged, the unit may then take a Normal Move. An engaged one can Fall Back. WHITE SCARS are allowed, with other chapter-specific ADEPTUS ASTARTES excluded.",
+    "summary": "Once per battle, the Assault Doctrine or the Tactical Doctrine may be chosen one extra time. ADEPTUS ASTARTES MOUNTED/SPEEDER units of yours get +1 to Advance rolls. SUBODEN KHAN units of yours gain Wrath of the First Khan: as each Fight phase ends, if that unit had been eligible to fight in that phase, you may use the ability; an unengaged unit can then make a Normal move, and an engaged one may instead make a Fall-back move. Your army can contain WHITE SCARS units, but no ADEPTUS ASTARTES units belonging to another Chapter.",
     "summarySpans": [
       {
-        "start": 194,
-        "end": 205,
+        "start": 151,
+        "end": 164,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 199,
+        "end": 222,
+        "bold": true
+      },
+      {
+        "start": 232,
+        "end": 243,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "fight-phase"
         }
       },
       {
-        "start": 353,
-        "end": 364,
+        "start": 364,
+        "end": 375,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "normal-move"
         }
       },
       {
-        "start": 385,
-        "end": 394,
+        "start": 415,
+        "end": 429,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "fall-back"
@@ -54,36 +71,53 @@
       "version": "1",
       "fields": {
         "detail": {
-          "doctrine": {
-            "either": [
-              "Assault",
-              "Tactical"
+          "kind": "detachment-rule",
+          "detachment": "Spearpoint Task Force",
+          "doctrines": {
+            "oneOf": [
+              "Assault Doctrine",
+              "Tactical Doctrine"
             ],
-            "optionalAdditionalSelections": 1,
-            "limit": "per battle"
+            "additionalSelectionsPerBattle": 1
           },
           "advance": {
-            "recipientAllOf": [
-              "friendly",
-              "Adeptus Astartes"
-            ],
-            "recipientAnyOf": [
-              "Mounted",
-              "Speeder"
-            ],
-            "rollIncrease": 1
+            "recipient": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES"
+              ],
+              "keywordsAny": [
+                "MOUNTED",
+                "SPEEDER"
+              ]
+            },
+            "roll": "advance",
+            "delta": 1
           },
-          "wrathOfTheKhan": {
-            "recipient": "friendly Suboden Khan unit",
-            "at": "end of first Fight phase",
-            "requiresEligibleToFightInThatPhase": true,
+          "grantedAbility": {
+            "name": "Wrath of the First Khan",
+            "recipients": {
+              "side": "friendly",
+              "keywordsAll": [
+                "SUBODEN KHAN"
+              ]
+            },
+            "when": {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "end-of-phase",
+              "everyFightPhase": true
+            },
+            "condition": "unit-was-eligible-to-fight-this-phase",
             "optional": true,
-            "unengaged": "Normal Move",
-            "engaged": "Fall Back"
+            "effect": {
+              "ifUnengaged": "normal-move",
+              "ifEngaged": "fall-back-move"
+            }
           },
-          "roster": {
-            "allowsChapter": "White Scars",
-            "excludesOtherChapterAdeptusAstartes": true
+          "restrictions": {
+            "allowChapter": "WHITE SCARS",
+            "excludeOtherChapterKeyword": "ADEPTUS ASTARTES"
           }
         }
       }

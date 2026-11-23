@@ -6,14 +6,14 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,010 | 6,009 | 1 |
+| `rules-reference` | 6,184 | 6,183 | 1 |
 | `mission-rules` | 291 | 240 | 51 |
 
-6,248 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 1 record that no app row carries cites only the dated Games Workshop page that prints it. 1,203 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,248 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 175 records that no app row carries cite only the dated Games Workshop page that prints it. 1,377 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2156, `grants` 310, `weaponAbilities` 39, `reminder` 1166, `reserves` 1, `invulnerableSave` 0, `upgradesWeapon` 6, `roster` 8, `attachment` 48, `references` 1136 (3,407 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2425, `grants` 337, `weaponAbilities` 98, `reminder` 2123, `reserves` 1, `invulnerableSave` 105, `upgradesWeapon` 22, `roster` 67, `attachment` 48, `references` 990 (4,033 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
-The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,061 units with roster definitions (1,312 wargear options), 1,121 stat lines and 5,177 weapon profiles, and the `mfm-1-6` points snapshot of 1,060 units, 256 Detachments and 817 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 252 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `mfm-1-6-legends` snapshot, the costs of 243 of them from the Munitorum Field Manual's Legends section. 238 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (22 of them with options left out, listed below), and their weapon profiles name that wargear.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,061 units with roster definitions (1,312 wargear options), 1,121 stat lines and 5,177 weapon profiles, and the `mfm-1-6` points snapshot of 1,060 units, 256 Detachments and 817 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 337 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `mfm-1-6-legends` snapshot, the costs of 327 of them from the Munitorum Field Manual's Legends section. 321 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (32 of them with options left out, listed below), and their weapon profiles name that wargear.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
@@ -100,7 +100,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `mission-card` `combat-patrol.strike-from-on-high`
 - `mission-card` `combat-patrol.uphold-your-vows`
 
-### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (14)
+### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (16)
 
 - `unit` `astra-militarum.death-korps-grenadier-squad`
 - `unit` `astra-militarum.hells-last`
@@ -114,6 +114,8 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `unit` `imperial-agents.kill-team-cassius`
 - `unit` `imperial-agents.proteus-kill-team`
 - `unit` `necrons.night-shroud`
+- `unit` `space-marines.bike-squad`
+- `unit` `space-marines.fire-raptor-gunship`
 - `unit` `tau-empire.aunva`
 - `unit` `unaligned-forces.imperial-fortress-walls`
 
@@ -145,6 +147,9 @@ Options a source gives that are not stated: from the app build, structures the r
 - `chaos-space-marines.decimator`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `chaos-space-marines.gellerpox-infected`: default equipment not typed (Legends PDF)
 - `chaos-space-marines.renegade-heavy-weapons-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `dark-angels.deathwing-command-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `dark-angels.deathwing-command-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `dark-angels.deathwing-strikemaster`: option not typed: its choices did not read as wargear (Legends PDF)
 - `drukhari.grotesques`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `imperial-agents.inquisitor-eisenhorn`: default equipment not read (Legends PDF)
 - `imperial-agents.inquisitor-in-terminator-armour`: option not typed: its wording is none of the typed forms (Legends PDF)
@@ -154,6 +159,18 @@ Options a source gives that are not stated: from the app build, structures the r
 - `imperial-agents.proteus-kill-team`: a model's default equipment not read (Legends PDF)
 - `necrons.night-shroud`: default equipment not read (Legends PDF)
 - `necrons.tomb-citadel-walls`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.assault-squad-with-jump-packs`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.assault-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.bike-squad`: a model's default equipment not read (Legends PDF)
+- `space-marines.command-squad`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `space-marines.command-squad`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `space-marines.company-veterans-on-bikes`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.company-veterans-on-bikes`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.fire-raptor-gunship`: default equipment not read (Legends PDF)
+- `space-marines.relic-terminator-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.scout-sniper-squad`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `space-marines.storm-eagle-gunship`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `space-marines.techmarine-on-bike`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-wolves.stormwolf`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-wolves.wolf-guard-pack-leader-in-terminator-armour`: option not typed: its choices did not read as wargear (Legends PDF)
 - `space-wolves.wolf-guard-pack-leader-in-terminator-armour`: option not typed: its choices did not read as wargear (Legends PDF)

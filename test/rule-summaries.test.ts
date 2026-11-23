@@ -310,3 +310,14 @@ test("a grant, an invulnerable save and an effect can be limited to some models 
   limited.fields.combat.readings[0]!.choices![0]!.conditions.push({ kind: "own-status", status: "EMPOWERED" } as never, { kind: "target-tougher" } as never);
   assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = limited)), []);
 });
+
+test("an effect can change Wounds, regain wounds, cap mortal wounds and re-roll saves", () => {
+  const more = structuredClone(EFFECTS);
+  Object.assign(more.fields.combat.readings[0]!.choices![0]!.effects[0] as Record<string, unknown>, {
+    wounds: 1,
+    regainWounds: { dice: 1, sides: 3, bonus: 0 },
+    rolls: { hitModifier: 1, saveReroll: "ones", singleRerolls: ["save"] },
+    mortalWounds: { timing: "outside-attacks", rolls: 3, max: 3, outcomes: [{ min: 4, max: 6, damage: { dice: 0, sides: 6, bonus: 1 } }] },
+  });
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = more)), []);
+});

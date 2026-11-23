@@ -13,7 +13,7 @@ Every record cites the signed app build in force at the update's cutoff, Warhamm
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`.
 
-The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,116 stat lines and 5,172 weapon profiles, and the `marine-2026-10-13` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 307 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `marine-2026-10-13-legends` snapshot, the costs of 297 of them from the Munitorum Field Manual's Legends section. 291 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (30 of them with options left out, listed below), and their weapon profiles name that wargear.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,116 stat lines and 5,172 weapon profiles, and the `marine-2026-10-13` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 337 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `marine-2026-10-13-legends` snapshot, the costs of 327 of them from the Munitorum Field Manual's Legends section. 321 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (32 of them with options left out, listed below), and their weapon profiles name that wargear.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
@@ -173,6 +173,9 @@ Options a source gives that are not stated: from the app build, structures the r
 - `chaos-space-marines.decimator`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `chaos-space-marines.gellerpox-infected`: default equipment not typed (Legends PDF)
 - `chaos-space-marines.renegade-heavy-weapons-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `dark-angels.deathwing-command-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `dark-angels.deathwing-command-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `dark-angels.deathwing-strikemaster`: option not typed: its choices did not read as wargear (Legends PDF)
 - `drukhari.grotesques`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `imperial-agents.inquisitor-eisenhorn`: default equipment not read (Legends PDF)
 - `imperial-agents.inquisitor-in-terminator-armour`: option not typed: its wording is none of the typed forms (Legends PDF)

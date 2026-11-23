@@ -179,6 +179,36 @@
         "stratagem": {
           "$ref": "#/$defs/stratagem-block"
         },
+        "grants": {
+          "$ref": "#/$defs/grants"
+        },
+        "weaponAbilities": {
+          "$ref": "#/$defs/weapon-abilities"
+        },
+        "reserves": {
+          "$ref": "#/$defs/reserves"
+        },
+        "invulnerableSave": {
+          "$ref": "#/$defs/invulnerable-save"
+        },
+        "upgradesWeapon": {
+          "const": true
+        },
+        "reminder": {
+          "$ref": "#/$defs/reminder"
+        },
+        "roster": {
+          "$ref": "#/$defs/roster"
+        },
+        "attachment": {
+          "$ref": "#/$defs/attachment-claim"
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        },
+        "combat": {
+          "$ref": "#/$defs/combat"
+        },
         "detail": {
           "$ref": "#/$defs/detail"
         }
@@ -191,6 +221,36 @@
       "properties": {
         "enhancement": {
           "$ref": "#/$defs/enhancement"
+        },
+        "grants": {
+          "$ref": "#/$defs/grants"
+        },
+        "weaponAbilities": {
+          "$ref": "#/$defs/weapon-abilities"
+        },
+        "reserves": {
+          "$ref": "#/$defs/reserves"
+        },
+        "invulnerableSave": {
+          "$ref": "#/$defs/invulnerable-save"
+        },
+        "upgradesWeapon": {
+          "const": true
+        },
+        "reminder": {
+          "$ref": "#/$defs/reminder"
+        },
+        "roster": {
+          "$ref": "#/$defs/roster"
+        },
+        "attachment": {
+          "$ref": "#/$defs/attachment-claim"
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        },
+        "combat": {
+          "$ref": "#/$defs/combat"
         },
         "detail": {
           "$ref": "#/$defs/detail"
@@ -439,6 +499,1234 @@
               "const": true
             }
           }
+        }
+      }
+    },
+    "selectors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/keyword"
+      }
+    },
+    "grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ability",
+        "to"
+      ],
+      "properties": {
+        "ability": {
+          "$ref": "#/$defs/text"
+        },
+        "to": {
+          "enum": [
+            "bearer",
+            "leader",
+            "unit",
+            "models"
+          ]
+        },
+        "models": {
+          "$ref": "#/$defs/keyword"
+        },
+        "named": {
+          "const": true
+        },
+        "whileAttached": {
+          "const": true
+        },
+        "counterpart": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/keyword"
+          }
+        },
+        "linked": {
+          "const": true
+        },
+        "against": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "psychic-attacks",
+              "mortal-wounds"
+            ]
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "to": {
+            "const": "models"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "models"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "models"
+          ]
+        }
+      }
+    },
+    "grant-statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "abilities"
+      ],
+      "properties": {
+        "abilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/grant"
+          }
+        }
+      }
+    },
+    "grants": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "abilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/grant"
+          }
+        },
+        "normalized": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/grant-statement"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "weapon-ability-grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ability",
+        "attacks",
+        "to"
+      ],
+      "properties": {
+        "ability": {
+          "$ref": "#/$defs/keyword"
+        },
+        "attacks": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ranged",
+              "melee"
+            ]
+          }
+        },
+        "to": {
+          "enum": [
+            "army",
+            "own-unit",
+            "led-unit"
+          ]
+        },
+        "keywords": {
+          "$ref": "#/$defs/selectors"
+        },
+        "excludedKeywords": {
+          "$ref": "#/$defs/selectors"
+        }
+      },
+      "if": {
+        "properties": {
+          "to": {
+            "const": "army"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "keywords"
+        ]
+      },
+      "else": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "keywords"
+              ]
+            },
+            {
+              "required": [
+                "excludedKeywords"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "weapon-abilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/weapon-ability-grant"
+      }
+    },
+    "reserves": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "exempt": {
+          "const": true
+        },
+        "exemptUnits": {
+          "$ref": "#/$defs/selectors"
+        }
+      }
+    },
+    "invulnerable-save": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "roll"
+      ],
+      "properties": {
+        "roll": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 6
+        }
+      }
+    },
+    "timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "at"
+      ],
+      "properties": {
+        "at": {
+          "enum": [
+            "phase-start",
+            "phase-end",
+            "turn-start",
+            "turn-end",
+            "round-start",
+            "round-end"
+          ]
+        },
+        "phase": {
+          "enum": [
+            "command",
+            "movement",
+            "shooting",
+            "charge",
+            "fight",
+            "any"
+          ]
+        },
+        "turn": {
+          "enum": [
+            "own",
+            "opponent",
+            "any"
+          ]
+        },
+        "firstRoundOnly": {
+          "const": true
+        }
+      },
+      "if": {
+        "properties": {
+          "at": {
+            "enum": [
+              "phase-start",
+              "phase-end"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "phase",
+          "turn"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "phase"
+          ]
+        }
+      }
+    },
+    "reminder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "timings"
+      ],
+      "properties": {
+        "timings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/timing"
+          }
+        },
+        "whileDestroyed": {
+          "const": true
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "timings": {
+              "type": "array",
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "required": [
+            "whileDestroyed"
+          ]
+        }
+      ]
+    },
+    "roster": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "addsUnits": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "unit",
+              "trigger",
+              "shared"
+            ],
+            "properties": {
+              "unit": {
+                "$ref": "#/$defs/text"
+              },
+              "trigger": {
+                "enum": [
+                  "shooting",
+                  "kill"
+                ]
+              },
+              "shared": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "movement": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "advance-and-charge",
+              "surge-after-enemy-shooting"
+            ]
+          }
+        }
+      }
+    },
+    "attachment-claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "units": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "requiresLeader": {
+          "const": true
+        },
+        "substitutes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      },
+      "dependentRequired": {
+        "requiresLeader": [
+          "units"
+        ]
+      }
+    },
+    "references": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
+    "unit-target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "anyOf": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/selectors"
+          }
+        },
+        "excluded": {
+          "$ref": "#/$defs/selectors"
+        },
+        "none": {
+          "const": true
+        }
+      },
+      "if": {
+        "required": [
+          "none"
+        ]
+      },
+      "then": {
+        "maxProperties": 1
+      }
+    },
+    "question": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "unitHas"
+          ],
+          "properties": {
+            "unitHas": {
+              "$ref": "#/$defs/keyword"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "everyModelHas"
+          ],
+          "properties": {
+            "everyModelHas": {
+              "$ref": "#/$defs/keyword"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "keyword"
+          ],
+          "properties": {
+            "keyword": {
+              "$ref": "#/$defs/keyword"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "psychic"
+          ],
+          "properties": {
+            "psychic": {
+              "const": true
+            }
+          }
+        }
+      ]
+    },
+    "tree-node": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reading"
+          ],
+          "properties": {
+            "reading": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ask",
+            "yes",
+            "no"
+          ],
+          "properties": {
+            "ask": {
+              "$ref": "#/$defs/question"
+            },
+            "yes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "no": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      ]
+    },
+    "condition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "option",
+                "leading",
+                "selected-target",
+                "activated",
+                "selected-visible-attacker",
+                "set-up-as-reinforcements",
+                "charged",
+                "remained-stationary",
+                "target-in-engagement-range",
+                "selected-target-in-engagement-range",
+                "target-closest",
+                "target-on-objective",
+                "source-destroyed-unit"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "inches"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "within",
+                "attacker-within",
+                "selected-unit-within",
+                "selected-target-within",
+                "objective-within",
+                "target-within"
+              ]
+            },
+            "inches": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "min",
+            "max"
+          ],
+          "properties": {
+            "kind": {
+              "const": "wounds-remaining"
+            },
+            "min": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "attacks",
+            "roll"
+          ],
+          "properties": {
+            "kind": {
+              "const": "roll"
+            },
+            "attacks": {
+              "enum": [
+                "ranged",
+                "melee"
+              ]
+            },
+            "roll": {
+              "enum": [
+                "hit",
+                "wound"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "turn"
+          ],
+          "properties": {
+            "kind": {
+              "const": "activated-at-start"
+            },
+            "turn": {
+              "enum": [
+                "own",
+                "opponent",
+                "any"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "keywords"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "for-models",
+                "for-units"
+              ]
+            },
+            "keywords": {
+              "$ref": "#/$defs/selectors"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "const": "stated"
+            },
+            "label": {
+              "$ref": "#/$defs/text"
+            }
+          }
+        }
+      ]
+    },
+    "effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "attacks"
+      ],
+      "properties": {
+        "role": {
+          "enum": [
+            "attacker",
+            "defender"
+          ]
+        },
+        "attacks": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ranged",
+              "melee"
+            ]
+          }
+        },
+        "weaponAbility": {
+          "$ref": "#/$defs/keyword"
+        },
+        "weaponHas": {
+          "$ref": "#/$defs/keyword"
+        },
+        "weapon": {
+          "$ref": "#/$defs/text"
+        },
+        "characteristic": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "add"
+              ]
+            },
+            {
+              "required": [
+                "set"
+              ]
+            }
+          ],
+          "properties": {
+            "name": {
+              "enum": [
+                "attacks",
+                "ballistic-skill",
+                "weapon-skill",
+                "strength",
+                "armour-penetration",
+                "damage"
+              ]
+            },
+            "add": {
+              "type": "integer"
+            },
+            "set": {
+              "type": "integer"
+            },
+            "nonCumulative": {
+              "const": true
+            }
+          }
+        },
+        "targetKeywords": {
+          "$ref": "#/$defs/selectors"
+        },
+        "excludedTargetKeywords": {
+          "$ref": "#/$defs/selectors"
+        },
+        "excludedModelKeywords": {
+          "$ref": "#/$defs/selectors"
+        },
+        "condition": {
+          "enum": [
+            "stronger",
+            "not-stronger",
+            "double-strength",
+            "critical-wound"
+          ]
+        },
+        "ignoreHitModifiers": {
+          "const": true
+        },
+        "ignoreWoundModifiers": {
+          "const": true
+        },
+        "ignoreSkillModifiers": {
+          "const": true
+        },
+        "criticalHit": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 6
+        },
+        "criticalHitRequiresSuccess": {
+          "const": true
+        },
+        "criticalWound": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 6
+        },
+        "criticalWoundRequiresSuccess": {
+          "const": true
+        },
+        "allHitsCritical": {
+          "const": true
+        },
+        "unmodifiedSix": {
+          "enum": [
+            "hit",
+            "wound"
+          ]
+        },
+        "invulnerable": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 6
+        },
+        "save": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 6
+        },
+        "improveSave": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "by",
+            "best"
+          ],
+          "properties": {
+            "by": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "best": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 6
+            }
+          }
+        },
+        "toughness": {
+          "type": "integer"
+        },
+        "targetToughness": {
+          "type": "integer"
+        },
+        "targetSaveModifier": {
+          "type": "integer"
+        },
+        "damageDivisor": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "rolls": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "hitModifier": {
+              "type": "integer"
+            },
+            "woundModifier": {
+              "type": "integer"
+            },
+            "hitReroll": {
+              "enum": [
+                "ones",
+                "failed"
+              ]
+            },
+            "woundReroll": {
+              "enum": [
+                "ones",
+                "failed"
+              ]
+            },
+            "cover": {
+              "type": "boolean"
+            },
+            "singleRerolls": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "enum": [
+                  "hit",
+                  "wound",
+                  "damage"
+                ]
+              }
+            }
+          }
+        },
+        "feelNoPain": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 6
+        },
+        "psychicFeelNoPain": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 6
+        },
+        "mortalFeelNoPain": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 6
+        },
+        "mortalWounds": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "timing",
+            "rolls",
+            "outcomes"
+          ],
+          "properties": {
+            "timing": {
+              "enum": [
+                "before",
+                "after"
+              ]
+            },
+            "rolls": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "psychic": {
+              "type": "boolean"
+            },
+            "perModel": {
+              "const": true
+            },
+            "sacrifice": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "outcomes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "min",
+                  "max",
+                  "damage"
+                ],
+                "properties": {
+                  "min": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 6
+                  },
+                  "max": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 6
+                  },
+                  "damage": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "dice",
+                      "sides",
+                      "bonus"
+                    ],
+                    "properties": {
+                      "dice": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "sides": {
+                        "enum": [
+                          3,
+                          6
+                        ]
+                      },
+                      "bonus": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "damageReroll": {
+          "enum": [
+            "ones",
+            "any"
+          ]
+        },
+        "damageReduction": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "unitStat": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "add"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "movement",
+                "leadership",
+                "objective-control"
+              ]
+            },
+            "add": {
+              "type": "integer"
+            }
+          }
+        },
+        "ability": {
+          "$ref": "#/$defs/text"
+        },
+        "activates": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    },
+    "choice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conditions",
+        "effects"
+      ],
+      "properties": {
+        "option": {
+          "$ref": "#/$defs/text"
+        },
+        "armyWide": {
+          "const": true
+        },
+        "selected": {
+          "$ref": "#/$defs/keyword"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/condition"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          }
+        }
+      }
+    },
+    "choices": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "choices",
+        "default"
+      ],
+      "properties": {
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/choice"
+          }
+        },
+        "default": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "reading": {
+      "type": "object",
+      "additionalProperties": false,
+      "dependentRequired": {
+        "choices": [
+          "default"
+        ],
+        "default": [
+          "choices"
+        ]
+      },
+      "properties": {
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/choice"
+          }
+        },
+        "default": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "shown": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/choices"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fallback": {
+          "$ref": "#/$defs/choices"
+        },
+        "roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "attacker",
+              "defender"
+            ]
+          }
+        }
+      }
+    },
+    "combat": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "readings",
+        "trees",
+        "contexts"
+      ],
+      "properties": {
+        "applies": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "target": {
+              "$ref": "#/$defs/unit-target"
+            },
+            "leading": {
+              "const": true
+            },
+            "reachesAttached": {
+              "const": true
+            },
+            "selectsOther": {
+              "const": true
+            },
+            "recipient": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "target": {
+                  "$ref": "#/$defs/unit-target"
+                }
+              }
+            },
+            "orders": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "target": {
+                  "$ref": "#/$defs/unit-target"
+                }
+              }
+            }
+          }
+        },
+        "readings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/reading"
+          }
+        },
+        "trees": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/tree-node"
+            }
+          }
+        },
+        "contexts": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "pattern": "^(own|leading|aura|army|stratagem-(shooting|fight|both))\\.(one|many)\\.(known|unknown)$"
+          },
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "ability-fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "grants": {
+          "$ref": "#/$defs/grants"
+        },
+        "weaponAbilities": {
+          "$ref": "#/$defs/weapon-abilities"
+        },
+        "reserves": {
+          "$ref": "#/$defs/reserves"
+        },
+        "invulnerableSave": {
+          "$ref": "#/$defs/invulnerable-save"
+        },
+        "upgradesWeapon": {
+          "const": true
+        },
+        "reminder": {
+          "$ref": "#/$defs/reminder"
+        },
+        "roster": {
+          "$ref": "#/$defs/roster"
+        },
+        "attachment": {
+          "$ref": "#/$defs/attachment-claim"
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        },
+        "combat": {
+          "$ref": "#/$defs/combat"
+        },
+        "detail": {
+          "$ref": "#/$defs/detail"
         }
       }
     }

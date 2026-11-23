@@ -63,14 +63,45 @@ export const KINDS: SummaryKind[] = ["ability", "core-rule", "core-ability", "we
 
 const ajv = new Ajv2020({ allErrors: true }).addSchema(schema).addSchema(factsSchema);
 const checkData = new Map(KINDS.map((kind) => [kind, ajv.getSchema(`${schema.$id}#/$defs/${kind}`)!]));
-const checkFacts = new Map(["plain", "stratagem", "enhancement-fields", "mission-award"].map((shape) => [shape, ajv.getSchema(`${factsSchema.$id}#/$defs/${shape}`)!]));
+const checkFacts = new Map(
+  ["plain", "ability-fields", "stratagem", "enhancement-fields", "mission-award"].map((shape) => [shape, ajv.getSchema(`${factsSchema.$id}#/$defs/${shape}`)!]),
+);
 // Which `vs-data-facts` shape a record's fields take: its kind's, or for an ability its rule type's.
 function factsShape(kind: SummaryKind, data: SummaryData): string {
   if (kind === "mission-award") return "mission-award";
   const ruleType = (data as AbilityData).ruleType;
   if (kind === "ability" && ruleType === "enhancement") return "enhancement-fields";
   if (kind === "ability" && STRATAGEMS.has(ruleType)) return "stratagem";
+  if (kind === "ability" || kind === "core-ability" || kind === "weapon-ability") return "ability-fields";
   return "plain";
+}
+
+type Choices = { choices: { conditions: { kind: string }[]; option?: string }[]; default: number };
+type CombatFacts = { readings: (Partial<Choices> & { shown?: Choices | null; fallback?: Choices })[]; trees: ({ reading: number } | { yes: number; no: number })[][]; contexts: Record<string, number> };
+
+/** The index rules of a `combat` block, which the schema cannot express: each points at an entry that exists. */
+function combatErrors(combat: CombatFacts): string[] {
+  const errors: string[] = [];
+  const sets = combat.readings.flatMap((r, i) => [
+    ...(r.choices ? [[`readings/${i}`, { choices: r.choices, default: r.default! }] as const] : []),
+    ...(r.shown ? [[`readings/${i}/shown`, r.shown] as const] : []),
+    ...(r.fallback ? [[`readings/${i}/fallback`, r.fallback] as const] : []),
+  ]);
+  for (const [at, set] of sets) {
+    if (set.default > set.choices.length) errors.push(`${at}/default is past its choices`);
+    set.choices.forEach((c, j) => {
+      if (c.conditions.some((p) => p.kind === "option") && !c.option) errors.push(`${at}/choices/${j} names its option without an option`);
+    });
+  }
+  combat.trees.forEach((tree, t) =>
+    tree.forEach((node, n) => {
+      if ("reading" in node) {
+        if (node.reading >= combat.readings.length) errors.push(`trees/${t}/${n} names a reading that does not exist`);
+      } else if (node.yes >= tree.length || node.no >= tree.length || node.yes <= n || node.no <= n) errors.push(`trees/${t}/${n} branches outside its tree or backwards`);
+    }),
+  );
+  for (const [context, tree] of Object.entries(combat.contexts)) if (tree >= combat.trees.length) errors.push(`contexts/${context} names a tree that does not exist`);
+  return errors;
 }
 const key = ({ kind, id }: Ref) => `${kind}:${id}`;
 const STRATAGEMS = new Set<AbilityData["ruleType"]>(["stratagem", "core-stratagem"]);
@@ -137,6 +168,14 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
       else {
         const rounds = (facts.fields.award as { rounds?: number[] } | undefined)?.rounds ?? [];
         if (rounds.some((r, i) => i > 0 && r <= rounds[i - 1])) errors.push(`${at} facts/award/rounds are not in ascending order`);
+        const combat = facts.fields.combat as CombatFacts | undefined;
+        if (combat) errors.push(...combatErrors(combat).map((e) => `${at} facts/combat/${e}`));
+        // Rules the facts name are references of the record, as its summary links are.
+        for (const ref of (facts.fields.references as Ref[] | undefined) ?? []) {
+          const target = entries.get(key(ref));
+          if (!target || target.retired) errors.push(`${at} facts name ${key(ref)}, which is not current in the identity release`);
+          else if (key(ref) !== at && !entry.references?.some((r) => key(r) === key(ref))) errors.push(`${at} facts name ${key(ref)} but its identity entry does not reference it`);
+        }
       }
     }
     if (facts?.format === "vs-data-mechanic" && facts.version === "1") {

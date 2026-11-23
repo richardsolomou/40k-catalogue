@@ -88,6 +88,7 @@ Keyword values are written in capitals. A **selector** is a keyword, keywords pr
 | `whileAttached` | `true` when it applies only while the bearer and its unit are attached. |
 | `counterpart` | Selectors, any of which the unit on the other side of the attachment must match; an empty list matches no unit. |
 | `linked` | `true` when it applies only to a unit that already has the ability, or may use deployment abilities it does not have. |
+| `recipientKeywords` | Selectors the receiving unit must match one of; other units the rule reaches do not gain it. |
 | `against` | The attacks a granted Feel No Pain is limited to: `psychic-attacks`, `mortal-wounds` or both. |
 
 `grants.normalized` is the same statement read from the rule's text with its deployment abilities written out in full, where that reads differently; `null` when it states no grant.
@@ -112,7 +113,7 @@ Keyword values are written in capitals. A **selector** is a keyword, keywords pr
 
 | Field | Meaning |
 | --- | --- |
-| `applies.target` | The units the rule can benefit: those matching all selectors of one of `anyOf` and none of `excluded`, every unit when absent, and none when `none` is `true`. |
+| `applies.target` | The units the rule can benefit: those matching all selectors of one of `anyOf` and none of `excluded`, every unit when absent, and none when `none` is `true`; with `attached: true`, only an Attached unit. |
 | `applies.leading` | `true` when it applies while its model is leading a unit. |
 | `applies.reachesAttached` | `true` when it reaches the unit its bearer is attached to. |
 | `applies.selectsOther` | `true` when it selects another friendly unit to benefit. |
@@ -132,7 +133,7 @@ A question is about the unit the rule applies to: `unitHas` a selector, `everyMo
 
 A reading gives the player's `choices` and the one that applies by `default`, 1-based, or 0 when none applies until the player picks one. A reading without `choices` is one whose effect cannot be calculated: report the rule as not calculated rather than estimate it. `shown` is the reading a datasheet shows, with the weapon abilities and characteristics that change no roll left in, where it differs from `choices` (`null` when nothing is shown); it can be present where `choices` are not, and is for display only. `fallback` is a coarser reading to offer where `choices` are absent, and `roles` whether the rule takes part in attacking, defending or both.
 
-A choice holds `effects` that apply together while its `conditions` hold. A condition is a `kind`: `option` (the player picked the choice's `option`, a named option of the rule), `leading`, `charged`, `remained-stationary`, `activated`, `selected-target`, `selected-visible-attacker`, `set-up-as-reinforcements`, `source-destroyed-unit`, `target-in-engagement-range`, `selected-target-in-engagement-range`, `target-closest`, `target-on-objective`, a distance in `inches` (`within`, `attacker-within`, `selected-unit-within`, `selected-target-within`, `target-within`, `objective-within`), `wounds-remaining` between `min` and `max`, a `roll` (`attacks`, `roll`), `activated-at-start` of a `turn`, the `keywords` the models (`for-models`) or units (`for-units`) must have, or `stated`: a condition only the summary gives, with a short `label` where one can be shown. `armyWide` marks an option picked for the whole army rather than per unit, and `selected` the keyword units selected for it gain.
+A choice holds `effects` that apply together while its `conditions` hold. A condition is a `kind`: `option` (the player picked the choice's `option`, a named option of the rule), `leading`, `charged`, `remained-stationary`, `activated`, `selected-target`, `selected-visible-attacker`, `set-up-as-reinforcements`, `source-destroyed-unit`, `target-in-engagement-range`, `selected-target-in-engagement-range`, `target-closest`, `target-on-objective`, `target-below-starting-strength`, `target-below-half-strength`, `target-battle-shocked`, an `enemy-status` the opposing unit has (`status`, in capitals), a distance in `inches` (`within`, `attacker-within`, `selected-unit-within`, `selected-target-within`, `target-within`, `objective-within`), `wounds-remaining` between `min` and `max`, a `roll` (`attacks`, `roll`), `activated-at-start` of a `turn`, the `keywords` the models (`for-models`) or units (`for-units`) must have and any `excludedKeywords` they must not, or `stated`: a condition only the summary gives, with a short `label` where one can be shown. `armyWide` marks an option picked for the whole army rather than per unit, and `selected` the keyword units selected for it gain.
 
 An effect applies to one `role`, `attacker` or `defender`, for the `attacks` it covers. Its other fields, each optional:
 
@@ -159,6 +160,7 @@ An effect applies to one `role`, `attacker` or `defender`, for the `attacks` it 
 | `damageReroll` | Damage rolls may be re-rolled: `ones` or `any`. |
 | `unitStat` | A unit characteristic no roll reads (`movement`, `leadership`, `objective-control`) changed by `add`. |
 | `ability` | A named ability the unit gains, such as Stealth. |
+| `bearerOnly` | The effect is the bearer's alone: only the attacks of the model with the rule, or attacks allocated to it, gain it, not the rest of a unit it leads. |
 | `activates` | Named options of the unit's other rules this makes active together. |
 
 ### Detail

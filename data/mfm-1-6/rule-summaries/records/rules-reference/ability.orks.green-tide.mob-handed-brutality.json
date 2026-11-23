@@ -85,7 +85,7 @@
                 {
                   "conditions": [
                     {
-                      "kind": "stated"
+                      "kind": "charged"
                     }
                   ],
                   "effects": [
@@ -112,6 +112,50 @@
               ]
             },
             {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "SUSTAINED HITS 1"
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "charged"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "LETHAL HITS: NON-MONSTER/VEHICLE"
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
               "choices": [],
               "default": 0,
               "roles": [
@@ -125,7 +169,7 @@
                     {
                       "kind": "for-units",
                       "keywords": [
-                        "BOYZ UNITS"
+                        "BOYZ"
                       ]
                     }
                   ],
@@ -144,11 +188,39 @@
                     {
                       "kind": "for-units",
                       "keywords": [
-                        "BOYZ UNITS"
+                        "ORKS INFANTRY"
                       ]
                     },
                     {
-                      "kind": "stated"
+                      "kind": "charged"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "LETHAL HITS: NON-MONSTER/VEHICLE"
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "BOYZ"
+                      ]
+                    },
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "ORKS INFANTRY"
+                      ]
+                    },
+                    {
+                      "kind": "charged"
                     }
                   ],
                   "effects": [
@@ -191,7 +263,7 @@
                 {
                   "conditions": [
                     {
-                      "kind": "stated"
+                      "kind": "charged"
                     }
                   ],
                   "effects": [
@@ -216,6 +288,26 @@
               "roles": [
                 "attacker"
               ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "SUSTAINED HITS 1"
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
             }
           ],
           "trees": [
@@ -225,18 +317,38 @@
                   "unitHas": "BOYZ"
                 },
                 "yes": 1,
-                "no": 2
+                "no": 4
+              },
+              {
+                "ask": {
+                  "unitHas": "ORKS INFANTRY"
+                },
+                "yes": 2,
+                "no": 3
               },
               {
                 "reading": 0
               },
               {
                 "reading": 1
+              },
+              {
+                "ask": {
+                  "unitHas": "ORKS INFANTRY"
+                },
+                "yes": 5,
+                "no": 6
+              },
+              {
+                "reading": 2
+              },
+              {
+                "reading": 3
               }
             ],
             [
               {
-                "reading": 2
+                "reading": 4
               }
             ],
             [
@@ -245,13 +357,33 @@
                   "unitHas": "BOYZ"
                 },
                 "yes": 1,
-                "no": 2
+                "no": 4
+              },
+              {
+                "ask": {
+                  "unitHas": "ORKS INFANTRY"
+                },
+                "yes": 2,
+                "no": 3
+              },
+              {
+                "reading": 5
+              },
+              {
+                "reading": 6
+              },
+              {
+                "ask": {
+                  "unitHas": "ORKS INFANTRY"
+                },
+                "yes": 5,
+                "no": 6
+              },
+              {
+                "reading": 2
               },
               {
                 "reading": 3
-              },
-              {
-                "reading": 1
               }
             ]
           ],
@@ -290,10 +422,6 @@
           {
             "kind": "core-rule",
             "id": "charge-move"
-          },
-          {
-            "kind": "weapon-ability",
-            "id": "lethal-hits"
           }
         ],
         "detail": {

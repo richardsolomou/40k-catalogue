@@ -1,0 +1,627 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/vs-data/src/roster-definitions/definitions.v2.schema.json",
+  "title": "Roster definition record data, format version 2",
+  "$defs": {
+    "version": {
+      "const": 2
+    },
+    "text": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"
+    },
+    "ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "counts": {
+      "type": "object",
+      "propertyNames": {
+        "$ref": "#/$defs/id"
+      },
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "someCounts": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/counts"
+        },
+        {
+          "type": "object",
+          "minProperties": 1
+        }
+      ]
+    },
+    "bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min",
+        "max"
+      ],
+      "properties": {
+        "min": {
+          "$ref": "#/$defs/count"
+        },
+        "max": {
+          "$ref": "#/$defs/count"
+        }
+      }
+    },
+    "sizeBounds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "size",
+          "min",
+          "max"
+        ],
+        "properties": {
+          "size": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "min": {
+            "$ref": "#/$defs/count"
+          },
+          "max": {
+            "$ref": "#/$defs/count"
+          }
+        }
+      }
+    },
+    "sizeMaxima": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "size",
+          "max"
+        ],
+        "properties": {
+          "size": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "max": {
+            "$ref": "#/$defs/count"
+          }
+        }
+      }
+    },
+    "choices": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ids"
+        },
+        {
+          "type": "array",
+          "minItems": 1
+        }
+      ]
+    },
+    "per": {
+      "oneOf": [
+        {
+          "const": "carrier"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "models"
+          ],
+          "properties": {
+            "models": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      ]
+    },
+    "when": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "faction": {
+          "$ref": "#/$defs/id"
+        },
+        "detachment": {
+          "$ref": "#/$defs/id"
+        },
+        "warlord": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "faction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formatVersion"
+      ],
+      "properties": {
+        "formatVersion": {
+          "$ref": "#/$defs/version"
+        },
+        "unitLimits": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "keywords"
+            ],
+            "properties": {
+              "keywords": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/keywords"
+                  },
+                  {
+                    "type": "array",
+                    "minItems": 1
+                  }
+                ]
+              },
+              "min": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "max": {
+                "$ref": "#/$defs/count"
+              },
+              "detachments": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "detachment"
+                  ],
+                  "properties": {
+                    "detachment": {
+                      "$ref": "#/$defs/id"
+                    },
+                    "min": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "max": {
+                      "$ref": "#/$defs/count"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "battle-size": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formatVersion",
+        "points"
+      ],
+      "properties": {
+        "formatVersion": {
+          "$ref": "#/$defs/version"
+        },
+        "points": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "detachment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formatVersion",
+        "faction"
+      ],
+      "properties": {
+        "formatVersion": {
+          "$ref": "#/$defs/version"
+        },
+        "faction": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "enhancement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formatVersion",
+        "detachment"
+      ],
+      "properties": {
+        "formatVersion": {
+          "$ref": "#/$defs/version"
+        },
+        "detachment": {
+          "$ref": "#/$defs/id"
+        },
+        "upgrade": {
+          "const": true
+        },
+        "keywords": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "all": {
+              "$ref": "#/$defs/keywords"
+            },
+            "none": {
+              "$ref": "#/$defs/keywords"
+            }
+          }
+        }
+      }
+    },
+    "unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formatVersion",
+        "faction",
+        "keywords",
+        "sizes"
+      ],
+      "properties": {
+        "formatVersion": {
+          "$ref": "#/$defs/version"
+        },
+        "faction": {
+          "$ref": "#/$defs/id"
+        },
+        "keywords": {
+          "$ref": "#/$defs/keywords"
+        },
+        "conditionalKeywords": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "keywords",
+              "when"
+            ],
+            "properties": {
+              "keywords": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/keywords"
+                  },
+                  {
+                    "type": "array",
+                    "minItems": 1
+                  }
+                ]
+              },
+              "when": {
+                "$ref": "#/$defs/when"
+              }
+            }
+          }
+        },
+        "sizes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "compositions": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "minProperties": 1,
+            "propertyNames": {
+              "$ref": "#/$defs/id"
+            },
+            "additionalProperties": {
+              "$ref": "#/$defs/bounds"
+            }
+          }
+        },
+        "modelGroups": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "models",
+              "min",
+              "max"
+            ],
+            "properties": {
+              "models": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/ids"
+                  },
+                  {
+                    "type": "array",
+                    "minItems": 2
+                  }
+                ]
+              },
+              "min": {
+                "$ref": "#/$defs/count"
+              },
+              "max": {
+                "$ref": "#/$defs/count"
+              },
+              "bySize": {
+                "$ref": "#/$defs/sizeBounds"
+              }
+            }
+          }
+        },
+        "optionGroups": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "options",
+              "max"
+            ],
+            "properties": {
+              "options": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "option"
+                  ],
+                  "properties": {
+                    "option": {
+                      "$ref": "#/$defs/id"
+                    },
+                    "choices": {
+                      "$ref": "#/$defs/choices"
+                    }
+                  }
+                }
+              },
+              "max": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "carrier": {
+                "$ref": "#/$defs/id"
+              },
+              "per": {
+                "$ref": "#/$defs/per"
+              },
+              "bySize": {
+                "$ref": "#/$defs/sizeMaxima"
+              }
+            }
+          }
+        },
+        "perRoster": {
+          "$ref": "#/$defs/count"
+        },
+        "limits": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "battleSize",
+              "perRoster"
+            ],
+            "properties": {
+              "battleSize": {
+                "$ref": "#/$defs/id"
+              },
+              "perRoster": {
+                "$ref": "#/$defs/count"
+              },
+              "when": {
+                "$ref": "#/$defs/when"
+              }
+            }
+          }
+        },
+        "legends": {
+          "const": true
+        },
+        "enhancements": {
+          "const": false
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formatVersion",
+        "unit",
+        "min",
+        "max",
+        "wargear"
+      ],
+      "properties": {
+        "formatVersion": {
+          "$ref": "#/$defs/version"
+        },
+        "unit": {
+          "$ref": "#/$defs/id"
+        },
+        "min": {
+          "$ref": "#/$defs/count"
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "bySize": {
+          "$ref": "#/$defs/sizeBounds"
+        },
+        "wargear": {
+          "$ref": "#/$defs/counts"
+        }
+      }
+    },
+    "roster-option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formatVersion",
+        "unit",
+        "choose",
+        "choices"
+      ],
+      "properties": {
+        "formatVersion": {
+          "$ref": "#/$defs/version"
+        },
+        "unit": {
+          "$ref": "#/$defs/id"
+        },
+        "carrier": {
+          "$ref": "#/$defs/id"
+        },
+        "choose": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "min",
+            "max"
+          ],
+          "properties": {
+            "min": {
+              "$ref": "#/$defs/count"
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "per": {
+          "$ref": "#/$defs/per"
+        },
+        "bySize": {
+          "$ref": "#/$defs/sizeBounds"
+        },
+        "uniform": {
+          "const": true
+        },
+        "substitutes": {
+          "$ref": "#/$defs/choices"
+        },
+        "replaces": {
+          "$ref": "#/$defs/someCounts"
+        },
+        "choices": {
+          "$ref": "#/$defs/choices"
+        },
+        "caps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "choices",
+              "max"
+            ],
+            "properties": {
+              "choices": {
+                "$ref": "#/$defs/choices"
+              },
+              "max": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "per": {
+                "$ref": "#/$defs/per"
+              },
+              "bySize": {
+                "$ref": "#/$defs/sizeMaxima"
+              }
+            }
+          }
+        },
+        "requires": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "option",
+            "choices"
+          ],
+          "properties": {
+            "option": {
+              "$ref": "#/$defs/id"
+            },
+            "choices": {
+              "$ref": "#/$defs/choices"
+            }
+          }
+        }
+      }
+    },
+    "wargear": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formatVersion"
+      ],
+      "properties": {
+        "formatVersion": {
+          "$ref": "#/$defs/version"
+        },
+        "includes": {
+          "$ref": "#/$defs/someCounts"
+        }
+      }
+    }
+  }
+}

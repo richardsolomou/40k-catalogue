@@ -25,8 +25,10 @@ function definitions(version: string): Definitions {
 
 const v10 = definitions("1.0");
 const v11 = definitions("1.1");
+const v12 = definitions("1.2");
 const legal10 = json("rosters/legal-1.0.json") as Roster;
 const legal11 = json("rosters/legal-1.1.json") as Roster;
+const legal12 = json("rosters/legal-1.2.json") as Roster;
 const WARDENS = "synthetic.ember-host.flame-wardens";
 const WARDEN = `${WARDENS}.warden`;
 const DRONES = "synthetic.ember-host.ash-drones";
@@ -38,8 +40,8 @@ const edited = (change: (roster: Roster) => void) => {
   return roster;
 };
 
-test("both rules versions form a valid identity history", () => {
-  assert.deepEqual(historyErrors([v10.identity, v11.identity]), []);
+test("all three rules versions form a valid identity history", () => {
+  assert.deepEqual(historyErrors([v10.identity, v11.identity, v12.identity]), []);
 });
 
 test("unit options stay in ID order when input records arrive in reverse order", () => {
@@ -50,13 +52,15 @@ test("unit options stay in ID order when input records arrive in reverse order",
   assert.deepEqual(ids, ["cannon", "carbines", "leader-weapon", "projector"].map((option) => `${WARDENS}.${option}`));
 });
 
-test("both rules versions build complete catalogue releases", () => {
+test("all three rules versions build complete catalogue releases", () => {
   const dir = (version: string) => fileURLToPath(new URL(version, fixtures));
   const first = buildCatalogueRelease(dir("1.0"), { release: "0.1.0", commit: "0".repeat(40) });
   assert.ok(first.ok, JSON.stringify(first));
   const second = buildCatalogueRelease(dir("1.1"), { release: "0.2.0", commit: "0".repeat(40), previous: first.files });
   assert.ok(second.ok, JSON.stringify(second));
-  const manifest = JSON.parse(second.files.get("manifest.json")!.toString()) as Manifest;
+  const third = buildCatalogueRelease(dir("1.2"), { release: "0.3.0", commit: "0".repeat(40), previous: second.files });
+  assert.ok(third.ok, JSON.stringify(third));
+  const manifest = JSON.parse(third.files.get("manifest.json")!.toString()) as Manifest;
   assert.deepEqual(manifest.categories.map((c) => [c.name, c.status]), [["rosters", "complete"]]);
 });
 
@@ -347,6 +351,115 @@ test("points joins report every unpriced size, enhancement, and undefined priced
   assert.ok(snapshot.ok);
   assert.deepEqual(pointsGaps(v11, (snapshot as { snapshot: PointsSnapshot }).snapshot), [
     { ref: { kind: "unit", id: "synthetic.ember-host.ash-drones" }, models: 3, reason: "no-size" },
+    { ref: { kind: "enhancement", id: MANTLE }, reason: "unknown-enhancement" },
+    { ref: { kind: "unit", id: "synthetic.ember-host.ash-wyrm" }, reason: "no-definition" },
+  ]);
+});
+
+// Format version 2: counted wargear, conditions, shared and per-size bounds, substitutes, compositions.
+const COLOSSUS = "synthetic.ember-host.ember-colossus";
+const PACK = "synthetic.ember-host.cinder-pack";
+const ASH_PACT = "synthetic.ash-pact";
+const BANNER = "synthetic.kindled-vow.vanguard-banner";
+const LORD_MODEL = `${LORD}.lord`;
+const edited12 = (change: (roster: Roster) => void) => {
+  const roster = structuredClone(legal12);
+  change(roster);
+  return roster;
+};
+const ashPact = (units: Roster["units"]): Roster => ({ faction: "synthetic.ember-host", detachment: ASH_PACT, battleSize: "synthetic.incursion", units });
+
+test("version 1 wargear lists read as counts of one", () => {
+  assert.deepEqual(v11.get("model", `${WARDENS}.leader`)!.data.wargear, { "synthetic.ember-pistol": 1, "synthetic.ash-blade": 1 });
+});
+
+test("a version 2 model carries a count of each wargear", () => {
+  assert.deepEqual(v12.get("model", `${COLOSSUS}.colossus`)!.data.wargear, { "synthetic.cinder-cannon": 2 });
+});
+
+test("definitions mixing format versions fail", () => {
+  const { identity, records } = input("1.2");
+  find(records, "wargear", "synthetic.ash-blade").data = {};
+  assert.deepEqual(validateDefinitions(identity, records), { ok: false, errors: ["records mix roster definition format versions 1 and 2"] });
+});
+
+const invalid12: Record<string, [(records: CatalogueRecord[], identity: Release) => void, string]> = {
+  "a replacement of more than a carrier carries": [
+    (r) => ((find(r, "roster-option", `${COLOSSUS}.cannons`).data as any).replaces["synthetic.cinder-cannon"] = 3),
+    `roster-option:${COLOSSUS}.cannons replaces 3 of wargear:synthetic.cinder-cannon, but its carriers carry 2`,
+  ],
+  "a bundle of a single item": [
+    (r) => ((find(r, "wargear", "synthetic.twin-scorch-projectors").data as any).includes["synthetic.scorch-projector"] = 1),
+    "wargear:synthetic.twin-scorch-projectors includes fewer than two items",
+  ],
+  "substitutes on an option that is not uniform": [
+    (r) => delete (find(r, "roster-option", `${WARDENS}.carbines`).data as any).uniform,
+    `roster-option:${WARDENS}.carbines has substitutes but is not uniform`,
+  ],
+  "a limit after a row that always applies": [
+    (r) => (find(r, "unit", DRONES).data as any).limits.reverse(),
+    `unit:${DRONES} limits battle-size:synthetic.incursion after a row that always applies`,
+  ],
+  "an option group scaled per carrier without a carrier": [
+    (r) => ((find(r, "unit", WARDENS).data as any).optionGroups[0].per = "carrier"),
+    `unit:${WARDENS} optionGroups/0 names a carrier exactly when it scales per carrier`,
+  ],
+  "a size no composition reaches": [
+    (r) => {
+      const compositions = (find(r, "unit", PACK).data as any).compositions;
+      compositions.splice(1, 2, compositions[0]);
+    },
+    `unit:${PACK} size 6 fits none of its compositions`,
+  ],
+};
+
+for (const [name, [change, error]] of Object.entries(invalid12)) {
+  test(`version 2 definitions with ${name} fail with: ${error}`, () => {
+    const { identity, records } = input("1.2");
+    change(records, identity);
+    const result = validateDefinitions(identity, records);
+    assert.ok(!result.ok && result.errors.includes(error), JSON.stringify(result));
+  });
+}
+
+test("a legal version 2 roster has no problems", () => {
+  assert.deepEqual(codes(v12, legal12), []);
+});
+
+const illegal12: Record<string, [Roster, string[]]> = {
+  "a counted replacement taken twice": [edited12((r) => (r.units[5]!.options![`${COLOSSUS}.cannons`]!["synthetic.twin-scorch-projectors"] = 2)), ["5 option-count"]],
+  "two heavy weapons in five models": [edited12((r) => (r.units[1]!.options![`${WARDENS}.cannon`] = { "synthetic.cinder-cannon": 1 }, r.units[1]!.options![`${WARDENS}.projector`] = { "synthetic.scorch-projector": 1 })), ["1 option-group-count"]],
+  "a uniform choice short of the models without a substitute": [edited12((r) => (r.units[1]!.options![`${WARDENS}.carbines`] = { "synthetic.ember-carbine": 2, "synthetic.cinder-lance": 1 })), ["1 option-uniform"]],
+  "a substitute without the uniform choice": [edited12((r) => (r.units[1]!.options![`${WARDENS}.carbines`] = { "synthetic.cinder-lance": 1 })), []],
+  "a model mix no composition offers": [edited12((r) => (r.units[6]!.models = { [`${PACK}.hunter`]: 4, [`${PACK}.hound`]: 2 })), ["6 unit-composition"]],
+  "a unit no roster may hold": [edited12((r) => r.units.push({ unit: "synthetic.ember-host.ember-herald" })), ["7 roster-limit"]],
+  "more units with a faction's limited keywords than it allows": [edited12((r) => r.units.push({ unit: LORD })), ["7 unit-limit"]],
+  "an enhancement a warlord's condition has not opened": [edited12((r) => (r.units[0]!.enhancement = BANNER)), ["0 enhancement-keywords"]],
+  "an enhancement a warlord's condition opens": [edited12((r) => ((r.units[0]!.enhancement = BANNER), (r.units[2]!.warlord = LORD_MODEL))), []],
+  "a warlord model from another unit": [edited12((r) => (r.units[0]!.warlord = LORD_MODEL)), ["0 unit-model"]],
+  "two warlords": [edited12((r) => ((r.units[2]!.warlord = LORD_MODEL), (r.units[3]!.warlord = "synthetic.ember-host.the-kindler.kindler"))), ["2 warlord-repeated", "3 warlord-repeated"]],
+  "two copies limited to one outside the detachment that raises it": [{ ...ashPact([{ unit: DRONES }, { unit: DRONES }]), detachment: "synthetic.kindled-vow" }, ["1 roster-limit"]],
+  "two copies in the detachment that raises their limit": [ashPact([{ unit: DRONES }, { unit: DRONES }]), []],
+  "fewer units with a detachment's required keywords than it needs": [ashPact([{ unit: LORD }]), ["- unit-limit"]],
+  "more units than a detachment's own bound allows": [ashPact([{ unit: DRONES }, { unit: LORD }, { unit: "synthetic.ember-host.the-kindler" }]), ["2 unit-limit"]],
+};
+
+for (const [name, [roster, expected]] of Object.entries(illegal12)) {
+  test(`a version 2 roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(v12, roster), expected);
+  });
+}
+
+test("a version 2 import keeps counted default wargear off the roster", () => {
+  assert.deepEqual(importUnit(v12, "synthetic.ember-host", { name: "Ember Colossus", models: 1, wargear: { "Cinder Cannon": 2 } }), {
+    ok: true, unit: { unit: COLOSSUS, models: { [`${COLOSSUS}.colossus`]: 1 } },
+  });
+});
+
+test("points joins skip a unit no roster may hold", () => {
+  const snapshot = validateSnapshot(json("points-1.2.json"));
+  assert.ok(snapshot.ok);
+  assert.deepEqual(pointsGaps(v12, (snapshot as { snapshot: PointsSnapshot }).snapshot), [
     { ref: { kind: "enhancement", id: MANTLE }, reason: "unknown-enhancement" },
     { ref: { kind: "unit", id: "synthetic.ember-host.ash-wyrm" }, reason: "no-definition" },
   ]);

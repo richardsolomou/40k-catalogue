@@ -1629,9 +1629,16 @@
                 "enum": [
                   "hit",
                   "wound",
-                  "damage"
+                  "damage",
+                  "save"
                 ]
               }
+            },
+            "saveReroll": {
+              "enum": [
+                "ones",
+                "failed"
+              ]
             }
           }
         },
@@ -1662,7 +1669,8 @@
             "timing": {
               "enum": [
                 "before",
-                "after"
+                "after",
+                "outside-attacks"
               ]
             },
             "rolls": {
@@ -1728,6 +1736,10 @@
                   }
                 }
               }
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 1
             }
           }
         },
@@ -1777,6 +1789,42 @@
         },
         "modelKeywords": {
           "$ref": "#/$defs/selectors"
+        },
+        "wounds": {
+          "type": "integer"
+        },
+        "regainWounds": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "dice",
+                "sides",
+                "bonus"
+              ],
+              "properties": {
+                "dice": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "sides": {
+                  "enum": [
+                    3,
+                    6
+                  ]
+                },
+                "bonus": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          ]
         }
       }
     },

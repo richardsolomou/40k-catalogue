@@ -168,8 +168,8 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
       else {
         const rounds = (facts.fields.award as { rounds?: number[] } | undefined)?.rounds ?? [];
         if (rounds.some((r, i) => i > 0 && r <= rounds[i - 1])) errors.push(`${at} facts/award/rounds are not in ascending order`);
-        const combat = facts.fields.combat as CombatFacts | undefined;
-        if (combat) errors.push(...combatErrors(combat).map((e) => `${at} facts/combat/${e}`));
+        const combat = facts.fields.combat as CombatFacts | { unresolved: string } | undefined;
+        if (combat && !("unresolved" in combat)) errors.push(...combatErrors(combat).map((e) => `${at} facts/combat/${e}`));
         // Rules the facts name are references of the record, as its summary links are.
         for (const ref of (facts.fields.references as Ref[] | undefined) ?? []) {
           const target = entries.get(key(ref));

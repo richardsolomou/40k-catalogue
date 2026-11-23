@@ -19,21 +19,16 @@
         "id": "aeldari.ynnari-venom"
       }
     ],
-    "summary": "Lithe Embarkation lets the selected unit board even after leaving this Ynnari Venom earlier that turn. Before Declare Battle Formations, choose up to one YNNARI WYCHES or YNNARI KABALITE WARRIORS unit that hasn’t been split. Divide its models as evenly as you can. One half opens aboard this Ynnari Venom. Put the other half in a different TRANSPORT or deploy it independently.",
+    "summary": "Errata to the Ynnari Venom. Lithe Embarkation gains a line: the unit may board this TRANSPORT even in a turn in which it got out of it. The second paragraph of its transport section now reads as follows. Before the battle, as the Declare Battle Formations step begins, you may pick a YNNARI KABALITE WARRIORS or YNNARI WYCHES unit of yours that was not previously split and divide it into two units, sharing its models out as evenly as possible and noting which models form each new unit. One of the two must begin the battle aboard this TRANSPORT; the other may begin aboard another TRANSPORT or be set up on the battlefield as its own unit.",
     "summarySpans": [
       {
-        "start": 0,
-        "end": 17,
+        "start": 28,
+        "end": 45,
         "bold": true,
         "target": {
           "kind": "ability",
           "id": "aeldari.ynnari-venom.lithe-embarkation"
         }
-      },
-      {
-        "start": 71,
-        "end": 83,
-        "bold": true
       }
     ],
     "citations": [
@@ -59,43 +54,41 @@
           "faq": {
             "entryType": "errata",
             "publicationId": "995328e1-ae96-4ef6-b548-c31fad1a06fc",
-            "typedMechanics": {
-              "operations": [
-                {
-                  "ability": "Lithe Embarkation",
-                  "recipient": "unit-selected-under-ability",
-                  "permission": "embark",
-                  "exception": "unit-disembarked-from-this-transport-in-same-turn",
-                  "kind": "append-ability-clause"
+            "operations": [
+              {
+                "ability": "Lithe Embarkation",
+                "permission": "embark-in-a-turn-it-disembarked-from-this-transport",
+                "kind": "append-to-ability"
+              },
+              {
+                "paragraph": 2,
+                "timing": {
+                  "before": "battle",
+                  "step": "Declare Battle Formations",
+                  "at": "start-of-step"
                 },
-                {
-                  "paragraph": 2,
-                  "timing": "before-declare-battle-formations",
-                  "choice": {
-                    "optional": true,
-                    "unitCount": 1,
-                    "unitTypesAnyOf": [
-                      "Ynnari Kabalite Warriors",
-                      "Ynnari Wyches"
-                    ],
-                    "notPreviouslySplit": true
-                  },
-                  "result": {
-                    "resultingUnits": 2,
-                    "distribution": "model-count-as-even-as-possible",
-                    "first": {
-                      "mustStartEmbarked": "this-transport"
-                    },
-                    "second": {
-                      "mayStartEmbarked": "another-transport",
-                      "alternative": "deploy-as-separate-unit"
-                    }
-                  },
-                  "kind": "replace-transport-paragraph"
-                }
-              ]
-            },
-            "signedValueMagnitudes": []
+                "choice": {
+                  "optional": true,
+                  "count": 1,
+                  "keywordsAny": [
+                    "YNNARI KABALITE WARRIORS",
+                    "YNNARI WYCHES"
+                  ],
+                  "notAlreadySplit": true
+                },
+                "result": {
+                  "units": 2,
+                  "modelSplit": "as-equal-as-possible",
+                  "recordWhichModels": true,
+                  "first": "must-start-embarked-in-this-transport",
+                  "second": [
+                    "may-start-embarked-in-another-transport",
+                    "may-deploy-as-separate-unit"
+                  ]
+                },
+                "kind": "replace-transport-paragraph"
+              }
+            ]
           }
         }
       }

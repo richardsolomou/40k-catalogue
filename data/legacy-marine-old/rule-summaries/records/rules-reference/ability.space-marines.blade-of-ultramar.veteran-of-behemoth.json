@@ -13,23 +13,7 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Blade of Ultramar",
-    "summary": "Model eligibility — ADEPTUS ASTARTES. Give the bearer’s unit’s ranged attacks [SUSTAINED HITS 1].",
-    "summarySpans": [
-      {
-        "start": 20,
-        "end": 36,
-        "bold": true
-      },
-      {
-        "start": 79,
-        "end": 95,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "sustained-hits"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS ASTARTES model. As long as the bearer leads a unit, that unit's models have [SUSTAINED HITS 1] on their ranged weapons. While the Devastator Doctrine applies to the bearer's unit, Advance rolls for that unit may also be re-rolled.",
     "citations": [
       {
         "type": "app",
@@ -47,6 +31,7 @@
           "type": "model",
           "points": 25,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -57,14 +42,24 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Blade of Ultramar",
           "effects": [
             {
-              "type": "grant-ability",
-              "target": "bearers-unit-ranged",
-              "ability": "Sustained Hits",
-              "rating": 1
+              "condition": "bearer is leading a unit",
+              "weapons": "ranged weapons of models in the led unit",
+              "grantWeaponAbility": "SUSTAINED HITS",
+              "value": 1
+            },
+            {
+              "condition": "bearer's unit is under the Devastator Doctrine",
+              "reroll": "advance",
+              "optional": true
             }
-          ]
+          ],
+          "cardPrintsOtherText": {
+            "pointsCost": 20
+          }
         }
       }
     }

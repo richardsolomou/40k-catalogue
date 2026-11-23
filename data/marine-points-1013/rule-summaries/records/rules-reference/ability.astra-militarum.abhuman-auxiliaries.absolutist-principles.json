@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Abhuman Auxiliaries",
-    "summary": "Your BULLGRYN SQUADS, OGRYN SQUADS and RATLINGS become ABHUMAN. Your COMMISSARS can give Take Aim!. They also gain one extra Order reserved for a friendly ABHUMAN unit. Units marked with the ABHUMAN Detachment tag are exclusive to this detachment.",
+    "summary": "Friendly BULLGRYN SQUAD, OGRYN SQUAD and RATLINGS units gain the ABHUMAN keyword. Friendly COMMISSAR models gain access to the Take Aim! Order, and may also give a friendly ABHUMAN unit 1 Order. This detachment carries the ABHUMAN tag, so it cannot be combined with another ABHUMAN detachment.",
     "citations": [
       {
         "type": "app",
@@ -29,25 +29,31 @@
       "fields": {
         "detail": {
           "keywordGrant": {
-            "unitTypes": [
-              "bullgryn-squad",
-              "ogryn-squad",
-              "ratlings"
+            "recipients": {
+              "side": "friendly",
+              "keywordsAny": [
+                "BULLGRYN SQUAD",
+                "OGRYN SQUAD",
+                "RATLINGS"
+              ]
+            },
+            "keyword": "ABHUMAN"
+          },
+          "commissarOrders": {
+            "models": {
+              "side": "friendly",
+              "keywordsAll": [
+                "COMMISSAR"
+              ]
+            },
+            "mayIssue": [
+              "Take Aim!"
             ],
-            "keyword": "abhuman"
+            "ordersToAbhumanUnit": 1
           },
-          "orderAccess": {
-            "model": "friendly-commissar",
-            "allows": "take-aim"
-          },
-          "additionalOrder": {
-            "model": "friendly-commissar",
-            "count": 1,
-            "recipient": "friendly-abhuman-unit"
-          },
-          "rosterRestriction": {
-            "tag": "abhuman-detachment",
-            "onlyDetachment": "abhuman-auxiliaries"
+          "detachmentTag": {
+            "tag": "ABHUMAN",
+            "cannotCombineWithDetachmentTag": "ABHUMAN"
           }
         }
       }

@@ -19,25 +19,7 @@
       ],
       "turn": "opponent"
     },
-    "summary": "In the opposing Movement phase, respond when an enemy finishes moving within 8 inches of one unengaged friendly TRUSTED SENTINEL. That unit may travel up to D3+3 inches with a normal move.",
-    "summarySpans": [
-      {
-        "start": 16,
-        "end": 30,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 176,
-        "end": 187,
-        "target": {
-          "kind": "core-rule",
-          "id": "normal-move"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in the opponent's Movement phase once an enemy unit finishes a move 8\" or less from an unengaged TRUSTED SENTINEL unit of yours. That unit may then go up to D3+3\" with a Normal move.",
     "citations": [
       {
         "type": "app",
@@ -77,42 +59,27 @@
         ],
         "detail": {
           "detachment": "Honoured Companions",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "opponent"
-              }
-            ],
-            "event": "enemy-unit-completes-move",
-            "actor": "enemy-unit"
-          },
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "movement"
+            }
+          ],
+          "trigger": "an enemy unit ends a move within 8 inches of the target",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "TRUSTED SENTINEL"
             ],
-            "conditions": [
-              {
-                "engaged": false
-              },
-              {
-                "relation": "within-distance-of",
-                "other": "enemy-unit",
-                "distanceInches": 8
-              }
-            ]
+            "unengaged": true,
+            "triggerWithinInches": 8
           },
           "effects": [
             {
-              "action": "allow-move",
-              "recipient": "chosen-unit",
-              "mode": "normal",
-              "maximumInches": "D3+3",
-              "optional": true
+              "move": "normal",
+              "maxDistance": "D3+3",
+              "unit": "inches"
             }
           ]
         }

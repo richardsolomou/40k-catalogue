@@ -13,11 +13,11 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "D-cannon Platform",
-    "summary": "At Declare Battle Formations, optionally assign the D-cannon Platform to a GUARDIAN DEFENDERS unit on your roster. A recipient may take only one SUPPORT WEAPON model. Add the platform to the unit’s Starting Strength and keep it in that unit through battle end. Embarking in a TRANSPORT is prohibited for the platform and the rest of its unit.",
+    "summary": "As the Declare Battle Formations step begins, this model may join a GUARDIAN DEFENDERS unit of yours, but a unit can take at most one SUPPORT WEAPON model this way. Until the battle ends, the model is treated as a model of that GUARDIANS unit, whose Starting Strength rises to match. Neither this model nor any unit it has joined can embark within a TRANSPORT.",
     "summarySpans": [
       {
-        "start": 276,
-        "end": 285,
+        "start": 7,
+        "end": 32,
         "bold": true
       }
     ],
@@ -35,18 +35,34 @@
       "version": "1",
       "fields": {
         "detail": {
-          "activation": {
-            "step": "Declare Battle Formations",
-            "optional": true
-          },
-          "attachment": {
-            "addOwnerModelTo": "one Guardian Defenders unit in own army",
-            "maximumOfSameWeaponsModelInRecipient": 1
-          },
-          "effect": {
-            "duration": "end of battle",
-            "ownerCountsTowardRecipientStartingStrength": true,
-            "ownerAndAllModelsInRecipientCannotEmbark": true
+          "ability": {
+            "timing": {
+              "step": "Declare Battle Formations",
+              "at": "start-of-step"
+            },
+            "optional": true,
+            "join": {
+              "count": 1,
+              "unit": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "GUARDIAN DEFENDERS"
+                ]
+              },
+              "maxSupportWeaponModelsPerUnit": 1
+            },
+            "effect": {
+              "countsAsPartOf": "GUARDIANS unit",
+              "duration": "rest-of-battle",
+              "startingStrengthIncreases": true
+            },
+            "restriction": {
+              "cannotEmbark": "TRANSPORT",
+              "appliesTo": [
+                "this-model",
+                "unit-it-joined"
+              ]
+            }
           }
         }
       }

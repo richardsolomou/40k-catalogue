@@ -21,45 +21,7 @@
       "turn": "any",
       "type": "battle-tactic"
     },
-    "summary": "Give the ADEPTUS ASTARTES unit’s melee attacks [LETHAL HITS] when it is chosen to fight in either Fight phase. If the unit is MOUNTED, those attacks also gain [LANCE].",
-    "summarySpans": [
-      {
-        "start": 9,
-        "end": 25,
-        "bold": true
-      },
-      {
-        "start": 48,
-        "end": 59,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "lethal-hits"
-        }
-      },
-      {
-        "start": 98,
-        "end": 109,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 126,
-        "end": 133,
-        "bold": true
-      },
-      {
-        "start": 160,
-        "end": 165,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "lance"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in either player's Fight phase as one of your ADEPTUS ASTARTES units is chosen to fight. For the rest of that phase, the melee attacks it makes gain either [LETHAL HITS] or [LANCE], as you choose; if the unit is MOUNTED, you may give them both instead.",
     "citations": [
       {
         "type": "app",
@@ -91,38 +53,42 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight"
-            ],
-            "event": "friendly-selected-to-fight",
-            "window": {
-              "fight": "either"
+          "detachment": "Spearpoint Task Force",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
             }
+          ],
+          "trigger": {
+            "event": "friendly-unit-selected-to-fight"
           },
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ]
           },
           "effects": [
             {
-              "kind": "grant-ability",
-              "subject": "selected-unit-melee-attacks",
-              "ability": "lethal-hits"
+              "attackType": "melee",
+              "chooseOne": [
+                "LETHAL HITS",
+                "LANCE"
+              ]
             },
             {
-              "kind": "grant-ability",
-              "subject": "selected-unit-melee-attacks",
-              "ability": "lance",
-              "conditions": {
-                "selectedUnitKeyword": "Mounted"
-              }
+              "ifUnitHasKeyword": "MOUNTED",
+              "attackType": "melee",
+              "mayHaveBoth": [
+                "LETHAL HITS",
+                "LANCE"
+              ]
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "durationBasis": "Core Rules 01.02.02: no duration is printed, so the effect lasts for the rest of the phase in which it was applied"
         }
       }
     }

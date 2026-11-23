@@ -19,33 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "In your Movement phase, use this as one of your ADEPTUS CUSTODES DREADNOUGHTS finishes an Advance move. Its ranged attacks gain [ASSAULT] through turn end. The advance also leaves the unit eligible to charge.",
-    "summarySpans": [
-      {
-        "start": 90,
-        "end": 102,
-        "target": {
-          "kind": "core-rule",
-          "id": "advance-move"
-        }
-      },
-      {
-        "start": 129,
-        "end": 136,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "assault"
-        }
-      },
-      {
-        "start": 189,
-        "end": 207,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-step"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Movement phase just after an ADEPTUS CUSTODES DREADNOUGHT unit of yours ends an Advance move. Until the turn ends, its ranged attacks have [ASSAULT], and the Advance still leaves it able to declare a charge.",
     "citations": [
       {
         "type": "app",
@@ -141,38 +115,32 @@
         ],
         "detail": {
           "detachment": "Might of the Moritoi",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "your"
-              }
-            ],
-            "event": "friendly-finishes-advance"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            }
+          ],
+          "trigger": "a friendly unit ends an advance move",
           "target": {
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "controller": "friendly",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES",
               "DREADNOUGHT"
             ],
-            "relation": "triggering-unit"
+            "is": "the unit that advanced"
           },
           "effects": [
             {
-              "action": "grant-weapon-ability",
-              "ability": "ASSAULT",
               "attackType": "ranged",
-              "expires": "turn-end"
+              "weaponAbility": "ASSAULT",
+              "duration": "end-of-turn"
             },
             {
-              "action": "keep-charge-eligibility",
-              "despite": "triggering-advance"
+              "advanceDoesNotPreventCharge": true
             }
-          ],
-          "restrictions": []
+          ]
         }
       }
     }

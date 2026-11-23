@@ -13,41 +13,7 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Spearpoint Task Force",
-    "summary": "Model eligibility — ADEPTUS ASTARTES. Improve AP and raise S by 1 for the bearer’s melee attacks. Double both changes if its unit charged this turn with a charge move.",
-    "summarySpans": [
-      {
-        "start": 20,
-        "end": 36,
-        "bold": true
-      },
-      {
-        "start": 46,
-        "end": 48,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "profiles"
-        }
-      },
-      {
-        "start": 59,
-        "end": 60,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "profiles"
-        }
-      },
-      {
-        "start": 155,
-        "end": 166,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-move"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS ASTARTES model. Melee weapons the bearer is equipped with have Strength and Armour Penetration improved by 1. Whenever the bearer finishes a Charge move, both are improved by 2 instead until the turn ends.",
     "citations": [
       {
         "type": "app",
@@ -65,6 +31,7 @@
           "type": "model",
           "points": 25,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -75,23 +42,27 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Spearpoint Task Force",
           "effects": [
             {
-              "type": "modifier",
-              "target": "bearers-melee",
-              "characteristic": "Strength",
-              "delta": 1,
-              "replacedBy": 2,
-              "when": "unit-charged-this-turn"
+              "weapons": "bearer's melee weapons",
+              "characteristics": [
+                "S",
+                "AP"
+              ],
+              "improveBy": 1
             },
             {
-              "type": "modifier",
-              "target": "bearers-melee",
-              "characteristic": "Armour Penetration",
-              "delta": -1,
-              "magnitude": 1,
-              "replacedBy": -2,
-              "when": "unit-charged-this-turn"
+              "trigger": "bearer ends a Charge move",
+              "weapons": "bearer's melee weapons",
+              "characteristics": [
+                "S",
+                "AP"
+              ],
+              "improveBy": 2,
+              "replacesPrevious": true,
+              "duration": "end-of-turn"
             }
           ]
         }

@@ -13,38 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Terminator Assault Squad",
-    "summary": "If this unit charged this turn, Lightning Claws get Sustained Hits 1 against non-Monster/Vehicle targets, and Thunder Hammer gets it against Monster/Vehicle targets.",
-    "summarySpans": [
-      {
-        "start": 32,
-        "end": 47,
-        "bold": true
-      },
-      {
-        "start": 52,
-        "end": 68,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "sustained-hits"
-        }
-      },
-      {
-        "start": 77,
-        "end": 96,
-        "bold": true
-      },
-      {
-        "start": 110,
-        "end": 124,
-        "bold": true
-      },
-      {
-        "start": 141,
-        "end": 156,
-        "bold": true
-      }
-    ],
+    "summary": "As each Fight phase begins, every enemy unit in Engagement Range of this one must make a Battle-shock test.",
     "citations": [
       {
         "type": "app",
@@ -59,31 +28,20 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "datasheet-unit",
-          "condition": {
-            "unitChargedThisTurn": true
+          "ability": {
+            "when": {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "start-of-phase"
+            },
+            "appliesTo": {
+              "side": "enemy",
+              "withinEngagementRangeOfThisUnit": true
+            },
+            "effect": "must take a Battle-shock test"
           },
-          "effect": {
-            "grant": "Sustained Hits 1",
-            "additionalHits": 1,
-            "byWeapon": [
-              {
-                "weapon": "Lightning Claws",
-                "profile": "Twin Lightning Claws",
-                "targetExcludes": [
-                  "Monster",
-                  "Vehicle"
-                ]
-              },
-              {
-                "weapon": "Thunder Hammer",
-                "profile": "Thunder Hammer",
-                "targetIncludesAny": [
-                  "Monster",
-                  "Vehicle"
-                ]
-              }
-            ]
+          "cardPrintsOtherText": {
+            "sustainedHits": 1
           }
         }
       }

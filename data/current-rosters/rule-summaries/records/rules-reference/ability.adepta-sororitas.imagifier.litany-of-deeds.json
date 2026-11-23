@@ -13,26 +13,16 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Imagifier",
-    "summary": "If you gain Miracle dice because an ADEPTA SORORITAS unit from your army dies within 12″ of the Imagifier, you may re-roll the result before it goes into your pool.",
+    "summary": "Whenever the destruction of one of your ADEPTA SORORITAS units or models no more than 12″ from this model earns you a Miracle dice, you may re-roll that dice before putting it in your Miracle Dice pool.",
     "summarySpans": [
       {
-        "start": 12,
-        "end": 24,
+        "start": 118,
+        "end": 130,
         "bold": true,
         "target": {
           "kind": "ability",
           "id": "adepta-sororitas.acts-of-faith"
         }
-      },
-      {
-        "start": 36,
-        "end": 52,
-        "bold": true
-      },
-      {
-        "start": 85,
-        "end": 88,
-        "bold": true
       }
     ],
     "citations": [
@@ -49,19 +39,21 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "controlling-player",
-          "trigger": "gain-miracle-dice-from-destruction-of-own-unit",
-          "casualty": {
-            "side": "own-army",
-            "entity": "unit",
-            "keyword": "Adepta Sororitas",
-            "maximumInches": 12,
-            "origin": "this-model"
-          },
-          "effect": {
-            "timing": "before-adding-to-pool",
-            "optional": true,
-            "kind": "reroll-miracle-dice"
+          "ability": {
+            "trigger": "you gain a Miracle dice because an ADEPTA SORORITAS unit or model from your army was destroyed",
+            "casualty": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTA SORORITAS"
+              ],
+              "unitOrModel": true,
+              "withinInchesOfThisModel": 12
+            },
+            "effect": {
+              "optional": true,
+              "reroll": "that Miracle dice",
+              "timing": "before adding it to your Miracle Dice pool"
+            }
           }
         }
       }

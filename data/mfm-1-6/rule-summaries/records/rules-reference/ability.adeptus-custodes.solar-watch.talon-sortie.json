@@ -12,25 +12,7 @@
   },
   "data": {
     "ruleType": "detachment-rule",
-    "summary": "Friendly ADEPTUS CUSTODES units can still Charge after making a Fall-Back Move.",
-    "summarySpans": [
-      {
-        "start": 42,
-        "end": 48,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-phase"
-        }
-      },
-      {
-        "start": 64,
-        "end": 78,
-        "target": {
-          "kind": "core-rule",
-          "id": "fall-back"
-        }
-      }
-    ],
+    "summary": "Any ADEPTUS CUSTODES unit of yours that makes a Fall Back move remains eligible to charge afterwards. Favoured Ka’tah: Calistus. When a unit uses Calistus, it also gains +2\" Move for the rest of that phase.",
     "citations": [
       {
         "type": "app",
@@ -51,22 +33,25 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "event": "move-completed",
-            "moveType": "fall-back"
+          "permission": {
+            "recipients": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS CUSTODES"
+              ]
+            },
+            "afterMoveType": "fall-back",
+            "stillEligibleToCharge": true
           },
-          "target": {
-            "owner": "friendly",
-            "level": "unit",
-            "allOf": [
-              "Adeptus Custodes"
-            ]
+          "favouredKatah": {
+            "katah": "Calistus",
+            "additionalEffect": {
+              "characteristic": "M",
+              "modifierInches": 2,
+              "duration": "end-of-phase"
+            }
           },
-          "effect": {
-            "type": "permission",
-            "action": "charge",
-            "allow": true
-          }
+          "durationBasis": "Core Rules 01.02.02: the text gives no duration, so the effect lasts only for the phase in which it was applied."
         }
       }
     }

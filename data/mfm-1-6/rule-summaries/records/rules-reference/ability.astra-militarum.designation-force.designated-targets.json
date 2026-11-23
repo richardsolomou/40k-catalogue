@@ -13,69 +13,16 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Designation Force",
-    "summary": "Your SCOUT SENTINEL units and units with ASTRA MILITARUM INFANTRY SMOKE gain Signal Flares: The bearer may mark one visible enemy unit as designated during your Shooting phase. The chosen foe must be up to 12\" away. A designated unit adds 3\" to its own detection range. A RECON unit in this detachment cannot also be taken in another detachment.",
+    "summary": "Friendly SCOUT SENTINEL or ASTRA MILITARUM INFANTRY SMOKE units gain Signal Flares, which lets such a unit, during your Shooting phase, pick an enemy unit that is visible to it and within 12″; the chosen unit becomes designated, and a designated unit gets +3″ to its detection range. This detachment carries the RECON tag, so it cannot be taken together with another RECON detachment.",
     "summarySpans": [
       {
-        "start": 5,
-        "end": 19,
-        "bold": true
-      },
-      {
-        "start": 41,
-        "end": 71,
-        "bold": true
-      },
-      {
-        "start": 77,
-        "end": 91,
-        "bold": true
-      },
-      {
-        "start": 116,
-        "end": 123,
+        "start": 120,
+        "end": 134,
         "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "visibility"
-        }
-      },
-      {
-        "start": 138,
-        "end": 148,
-        "bold": true
-      },
-      {
-        "start": 161,
-        "end": 175,
         "target": {
           "kind": "core-rule",
           "id": "shooting-phase"
         }
-      },
-      {
-        "start": 218,
-        "end": 228,
-        "bold": true
-      },
-      {
-        "start": 253,
-        "end": 268,
-        "bold": true
-      },
-      {
-        "start": 272,
-        "end": 277,
-        "bold": true
-      },
-      {
-        "start": 291,
-        "end": 301,
-        "bold": true
-      },
-      {
-        "start": 334,
-        "end": 344,
-        "bold": true
       }
     ],
     "citations": [
@@ -101,37 +48,19 @@
           ]
         },
         "detail": {
-          "scope": {
-            "factionId": "9b847488-9663-48dc-b819-08ab93ac4382",
-            "faction": "Astra Militarum",
-            "detachmentId": "7c12acc3-f2ae-4fa7-b80b-03dae96b72da",
-            "detachment": "Designation Force",
-            "uniqueTags": [
-              {
-                "id": "30a9528f-1692-4a82-9559-b9ef448d845d",
-                "name": {
-                  "en": "Recon"
-                }
-              }
-            ],
-            "sourceId": "7c12acc3-f2ae-4fa7-b80b-03dae96b72da:designated-targets",
-            "cardType": "detachmentRule",
-            "cardEdition": "40k-11e"
-          },
-          "grant": {
-            "type": "ability-grant",
+          "detachment": "Designation Force",
+          "ability": {
             "name": "Signal Flares",
             "bearer": {
-              "owner": "friendly",
-              "level": "unit",
-              "anyOfFilters": [
+              "side": "friendly",
+              "anyOf": [
                 {
-                  "allOf": [
-                    "Scout Sentinel"
+                  "keywordsAll": [
+                    "SCOUT SENTINEL"
                   ]
                 },
                 {
-                  "allOf": [
+                  "keywordsAll": [
                     "ASTRA MILITARUM",
                     "INFANTRY",
                     "SMOKE"
@@ -139,47 +68,25 @@
                 }
               ]
             },
-            "timing": {
-              "event": "during-phase",
-              "phase": "shooting",
-              "owner": "self"
+            "when": {
+              "turn": "own",
+              "phase": "shooting"
             },
-            "selection": {
+            "select": {
+              "side": "enemy",
               "count": 1,
-              "optional": true,
-              "target": {
-                "owner": "enemy",
-                "level": "unit",
-                "visibleTo": "bearer-unit",
-                "distance": {
-                  "from": "bearer-unit",
-                  "maximum": 12,
-                  "unit": "inches"
-                }
-              }
+              "visibleToBearer": true,
+              "withinInches": 12,
+              "optional": true
             },
-            "designation": {
-              "target": "selected-enemy-unit",
-              "tag": "designated"
-            },
-            "effect": {
-              "type": "stat-modifier",
-              "stat": "detection-range",
-              "operation": "add",
-              "value": 3,
-              "unit": "inches",
-              "target": "designated-enemy-unit",
-              "while": {
-                "designation": "designated"
-              }
+            "state": "designated",
+            "whileState": {
+              "detectionRangeBonusInches": 3
             }
           },
-          "roster": {
-            "type": "detachment-tag-exclusivity",
+          "detachmentTag": {
             "tag": "RECON",
-            "scope": "friendly-army",
-            "allowedIn": "this-detachment",
-            "prohibitedIn": "other-detachments"
+            "cannotCombineWithAnotherDetachmentWithTag": true
           }
         }
       }

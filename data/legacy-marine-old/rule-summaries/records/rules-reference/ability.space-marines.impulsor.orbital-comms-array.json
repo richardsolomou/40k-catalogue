@@ -13,18 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Impulsor",
-    "summary": "An Impulsor equipped with the Orbital Comms Array gives its unit Scouts 6\".",
-    "summarySpans": [
-      {
-        "start": 65,
-        "end": 74,
-        "bold": true,
-        "target": {
-          "kind": "core-ability",
-          "id": "scouts"
-        }
-      }
-    ],
+    "summary": "Aura: while an ADEPTUS ASTARTES unit of yours stays inside 6\" of the model carrying this wargear, roll a D6 every time you pick that unit as the target of a Stratagem; on a 5+, add 1 CP to your total.",
     "citations": [
       {
         "type": "app",
@@ -39,10 +28,40 @@
       "version": "1",
       "fields": {
         "detail": {
-          "recipient": "owning unit",
-          "scoutsInches": 6,
-          "activity": {
-            "requiresWargear": "Orbital Comms Array"
+          "ability": {
+            "type": "aura",
+            "source": "wargear",
+            "range": {
+              "withinInches": 6,
+              "of": "bearer"
+            },
+            "appliesTo": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES"
+              ]
+            },
+            "trigger": {
+              "event": "stratagem-targets-unit",
+              "user": "you",
+              "repeat": "each time"
+            },
+            "roll": {
+              "dice": "D6",
+              "count": 1,
+              "success": "5+",
+              "successValue": 5
+            },
+            "effect": {
+              "gainCp": 1
+            },
+            "duration": "while the unit is in range"
+          },
+          "cardPrintsOtherText": {
+            "name": "Orbital Comms Array",
+            "recipient": "bearer's unit",
+            "grantAbility": "Scouts",
+            "scoutsInches": 6
           }
         }
       }

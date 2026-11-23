@@ -22,58 +22,38 @@
       "turn": "any",
       "type": "strategic-ploy"
     },
-    "summary": "After an enemy destroys your ASTRA MILITARUM INFANTRY REGIMENT during its Shooting phase or either Fight phase, you may target the destroyed unit. ARTILLERY and CHARACTER units are excluded. Roll a D6. On 3+, put a Cult Ambush marker more than 8\" from each enemy unit if there is space. Either way on a success, add a copy of the unit to Cult Ambush at full Starting Strength and wounds, with its [ONE SHOT] weapons unfired. Once per battle.",
+    "summary": "Spend 1 CP in either player's Fight phase or the opponent's Shooting phase, immediately after the destruction of an ASTRA MILITARUM INFANTRY REGIMENT unit of yours (ARTILLERY and CHARACTER units excluded). Target that INFANTRY unit, which is allowed despite its having just been destroyed. Then roll a D6: with a 3+, put a Cult Ambush marker on the battlefield at any point over 8\" horizontally from every enemy unit (skip the marker if no such point exists), and add to your army, in Cult Ambush, a copy of the destroyed unit at full Starting Strength with every wound remaining, treating any [ONE SHOT] weapons its models carry as unfired. Usable once per battle.",
     "summarySpans": [
       {
-        "start": 29,
-        "end": 62,
-        "bold": true
-      },
-      {
-        "start": 74,
-        "end": 88,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 99,
-        "end": 110,
+        "start": 30,
+        "end": 41,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "fight-phase"
         }
       },
       {
-        "start": 147,
-        "end": 156,
-        "bold": true
+        "start": 60,
+        "end": 74,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
       },
       {
-        "start": 161,
-        "end": 170,
-        "bold": true
-      },
-      {
-        "start": 215,
-        "end": 226,
+        "start": 323,
+        "end": 334,
+        "bold": true,
         "target": {
           "kind": "ability",
           "id": "genestealer-cults.cult-ambush"
         }
       },
       {
-        "start": 338,
-        "end": 349,
-        "target": {
-          "kind": "ability",
-          "id": "genestealer-cults.cult-ambush"
-        }
-      },
-      {
-        "start": 398,
-        "end": 406,
+        "start": 594,
+        "end": 604,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -112,86 +92,66 @@
           }
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "opponent"
-              },
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "immediately-after-enemy-unit-destroys-friendly-unit",
-            "destroyed": {
-              "keywords": [
-                "ASTRA MILITARUM INFANTRY REGIMENT"
-              ],
-              "excludingKeywords": [
-                "ARTILLERY",
-                "CHARACTER"
-              ]
+          "detachment": "Brood Brothers Auxilia",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          },
-          "target": {
-            "owner": "your-army",
-            "entity": "unit",
-            "count": 1,
-            "keywords": [
-              "ASTRA MILITARUM INFANTRY REGIMENT"
+          ],
+          "trigger": {
+            "event": "friendly-unit-destroyed",
+            "keywordsAll": [
+              "ASTRA MILITARUM",
+              "INFANTRY",
+              "REGIMENT"
             ],
-            "binding": "unit-just-destroyed",
-            "canTargetDespiteDestroyed": true,
-            "excludingKeywords": [
+            "excludedKeywords": [
               "ARTILLERY",
               "CHARACTER"
-            ]
+            ],
+            "timing": "just-after"
+          },
+          "target": {
+            "unit": "that-destroyed-unit",
+            "keywordsAll": [
+              "INFANTRY"
+            ],
+            "targetableDespiteDestroyed": true
           },
           "effects": [
             {
-              "action": "roll-to-replace",
-              "roll": {
-                "kind": "die",
-                "sides": 6,
-                "count": 1
-              },
-              "minimumRoll": 3,
+              "roll": "D6",
+              "threshold": "3+",
               "onSuccess": [
                 {
-                  "action": "place-cult-ambush-marker",
+                  "placeMarker": "Cult Ambush",
                   "count": 1,
-                  "location": "battlefield",
-                  "distance": {
-                    "unit": "inch",
-                    "amount": 8,
-                    "from": "every-enemy-unit",
-                    "comparator": "more-than"
-                  },
-                  "fallback": "skip-marker-if-no-valid-placement"
+                  "anywhereOnBattlefield": true,
+                  "moreThanInchesHorizontally": 8,
+                  "fromAll": "enemy-units",
+                  "ifImpossible": "no-marker"
                 },
                 {
-                  "action": "add-unit",
-                  "recipient": "your-army",
-                  "location": "cult-ambush",
-                  "copyOf": "target-unit",
-                  "count": 1,
+                  "addUnit": "identical-to-destroyed-unit",
+                  "location": "Cult Ambush",
                   "startingStrength": "full",
-                  "woundsRemaining": "full",
-                  "oneShotWeaponState": "unfired",
-                  "independentOfMarkerPlacement": true
+                  "woundsRemaining": "all",
+                  "oneShotWeapons": "not-yet-shot",
+                  "regardlessOfMarker": true
                 }
               ]
             }
           ],
-          "restrictions": [
-            {
-              "action": "limit-use",
-              "count": 1,
-              "window": "battle"
-            }
-          ]
+          "usage": {
+            "limit": 1,
+            "period": "battle"
+          }
         }
       }
     }

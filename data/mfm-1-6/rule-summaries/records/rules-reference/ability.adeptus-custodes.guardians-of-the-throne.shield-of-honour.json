@@ -19,17 +19,7 @@
       ],
       "turn": "any"
     },
-    "summary": "As the Fight phase opens, choose one of your units with ADEPTUS CUSTODES plus either INFANTRY or MOUNTED. If an engaged enemy model directs any of its attacks elsewhere as it picks targets, subtract 1 from every hit and wound roll for that model’s attacks.",
-    "summarySpans": [
-      {
-        "start": 7,
-        "end": 18,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP as either player's Fight phase begins and pick one ADEPTUS CUSTODES INFANTRY or ADEPTUS CUSTODES MOUNTED unit of yours. For the rest of that phase, whenever an enemy model that is engaged with that unit selects targets and does not aim every one of its attacks at your unit, the attacks it makes get -1 to their hit rolls and -1 to their wound rolls.",
     "citations": [
       {
         "type": "app",
@@ -135,44 +125,41 @@
         ],
         "detail": {
           "detachment": "Guardians of the Throne",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "phase-start"
-          },
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "start-of-phase"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "anyKeywords": [
+            "keywordsAny": [
               "INFANTRY",
               "MOUNTED"
             ]
           },
           "effects": [
             {
-              "action": "modify-rolls",
-              "recipient": "engaged-enemy-model-attacks",
-              "rolls": [
-                "hit",
-                "wound"
-              ],
-              "modifier": -1,
-              "condition": {
-                "event": "model-selects-attack-targets",
-                "model": "enemy-model-engaged-with-chosen-unit",
-                "test": "has-attack-assigned-elsewhere"
-              }
+              "when": "an enemy model engaged with the target selects targets and does not target it with all of its attacks",
+              "appliesTo": "that enemy model's attacks",
+              "modifiers": [
+                {
+                  "roll": "hit",
+                  "delta": -1
+                },
+                {
+                  "roll": "wound",
+                  "delta": -1
+                }
+              ]
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

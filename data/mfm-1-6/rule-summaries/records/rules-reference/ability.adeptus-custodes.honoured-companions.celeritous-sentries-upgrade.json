@@ -12,22 +12,7 @@
   },
   "data": {
     "ruleType": "enhancement",
-    "summary": "Unit eligibility — TRUSTED SENTINEL. Reduce the CP cost by 1 when this unit is the Heroic Intervention target. This applies once in each phase.",
-    "summarySpans": [
-      {
-        "start": 19,
-        "end": 35,
-        "bold": true
-      },
-      {
-        "start": 83,
-        "end": 102,
-        "target": {
-          "kind": "core-rule",
-          "id": "heroic-intervention"
-        }
-      }
-    ],
+    "summary": "Upgrade for a TRUSTED SENTINEL unit. Once per phase for this unit, you may use the Heroic Intervention Stratagem on it even if that Stratagem has already been used this phase; that use costs 1 CP less, and it does not stop the Stratagem being used on other units in the same phase.",
     "citations": [
       {
         "type": "app",
@@ -46,6 +31,7 @@
           "points": 15,
           "perRoster": 3,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "keywords": [
@@ -57,19 +43,21 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Honoured Companions",
+          "limit": "once-per-phase-per-unit",
           "effects": [
             {
-              "type": "modify-cp-cost",
-              "target": "Heroic Intervention",
-              "recipient": "this-unit",
-              "operation": "subtract",
-              "amount": 1
+              "stratagem": "Heroic Intervention",
+              "target": "this-unit",
+              "ignoresEarlierUsesThisPhase": true,
+              "cpCostChange": {
+                "operation": "subtract",
+                "value": 1
+              },
+              "doesNotBlockUsesOnOtherUnitsThisPhase": true
             }
-          ],
-          "trigger": "target-this-unit",
-          "usage": {
-            "limit": "once-per-phase"
-          }
+          ]
         }
       }
     }

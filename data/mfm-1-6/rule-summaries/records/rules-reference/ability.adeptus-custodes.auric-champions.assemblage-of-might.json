@@ -12,33 +12,7 @@
   },
   "data": {
     "ruleType": "detachment-rule",
-    "summary": "In your Command phase, designate one of the enemy units. ADEPTUS CUSTODES CHARACTER attacks get +1 to Wound against it. This expires when your next Command phase opens.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 21,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 84,
-        "end": 91,
-        "target": {
-          "kind": "core-rule",
-          "id": "making-attacks"
-        }
-      },
-      {
-        "start": 148,
-        "end": 161,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      }
-    ],
+    "summary": "During your Command phase, you may mark one enemy unit as a dreadful foe; it keeps that status up to the start of your following Command phase. Attacks by ADEPTUS CUSTODES CHARACTER models of yours against a dreadful foe get +1 to their wound rolls.",
     "citations": [
       {
         "type": "app",
@@ -114,35 +88,34 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "player": "self",
+          "kind": "detachment-rule",
+          "detachment": "Auric Champions",
+          "when": {
+            "turn": "own",
             "phase": "command"
           },
-          "selection": {
-            "owner": "enemy",
-            "level": "unit",
-            "count": 1,
-            "optional": false
+          "optional": true,
+          "select": {
+            "side": "enemy",
+            "count": 1
           },
-          "expires": {
-            "event": "next-phase",
-            "player": "self",
-            "phase": "command"
-          },
-          "effect": {
-            "type": "roll-modifier",
-            "roll": "wound",
-            "operation": "add",
-            "value": 1,
-            "attacker": {
-              "allOf": [
-                "Adeptus Custodes",
-                "CHARACTER"
-              ],
-              "level": "model"
-            },
-            "attackTarget": "selected-enemy-unit"
-          }
+          "status": "dreadful foe",
+          "duration": "until-start-of-your-next-command-phase",
+          "effects": [
+            {
+              "attackers": {
+                "side": "friendly",
+                "scope": "model",
+                "keywordsAll": [
+                  "ADEPTUS CUSTODES",
+                  "CHARACTER"
+                ]
+              },
+              "targetStatus": "dreadful foe",
+              "roll": "wound",
+              "delta": 1
+            }
+          ]
         }
       }
     }

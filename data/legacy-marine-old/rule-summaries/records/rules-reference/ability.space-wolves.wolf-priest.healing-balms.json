@@ -13,17 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Wolf Priest",
-    "summary": "During the Command phase, in your turn, the unit regains up to D3+1 lost wounds.",
-    "summarySpans": [
-      {
-        "start": 11,
-        "end": 24,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      }
-    ],
+    "summary": "In your Command phase, while this model leads a unit, you may return one destroyed model to that unit, as long as the returned model is not a CHARACTER.",
     "citations": [
       {
         "type": "app",
@@ -38,37 +28,25 @@
       "version": "1",
       "fields": {
         "detail": {
-          "effect": {
-            "type": "conditional",
-            "condition": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "phase-is",
-                  "parameters": {
-                    "phase": "command"
-                  }
-                },
-                {
-                  "type": "player-turn-is",
-                  "parameters": {
-                    "turn": "your-turn"
-                  }
-                }
-              ]
+          "ability": {
+            "condition": "this model is leading a unit",
+            "when": {
+              "turn": "own",
+              "phase": "command"
             },
+            "optional": true,
             "effect": {
-              "type": "heal",
-              "target": "this-unit",
-              "modifier": {
-                "amount": "D3+1"
-              }
+              "returnDestroyedModels": 1,
+              "to": "the unit this model leads",
+              "excludeKeywords": [
+                "CHARACTER"
+              ]
             }
           },
-          "scope": {
-            "duration": "permanent"
-          },
-          "behavior": "passive"
+          "cardPrintsOtherText": {
+            "heal": "D3+1",
+            "healTarget": "this unit"
+          }
         }
       }
     }

@@ -21,40 +21,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "In your Movement phase, use this as your DEATHWING unit is picked for an ingress move and has Deep Strike. It may set up at horizontal distances greater than 6\" from every enemy unit, replacing the usual greater-than-8\" limit. It cannot declare a charge this turn.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 41,
-        "end": 50,
-        "bold": true
-      },
-      {
-        "start": 73,
-        "end": 85,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "ingress-move"
-        }
-      },
-      {
-        "start": 94,
-        "end": 105,
-        "bold": true,
-        "target": {
-          "kind": "core-ability",
-          "id": "deep-strike"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Movement phase. Pick a DEATHWING unit of yours that is arriving by Deep Strike this phase: it may be placed anywhere on the battlefield as long as it is over 6\" horizontally from every enemy model, but it cannot declare a charge for the rest of the turn.",
     "citations": [
       {
         "type": "app",
@@ -87,55 +54,33 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "your"
-              }
-            ],
-            "event": "selected-to-move",
-            "actor": "target-unit",
-            "move": "ingress"
+          "detachment": "Inner Circle Task Force",
+          "window": {
+            "turn": "own",
+            "phase": "movement"
           },
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "mode": "trigger-unit",
-            "keywords": [
-              "Deathwing"
+            "keywordsAll": [
+              "DEATHWING"
             ],
-            "ability": "Deep Strike"
+            "arrivingWith": "Deep Strike",
+            "thisPhase": true
           },
-          "effects": [
-            {
-              "kind": "replace-setup-separation",
-              "recipient": "target-unit",
-              "move": "ingress",
-              "optional": true,
-              "axis": "horizontal",
-              "against": "every-enemy-unit",
-              "previous": {
-                "amount": 8,
-                "unit": "inches",
-                "comparison": "greater-than"
-              },
-              "replacement": {
-                "amount": 6,
-                "unit": "inches",
-                "comparison": "greater-than"
-              }
-            },
-            {
-              "kind": "prohibit",
-              "recipient": "target-unit",
-              "action": "declare-charge",
-              "duration": {
-                "until": "end-of-this-turn"
-              }
-            }
-          ]
+          "effect": {
+            "setUpAnywhere": true,
+            "moreThanInchesHorizontally": 6,
+            "from": "all enemy models"
+          },
+          "restriction": {
+            "cannotDeclareCharge": true,
+            "duration": "end-of-turn"
+          },
+          "cardPrintsOtherText": {
+            "replacesInches": 8,
+            "measuredFrom": "all enemy units"
+          }
         }
       }
     }

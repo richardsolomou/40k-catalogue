@@ -13,41 +13,7 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Blade of Ultramar",
-    "summary": "Model eligibility — ADEPTUS ASTARTES. Increase the bearer’s melee S by 1 and improve its AP by 1. When the bearer’s unit has an active assault doctrine, apply 2 to each instead.",
-    "summarySpans": [
-      {
-        "start": 20,
-        "end": 36,
-        "bold": true
-      },
-      {
-        "start": 66,
-        "end": 67,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "profiles"
-        }
-      },
-      {
-        "start": 89,
-        "end": 91,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "profiles"
-        }
-      },
-      {
-        "start": 135,
-        "end": 151,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS ASTARTES model. Melee weapons the bearer is equipped with get +1 Attacks and +1 Strength; while the Assault Doctrine applies to the bearer, they get +2 Attacks and +2 Strength instead.",
     "citations": [
       {
         "type": "app",
@@ -65,6 +31,7 @@
           "type": "model",
           "points": 15,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -75,25 +42,37 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Blade of Ultramar",
           "effects": [
             {
-              "type": "modifier",
-              "target": "bearers-melee",
-              "characteristic": "Strength",
-              "delta": 1,
-              "replacedBy": 2,
-              "when": "unit-assault-doctrine-active"
+              "weapons": "bearer's melee weapons",
+              "characteristics": [
+                "A",
+                "S"
+              ],
+              "add": 1
             },
             {
-              "type": "modifier",
-              "target": "bearers-melee",
-              "characteristic": "Armour Penetration",
-              "delta": -1,
-              "magnitude": 1,
-              "replacedBy": -2,
-              "when": "unit-assault-doctrine-active"
+              "condition": "bearer is under the Assault Doctrine",
+              "weapons": "bearer's melee weapons",
+              "characteristics": [
+                "A",
+                "S"
+              ],
+              "add": 2,
+              "replacesPrevious": true
             }
-          ]
+          ],
+          "cardPrintsOtherText": {
+            "characteristics": [
+              "S",
+              "AP"
+            ],
+            "bonus": 1,
+            "assaultDoctrineBonus": 2,
+            "pointsCost": 20
+          }
         }
       }
     }

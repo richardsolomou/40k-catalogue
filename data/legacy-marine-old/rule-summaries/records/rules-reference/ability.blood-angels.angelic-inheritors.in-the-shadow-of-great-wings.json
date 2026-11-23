@@ -21,36 +21,7 @@
       "turn": "opponent",
       "type": "battle-tactic"
     },
-    "summary": "In the enemy Shooting phase, use this when one of your units with ADEPTUS ASTARTES CHARACTER is picked as a target. Give that CHARACTER unit Stealth and reduce its detection range by 3\".",
-    "summarySpans": [
-      {
-        "start": 13,
-        "end": 27,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 66,
-        "end": 92,
-        "bold": true
-      },
-      {
-        "start": 141,
-        "end": 148,
-        "bold": true,
-        "target": {
-          "kind": "core-ability",
-          "id": "stealth"
-        }
-      },
-      {
-        "start": 164,
-        "end": 179,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP during the opponent's Shooting phase, right after an enemy unit selects its targets. Pick one ADEPTUS ASTARTES CHARACTER unit of yours that it targeted with at least one of its attacks. For the rest of the phase, that unit can be targeted by ranged attacks only from attacking models no more than 18\" away from it.",
     "citations": [
       {
         "type": "app",
@@ -84,43 +55,32 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "opponent"
-              }
-            ],
-            "event": "enemy-targets-friendly-unit",
-            "actor": "enemy-unit",
-            "recipient": "target-unit"
-          },
+          "detachment": "Angelic Inheritors",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "just after an enemy unit has selected its targets"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "mode": "trigger-unit",
-            "keywords": [
-              "Adeptus Astartes Character"
-            ]
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "CHARACTER"
+            ],
+            "targetedByThatEnemyUnit": true
           },
           "effects": [
             {
-              "kind": "unit-ability-grant",
-              "recipient": "target-unit",
-              "ability": "Stealth"
-            },
-            {
-              "kind": "modify",
-              "recipient": "target-unit",
-              "subject": "detection-range",
-              "operation": "subtract",
-              "amount": 3,
-              "unit": "inches"
+              "rangedAttacksAllowedOnlyIfAttackingModelWithinInches": 18
             }
           ],
-          "duration": {
-            "explicit": false
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "grantsStealth": true,
+            "detectionRangeReductionInches": 3
           }
         }
       }

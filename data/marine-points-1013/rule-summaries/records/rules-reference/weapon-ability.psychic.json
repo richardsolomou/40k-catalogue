@@ -11,7 +11,18 @@
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
-    "summary": "An attack with a [PSYCHIC] weapon counts as a [PSYCHIC] attack. The attacker may ignore any combination of modifiers to the applicable BS or WS and to the hit roll.",
+    "summary": "Whenever a [PSYCHIC] weapon is used for an attack, you may disregard whichever modifiers you choose (up to all of them) to the BS or WS of that attack and to its hit roll. Such attacks count as psychic attacks, which matters for rules that trigger on them.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 20,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "psychic"
+        }
+      }
+    ],
     "citations": [
       {
         "type": "app",
@@ -26,29 +37,27 @@
       "version": "1",
       "fields": {
         "detail": {
+          "kind": "weapon-ability",
+          "appliesTo": "weapons",
           "trigger": {
             "per": "attack",
-            "weapon": "Psychic"
+            "weapon": "PSYCHIC"
           },
-          "characteristicModifiers": {
-            "characteristic": [
-              "BS",
-              "WS"
-            ],
-            "ignorable": "any or all",
-            "optional": true
-          },
-          "hitRollModifiers": {
-            "ignorable": "any or all",
-            "optional": true
-          },
-          "term": {
-            "attackLabel": "psychic attack"
-          },
-          "notInThisSection": {
-            "cover": false,
-            "bonusPenaltySplit": false
-          }
+          "optional": true,
+          "ignoreModifiers": [
+            {
+              "to": [
+                "BS",
+                "WS"
+              ],
+              "amount": "any-or-all"
+            },
+            {
+              "to": "hit-roll",
+              "amount": "any-or-all"
+            }
+          ],
+          "term": "psychic attacks"
         }
       }
     }

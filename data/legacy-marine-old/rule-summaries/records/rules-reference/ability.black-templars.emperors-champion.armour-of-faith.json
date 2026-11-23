@@ -13,14 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Emperor's Champion",
-    "summary": "When this model is allocated an attack, reduce its Damage by 1.",
-    "summarySpans": [
-      {
-        "start": 51,
-        "end": 57,
-        "bold": true
-      }
-    ],
+    "summary": "Once per phase, after a saving throw against an attack allocated to this model fails, you may set that attack's Damage characteristic to 0.",
     "citations": [
       {
         "type": "app",
@@ -35,19 +28,19 @@
       "version": "1",
       "fields": {
         "detail": {
-          "subtype": "short-defense",
-          "recipient": "this model",
-          "appliesTo": "attacks",
-          "amount": -1,
-          "magnitude": 1,
-          "incoming": {
-            "recipient": "this model",
-            "trigger": "allocated"
+          "ability": {
+            "uses": {
+              "perPhase": 1
+            },
+            "trigger": "an attack is allocated to this model and its saving throw is failed",
+            "optional": true,
+            "effect": {
+              "characteristic": "D",
+              "setTo": 0
+            }
           },
-          "effect": {
-            "characteristic": "Damage",
-            "delta": -1,
-            "kind": "modify-characteristic"
+          "cardPrintsOtherText": {
+            "incomingAttackDamageDelta": -1
           }
         }
       }

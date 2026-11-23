@@ -19,22 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "In your Shooting phase, use this when choosing one of your ADEPTUS CUSTODES units to shoot. Add 1 to the Strength of its ranged attacks against enemies within 9 inches.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 59,
-        "end": 75,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase as an ADEPTUS CUSTODES unit of yours is picked to shoot. For the rest of that phase, its ranged attacks gain +1 Strength when they target an enemy unit that is 9\" or closer to it.",
     "citations": [
       {
         "type": "app",
@@ -118,38 +103,31 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "your"
-              }
-            ],
-            "event": "select-friendly-unit-to-shoot"
-          },
+          "detachment": "Aquilan Shield",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "trigger": "a friendly unit is selected to shoot",
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "entity": "unit",
-            "keywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "binding": "unit-selected-to-shoot"
+            "is": "the unit selected to shoot"
           },
           "effects": [
             {
-              "action": "modify-strength",
-              "weapon": "ranged",
-              "actor": "target-unit",
-              "modifier": 1,
-              "targetCondition": {
-                "owner": "opponent",
-                "entity": "unit",
-                "withinInches": 9
-              },
-              "duration": "triggering-shooting"
+              "attackType": "ranged",
+              "ifTargetWithinInches": 9,
+              "characteristic": "S",
+              "delta": 1
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

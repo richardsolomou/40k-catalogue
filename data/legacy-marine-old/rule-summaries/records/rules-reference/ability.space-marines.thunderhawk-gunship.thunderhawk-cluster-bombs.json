@@ -13,44 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Thunderhawk Gunship",
-    "summary": "When this unit completes a Normal or Advance Move in your Movement Phase, you may pick one enemy unit it passed over on that move. Roll six D6. A die showing 3+ inflicts one Mortal Wound on the chosen unit.",
-    "summarySpans": [
-      {
-        "start": 27,
-        "end": 33,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "normal-move"
-        }
-      },
-      {
-        "start": 37,
-        "end": 49,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "advance-move"
-        }
-      },
-      {
-        "start": 58,
-        "end": 72,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 174,
-        "end": 186,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "mortal-wounds"
-        }
-      }
-    ],
+    "summary": "Whenever the bearer finishes a Normal move, you may pick an enemy unit it passed over on that move; roll six D6, and each 3+ inflicts 1 mortal wound on that unit.",
     "citations": [
       {
         "type": "app",
@@ -65,33 +28,19 @@
       "version": "1",
       "fields": {
         "detail": {
-          "type": "flyover-mortal-wounds",
-          "trigger": {
-            "event": "move-completed",
-            "phase": "your-movement",
-            "moves": [
-              "normal",
-              "advance"
-            ]
-          },
-          "actor": "this-unit",
-          "selection": {
-            "side": "enemy",
-            "entity": "unit",
-            "max": 1,
-            "optional": true,
-            "passedOverByActorDuringTriggeringMove": true
-          },
-          "dice": {
-            "count": 6,
-            "sides": 6
-          },
-          "threshold": {
-            "comparison": "at-least",
-            "value": 3
-          },
-          "damage": {
-            "recipient": "selected-unit",
+          "ability": {
+            "trigger": "bearer ends a Normal move",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "movedOverDuringThatMove": true,
+              "optional": true
+            },
+            "dice": {
+              "count": 6,
+              "type": "D6"
+            },
+            "threshold": "3+",
             "mortalWoundsPerSuccess": 1
           }
         }

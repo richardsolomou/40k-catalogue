@@ -13,12 +13,16 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Vibro Cannon Platform",
-    "summary": "At Declare Battle Formations, optionally assign the Vibro Cannon Platform to a GUARDIAN DEFENDERS unit on your roster. A recipient may take only one SUPPORT WEAPON model. Add the platform to the unit’s Starting Strength and keep it in that unit through battle end. Embarking in a TRANSPORT is prohibited for the platform and the rest of its unit.",
+    "summary": "As Declare Battle Formations begins, this model may join a GUARDIAN DEFENDERS unit of yours, though each unit can take at most one joined SUPPORT WEAPON model. Until the battle ends, this model is treated as one of the models of that GUARDIANS unit, whose Starting Strength goes up to include it. Neither this model nor any unit it has joined may ever embark in a TRANSPORT.",
     "summarySpans": [
       {
-        "start": 280,
-        "end": 289,
-        "bold": true
+        "start": 364,
+        "end": 373,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "transports"
+        }
       }
     ],
     "citations": [
@@ -35,18 +39,25 @@
       "version": "1",
       "fields": {
         "detail": {
-          "activation": {
-            "step": "Declare Battle Formations",
-            "optional": true
-          },
-          "attachment": {
-            "addOwnerModelTo": "one Guardian Defenders unit in own army",
-            "maximumOfSameWeaponsModelInRecipient": 1
-          },
-          "effect": {
-            "duration": "end of battle",
-            "ownerCountsTowardRecipientStartingStrength": true,
-            "ownerAndAllModelsInRecipientCannotEmbark": true
+          "ability": {
+            "timing": "start of the Declare Battle Formations step",
+            "optional": true,
+            "join": {
+              "count": 1,
+              "unitKeywordsAll": [
+                "GUARDIAN DEFENDERS"
+              ],
+              "side": "friendly"
+            },
+            "limit": {
+              "supportWeaponModelsPerUnit": 1
+            },
+            "duration": "end-of-battle",
+            "startingStrengthIncreased": true,
+            "cannotEmbark": {
+              "who": "this model and any unit it is joined to",
+              "transportKeyword": "TRANSPORT"
+            }
           }
         }
       }

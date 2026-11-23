@@ -14,41 +14,35 @@
     "document": "Combat Patrol",
     "section": "01. Combat Patrol Mission Sequence",
     "ruleNumber": "01.05",
-    "summary": "Make a private list of which units start inside which TRANSPORTS, which start in strategic reserves, which leader units join which bodyguard units, and which one of your enhancements you will take. Then exchange lists. At most half the Combat Patrol’s units can begin in reserve. Units set aside through a Combat Patrol’s own reserve provision still use this allowance. Identify the Patrol’s WARLORD by that model’s WARLORD keyword.",
+    "summary": "Each player secretly writes down: which TRANSPORTS their units will be embarked within at the start of the battle; which units will begin in strategic reserves; which bodyguard units, if any, their leader units will begin attached to (this is optional); and the one enhancement, of the two open to them, they will use. Then the players reveal these choices. At most half the units in a player's Combat Patrol can begin in strategic reserves, and units a Combat Patrol says must go into strategic reserves still count toward that limit. The Combat Patrol names the WARLORD model of each player, and that model has the WARLORD keyword.",
     "summarySpans": [
       {
-        "start": 54,
-        "end": 64,
+        "start": 40,
+        "end": 50,
         "bold": true
       },
       {
-        "start": 81,
-        "end": 99,
+        "start": 141,
+        "end": 159,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 167,
+        "end": 176,
         "bold": true
       },
       {
-        "start": 107,
-        "end": 113,
+        "start": 198,
+        "end": 204,
         "bold": true
       },
       {
-        "start": 131,
-        "end": 140,
-        "bold": true
-      },
-      {
-        "start": 170,
-        "end": 182,
-        "bold": true
-      },
-      {
-        "start": 392,
-        "end": 399,
-        "bold": true
-      },
-      {
-        "start": 416,
-        "end": 423,
+        "start": 617,
+        "end": 624,
         "bold": true
       }
     ],
@@ -66,36 +60,37 @@
       "version": "1",
       "fields": {
         "detail": {
-          "step": "01.05",
-          "visibility": "secret-until-reveal",
-          "declarationOrder": [
+          "kind": "setup-step",
+          "section": [
+            1,
+            5
+          ],
+          "visibility": "secret-until-revealed",
+          "record": [
             {
-              "kind": "embarkation",
-              "includesTransportAssignment": true
+              "what": "embarkation",
+              "transportAssignment": true
             },
             {
-              "kind": "strategic-reserves"
+              "what": "strategic-reserves",
+              "maxFractionOfCombatPatrolUnits": 0.5,
+              "includesRequiredReserveUnits": true
             },
             {
-              "kind": "attachments",
-              "fromKeyword": "leader",
-              "toKeyword": "bodyguard"
+              "what": "leader-attachments",
+              "from": "leader",
+              "to": "bodyguard",
+              "optional": true
             },
             {
-              "kind": "enhancement",
-              "count": 1
+              "what": "enhancement",
+              "choose": 1,
+              "of": 2
             }
           ],
-          "reveal": "after-recording",
           "warlord": {
-            "identification": "keyword",
-            "label": "Warlord"
-          },
-          "reserveCap": {
-            "metric": "unit-count",
-            "maxFraction": 0.5,
-            "denominator": "units in Combat Patrol",
-            "includesUnitsUsingPatrolSpecificReserveProvisions": true
+            "specifiedBy": "Combat Patrol",
+            "keyword": "WARLORD"
           }
         }
       }

@@ -13,27 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Ravenwing Black Knights",
-    "summary": "On a turn when this unit completes a charge move, apply ANTI-MONSTER/VEHICLE 4+ to melee attacks from this unit.",
-    "summarySpans": [
-      {
-        "start": 37,
-        "end": 48,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-move"
-        }
-      },
-      {
-        "start": 56,
-        "end": 79,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "anti"
-        }
-      }
-    ],
+    "summary": "When this unit is chosen to fight in the same turn as its Charge move, its models' melee weapons have [ANTI-MONSTER 4+] and [ANTI-VEHICLE 4+] for the rest of that phase.",
     "citations": [
       {
         "type": "app",
@@ -48,19 +28,16 @@
       "version": "1",
       "fields": {
         "detail": {
-          "subtype": "short-grant",
-          "recipient": "this unit",
-          "attackKind": "melee",
-          "appliesTo": "attacks",
-          "qualification": {
-            "action": "Charge move",
-            "by": "this unit",
-            "when": "same turn"
-          },
-          "grant": {
-            "kind": "weapon-ability",
-            "label": "ANTI-MONSTER/VEHICLE 4+",
-            "value": 4
+          "ability": {
+            "trigger": "this unit is selected to fight",
+            "condition": "this unit made a Charge move this turn",
+            "appliesTo": "melee weapons equipped by models in this unit",
+            "grantsWeaponAbilities": [
+              "ANTI-MONSTER 4+",
+              "ANTI-VEHICLE 4+"
+            ],
+            "antiThreshold": 4,
+            "duration": "end-of-phase"
           }
         }
       }

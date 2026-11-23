@@ -19,17 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "As you pick a unit to move during your Movement phase, check it has ADEPTUS CUSTODES and belongs to you. It may disregard changes to its Move characteristic and to its Advance and charge rolls. The option expires as the turn closes.",
-    "summarySpans": [
-      {
-        "start": 39,
-        "end": 53,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Movement phase as one of your ADEPTUS CUSTODES units is picked to move. Until this turn ends, that unit may disregard any modifier to its Move characteristic, to its Advance rolls and to its charge rolls.",
     "citations": [
       {
         "type": "app",
@@ -59,43 +49,31 @@
         },
         "detail": {
           "detachment": "Solar Watch",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "own"
-              }
-            ],
-            "event": "unit-selected-to-move",
-            "actor": "chosen-unit"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            }
+          ],
+          "trigger": "a friendly unit is selected to move",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "condition": {
-              "event": "triggering-unit"
-            }
+            "is": "the unit selected to move"
           },
           "effects": [
             {
-              "action": "allow-ignore-modifiers",
-              "recipient": "chosen-unit",
-              "inputs": [
-                "move-characteristic",
+              "mayIgnoreModifiers": [
+                "M",
                 "advance-roll",
                 "charge-roll"
               ]
             }
           ],
-          "duration": {
-            "until": "turn-end",
-            "turn": "own"
-          }
+          "duration": "end-of-turn"
         }
       }
     }

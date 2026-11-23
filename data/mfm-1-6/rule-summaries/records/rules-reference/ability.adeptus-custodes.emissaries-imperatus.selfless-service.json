@@ -19,17 +19,7 @@
       ],
       "turn": "opponent"
     },
-    "summary": "As the enemy Charge phase ends, pick one of your units with ADEPTUS CUSTODES. It must be unengaged and no farther than 6 inches from an enemy. If it is a VEHICLE, it must be a CHARACTER or WALKER. Make it declare a charge. Cap its modified roll at 6 and allow only reachable enemies no farther than 6 inches away as charge targets.",
-    "summarySpans": [
-      {
-        "start": 13,
-        "end": 25,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP as the opponent's Charge phase ends, choosing one ADEPTUS CUSTODES unit of yours that is not engaged and is no more than 6\" from an enemy unit; a VEHICLE unit qualifies only if it is also a CHARACTER or a WALKER. That unit declares a charge: if its charge roll is above 6 after modifiers, treat it as 6, and it may choose as charge targets any enemy units within 6\" of it that are also within its maximum charge distance.",
     "citations": [
       {
         "type": "app",
@@ -63,55 +53,37 @@
         },
         "detail": {
           "detachment": "Emissaries Imperatus",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "charge",
-                "turn": "opponent"
-              }
-            ],
-            "event": "phase-end"
-          },
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "charge",
+              "timing": "end-of-phase"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "conditions": [
-              {
-                "engaged": false
-              },
-              {
-                "relation": "within-distance-of",
-                "entity": "enemy-unit",
-                "distanceInches": 6
-              },
-              {
-                "ifKeywords": [
-                  "VEHICLE"
-                ],
-                "thenAnyKeywords": [
+            "unengaged": true,
+            "withinInchesOfEnemy": 6,
+            "ifKeyword": {
+              "VEHICLE": {
+                "requiresKeywordsAny": [
                   "CHARACTER",
                   "WALKER"
                 ]
               }
-            ]
+            }
           },
           "effects": [
             {
-              "action": "declare-charge",
-              "recipient": "chosen-unit",
-              "chargeRoll": {
-                "maximum": 6,
-                "apply": "after-modifiers"
-              },
+              "declareCharge": true,
+              "chargeRollCap": 6,
               "chargeTargets": {
-                "controller": "opponent",
-                "withinInches": 6,
-                "requireWithinMaximumDistance": true
+                "anyEnemyWithinInches": 6,
+                "withinMaximumDistance": true
               }
             }
           ]

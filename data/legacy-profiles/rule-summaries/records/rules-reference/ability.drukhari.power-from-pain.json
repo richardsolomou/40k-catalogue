@@ -12,25 +12,7 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "Every Drukhari unit has its own Pain ability, whose effect is local to that unit. A Drukhari army may fuel those abilities with its shared Pain pool. Other rules can still allow token use for Enhancements or Stratagems. Add one token at the opening of your Command phase, one whenever an enemy unit dies and one each time an opponent’s unit fails its Battle-shock test. Credits go into the pool and payments come out of it. The individual Pain ability sets the spending window. Paying empowers the unit through phase end and turns on all its applicable Pain abilities. When you empower an Attached unit, that applies to the Leader and Bodyguard together without a second payment.",
-    "summarySpans": [
-      {
-        "start": 257,
-        "end": 270,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 351,
-        "end": 368,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      }
-    ],
+    "summary": "Every DRUKHARI unit has a Pain ability, marked with the word 'Pain', and that ability works only while its unit is Empowered. If DRUKHARI is your Army Faction, you can Empower your units with Pain abilities, paying Pain tokens to do so; certain other rules (Enhancements and Stratagems, for example) also let you spend Pain tokens for extra effects. Such an army gains 1 Pain token when your Command phase starts, 1 whenever one of the enemy's units is destroyed and 1 for every failed Battle-shock test taken by an enemy unit. Tokens you gain are added to your Pain token pool, and tokens you spend are taken out of it. Each Pain ability says when tokens may be spent to Empower its unit; once you do, that unit is Empowered until the phase ends and every Pain ability it has applies. When an Empowered unit is an Attached unit, the Pain abilities of its Leader and Bodyguard units all apply without spending further tokens.",
     "citations": [
       {
         "type": "app",
@@ -45,51 +27,51 @@
       "version": "1",
       "fields": {
         "detail": {
-          "kind": "shared-resource-with-per-unit-empowerment",
+          "kind": "army-rule",
           "armyFaction": "DRUKHARI",
-          "unitAbility": {
-            "allFactionUnits": true,
-            "effectScope": "bearer-unit"
+          "painAbilities": {
+            "allUnitsKeyword": "DRUKHARI",
+            "tag": "Pain",
+            "applyOnlyWhile": "Empowered"
           },
-          "pool": {
-            "name": "Pain",
-            "owner": "army",
-            "gain": [
-              {
-                "event": "phase-start",
-                "phase": "command",
-                "phaseOwner": "self",
-                "amount": 1
-              },
-              {
-                "event": "unit-destroyed",
-                "unitOwner": "opponent",
-                "amount": 1
-              },
-              {
-                "event": "battle-shock-test-failed",
-                "unitOwner": "opponent",
-                "amount": 1
-              }
-            ],
-            "gainCreditsPool": true,
-            "spendDebitsSamePool": true,
-            "additionalUseCanBeGrantedBy": [
-              "enhancement",
-              "stratagem"
+          "empower": {
+            "requiresArmyFaction": "DRUKHARI",
+            "cost": "Pain tokens",
+            "otherUses": [
+              "Enhancements",
+              "Stratagems"
             ]
           },
-          "spend": {
-            "timing": "unit-pain-ability",
-            "recipient": "selected-unit",
-            "duration": "through-phase-end",
-            "grants": "all-applicable-pain-abilities",
-            "whenAttached": {
-              "beneficiaries": [
-                "leader",
-                "bodyguard"
-              ],
-              "additionalPayment": false
+          "gain": [
+            {
+              "when": {
+                "turn": "own",
+                "phase": "command",
+                "timing": "start-of-phase"
+              },
+              "tokens": 1
+            },
+            {
+              "event": "enemy-unit-destroyed",
+              "tokens": 1
+            },
+            {
+              "event": "enemy-unit-fails-battle-shock-test",
+              "tokens": 1
+            }
+          ],
+          "pool": {
+            "name": "Pain token pool",
+            "gainAdds": true,
+            "spendSubtracts": true
+          },
+          "empowered": {
+            "timingSetBy": "each Pain ability",
+            "duration": "end-of-phase",
+            "allPainAbilitiesApply": true,
+            "attachedUnit": {
+              "leaderAndBodyguardPainAbilitiesApply": true,
+              "extraTokens": 0
             }
           }
         }

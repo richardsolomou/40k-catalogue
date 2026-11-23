@@ -21,40 +21,7 @@
       "turn": "opponent",
       "type": "battle-tactic"
     },
-    "summary": "In the opponent’s Charge phase, immediately after an enemy’s Charge move ends, pick a RUBRIC MARINES unit within its Engagement Range. Through the rest of the turn, attacks targeting that unit take -1 to wound if their Strength exceeds its Toughness.",
-    "summarySpans": [
-      {
-        "start": 16,
-        "end": 17,
-        "bold": true
-      },
-      {
-        "start": 18,
-        "end": 30,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-phase"
-        }
-      },
-      {
-        "start": 59,
-        "end": 60,
-        "bold": true
-      },
-      {
-        "start": 86,
-        "end": 100,
-        "bold": true
-      },
-      {
-        "start": 117,
-        "end": 133,
-        "target": {
-          "kind": "core-rule",
-          "id": "engagement-range"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in the opponent's Charge phase right after an enemy unit finishes a Charge move. Pick one RUBRIC MARINES unit of yours in Engagement Range of the charging unit. Until the turn ends, attacks targeting that RUBRIC MARINES unit whose Strength is greater than its Toughness subtract 1 from their Wound roll.",
     "citations": [
       {
         "type": "app",
@@ -250,45 +217,35 @@
           }
         ],
         "detail": {
-          "type": "battle-tactic",
-          "trigger": {
-            "turn": "opponent",
-            "phases": [
-              "charge"
-            ],
-            "event": "enemy-unit-ends-charge-move",
-            "proximity": "immediate",
-            "window": {
-              "charge": "opponent"
+          "detachment": "Rubricae Phalanx",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "charge"
             }
+          ],
+          "trigger": {
+            "event": "enemy-unit-ends-charge-move",
+            "timing": "just-after"
           },
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "RUBRIC MARINES"
             ],
-            "withinEngagementRangeOf": "triggering-enemy"
+            "withinEngagementRangeOf": "triggering-enemy-unit"
           },
           "effects": [
             {
-              "kind": "modifier",
-              "subject": "attacks",
-              "characteristic": "wound-roll",
-              "delta": -1,
-              "conditions": {
-                "attacks": "against-selected-unit",
-                "comparison": {
-                  "left": "attack-strength",
-                  "operator": "greater-than",
-                  "right": "target-toughness"
-                }
-              }
+              "attacks": "targeting-target-unit",
+              "condition": "attack Strength greater than target Toughness",
+              "roll": "wound",
+              "delta": -1
             }
           ],
-          "duration": {
-            "until": "end-of-turn"
-          }
+          "duration": "end-of-turn"
         }
       }
     }

@@ -19,25 +19,7 @@
       ],
       "turn": "any"
     },
-    "summary": "In either Fight phase, trigger this at fight selection for one of your INFANTRY units with ADEPTUS CUSTODES. Grant its melee attacks LETHAL HITS only against targets with CHARACTER or MONSTER.",
-    "summarySpans": [
-      {
-        "start": 10,
-        "end": 21,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 133,
-        "end": 144,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "lethal-hits"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in either player's Fight phase as an ADEPTUS CUSTODES INFANTRY unit of yours is picked to fight. For the rest of that phase, its melee attacks gain [LETHAL HITS: CHARACTER/MONSTER].",
     "citations": [
       {
         "type": "app",
@@ -171,42 +153,33 @@
         },
         "detail": {
           "detachment": "Shadowkeepers",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "unit-selected-to-fight",
-            "actor": "chosen-unit"
-          },
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "trigger": "a friendly unit is selected to fight",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES",
               "INFANTRY"
             ],
-            "condition": {
-              "event": "triggering-unit"
-            }
+            "is": "the unit selected to fight"
           },
           "effects": [
             {
-              "action": "grant-weapon-ability",
-              "recipient": "melee-attacks-of-chosen-unit",
-              "ability": "lethal-hits",
-              "condition": {
-                "attackTargetAnyKeywords": [
-                  "CHARACTER",
-                  "MONSTER"
-                ]
-              }
+              "attackType": "melee",
+              "weaponAbility": "LETHAL HITS",
+              "weaponAbilityTargets": [
+                "CHARACTER",
+                "MONSTER"
+              ]
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

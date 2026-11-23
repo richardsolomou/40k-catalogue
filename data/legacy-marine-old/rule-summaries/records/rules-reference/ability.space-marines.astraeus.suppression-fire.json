@@ -13,27 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Astraeus",
-    "summary": "Your Shooting phase gives this model a suppression choice after its unit fires. Pick one enemy the Twin Macro-accelerator Cannon hit. Subtract 1 from that enemy’s Hit rolls until you begin your next turn.",
-    "summarySpans": [
-      {
-        "start": 5,
-        "end": 19,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 99,
-        "end": 128,
-        "bold": true
-      },
-      {
-        "start": 163,
-        "end": 166,
-        "bold": true
-      }
-    ],
+    "summary": "In your Shooting phase, once this model has finished shooting, pick an enemy unit that at least one attack from its Twin Macro-accelerator Cannon hit this phase. That unit is suppressed until your next turn begins, but only while this model remains on the battlefield; a suppressed unit's attacks take -1 to their Hit rolls.",
     "citations": [
       {
         "type": "app",
@@ -48,34 +28,26 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "controlling-player",
-          "source": "datasheet-model",
-          "trigger": {
-            "phase": "Shooting",
-            "turnOwner": "self",
-            "afterSourceUnitShoots": true
-          },
-          "selection": {
-            "count": 1,
-            "side": "enemy",
-            "mustHaveBeenHitByWeapon": "Twin Macro-accelerator Cannon",
-            "optional": true
-          },
-          "effect": {
-            "recipient": "selected-enemy-unit-attacks",
-            "kind": "roll-modifier",
-            "roll": "Hit",
-            "operation": "subtract",
-            "amount": 1
-          },
-          "expiry": {
-            "edge": "start",
-            "turnOwner": "self",
-            "next": true
-          },
-          "weaponProfiles": [
-            "Twin Macro-accelerator Cannon"
-          ]
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "after this model has shot"
+            },
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitThisPhaseBy": "Twin Macro-accelerator Cannon"
+            },
+            "status": "suppressed",
+            "duration": "until-start-of-your-next-turn",
+            "condition": "this model is on the battlefield",
+            "suppressedEffect": {
+              "attacksBy": "models in the suppressed unit",
+              "roll": "hit",
+              "subtract": 1
+            }
+          }
         }
       }
     }

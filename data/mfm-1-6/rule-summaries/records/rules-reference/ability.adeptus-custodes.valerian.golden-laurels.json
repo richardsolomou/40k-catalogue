@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Valerian",
-    "summary": "When a melee attack targets Valerian’s led unit, worsen that attack’s Armour Penetration by 1.",
+    "summary": "Every attack aimed at this model's unit, melee or ranged, gets -1 AP (its AP worsens by 1).",
     "citations": [
       {
         "type": "app",
@@ -181,22 +181,13 @@
           }
         },
         "detail": {
-          "source": "this-model",
-          "condition": {
-            "relation": "leading",
-            "actor": "this-model",
-            "target": "led-unit"
-          },
-          "trigger": {
-            "event": "attack",
-            "actor": "attacking-model",
-            "mode": "melee",
-            "target": "led-unit"
-          },
-          "effect": {
-            "operation": "worsen",
-            "characteristic": "armour-penetration",
-            "amount": 1
+          "ability": {
+            "name": "Golden Laurels",
+            "appliesTo": "attacks-targeting-this-unit",
+            "attackType": "any",
+            "characteristic": "AP",
+            "modifier": "worsen",
+            "value": 1
           }
         }
       }

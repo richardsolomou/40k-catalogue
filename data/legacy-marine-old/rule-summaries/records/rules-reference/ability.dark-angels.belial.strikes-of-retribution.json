@@ -13,27 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Belial",
-    "summary": "If this model is destroyed during the Fight phase before its unit is selected to fight, roll a D6 before removing it. On 2+, leave it on the battlefield until it fights or the phase ends, whichever happens first.",
-    "summarySpans": [
-      {
-        "start": 17,
-        "end": 26,
-        "bold": true
-      },
-      {
-        "start": 38,
-        "end": 49,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 69,
-        "end": 86,
-        "bold": true
-      }
-    ],
+    "summary": "For every melee attack allocated to this model, roll one D6 once the attacking unit has made all its attacks, to a limit of six dice for each attacking unit; each 4+ inflicts 1 mortal wound on the attacking unit.",
     "citations": [
       {
         "type": "app",
@@ -48,12 +28,23 @@
       "version": "1",
       "fields": {
         "detail": {
-          "timing": "model destroyed during Fight phase before its unit selected to fight",
-          "rollBeforeRemoval": true,
-          "dice": "D6",
-          "threshold": 2,
-          "success": "delay removal",
-          "removeWhen": "model has fought or Fight phase ends, whichever first"
+          "ability": {
+            "trigger": "a melee attack is allocated to this model",
+            "timing": "after the attacking unit has finished making its attacks",
+            "roll": {
+              "dice": "D6",
+              "perAllocatedAttack": 1,
+              "maxDicePerAttackingUnit": 6
+            },
+            "success": 4,
+            "effect": {
+              "mortalWoundsToAttackingUnit": 1
+            }
+          },
+          "cardPrintsOtherText": {
+            "rollWhenDestroyed": "D6",
+            "delayRemovalOn": 2
+          }
         }
       }
     }

@@ -20,30 +20,7 @@
       ],
       "turn": "own"
     },
-    "summary": "In your Command phase, choose one ADEPTUS ASTARTES unit. It may disregard modifiers to its hit and wound rolls until your next Command phase begins.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 21,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 34,
-        "end": 50,
-        "bold": true
-      },
-      {
-        "start": 127,
-        "end": 140,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Command phase. Pick one ADEPTUS ASTARTES unit of yours that is currently below its Starting Strength. From then until your following Command phase starts, that unit may ignore every modifier to its WS and BS characteristics and every modifier to its Hit or Wound rolls.",
     "citations": [
       {
         "type": "app",
@@ -139,32 +116,44 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "turn": "your",
-            "phases": [
-              "command"
-            ],
-            "event": "phase-window"
-          },
+          "detachment": "Medusa's Wrath",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "command"
+            }
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "ADEPTUS ASTARTES"
-            ]
+            ],
+            "belowStartingStrength": true
           },
           "effects": [
             {
-              "kind": "ignore-modifiers",
-              "subject": "selected-unit",
-              "rolls": [
-                "hit",
-                "wound"
-              ],
-              "optional": true
+              "ignoreModifiers": {
+                "characteristics": [
+                  "WS",
+                  "BS"
+                ]
+              },
+              "optional": true,
+              "subject": "target-unit"
+            },
+            {
+              "ignoreModifiers": {
+                "rolls": [
+                  "hit",
+                  "wound"
+                ]
+              },
+              "optional": true,
+              "subject": "target-unit"
             }
           ],
-          "duration": "start-of-your-next-command-phase"
+          "duration": "until-start-of-your-next-command-phase"
         }
       }
     }

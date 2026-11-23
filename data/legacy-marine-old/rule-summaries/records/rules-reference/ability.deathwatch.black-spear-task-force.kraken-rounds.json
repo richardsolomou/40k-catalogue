@@ -21,22 +21,7 @@
       "turn": "own",
       "type": "wargear"
     },
-    "summary": "In your Shooting phase, use this as you pick a friendly KILL TEAM to shoot. Its ranged attacks get +6\" Range and +1 Strength.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 56,
-        "end": 65,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase. Pick a KILL TEAM unit of yours that has not yet been chosen to shoot this phase and was not already targeted by the Dragonfire Rounds or Hellfire Rounds Stratagem this phase. Until the phase ends, its models' ranged weapons improve their Armour Penetration by 1 and their Range by 6\".",
     "citations": [
       {
         "type": "app",
@@ -69,44 +54,34 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "your"
-              }
-            ],
-            "event": "selected-to-shoot",
-            "actor": "target-unit"
+          "detachment": "Black Spear Task Force",
+          "window": {
+            "turn": "own",
+            "phase": "shooting"
           },
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "mode": "trigger-unit",
-            "keywords": [
+            "keywordsAll": [
               "KILL TEAM"
+            ],
+            "notSelectedToShootThisPhase": true,
+            "notTargetedThisPhaseBy": [
+              "Dragonfire Rounds",
+              "Hellfire Rounds"
             ]
           },
-          "effects": [
-            {
-              "kind": "modify",
-              "recipient": "target-unit-ranged-attacks",
-              "subject": "range",
-              "operation": "add",
-              "amount": 6,
-              "unit": "inches"
-            },
-            {
-              "kind": "modify",
-              "recipient": "target-unit-ranged-attacks",
-              "subject": "strength",
-              "operation": "add",
-              "amount": 1
+          "effect": {
+            "appliesTo": "ranged weapons equipped by models in the target unit",
+            "improve": {
+              "Armour Penetration": 1,
+              "RangeInches": 6
             }
-          ],
-          "duration": {
-            "scope": "target-unit-attacks-in-trigger"
+          },
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "strengthAdd": 1,
+            "rangeAddInches": 6
           }
         }
       }

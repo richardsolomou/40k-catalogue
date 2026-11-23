@@ -13,37 +13,25 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Eightbound",
-    "summary": "This unit projects a 6″ aura to allied WORLD EATERS units, excluding VEHICLES. Their melee attacks get +1 to Hit, and get +1 to Wound as well if the target is Below Half-strength.",
+    "summary": "Aura: friendly WORLD EATERS units no more than 6\" away from this unit get +1 to Hit rolls for melee attacks their models make against any unit other than MONSTERS and VEHICLES. If such a target is also Below Half-strength, those attacks get +1 to Wound rolls too.",
     "summarySpans": [
       {
-        "start": 39,
-        "end": 51,
-        "bold": true
-      },
-      {
-        "start": 69,
-        "end": 77,
-        "bold": true
-      },
-      {
-        "start": 109,
-        "end": 112,
+        "start": 0,
+        "end": 4,
+        "bold": true,
         "target": {
           "kind": "core-rule",
-          "id": "hit-rolls"
+          "id": "aura-abilities"
         }
       },
       {
-        "start": 128,
-        "end": 133,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
+        "start": 154,
+        "end": 162,
+        "bold": true
       },
       {
-        "start": 159,
-        "end": 178,
+        "start": 167,
+        "end": 175,
         "bold": true
       }
     ],
@@ -283,33 +271,35 @@
           }
         },
         "detail": {
-          "origin": "this-unit",
-          "recipient": {
-            "side": "friendly",
-            "entity": "unit",
-            "allKeywords": [
-              "WORLD EATERS"
-            ],
-            "excludedKeywords": [
-              "VEHICLE"
-            ],
-            "measure": "within",
-            "origin": "this-unit",
-            "rangeInches": 6
-          },
-          "actor": "model-in-recipient",
-          "trigger": "each-melee-attack",
-          "effects": [
-            {
-              "roll": "hit",
-              "modifier": 1
+          "ability": {
+            "aura": true,
+            "recipients": {
+              "side": "friendly",
+              "keywordsAll": [
+                "WORLD EATERS"
+              ],
+              "withinInchesOfThisUnit": 6
             },
-            {
-              "roll": "wound",
-              "modifier": 1,
-              "targetCondition": "below-half"
-            }
-          ]
+            "trigger": {
+              "per": "melee-attack",
+              "attacker": "model-in-recipient-unit",
+              "targetExcludesKeywords": [
+                "MONSTERS",
+                "VEHICLES"
+              ]
+            },
+            "effects": [
+              {
+                "roll": "hit",
+                "delta": 1
+              },
+              {
+                "roll": "wound",
+                "delta": 1,
+                "ifTarget": "below-half-strength"
+              }
+            ]
+          }
         }
       }
     }

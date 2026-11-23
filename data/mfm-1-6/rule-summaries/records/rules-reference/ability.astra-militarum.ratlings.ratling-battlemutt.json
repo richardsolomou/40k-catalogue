@@ -13,18 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Ratlings",
-    "summary": "When the Ratlings are chosen to shoot, they may use the Battlemutt once per battle. Their models’ ranged weapons have [LETHAL HITS] for the rest of that phase.",
-    "summarySpans": [
-      {
-        "start": 118,
-        "end": 131,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "lethal-hits"
-        }
-      }
-    ],
+    "summary": "Once per battle, when you select this unit to shoot, you may use its Ratling Battlemutt: until that phase ends, the ranged weapons its models carry have [LETHAL HITS].",
     "citations": [
       {
         "type": "app",
@@ -94,22 +83,20 @@
           }
         ],
         "detail": {
-          "source": "equipped-unit",
-          "limit": {
-            "period": "battle",
-            "scope": "unit",
-            "count": 1
-          },
-          "trigger": {
-            "event": "selected-to-shoot",
-            "actor": "this-unit",
-            "optional": true
-          },
-          "duration": "until-end-of-phase",
-          "effect": {
-            "recipient": "ranged-weapons-of-models-in-this-unit",
-            "label": "LETHAL HITS",
-            "kind": "grant-ability"
+          "ability": {
+            "usage": {
+              "perBattle": 1
+            },
+            "trigger": {
+              "event": "this-unit-selected-to-shoot"
+            },
+            "optional": true,
+            "grant": {
+              "weapons": "ranged",
+              "equippedBy": "models-in-this-unit",
+              "ability": "LETHAL HITS"
+            },
+            "duration": "end-of-phase"
           }
         }
       }

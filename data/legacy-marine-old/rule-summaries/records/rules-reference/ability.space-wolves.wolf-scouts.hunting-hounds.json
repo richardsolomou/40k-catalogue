@@ -13,37 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Wolf Scouts",
-    "summary": "Check for friendly models with Space Wolves Character within 6\" of the unit. Wulfen do not qualify. If the unit is unshocked and the check succeeds, it gets +1 OC.",
-    "summarySpans": [
-      {
-        "start": 31,
-        "end": 53,
-        "bold": true
-      },
-      {
-        "start": 77,
-        "end": 83,
-        "bold": true
-      },
-      {
-        "start": 115,
-        "end": 124,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      },
-      {
-        "start": 160,
-        "end": 162,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "level-of-control"
-        }
-      }
-    ],
+    "summary": "Unless this unit is Battle-shocked, while it has at least one SPACE WOLVES CHARACTER model of yours (other than a WULFEN model) within 6\", the Objective Control characteristic of its Hunting Wolves models is 1.",
     "citations": [
       {
         "type": "app",
@@ -58,16 +28,30 @@
       "version": "1",
       "fields": {
         "detail": {
-          "recipient": "owning unit",
-          "nearbyFriendlyModelKeywords": [
-            "Space Wolves",
-            "Character"
-          ],
-          "excludedNearbyKeyword": "Wulfen",
-          "rangeInches": 6,
-          "recipientBattleShocked": false,
-          "characteristic": "OC",
-          "modifier": 1
+          "ability": {
+            "condition": {
+              "notBattleShocked": true,
+              "within": {
+                "side": "friendly",
+                "scope": "model",
+                "keywordsAll": [
+                  "SPACE WOLVES",
+                  "CHARACTER"
+                ],
+                "keywordsNone": [
+                  "WULFEN"
+                ],
+                "inches": 6
+              }
+            },
+            "appliesTo": "Hunting Wolves models in this unit",
+            "characteristic": "OC",
+            "setTo": 1
+          },
+          "cardPrintsNewerText": {
+            "characteristic": "OC",
+            "delta": 1
+          }
         }
       }
     }

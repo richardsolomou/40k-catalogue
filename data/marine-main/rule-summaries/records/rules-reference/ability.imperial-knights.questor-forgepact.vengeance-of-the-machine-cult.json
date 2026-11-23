@@ -24,31 +24,16 @@
       ],
       "turn": "any"
     },
-    "summary": "When an enemy unit destroys your IMPERIAL KNIGHTS TITANIC, mark that enemy. Pick an ADEPTUS MECHANICUS unit. For the rest of the battle it may reroll Wound rolls against the marked unit.",
+    "summary": "Spend 1 CP in any phase, when an enemy unit destroys one of your IMPERIAL KNIGHTS TITANIC units. Target one of your ADEPTUS MECHANICUS units. The enemy unit that did it becomes marked for the rest of the battle; while it is marked, attacks by friendly ADEPTUS MECHANICUS units that target it may re-roll Wound rolls.",
     "summarySpans": [
       {
-        "start": 33,
-        "end": 57,
-        "bold": true
-      },
-      {
-        "start": 84,
-        "end": 102,
-        "bold": true
-      },
-      {
-        "start": 150,
-        "end": 161,
+        "start": 304,
+        "end": 315,
         "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "wound-rolls"
         }
-      },
-      {
-        "start": 174,
-        "end": 180,
-        "bold": true
       }
     ],
     "citations": [
@@ -80,44 +65,30 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "any",
-                "turn": "either"
-              }
-            ],
-            "event": "friendly-unit-destroyed-by-enemy",
-            "destroyed": {
-              "keywords": [
-                "Imperial Knights Titanic"
-              ]
+          "detachment": "Questor Forgepact",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "any",
+              "event": "friendly IMPERIAL KNIGHTS TITANIC unit destroyed by an enemy unit"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "Adeptus Mechanicus"
+            "keywordsAll": [
+              "ADEPTUS MECHANICUS"
             ]
           },
           "effects": [
             {
-              "action": "mark",
-              "recipient": "destroying-enemy-unit",
-              "duration": {
-                "until": "battle-end"
-              }
+              "mark": "the destroying enemy unit",
+              "duration": "end-of-battle"
             },
             {
-              "action": "reroll",
-              "roll": "wound",
-              "actor": "model-in-target-unit",
-              "attackTarget": "marked-enemy-unit",
-              "optional": true,
-              "duration": {
-                "until": "battle-end"
+              "whileMarked": {
+                "attackers": "friendly ADEPTUS MECHANICUS units",
+                "reroll": "wound"
               }
             }
           ]

@@ -12,17 +12,7 @@
   },
   "data": {
     "ruleType": "enhancement",
-    "summary": "ADEPTUS CUSTODES model only. The bearer carries an extra ranged weapon, the Auriferous Orb: Range 12\", 3 attacks, BS 2+, Strength 1, AP 0, Damage 1. It has [ANTI] 2+ versus non-MONSTER/VEHICLE targets, [DEVASTATING WOUNDS] and Blinding Light. Blinding Light: in your Shooting phase, once the bearer's unit has shot, pick one enemy unit the Orb hit; until your next turn begins, that unit's attacks take -1 on Hit rolls.",
-    "summarySpans": [
-      {
-        "start": 202,
-        "end": 222,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "devastating-wounds"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS CUSTODES model. This model gains the Auriferous Orb ranged weapon: Range 12\", A 3, BS 2+, S 1, AP 0, D 1, with [ANTI-non-MONSTER/VEHICLE 2+], [BLINDING LIGHT] and [DEVASTATING WOUNDS]. [BLINDING LIGHT]: after this model's unit has shot in your Shooting phase, pick one enemy unit struck by its Auriferous Orb; that enemy unit's attacks get -1 to their hit rolls up to the start of your next turn.",
     "citations": [
       {
         "type": "app",
@@ -40,6 +30,7 @@
           "type": "model",
           "points": 20,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -51,9 +42,9 @@
         },
         "upgradesWeapon": true,
         "detail": {
-          "kind": "enhancement-weapon",
+          "kind": "enhancement",
           "detachment": "Emissaries Imperatus",
-          "weapon": {
+          "grantsWeapon": {
             "name": "Auriferous Orb",
             "type": "ranged",
             "rangeInches": 12,
@@ -63,20 +54,30 @@
             "AP": 0,
             "D": 1,
             "abilities": [
-              {
-                "anti": "non-MONSTER/VEHICLE",
-                "threshold": "2+"
-              },
-              "DEVASTATING WOUNDS",
-              "BLINDING LIGHT"
-            ]
+              "ANTI-non-MONSTER/VEHICLE 2+",
+              "BLINDING LIGHT",
+              "DEVASTATING WOUNDS"
+            ],
+            "antiThreshold": 2
           },
-          "blindingLight": {
-            "phase": "own-shooting",
-            "when": "after-bearer-unit-has-shot",
-            "target": "one-enemy-unit-hit-by-orb",
-            "hitRoll": -1,
-            "until": "start-of-your-next-turn"
+          "BLINDING LIGHT": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting",
+              "after": "this-unit-has-shot"
+            },
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitByWeapon": "Auriferous Orb"
+            },
+            "effect": {
+              "attacksBySelectedUnit": true,
+              "roll": "hit",
+              "modifier": "subtract",
+              "value": 1
+            },
+            "duration": "until-start-of-your-next-turn"
           }
         }
       }

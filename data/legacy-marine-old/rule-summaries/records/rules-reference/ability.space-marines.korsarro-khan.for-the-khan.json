@@ -13,27 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Kor’sarro Khan",
-    "summary": "For this unit, [ASSAULT] applies to ranged attacks and [LANCE] applies in melee.",
-    "summarySpans": [
-      {
-        "start": 16,
-        "end": 23,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "assault"
-        }
-      },
-      {
-        "start": 56,
-        "end": 61,
-        "bold": true,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "lance"
-        }
-      }
-    ],
+    "summary": "As long as this model leads a unit, that unit's models have [ASSAULT] on their ranged weapons and [LANCE] on their melee weapons.",
     "citations": [
       {
         "type": "app",
@@ -48,17 +28,19 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "datasheet-unit",
-          "effects": [
-            {
-              "attackKind": "ranged",
-              "grant": "ASSAULT"
-            },
-            {
-              "attackKind": "melee",
-              "grant": "LANCE"
-            }
-          ]
+          "ability": {
+            "condition": "this model is leading a unit",
+            "effects": [
+              {
+                "weapons": "ranged weapons of models in the led unit",
+                "grantWeaponAbility": "ASSAULT"
+              },
+              {
+                "weapons": "melee weapons of models in the led unit",
+                "grantWeaponAbility": "LANCE"
+              }
+            ]
+          }
         }
       }
     }

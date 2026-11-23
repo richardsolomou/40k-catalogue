@@ -13,19 +13,29 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Weirdboy",
-    "summary": "When you pick this unit to fight in the Fight phase, you may roll one D6 as a psychic roll if it is free of battle-shock. A 1 battle-shocks the unit. Taking the roll also lets the unit reroll melee wound rolls of 1 and gives its melee attacks [PSYCHIC]. This psychic ability can be used once each phase.",
+    "summary": "When you select this unit to fight in the Fight phase and the unit isn't battle-shocked, you may roll one D6 as a psychic roll for it. If you do, the unit becomes battle-shocked on a 1, and for the rest of that phase Wound rolls of 1 for its melee attacks may be re-rolled and those attacks have [PSYCHIC].",
     "summarySpans": [
       {
-        "start": 40,
-        "end": 51,
+        "start": 42,
+        "end": 53,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "fight-phase"
         }
       },
       {
-        "start": 78,
-        "end": 90,
+        "start": 73,
+        "end": 87,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 114,
+        "end": 126,
         "bold": true,
         "target": {
           "kind": "core-rule",
@@ -33,23 +43,9 @@
         }
       },
       {
-        "start": 108,
-        "end": 120,
-        "bold": true
-      },
-      {
-        "start": 126,
-        "end": 139,
-        "bold": true
-      },
-      {
-        "start": 198,
-        "end": 209,
-        "bold": true
-      },
-      {
-        "start": 243,
-        "end": 252,
+        "start": 296,
+        "end": 305,
+        "bold": true,
         "target": {
           "kind": "weapon-ability",
           "id": "psychic"
@@ -138,43 +134,38 @@
           }
         ],
         "detail": {
-          "actor": "controlling-player",
-          "trigger": {
-            "phase": "Fight",
-            "turnOwner": "either",
-            "event": "select source unit to fight"
-          },
-          "condition": {
-            "sourceUnitBattleShocked": false
-          },
-          "inheritedLimit": {
-            "uses": 1,
-            "period": "phase",
-            "scope": "same psychic ability for PSYKER unit"
-          },
-          "selection": {
+          "ability": {
+            "trigger": {
+              "turn": "either",
+              "phase": "fight",
+              "event": "this-unit-selected-to-fight"
+            },
+            "condition": {
+              "battleShocked": false
+            },
             "optional": true,
-            "type": "psychic roll",
-            "dice": 1,
-            "sides": 6,
-            "level": 1
-          },
-          "effect": {
-            "trigger": "make psychic roll",
-            "recipient": "datasheet-unit",
-            "onNaturalOne": "unit becomes battle-shocked",
-            "expiryStatedOnCard": null,
-            "separateEffects": [
+            "psychicRoll": {
+              "dice": "D6",
+              "level": 1
+            },
+            "ifRolled": [
               {
-                "attackKind": "melee",
-                "roll": "wound",
-                "optionalRerollOn": 1
+                "onRoll": 1,
+                "effect": "this-unit-battle-shocked"
               },
               {
-                "attackKind": "melee",
-                "grant": "[Psychic]"
+                "attackType": "melee",
+                "reroll": {
+                  "roll": "wound",
+                  "value": 1
+                }
+              },
+              {
+                "attackType": "melee",
+                "grant": "PSYCHIC"
               }
-            ]
+            ],
+            "duration": "end-of-phase"
           }
         }
       }

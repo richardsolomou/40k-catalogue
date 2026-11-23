@@ -12,30 +12,33 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "At each round opening, a WORLD EATERS army may roll eight D6. Choose at most two different blessings by paying their matching sets. A die pays for one set at most. Discard leftovers and apply the chosen blessings army-wide through that round. Unbridled Bloodlust accepts any pair. Boost charge rolls by 1. Rage-Fuelled Invigoration needs a pair showing 2 or better and sets a 6-inch limit for each model’s Pile-in and Consolidation moves, replacing the usual 3. Total Carnage takes a pair of 3 or higher. When a melee attack kills a model that hasn’t fought this phase, a D6 result of 4+ delays removal. The model may fight after the attacker finishes, then comes off the table. Martial Excellence takes a pair of 4 or higher or any triple, adding [SUSTAINED HITS 1] to melee weapons. Warp Blades takes a pair of 5 or higher or a triple of 2 or higher, giving those weapons [LETHAL HITS]. Decapitating Strikes costs two sixes or a triple of 3 or better and grants [DEVASTATING WOUNDS] to melee attacks against INFANTRY.",
+    "summary": "At each round opening, an army with WORLD EATERS as its Army Faction may make a Blessings of Khorne roll by rolling eight D6. Choose at most two different blessings by paying their matching sets (where a number is shown, the dice must be a double or triple at that number or above). A die pays for one set at most, and each blessing can be activated only once per battle round. Discard leftovers; each chosen blessing then applies until the battle round ends to every unit of yours that has this ability. Unbridled Bloodlust accepts any pair. Boost charge rolls by 1. Rage-Fuelled Invigoration needs a pair showing 2 or better and sets a 6-inch limit for each model’s Pile-in and Consolidation moves, replacing the usual 3. Total Carnage takes a pair of 3 or higher. When a melee attack kills a model that hasn’t fought this phase, a D6 result of 4+ delays removal. The model may fight after the attacker finishes, then comes off the table. Martial Excellence takes a pair of 4 or higher or any triple, adding [SUSTAINED HITS 1] to melee weapons. Warp Blades takes a pair of 5 or higher or a triple of 2 or higher, giving those weapons [LETHAL HITS]. Decapitating Strikes costs two sixes or a triple of 3 or better and grants [DEVASTATING WOUNDS] to melee attacks against INFANTRY units.",
     "summarySpans": [
       {
-        "start": 749,
-        "end": 763,
+        "start": 1010,
+        "end": 1028,
+        "bold": true,
         "target": {
           "kind": "weapon-ability",
           "id": "sustained-hits"
         }
       },
       {
-        "start": 875,
-        "end": 886,
+        "start": 1136,
+        "end": 1149,
+        "bold": true,
         "target": {
           "kind": "weapon-ability",
           "id": "lethal-hits"
         }
       },
       {
-        "start": 965,
-        "end": 983,
+        "start": 1226,
+        "end": 1246,
+        "bold": true,
         "target": {
           "kind": "weapon-ability",
-          "id": "devastating-wounds-infantry"
+          "id": "devastating-wounds"
         }
       }
     ],
@@ -122,7 +125,7 @@
         "detail": {
           "kind": "dice-allocation-menu",
           "armyFaction": "WORLD EATERS",
-          "timing": "round-start",
+          "timing": "start-of-battle-round",
           "optional": true,
           "pool": {
             "dice": 8,
@@ -130,115 +133,122 @@
             "perDieMaxUses": 1,
             "discardUnused": true
           },
+          "requirementRule": "a stated value means a double or triple of that value or higher",
           "maxActivations": 2,
-          "perBlessingMax": 1,
-          "recipient": "all-army-units",
-          "duration": "round",
+          "perBlessingMaxPerBattleRound": 1,
+          "recipients": {
+            "side": "friendly",
+            "unitsWithThisAbility": true
+          },
+          "duration": "end-of-battle-round",
           "options": [
             {
               "name": "Unbridled Bloodlust",
-              "diceAlternatives": [
+              "dice": [
                 {
-                  "equalDice": 2,
-                  "minimumFace": 1
+                  "double": "any"
                 }
               ],
               "effect": {
                 "roll": "charge",
-                "add": 1
+                "delta": 1
               }
             },
             {
               "name": "Rage-Fuelled Invigoration",
-              "diceAlternatives": [
+              "dice": [
                 {
-                  "equalDice": 2,
-                  "minimumFace": 2
+                  "double": 2
                 }
               ],
               "effect": {
-                "moveTypes": [
+                "moves": [
                   "pile-in",
                   "consolidation"
                 ],
-                "scope": "model",
-                "maximumInches": 6,
-                "replacesInches": 3
+                "maxInches": 6,
+                "insteadOfInches": 3
               }
             },
             {
               "name": "Total Carnage",
-              "diceAlternatives": [
+              "dice": [
                 {
-                  "equalDice": 2,
-                  "minimumFace": 3
+                  "double": 3
                 }
               ],
               "effect": {
-                "kind": "fight-on-death",
-                "triggerAttack": "melee",
-                "requiresNotFoughtThisPhase": true,
-                "die": "D6",
-                "min": 4,
-                "fightOptional": true,
-                "fightAfter": "attacking-unit-finishes",
-                "removeAfter": "model-fights"
+                "trigger": "model-destroyed-by-melee-attack",
+                "condition": "has-not-fought-this-phase",
+                "roll": "D6",
+                "threshold": "4+",
+                "then": "not-removed-yet; may fight after the attacking unit finishes its attacks; then removed from play"
               }
             },
             {
               "name": "Martial Excellence",
-              "diceAlternatives": [
+              "dice": [
                 {
-                  "equalDice": 2,
-                  "minimumFace": 4
+                  "double": 4
                 },
                 {
-                  "equalDice": 3,
-                  "minimumFace": 1
+                  "triple": "any"
                 }
               ],
               "effect": {
                 "weapons": "melee",
-                "grant": "sustained-hits",
-                "value": 1
+                "grant": "SUSTAINED HITS 1",
+                "sustainedHits": 1
               }
             },
             {
               "name": "Warp Blades",
-              "diceAlternatives": [
+              "dice": [
                 {
-                  "equalDice": 2,
-                  "minimumFace": 5
+                  "double": 5
                 },
                 {
-                  "equalDice": 3,
-                  "minimumFace": 2
+                  "triple": 2
                 }
               ],
               "effect": {
                 "weapons": "melee",
-                "grant": "lethal-hits"
+                "grant": "LETHAL HITS"
               }
             },
             {
               "name": "Decapitating Strikes",
-              "diceAlternatives": [
+              "dice": [
                 {
-                  "equalDice": 2,
-                  "minimumFace": 6
+                  "double": 6
                 },
                 {
-                  "equalDice": 3,
-                  "minimumFace": 3
+                  "triple": 3
                 }
               ],
               "effect": {
                 "attacks": "melee",
                 "targetKeyword": "INFANTRY",
-                "grant": "devastating-wounds"
+                "grant": "DEVASTATING WOUNDS"
               }
             }
-          ]
+          ],
+          "example": {
+            "roll": [
+              1,
+              2,
+              2,
+              2,
+              3,
+              4,
+              6,
+              6
+            ],
+            "activated": [
+              "Warp Blades",
+              "Unbridled Bloodlust"
+            ]
+          }
         }
       }
     }

@@ -11,13 +11,14 @@
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
-    "summary": "Against a PSYKER target, apply [DEVASTATING WOUNDS] on a Critical Wound. Bypass saves and deal the attack’s Damage as mortal wounds, counting [MELTA] and any Damage bonus from the Critical Wound. Resolve this after ordinary damage. Excess stays off other models. Feel No Pain can still prevent wounds, including rolls limited to mortal wounds.",
+    "summary": "When a [DEVASTATING WOUNDS] weapon’s attack scores a critical wound, its attack sequence stops and the target unit instead suffers as many mortal wounds as the weapon’s D characteristic, applied after any normal damage from those attacks. Those mortal wounds can damage at most one model per critical wound; any left over are lost. For example, a critical wound from a weapon whose D is 3 against an Intercessor Squad inflicts 3 mortal wounds: 2 destroy one Intercessor model and the third is lost. What the PSYKER qualifier in this ability’s name adds is not stated.",
     "summarySpans": [
       {
-        "start": 32,
-        "end": 50,
+        "start": 7,
+        "end": 27,
+        "bold": true,
         "target": {
-          "kind": "core-rule",
+          "kind": "weapon-ability",
           "id": "devastating-wounds"
         }
       }
@@ -92,20 +93,26 @@
           }
         ],
         "detail": {
-          "appliesTo": "weapon",
+          "weaponAbility": "[DEVASTATING WOUNDS]",
+          "qualifier": "PSYKER",
           "trigger": "critical wound",
           "effect": {
-            "saves": "none",
-            "mortalWounds": "attack Damage including Melta and critical-wound Damage bonuses",
-            "excess": "discarded at the allocated model"
+            "attackSequenceEnds": true,
+            "mortalWounds": "equal to the weapon's D characteristic",
+            "timing": "after normal damage from those attacks",
+            "maxModelsDamagedPerCriticalWound": 1,
+            "excess": "lost"
           },
-          "resolutionOrder": "after normal damage",
-          "feelNoPain": "applies, including mortal-only Feel No Pain",
-          "condition": {
-            "targetHasAnyKeyword": [
-              "PSYKER"
-            ]
-          }
+          "example": {
+            "weaponDamage": 3,
+            "mortalWounds": 3,
+            "woundsToDestroyOneModel": 2,
+            "modelsDestroyed": 1,
+            "lost": 1
+          },
+          "openQuestions": [
+            "The text does not say what the PSYKER qualifier in the name changes."
+          ]
         }
       }
     }

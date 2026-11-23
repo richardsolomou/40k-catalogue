@@ -20,34 +20,20 @@
       ],
       "turn": "own"
     },
-    "summary": "As your Movement phase closes, pick an unengaged PHOBOS or SCOUT SQUAD unit. Snare one objective it controls. Roll a D6 when an enemy finishes moving in the snared objective’s range. A result of 2+ deals D6 mortal wounds to the enemy and clears the snare.",
+    "summary": "Spend 1 CP as your Movement phase ends. Target one unengaged PHOBOS or SCOUT SQUAD unit from your army. If that unit controls an objective, the objective is snared. While it is snared, each time an enemy unit finishes any move within range of it, roll a D6, and on a 2+, D6 mortal wounds are inflicted on that enemy unit. Whatever the roll, the objective then stops being snared.",
     "summarySpans": [
       {
-        "start": 8,
-        "end": 22,
+        "start": 19,
+        "end": 33,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "movement-phase"
         }
       },
       {
-        "start": 39,
-        "end": 48,
-        "bold": true
-      },
-      {
-        "start": 49,
-        "end": 55,
-        "bold": true
-      },
-      {
-        "start": 59,
-        "end": 70,
-        "bold": true
-      },
-      {
-        "start": 87,
-        "end": 96,
+        "start": 129,
+        "end": 138,
         "bold": true,
         "target": {
           "kind": "core-rule",
@@ -55,22 +41,8 @@
         }
       },
       {
-        "start": 157,
-        "end": 163,
-        "bold": true
-      },
-      {
-        "start": 164,
-        "end": 173,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "objectives"
-        }
-      },
-      {
-        "start": 207,
-        "end": 220,
+        "start": 274,
+        "end": 287,
         "bold": true,
         "target": {
           "kind": "core-rule",
@@ -116,50 +88,41 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "your"
-              }
-            ],
-            "event": "phase-end"
-          },
+          "detachment": "Phobos Shadow Force",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "end-of-phase"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [],
-            "anyUnitName": [
-              "Phobos",
-              "Scout Squad"
+            "keywordsAny": [
+              "PHOBOS",
+              "SCOUT SQUAD"
             ],
-            "eligibility": "unengaged"
+            "unengaged": true
           },
           "effects": [
             {
-              "action": "mark-objective-snared",
-              "actor": "you",
-              "recipient": "one-objective-controlled-by-target-unit",
-              "count": 1
+              "if": "target-controls-objective",
+              "objectiveState": "snared"
             },
             {
-              "action": "inflict-mortal-wounds",
-              "actor": "snared-objective",
-              "recipient": "enemy-unit-that-ends-move-in-objective-range",
-              "condition": "objective-still-snared",
-              "roll": {
-                "kind": "die",
-                "sides": 6,
-                "count": 1
+              "while": "objective-snared",
+              "trigger": "enemy-unit-ends-move-within-range-of-objective",
+              "roll": "D6",
+              "threshold": "2+",
+              "onSuccess": {
+                "mortalWounds": "D6",
+                "recipient": "that-enemy-unit"
               },
-              "minimumRoll": 2,
-              "mortalWoundsPerSuccess": {
-                "kind": "die",
-                "sides": 6,
-                "count": 1
-              },
-              "onSuccess": "clear-snared-status"
+              "afterRoll": {
+                "objectiveState": "not-snared",
+                "regardlessOfResult": true
+              }
             }
           ]
         }

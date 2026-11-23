@@ -13,23 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Belial",
-    "summary": "Against a CHARACTER unit, apply +1 to the wound roll for attacks from this unit.",
-    "summarySpans": [
-      {
-        "start": 10,
-        "end": 19,
-        "bold": true
-      },
-      {
-        "start": 42,
-        "end": 52,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      }
-    ],
+    "summary": "As long as this model leads a unit, any attack made by that unit's models that scores a Critical Hit gains [PRECISION].",
     "citations": [
       {
         "type": "app",
@@ -44,18 +28,14 @@
       "version": "1",
       "fields": {
         "detail": {
-          "subtype": "short-roll-modifier",
-          "recipient": "this unit",
-          "appliesTo": "attacks",
-          "target": {
-            "keywordLabel": "Character",
-            "kind": "unit"
+          "ability": {
+            "condition": "this model is leading a unit",
+            "attackers": "models in the led unit",
+            "trigger": "Critical Hit scored",
+            "grantsWeaponAbility": "PRECISION"
           },
-          "amount": 1,
-          "effect": {
-            "roll": "wound",
-            "delta": 1,
-            "kind": "modify-roll"
+          "cardPrintsOtherText": {
+            "woundRollAddAgainstCharacters": 1
           }
         }
       }

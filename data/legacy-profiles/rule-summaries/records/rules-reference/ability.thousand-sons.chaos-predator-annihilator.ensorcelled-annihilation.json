@@ -13,45 +13,11 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Chaos Predator Annihilator",
-    "summary": "For this model’s ranged attacks aimed at MONSTER or VEHICLE units, you may re-roll Hit and Damage independently. A Psychic attack must have hit that target earlier in the phase, and the attack must come from a THOUSAND SONS PSYKER model in your army.",
+    "summary": "Whenever this model attacks with a ranged weapon, if the target unit is a MONSTER or VEHICLE that has already been struck this phase by at least one Psychic Attack from a THOUSAND SONS PSYKER model of yours (the Doombolt Ritual counts), the Hit roll and the Damage roll can each be re-rolled.",
     "summarySpans": [
       {
-        "start": 41,
-        "end": 48,
-        "bold": true
-      },
-      {
-        "start": 52,
-        "end": 59,
-        "bold": true
-      },
-      {
-        "start": 83,
-        "end": 86,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      },
-      {
-        "start": 91,
-        "end": 97,
-        "target": {
-          "kind": "core-rule",
-          "id": "inflict-damage"
-        }
-      },
-      {
-        "start": 115,
-        "end": 129,
-        "target": {
-          "kind": "core-rule",
-          "id": "psychic"
-        }
-      },
-      {
-        "start": 210,
-        "end": 230,
+        "start": 212,
+        "end": 227,
         "bold": true
       }
     ],
@@ -69,36 +35,44 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "this-model",
-          "trigger": "each-ranged-attack",
-          "target": {
-            "entity": "unit",
-            "anyKeyword": [
-              "Monster",
-              "Vehicle"
-            ]
-          },
-          "condition": {
-            "event": "target-already-hit-in-this-phase",
-            "minimumHits": 1,
-            "sourceArmy": "own",
-            "sourceKeyword": "Thousand Sons",
-            "attackAbility": "psychic",
-            "sourceEntity": "model"
-          },
-          "effects": [
-            {
-              "roll": "hit",
-              "optional": true,
-              "kind": "re-roll"
+          "ability": {
+            "trigger": {
+              "per": "ranged-attack",
+              "attacker": "this-model"
             },
-            {
-              "roll": "damage",
-              "optional": true,
-              "kind": "re-roll"
-            }
-          ],
-          "independentChoices": true
+            "condition": {
+              "target": {
+                "keywordsAny": [
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              },
+              "hitThisPhaseBy": {
+                "attacks": "Psychic Attacks",
+                "minimum": 1,
+                "from": {
+                  "side": "friendly",
+                  "keywordsAll": [
+                    "THOUSAND SONS",
+                    "PSYKER"
+                  ],
+                  "entity": "model"
+                },
+                "includes": "Doombolt Ritual"
+              }
+            },
+            "effects": [
+              {
+                "reroll": "hit",
+                "optional": true
+              },
+              {
+                "reroll": "damage",
+                "optional": true
+              }
+            ],
+            "independent": true
+          }
         }
       }
     }

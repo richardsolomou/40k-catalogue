@@ -13,43 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Aleya",
-    "summary": "The led unit’s models get +1 on Hit rolls while their unit is Below Starting Strength, and +1 on Wound rolls while it is Below Half-strength. This model must be their Leader.",
-    "summarySpans": [
-      {
-        "start": 32,
-        "end": 41,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      },
-      {
-        "start": 62,
-        "end": 85,
-        "bold": true
-      },
-      {
-        "start": 97,
-        "end": 108,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      },
-      {
-        "start": 121,
-        "end": 140,
-        "bold": true
-      },
-      {
-        "start": 167,
-        "end": 173,
-        "target": {
-          "kind": "core-rule",
-          "id": "leader"
-        }
-      }
-    ],
+    "summary": "Once this model's unit has fallen below its starting strength, attacks made by that unit get +1 to their hit rolls; once it is under half-strength, those attacks get +1 to their wound rolls as well. Neither bonus depends on this model leading a unit.",
     "citations": [
       {
         "type": "app",
@@ -299,22 +263,23 @@
           }
         ],
         "detail": {
-          "source": "this-model",
-          "condition": "leading",
-          "actor": "model-in-led-unit",
-          "trigger": "each-attack",
-          "effects": [
-            {
-              "roll": "hit",
-              "modifier": 1,
-              "actorUnitCondition": "below-starting"
-            },
-            {
-              "roll": "wound",
-              "modifier": 1,
-              "actorUnitCondition": "below-half"
-            }
-          ]
+          "ability": {
+            "name": "Tenacious Spirit",
+            "appliesTo": "this-unit",
+            "requiresLeading": false,
+            "effects": [
+              {
+                "while": "below-starting-strength",
+                "roll": "hit",
+                "delta": 1
+              },
+              {
+                "while": "below-half-strength",
+                "roll": "wound",
+                "delta": 1
+              }
+            ]
+          }
         }
       }
     }

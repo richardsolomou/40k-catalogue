@@ -21,36 +21,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "At the close of the opposing Fight phase, choose a unit with the ADEPTUS ASTARTES MOUNTED/SPEEDER keyword. It must be unengaged. Transfer it to strategic reserves.",
-    "summarySpans": [
-      {
-        "start": 29,
-        "end": 40,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 65,
-        "end": 97,
-        "bold": true
-      },
-      {
-        "start": 118,
-        "end": 127,
-        "bold": true
-      },
-      {
-        "start": 144,
-        "end": 162,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "strategic-reserves"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP as the opponent's Fight phase ends, picking an ADEPTUS ASTARTES MOUNTED or ADEPTUS ASTARTES FLY VEHICLE unit of yours that is not in Engagement Range of any enemy unit. Take it off the battlefield and put it into Strategic Reserves.",
     "citations": [
       {
         "type": "app",
@@ -94,29 +65,27 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "opponent",
-            "phases": [
-              "fight"
-            ],
-            "event": "phase-end",
-            "window": {
-              "fight": "opponent"
+          "detachment": "Spearpoint Task Force",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "fight",
+              "timing": "end-of-phase"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "unengaged": true,
-            "sourceKeywordLabel": "Adeptus Astartes Mounted/Speeder"
+            "keywordsAny": [
+              "ADEPTUS ASTARTES MOUNTED",
+              "ADEPTUS ASTARTES FLY VEHICLE"
+            ],
+            "notWithinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "kind": "place-in-strategic-reserves",
-              "subject": "selected-unit",
-              "optional": false,
-              "from": "battlefield"
+              "removeFromBattlefield": true,
+              "placeInto": "Strategic Reserves"
             }
           ]
         }

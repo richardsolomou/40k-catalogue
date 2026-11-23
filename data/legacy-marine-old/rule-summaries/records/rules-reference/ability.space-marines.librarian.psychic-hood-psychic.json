@@ -13,27 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Librarian",
-    "summary": "This unit can use Feel No Pain 4+ when damage comes from psychic attacks.",
-    "summarySpans": [
-      {
-        "start": 18,
-        "end": 33,
-        "bold": true,
-        "target": {
-          "kind": "core-ability",
-          "id": "feel-no-pain"
-        }
-      },
-      {
-        "start": 57,
-        "end": 72,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "psychic-abilities"
-        }
-      }
-    ],
+    "summary": "When this model leads a unit, each model in that unit gets Feel No Pain 4+, which applies only to Psychic Attacks.",
     "citations": [
       {
         "type": "app",
@@ -48,13 +28,26 @@
       "version": "1",
       "fields": {
         "detail": {
-          "recipient": "owning unit",
-          "grant": "feel-no-pain",
-          "threshold": "4+",
-          "against": [
-            "psychic attacks"
-          ],
-          "psychicAbility": true
+          "ability": {
+            "condition": "this model is leading a unit",
+            "appliesTo": "each model in the unit this model leads",
+            "grantAbility": "Feel No Pain",
+            "threshold": "4+",
+            "thresholdValue": 4,
+            "against": [
+              "Psychic Attacks"
+            ]
+          },
+          "cardPrintsOtherText": {
+            "name": "Psychic Hood (Psychic)",
+            "psychic": true,
+            "appliesTo": "this unit, with no leading condition",
+            "grantAbility": "Feel No Pain",
+            "threshold": "4+",
+            "against": [
+              "Psychic Attacks"
+            ]
+          }
         }
       }
     }

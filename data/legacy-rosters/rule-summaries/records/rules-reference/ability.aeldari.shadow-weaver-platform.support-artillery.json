@@ -13,14 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Shadow Weaver Platform",
-    "summary": "At Declare Battle Formations, optionally assign the Shadow Weaver Platform to a GUARDIAN DEFENDERS unit on your roster. A recipient may take only one SUPPORT WEAPON model. Add the platform to the unit’s Starting Strength and keep it in that unit through battle end. Embarking in a TRANSPORT is prohibited for the platform and the rest of its unit.",
-    "summarySpans": [
-      {
-        "start": 281,
-        "end": 290,
-        "bold": true
-      }
-    ],
+    "summary": "As the Declare Battle Formations step begins, this model may be added to one of your GUARDIAN DEFENDERS units, provided no other SUPPORT WEAPON model has joined that unit. From then until the battle ends, it is treated as belonging to that GUARDIANS unit, whose Starting Strength goes up to include it. Neither this model nor any unit it has joined can ever embark within a TRANSPORT.",
     "citations": [
       {
         "type": "app",
@@ -35,18 +28,23 @@
       "version": "1",
       "fields": {
         "detail": {
-          "activation": {
-            "step": "Declare Battle Formations",
-            "optional": true
-          },
-          "attachment": {
-            "addOwnerModelTo": "one Guardian Defenders unit in own army",
-            "maximumOfSameWeaponsModelInRecipient": 1
+          "when": "start of the Declare Battle Formations step",
+          "optional": true,
+          "join": {
+            "recipient": "one GUARDIAN DEFENDERS unit from your army",
+            "maxSupportWeaponModelsPerRecipient": 1
           },
           "effect": {
-            "duration": "end of battle",
-            "ownerCountsTowardRecipientStartingStrength": true,
-            "ownerAndAllModelsInRecipientCannotEmbark": true
+            "countsAsPartOf": "that GUARDIANS unit",
+            "duration": "end-of-battle",
+            "startingStrengthIncreased": true
+          },
+          "restriction": {
+            "cannotEmbark": [
+              "this model",
+              "any unit it is joined to"
+            ],
+            "transportKeyword": "TRANSPORT"
           }
         }
       }

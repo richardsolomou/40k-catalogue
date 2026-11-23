@@ -14,35 +14,39 @@
     "document": "Core Rules",
     "section": "09. Movement Phase",
     "ruleNumber": "09.02",
-    "summary": "The active player works through their units singly until each has been selected to move. Each time, pick a friendly unit not yet selected this phase, whether it is on the battlefield, waiting in Strategic Reserves, or embarked in a TRANSPORT; then choose a move type it is eligible for and resolve it: Remain Stationary, Normal move, Advance move, Fall-back move, Disembark move, Ingress move, or one found elsewhere. Every unit, Strategic Reserves included, must be selected, even one that only Remains Stationary.",
+    "summary": "The active player works through their units singly until each has been picked to move and has finished that move. Each time, pick a friendly unit not yet selected this phase, whether it is on the battlefield, waiting in strategic reserves, or aboard a TRANSPORT; then choose a move type it is eligible for and resolve it: Remain stationary, Normal move, Advance move, Fall-back move, Disembark move, Ingress move, or one found elsewhere. Every unit, strategic reserves included, must be selected by the time the step ends, even one that only remains stationary, and any unit you give no move type in this step remains stationary. Where a rule has you pick a mode, as fall-back moves do, the modes exclude one another and are checked in the order given; a unit that meets the conditions of none of them cannot make that move. Some modes must be used when they apply (such as consolidation modes), but ordered retreat is not one of them, so desperate escape may be picked instead. A condition a move type labels with a mode name applies only if you picked that mode; unlabelled conditions always apply. Anything that a rule places in the Reinforcements step takes place during this step.",
     "summarySpans": [
       {
-        "start": 302,
-        "end": 319,
+        "start": 322,
+        "end": 339,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "remain-stationary"
         }
       },
       {
-        "start": 334,
-        "end": 341,
+        "start": 354,
+        "end": 366,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "advance-move"
         }
       },
       {
-        "start": 348,
-        "end": 357,
+        "start": 368,
+        "end": 382,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "fall-back"
         }
       },
       {
-        "start": 380,
-        "end": 387,
+        "start": 400,
+        "end": 412,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "ingress-move"
@@ -64,12 +68,15 @@
       "fields": {
         "detail": {
           "kind": "phase-step",
+          "section": [
+            9,
+            2
+          ],
           "phase": "movement",
           "actor": "active-player",
           "loop": {
             "unitsAtATime": 1,
-            "until": "all-own-units-selected-to-move",
-            "optionalPerUnit": false
+            "until": "all-own-units-selected-to-move-and-moves-ended"
           },
           "subSteps": [
             {
@@ -84,34 +91,104 @@
                   "strategic-reserves",
                   "embarked-within-transport"
                 ]
-              },
-              "setsState": "selected-to-move"
+              }
             },
             {
               "order": 2,
               "name": "Select Move Type",
-              "choose": {
-                "count": 1,
-                "constraint": "unit-eligible"
-              },
+              "choose": 1,
+              "constraint": "unit-eligible",
               "then": "resolve"
             }
           ],
           "moveTypes": {
             "listed": [
-              "09.04",
-              "09.05",
-              "09.06",
-              "09.07",
-              "18.04",
-              "20.04"
+              {
+                "name": "Remain stationary",
+                "section": [
+                  9,
+                  4
+                ]
+              },
+              {
+                "name": "Normal move",
+                "section": [
+                  9,
+                  5
+                ]
+              },
+              {
+                "name": "Advance move",
+                "section": [
+                  9,
+                  6
+                ]
+              },
+              {
+                "name": "Fall-back move",
+                "section": [
+                  9,
+                  7
+                ]
+              },
+              {
+                "name": "Disembark move",
+                "section": [
+                  18,
+                  4
+                ]
+              },
+              {
+                "name": "Ingress move",
+                "section": [
+                  20,
+                  4
+                ]
+              }
             ],
             "exhaustive": false
           },
-          "noSkip": {
-            "allUnitsSelected": true,
+          "selectingUnits": {
+            "section": [
+              9,
+              2,
+              1
+            ],
+            "allUnitsSelectedByStepEnd": true,
             "includes": "strategic-reserves",
-            "evenIfRemainStationary": true
+            "noMoveTypeSelected": "remain-stationary"
+          },
+          "selectingModes": {
+            "section": [
+              9,
+              2,
+              2
+            ],
+            "mutuallyExclusive": true,
+            "assessInPresentedOrder": true,
+            "noModeConditionsMet": "cannot-make-move",
+            "mandatoryIfApplicableExample": {
+              "name": "consolidation modes",
+              "section": [
+                12,
+                8
+              ]
+            },
+            "optionalExample": {
+              "move": "fall-back move",
+              "mode": "ordered retreat",
+              "alternative": "desperate escape"
+            },
+            "labelledConditions": "apply-only-for-selected-mode",
+            "unlabelledConditions": "always-apply"
+          },
+          "reinforcementsStep": {
+            "section": [
+              9,
+              2,
+              3
+            ],
+            "happensDuring": "Move Units step"
           }
         }
       }

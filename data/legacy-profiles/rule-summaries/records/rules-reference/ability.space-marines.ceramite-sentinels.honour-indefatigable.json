@@ -13,11 +13,11 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Ceramite Sentinels",
-    "summary": "Model eligibility — GRAVIS. The bearer gets one attempt per battle to return from destruction. At that phase’s end, roll a D6. A 2+ restores it with 3 wounds, placed as near its destruction point as possible.",
+    "summary": "For a GRAVIS model. Your whole army may use this just once per battle: as any phase ends in which the bearer was destroyed, roll a D6; with a 2+, return it to the battlefield, unengaged and as near as it can be to the spot where it was destroyed, with 3 wounds remaining.",
     "summarySpans": [
       {
-        "start": 20,
-        "end": 26,
+        "start": 6,
+        "end": 12,
         "bold": true
       }
     ],
@@ -38,6 +38,7 @@
           "type": "model",
           "points": 10,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "keywords": [
@@ -48,19 +49,26 @@
           }
         },
         "detail": {
-          "effects": [
-            {
-              "type": "return-model-on-roll",
-              "target": "bearer",
-              "dice": "D6",
-              "threshold": "2+",
-              "remainingWounds": 3,
-              "placement": "as-close-as-possible-to-destruction-location"
-            }
-          ],
-          "trigger": "end-of-phase-in-which-bearer-destroyed",
+          "kind": "enhancement",
+          "detachment": "Ceramite Sentinels",
           "usage": {
-            "limit": "once-per-battle"
+            "limit": 1,
+            "period": "battle",
+            "scope": "army"
+          },
+          "trigger": {
+            "timing": "end-of-phase",
+            "condition": "bearer-destroyed-this-phase"
+          },
+          "effect": {
+            "roll": "D6",
+            "threshold": "2+",
+            "onSuccess": {
+              "setUpAgain": "bearer",
+              "placement": "as-close-as-possible-to-where-destroyed",
+              "unengaged": true,
+              "woundsRemaining": 3
+            }
           }
         }
       }

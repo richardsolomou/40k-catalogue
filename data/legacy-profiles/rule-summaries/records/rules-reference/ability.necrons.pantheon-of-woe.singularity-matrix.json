@@ -13,21 +13,16 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Pantheon of Woe",
-    "summary": "Eligible model — C’TAN SHARD OF THE DECEIVER. Lord of Deceit (Aura) belongs to the bearer. Once a turn you may charge your opponent 1 extra CP for a Stratagem use on one of their units no farther than 12\" from the bearer.",
+    "summary": "For a C’TAN SHARD OF THE DECEIVER model. The bearer has Lord of Deceit (Aura). Once in each turn, if your opponent uses a Stratagem targeting one of their own units within 12\" of the bearer, you may make that use of it cost 1 CP more.",
     "summarySpans": [
       {
-        "start": 17,
-        "end": 44,
+        "start": 6,
+        "end": 33,
         "bold": true
       },
       {
-        "start": 46,
-        "end": 67,
-        "bold": true
-      },
-      {
-        "start": 149,
-        "end": 158,
+        "start": 56,
+        "end": 70,
         "bold": true
       }
     ],
@@ -49,10 +44,11 @@
           "points": 45,
           "outsideLimit": true,
           "eligibility": {
+            "basis": "rule-text",
             "anyOf": [
               {
                 "keywords": [
-                  "DNU"
+                  "C’TAN SHARD OF THE DECEIVER"
                 ],
                 "factionKeywords": [
                   "NECRONS"
@@ -62,37 +58,24 @@
           }
         },
         "detail": {
-          "effects": [
-            {
-              "recipient": "bearer",
-              "ability": "Lord of Deceit (Aura)",
-              "grantedEffect": {
-                "recipient": "that use of the opposing Stratagem",
-                "actor": "you",
-                "optional": true,
-                "trigger": {
-                  "actor": "opponent",
-                  "event": "targets with a Stratagem",
-                  "target": "unit from opponent’s army",
-                  "distanceInches": 12,
-                  "measuredFrom": "bearer",
-                  "comparison": "within"
-                },
-                "limit": {
-                  "count": 1,
-                  "period": "turn",
-                  "sharedBy": "bearer"
-                },
-                "stat": "CP",
-                "adjustment": {
-                  "operation": "add",
-                  "amount": 1
-                },
-                "kind": "modify-stratagem-cost"
-              },
-              "kind": "grant-ability"
+          "kind": "enhancement",
+          "detachment": "Pantheon of Woe",
+          "grantsAbility": {
+            "name": "Lord of Deceit (Aura)",
+            "usage": {
+              "limit": 1,
+              "period": "turn"
+            },
+            "trigger": {
+              "event": "opponent-targets-own-unit-with-stratagem",
+              "withinInchesOfBearer": 12
+            },
+            "optional": true,
+            "effect": {
+              "stratagemCpCostDelta": 1,
+              "appliesTo": "that-use"
             }
-          ]
+          }
         }
       }
     }

@@ -13,22 +13,15 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Lords of the Forge",
-    "summary": "Your TECH-PRIEST models get Baffling Data Screed plus two defensive benefits. They have Feel No Pain 5+ and an invulnerable save of 4+. You can use the screed upon picking the priest’s unit to fire. It requires your Shooting phase and a unit free of Battle-shock. The screed uses a D6 and offers two alternative 2+ results. You can give a −1 Battle-shock roll modifier to an enemy VEHICLE no farther than 12 inches from the firing unit. A given enemy can receive that selection just once a turn. The other option lets the firing unit retain Hidden despite those ranged attacks.",
+    "summary": "Each friendly TECH-PRIEST model has a 4+ invulnerable save and Feel No Pain 5+, plus the Baffling Data Screed ability: during your Shooting phase, as this model's unit is picked to shoot, provided that unit isn't battle-shocked, you may roll a D6. A 2 or more lets you choose one: select an enemy VEHICLE unit no more than 12\" away from this unit, which must then take a battle-shock roll at −1 (each enemy unit can be picked this way only once per turn); or this unit's ranged attacks do not stop it from remaining hidden.",
     "summarySpans": [
       {
-        "start": 88,
-        "end": 103,
+        "start": 63,
+        "end": 78,
+        "bold": true,
         "target": {
           "kind": "core-ability",
           "id": "feel-no-pain"
-        }
-      },
-      {
-        "start": 216,
-        "end": 230,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
         }
       }
     ],
@@ -107,32 +100,49 @@
           }
         ],
         "detail": {
-          "recipient": "friendly-tech-priest-model",
-          "invulnerableSave": 4,
-          "feelNoPain": 5,
-          "screed": {
-            "actor": "unit-containing-model",
-            "trigger": "selected-to-shoot-in-own-shooting-phase",
+          "recipients": {
+            "side": "friendly",
+            "scope": "model",
+            "keywordsAll": [
+              "TECH-PRIEST"
+            ]
+          },
+          "invulnerableSave": "4+",
+          "invulnerableSaveValue": 4,
+          "feelNoPain": "5+",
+          "feelNoPainValue": 5,
+          "grantedAbility": {
+            "name": "Baffling Data Screed",
+            "when": "your Shooting phase, on this unit being picked to shoot",
+            "requires": "this unit not battle-shocked",
             "optional": true,
-            "actorMustNotBeBattleShocked": true,
-            "roll": "D6",
-            "minimum": 2,
-            "chooseEffects": 1,
-            "target": {
-              "count": 1,
-              "unit": "enemy-vehicle",
-              "rangeInches": 12,
-              "from": "shooting-unit",
-              "selectionCap": {
-                "count": 1,
-                "per": "target-per-turn"
-              }
+            "roll": {
+              "dice": 1,
+              "die": "D6",
+              "success": "2+",
+              "minimum": 2
             },
-            "battleShockRollModifier": -1,
-            "hiddenPreservation": {
-              "recipient": "shooting-unit",
-              "from": "triggering-ranged-attacks"
-            }
+            "chooseOne": [
+              {
+                "select": {
+                  "side": "enemy",
+                  "count": 1,
+                  "keywordsAll": [
+                    "VEHICLE"
+                  ],
+                  "withinInches": 12
+                },
+                "enemyMakesBattleShockRoll": true,
+                "modifier": -1,
+                "perUnitLimit": {
+                  "count": 1,
+                  "period": "turn"
+                }
+              },
+              {
+                "thoseRangedAttacksDoNotPreventHidden": true
+              }
+            ]
           }
         }
       }

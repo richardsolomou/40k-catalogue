@@ -13,32 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Chaplain",
-    "summary": "When any phase starts, you may choose one allied ADEPTUS ASTARTES unit no farther than 6″ from the Chaplain. It must be Battle-shocked, and you clear its Battle-shock on selection. Each source unit can use this once per battle round.",
-    "summarySpans": [
-      {
-        "start": 49,
-        "end": 65,
-        "bold": true
-      },
-      {
-        "start": 120,
-        "end": 134,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      },
-      {
-        "start": 154,
-        "end": 166,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      }
-    ],
+    "summary": "Once per battle, as any phase begins, you may pick one ADEPTUS ASTARTES unit of yours that is currently Battle-shocked and no more than 12\" away from this model; it ceases to be Battle-shocked.",
     "citations": [
       {
         "type": "app",
@@ -53,32 +28,36 @@
       "version": "1",
       "fields": {
         "detail": {
-          "source": "this-model",
-          "limit": {
-            "count": 1,
-            "period": "battle-round",
-            "counterOwner": "source-unit",
-            "resetsAt": "start-of-next-battle-round"
+          "ability": {
+            "limit": {
+              "count": 1,
+              "period": "battle"
+            },
+            "timing": "start of any phase",
+            "turn": "either",
+            "select": {
+              "side": "friendly",
+              "count": 1,
+              "optional": true,
+              "keywordsAll": [
+                "ADEPTUS ASTARTES"
+              ],
+              "state": "Battle-shocked",
+              "withinInches": 12,
+              "of": "this model"
+            },
+            "effect": {
+              "clearState": "Battle-shocked"
+            }
           },
-          "trigger": {
-            "timing": "start",
-            "phase": "any",
-            "turn": "either"
-          },
-          "selection": {
-            "side": "friendly",
-            "entity": "unit",
-            "keyword": "ADEPTUS ASTARTES",
-            "requiredState": "battle-shocked",
-            "count": 1,
-            "optional": true,
-            "measure": "within",
-            "rangeInches": 6,
-            "origin": "this-model"
-          },
-          "effect": {
-            "recipient": "selected-unit",
-            "clearState": "battle-shocked"
+          "cardPrintsOtherText": {
+            "name": "Spiritual Leader (Once per battle round, per unit)",
+            "limit": {
+              "count": 1,
+              "period": "battle round",
+              "scope": "per unit"
+            },
+            "withinInches": 6
           }
         }
       }

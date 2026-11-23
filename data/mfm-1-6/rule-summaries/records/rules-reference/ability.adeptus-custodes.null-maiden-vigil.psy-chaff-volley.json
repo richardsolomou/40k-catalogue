@@ -19,17 +19,7 @@
       ],
       "turn": "own"
     },
-    "summary": "After a friendly PROSECUTOR SQUAD finishes shooting in your Shooting phase, pick one enemy it hit. Through turn end, mark that enemy as prosecuted and add 1 AP to attacks aimed at it.",
-    "summarySpans": [
-      {
-        "start": 60,
-        "end": 74,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase once a PROSECUTOR SQUAD unit of yours has shot. Choose one enemy unit that those attacks hit; that enemy is prosecuted until this turn ends, and any attack aimed at a prosecuted unit gets +1 AP.",
     "citations": [
       {
         "type": "app",
@@ -110,54 +100,38 @@
         },
         "detail": {
           "detachment": "Null Maiden Vigil",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "own"
-              }
-            ],
-            "event": "unit-finished-shooting",
-            "actor": "chosen-unit"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "trigger": "a friendly unit has shot",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "PROSECUTOR SQUAD"
             ],
-            "condition": {
-              "event": "triggering-unit"
-            }
+            "is": "the unit that shot"
           },
           "effects": [
             {
-              "action": "select-unit",
-              "bind": "prosecuted-enemy",
-              "controller": "opponent",
-              "count": 1,
-              "condition": {
-                "hitBy": "chosen-unit-triggering-attacks"
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "hitByThoseAttacks": true
+              },
+              "status": "prosecuted",
+              "statusEffect": {
+                "attacksTargetingIt": {
+                  "characteristic": "AP",
+                  "delta": 1
+                }
               }
-            },
-            {
-              "action": "mark-unit",
-              "recipient": "prosecuted-enemy",
-              "marker": "prosecuted"
-            },
-            {
-              "action": "modify-attack-characteristic",
-              "recipient": "attacks-targeting-prosecuted-enemy",
-              "characteristic": "armour-penetration",
-              "modifier": 1
             }
           ],
-          "duration": {
-            "until": "turn-end",
-            "turn": "own"
-          }
+          "duration": "end-of-turn"
         }
       }
     }

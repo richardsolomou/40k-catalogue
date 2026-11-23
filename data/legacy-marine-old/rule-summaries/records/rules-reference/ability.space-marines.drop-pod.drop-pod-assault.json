@@ -13,44 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Drop Pod",
-    "summary": "Starting in Strategic reserves is mandatory for this transport. Its ingress move is allowed as early as your opening Movement phase. On arrival, all passengers are required to exit via an assault disembark move. Leave over 8\" between each disembarking unit and every enemy unit.",
-    "summarySpans": [
-      {
-        "start": 12,
-        "end": 30,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "strategic-reserves"
-        }
-      },
-      {
-        "start": 68,
-        "end": 80,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "ingress-move"
-        }
-      },
-      {
-        "start": 117,
-        "end": 131,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 188,
-        "end": 210,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "assault-disembark-move"
-        }
-      }
-    ],
+    "summary": "This model always begins the battle in Reserves. It may arrive during the Reinforcements step in any of your first three Movement phases, whatever the mission rules say. As soon as it is set up, every unit embarked in it must disembark at once, and each must be placed more than 8\" from every enemy model.",
     "citations": [
       {
         "type": "app",
@@ -65,12 +28,31 @@
       "version": "1",
       "fields": {
         "detail": {
-          "start": "Strategic Reserves required",
-          "ingressAllowed": "own first Movement phase",
-          "passengers": {
-            "requiredMove": "Assault Disembark",
-            "minimumExclusiveEnemyDistanceInches": 8,
-            "referencePage": 157
+          "ability": {
+            "startsIn": "Reserves",
+            "arrival": {
+              "step": "Reinforcements",
+              "phase": "movement",
+              "turn": "own",
+              "yourMovementPhases": [
+                1,
+                2,
+                3
+              ],
+              "overridesMissionRules": true
+            },
+            "onSetUp": {
+              "embarkedUnits": "must disembark immediately",
+              "minDistanceFromEnemyModelsInches": 8,
+              "strictlyMoreThan": true
+            }
+          },
+          "cardPrintsOtherText": {
+            "startsIn": "Strategic Reserves",
+            "ingressMove": "your first Movement phase",
+            "disembark": "disembark/assault disembark move",
+            "pageReference": 157,
+            "awayFromEnemyUnitsInches": 8
           }
         }
       }

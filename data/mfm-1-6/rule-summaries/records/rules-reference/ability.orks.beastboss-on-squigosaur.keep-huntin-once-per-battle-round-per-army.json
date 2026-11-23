@@ -13,20 +13,16 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Beastboss on Squigosaur",
-    "summary": "During your Movement phase, you can use this at the start or finish of the owning unit’s move. Pick a friendly BEAST SNAGGA unit no more than 6\" away. It stops being battle-shocked until your next turn starts. Limit one use per army per battle round.",
+    "summary": "During your Movement phase, you can use this at the start or finish of the owning unit’s move. Pick a friendly BEAST SNAGGA unit no more than 6\" away. It stops being battle-shocked, and it is riled up until your next turn starts. Limit one use per army per battle round.",
     "summarySpans": [
       {
         "start": 12,
         "end": 26,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "movement-phase"
         }
-      },
-      {
-        "start": 111,
-        "end": 123,
-        "bold": true
       },
       {
         "start": 166,
@@ -61,26 +57,39 @@
           ]
         },
         "detail": {
-          "usage": {
-            "uses": 1,
-            "period": "battle round",
-            "scope": "army"
-          },
-          "timing": {
-            "phase": "own movement",
-            "points": [
-              "move start",
-              "move end"
+          "ability": {
+            "usage": {
+              "uses": 1,
+              "per": "battle round",
+              "scope": "army"
+            },
+            "when": {
+              "turn": "own",
+              "phase": "movement",
+              "timing": [
+                "start of this unit's move",
+                "end of this unit's move"
+              ]
+            },
+            "select": {
+              "side": "friendly",
+              "count": 1,
+              "keywordsAll": [
+                "BEAST SNAGGA"
+              ],
+              "withinInches": 6,
+              "optional": true
+            },
+            "effects": [
+              {
+                "battleShocked": false
+              },
+              {
+                "state": "riled up",
+                "duration": "until the start of your next turn"
+              }
             ]
-          },
-          "target": {
-            "count": 1,
-            "friendly": true,
-            "keyword": "Beast Snagga",
-            "rangeInches": 6
-          },
-          "effect": "ends Battle-shock until start of own next turn",
-          "optional": true
+          }
         }
       }
     }

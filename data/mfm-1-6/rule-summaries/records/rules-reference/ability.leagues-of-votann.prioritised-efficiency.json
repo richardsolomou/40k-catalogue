@@ -12,113 +12,7 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "A LEAGUES OF VOTANN Army Faction begins with its units in Hostile Acquisition until the first Command phase starts. Use your Yield Points (YP) balance at your Command phase end to determine the mode: Hostile Acquisition below 7, Fortify Takeover at 7 or above. The result lasts until your next Command phase starts. Hostile Acquisition adds +1 to a model’s Hit roll against an enemy near any objective marker, meaning within that marker’s range. The same unit can re-roll its Advance rolls and its Charge rolls. Fortify Takeover gives +1 to Hit rolls against enemy units if the attacker’s unit is in range of an objective marker you control. If a Fortify unit lacks VEHICLE, incoming attacks above its Toughness in Strength get −1 to their Wound roll. At the end of either player’s Command phase, earn 1YP if you hold any markers in your deployment zone. From round 2, earn 1YP apiece for three further checks: hold at least one marker outside your zone, hold at least two outside it, and outnumber your opponent in markers held. On your turn, credit the points before checking which mode applies. Spend YP when a rule calls for payment, with 0 as the balance floor. Other gains and spending can move the balance across 7 between checks, with the mode determined only at your Command phase end.",
-    "summarySpans": [
-      {
-        "start": 2,
-        "end": 19,
-        "bold": true
-      },
-      {
-        "start": 20,
-        "end": 32,
-        "target": {
-          "kind": "core-rule",
-          "id": "select-army-faction"
-        }
-      },
-      {
-        "start": 58,
-        "end": 77,
-        "bold": true
-      },
-      {
-        "start": 94,
-        "end": 107,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 125,
-        "end": 137,
-        "bold": true
-      },
-      {
-        "start": 159,
-        "end": 172,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 200,
-        "end": 219,
-        "bold": true
-      },
-      {
-        "start": 229,
-        "end": 245,
-        "bold": true
-      },
-      {
-        "start": 294,
-        "end": 307,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 316,
-        "end": 335,
-        "bold": true
-      },
-      {
-        "start": 512,
-        "end": 528,
-        "bold": true
-      },
-      {
-        "start": 541,
-        "end": 550,
-        "target": {
-          "kind": "core-rule",
-          "id": "making-attacks"
-        }
-      },
-      {
-        "start": 666,
-        "end": 673,
-        "bold": true
-      },
-      {
-        "start": 740,
-        "end": 750,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      },
-      {
-        "start": 782,
-        "end": 795,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 1276,
-        "end": 1289,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      }
-    ],
+    "summary": "If LEAGUES OF VOTANN is your Army Faction, every LEAGUES OF VOTANN unit in your army has either the Hostile Acquisition ability or the Fortify Takeover ability (never both), decided by your Yield points (YP). The battle opens with Hostile Acquisition active, lasting until your first Command phase begins. As each of your Command phases ends, count your YP: under 7 gives Hostile Acquisition and 7 or more gives Fortify Takeover, and that ability holds until your following Command phase begins. Hostile Acquisition: a model in the unit adds 1 to its Hit roll when attacking an enemy unit that is within range of at least one objective marker, and the unit may re-roll its Advance and Charge rolls. Fortify Takeover: while the unit stands in range of at least one objective marker you control, each attack its models make against an enemy unit gets +1 to hit; and when an attack aimed at the unit has a Strength above the unit's Toughness, subtract 1 from that Wound roll unless the unit is a VEHICLE. YP: at the end of every Command phase, yours or your opponent's, you get 1YP when you control an objective marker inside your deployment zone. From battle round 2 onward, add 1YP for each of these that is true: you control an objective marker outside your deployment zone; two or more of the objective markers you control are outside it; your controlled objective markers outnumber your opponent's. In your own turn, add these YP before deciding which ability applies. A rule that costs YP can be used only if you have enough to pay the full amount, and paying lowers your total, which never drops below 0. Gaining or spending YP at other times never switches the ability; it changes only as your Command phase ends.",
     "citations": [
       {
         "type": "app",
@@ -196,73 +90,115 @@
           }
         },
         "detail": {
-          "kind": "resource-driven-stance",
+          "kind": "army-rule-alternating-abilities",
           "armyFaction": "LEAGUES OF VOTANN",
-          "recipient": "friendly-units",
-          "initial": {
-            "at": "battle-start",
-            "mode": "Hostile Acquisition",
-            "expires": "start-of-first-own-command-phase"
+          "recipients": {
+            "side": "friendly",
+            "keywordsAll": [
+              "LEAGUES OF VOTANN"
+            ]
           },
-          "reevaluate": {
-            "phase": "command",
-            "owner": "self",
-            "at": "end",
-            "afterGainingYield": true,
-            "expires": "start-of-next-own-command-phase",
-            "whenBelow7": "Hostile Acquisition",
-            "whenAtLeast7": "Fortify Takeover",
-            "recalculateOnOtherBalanceChange": false
+          "resource": "YP",
+          "abilities": [
+            "Hostile Acquisition",
+            "Fortify Takeover"
+          ],
+          "battleStart": {
+            "ability": "Hostile Acquisition",
+            "until": "start-of-next-own-command-phase"
           },
-          "modes": {
-            "hostileAcquisition": {
-              "hitRollAdd": 1,
-              "when": "enemy-target-in-range-of-any-objective-marker",
-              "optionalRerolls": [
+          "selection": {
+            "when": {
+              "turn": "own",
+              "phase": "command",
+              "timing": "end-of-phase"
+            },
+            "threshold": 7,
+            "belowThreshold": "Hostile Acquisition",
+            "atOrAboveThreshold": "Fortify Takeover",
+            "until": "start-of-next-own-command-phase",
+            "changesOnlyAtSelection": true
+          },
+          "hostileAcquisition": [
+            {
+              "attacker": "model-in-unit",
+              "condition": {
+                "target": "enemy-unit",
+                "targetWithinRangeOfObjectiveMarkersMin": 1
+              },
+              "roll": "hit",
+              "delta": 1
+            },
+            {
+              "reroll": [
                 "advance",
                 "charge"
-              ]
-            },
-            "fortifyTakeover": {
-              "hitRollAdd": 1,
-              "when": "attacking-unit-in-range-of-own-controlled-objective-marker",
-              "incoming": {
-                "excludesRecipientKeyword": "VEHICLE",
-                "when": "attack-strength-greater-than-recipient-toughness",
-                "woundRollModifier": -1
-              }
+              ],
+              "optional": true
             }
-          },
-          "yield": {
-            "resource": "YP",
-            "owner": "self",
-            "gain": {
+          ],
+          "fortifyTakeover": [
+            {
+              "attacker": "model-in-unit",
+              "condition": {
+                "thisUnitWithinRangeOfControlledObjectiveMarkersMin": 1
+              },
+              "target": "enemy-unit",
+              "roll": "hit",
+              "delta": 1
+            },
+            {
+              "incomingAttacks": true,
+              "condition": {
+                "attackStrengthGreaterThanUnitToughness": true,
+                "unitExcludesKeyword": "VEHICLE"
+              },
+              "roll": "wound",
+              "delta": -1
+            }
+          ],
+          "yieldPoints": {
+            "gainWhen": {
+              "turn": "either",
               "phase": "command",
-              "player": "either",
-              "at": "end",
-              "perMetCondition": 1,
+              "timing": "end-of-phase"
+            },
+            "base": {
+              "amount": 1,
+              "condition": {
+                "controlledMarkersInOwnDeploymentZoneMin": 1
+              }
+            },
+            "additional": {
+              "fromBattleRound": 2,
+              "amountEach": 1,
               "conditions": [
                 {
-                  "ownZoneControlledMarkersMin": 1
+                  "controlledMarkersOutsideOwnDeploymentZoneMin": 1
                 },
                 {
-                  "fromRound": 2,
-                  "outsideOwnZoneControlledMarkersMin": 1
+                  "controlledMarkersOutsideOwnDeploymentZoneMin": 2
                 },
                 {
-                  "fromRound": 2,
-                  "outsideOwnZoneControlledMarkersMin": 2
-                },
-                {
-                  "fromRound": 2,
-                  "compareControlledMarkers": "more-than-opponent"
+                  "controlMoreMarkersThanOpponent": true
                 }
               ]
             },
+            "ownTurnGainBeforeAbilityCheck": true,
             "spend": {
-              "timing": "as-required-by-rule",
-              "balanceFloor": 0
+              "reduceByAmount": true,
+              "minimumBalance": 0,
+              "cannotUseRuleIfInsufficient": true
             }
+          },
+          "example": {
+            "turnThreeYP": 6,
+            "turnFourGain": 2,
+            "turnFourTotal": 8,
+            "spent": 2,
+            "afterSpend": 6,
+            "threshold": 7,
+            "result": "Fortify Takeover kept until the next own Command phase end"
           }
         }
       }

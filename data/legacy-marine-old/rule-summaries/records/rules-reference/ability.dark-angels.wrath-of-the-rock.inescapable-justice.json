@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.wrath-of-the-rock.inescapable-justice",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Wrath of the Rock",
+    "cp": 2,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
+    "summary": "Spend 2 CP in any phase, right after the enemy unit you chose for Oath of Moment dies. Pick one ADEPTUS ASTARTES CHARACTER unit of yours on the battlefield, then pick one enemy unit that your unit can see and that is within 12\" of it. Until your next Command phase starts, that enemy unit is the one your Oath of Moment applies to.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "CHARACTER"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
+          "detachment": "Wrath of the Rock",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "any"
+            }
+          ],
+          "trigger": {
+            "event": "oath-of-moment-target-destroyed"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "CHARACTER"
+            ],
+            "onBattlefield": true
+          },
+          "effects": [
+            {
+              "selectEnemyUnit": {
+                "count": 1,
+                "withinInches": 12,
+                "visibleToTargetUnit": true
+              },
+              "becomesOathOfMomentTarget": true
+            }
+          ],
+          "duration": "until-start-of-your-next-command-phase",
+          "cardPrintsNewerText": {
+            "cpCost": 1,
+            "windows": [
+              {
+                "turn": "either",
+                "phase": "fight"
+              }
+            ],
+            "trigger": "a friendly ADEPTUS ASTARTES unit is selected to fight",
+            "effect": "melee attacks have [PRECISION]"
+          }
+        }
+      }
+    }
+  }
+}

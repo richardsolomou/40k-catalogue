@@ -13,35 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Centurion Devastator Squad",
-    "summary": "For ranged attacks from this unit, you may re-roll natural 1s to Hit. If an attack targets an enemy unit within an objective’s range, any Hit result can be re-rolled instead.",
-    "summarySpans": [
-      {
-        "start": 65,
-        "end": 68,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      },
-      {
-        "start": 115,
-        "end": 124,
-        "target": {
-          "kind": "core-rule",
-          "id": "objectives"
-        }
-      },
-      {
-        "start": 138,
-        "end": 141,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      }
-    ],
+    "summary": "For each ranged attack made by this unit's models, any Hit roll of 1 is rolled again. If the attack targets an enemy unit in range of one of the objective markers, that Hit roll may be re-rolled whatever its result instead.",
     "citations": [
       {
         "type": "app",
@@ -56,31 +28,23 @@
       "version": "1",
       "fields": {
         "detail": {
-          "source": "this-unit",
-          "trigger": "each-ranged-attack-by-this-unit",
-          "branchResolution": "first-match",
-          "branches": [
-            {
-              "target": {
-                "side": "enemy",
-                "entity": "unit",
-                "condition": "within-range-of-objective"
+          "ability": {
+            "attacks": "ranged attacks by models in this unit",
+            "effects": [
+              {
+                "reroll": "hit",
+                "on": 1,
+                "optional": false
               },
-              "effect": {
-                "roll": "hit",
+              {
+                "condition": "target is an enemy unit in range of an objective marker",
+                "reroll": "hit",
+                "anyResult": true,
                 "optional": true,
-                "kind": "re-roll"
+                "replacesPrevious": true
               }
-            },
-            {
-              "effect": {
-                "roll": "hit",
-                "unmodifiedResult": 1,
-                "optional": true,
-                "kind": "re-roll"
-              }
-            }
-          ]
+            ]
+          }
         }
       }
     }

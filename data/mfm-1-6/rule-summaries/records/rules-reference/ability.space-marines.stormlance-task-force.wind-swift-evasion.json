@@ -20,24 +20,20 @@
       ],
       "turn": "any"
     },
-    "summary": "When a Fight phase closes, choose a unit that took part in the fighting. It must be ADEPTUS ASTARTES MOUNTED. It may make a Normal Move if unengaged, or Fall Back if engaged.",
+    "summary": "Spend 1 CP as the Fight phase ends. Pick one ADEPTUS ASTARTES MOUNTED unit of yours that has been eligible to fight in this phase. If it is unengaged, it may make a Normal move; if it is engaged, it may make a Fall Back move instead.",
     "summarySpans": [
       {
-        "start": 7,
-        "end": 18,
+        "start": 18,
+        "end": 29,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "fight-phase"
         }
       },
       {
-        "start": 84,
-        "end": 108,
-        "bold": true
-      },
-      {
-        "start": 124,
-        "end": 135,
+        "start": 165,
+        "end": 176,
         "bold": true,
         "target": {
           "kind": "core-rule",
@@ -45,22 +41,13 @@
         }
       },
       {
-        "start": 139,
-        "end": 148,
-        "bold": true
-      },
-      {
-        "start": 153,
-        "end": 162,
+        "start": 210,
+        "end": 224,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "fall-back"
         }
-      },
-      {
-        "start": 166,
-        "end": 173,
-        "bold": true
       }
     ],
     "citations": [
@@ -103,38 +90,34 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "phase-end"
-          },
+          "detachment": "Stormlance Task Force",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "end-of-phase"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "Adeptus Astartes Mounted"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES MOUNTED"
             ],
-            "eligibility": "fought-this-phase"
+            "wasEligibleToFightThisPhase": true
           },
           "effects": [
             {
-              "action": "make-move",
-              "actor": "target-unit",
-              "moveType": "normal",
-              "optional": true,
-              "condition": "target-unit-unengaged"
+              "ifUnengaged": {
+                "move": "normal",
+                "optional": true
+              }
             },
             {
-              "action": "make-move",
-              "actor": "target-unit",
-              "moveType": "fall-back",
-              "optional": true,
-              "condition": "target-unit-engaged"
+              "ifEngaged": {
+                "move": "fall-back",
+                "optional": true
+              }
             }
           ]
         }

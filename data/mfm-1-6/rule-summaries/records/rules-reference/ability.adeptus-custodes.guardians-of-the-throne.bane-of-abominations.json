@@ -12,17 +12,7 @@
   },
   "data": {
     "ruleType": "enhancement",
-    "summary": "When the bearer attacks an enemy CHARACTER, MONSTER or VEHICLE unit, improve its Wound rolls by 1.",
-    "summarySpans": [
-      {
-        "start": 81,
-        "end": 92,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS CUSTODES model. Attacks this model makes against enemy CHARACTER, MONSTER or VEHICLE units get +1 to their wound rolls.",
     "citations": [
       {
         "type": "app",
@@ -40,6 +30,7 @@
           "type": "model",
           "points": 20,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -102,25 +93,21 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "event": "attack-by-bearer-model",
-            "target": {
-              "side": "enemy",
-              "scope": "unit",
-              "anyKeywords": [
-                "CHARACTER",
-                "MONSTER",
-                "VEHICLE"
-              ]
-            }
-          },
+          "kind": "enhancement",
+          "detachment": "Guardians of the Throne",
           "effects": [
             {
-              "type": "roll-modifier",
+              "attacker": "this-model",
+              "target": {
+                "side": "enemy",
+                "keywordsAny": [
+                  "CHARACTER",
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              },
               "roll": "wound",
-              "value": 1,
-              "recipient": "triggering-bearer-attack",
-              "expiry": "after-this-roll"
+              "delta": 1
             }
           ]
         }

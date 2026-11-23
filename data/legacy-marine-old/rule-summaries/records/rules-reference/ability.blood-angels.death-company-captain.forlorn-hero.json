@@ -13,18 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Death Company Captain",
-    "summary": "The unit receives Scouts 6\".",
-    "summarySpans": [
-      {
-        "start": 18,
-        "end": 27,
-        "bold": true,
-        "target": {
-          "kind": "core-ability",
-          "id": "scouts"
-        }
-      }
-    ],
+    "summary": "While this model leads a unit, every model in that unit has Scouts 6\", unless that unit was embarked inside a TRANSPORT at the start of the battle.",
     "citations": [
       {
         "type": "app",
@@ -39,8 +28,15 @@
       "version": "1",
       "fields": {
         "detail": {
-          "recipient": "owning unit",
-          "scoutsInches": 6
+          "ability": {
+            "condition": {
+              "leadingAUnit": true,
+              "ledUnitNotEmbarkedInTransportAtBattleStart": true
+            },
+            "appliesTo": "models in the led unit",
+            "grantAbility": "Scouts",
+            "inches": 6
+          }
         }
       }
     }

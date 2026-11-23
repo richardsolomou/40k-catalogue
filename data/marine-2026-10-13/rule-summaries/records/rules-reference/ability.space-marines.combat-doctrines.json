@@ -12,37 +12,30 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "As your Command phase begins, you may choose a Combat Doctrine for your friendly ADEPTUS ASTARTES units. It lasts until your next Command phase begins. Assault Doctrine lets a unit declare a charge after an advance move that turn. Devastator Doctrine gives its ranged attacks [ASSAULT]. Tactical Doctrine permits shooting and declaring charges that turn, even after a fall-back move. Each unit may use a given doctrine only once each battle unless another rule provides an exception. If a fresh doctrine takes effect for a unit, its previous doctrine ends.",
+    "summary": "As your Command phase begins, you may choose one combat doctrine from the three below. Until your next Command phase starts, it applies to every friendly ADEPTUS ASTARTES unit that has this ability. Assault Doctrine: an advance move leaves the unit still able to declare a charge later that turn. Devastator Doctrine: [ASSAULT] applies to the unit's ranged attacks. Tactical Doctrine: a fall-back move leaves the unit still able to shoot and to declare a charge later that turn. Unless a rule says otherwise, your army may choose each combat doctrine only once per battle, and a unit can have just one combat doctrine active; if some rule activates a new one for that unit, the earlier one stops applying to it.",
     "summarySpans": [
       {
         "start": 8,
         "end": 21,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "command-phase"
         }
       },
       {
-        "start": 81,
-        "end": 97,
+        "start": 154,
+        "end": 170,
         "bold": true
       },
       {
-        "start": 130,
-        "end": 143,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 152,
-        "end": 168,
+        "start": 199,
+        "end": 215,
         "bold": true
       },
       {
-        "start": 207,
-        "end": 219,
+        "start": 220,
+        "end": 232,
         "bold": true,
         "target": {
           "kind": "core-rule",
@@ -50,13 +43,13 @@
         }
       },
       {
-        "start": 231,
-        "end": 250,
+        "start": 297,
+        "end": 316,
         "bold": true
       },
       {
-        "start": 276,
-        "end": 285,
+        "start": 318,
+        "end": 327,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -64,13 +57,13 @@
         }
       },
       {
-        "start": 287,
-        "end": 304,
+        "start": 366,
+        "end": 383,
         "bold": true
       },
       {
-        "start": 368,
-        "end": 382,
+        "start": 387,
+        "end": 401,
         "bold": true,
         "target": {
           "kind": "core-rule",
@@ -92,39 +85,46 @@
       "version": "1",
       "fields": {
         "detail": {
-          "kind": "unit-stance-selection",
+          "kind": "army-rule-choice",
           "trigger": {
+            "turn": "own",
             "phase": "command",
-            "owner": "self",
-            "at": "start"
+            "timing": "start-of-phase"
           },
           "optional": true,
-          "count": 1,
-          "subject": {
-            "owner": "friendly",
-            "keyword": "Adeptus Astartes"
+          "choose": 1,
+          "recipients": {
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "withThisAbility": true
           },
-          "expires": "start-of-next-own-command-phase",
-          "maxUsesPerUnitPerDoctrinePerBattle": 1,
-          "unlessOtherwiseStated": true,
-          "newDoctrineEndsPrevious": true,
-          "choices": [
+          "duration": "until-start-of-next-own-command-phase",
+          "limits": {
+            "unlessOtherwiseStated": true,
+            "selectionsPerDoctrinePerBattle": 1,
+            "limitScope": "army-selection",
+            "activeDoctrinesPerUnit": 1,
+            "newDoctrineEndsPrevious": true
+          },
+          "doctrines": [
             {
               "name": "Assault Doctrine",
-              "after": "advance-move-this-turn",
-              "allow": [
+              "whenSelectedFor": "advance-move",
+              "stillEligible": [
                 "declare-charge"
               ]
             },
             {
               "name": "Devastator Doctrine",
-              "recipient": "ranged-attacks",
-              "grant": "assault"
+              "attackType": "ranged",
+              "grant": "ASSAULT"
             },
             {
               "name": "Tactical Doctrine",
-              "after": "fall-back-move-this-turn",
-              "allow": [
+              "whenSelectedFor": "fall-back-move",
+              "stillEligible": [
                 "shoot",
                 "declare-charge"
               ]

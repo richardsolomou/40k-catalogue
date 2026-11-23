@@ -12,22 +12,24 @@
   },
   "data": {
     "ruleType": "detachment-rule",
-    "summary": "Melee attackers take −1 to Wound against ADEPTUS CUSTODES units within objective range. MONSTER/VEHICLE targets receive no protection from this rule.",
+    "summary": "Melee attacks against one of your ADEPTUS CUSTODES units, other than a MONSTER or VEHICLE unit, that is in range of an objective get −1 to their wound rolls if their Strength exceeds that unit’s Toughness. Favoured Ka'tah: Kaptaris. When you select the Kaptaris ka’tah ability of Martial Ka'tah for a readied unit, you may also make an enemy unit that is engaged with it take a battle-shock roll, subtracting 1 from that roll; a given enemy unit can be chosen for this only once per phase.",
     "summarySpans": [
       {
-        "start": 0,
-        "end": 15,
-        "target": {
-          "kind": "core-rule",
-          "id": "making-attacks"
-        }
-      },
-      {
-        "start": 71,
-        "end": 86,
+        "start": 119,
+        "end": 128,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "objectives"
+        }
+      },
+      {
+        "start": 280,
+        "end": 294,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "adeptus-custodes.martial-katah"
         }
       }
     ],
@@ -97,29 +99,39 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "event": "attack",
-            "attackType": "melee"
+          "defence": {
+            "unit": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS CUSTODES"
+              ],
+              "excludeKeywords": [
+                "MONSTER",
+                "VEHICLE"
+              ]
+            },
+            "condition": "within range of an objective",
+            "attacks": {
+              "attackType": "melee",
+              "strengthGreaterThanTargetToughness": true
+            },
+            "woundRollSubtract": 1
           },
-          "recipient": {
-            "owner": "target",
-            "level": "unit",
-            "allOf": [
-              "Adeptus Custodes"
-            ],
-            "noneOf": [
-              "VEHICLE"
-            ]
-          },
-          "requirement": {
-            "type": "within-range-of-objective",
-            "subject": "target"
-          },
-          "effect": {
-            "type": "roll-modifier",
-            "roll": "wound",
-            "operation": "subtract",
-            "value": 1
+          "favouredKatah": {
+            "katah": "Kaptaris",
+            "armyRule": "Martial Ka'tah",
+            "additionalEffect": {
+              "optional": true,
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "engagedWithYourUnit": true
+              },
+              "battleShockRoll": {
+                "subtract": 1
+              },
+              "sameEnemyUnitMaxPerPhase": 1
+            }
           }
         }
       }

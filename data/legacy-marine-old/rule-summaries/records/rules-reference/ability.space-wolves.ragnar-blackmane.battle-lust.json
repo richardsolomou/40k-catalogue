@@ -13,23 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Ragnar Blackmane",
-    "summary": "On a turn when this unit completes a charge move, apply +2 to the Attacks for melee attacks from this model.",
-    "summarySpans": [
-      {
-        "start": 37,
-        "end": 48,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-move"
-        }
-      },
-      {
-        "start": 66,
-        "end": 73,
-        "bold": true
-      }
-    ],
+    "summary": "Whenever this model finishes a Charge move, its Frostfang weapon gets +2 to its Attacks characteristic until the turn ends.",
     "citations": [
       {
         "type": "app",
@@ -44,20 +28,20 @@
       "version": "1",
       "fields": {
         "detail": {
-          "subtype": "short-stat-modifier",
-          "recipient": "this model",
-          "attackKind": "melee",
-          "appliesTo": "attacks",
-          "qualification": {
-            "action": "Charge move",
-            "by": "this unit",
-            "when": "same turn"
-          },
-          "amount": 2,
-          "effect": {
+          "ability": {
+            "trigger": {
+              "event": "charge-move-ended",
+              "by": "this model"
+            },
+            "weapon": "Frostfang",
             "characteristic": "Attacks",
-            "delta": 2,
-            "kind": "modify-characteristic"
+            "add": 2,
+            "duration": "end-of-turn"
+          },
+          "cardPrintsOtherText": {
+            "appliesTo": "all of this model's melee attacks",
+            "condition": "this unit made a charge move this turn",
+            "attacksAdd": 2
           }
         }
       }

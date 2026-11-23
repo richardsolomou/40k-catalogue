@@ -18,11 +18,11 @@
         "id": "tyranids.synapse"
       }
     ],
-    "summary": "Synapse applies to a friendly TYRANIDS unit at most 6\" from a friendly model with SYNAPSE if TYRANIDS is your Army Faction. The affected unit uses 3D6 rather than 2D6 for Battle-shock and adds 1 Strength to its models’ melee attacks.",
+    "summary": "Errata replacing the Synapse army rule. For a TYRANIDS Army Faction, any TYRANIDS unit of yours that has at least one friendly SYNAPSE model within 6\" is called 'within Synapse Range' of the SYNAPSE model and also of your army. Such a unit, while in your army's Synapse Range, rolls 3D6 rather than 2D6 for its Battle-shock tests, and its models get +1 Strength on each melee attack they make.",
     "summarySpans": [
       {
-        "start": 0,
-        "end": 7,
+        "start": 21,
+        "end": 28,
         "bold": true,
         "target": {
           "kind": "ability",
@@ -47,15 +47,40 @@
           "faq": {
             "entryType": "errata",
             "publicationId": "9a6eb350-d410-4199-a8a8-ea6b726e18ac",
-            "typedMechanics": {
-              "armyFaction": "tyranids",
-              "rangeInches": 6,
-              "distanceFrom": "friendly-synapse-model",
-              "recipient": "own-tyranids-unit",
-              "battleShockDice": "3D6",
-              "replacesBattleShockDice": "2D6",
-              "meleeStrengthModifier": 1,
-              "kind": "replace-army-rule"
+            "replacesRule": {
+              "armyFaction": "TYRANIDS",
+              "definesState": {
+                "name": "Synapse Range",
+                "unit": {
+                  "side": "friendly",
+                  "keywordsAll": [
+                    "TYRANIDS"
+                  ]
+                },
+                "withinInchesOf": 6,
+                "of": {
+                  "side": "friendly",
+                  "keywordsAll": [
+                    "SYNAPSE"
+                  ],
+                  "entity": "model",
+                  "minimum": 1
+                },
+                "rangeOf": [
+                  "that-model",
+                  "your-army"
+                ]
+              },
+              "whileInArmySynapseRange": {
+                "battleShockDice": "3D6",
+                "insteadOf": "2D6",
+                "dice": [
+                  3,
+                  2
+                ],
+                "sides": 6,
+                "meleeAttackStrength": 1
+              }
             }
           }
         }

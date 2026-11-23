@@ -13,14 +13,7 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Ceramite Sentinels",
-    "summary": "Model eligibility — GRAVIS. The bearer gets one attempt per battle to return from destruction. At that phase’s end, roll a D6. A 2+ restores it with 3 wounds, placed as near its destruction point as possible.",
-    "summarySpans": [
-      {
-        "start": 20,
-        "end": 26,
-        "bold": true
-      }
-    ],
+    "summary": "For a GRAVIS model. When this model is destroyed for the first time, roll a D6 at the close of that phase; on a 2+, return it to the battlefield as near as possible to the spot of its destruction, outside Engagement Range of every enemy unit, with all of its wounds restored.",
     "citations": [
       {
         "type": "app",
@@ -38,6 +31,7 @@
           "type": "model",
           "points": 25,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "keywords": [
@@ -48,19 +42,31 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Ceramite Sentinels",
           "effects": [
             {
-              "type": "return-model-on-roll",
-              "target": "bearer",
-              "dice": "D6",
-              "threshold": "2+",
-              "remainingWounds": 3,
-              "placement": "as-close-as-possible-to-destruction-location"
+              "trigger": "first time the bearer is destroyed",
+              "when": {
+                "timing": "end-of-phase"
+              },
+              "roll": {
+                "dice": "D6",
+                "count": 1,
+                "success": "2+"
+              },
+              "onSuccess": {
+                "setBackUp": true,
+                "placement": "as close as possible to where it was destroyed",
+                "notWithinEngagementRangeOfEnemy": true,
+                "woundsRemaining": "full"
+              }
             }
           ],
-          "trigger": "end-of-phase-in-which-bearer-destroyed",
-          "usage": {
-            "limit": "once-per-battle"
+          "cardPrintsNewerText": {
+            "pointsCost": 10,
+            "limit": "once per battle, per army",
+            "woundsRemaining": 3
           }
         }
       }

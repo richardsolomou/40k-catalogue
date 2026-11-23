@@ -19,17 +19,7 @@
       ],
       "turn": "any"
     },
-    "summary": "In either Fight phase, use this as you pick an ADEPTUS CUSTODES unit of yours to pile in. The chosen unit can cover up to D3 + 3″ with that Pile-In move.",
-    "summarySpans": [
-      {
-        "start": 140,
-        "end": 152,
-        "target": {
-          "kind": "core-rule",
-          "id": "pile-in-move"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in either player's Fight phase as one of your ADEPTUS CUSTODES units is picked to pile in. For that pile-in move, the unit may move as far as D3+3\".",
     "citations": [
       {
         "type": "app",
@@ -67,32 +57,27 @@
         ],
         "detail": {
           "detachment": "Dread Host",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "friendly-selected-to-pile-in"
-          },
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "trigger": "a friendly unit is selected to make a pile-in move",
           "target": {
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "controller": "friendly",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "relation": "selected-unit"
+            "is": "the unit making that pile-in move"
           },
           "effects": [
             {
-              "action": "replace-pile-in-maximum",
-              "distanceInches": "D3+3",
-              "appliesTo": "triggering-move"
+              "pileInMaxDistance": "D3+3",
+              "unit": "inches"
             }
-          ],
-          "restrictions": []
+          ]
         }
       }
     }

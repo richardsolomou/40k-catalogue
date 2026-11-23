@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.vow-sworn-crusaders.heresy-begets-retribution",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Vow-sworn Crusaders",
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
+    "summary": "Spend 1 CP in the opposing player's Movement phase, as soon as an enemy unit finishes a Normal move, an Advance move or a Fall Back move. Pick one CHAPLAIN or JUDICIAR unit of yours that stands within 8\" of the enemy unit that moved and outside Engagement Range of every enemy unit; it can then carry out a surge move of no more than D6\".",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "CHAPLAIN"
+                ]
+              },
+              {
+                "keywords": [
+                  "JUDICIAR"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
+          "detachment": "Companions of Vehemence",
+          "type": "Strategic Ploy",
+          "window": {
+            "turn": "opponent",
+            "phase": "movement",
+            "timing": "just after an enemy unit finishes a Normal, Advance or Fall Back move"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              "CHAPLAIN",
+              "JUDICIAR"
+            ],
+            "withinInches": 8,
+            "of": "that enemy unit",
+            "notWithinEngagementRange": true
+          },
+          "effects": [
+            {
+              "move": "surge",
+              "maxDistance": "D6",
+              "optional": true
+            }
+          ],
+          "duration": "instant",
+          "cardPrintsOtherText": {
+            "detachment": "Vow-sworn Crusaders",
+            "targetKeywordsAll": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "trigger": "an enemy unit ends any move near that friendly unit",
+            "withinInches": 8,
+            "effects": [
+              {
+                "move": "surge",
+                "maxDistance": "D6"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -22,40 +22,7 @@
       "turn": "any",
       "type": "epic-deed"
     },
-    "summary": "When an enemy targets your ADEPTUS ASTARTES unit in their Shooting phase or either Fight phase, attacks against that unit take -1 to wound if the attack’s Strength exceeds the defender’s Toughness.",
-    "summarySpans": [
-      {
-        "start": 27,
-        "end": 43,
-        "bold": true
-      },
-      {
-        "start": 58,
-        "end": 72,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 83,
-        "end": 94,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 153,
-        "end": 154,
-        "bold": true
-      },
-      {
-        "start": 185,
-        "end": 186,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in the Shooting phase of your opponent's turn or in either player's Fight phase, right after an enemy unit finishes choosing its targets. Pick one ADEPTUS ASTARTES unit of yours that is a target of at least one of that enemy unit's attacks. Until that phase ends, every attack aimed at your unit whose Strength is equal to or higher than your unit's Toughness gets -1 to its Wound roll.",
     "citations": [
       {
         "type": "app",
@@ -88,41 +55,42 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
-            ],
-            "event": "enemy-targets-selected",
-            "window": {
-              "shooting": "opponent",
-              "fight": "either"
+          "detachment": "Blade of Ultramar",
+          "type": "Epic Deed",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
             }
+          ],
+          "trigger": {
+            "event": "enemy-unit-selected-targets"
           },
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "isATargetOfThatEnemyUnit": true
           },
           "effects": [
             {
-              "kind": "modifier",
-              "subject": "attacks",
-              "characteristic": "wound-roll",
-              "delta": -1,
-              "conditions": {
-                "attacks": "against-selected-unit",
-                "comparison": {
-                  "left": "attack-strength",
-                  "operator": "greater-than",
-                  "right": "target-toughness"
-                }
-              }
+              "attacksTargetingThisUnit": true,
+              "condition": "attack Strength greater than or equal to this unit's Toughness",
+              "roll": "wound",
+              "delta": -1
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsNewerText": {
+            "condition": "attack S greater than this unit's T",
+            "delta": -1
+          }
         }
       }
     }

@@ -13,35 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Razorback",
-    "summary": "Once this transport finishes shooting in your Shooting phase, pick an enemy unit it hit. Friendly units that have disembarked from it during this turn can reroll their Wound rolls against the chosen enemy.",
-    "summarySpans": [
-      {
-        "start": 46,
-        "end": 60,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 114,
-        "end": 125,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "disembarking"
-        }
-      },
-      {
-        "start": 168,
-        "end": 179,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      }
-    ],
+    "summary": "In your Shooting phase, once this model has finished shooting, pick an enemy unit that at least one of its attacks hit. For the rest of the phase, friendly models that have disembarked this turn from this TRANSPORT may re-roll Wound rolls for attacks against that unit.",
     "citations": [
       {
         "type": "app",
@@ -56,17 +28,24 @@
       "version": "1",
       "fields": {
         "detail": {
-          "trigger": "this transport has shot in your Shooting phase",
-          "select": {
-            "enemyUnits": 1,
-            "condition": "hit by this transport’s attacks"
-          },
-          "effect": {
-            "recipient": "friendly units that disembarked from this transport this turn",
-            "target": "chosen enemy unit",
-            "roll": "Wound",
-            "optional": true,
-            "kind": "re-roll"
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "after this model has shot"
+            },
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitByThoseAttacks": true
+            },
+            "effect": {
+              "appliesTo": "friendly models that disembarked from this TRANSPORT this turn",
+              "attacksAgainst": "selected unit",
+              "reroll": "wound",
+              "optional": true
+            },
+            "duration": "end-of-phase"
           }
         }
       }

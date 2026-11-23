@@ -13,16 +13,11 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Wurrband",
-    "summary": "Give each friendly ORKS PSYKER model’s [PSYCHIC] attacks +1 S. Add a further +1 S for each group of 5 models in the bearer’s unit or embarked in the bearer. The model has two psychic abilities. Visions of Violence is available as the Fight phase opens. Roar of Mork is available in your Movement phase. To use either, the bearer’s unit must be free of battle-shocked status. Spend 1 psychic level and make the psychic roll on a D6. A result of 1 leaves the bearer’s unit battle-shocked. With Roar of Mork, pick one enemy unit at most 12\" from the bearer’s unit. Exclude MONSTER and VEHICLE units. The foe takes a battle-shock roll, penalised by 1 for each group of 10 models in the bearer’s unit. With Visions of Violence, the bearer’s unit gains Fights First.",
+    "summary": "[PSYCHIC] attacks made by friendly ORKS PSYKER models get +1 S, plus another +1 S per 5 models in the model's unit (or embarked within that model). Such models also have two psychic abilities, each of psychic level 1.\nRoar of Mork: in your Movement phase, provided this unit isn't battle-shocked, you may roll one D6 as a psychic roll for it. If you do, it becomes battle-shocked on a 1, and whatever the result you pick one enemy unit within 12\" of it that is not a MONSTER or VEHICLE; that unit takes a battle-shock roll at −1 per 10 models this unit contains.\nVisions of Violence: as any Fight phase begins, provided this unit isn't battle-shocked, you may roll one D6 as a psychic roll for it. If you do, it becomes battle-shocked on a 1, and whatever the result it has Fights First for the rest of that phase.",
     "summarySpans": [
       {
-        "start": 19,
-        "end": 30,
-        "bold": true
-      },
-      {
-        "start": 39,
-        "end": 48,
+        "start": 0,
+        "end": 9,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -30,101 +25,8 @@
         }
       },
       {
-        "start": 60,
-        "end": 61,
-        "bold": true
-      },
-      {
-        "start": 80,
-        "end": 81,
-        "bold": true
-      },
-      {
-        "start": 175,
-        "end": 192,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "psychic-abilities"
-        }
-      },
-      {
-        "start": 194,
-        "end": 213,
-        "bold": true
-      },
-      {
-        "start": 234,
-        "end": 245,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 253,
-        "end": 265,
-        "bold": true
-      },
-      {
-        "start": 287,
-        "end": 301,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 352,
-        "end": 366,
-        "bold": true
-      },
-      {
-        "start": 410,
-        "end": 422,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "psychic-abilities"
-        }
-      },
-      {
-        "start": 471,
-        "end": 485,
-        "bold": true
-      },
-      {
-        "start": 492,
-        "end": 504,
-        "bold": true
-      },
-      {
-        "start": 570,
-        "end": 577,
-        "bold": true
-      },
-      {
-        "start": 582,
-        "end": 589,
-        "bold": true
-      },
-      {
-        "start": 613,
-        "end": 630,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      },
-      {
-        "start": 702,
-        "end": 721,
-        "bold": true
-      },
-      {
-        "start": 747,
-        "end": 759,
+        "start": 774,
+        "end": 786,
         "bold": true,
         "target": {
           "kind": "core-ability",
@@ -146,138 +48,74 @@
       "version": "1",
       "fields": {
         "detail": {
-          "scope": {
-            "factionId": "0b30f1e3-1e5c-4823-afa1-07951433a270",
-            "faction": "Orks",
-            "detachmentId": "89c022fe-0f5b-4ff4-9b10-a17665571fdb",
-            "detachment": "Wurrband",
-            "uniqueTags": [],
-            "sourceId": "89c022fe-0f5b-4ff4-9b10-a17665571fdb:powers-of-da-waaagh",
-            "cardType": "detachmentRule",
-            "cardEdition": "40k-11e"
-          },
-          "bearer": {
-            "owner": "friendly",
-            "level": "model",
-            "allOf": [
-              "Orks",
-              "Psyker"
+          "bearers": {
+            "side": "friendly",
+            "scope": "model",
+            "keywordsAll": [
+              "ORKS",
+              "PSYKER"
             ]
           },
-          "effect": {
-            "type": "stat-modifier",
-            "stat": "strength",
-            "operation": "add",
-            "value": 1,
-            "weaponKeyword": "psychic",
-            "scaling": {
-              "additional": 1,
-              "per": 5,
-              "countModels": {
-                "anyOf": [
-                  "in-bearer-unit",
-                  "embarked-within-bearer-model"
-                ]
-              },
-              "subject": "bearer-model"
+          "psychicAttacks": {
+            "weaponAbility": "[PSYCHIC]",
+            "strengthModifier": 1,
+            "extraStrengthPer": {
+              "modifier": 1,
+              "models": 5,
+              "counted": "in this unit or embarked within this model"
             }
           },
-          "abilities": [
+          "psychicAbilities": [
             {
               "name": "Roar of Mork",
-              "timing": {
-                "event": "during-phase",
-                "phase": "movement",
-                "owner": "self"
-              },
+              "psychicLevel": 1,
+              "when": "your Movement phase",
+              "requires": "this unit not battle-shocked",
               "optional": true,
-              "condition": {
-                "subject": "bearer-unit",
-                "state": "battle-shocked",
-                "required": false
-              },
-              "cost": {
-                "resource": "psychic-level",
-                "value": 1,
-                "payer": "bearer-model"
-              },
-              "roll": {
-                "dice": "D6",
-                "count": 1,
-                "onNatural": {
-                  "value": 1,
-                  "effect": {
-                    "type": "state-change",
-                    "state": "battle-shocked",
-                    "subject": "bearer-unit"
-                  }
-                }
-              },
-              "selection": {
-                "count": 1,
-                "target": {
-                  "owner": "enemy",
-                  "level": "unit",
-                  "noneOf": [
-                    "Monster",
-                    "Vehicle"
-                  ],
-                  "range": {
-                    "maximum": 12,
-                    "unit": "inches",
-                    "from": "bearer-unit"
-                  }
-                }
+              "psychicRoll": {
+                "dice": 1,
+                "die": "D6",
+                "onNatural": 1,
+                "result": "this unit becomes battle-shocked"
               },
               "effect": {
-                "type": "test",
-                "test": "battle-shock",
-                "subject": "selected-unit",
-                "scaling": {
+                "select": {
+                  "side": "enemy",
+                  "count": 1,
+                  "excludeKeywordsAny": [
+                    "MONSTER",
+                    "VEHICLE"
+                  ],
+                  "withinInches": 12
+                },
+                "battleShockRoll": true,
+                "modifierPer": {
                   "modifier": -1,
-                  "per": 10,
-                  "countModels": "in-bearer-unit"
+                  "models": 10,
+                  "counted": "in this unit"
                 }
               }
             },
             {
               "name": "Visions of Violence",
-              "trigger": {
-                "event": "phase-started",
-                "phase": "fight",
-                "owner": "either"
-              },
+              "psychicLevel": 1,
+              "when": "start of any Fight phase",
+              "requires": "this unit not battle-shocked",
               "optional": true,
-              "condition": {
-                "subject": "bearer-unit",
-                "state": "battle-shocked",
-                "required": false
-              },
-              "cost": {
-                "resource": "psychic-level",
-                "value": 1,
-                "payer": "bearer-model"
-              },
-              "roll": {
-                "dice": "D6",
-                "count": 1,
-                "onNatural": {
-                  "value": 1,
-                  "effect": {
-                    "type": "state-change",
-                    "state": "battle-shocked",
-                    "subject": "bearer-unit"
-                  }
-                }
+              "psychicRoll": {
+                "dice": 1,
+                "die": "D6",
+                "onNatural": 1,
+                "result": "this unit becomes battle-shocked"
               },
               "effect": {
-                "type": "ability-grant",
-                "ability": "fights-first",
-                "recipient": "bearer-unit",
-                "printedExpiry": null
+                "grantAbility": "Fights First",
+                "recipient": "this unit",
+                "duration": "end-of-phase"
               }
             }
-          ]
+          ],
+          "durationBasis": "Core Rules 01.02.02: the text gives no duration, so the effect lasts only for the phase in which it was applied."
         }
       }
     }

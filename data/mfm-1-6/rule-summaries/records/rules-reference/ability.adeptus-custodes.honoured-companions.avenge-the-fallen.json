@@ -19,27 +19,7 @@
       ],
       "turn": "any"
     },
-    "summary": "In either player’s Fight phase, use this as you pick one of your TRUSTED SENTINEL units to fight if it’s below Starting Strength. For that fight, increase its melee Attacks by 2 for every model except CHARACTER models.",
-    "summarySpans": [
-      {
-        "start": 19,
-        "end": 30,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 65,
-        "end": 81,
-        "bold": true
-      },
-      {
-        "start": 201,
-        "end": 210,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in the Fight phase of either player as a TRUSTED SENTINEL unit of yours that is below its Starting Strength is picked to fight. For the rest of that phase, melee attacks made by that unit get +2 Attacks, though attacks by CHARACTER models in it do not benefit.",
     "citations": [
       {
         "type": "app",
@@ -124,37 +104,34 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "select-friendly-unit-to-fight",
-            "condition": "below-starting-strength"
-          },
+          "detachment": "Honoured Companions",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "trigger": "a friendly unit is selected to fight",
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "entity": "unit",
-            "keywords": [
+            "keywordsAll": [
               "TRUSTED SENTINEL"
             ],
-            "binding": "unit-selected-to-fight"
+            "belowStartingStrength": true,
+            "is": "the unit selected to fight"
           },
           "effects": [
             {
-              "action": "modify-attack",
-              "weapon": "melee",
-              "actor": "models-in-target-unit",
-              "excludeKeywords": [
+              "attackType": "melee",
+              "excludeModelsWithKeywords": [
                 "CHARACTER"
               ],
-              "modifier": 2,
-              "duration": "triggering-fight"
+              "characteristic": "A",
+              "delta": 2
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

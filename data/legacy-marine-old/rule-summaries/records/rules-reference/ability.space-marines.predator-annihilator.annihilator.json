@@ -13,23 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Predator Annihilator",
-    "summary": "Against a MONSTER/VEHICLE unit, for ranged attacks from this unit, you may reroll each damage roll.",
-    "summarySpans": [
-      {
-        "start": 10,
-        "end": 25,
-        "bold": true
-      },
-      {
-        "start": 87,
-        "end": 98,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "inflict-damage"
-        }
-      }
-    ],
+    "summary": "Whenever one of this model's ranged attacks is allocated to a VEHICLE or MONSTER model, the Damage roll for that attack may be re-rolled.",
     "citations": [
       {
         "type": "app",
@@ -44,18 +28,14 @@
       "version": "1",
       "fields": {
         "detail": {
-          "subtype": "short-reroll",
-          "recipient": "this unit",
-          "attackKind": "ranged",
-          "appliesTo": "attacks",
-          "target": {
-            "keywordLabel": "Monster/Vehicle",
-            "kind": "unit"
-          },
-          "effect": {
-            "roll": "damage",
-            "optional": true,
-            "kind": "re-roll"
+          "ability": {
+            "trigger": "a ranged attack by this model is allocated to a model",
+            "allocatedModelKeywordsAny": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "reroll": "damage",
+            "optional": true
           }
         }
       }

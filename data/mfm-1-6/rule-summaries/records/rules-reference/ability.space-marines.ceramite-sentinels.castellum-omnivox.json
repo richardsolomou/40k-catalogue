@@ -13,22 +13,7 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Ceramite Sentinels",
-    "summary": "Unit eligibility — ADEPTUS ASTARTES. An Advance Move leaves this unit eligible to perform an action.",
-    "summarySpans": [
-      {
-        "start": 19,
-        "end": 35,
-        "bold": true
-      },
-      {
-        "start": 40,
-        "end": 52,
-        "target": {
-          "kind": "core-rule",
-          "id": "advance-move"
-        }
-      }
-    ],
+    "summary": "Upgrade for an ADEPTUS ASTARTES unit. Making an advance or fall-back move does not make this unit ineligible to start an action.",
     "citations": [
       {
         "type": "app",
@@ -46,6 +31,7 @@
           "type": "model",
           "points": 10,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -56,14 +42,17 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Ceramite Sentinels",
           "effects": [
             {
-              "type": "retain-eligibility",
-              "target": "this-unit",
-              "action": "perform-action"
+              "moveTypes": [
+                "advance",
+                "fall-back"
+              ],
+              "keepsEligibility": "start an action"
             }
-          ],
-          "trigger": "this-unit-makes-advance-move"
+          ]
         }
       }
     }

@@ -13,40 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Sorcerer",
-    "summary": "Choose one INFANTRY unit struck by this model’s Agonising Energies after it fires in your Shooting phase. The chosen unit is wracked until your next turn starts, losing 2″ Move and taking −2 on Charge rolls.",
-    "summarySpans": [
-      {
-        "start": 11,
-        "end": 19,
-        "bold": true
-      },
-      {
-        "start": 48,
-        "end": 66,
-        "bold": true
-      },
-      {
-        "start": 90,
-        "end": 104,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 169,
-        "end": 171,
-        "bold": true
-      },
-      {
-        "start": 194,
-        "end": 206,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-phase"
-        }
-      }
-    ],
+    "summary": "Once this model has finished shooting in your Shooting phase, pick one INFANTRY unit that its Agonising Energies hit at least once during that shooting. That unit counts as wracked with agonies until your next turn begins. While wracked with agonies, its Move characteristic is 2\" lower and its Charge rolls get −2.",
     "citations": [
       {
         "type": "app",
@@ -70,29 +37,26 @@
           ]
         },
         "detail": {
-          "actor": "controlling-player",
-          "timing": "after-this-model-shoots-in-own-shooting-phase",
-          "selection": {
+          "psychic": true,
+          "when": "your Shooting phase, after this model has shot",
+          "select": {
             "count": 1,
-            "optional": false,
-            "entity": "unit",
-            "keyword": "Infantry",
-            "minimumHitsFromNamedWeapon": 1,
+            "keywordsAll": [
+              "INFANTRY"
+            ],
+            "hitByAtLeast": 1,
             "weapon": "Agonising Energies"
           },
-          "status": "wracked",
-          "duration": "until-start-of-next-own-turn",
-          "effects": [
+          "status": "wracked with agonies",
+          "duration": "until start of your next turn",
+          "whileStatus": [
             {
-              "recipient": "selected-unit",
-              "characteristic": "move",
-              "operation": "subtract",
-              "distanceInches": 2
+              "characteristic": "M",
+              "reduceInches": 2
             },
             {
-              "recipient": "selected-unit",
               "roll": "charge",
-              "modifier": -2
+              "reduceBy": 2
             }
           ]
         }

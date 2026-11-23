@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.saga-of-the-beastslayer.impetuosity",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Saga of the Beastslayer",
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
+    "summary": "Spend 1 CP in the Shooting phase of your opponent's turn, once an enemy unit has finished shooting after it targeted, in this phase, an unengaged WULFEN INFANTRY or BLOOD CLAWS unit of yours. That unit may make a surge move, going at most D6\".",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "WULFEN",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "BLOOD CLAWS"
+                ]
+              }
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
+          "detachment": "Saga of the Beastslayer",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting"
+            }
+          ],
+          "trigger": {
+            "event": "enemy-unit-has-shot",
+            "itTargetedThisPhase": "target unit"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAnyGroup": [
+              [
+                "WULFEN",
+                "INFANTRY"
+              ],
+              [
+                "BLOOD CLAWS"
+              ]
+            ],
+            "unengaged": true
+          },
+          "effects": [
+            {
+              "move": "surge",
+              "maxDistance": "D6",
+              "optional": true
+            }
+          ],
+          "duration": "instant",
+          "cardPrintsNewerText": {
+            "targetKeywordsAny": [
+              "BLOOD CLAWS",
+              "THUNDERWOLF CAVALRY",
+              "WULFEN"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

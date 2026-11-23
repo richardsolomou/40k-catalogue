@@ -13,38 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Chaplain Grimaldus",
-    "summary": "Temple Relics lets you select this option as your Command phase begins if at least one Cenobyte is still in the unit. The unit gets +1 T, expiring as your following Command phase begins.",
-    "summarySpans": [
-      {
-        "start": 0,
-        "end": 13,
-        "target": {
-          "kind": "ability",
-          "id": "black-templars.chaplain-grimaldus.temple-relics"
-        }
-      },
-      {
-        "start": 50,
-        "end": 63,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 135,
-        "end": 136,
-        "bold": true
-      },
-      {
-        "start": 165,
-        "end": 178,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      }
-    ],
+    "summary": "Models in this unit get +1 to their Toughness characteristic. This is one of the Temple Relics abilities: in your Command phase, if the unit still includes at least one Cenobyte Servitor model, you can pick it, and Chaplain Grimaldus then has it until your next Command phase starts.",
     "citations": [
       {
         "type": "app",
@@ -59,14 +28,23 @@
       "version": "1",
       "fields": {
         "detail": {
-          "recipient": "owning unit",
-          "characteristic": "Toughness",
-          "modifier": 1,
-          "activity": {
-            "ability": "ability:black-templars.chaplain-grimaldus.temple-relics",
-            "timing": "own Command phase start",
-            "condition": "one or more Cenobytes in owning unit",
-            "duration": "until start of own next Command phase"
+          "ability": {
+            "appliesTo": "models in this unit",
+            "characteristic": "T",
+            "delta": 1,
+            "grantedBy": {
+              "ability": "Temple Relics",
+              "when": {
+                "turn": "own",
+                "phase": "command"
+              },
+              "condition": {
+                "unitContainsModel": "Cenobyte Servitor",
+                "minimum": 1
+              },
+              "holder": "Chaplain Grimaldus",
+              "duration": "until-start-of-your-next-command-phase"
+            }
           }
         }
       }

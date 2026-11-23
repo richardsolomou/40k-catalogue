@@ -7,9 +7,8 @@
     "update": "Space Marines codex · 12 Oct 2026"
   },
   "source": {
-    "title": "Imperial Knights Faction Pack: Version 1.2",
-    "page": "6",
-    "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_imperial_knights-n1irjnjygs-w8jfnk8kdn.pdf#page=6"
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "stratagem",
@@ -22,27 +21,24 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "In your Shooting phase, choose one friendly IMPERIAL KNIGHTS unit that has yet to be picked to shoot. For the rest of the phase, its ranged weapons can shoot at enemies in its Engagement Range, even when those enemies are also engaged with other friendly units. The Knights ignore the penalty to their Hit rolls for being engaged. For shots against enemies in the Knights’ own Engagement Range, each unmodified 1 on a Hit roll deals 1 mortal wound to the shooting unit after it resolves all its attacks.",
+    "summary": "Spend 1 CP in your Shooting phase. Pick one IMPERIAL KNIGHTS unit of yours not yet chosen to shoot this phase. For the rest of the phase, its models may shoot [BLAST] weapons at enemy units within its Engagement Range, but only when no other friendly unit is in Engagement Range of the enemy unit being targeted. Also for the rest of the phase, the unit ignores the Hit roll penalty that applies while it is within Engagement Range of enemy units; however, each [BLAST] weapon attack against a unit within its Engagement Range that rolls an unmodified 1 to hit inflicts 1 mortal wound on the IMPERIAL KNIGHTS unit, resolved once all its attacks are done.",
     "summarySpans": [
       {
-        "start": 8,
-        "end": 22,
+        "start": 159,
+        "end": 166,
+        "bold": true,
         "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
+          "kind": "weapon-ability",
+          "id": "blast"
         }
       },
       {
-        "start": 44,
-        "end": 60,
-        "bold": true
-      },
-      {
-        "start": 435,
-        "end": 447,
+        "start": 462,
+        "end": 469,
+        "bold": true,
         "target": {
-          "kind": "core-rule",
-          "id": "mortal-wounds"
+          "kind": "weapon-ability",
+          "id": "blast"
         }
       }
     ],
@@ -53,12 +49,6 @@
         "appVersion": "2.7.1",
         "dataBuild": 972,
         "releaseDate": "2026-10-02"
-      },
-      {
-        "type": "publisher",
-        "title": "Imperial Knights Faction Pack: Version 1.2",
-        "page": "6",
-        "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_imperial_knights-n1irjnjygs-w8jfnk8kdn.pdf#page=6"
       }
     ],
     "facts": {
@@ -83,31 +73,41 @@
           }
         },
         "detail": {
-          "window": {
-            "phase": "Shooting",
-            "turn": "own"
-          },
-          "target": {
-            "count": 1,
-            "ownership": "friendly",
-            "keyword": "IMPERIAL KNIGHTS",
-            "alreadySelectedToShootThisPhase": false
-          },
-          "effect": {
-            "expiry": "phase end",
-            "rangedTargetPermission": {
-              "engagedWith": "selected Knight unit",
-              "includeTargetsAlsoEngagedWithOtherFriendlyUnits": true
-            },
-            "ignoreHitPenaltyCause": "selected unit within Engagement Range of one or more enemies",
-            "selfDamage": {
-              "attackTargetWithinShootersEngagementRange": true,
-              "unmodifiedHitRoll": 1,
-              "mortalWoundsPerMatchingRoll": 1,
-              "when": "after all attacks are resolved"
+          "detachment": "Freeblade Company",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
             }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "IMPERIAL KNIGHTS"
+            ],
+            "notSelectedToShootThisPhase": true
           },
-          "restrictions": []
+          "effects": [
+            {
+              "weapons": "ranged",
+              "weaponAbility": "[BLAST]",
+              "mayTargetEnemyUnitsWithinEngagementRange": true,
+              "proviso": "no other friendly unit is within Engagement Range of that enemy unit"
+            },
+            {
+              "ignoreHitPenalty": "penalty for shooting while in enemy Engagement Range"
+            },
+            {
+              "weaponAbility": "[BLAST]",
+              "targetWithinEngagementRange": true,
+              "unmodifiedHitRoll": 1,
+              "mortalWoundsToOwnUnit": 1,
+              "resolve": "after all of the unit's attacks are resolved"
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

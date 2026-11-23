@@ -20,7 +20,7 @@
       ],
       "turn": "own"
     },
-    "summary": "During your Movement or Charge phase, pay 1 CP as soon as one of your ADEPTUS CUSTODES DREADNOUGHT units is picked to move or declares its charge. It has MOBILE.",
+    "summary": "Spend 1 CP during your own turn, in the Movement phase or the Charge phase, as an ADEPTUS CUSTODES DREADNOUGHT unit of yours is chosen to move, or when it declares a charge. That unit has MOBILE for the rest of that phase.",
     "citations": [
       {
         "type": "app",
@@ -51,39 +51,32 @@
         },
         "detail": {
           "detachment": "Might of the Moritoi",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "own"
-              },
-              {
-                "phase": "charge",
-                "turn": "own"
-              }
-            ],
-            "events": [
-              "unit-selected-to-move",
-              "unit-declares-charge"
-            ],
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            },
+            {
+              "turn": "own",
+              "phase": "charge"
+            }
+          ],
+          "trigger": "a friendly unit is selected to move or declares a charge",
+          "target": {
+            "side": "friendly",
+            "count": 1,
             "keywordsAll": [
               "ADEPTUS CUSTODES",
               "DREADNOUGHT"
-            ]
-          },
-          "target": {
-            "entity": "unit",
-            "count": 1,
-            "side": "friendly",
-            "sameAs": "triggering-unit"
+            ],
+            "is": "that unit"
           },
           "effects": [
             {
-              "kind": "grant-keyword",
-              "keyword": "MOBILE"
+              "gainsKeyword": "MOBILE"
             }
           ],
-          "restrictions": []
+          "duration": "end-of-phase"
         }
       }
     }

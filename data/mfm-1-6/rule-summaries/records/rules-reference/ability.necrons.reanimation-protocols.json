@@ -13,35 +13,7 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "For a NECRONS Army Faction, Reanimation Protocols activates as your Command phase finishes. It applies to your units on the battlefield that have the ability. The unit gets D3 wounds to restore. Resolve them singly. Heal a model that has a missing wound first. If the surviving models are unwounded and the unit is under Starting Strength, bring back a destroyed model with one wound. Continue while there are wounds to restore and the unit can benefit.",
-    "summarySpans": [
-      {
-        "start": 6,
-        "end": 13,
-        "bold": true
-      },
-      {
-        "start": 14,
-        "end": 26,
-        "target": {
-          "kind": "core-rule",
-          "id": "select-army-faction"
-        }
-      },
-      {
-        "start": 28,
-        "end": 49,
-        "bold": true
-      },
-      {
-        "start": 68,
-        "end": 81,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      }
-    ],
+    "summary": "If NECRONS is your Army Faction, as your Command phase ends, every unit of yours on the battlefield that has this ability triggers its Reanimation Protocols and heals D3 wounds. Each healed wound goes to a model in the unit that has lost wounds, giving it back one; only when no model in the unit is wounded does a healed wound instead revive one destroyed model of the unit (never a CHARACTER model) with 1 wound left. No model can go above the wounds it began the battle with, and wounds that cannot be used are lost.",
     "citations": [
       {
         "type": "app",
@@ -71,37 +43,45 @@
           ]
         },
         "detail": {
-          "kind": "heal-or-return-model",
+          "kind": "army-rule-heal",
           "armyFaction": "NECRONS",
-          "trigger": {
-            "owner": "self",
+          "when": {
+            "turn": "own",
             "phase": "command",
-            "time": "end"
+            "timing": "end-of-phase"
           },
-          "eligible": {
-            "owner": "friendly",
-            "scope": "unit",
-            "hasAbility": true,
+          "units": {
+            "side": "friendly",
+            "withThisAbility": true,
             "onBattlefield": true
           },
-          "pool": "D3",
-          "order": [
+          "heal": "D3",
+          "healBasis": "Core Rules 02.02.04 Healing Or Regaining Lost Wounds defines heals",
+          "perHealedWound": [
             {
-              "kind": "heal",
-              "target": "wounded-model-in-unit",
-              "wounds": 1
+              "if": "a model in the unit has lost wounds",
+              "effect": "that model regains 1 wound"
             },
             {
-              "kind": "return-model",
-              "if": [
-                "no-wounded-models-remain",
-                "below-starting-strength"
+              "if": "every model at starting wounds and a model of the unit is destroyed",
+              "effect": "revive 1 destroyed model",
+              "excludeKeywords": [
+                "CHARACTER"
               ],
-              "target": "destroyed-model-from-unit",
               "woundsRemaining": 1
             }
           ],
-          "repeat": "one-wound-at-a-time-until-pool-spent-or-unit-restored"
+          "capAtStartingWounds": true,
+          "example": {
+            "woundsCharacteristic": 3,
+            "startingStrength": 3,
+            "modelsBefore": 2,
+            "woundsLostOnWoundedModel": 1,
+            "rolled": 3,
+            "modelsAfter": 3,
+            "modelsAtFullWounds": 2,
+            "lastModelWounds": 2
+          }
         }
       }
     }

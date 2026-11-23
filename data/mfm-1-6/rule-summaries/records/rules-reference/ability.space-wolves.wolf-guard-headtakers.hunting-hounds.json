@@ -13,30 +13,11 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Wolf Guard Headtakers",
-    "summary": "Check for friendly models with SPACE WOLVES CHARACTER within 6\" of the unit. WULFEN do not qualify. If the unit is unshocked and the check succeeds, it gets +1 OC.",
+    "summary": "Hunting Wolf models in this unit get +1 OC as long as the unit isn't battle-shocked and has a SPACE WOLVES CHARACTER model of yours (other than WULFEN) within 6\".",
     "summarySpans": [
       {
-        "start": 31,
-        "end": 53,
-        "bold": true
-      },
-      {
-        "start": 77,
-        "end": 83,
-        "bold": true
-      },
-      {
-        "start": 115,
-        "end": 124,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
-        }
-      },
-      {
-        "start": 160,
-        "end": 162,
+        "start": 40,
+        "end": 42,
         "bold": true,
         "target": {
           "kind": "core-rule",
@@ -58,16 +39,25 @@
       "version": "1",
       "fields": {
         "detail": {
-          "recipient": "owning unit",
-          "nearbyFriendlyModelKeywords": [
-            "Space Wolves",
-            "Character"
-          ],
-          "excludedNearbyKeyword": "Wulfen",
-          "rangeInches": 6,
-          "recipientBattleShocked": false,
-          "characteristic": "OC",
-          "modifier": 1
+          "ability": {
+            "recipients": {
+              "models": "Hunting Wolf",
+              "inUnit": "this-unit"
+            },
+            "while": {
+              "thisUnitBattleShocked": false,
+              "friendlyModelWithinInches": 6,
+              "friendlyModelKeywordsAll": [
+                "SPACE WOLVES",
+                "CHARACTER"
+              ],
+              "excludedKeywords": [
+                "WULFEN"
+              ]
+            },
+            "characteristic": "OC",
+            "delta": 1
+          }
         }
       }
     }

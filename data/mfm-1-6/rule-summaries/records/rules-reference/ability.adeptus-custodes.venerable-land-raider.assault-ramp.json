@@ -13,17 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Venerable Land Raider",
-    "summary": "After this model completes a Normal move, a unit that disembarks from it can still charge that turn.",
-    "summarySpans": [
-      {
-        "start": 29,
-        "end": 40,
-        "target": {
-          "kind": "core-rule",
-          "id": "normal-move"
-        }
-      }
-    ],
+    "summary": "In your Movement phase, once this model finishes a Normal move, the units embarked in it may disembark using an assault disembark move.",
     "citations": [
       {
         "type": "app",
@@ -57,13 +47,15 @@
           }
         ],
         "detail": {
-          "origin": "this-model",
-          "trigger": "each-disembark-after-origin-normal-move",
-          "recipient": "disembarking-unit",
-          "effect": {
-            "action": "charge",
-            "sameTurn": true,
-            "kind": "permit"
+          "ability": {
+            "name": "Assault Ramp",
+            "when": {
+              "turn": "own",
+              "phase": "movement",
+              "trigger": "this-model-ends-normal-move"
+            },
+            "appliesTo": "units-embarked-within-this-model",
+            "permits": "assault disembark move"
           }
         }
       }

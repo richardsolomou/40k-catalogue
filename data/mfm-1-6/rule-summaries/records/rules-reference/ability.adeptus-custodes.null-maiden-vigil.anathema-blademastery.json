@@ -19,25 +19,7 @@
       ],
       "turn": "any"
     },
-    "summary": "When a VIGILATOR SQUAD of yours is picked to fight in either Fight phase, choose one benefit for its attacks. Pick [SUSTAINED HITS 1] as one option. The other is [LETHAL HITS].",
-    "summarySpans": [
-      {
-        "start": 116,
-        "end": 132,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "sustained-hits"
-        }
-      },
-      {
-        "start": 163,
-        "end": 174,
-        "target": {
-          "kind": "weapon-ability",
-          "id": "lethal-hits"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in either player's Fight phase as you select a VIGILATOR SQUAD unit of yours to fight. Choose [SUSTAINED HITS 1] or [LETHAL HITS]; for the rest of that phase, that unit's attacks have the one you chose.",
     "citations": [
       {
         "type": "app",
@@ -257,40 +239,36 @@
         ],
         "detail": {
           "detachment": "Null Maiden Vigil",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "friendly-selected-to-fight"
-          },
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "trigger": "a friendly unit is selected to fight",
           "target": {
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "controller": "friendly",
-            "allKeywords": [
+            "keywordsAll": [
               "VIGILATOR SQUAD"
             ],
-            "relation": "selected-unit"
+            "is": "the unit selected to fight"
           },
           "effects": [
             {
-              "action": "choose-one-weapon-ability",
-              "options": [
+              "chooseOne": [
                 {
-                  "ability": "SUSTAINED HITS",
+                  "weaponAbility": "SUSTAINED HITS",
                   "value": 1
                 },
                 {
-                  "ability": "LETHAL HITS"
+                  "weaponAbility": "LETHAL HITS"
                 }
               ],
-              "attackScope": "selected-unit-attacks"
+              "attacks": "all"
             }
           ],
-          "restrictions": []
+          "duration": "end-of-phase"
         }
       }
     }

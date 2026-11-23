@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.wrath-of-the-rock.relics-of-the-dark-age",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Wrath of the Rock",
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
+    "summary": "Spend 1 CP in your Shooting phase as one of your ADEPTUS ASTARTES units that is INFANTRY or MOUNTED is chosen to shoot. For the rest of that phase, the ranged attacks it makes get +2 S.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
+          "detachment": "Wrath of the Rock",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "trigger": {
+            "event": "friendly-unit-selected-to-shoot"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "keywordsAny": [
+              "INFANTRY",
+              "MOUNTED"
+            ]
+          },
+          "effects": [
+            {
+              "attackType": "ranged",
+              "characteristic": "S",
+              "delta": 2
+            }
+          ],
+          "duration": "end-of-phase",
+          "durationBasis": "Core Rules 01.02.02: no duration is printed, so the effect lasts for the rest of the phase in which it was applied"
+        }
+      }
+    }
+  }
+}

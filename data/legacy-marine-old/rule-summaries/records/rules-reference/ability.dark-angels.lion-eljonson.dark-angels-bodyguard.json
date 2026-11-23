@@ -13,22 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Lion El'Jonson",
-    "summary": "Lone Operative applies to this unit with a friendly unit up to 3″ away that is DARK ANGELS INFANTRY.",
-    "summarySpans": [
-      {
-        "start": 0,
-        "end": 14,
-        "target": {
-          "kind": "core-ability",
-          "id": "lone-operative"
-        }
-      },
-      {
-        "start": 79,
-        "end": 99,
-        "bold": true
-      }
-    ],
+    "summary": "This model gains Lone Operative whenever at least one friendly ADEPTUS ASTARTES INFANTRY unit lies within 3\" of it.",
     "citations": [
       {
         "type": "app",
@@ -43,21 +28,27 @@
       "version": "1",
       "fields": {
         "detail": {
-          "recipient": "this-unit",
-          "condition": {
-            "origin": "this-unit",
-            "entity": "unit",
-            "side": "friendly",
-            "allKeywords": [
+          "ability": {
+            "recipient": "this model",
+            "condition": {
+              "withinInches": 3,
+              "of": {
+                "side": "friendly",
+                "count": "one or more",
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              }
+            },
+            "grants": "Lone Operative"
+          },
+          "cardPrintsOtherText": {
+            "requiredKeywords": [
               "DARK ANGELS",
               "INFANTRY"
             ],
-            "rangeInches": 3,
-            "measure": "within"
-          },
-          "effect": {
-            "ability": "LONE OPERATIVE",
-            "kind": "grant-ability"
+            "recipient": "this unit"
           }
         }
       }

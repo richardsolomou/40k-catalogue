@@ -20,46 +20,7 @@
       ],
       "turn": "own"
     },
-    "summary": "As your Movement phase closes, pick BOYZ, KOMMANDOS or STORMBOYZ. Choose a single objective controlled by that unit and mark it secured.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 36,
-        "end": 40,
-        "bold": true
-      },
-      {
-        "start": 42,
-        "end": 51,
-        "bold": true
-      },
-      {
-        "start": 55,
-        "end": 64,
-        "bold": true
-      },
-      {
-        "start": 82,
-        "end": 91,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "objectives"
-        }
-      },
-      {
-        "start": 128,
-        "end": 135,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP as your Movement phase begins or as it ends. Pick one friendly BOYZ, KOMMANDOS or STORMBOYZ unit, then pick one objective under that unit's control; that objective becomes secured.",
     "citations": [
       {
         "type": "app",
@@ -102,32 +63,35 @@
           }
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "your"
-              }
-            ],
-            "event": "phase-end"
-          },
+          "detachment": "Taktikal Brigade",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "start-of-phase"
+            },
+            {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "end-of-phase"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [],
-            "anyUnitName": [
-              "Boyz",
-              "Kommandos",
-              "Stormboyz"
+            "keywordsAny": [
+              "BOYZ",
+              "KOMMANDOS",
+              "STORMBOYZ"
             ]
           },
           "effects": [
             {
-              "action": "secure-objective",
-              "actor": "you",
-              "recipient": "one-objective-controlled-by-target-unit",
-              "count": 1
+              "select": {
+                "objective": 1,
+                "controlledBy": "target unit"
+              },
+              "objectiveBecomes": "secured"
             }
           ]
         }

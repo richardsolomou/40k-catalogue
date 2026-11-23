@@ -19,17 +19,7 @@
       ],
       "turn": "opponent"
     },
-    "summary": "Open the opposing Charge phase by choosing one of your units with ADEPTUS CUSTODES that is outside engagement. From it, pick a visible enemy within 12 inches. If that enemy declares a charge, subtract 1 from its charge rolls.",
-    "summarySpans": [
-      {
-        "start": 18,
-        "end": 30,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-phase"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP as the opponent's Charge phase begins and pick one ADEPTUS CUSTODES unit of yours that is not engaged. Choose an enemy unit visible to it and within 12\" of it; for the rest of that phase, whenever the chosen enemy declares a charge, its charge roll is reduced by 1.",
     "citations": [
       {
         "type": "app",
@@ -62,49 +52,35 @@
         },
         "detail": {
           "detachment": "Solar Watch",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "charge",
-                "turn": "opponent"
-              }
-            ],
-            "event": "phase-start"
-          },
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "charge",
+              "timing": "start-of-phase"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "condition": {
-              "engaged": false
-            }
+            "unengaged": true
           },
           "effects": [
             {
-              "action": "select-unit",
-              "bind": "affected-enemy",
-              "controller": "opponent",
-              "count": 1,
-              "visibleFrom": "chosen-unit",
-              "withinInches": 12
-            },
-            {
-              "action": "modify-rolls",
-              "recipient": "affected-enemy",
-              "rolls": [
-                "charge"
-              ],
-              "modifier": -1,
-              "condition": {
-                "event": "declares-charge",
-                "actor": "affected-enemy"
-              }
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "visibleToTarget": true,
+                "withinInches": 12
+              },
+              "when": "the selected enemy unit declares a charge",
+              "roll": "charge",
+              "delta": -1
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

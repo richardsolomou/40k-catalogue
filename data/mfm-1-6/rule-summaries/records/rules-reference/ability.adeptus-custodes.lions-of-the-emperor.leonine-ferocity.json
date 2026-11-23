@@ -12,19 +12,15 @@
   },
   "data": {
     "ruleType": "enhancement",
-    "summary": "SHIELD-CAPTAIN IN ALLARUS TERMINATOR ARMOUR only. Rapid Ingress costs 1 fewer CP for the bearer’s unit. Apply the discount once in a phase.",
+    "summary": "For a SHIELD-CAPTAIN IN ALLARUS TERMINATOR ARMOUR model. You may target this model’s unit with the Rapid Ingress Stratagem even if that Stratagem has already been used this phase; that use costs 1 CP less, and other units can still be targeted with it later in the same phase. Your army may do this only once per phase.",
     "summarySpans": [
       {
-        "start": 0,
-        "end": 43,
-        "bold": true
-      },
-      {
-        "start": 50,
-        "end": 63,
+        "start": 99,
+        "end": 112,
+        "bold": true,
         "target": {
-          "kind": "core-rule",
-          "id": "rapid-ingress"
+          "kind": "ability",
+          "id": "core.rapid-ingress"
         }
       }
     ],
@@ -45,6 +41,7 @@
           "type": "model",
           "points": 20,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "unit": {
@@ -56,19 +53,21 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Lions of the Emperor",
           "effects": [
             {
-              "type": "modify-cp-cost",
-              "target": "stratagem",
               "stratagem": "Rapid Ingress",
-              "recipient": "bearer-unit",
-              "operation": "subtract",
-              "amount": 1
+              "target": "this unit",
+              "ignoresOtherUsesThisPhase": true,
+              "cpCostReduction": 1,
+              "doesNotBlockUsesOnOtherUnitsThisPhase": true
             }
           ],
-          "usage": {
-            "limit": "once-per-phase",
-            "scope": "bearer-unit"
+          "limit": {
+            "uses": 1,
+            "per": "phase",
+            "scope": "army"
           }
         }
       }

@@ -13,30 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Incubi",
-    "summary": "Each Incubi Shrine token can be used once in the battle. Use it to give a model in this unit an unmodified 6 on either a Hit roll or a Wound roll.",
-    "summarySpans": [
-      {
-        "start": 107,
-        "end": 108,
-        "bold": true
-      },
-      {
-        "start": 121,
-        "end": 129,
-        "target": {
-          "kind": "core-rule",
-          "id": "hit-rolls"
-        }
-      },
-      {
-        "start": 135,
-        "end": 145,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      }
-    ],
+    "summary": "For every Incubi Shrine token held by this unit, you get one use per battle: when a Klaivex model or an Incubi model of this unit makes a Hit or Wound roll, you may turn that one result into an unmodified 6.",
     "citations": [
       {
         "type": "app",
@@ -100,23 +77,25 @@
           }
         },
         "detail": {
-          "source": "equipped-unit",
-          "limit": {
-            "period": "battle",
-            "scope": "incubi-shrine-token",
-            "count": 1
-          },
-          "recipient": "model-in-this-unit",
-          "effect": {
-            "eligibleRolls": [
+          "ability": {
+            "usage": {
+              "perBattle": 1,
+              "per": "Incubi Shrine token held by this unit"
+            },
+            "optional": true,
+            "rolls": [
               "hit",
               "wound"
             ],
-            "choiceCount": 1,
-            "value": 6,
-            "unmodified": true,
-            "optional": true,
-            "kind": "set-roll-result"
+            "rollsPerUse": 1,
+            "eligibleModels": [
+              "Klaivex",
+              "Incubi"
+            ],
+            "setResult": {
+              "value": 6,
+              "unmodified": true
+            }
           }
         }
       }

@@ -20,7 +20,27 @@
       ],
       "turn": "any"
     },
-    "summary": "In your Shooting phase or either Fight phase, choose a friendly ADEPTUS CUSTODES DREADNOUGHT. It gains an aura that lets friendly ADEPTUS CUSTODES units at most 6″ away reroll Hit dice showing 1.",
+    "summary": "Spend 1 CP in your Shooting phase or in the Fight phase. Pick one of your ADEPTUS CUSTODES DREADNOUGHT units; for the rest of that phase it has the Honoured Interred (Aura) ability: friendly ADEPTUS CUSTODES units that are within 6″ of it may re-roll a Hit roll of 1.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 33,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 44,
+        "end": 55,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
     "citations": [
       {
         "type": "app",
@@ -121,48 +141,43 @@
         ],
         "detail": {
           "detachment": "Might of the Moritoi",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "your"
-              },
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "phase-window"
-          },
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
           "target": {
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "controller": "friendly",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES",
               "DREADNOUGHT"
             ]
           },
           "effects": [
             {
-              "action": "grant-aura",
-              "name": "Honoured Interred",
-              "origin": "selected-unit",
-              "recipient": {
-                "controller": "friendly",
-                "allKeywords": [
+              "grantAbility": "Honoured Interred (Aura)",
+              "aura": true,
+              "recipients": {
+                "side": "friendly",
+                "keywordsAll": [
                   "ADEPTUS CUSTODES"
-                ]
+                ],
+                "withinInches": 6
               },
-              "distanceInches": 6,
-              "boundary": "at-most",
               "reroll": {
-                "type": "hit",
-                "face": 1
+                "roll": "hit",
+                "value": 1
               }
             }
           ],
-          "restrictions": []
+          "duration": "end-of-phase",
+          "durationBasis": "Core Rules 01.02.02: an effect with no stated duration lasts only for the phase in which it was applied."
         }
       }
     }

@@ -13,27 +13,30 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Pactbound Zealots",
-    "summary": "Record a mark at muster for each HERETIC ASTARTES unit that still needs one. EPIC HEROES and units already bearing one of these keywords are exempt. Choose KHORNE, TZEENTCH, NURGLE, SLAANESH or CHAOS UNDIVIDED. PSYKERS cannot receive a KHORNE mark. A CHARACTER and the unit it joins must share a mark. Transport passengers need the same mark as their TRANSPORT, including when they begin embarked.\n\nAfter using Dark Pacts, a marked unit that gains a weapon ability and passes the Leadership test gets its mark benefit for the rest of that phase.\n[LETHAL HITS] • A natural 5+ to hit is critical in melee for KHORNE and at range for TZEENTCH.\n[SUSTAINED HITS 1] • A natural 5+ to hit is critical at range for NURGLE and in melee for SLAANESH.\nCHAOS UNDIVIDED • Either weapon ability allows the unit’s models to reroll hit rolls of 1.",
+    "summary": "When mustering your army, each HERETIC ASTARTES unit you include, except an EPIC HERO or a unit that already has one of these keywords, must be given one of KHORNE, TZEENTCH, NURGLE, SLAANESH or CHAOS UNDIVIDED, recorded on your Army Roster.\n\nAfter using Dark Pacts, a marked unit that gains a weapon ability and passes the Leadership test gets its mark benefit for the rest of that phase.\n[LETHAL HITS] • A natural 5+ to hit is critical in melee for KHORNE and at range for TZEENTCH.\n[SUSTAINED HITS 1] • A natural 5+ to hit is critical at range for NURGLE and in melee for SLAANESH.\nCHAOS UNDIVIDED • Either weapon ability allows the unit’s models to reroll hit rolls of 1.",
     "summarySpans": [
       {
-        "start": 411,
-        "end": 421,
+        "start": 255,
+        "end": 265,
+        "bold": true,
         "target": {
           "kind": "ability",
           "id": "chaos-space-marines.dark-pacts"
         }
       },
       {
-        "start": 547,
-        "end": 558,
+        "start": 390,
+        "end": 403,
+        "bold": true,
         "target": {
           "kind": "weapon-ability",
           "id": "lethal-hits"
         }
       },
       {
-        "start": 642,
-        "end": 658,
+        "start": 485,
+        "end": 503,
+        "bold": true,
         "target": {
           "kind": "weapon-ability",
           "id": "sustained-hits"
@@ -55,48 +58,52 @@
       "fields": {
         "detail": {
           "muster": {
-            "factionEligibility": "Heretic Astartes",
-            "eligibleUnmarkedNonEpicHeroUnitsMustSelect": true,
-            "recordOnRoster": true,
-            "marks": [
-              "Khorne",
-              "Tzeentch",
-              "Nurgle",
-              "Slaanesh",
-              "Chaos Undivided"
+            "units": {
+              "keywordsAll": [
+                "HERETIC ASTARTES"
+              ],
+              "excludeKeywords": [
+                "EPIC HERO"
+              ]
+            },
+            "ifNoneOf": [
+              "KHORNE",
+              "TZEENTCH",
+              "NURGLE",
+              "SLAANESH",
+              "CHAOS UNDIVIDED"
             ],
-            "psykerCannotSelect": "Khorne"
+            "mustSelectOne": true,
+            "noteOnArmyRoster": true
           },
-          "restrictions": {
-            "characterAttachmentRequiresSharedMark": true,
-            "transportRequiresSharedMark": true,
-            "includesStartingEmbarked": true
-          },
-          "pact": {
-            "sourceQid": "ability:chaos-space-marines.dark-pacts",
-            "requiresMark": true,
-            "requiresWeaponAbilityFromPact": true,
-            "requiresLeadershipTestNotFailed": true,
-            "expires": "phase-end",
-            "Lethal Hits": {
-              "Khorne": {
-                "meleeUnmodifiedCriticalOn": "5+"
+          "pactBenefit": {
+            "trigger": "marked unit gains a weapon ability via a Dark Pact and passes the Leadership test",
+            "duration": "end-of-phase",
+            "gainedLethalHits": {
+              "KHORNE": {
+                "attackType": "melee",
+                "criticalHitOnUnmodified": "5+"
               },
-              "Tzeentch": {
-                "rangedUnmodifiedCriticalOn": "5+"
+              "TZEENTCH": {
+                "attackType": "ranged",
+                "criticalHitOnUnmodified": "5+"
+              },
+              "CHAOS UNDIVIDED": {
+                "rerollHitRollOf": 1
               }
             },
-            "Sustained Hits 1": {
-              "Nurgle": {
-                "rangedUnmodifiedCriticalOn": "5+"
+            "gainedSustainedHits1": {
+              "sustainedHitsValue": 1,
+              "NURGLE": {
+                "attackType": "ranged",
+                "criticalHitOnUnmodified": "5+"
               },
-              "Slaanesh": {
-                "meleeUnmodifiedCriticalOn": "5+"
-              }
-            },
-            "Chaos Undivided": {
-              "eitherAbility": {
-                "rerollHitRoll": 1
+              "SLAANESH": {
+                "attackType": "melee",
+                "criticalHitOnUnmodified": "5+"
+              },
+              "CHAOS UNDIVIDED": {
+                "rerollHitRollOf": 1
               }
             }
           }

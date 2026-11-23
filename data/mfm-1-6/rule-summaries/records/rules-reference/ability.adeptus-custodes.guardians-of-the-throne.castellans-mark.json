@@ -12,27 +12,7 @@
   },
   "data": {
     "ruleType": "enhancement",
-    "summary": "Model eligibility — ADEPTUS CUSTODES. After deployment, select friendly ADEPTUS CUSTODES units for redeployment, to a limit of 3. You may place those units into Strategic Reserves.",
-    "summarySpans": [
-      {
-        "start": 20,
-        "end": 36,
-        "bold": true
-      },
-      {
-        "start": 72,
-        "end": 88,
-        "bold": true
-      },
-      {
-        "start": 161,
-        "end": 179,
-        "target": {
-          "kind": "core-rule",
-          "id": "strategic-reserves"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS CUSTODES model. Once both armies are deployed, you may redeploy as many as three ADEPTUS CUSTODES units of yours; any of them may be set up in Strategic Reserves instead, however many units are already there.",
     "citations": [
       {
         "type": "app",
@@ -50,6 +30,7 @@
           "type": "model",
           "points": 25,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -66,15 +47,23 @@
           }
         ],
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Guardians of the Throne",
           "effects": [
             {
-              "type": "redeploy",
-              "target": "friendly-adeptus-custodes-units",
-              "maximum": 3,
-              "allowStrategicReserves": true
+              "when": "after-both-players-deploy",
+              "optional": true,
+              "redeploy": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "ADEPTUS CUSTODES"
+                ],
+                "maxUnits": 3
+              },
+              "mayGoToStrategicReserves": true,
+              "ignoresUnitsAlreadyInStrategicReserves": true
             }
-          ],
-          "trigger": "after-deployment"
+          ]
         }
       }
     }

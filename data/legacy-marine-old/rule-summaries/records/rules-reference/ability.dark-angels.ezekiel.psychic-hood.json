@@ -13,36 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Ezekiel",
-    "summary": "Apply Feel No Pain 4+ to this unit for psychic attacks and for mortal wounds.",
-    "summarySpans": [
-      {
-        "start": 6,
-        "end": 21,
-        "bold": true,
-        "target": {
-          "kind": "core-ability",
-          "id": "feel-no-pain"
-        }
-      },
-      {
-        "start": 39,
-        "end": 54,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "psychic-abilities"
-        }
-      },
-      {
-        "start": 63,
-        "end": 76,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "mortal-wounds"
-        }
-      }
-    ],
+    "summary": "As long as this model leads a unit, every model in that unit gets Feel No Pain 4+, which applies only to Psychic Attacks.",
     "citations": [
       {
         "type": "app",
@@ -57,14 +28,18 @@
       "version": "1",
       "fields": {
         "detail": {
-          "recipient": "owning unit",
-          "grant": "feel-no-pain",
-          "threshold": "4+",
-          "against": [
-            "psychic attacks",
-            "mortal wounds"
-          ],
-          "psychicAbility": false
+          "ability": {
+            "condition": "this model is leading a unit",
+            "appliesTo": "models in the led unit",
+            "feelNoPain": 4,
+            "onlyAgainst": [
+              "Psychic Attacks"
+            ]
+          },
+          "cardPrintsOtherText": {
+            "alsoAgainst": "mortal wounds",
+            "recipient": "this unit"
+          }
         }
       }
     }

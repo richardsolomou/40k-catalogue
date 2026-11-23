@@ -12,22 +12,43 @@
   },
   "data": {
     "ruleType": "detachment-rule",
-    "summary": "On selection to attack, an ADEPTUS CUSTODES unit on your side gets two optional re-rolls. One is for a Hit roll and the other for a Wound roll.",
+    "summary": "Each time you select an ADEPTUS CUSTODES unit of yours to attack, its attacks may re-roll one Hit roll and one Wound roll. The detachment also has Favoured ka’tah: Rendax, which gives this Additional Effect: you may choose an enemy MONSTER/VEHICLE unit that is engaged with yours and roll a D6. A 1-2 inflicts 1 mortal wound on it, a 3-5 inflicts D3 mortal wounds, and a 6 inflicts 3 mortal wounds.",
     "summarySpans": [
       {
-        "start": 103,
-        "end": 111,
+        "start": 94,
+        "end": 102,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "making-attacks"
         }
       },
       {
-        "start": 132,
-        "end": 142,
+        "start": 111,
+        "end": 121,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "making-attacks"
+        }
+      },
+      {
+        "start": 147,
+        "end": 170,
+        "bold": true
+      },
+      {
+        "start": 189,
+        "end": 206,
+        "bold": true
+      },
+      {
+        "start": 350,
+        "end": 363,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
         }
       }
     ],
@@ -119,34 +140,61 @@
           }
         ],
         "detail": {
-          "target": {
-            "owner": "friendly",
-            "level": "unit",
-            "allOf": [
-              "Adeptus Custodes"
-            ]
-          },
+          "kind": "detachment-rule",
+          "detachment": "Emperor’s Chosen",
           "trigger": {
-            "event": "selected-to-attack"
+            "event": "unit-selected-to-attack",
+            "unit": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS CUSTODES"
+              ]
+            }
           },
-          "effect": {
-            "type": "sequence",
-            "steps": [
-              {
-                "type": "re-roll",
-                "roll": "hit",
-                "subset": "any",
-                "optional": true,
-                "count": 1
+          "effects": [
+            {
+              "reroll": "hit",
+              "count": 1,
+              "optional": true
+            },
+            {
+              "reroll": "wound",
+              "count": 1,
+              "optional": true
+            }
+          ],
+          "favouredKatah": {
+            "name": "Rendax",
+            "additionalEffect": {
+              "optional": true,
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsAny": [
+                  "MONSTER",
+                  "VEHICLE"
+                ],
+                "engagedWith": "your-unit"
               },
-              {
-                "type": "re-roll",
-                "roll": "wound",
-                "subset": "any",
-                "optional": true,
-                "count": 1
-              }
-            ]
+              "roll": "D6",
+              "results": [
+                {
+                  "from": 1,
+                  "to": 2,
+                  "mortalWounds": 1
+                },
+                {
+                  "from": 3,
+                  "to": 5,
+                  "mortalWounds": "D3"
+                },
+                {
+                  "from": 6,
+                  "to": 6,
+                  "mortalWounds": 3
+                }
+              ]
+            }
           }
         }
       }

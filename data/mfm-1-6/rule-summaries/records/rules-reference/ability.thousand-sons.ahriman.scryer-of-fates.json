@@ -13,16 +13,12 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Ahriman",
-    "summary": "Once both sides finish deploying, you may pick up to three of your THOUSAND SONS units to redeploy if Ahriman is on the battlefield. Any can go to Strategic Reserves even when the number already there would prevent it.",
+    "summary": "If this model is part of your army, then once both sides finish deploying you may pick as many as three THOUSAND SONS units of yours and redeploy them. Any of them may be set up in Strategic Reserves, however many units are already there.",
     "summarySpans": [
       {
-        "start": 67,
-        "end": 80,
-        "bold": true
-      },
-      {
-        "start": 147,
-        "end": 165,
+        "start": 181,
+        "end": 199,
+        "bold": true,
         "target": {
           "kind": "core-rule",
           "id": "strategic-reserves"
@@ -43,20 +39,22 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "controlling-player",
-          "timing": "after-both-players-deploy",
-          "condition": "this-model-on-battlefield",
-          "optional": true,
-          "selection": {
-            "side": "own-army",
-            "entity": "unit",
-            "keyword": "Thousand Sons",
-            "maximumCount": 3
-          },
-          "effect": {
-            "optionalAlternative": "strategic-reserves-for-any-chosen-unit",
-            "ignoresNumberAlreadyInStrategicReserves": true,
-            "kind": "redeploy-selected-units"
+          "ability": {
+            "condition": "your-army-includes-this-model",
+            "timing": "after-both-players-deploy",
+            "optional": true,
+            "select": {
+              "side": "friendly",
+              "keywordsAll": [
+                "THOUSAND SONS"
+              ],
+              "maxCount": 3
+            },
+            "effect": {
+              "redeploy": true,
+              "mayUseStrategicReserves": true,
+              "ignoreStrategicReservesCount": true
+            }
           }
         }
       }

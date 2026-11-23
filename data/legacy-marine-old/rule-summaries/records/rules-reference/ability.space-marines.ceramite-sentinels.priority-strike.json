@@ -22,49 +22,7 @@
       "turn": "any",
       "type": "battle-tactic"
     },
-    "summary": "As you select a unit to attack in your Shooting phase or either Fight phase, use this if it has the ADEPTUS ASTARTES INFANTRY/MOUNTED keyword. Its wound rolls get +1 against targets with MONSTER or VEHICLE.",
-    "summarySpans": [
-      {
-        "start": 39,
-        "end": 53,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 64,
-        "end": 75,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 100,
-        "end": 133,
-        "bold": true
-      },
-      {
-        "start": 147,
-        "end": 158,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      },
-      {
-        "start": 187,
-        "end": 194,
-        "bold": true
-      },
-      {
-        "start": 198,
-        "end": 205,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 2 CP in your Shooting phase or in either player's Fight phase, picking an ADEPTUS ASTARTES INFANTRY or ADEPTUS ASTARTES MOUNTED unit of yours that is not yet picked to shoot or fight in this phase. For the rest of the phase, its models may re-roll Wound rolls for attacks aimed at a CHARACTER, MONSTER or VEHICLE unit.",
     "citations": [
       {
         "type": "app",
@@ -107,39 +65,42 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
-            ],
-            "event": "friendly-selected-to-attack",
-            "window": {
-              "shooting": "your",
-              "fight": "either"
+          "detachment": "Ceramite Sentinels",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes Infantry/Mounted"
+            "keywordsAny": [
+              "ADEPTUS ASTARTES INFANTRY",
+              "ADEPTUS ASTARTES MOUNTED"
+            ],
+            "notSelectedToShootOrFightThisPhase": true
           },
           "effects": [
             {
-              "kind": "modifier",
-              "subject": "attacks",
-              "characteristic": "wound-roll",
-              "delta": 1,
-              "conditions": {
-                "enemyAnyKeyword": [
-                  "MONSTER",
-                  "VEHICLE"
-                ]
-              }
+              "attacksAgainstKeywordsAny": [
+                "CHARACTER",
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "reroll": "wound",
+              "optional": true
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "woundRollBonus": 1,
+            "cpCost": 1
+          }
         }
       }
     }

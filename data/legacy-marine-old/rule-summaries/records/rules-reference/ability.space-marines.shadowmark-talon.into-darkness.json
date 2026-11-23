@@ -21,36 +21,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "At the end of the opponent’s Fight phase, choose a ADEPTUS ASTARTES INFANTRY unit that is unengaged. Put it into strategic reserves.",
-    "summarySpans": [
-      {
-        "start": 29,
-        "end": 40,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 51,
-        "end": 76,
-        "bold": true
-      },
-      {
-        "start": 90,
-        "end": 99,
-        "bold": true
-      },
-      {
-        "start": 113,
-        "end": 131,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "strategic-reserves"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP as the opponent's Fight phase ends. Pick up to two of your PHOBOS or SCOUT SQUAD units, in any mix, or else a single different ADEPTUS ASTARTES INFANTRY unit of yours; none of them may be in Engagement Range of an enemy unit. Take the chosen units off the battlefield and put them into Strategic Reserves.",
     "citations": [
       {
         "type": "app",
@@ -74,29 +45,39 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "opponent",
-            "phases": [
-              "fight"
-            ],
-            "event": "phase-end",
-            "window": {
-              "fight": "opponent"
+          "detachment": "Shadowmark Talon",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "fight",
+              "timing": "end-of-phase"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
-            "count": 1,
-            "unengaged": true,
-            "sourceKeywordLabel": "Adeptus Astartes Infantry"
+            "side": "friendly",
+            "options": [
+              {
+                "countMax": 2,
+                "keywordsAny": [
+                  "PHOBOS",
+                  "SCOUT SQUAD"
+                ]
+              },
+              {
+                "count": 1,
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ],
+                "otherThanAbove": true
+              }
+            ],
+            "notWithinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "kind": "place-in-strategic-reserves",
-              "subject": "selected-unit",
-              "optional": false,
-              "from": "battlefield"
+              "removeFromBattlefield": true,
+              "placeInto": "Strategic Reserves"
             }
           ]
         }

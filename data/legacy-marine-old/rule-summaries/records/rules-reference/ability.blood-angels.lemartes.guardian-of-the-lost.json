@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Lemartes",
-    "summary": "Subtract 1 from the unit's Damage characteristic.",
+    "summary": "While this model leads a unit, whenever one of that unit's models is allocated an attack, the attack's Damage characteristic is reduced by 1.",
     "citations": [
       {
         "type": "app",
@@ -28,19 +28,13 @@
       "version": "1",
       "fields": {
         "detail": {
-          "effect": {
-            "type": "stat-modifier",
-            "target": "this-unit",
-            "modifier": {
-              "stat": "D",
-              "operation": "subtract",
-              "value": 1
-            }
-          },
-          "scope": {
-            "duration": "permanent"
-          },
-          "behavior": "passive"
+          "ability": {
+            "condition": "this model is leading a unit",
+            "trigger": "an attack is allocated to a model in the led unit",
+            "characteristic": "D",
+            "delta": -1,
+            "magnitude": 1
+          }
         }
       }
     }

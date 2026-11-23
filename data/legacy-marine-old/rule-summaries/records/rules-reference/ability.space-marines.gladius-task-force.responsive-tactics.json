@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.gladius-task-force.responsive-tactics",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Gladius Task Force",
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
+    "summary": "Spend 1 CP in the opposing player's Movement phase, right after an enemy unit completes a Normal move, an Advance move or a Fall Back move. Pick one ADEPTUS ASTARTES INFANTRY or ADEPTUS ASTARTES MOUNTED unit of yours that lies within 8\" of that enemy unit and has no enemy unit within Engagement Range of it. It may then move up to D6\" as a Normal move, or up to 6\" if the Tactical Doctrine applies to it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
+          "detachment": "Gladius Task Force",
+          "type": "Strategic Ploy",
+          "window": {
+            "turn": "opponent",
+            "phase": "movement",
+            "timing": "just after an enemy unit finishes a Normal, Advance or Fall Back move"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              "ADEPTUS ASTARTES INFANTRY",
+              "ADEPTUS ASTARTES MOUNTED"
+            ],
+            "withinInches": 8,
+            "of": "that enemy unit",
+            "notWithinEngagementRange": true
+          },
+          "effects": [
+            {
+              "move": "normal",
+              "maxDistance": "D6",
+              "optional": true
+            },
+            {
+              "condition": "unit is under the effects of the Tactical Doctrine",
+              "move": "normal",
+              "maxDistanceInches": 6,
+              "replaces": "D6 distance"
+            }
+          ],
+          "duration": "instant",
+          "cardPrintsOtherText": {
+            "name": "Responsive Tactics",
+            "trigger": "an enemy unit ends any move within 8\" of that unengaged unit",
+            "withinInches": 8,
+            "effects": [
+              {
+                "move": "normal",
+                "maxDistance": "D6"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

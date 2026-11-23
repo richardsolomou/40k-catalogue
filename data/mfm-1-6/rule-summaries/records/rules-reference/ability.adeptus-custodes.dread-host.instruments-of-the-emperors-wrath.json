@@ -12,14 +12,15 @@
   },
   "data": {
     "ruleType": "detachment-rule",
-    "summary": "When rolling to charge with a friendly ADEPTUS CUSTODES unit, you can re-roll.",
+    "summary": "When rolling to charge with a friendly ADEPTUS CUSTODES unit, you can re-roll. Favoured Ka'tah: Dacatarai. When you select the Dacatarai ka’tah ability of Martial Ka'tah for a readied unit, it also gains an extra effect for the rest of that phase: whenever an enemy unit that is engaged with it makes a pile-in or consolidation move, that move is 2″ shorter.",
     "summarySpans": [
       {
-        "start": 16,
-        "end": 22,
+        "start": 155,
+        "end": 169,
+        "bold": true,
         "target": {
-          "kind": "core-rule",
-          "id": "charge-phase"
+          "kind": "ability",
+          "id": "adeptus-custodes.martial-katah"
         }
       }
     ],
@@ -37,18 +38,24 @@
       "version": "1",
       "fields": {
         "detail": {
-          "target": {
-            "owner": "friendly",
-            "level": "unit",
-            "allOf": [
-              "Adeptus Custodes"
-            ]
+          "chargeReroll": {
+            "units": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS CUSTODES"
+              ]
+            },
+            "roll": "charge"
           },
-          "effect": {
-            "type": "re-roll",
-            "roll": "charge",
-            "subset": "all",
-            "optional": true
+          "favouredKatah": {
+            "katah": "Dacatarai",
+            "armyRule": "Martial Ka'tah",
+            "additionalEffect": {
+              "trigger": "engaged enemy unit's pile-in or consolidation move",
+              "moveReductionInches": 2,
+              "duration": "end-of-phase",
+              "durationBasis": "Core Rules 01.02.02: an effect with no stated duration lasts only for the phase in which it was applied."
+            }
           }
         }
       }

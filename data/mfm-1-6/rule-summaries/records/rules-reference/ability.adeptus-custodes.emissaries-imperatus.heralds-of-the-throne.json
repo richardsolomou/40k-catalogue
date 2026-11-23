@@ -12,11 +12,12 @@
   },
   "data": {
     "ruleType": "detachment-rule",
-    "summary": "Give Fights First to friendly ADEPTUS CUSTODES units.",
+    "summary": "Fights First applies to every friendly ADEPTUS CUSTODES unit. Favoured Ka’tah: Conservai. When a unit uses Conservai, it also gains this extra effect: for the rest of that turn, it can still start an action even after being picked to make an Advance or Fall Back move.",
     "summarySpans": [
       {
-        "start": 5,
-        "end": 17,
+        "start": 0,
+        "end": 12,
+        "bold": true,
         "target": {
           "kind": "core-ability",
           "id": "fights-first"
@@ -43,17 +44,25 @@
           }
         ],
         "detail": {
-          "target": {
-            "owner": "friendly",
-            "level": "unit",
-            "allOf": [
-              "Adeptus Custodes"
-            ]
+          "grant": {
+            "recipients": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS CUSTODES"
+              ]
+            },
+            "ability": "Fights First"
           },
-          "effect": {
-            "type": "ability-grant",
-            "keyword": "fights-first",
-            "level": "unit"
+          "favouredKatah": {
+            "katah": "Conservai",
+            "additionalEffect": {
+              "duration": "end-of-turn",
+              "selectedForMoveTypes": [
+                "advance",
+                "fall-back"
+              ],
+              "stillEligibleToStartAction": true
+            }
           }
         }
       }

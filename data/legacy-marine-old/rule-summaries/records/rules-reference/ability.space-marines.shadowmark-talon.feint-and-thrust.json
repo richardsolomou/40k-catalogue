@@ -21,48 +21,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "During your Command phase, choose an ADEPTUS ASTARTES INFANTRY unit. It gains tactical doctrine until your following Command phase starts, alongside any other active combat doctrine.",
-    "summarySpans": [
-      {
-        "start": 12,
-        "end": 25,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 37,
-        "end": 62,
-        "bold": true
-      },
-      {
-        "start": 78,
-        "end": 95,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
-        }
-      },
-      {
-        "start": 117,
-        "end": 130,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 166,
-        "end": 181,
-        "bold": true,
-        "target": {
-          "kind": "ability",
-          "id": "space-marines.combat-doctrines"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Movement phase, picking an ADEPTUS ASTARTES unit of yours. For the rest of the turn, Falling Back does not stop it from shooting or declaring a charge; for a PHOBOS or SCOUT SQUAD unit, Advancing does not stop either.",
     "citations": [
       {
         "type": "app",
@@ -91,29 +50,39 @@
           }
         },
         "detail": {
-          "trigger": {
-            "turn": "your",
-            "phases": [
-              "command"
-            ],
-            "event": "phase-window"
-          },
+          "detachment": "Shadowmark Talon",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            }
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "Adeptus Astartes Infantry"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
             ]
           },
           "effects": [
             {
-              "kind": "activate-rule",
-              "rule": "tactical-doctrine",
-              "subject": "selected-unit",
-              "additionalTo": "any-other-active-combat-doctrine"
+              "afterFallBack": {
+                "eligibleToShoot": true,
+                "eligibleToDeclareCharge": true
+              }
+            },
+            {
+              "ifKeywordsAny": [
+                "PHOBOS",
+                "SCOUT SQUAD"
+              ],
+              "afterAdvance": {
+                "eligibleToShoot": true,
+                "eligibleToDeclareCharge": true
+              }
             }
           ],
-          "duration": "start-of-your-next-command-phase"
+          "duration": "end-of-turn"
         }
       }
     }

@@ -12,25 +12,7 @@
   },
   "data": {
     "ruleType": "enhancement",
-    "summary": "When your Charge phase opens, pick a friendly unit with both ADEPTUS CUSTODES and INFANTRY. Measure up to 6 inches from the bearer. The chosen unit can still charge if it Advanced that turn.",
-    "summarySpans": [
-      {
-        "start": 10,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "charge-phase"
-        }
-      },
-      {
-        "start": 171,
-        "end": 179,
-        "target": {
-          "kind": "core-rule",
-          "id": "advance-move"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS CUSTODES SHIELD-CAPTAIN model. As your Charge phase begins, choose an ADEPTUS CUSTODES INFANTRY unit of yours no more than 6\" from this model. That unit can declare a charge even if it Advanced earlier in the turn.",
     "citations": [
       {
         "type": "app",
@@ -48,6 +30,7 @@
           "type": "model",
           "points": 30,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "keywords": [
@@ -82,30 +65,25 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "phase": "charge",
-            "owner": "own-player",
-            "timing": "start"
-          },
-          "selection": {
-            "actor": "own-player",
-            "target": "friendly-unit",
-            "count": 1,
-            "allKeywords": [
-              "ADEPTUS CUSTODES",
-              "INFANTRY"
-            ],
-            "rangeInches": 6,
-            "origin": "bearer-model",
-            "comparison": "within"
-          },
+          "kind": "enhancement",
+          "detachment": "Solar Watch",
           "effects": [
             {
-              "type": "override-charge-ineligibility",
-              "recipient": "selected-unit",
-              "reason": "selected-unit-advanced-this-turn",
-              "expiry": "end-of-triggering-charge-phase",
-              "otherEligibilityRequirementsApply": true
+              "when": {
+                "turn": "own",
+                "phase": "charge",
+                "timing": "start-of-phase"
+              },
+              "select": {
+                "side": "friendly",
+                "count": 1,
+                "keywordsAll": [
+                  "ADEPTUS CUSTODES",
+                  "INFANTRY"
+                ],
+                "withinInches": 6
+              },
+              "advanceThisTurnDoesNotBlockCharge": true
             }
           ]
         }

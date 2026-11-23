@@ -13,35 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Corvus Blackstar",
-    "summary": "In your Movement Phase, this unit can bomb one enemy unit it has just crossed using a Normal Move. Roll 6D6 against that target. Each die of 4+ deals one Mortal Wound.",
-    "summarySpans": [
-      {
-        "start": 8,
-        "end": 22,
-        "target": {
-          "kind": "core-rule",
-          "id": "movement-phase"
-        }
-      },
-      {
-        "start": 86,
-        "end": 97,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "normal-move"
-        }
-      },
-      {
-        "start": 154,
-        "end": 166,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "mortal-wounds"
-        }
-      }
-    ],
+    "summary": "Whenever this model finishes a Normal move, you may pick one enemy unit it crossed in the course of that move. Roll 6D6: each 5+ inflicts 1 mortal wound on the picked unit.",
     "citations": [
       {
         "type": "app",
@@ -56,33 +28,24 @@
       "version": "1",
       "fields": {
         "detail": {
-          "type": "flyover-mortal-wounds",
-          "trigger": {
-            "event": "move-completed",
-            "phase": "your-movement",
-            "moves": [
-              "normal"
-            ]
-          },
-          "actor": "this-unit",
-          "selection": {
-            "side": "enemy",
-            "entity": "unit",
-            "max": 1,
+          "ability": {
+            "trigger": "this model ends a Normal move",
             "optional": true,
-            "passedOverByActorDuringTriggeringMove": true
-          },
-          "dice": {
-            "count": 6,
-            "sides": 6
-          },
-          "threshold": {
-            "comparison": "at-least",
-            "value": 4
-          },
-          "damage": {
-            "recipient": "selected-unit",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "movedOverDuringThatMove": true
+            },
+            "roll": {
+              "dice": 6,
+              "die": "D6",
+              "successOn": "5+"
+            },
             "mortalWoundsPerSuccess": 1
+          },
+          "cardPrintsOtherText": {
+            "onlyInYourMovementPhase": true,
+            "successOn": "4+"
           }
         }
       }

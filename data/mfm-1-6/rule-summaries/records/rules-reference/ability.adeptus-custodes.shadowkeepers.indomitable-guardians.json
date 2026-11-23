@@ -19,25 +19,7 @@
       ],
       "turn": "opponent"
     },
-    "summary": "In the enemy Fight phase, wait for an enemy unit to finish fighting. Choose an eligible fighter with ADEPTUS CUSTODES from your army that is in objective range. Give it FIGHTS FIRST. Your next fight selection must be this unit.",
-    "summarySpans": [
-      {
-        "start": 13,
-        "end": 24,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 169,
-        "end": 181,
-        "target": {
-          "kind": "core-ability",
-          "id": "fights-first"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in the opponent's Fight phase right after an enemy unit finishes fighting. Pick one ADEPTUS CUSTODES unit of yours that is eligible to fight and is in range of an objective marker. For the rest of that phase it has Fights First, and the next unit you pick to fight has to be this one.",
     "citations": [
       {
         "type": "app",
@@ -75,46 +57,31 @@
         ],
         "detail": {
           "detachment": "Shadowkeepers",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "opponent"
-              }
-            ],
-            "event": "enemy-unit-finished-fighting",
-            "actor": "enemy-unit"
-          },
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "fight"
+            }
+          ],
+          "trigger": "an enemy unit has fought",
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "bind": "chosen-unit",
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS CUSTODES"
             ],
-            "conditions": [
-              {
-                "eligibleToFight": true
-              },
-              {
-                "relation": "within-range-of",
-                "entity": "objective-marker"
-              }
-            ]
+            "withinRangeOfObjective": true,
+            "eligibleToFight": true
           },
           "effects": [
             {
-              "action": "grant-core-ability",
-              "recipient": "chosen-unit",
-              "ability": "fights-first"
+              "ability": "Fights First"
             },
             {
-              "action": "require-next-fight-selection",
-              "recipient": "chosen-unit",
-              "controller": "own"
+              "mustBeNextUnitSelectedToFight": true
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

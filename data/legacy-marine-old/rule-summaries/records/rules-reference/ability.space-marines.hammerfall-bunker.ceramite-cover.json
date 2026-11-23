@@ -13,27 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Hammerfall Bunker",
-    "summary": "Against an attacking model to which this unit isn’t fully visible, apply the Benefit of Cover for that attack.",
-    "summarySpans": [
-      {
-        "start": 52,
-        "end": 65,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "visibility"
-        }
-      },
-      {
-        "start": 77,
-        "end": 93,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "benefit-of-cover"
-        }
-      }
-    ],
+    "summary": "When a model has a ranged attack allocated to it and, because of this FORTIFICATION, any of the attacking unit's models cannot fully see it, that model gains the Benefit of Cover for that attack.",
     "citations": [
       {
         "type": "app",
@@ -48,14 +28,16 @@
       "version": "1",
       "fields": {
         "detail": {
-          "recipient": "this unit",
-          "trigger": "target of an attack",
-          "condition": {
-            "fullyVisibleToAttackingModel": false
-          },
-          "effect": {
-            "benefitOfCover": true,
-            "scope": "that attack"
+          "ability": {
+            "trigger": "a ranged attack is allocated to a model",
+            "condition": {
+              "notFullyVisibleToEveryModelInAttackingUnit": true,
+              "causedBy": "this FORTIFICATION"
+            },
+            "effect": {
+              "benefitOfCover": true,
+              "scope": "that attack"
+            }
           }
         }
       }

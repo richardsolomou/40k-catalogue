@@ -13,73 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Inner Circle Task Force",
-    "summary": "During your Command phase, you may vow to take one objective. The vowed objective designation clears when your next Command phase opens. A friendly DEATHWING INFANTRY unit adds +1 to wound rolls when its attack targets an enemy in range of that objective. Restrictions: DARK ANGELS units are permitted. ADEPTUS ASTARTES from another Chapter are excluded.",
-    "summarySpans": [
-      {
-        "start": 12,
-        "end": 25,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 51,
-        "end": 60,
-        "bold": true
-      },
-      {
-        "start": 66,
-        "end": 81,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "objectives"
-        }
-      },
-      {
-        "start": 116,
-        "end": 129,
-        "target": {
-          "kind": "core-rule",
-          "id": "command-phase"
-        }
-      },
-      {
-        "start": 148,
-        "end": 166,
-        "bold": true
-      },
-      {
-        "start": 183,
-        "end": 194,
-        "bold": true,
-        "target": {
-          "kind": "core-rule",
-          "id": "wound-rolls"
-        }
-      },
-      {
-        "start": 245,
-        "end": 254,
-        "bold": true
-      },
-      {
-        "start": 256,
-        "end": 269,
-        "bold": true
-      },
-      {
-        "start": 270,
-        "end": 281,
-        "bold": true
-      },
-      {
-        "start": 303,
-        "end": 319,
-        "bold": true
-      }
-    ],
+    "summary": "As your Movement phase begins, choose one option. Defensive Footing: pick one objective you control as your Vowed objective, lasting until your following Movement phase begins. Aggressive Push: pick one or more objectives not under your control, each becoming a Vowed objective of yours for the same length of time, and a rule that refers to being in range of the Vowed objective applies when the unit or model is in range of at least one of them. Attacks made by DEATHWING INFANTRY units of yours against a unit in range of any of your Vowed objectives get +1 to their Wound rolls.",
     "citations": [
       {
         "type": "app",
@@ -94,72 +28,47 @@
       "version": "1",
       "fields": {
         "detail": {
-          "scope": {
-            "factionId": "fa0e86ef-b5da-4510-9a9f-8cd86267bb6a",
-            "faction": "Dark Angels",
-            "detachmentId": "0af88b8c-951a-442c-987b-85384f0020e7",
+          "detachmentRule": {
             "detachment": "Inner Circle Task Force",
-            "uniqueTags": [],
-            "sourceId": "0af88b8c-951a-442c-987b-85384f0020e7:vowed-target",
-            "cardType": "detachmentRule",
-            "cardEdition": "40k-11e"
-          },
-          "trigger": {
-            "event": "during-phase",
-            "phase": "command",
-            "owner": "self"
-          },
-          "selection": {
-            "count": 1,
-            "optional": true,
-            "target": {
-              "kind": "objective"
+            "when": {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "start-of-phase"
             },
-            "designation": "vowed objective"
-          },
-          "expires": {
-            "event": "next-phase-started",
-            "phase": "command",
-            "owner": "self"
-          },
-          "effect": {
-            "type": "roll-modifier",
-            "roll": "wound",
-            "operation": "add",
-            "value": 1,
-            "actor": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Deathwing",
-                "Infantry"
-              ]
-            },
-            "targetCondition": {
-              "owner": "enemy",
-              "level": "unit",
-              "withinRangeOf": "vowed-objective"
-            }
-          },
-          "roster": {
-            "type": "roster-restriction",
-            "permits": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Dark Angels"
-              ]
-            },
-            "excludes": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Adeptus Astartes"
-              ],
-              "chapter": {
-                "otherThan": "Dark Angels"
+            "chooseOne": {
+              "Defensive Footing": {
+                "select": {
+                  "objectives": 1,
+                  "control": "you control"
+                },
+                "vowedUntil": "start of your next Movement phase"
+              },
+              "Aggressive Push": {
+                "select": {
+                  "objectives": "one or more",
+                  "control": "you do not control"
+                },
+                "vowedUntil": "start of your next Movement phase",
+                "rangeReferencesMeanAnyVowedObjective": true
               }
+            },
+            "effect": {
+              "attackers": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "DEATHWING",
+                  "INFANTRY"
+                ]
+              },
+              "targetCondition": "target unit within range of one or more Vowed objectives",
+              "roll": "wound",
+              "add": 1
             }
+          },
+          "cardPrintsOtherText": {
+            "vowWindow": "your Command phase",
+            "vowedObjectives": 1,
+            "armyRestriction": "DARK ANGELS units only, no ADEPTUS ASTARTES units from another Chapter"
           }
         }
       }

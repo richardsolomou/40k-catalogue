@@ -13,22 +13,7 @@
   "data": {
     "ruleType": "enhancement",
     "group": "Ceramite Sentinels",
-    "summary": "Unit eligibility — ADEPTUS ASTARTES. An Advance Move leaves this unit eligible to perform an action.",
-    "summarySpans": [
-      {
-        "start": 19,
-        "end": 35,
-        "bold": true
-      },
-      {
-        "start": 40,
-        "end": 52,
-        "target": {
-          "kind": "core-rule",
-          "id": "advance-move"
-        }
-      }
-    ],
+    "summary": "For an ADEPTUS ASTARTES model. Whenever its unit Falls Back, choose one of these for that unit until the turn ends: it may still perform an Action this turn despite having Fallen Back; or it may still shoot this turn, and declare a charge too, despite having Fallen Back.",
     "citations": [
       {
         "type": "app",
@@ -46,6 +31,7 @@
           "type": "model",
           "points": 20,
           "eligibility": {
+            "basis": "app-eligibility-rows",
             "anyOf": [
               {
                 "factionKeywords": [
@@ -56,14 +42,37 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Ceramite Sentinels",
           "effects": [
             {
-              "type": "retain-eligibility",
-              "target": "this-unit",
-              "action": "perform-action"
+              "trigger": "whenever the bearer's unit makes a Fall Back move",
+              "appliesTo": "bearer's unit",
+              "chooseOne": [
+                {
+                  "inTurnUnitFellBack": {
+                    "eligibleToPerformAction": true
+                  }
+                },
+                {
+                  "inTurnUnitFellBack": {
+                    "eligibleToShoot": true,
+                    "eligibleToDeclareCharge": true
+                  }
+                }
+              ],
+              "duration": "end-of-turn"
             }
           ],
-          "trigger": "this-unit-makes-advance-move"
+          "cardPrintsNewerText": {
+            "pointsCost": 10,
+            "eligibilityScope": "unit",
+            "moves": [
+              "advance",
+              "fall-back"
+            ],
+            "effect": "eligible to start an action"
+          }
         }
       }
     }

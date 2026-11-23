@@ -252,3 +252,8 @@ test("rules the facts name are references of the record", () => {
   const named = { ...EFFECTS, fields: { ...EFFECTS.fields, references: [{ kind: "ability", id: VOLLEY }] } };
   assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = named)), [`ability:${OATH.id} facts name ability:${VOLLEY} but its identity entry does not reference it`]);
 });
+
+test("an effect block can be withheld as unresolved", () => {
+  const withheld = { ...EFFECTS, fields: { ...EFFECTS.fields, combat: { unresolved: "the reading gives the effect to the wrong unit" } } };
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = withheld)), []);
+});

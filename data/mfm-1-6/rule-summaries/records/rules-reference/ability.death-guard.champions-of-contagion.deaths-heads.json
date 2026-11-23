@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.champions-of-contagion.deaths-heads",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Champions of Contagion",
+    "cp": 1,
+    "summary": "During your Shooting phase, choose your BIOLOGUS PUTRIFIER unit before it is selected to fire and while it is outside Engagement Range of enemies. Mark a visible enemy up to 8″ away, excluding VEHICLE units. Apply every plague from Nurgle’s Gift to that enemy until your next turn begins.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 40,
+        "end": 58,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 134,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 193,
+        "end": 200,
+        "bold": true
+      },
+      {
+        "start": 232,
+        "end": 245,
+        "target": {
+          "kind": "ability",
+          "id": "death-guard.nurgles-gift-aura"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "wargear",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "keywords": [
+              "BIOLOGUS PUTRIFIER"
+            ],
+            "count": 1,
+            "allStates": [
+              "unengaged",
+              "not-selected-to-shoot-this-phase"
+            ]
+          },
+          "effects": [
+            {
+              "action": "select-enemy-unit",
+              "count": 1,
+              "exclude": [
+                "VEHICLE"
+              ],
+              "visibleTo": "target-unit",
+              "distance": {
+                "unit": "inch",
+                "amount": 8,
+                "fromEntity": "target-unit",
+                "comparator": "at-most"
+              },
+              "bind": "enemy"
+            },
+            {
+              "action": "apply-all-plagues",
+              "recipient": "enemy",
+              "rule": "nurgles-gift",
+              "duration": {
+                "until": "start-of-your-next-turn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "performing-actions",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "58",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=58"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "16. Actions",
+    "ruleNumber": "16.01",
+    "summary": "An Action can specify its start and finish points, who qualifies, a use cap, a payoff and extra restrictions. To begin, the unit must be on the battlefield. AIRCRAFT, FORTIFICATION and Battle-shocked units are ineligible, as are units with an Objective Control value of 0 or –. An Engaged unit needs TITANIC. The unit also loses eligibility for that turn once it has Advanced, Fallen Back or started any Action. From the moment it starts until turn end, the unit cannot declare a charge and only a TITANIC unit can shoot. Departure from the battlefield or movement other than a Pile-in or Consolidation prevents completion. Apply the Action's Effect if it finishes.",
+    "summarySpans": [
+      {
+        "start": 185,
+        "end": 199,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 243,
+        "end": 260,
+        "target": {
+          "kind": "core-rule",
+          "id": "profiles"
+        }
+      },
+      {
+        "start": 281,
+        "end": 288,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 367,
+        "end": 375,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 377,
+        "end": 388,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 578,
+        "end": 585,
+        "target": {
+          "kind": "core-rule",
+          "id": "pile-in-move"
+        }
+      },
+      {
+        "start": 589,
+        "end": 602,
+        "target": {
+          "kind": "core-rule",
+          "id": "consolidation-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "58",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=58"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "action-procedure",
+        "entryFields": [
+          "startTiming",
+          "eligibleFriendlyUnits",
+          "useLimit",
+          "completionTiming",
+          "effect",
+          "additionalRestrictions"
+        ],
+        "useLimit": {
+          "configuredPerAction": true,
+          "universalCount": null
+        },
+        "startEligibility": {
+          "requiredLocation": "battlefield",
+          "keywordExclusions": {
+            "operator": "any-of",
+            "keywords": [
+              "AIRCRAFT",
+              "FORTIFICATION"
+            ]
+          },
+          "battleShocked": false,
+          "objectiveControl": {
+            "subject": "unit as stated",
+            "excludedValues": [
+              0,
+              "-"
+            ],
+            "mixedModelResolution": null
+          },
+          "engagedRequiresKeyword": "TITANIC",
+          "prohibitedMovesThisTurn": [
+            "advance",
+            "fall-back"
+          ],
+          "previousActionStartedThisTurn": false
+        },
+        "afterStarting": {
+          "ends": "end-of-turn",
+          "chargeDeclaration": false,
+          "shootingRequiresKeyword": "TITANIC"
+        },
+        "completion": {
+          "failsIfLeavesBattlefield": true,
+          "failsIfMoves": true,
+          "moveExceptions": [
+            "pile-in",
+            "consolidation"
+          ],
+          "successTriggers": "action-effect"
+        }
+      }
+    }
+  }
+}

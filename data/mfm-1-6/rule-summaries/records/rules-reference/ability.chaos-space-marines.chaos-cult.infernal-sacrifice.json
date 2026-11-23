@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.chaos-cult.infernal-sacrifice",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Chaos Cult",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP. Use it in any Fight phase on one DAMNED unit of yours that has not yet fought in this phase. The unit may make a Desperate Pact. Having done so, it takes D3 mortal wounds on top of any it takes for failing that pact's Leadership test, and for the rest of the phase its models' melee weapons get +1 Attacks; if the unit passed that Leadership test, those weapons also get +1 Strength for the rest of the phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Chaos Cult",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "DAMNED"
+            ],
+            "notYetSelectedToFightThisPhase": true
+          },
+          "effects": [
+            {
+              "optional": true,
+              "action": "Desperate Pact"
+            },
+            {
+              "condition": "made-desperate-pact",
+              "mortalWoundsToOwnUnit": "D3",
+              "inAdditionToFailedTestWounds": true
+            },
+            {
+              "condition": "made-desperate-pact",
+              "weapons": "melee",
+              "characteristic": "A",
+              "delta": 1
+            },
+            {
+              "condition": "desperate-pact-leadership-test-passed",
+              "weapons": "melee",
+              "characteristic": "S",
+              "delta": 1
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

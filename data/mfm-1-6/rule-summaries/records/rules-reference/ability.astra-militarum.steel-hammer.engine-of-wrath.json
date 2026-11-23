@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.steel-hammer.engine-of-wrath",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Steel Hammer",
+    "cp": 1,
+    "summary": "Spend 1 CP in the Fight phase on one of your ASTRA MILITARUM TITANIC units that has not yet fought this phase. Pick one enemy unit within its Engagement Range. For the rest of the phase, its models' melee weapons get +6 Attacks and have their AP improved by 2, and when its models fight they may only target the picked enemy unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Epic Deed",
+          "detachment": "Steel Hammer",
+          "when": {
+            "phase": "fight",
+            "turn": "either"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ASTRA MILITARUM",
+              "TITANIC"
+            ],
+            "notYetSelectedToFightThisPhase": true
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "withinEngagementRange": true
+              },
+              "duration": "end-of-phase",
+              "weapons": "melee",
+              "modifiers": {
+                "A": {
+                  "direction": "add",
+                  "amount": 6
+                },
+                "AP": {
+                  "direction": "improve",
+                  "amount": 2
+                }
+              },
+              "mayOnlyTarget": "selected-enemy-unit"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

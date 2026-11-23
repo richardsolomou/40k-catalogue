@@ -1,0 +1,130 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.ares-gunship.infernus-firebombs",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Ares Gunship",
+    "summary": "At the close of your Movement Phase, pick a visible enemy unit no more than 24″ away from this unit. A unit with AIRCRAFT or Lone Operative is ineligible. The Benefit of Cover stays unavailable to the target through your next Shooting Phase. Make one D6 roll per target model. Each 6 deals one Mortal Wound to the chosen unit.",
+    "summarySpans": [
+      {
+        "start": 21,
+        "end": 35,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 44,
+        "end": 51,
+        "target": {
+          "kind": "core-rule",
+          "id": "visibility"
+        }
+      },
+      {
+        "start": 113,
+        "end": 121,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "aircraft"
+        }
+      },
+      {
+        "start": 125,
+        "end": 139,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "lone-operative"
+        }
+      },
+      {
+        "start": 159,
+        "end": 175,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      },
+      {
+        "start": 226,
+        "end": 240,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 294,
+        "end": 306,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "type": "target-cover-denial-and-mortal-wounds",
+        "trigger": "end-of-your-movement-phase",
+        "actor": "this-unit",
+        "target": {
+          "side": "enemy",
+          "entity": "unit",
+          "count": 1,
+          "visible": true,
+          "distance": {
+            "atMostInches": 24,
+            "from": "this-unit"
+          },
+          "excludedKeywords": [
+            "AIRCRAFT"
+          ],
+          "excludedAbilities": [
+            "lone-operative"
+          ]
+        },
+        "coverDenial": {
+          "recipient": "selected-unit",
+          "ends": "end-of-your-next-shooting-phase"
+        },
+        "damage": {
+          "recipient": "selected-unit",
+          "dice": {
+            "count": 1,
+            "sides": 6,
+            "per": "model-in-selected-unit"
+          },
+          "threshold": {
+            "comparison": "equal",
+            "value": 6
+          },
+          "mortalWoundsPerSuccess": 1
+        }
+      }
+    }
+  }
+}

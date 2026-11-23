@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.blood-angels-captain.finest-hour-once-per-battle-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Blood Angels Captain",
+    "summary": "In the Fight phase, you may spend this unit’s once-per-battle use as you pick it to fight. The Captain’s melee attacks for that fight gain +3 Attacks and [DEVASTATING WOUNDS].",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 142,
+        "end": 149,
+        "bold": true
+      },
+      {
+        "start": 154,
+        "end": 174,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "devastating-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "limit": {
+          "count": 1,
+          "period": "battle",
+          "counterOwner": "source-unit",
+          "resetsAt": "new-battle"
+        },
+        "trigger": {
+          "phase": "fight",
+          "turn": "either",
+          "event": "this-unit-selected-to-fight"
+        },
+        "optional": true,
+        "effectScope": {
+          "attacker": "this-model",
+          "attackType": "melee",
+          "window": "attacks-from-this-fight-selection"
+        },
+        "effects": [
+          {
+            "characteristic": "attacks",
+            "operation": "add",
+            "amount": 3
+          },
+          {
+            "grantWeaponAbility": "DEVASTATING WOUNDS"
+          }
+        ]
+      }
+    }
+  }
+}

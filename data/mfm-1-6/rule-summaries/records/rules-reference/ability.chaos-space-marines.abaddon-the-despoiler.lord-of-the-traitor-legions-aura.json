@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.abaddon-the-despoiler.lord-of-the-traitor-legions-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Abaddon the Despoiler",
+    "summary": "Leadership tests and Battle-shock tests can each be re-rolled for a friendly unit with HERETIC ASTARTES. While this Warmaster option applies, measure up to 6″ from Abaddon.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 10,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      },
+      {
+        "start": 21,
+        "end": 39,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 87,
+        "end": 103,
+        "bold": true
+      },
+      {
+        "start": 156,
+        "end": 158,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "aura-option",
+        "activation": {
+          "event": "parent-option-active",
+          "parentAbility": "Warmaster"
+        },
+        "area": {
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 6,
+          "origin": "this-model",
+          "candidate": {
+            "entity": "unit",
+            "side": "friendly",
+            "requireAllKeywords": [
+              "HERETIC ASTARTES"
+            ],
+            "excludeAnyKeywords": []
+          }
+        },
+        "effect": {
+          "operation": "re-roll",
+          "rolls": [
+            "leadership",
+            "battle-shock"
+          ],
+          "optional": true
+        },
+        "recipient": "eligible-unit"
+      }
+    }
+  }
+}

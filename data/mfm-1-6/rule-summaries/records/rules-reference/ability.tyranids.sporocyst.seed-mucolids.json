@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.sporocyst.seed-mucolids",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Sporocyst",
+    "summary": "Once per turn, when you pick a unit with this ability to shoot in your Shooting phase, one such unit may give up all its ranged attacks. You may then add a new 1-model MUCOLID SPORES unit to your army. Place it on the battlefield. It must fit wholly inside an 18″ radius from this model and be over 8″ away from every enemy unit horizontally.",
+    "summarySpans": [
+      {
+        "start": 71,
+        "end": 85,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 168,
+        "end": 182,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "trigger": {
+          "phase": "Shooting",
+          "turnOwner": "self",
+          "event": "unit with ability selected to shoot"
+        },
+        "limit": {
+          "period": "turn",
+          "maximumUsingUnits": 1
+        },
+        "activation": {
+          "optional": true,
+          "insteadOf": "all ranged weapon attacks by selected unit"
+        },
+        "effect": {
+          "optional": true,
+          "addTo": "your army",
+          "newUnits": 1,
+          "name": "MUCOLID SPORES",
+          "modelsInNewUnit": 1,
+          "setup": {
+            "destination": "battlefield",
+            "distanceFromSourceModel": {
+              "comparison": "wholly-within",
+              "inches": 18
+            },
+            "distanceFromAllEnemies": {
+              "comparison": "greater-than",
+              "axis": "horizontal",
+              "inches": 8
+            }
+          }
+        }
+      }
+    }
+  }
+}

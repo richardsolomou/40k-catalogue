@@ -1,0 +1,89 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.spearpoint-task-force.storm-swift-onslaught",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Spearpoint Task Force",
+    "summary": "You may take one extra Assault or Tactical Doctrine selection per battle. Add 1 to Advance rolls for friendly Adeptus Astartes with either Mounted or Speeder. Once the battle’s first Fight phase closes, friendly units with Suboden Khan can invoke Wrath of the Khan if they were eligible to fight. If unengaged, the unit may then take a Normal Move. An engaged one can Fall Back. White Scars are allowed, with other chapter-specific Adeptus Astartes excluded.",
+    "summarySpans": [
+      {
+        "start": 183,
+        "end": 194,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 336,
+        "end": 347,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 368,
+        "end": 377,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "doctrine": {
+          "either": [
+            "Assault",
+            "Tactical"
+          ],
+          "optionalAdditionalSelections": 1,
+          "limit": "per battle"
+        },
+        "advance": {
+          "recipientAllOf": [
+            "friendly",
+            "Adeptus Astartes"
+          ],
+          "recipientAnyOf": [
+            "Mounted",
+            "Speeder"
+          ],
+          "rollIncrease": 1
+        },
+        "wrathOfTheKhan": {
+          "recipient": "friendly Suboden Khan unit",
+          "at": "end of first Fight phase",
+          "requiresEligibleToFightInThatPhase": true,
+          "optional": true,
+          "unengaged": "Normal Move",
+          "engaged": "Fall Back"
+        },
+        "roster": {
+          "allowsChapter": "White Scars",
+          "excludesOtherChapterAdeptusAstartes": true
+        }
+      }
+    }
+  }
+}

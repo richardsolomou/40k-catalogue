@@ -1,0 +1,602 @@
+# MFM 1.6 rule summaries
+
+Catalogue release input for Warhammer 40,000 11th edition, MFM 1.6: the `rules-reference` and `mission-rules` categories. [Rule summaries](../../../docs/rule-summaries.md) defines the records and [catalogue releases](../../../docs/catalogue-releases.md) explains how to build them.
+
+Every summary is original wording, checked against the official sources it cites. They are pre-release drafts that no person has reviewed yet.
+
+| Category | Active entries | Records | Unresolved |
+| --- | --- | --- | --- |
+| `rules-reference` | 5,941 | 5,474 | 467 |
+| `mission-rules` | 240 | 225 | 15 |
+
+Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14. 900 records also cite the Games Workshop PDF page that prints the rule, which is then their `source`. 17 records rest on a reading the sources leave open and carry an `interpretation` flag. 168 records adapt structured fields from upstream data and carry its `attribution`.
+
+## Retired
+
+9 FAQs superseded by newer publisher documents before the cutoff:
+
+- `faq` `codex-adepta-sororitas.errata.hallowed-martyrs-detachment-divine-intervention-stratagem-effect`, replaced by Adepta Sororitas Faction Pack: Version 1.4, page 13
+- `faq` `codex-adeptus-mechanicus.errata.onager-dunecrawler`, replaced by Adeptus Mechanicus Faction Pack: Version 1.4, page 18
+- `faq` `codex-chaos-knights.errata.iconoclast-fiefdom-detachment-preserve-the-idols-stratagem-target`, replaced by Chaos Knights Faction Pack: Version 1.2, page 4
+- `faq` `codex-chaos-knights.errata.knight-abominant-volkite-combustor-weapon`, replaced by Chaos Knights Faction Pack: Version 1.2, page 25
+- `faq` `codex-emperors-children.errata.slaaneshs-chosen-detachment-refusal-to-be-outdone-stratagem`, replaced by Emperor’s Children Faction Pack: Version 1.3, page 9
+- `faq` `codex-necrons.errata.ophydian-destroyers-tunnelling-horrors-ability-2`, replaced by Necrons Faction Pack: Version 1.3, page 30
+- `faq` `codex-tyranids.errata.the-swarmlord-abilities-malign-presence`, replaced by Tyranids Faction Pack: Version 1.3, page 20
+- `faq` `imperial-armour-grey-knights.errata.grey-knights-thunderhawk-gunship`, replaced by Grey Knights Faction Pack: Version 1.2, page 7; Grey Knights Faction Pack: Version 1.2, page 8
+- `faq` `index-chaos-daemons.errata.feculent-gnarlmaw-screamers-skull-altar-keywords`, replaced by Chaos Daemons Faction Pack: Version 1.2, page 61; Chaos Daemons Faction Pack: Version 1.2, page 87; Chaos Daemons Faction Pack: Version 1.2, page 37
+
+## Unresolved
+
+Active entries without a record, by reason. An entry with several reasons is listed under each.
+
+### The FAQ amends only datasheets, detachments or a publication, which get catalogue IDs with the roster and datasheet categories (340)
+
+- `faq` `codex-adepta-sororitas.errata.army-of-faith-detachment`
+- `faq` `codex-adepta-sororitas.errata.bringers-of-flame-detachment-fervent-purgation-detachment-rule`
+- `faq` `codex-adepta-sororitas.errata.castigator-exorcist-immolator-sororitas-rhino-keywords`
+- `faq` `codex-adepta-sororitas.errata.daemonifuge-mysterious-saviours-ability`
+- `faq` `codex-adepta-sororitas.errata.dialogus-dogmata-hospitaller-imagifier-core-abilities`
+- `faq` `codex-adepta-sororitas.errata.dominion-squad-righteous-awareness-ability`
+- `faq` `codex-adepta-sororitas.errata.immolator-transport-second-paragraph`
+- `faq` `codex-adepta-sororitas.errata.junith-eruita-the-pulpit-of-saint-hollines-basilica`
+- `faq` `codex-adepta-sororitas.errata.penitent-host-detachment-desperate-for-redemption-detachment-rule`
+- `faq` `codex-adepta-sororitas.errata.retributor-squad-storm-of-retribution-ability`
+- `faq` `codex-adepta-sororitas.errata.triumph-of-saint-katherine-solemn-procession-ability`
+- `faq` `codex-adepta-sororitas.errata.zephyrim-squad-embodied-prophecy-ability`
+- `faq` `codex-adepta-sororitas.faq.imagifier`
+- `faq` `codex-adepta-sororitas.faq.triumph-of-saint-katherine`
+- `faq` `codex-adeptus-custodes.errata.shield-captain-on-dawneagle-jetbike-core-abilities`
+- `faq` `codex-adeptus-mechanicus.errata.archaeopter-fusilave-archaeopter-stratoraptor-core-abilities`
+- `faq` `codex-adeptus-mechanicus.errata.archaeopter-fusilave-archaeopter-stratoraptor-profiles`
+- `faq` `codex-adeptus-mechanicus.errata.archaeopter-fusilave-bomb-rack-ability`
+- `faq` `codex-adeptus-mechanicus.errata.archaeopter-transvector-aerial-deployment-ability`
+- `faq` `codex-adeptus-mechanicus.errata.archaeopter-transvector`
+- `faq` `codex-adeptus-mechanicus.errata.belisarius-cawl`
+- `faq` `codex-adeptus-mechanicus.errata.cohort-cybernetica-detachment-cyber-psalm-programming-detachment-rule`
+- `faq` `codex-adeptus-mechanicus.errata.cybernetica-datasmith`
+- `faq` `codex-adeptus-mechanicus.errata.datasheets`
+- `faq` `codex-adeptus-mechanicus.errata.ironstrider-ballistarii`
+- `faq` `codex-adeptus-mechanicus.errata.kastelan-robots-repulsor-grid-ability`
+- `faq` `codex-adeptus-mechanicus.errata.rad-zone-corps-detachment`
+- `faq` `codex-adeptus-mechanicus.errata.serberys-raiders-tactica-obliqua-ability`
+- `faq` `codex-adeptus-mechanicus.errata.sicarian-infiltrators-melee-weapons`
+- `faq` `codex-adeptus-mechanicus.errata.sicarian-ruststalkers-melee-weapons`
+- `faq` `codex-adeptus-mechanicus.errata.skitarii-hunter-cohort-detachment`
+- `faq` `codex-adeptus-mechanicus.errata.skitarii-marshal-core-abilities`
+- `faq` `codex-adeptus-mechanicus.errata.skitarii-marshal-servo-skull-uplink-ability`
+- `faq` `codex-adeptus-mechanicus.errata.skorpius-disintegrator-ferrumite-cannon`
+- `faq` `codex-adeptus-mechanicus.errata.skorpius-disintegrator-skorpius-dunerider-keywords`
+- `faq` `codex-adeptus-mechanicus.errata.skorpius-dunerider-core-abilities`
+- `faq` `codex-adeptus-mechanicus.errata.technoarcheologist-core-abilities`
+- `faq` `codex-adeptus-mechanicus.faq.thulia-ghuld`
+- `faq` `codex-aeldari.errata.aspect-host-detachment-skyborne-sanctuary-stratagem-target-and`
+- `faq` `codex-aeldari.errata.asurmen-hand-of-asuryan-ability`
+- `faq` `codex-aeldari.errata.baharroth-cloudstrider-ability`
+- `faq` `codex-aeldari.errata.corsair-voidreavers`
+- `faq` `codex-aeldari.errata.crimson-hunter-hemlock-wraithfighter`
+- `faq` `codex-aeldari.errata.dark-reapers-dire-avengers-fire-dragons-howling-banshees`
+- `faq` `codex-aeldari.errata.datasheets`
+- `faq` `codex-aeldari.errata.devoted-of-ynnead-detachment-strength-from-death-detachment`
+- `faq` `codex-aeldari.errata.eldrad-ulthran-leader`
+- `faq` `codex-aeldari.errata.falcon-transport`
+- `faq` `codex-aeldari.errata.ghosts-of-the-webway-detachment-travelling-players`
+- `faq` `codex-aeldari.errata.rangers-path-of-the-outcast-ability`
+- `faq` `codex-aeldari.errata.shadowseer-wargear-options`
+- `faq` `codex-aeldari.errata.skyweavers-acrobatic-grace-ability`
+- `faq` `codex-aeldari.errata.starweaver-rapid-embarkation-ability`
+- `faq` `codex-aeldari.errata.the-visarch-core-abilities`
+- `faq` `codex-aeldari.errata.the-yncarne-inevitable-death-ability`
+- `faq` `codex-aeldari.errata.warhost-detachment-skyborne-sanctuary-stratagem-target-and-effect`
+- `faq` `codex-aeldari.errata.warlock-conclave`
+- `faq` `codex-aeldari.errata.warlock-core-abilities`
+- `faq` `codex-aeldari.errata.warlock-skyrunners`
+- `faq` `codex-aeldari.errata.wave-serpent-transport`
+- `faq` `codex-aeldari.errata.ynnari-incubi-melee-weapons-demiklaives-single-blade`
+- `faq` `codex-aeldari.errata.ynnari-venom`
+- `faq` `codex-aeldari.errata.yvraine-herald-of-ynnead-ability`
+- `faq` `codex-aeldari.faq.the-yncarne`
+- `faq` `codex-aeldari.faq.windrider-host`
+- `faq` `codex-astra-militarum.errata.armoured-infantry-detachment-squadron-command-detachment-rule-on`
+- `faq` `codex-astra-militarum.errata.basilisk-earthshaker-rounds-ability`
+- `faq` `codex-astra-militarum.errata.cadian-command-squad-cadia-stands-ability`
+- `faq` `codex-astra-militarum.errata.catachan-command-squad-ranged-weapons-table`
+- `faq` `codex-astra-militarum.errata.commissar-yarrick-counterstrategist-ability-3rd-bullet-point`
+- `faq` `codex-astra-militarum.errata.death-korps-of-krieg`
+- `faq` `codex-astra-militarum.errata.death-riders-screening-line-ability`
+- `faq` `codex-astra-militarum.errata.gaunts-ghosts-covert-stealth-team-ability`
+- `faq` `codex-astra-militarum.errata.kasrkin-weapons-tables`
+- `faq` `codex-astra-militarum.errata.krieg-combat-engineers-remote-mine-ability`
+- `faq` `codex-astra-militarum.errata.krieg-command-squad`
+- `faq` `codex-astra-militarum.errata.krieg-heavy-weapons-squad`
+- `faq` `codex-astra-militarum.errata.leman-russ-commander-death-befitting-an-officer`
+- `faq` `codex-astra-militarum.errata.lord-solar-leontus-orders`
+- `faq` `codex-astra-militarum.errata.militarum-tempestus-command-squad`
+- `faq` `codex-astra-militarum.errata.ogryn-bodyguard`
+- `faq` `codex-astra-militarum.errata.recon-element-detachment-masters-of-camouflage-detachment-rule`
+- `faq` `codex-astra-militarum.errata.siege-regiment-detachment-artillery-support-detachment-rule-creeping`
+- `faq` `codex-astra-militarum.errata.tempestus-aquilons`
+- `faq` `codex-astra-militarum.errata.tempestus-scions`
+- `faq` `codex-astra-militarum.errata.the-following-units-have-the-frame-keyword`
+- `faq` `codex-astra-militarum.errata.valkyrie`
+- `faq` `codex-astra-militarum.faq.kasrkin-and-catachan-jungle-fighters-and-tempestus-scions`
+- `faq` `codex-astra-militarum.faq.militarum-tempestus-command-squad-and-ogryn-bodyguard`
+- `faq` `codex-astra-militarum.faq.siege-regiment`
+- `faq` `codex-chaos-knights.errata.infernal-lance-detachment-malefic-surge-detachment-rule`
+- `faq` `codex-chaos-knights.errata.knight-abominant-warp-storms-ability`
+- `faq` `codex-chaos-knights.errata.knight-desecrator`
+- `faq` `codex-chaos-knights.errata.knight-ruinator`
+- `faq` `codex-chaos-space-marines.errata.abaddon-the-despoiler-dark-destiny-ability`
+- `faq` `codex-chaos-space-marines.errata.accursed-cultists-howling-horde-ability`
+- `faq` `codex-chaos-space-marines.errata.chaos-cult-detachment-keywords`
+- `faq` `codex-chaos-space-marines.errata.chaos-land-raider-chaos-predator-annihilator-chaos-predator`
+- `faq` `codex-chaos-space-marines.errata.chaos-land-raider-transport`
+- `faq` `codex-chaos-space-marines.errata.chaos-lord-in-terminator-armour-keywords`
+- `faq` `codex-chaos-space-marines.errata.chaos-predator-annihilator-annihilator-ability`
+- `faq` `codex-chaos-space-marines.errata.chaos-predator-destructor-melee-weapons-armoured-tracks`
+- `faq` `codex-chaos-space-marines.errata.chaos-rhino-transport`
+- `faq` `codex-chaos-space-marines.errata.chaos-rhino-wargear-options`
+- `faq` `codex-chaos-space-marines.errata.cypher-agent-of-discord-ability`
+- `faq` `codex-chaos-space-marines.errata.datasheets`
+- `faq` `codex-chaos-space-marines.errata.fabius-bile-chirurgeon-ability`
+- `faq` `codex-chaos-space-marines.errata.heldrake`
+- `faq` `codex-chaos-space-marines.errata.heretic-astartes-daemon-prince-abilities`
+- `faq` `codex-chaos-space-marines.errata.huron-blackheart-hamadryas-knowledge-psychic-ability`
+- `faq` `codex-chaos-space-marines.errata.lord-discordant-on-helstalker`
+- `faq` `codex-chaos-space-marines.errata.master-of-executions-core-abilities`
+- `faq` `codex-chaos-space-marines.errata.obliterators-warp-rift-firepower-ability`
+- `faq` `codex-chaos-space-marines.errata.pactbound-zealots-detachment-marks-of-chaos-detachment-rule`
+- `faq` `codex-chaos-space-marines.errata.pactbound-zealots-detachment-restrictions`
+- `faq` `codex-chaos-space-marines.errata.red-corsairs-reave-captain-raiders-due-ability`
+- `faq` `codex-chaos-space-marines.errata.traitor-guardsmen-squad-twisted-defence-force-ability`
+- `faq` `codex-chaos-space-marines.errata.vashtorr-the-arkifane`
+- `faq` `codex-chaos-space-marines.errata.warp-talons-warp-strike-ability`
+- `faq` `codex-chaos-space-marines.faq.fabius-bile`
+- `faq` `codex-chaos-space-marines.faq.traitor-enforcer`
+- `faq` `codex-chaos-space-marines.faq.veterans-of-the-long-war`
+- `faq` `codex-chaos-space-marines.faq.warp-talons`
+- `faq` `codex-death-guard.errata.chaos-land-raider-chaos-predator-annihilator-chaos-predator`
+- `faq` `codex-death-guard.errata.chaos-predator-destructor-predator-autocannon`
+- `faq` `codex-death-guard.errata.datasheets`
+- `faq` `codex-death-guard.errata.deathshroud-terminators-death-approaches-ability`
+- `faq` `codex-death-guard.errata.mortarion-diseased-influence-ability`
+- `faq` `codex-death-guard.errata.mortarion-inflamed-reprisal-ability`
+- `faq` `codex-death-guard.errata.typhus-eater-plague-ability`
+- `faq` `codex-death-guard.faq.plagueburst-crawler`
+- `faq` `codex-drukhari.errata.archon-shadowfield-ability`
+- `faq` `codex-drukhari.errata.hellions-skyboard-evasion-ability`
+- `faq` `codex-drukhari.errata.lady-malys-mind-like-a-steel-trap-ability`
+- `faq` `codex-drukhari.errata.raider-ravager-venom-keywords`
+- `faq` `codex-drukhari.errata.razorwing-jetfighter-voidraven-bomber`
+- `faq` `codex-drukhari.errata.scourges-with-shardcarbines-swooping-descent-ability`
+- `faq` `codex-drukhari.errata.venom`
+- `faq` `codex-drukhari.errata.voidraven-bomber-void-mine-ability`
+- `faq` `codex-drukhari.faq.venom`
+- `faq` `codex-emperors-children.errata.chaos-land-raider-and-chaos-rhino-keywords`
+- `faq` `codex-emperors-children.errata.chaos-spawn-scuttling-horrors-ability`
+- `faq` `codex-emperors-children.errata.chaos-terminators-lethal-obsession-ability`
+- `faq` `codex-emperors-children.errata.datasheets`
+- `faq` `codex-emperors-children.errata.flawless-blades-melee-weapons-blissblade`
+- `faq` `codex-emperors-children.errata.fulgrim-keywords`
+- `faq` `codex-emperors-children.errata.heldrake`
+- `faq` `codex-emperors-children.errata.infractors-melee-weapons-power-sword`
+- `faq` `codex-emperors-children.errata.rapid-evisceration-detachment-mechanised-murder-detachment-rule`
+- `faq` `codex-emperors-children.errata.tormentors-melee-weapons-power-sword`
+- `faq` `codex-emperors-children.faq.carnival-of-excess`
+- `faq` `codex-emperors-children.faq.noise-marines`
+- `faq` `codex-genestealer-cults.errata.acolyte-hybrids-with-hand-flamers-ranged-weapons`
+- `faq` `codex-genestealer-cults.errata.acolyte-iconward-summon-the-cult-ability`
+- `faq` `codex-genestealer-cults.errata.biophagus-clamavus-locus-nexos-core-abilities`
+- `faq` `codex-genestealer-cults.errata.biophagus-unit-composition-wargear`
+- `faq` `codex-genestealer-cults.errata.goliath-rockgrinder-goliath-truck-keywords`
+- `faq` `codex-genestealer-cults.errata.goliath-rockgrinder-ranged-weapons`
+- `faq` `codex-genestealer-cults.errata.goliath-truck-ranged-weapons`
+- `faq` `codex-genestealer-cults.errata.hybrid-metamorphs-brood-surge-ability`
+- `faq` `codex-genestealer-cults.errata.kelermorph-hypersensory-abilities`
+- `faq` `codex-genestealer-cults.errata.nexos-abilities-battlefield-analysis`
+- `faq` `codex-genestealer-cults.errata.primus-cult-demagogue-ability`
+- `faq` `codex-genestealer-cults.errata.reductus-saboteur`
+- `faq` `codex-genestealer-cults.errata.sanctus`
+- `faq` `codex-genestealer-cults.faq.kasrkin-and-brood-brothers-auxilia`
+- `faq` `codex-grey-knights.errata.brotherhood-chaplain-abilities-core-abilities`
+- `faq` `codex-grey-knights.errata.brotherhood-techmarine-guardians-of-the-machine-ability`
+- `faq` `codex-grey-knights.errata.datasheets`
+- `faq` `codex-grey-knights.errata.grand-master-voldus-sanctuary-ability`
+- `faq` `codex-grey-knights.errata.land-raider-land-raider-crusader-land-raider-redeemer`
+- `faq` `codex-grey-knights.errata.stormraven-gunship`
+- `faq` `codex-grey-knights.errata.stormtalon-gunship-stormhawk-interceptor`
+- `faq` `codex-imperial-agents.errata.callidus-assassin`
+- `faq` `codex-imperial-agents.errata.corvus-blackstar`
+- `faq` `codex-imperial-agents.errata.culexus-assassin-etheric-emergence-ability`
+- `faq` `codex-imperial-agents.errata.datasheets`
+- `faq` `codex-imperial-agents.errata.imperial-rhino-inquisitorial-chimera-and-sisters-of-battle`
+- `faq` `codex-imperial-agents.errata.imperial-rhino-transport`
+- `faq` `codex-imperial-agents.errata.inquisitor-draxus-leader`
+- `faq` `codex-imperial-agents.errata.inquisitor-leader`
+- `faq` `codex-imperial-agents.errata.inquisitorial-agents-inquisitorial-henchmen`
+- `faq` `codex-imperial-agents.errata.ministorum-priest-core-abilities`
+- `faq` `codex-imperial-agents.errata.sisters-of-battle-immolator-invulnerable-save`
+- `faq` `codex-imperial-agents.errata.veiled-blade-elimination-force-detachment-intraneural-biotech-enhancement`
+- `faq` `codex-imperial-agents.errata.vindicare-assassin-dead-shot-ability`
+- `faq` `codex-imperial-agents.errata.voidsmen-at-arms-navy-bodyguard`
+- `faq` `codex-imperial-knights.errata.canis-rex-knight-castellan-knight-crusader-knight-defender`
+- `faq` `codex-imperial-knights.errata.canis-rex-knight-crusader-knight-defender-knight-errant`
+- `faq` `codex-imperial-knights.errata.gate-warden-lance-detachment-dauntless-defenders-detachment-rule`
+- `faq` `codex-imperial-knights.errata.knight-castellan-knight-valiant-damaged`
+- `faq` `codex-imperial-knights.errata.valourstrike-lance-detachment-bold-gallantry-detachment-rule`
+- `faq` `codex-imperial-knights.faq.questor-forgepact`
+- `faq` `codex-leagues-of-votann.errata.berekh-stornbrow-relentless-avalanche-ability`
+- `faq` `codex-leagues-of-votann.errata.buri-aegnirssen-unhinged-vengeance-ability`
+- `faq` `codex-leagues-of-votann.errata.hekaton-land-fortress-sagitaur-keywords`
+- `faq` `codex-leagues-of-votann.errata.hekaton-land-fortress-transport`
+- `faq` `codex-leagues-of-votann.errata.hernkyn-yaegirs-pragmatic-hunters-ability`
+- `faq` `codex-leagues-of-votann.errata.memnyr-strategist-predictive-guidance-ability`
+- `faq` `codex-leagues-of-votann.errata.sagitaur-transport`
+- `faq` `codex-leagues-of-votann.errata.uthar-the-destined-ancestral-fortune-ability`
+- `faq` `codex-leagues-of-votann.faq.arkanyst-evaluator`
+- `faq` `codex-necrons.errata.annihilation-barge-catacomb-command-barge-convergence-of-dominion`
+- `faq` `codex-necrons.errata.annihilation-legion-detachment-annihilation-protocol-detachment-rule`
+- `faq` `codex-necrons.errata.canoptek-reanimator-nanoscarab-reanimation-beam-ability`
+- `faq` `codex-necrons.errata.chronomancer-geomancer-orikan-the-diviner-plasmancer-psychomancer-technomancer`
+- `faq` `codex-necrons.errata.chronomancer-timesplinter-mantle-ability`
+- `faq` `codex-necrons.errata.doom-scythe-profile`
+- `faq` `codex-necrons.errata.hypercrypt-legion-detachment-hyperphasing-detachment-rule-battle-size`
+- `faq` `codex-necrons.errata.lokhust-lord-overlord-overlord-with-translocation-shroud-resurrection`
+- `faq` `codex-necrons.errata.monolith-eternity-gate-ability`
+- `faq` `codex-necrons.errata.night-scythe-2`
+- `faq` `codex-necrons.errata.night-scythe`
+- `faq` `codex-necrons.errata.obeisance-phalanx-detachment-worthy-foes-detachment-rule`
+- `faq` `codex-necrons.errata.plasmancer-living-lightning-ability`
+- `faq` `codex-necrons.errata.the-silent-king`
+- `faq` `codex-necrons.errata.transcendent-ctan-transdimensional-displacement-ability-2`
+- `faq` `codex-necrons.errata.transcendent-ctan-transdimensional-displacement-ability`
+- `faq` `codex-necrons.faq.canoptek-court`
+- `faq` `codex-necrons.faq.cryptothralls`
+- `faq` `codex-necrons.faq.hypercrypt-legion`
+- `faq` `codex-necrons.faq.monolith-2`
+- `faq` `codex-necrons.faq.monolith`
+- `faq` `codex-necrons.faq.overlord-with-translocation-shroud-and-overlord-and-lokhust`
+- `faq` `codex-space-marines.errata.captain-titus-righteous-fury-ability`
+- `faq` `codex-space-marines.errata.iron-father-feirros-iron-father-ability`
+- `faq` `codex-space-marines.errata.kayvaan-shrike`
+- `faq` `codex-space-marines.errata.librarian-in-terminator-armour`
+- `faq` `codex-space-marines.errata.techmarine-techmarine-ability`
+- `faq` `codex-tau-empire.errata.crisis-sunforge-battlesuits-sunforge-ability`
+- `faq` `codex-tau-empire.errata.devilfish-hammerhead-gunship-piranhas-sky-ray-gunship-tidewall`
+- `faq` `codex-tau-empire.errata.ethereal-abilities`
+- `faq` `codex-tau-empire.errata.firesight-team-precise-targeting-ability`
+- `faq` `codex-tau-empire.errata.kauyon-detachment-patient-hunter-detachment-rule`
+- `faq` `codex-tau-empire.errata.kroot-trail-shaper`
+- `faq` `codex-tau-empire.errata.montka-detachment-killing-blow-detachment-rule`
+- `faq` `codex-tau-empire.errata.pathfinder-team-target-uploaded-ability`
+- `faq` `codex-tau-empire.errata.razorshark-strike-fighter-sun-shark-bomber`
+- `faq` `codex-tau-empire.errata.retaliation-cadre-detachment-bonded-heroes-detachment-rule`
+- `faq` `codex-tau-empire.errata.riptide-battlesuit`
+- `faq` `codex-tau-empire.errata.stealth-battlesuits`
+- `faq` `codex-tau-empire.errata.sun-shark-bomber-pulse-bombs-ability`
+- `faq` `codex-tau-empire.errata.the-twin-lance-neocapacitor-shields-ability`
+- `faq` `codex-tau-empire.faq.ethereal`
+- `faq` `codex-thousand-sons.errata.chaos-land-raider-chaos-predator-annihilator-chaos-predator`
+- `faq` `codex-thousand-sons.errata.chaos-rhino-core-abilities`
+- `faq` `codex-thousand-sons.errata.chaos-vindicator-profile`
+- `faq` `codex-thousand-sons.errata.daemon-prince-of-tzeentch-with-wings-aetherstride-ability`
+- `faq` `codex-thousand-sons.errata.datasheets`
+- `faq` `codex-thousand-sons.errata.flamers-profile`
+- `faq` `codex-thousand-sons.errata.heldrake`
+- `faq` `codex-thousand-sons.errata.infernal-master-ranged-weapons-inferno-bolt-pistol`
+- `faq` `codex-thousand-sons.errata.kairos-fateweaver-ranged-weapons-infernal-gateway`
+- `faq` `codex-thousand-sons.errata.lord-of-change-ranged-weapons`
+- `faq` `codex-thousand-sons.errata.maulerfiend-snarling-protector-ability`
+- `faq` `codex-thousand-sons.errata.mutalith-vortex-beast-immaterial-flare-ability`
+- `faq` `codex-thousand-sons.errata.screamers-profile`
+- `faq` `codex-thousand-sons.errata.sekhetar-robots-prophetic-sentinels-ability`
+- `faq` `codex-thousand-sons.errata.sorcerer-in-terminator-armour-marked-by-fate-ability`
+- `faq` `codex-thousand-sons.errata.tzaangor-enlightened-with-fatecaster-greatbows-malign-trickery-ability`
+- `faq` `codex-thousand-sons.errata.warpmeld-pact-detachment-warpmeld-sacrifice-detachment-rule`
+- `faq` `codex-thousand-sons.faq.tzaangor-enlightened-with-fatecaster-greatbows-and-tzaangor-shaman`
+- `faq` `codex-tyranids.errata.biovores-seed-spore-mine-ability`
+- `faq` `codex-tyranids.errata.broodlord-parasite-of-mortrex`
+- `faq` `codex-tyranids.errata.enraged-behemoths-detachment-rule`
+- `faq` `codex-tyranids.errata.exocrine-ranged-weapons-bio-plasmic-cannon`
+- `faq` `codex-tyranids.errata.feed-the-swarm-detachment-rule`
+- `faq` `codex-tyranids.errata.harpy-spore-mine-cysts-ability`
+- `faq` `codex-tyranids.errata.harridan`
+- `faq` `codex-tyranids.errata.hive-tyrant-onslaught-ability`
+- `faq` `codex-tyranids.errata.hive-tyrant-winged-hive-tyrant-will-of-the`
+- `faq` `codex-tyranids.errata.hyperadapted-raveners-hypersensory-array-ability`
+- `faq` `codex-tyranids.errata.insurmountable-odds-detachment-rule`
+- `faq` `codex-tyranids.errata.mawloc-raveners-trygon-keywords`
+- `faq` `codex-tyranids.errata.neurolictor-keywords`
+- `faq` `codex-tyranids.errata.norn-assimilator-keywords`
+- `faq` `codex-tyranids.errata.psychophage`
+- `faq` `codex-tyranids.errata.termagants-skulking-horrors-ability`
+- `faq` `codex-tyranids.errata.the-following-units-have-m-and-oc-of`
+- `faq` `codex-tyranids.errata.the-following-units-have-the-frame-keyword`
+- `faq` `codex-tyranids.errata.the-following-units-lose-the-hover-core-ability`
+- `faq` `codex-tyranids.errata.trygon-subterranean-tunnels-ability`
+- `faq` `codex-tyranids.errata.tyranid-prime-with-lash-whip-aggressive-leader-beast`
+- `faq` `codex-tyranids.errata.tyranid-warriors-with-melee-bio-weapons-adaptive-instincts`
+- `faq` `codex-tyranids.errata.tyrannocyte-aerial-seeding-ability`
+- `faq` `codex-tyranids.errata.tyrannofex-ranged-weapons-rupture-cannon`
+- `faq` `codex-tyranids.errata.venomthropes-foul-spores-ability`
+- `faq` `codex-tyranids.errata.von-ryans-leapers-pouncing-leap-ability`
+- `faq` `codex-tyranids.faq.biovores`
+- `faq` `codex-tyranids.faq.carnifexes-and-unending-swarm`
+- `faq` `codex-tyranids.faq.carnifexes`
+- `faq` `codex-tyranids.faq.mawloc-2`
+- `faq` `codex-tyranids.faq.mawloc`
+- `faq` `codex-tyranids.faq.neurotyrant`
+- `faq` `codex-tyranids.faq.spore-mines`
+- `faq` `codex-tyranids.faq.venomthropes`
+- `faq` `codex-world-eaters.errata.angron-driven-by-ultimate-rage-ability`
+- `faq` `codex-world-eaters.errata.berzerker-warband-detachment-relentless-rage-detachment-rule`
+- `faq` `codex-world-eaters.errata.brazen-fury-detachment-rule`
+- `faq` `codex-world-eaters.errata.chaos-land-raider-chaos-predator-annihilator-chaos-predator`
+- `faq` `codex-world-eaters.errata.chaos-rhino-meet-any-challenge-ability`
+- `faq` `codex-world-eaters.errata.chaos-terminators-blood-fury-ability`
+- `faq` `codex-world-eaters.errata.datasheets`
+- `faq` `codex-world-eaters.errata.defiler-unleash-wrath-ability-2nd-bullet-point`
+- `faq` `codex-world-eaters.errata.exalted-eightbound-rend-and-tear-ability`
+- `faq` `codex-world-eaters.errata.goremongers-loping-speed-ability`
+- `faq` `codex-world-eaters.errata.helbrute-frenzy-ability`
+- `faq` `codex-world-eaters.errata.heldrake`
+- `faq` `codex-world-eaters.errata.khorne-berzerkers-abilities`
+- `faq` `codex-world-eaters.errata.khorne-berzerkers-and-jakhals-icon-of-khorne`
+- `faq` `codex-world-eaters.errata.khorne-berzerkers-blood-surge-ability`
+- `faq` `codex-world-eaters.errata.maulerfiend-scent-of-blood-ability`
+- `faq` `codex-world-eaters.errata.slaughterbound-melee-weapons-lacerator-and-daemonic-claw`
+- `faq` `codex-world-eaters.faq.angron`
+- `faq` `codex-world-eaters.faq.khorne-daemonkin`
+- `faq` `imperial-armour-chaos-knights.errata.chaos-acastus-knight-asterius-and-chaos-acastus-knight`
+- `faq` `imperial-armour-chaos-titan-legions.errata.chaos-reaver-titan-chaos-warbringer-nemesis-titan-chaos`
+- `faq` `imperial-armour-imperial-knights.errata.acastus-knight-asterius-and-acastus-knight-porphyrion-keywords`
+- `faq` `imperial-armour-imperial-knights.errata.armiger-moirax-protection-protocols-ability`
+- `faq` `imperial-armour-necrons.errata.seraptek-heavy-construct-abilities`
+- `faq` `imperial-armour-tau-empire.errata.manta-taunar-supremacy-armour-keywords`
+- `faq` `imperial-armour-tau-empire.errata.manta`
+- `faq` `imperial-armour-tau-empire.errata.taunar-supremacy-armour`
+- `faq` `imperial-armour-tau-empire.errata.tiger-shark`
+- `faq` `imperial-armour-titan-legions.errata.reaver-titan-warbringer-nemesis-titan-warhound-titan-and`
+- `faq` `index-chaos-daemons.errata.blood-legion-detachment-fools-flight-stratagem-when-target`
+- `faq` `index-chaos-daemons.errata.blood-legion-detachment-murdercall-detachment-rule`
+- `faq` `index-chaos-daemons.errata.daemonic-incursion-detachment-warp-rifts-rule`
+- `faq` `index-chaos-daemons.errata.horticulous-slimux-beast-handler-ability`
+- `faq` `index-chaos-daemons.errata.kairos-fateweaver-one-head-looks-back-ability`
+- `faq` `index-chaos-daemons.errata.shadow-legion-detachment-penumbral-puppetry-detachment-rule`
+- `faq` `index-chaos-daemons.errata.shadow-legion-detachment-shadows-caress-rule`
+- `faq` `index-chaos-daemons.faq.belakor`
+- `faq` `index-chaos-daemons.faq.kairos-fateweaver-and-skarbrand-and-great-unclean-one`
+- `faq` `index-chaos-daemons.faq.pink-horrors-2`
+- `faq` `index-chaos-daemons.faq.pink-horrors-3`
+- `faq` `index-chaos-daemons.faq.pink-horrors-4`
+- `faq` `index-chaos-daemons.faq.pink-horrors-and-blue-horrors-2`
+- `faq` `index-chaos-daemons.faq.pink-horrors-and-blue-horrors`
+- `faq` `index-chaos-daemons.faq.pink-horrors`
+
+### A core or weapon ability listed among a faction's rules, which the summary format gives no rule type (54)
+
+- `ability` `core.anti`
+- `ability` `core.assault`
+- `ability` `core.blast`
+- `ability` `core.cleave`
+- `ability` `core.close-quarters`
+- `ability` `core.conversion`
+- `ability` `core.damaged`
+- `ability` `core.deadly-demise-2d6-6`
+- `ability` `core.deadly-demise-2d6`
+- `ability` `core.deadly-demise-3d6`
+- `ability` `core.deadly-demise`
+- `ability` `core.deep-strike`
+- `ability` `core.devastating-wounds-infantry`
+- `ability` `core.devastating-wounds-monster-vehicle`
+- `ability` `core.devastating-wounds-non-monster-vehicle`
+- `ability` `core.devastating-wounds`
+- `ability` `core.extra-attacks`
+- `ability` `core.feel-no-pain`
+- `ability` `core.fights-first`
+- `ability` `core.firing-deck`
+- `ability` `core.harpooned`
+- `ability` `core.hazardous`
+- `ability` `core.heavy`
+- `ability` `core.hover`
+- `ability` `core.ignores-cover`
+- `ability` `core.indirect-fire`
+- `ability` `core.infiltrators`
+- `ability` `core.lance`
+- `ability` `core.leader`
+- `ability` `core.lethal-hits-non-monster-vehicle`
+- `ability` `core.lethal-hits`
+- `ability` `core.linked-fire`
+- `ability` `core.lone-operative`
+- `ability` `core.melta`
+- `ability` `core.one-shot`
+- `ability` `core.overcharge`
+- `ability` `core.pistol`
+- `ability` `core.plasma-warhead`
+- `ability` `core.precision`
+- `ability` `core.psychic-assassin`
+- `ability` `core.psychic`
+- `ability` `core.rapid-fire`
+- `ability` `core.reverberating-summons`
+- `ability` `core.scouts`
+- `ability` `core.stealth`
+- `ability` `core.super-heavy-walker`
+- `ability` `core.support`
+- `ability` `core.sustained-hits-1-infantry`
+- `ability` `core.sustained-hits-1-non-monster-vehicle`
+- `ability` `core.sustained-hits-2-monster-vehicle`
+- `ability` `core.sustained-hits-2-non-monster-vehicle`
+- `ability` `core.sustained-hits`
+- `ability` `core.torrent`
+- `ability` `core.twin-linked`
+
+### The keyword has no text of its own in this list, only a link to the rule that defines it (49)
+
+- `ability` `core.anti`
+- `ability` `core.assault`
+- `ability` `core.blast`
+- `ability` `core.cleave`
+- `ability` `core.close-quarters`
+- `ability` `core.conversion`
+- `ability` `core.damaged`
+- `ability` `core.deep-strike`
+- `ability` `core.devastating-wounds-infantry`
+- `ability` `core.devastating-wounds-monster-vehicle`
+- `ability` `core.devastating-wounds-non-monster-vehicle`
+- `ability` `core.devastating-wounds`
+- `ability` `core.extra-attacks`
+- `ability` `core.feel-no-pain`
+- `ability` `core.fights-first`
+- `ability` `core.firing-deck`
+- `ability` `core.harpooned`
+- `ability` `core.hazardous`
+- `ability` `core.heavy`
+- `ability` `core.hover`
+- `ability` `core.ignores-cover`
+- `ability` `core.indirect-fire`
+- `ability` `core.infiltrators`
+- `ability` `core.lance`
+- `ability` `core.leader`
+- `ability` `core.lethal-hits-non-monster-vehicle`
+- `ability` `core.lethal-hits`
+- `ability` `core.linked-fire`
+- `ability` `core.lone-operative`
+- `ability` `core.melta`
+- `ability` `core.one-shot`
+- `ability` `core.overcharge`
+- `ability` `core.pistol`
+- `ability` `core.plasma-warhead`
+- `ability` `core.precision`
+- `ability` `core.psychic-assassin`
+- `ability` `core.psychic`
+- `ability` `core.rapid-fire`
+- `ability` `core.reverberating-summons`
+- `ability` `core.scouts`
+- `ability` `core.stealth`
+- `ability` `core.support`
+- `ability` `core.sustained-hits-1-infantry`
+- `ability` `core.sustained-hits-1-non-monster-vehicle`
+- `ability` `core.sustained-hits-2-monster-vehicle`
+- `ability` `core.sustained-hits-2-non-monster-vehicle`
+- `ability` `core.sustained-hits`
+- `ability` `core.torrent`
+- `ability` `core.twin-linked`
+
+### The FAQ names no rule the catalogue can link to (43)
+
+- `faq` `codex-adepta-sororitas.errata.celestian-sacresants-keywords`
+- `faq` `codex-adepta-sororitas.errata.saint-celestine-healing-tears-ability`
+- `faq` `codex-adeptus-custodes.errata.auric-champions-superior-creation`
+- `faq` `codex-aeldari.faq.can-the-yncarne-use`
+- `faq` `codex-chaos-space-marines.faq.if-i-am-using-2`
+- `faq` `codex-chaos-space-marines.faq.if-i-am-using`
+- `faq` `codex-chaos-space-marines.faq.when-i-replace-the`
+- `faq` `codex-death-guard.errata.mortarions-hammer-detachment-stinking-mire-stratagem-target-and`
+- `faq` `codex-death-guard.faq.does-my-skullsquirm-blight`
+- `faq` `codex-genestealer-cults.errata.biosanctic-broodsurge-detachment-evasive-vanguard-stratagem-when-and`
+- `faq` `codex-necrons.errata.catacomb-command-barge`
+- `faq` `codex-necrons.errata.ophydian-destroyers-tunnelling-horrors-ability`
+- `faq` `codex-supplement-black-templars.errata.keywords`
+- `faq` `codex-supplement-space-wolves.errata.bjorn-the-fell-handed`
+- `faq` `codex-supplement-space-wolves.errata.logan-grimnar-storm-bolter`
+- `faq` `codex-thousand-sons.errata.grand-coven-detachment-umbralefic-crystal-enhancement`
+- `faq` `codex-thousand-sons.errata.kairos-fateweaver-one-head-looks-back-ability`
+- `faq` `codex-thousand-sons.errata.rubricae-phalanx-detachment`
+- `faq` `codex-tyranids.errata.norn-assimilator-harpooned-weapon-ability`
+- `faq` `codex-tyranids.errata.sporocyst-seed-mucolids-ability`
+- `faq` `codex-tyranids.errata.surprise-assault-stratagem`
+- `faq` `codex-tyranids.errata.synaptic-goading-stratagem-when-and-effect`
+- `faq` `codex-tyranids.errata.the-swarmlord-malign-presence-ability`
+- `faq` `codex-tyranids.errata.vanguard-onslaught-neuronode-enhancement`
+- `faq` `codex-tyranids.faq.what-is-the-effect`
+- `faq` `codex-tyranids.faq.when-a-carnifex-model`
+- `faq` `codex-world-eaters.errata.kharn-the-betrayer-the-betrayer-ability`
+- `faq` `core-rules.errata.01-02-06`
+- `faq` `core-rules.errata.desperate-escape-test-updates`
+- `faq` `core-rules.errata.drawing-a-line`
+- `faq` `core-rules.errata.grenades-stratagem`
+- `faq` `core-rules.errata.replacing-one-model-with-another`
+- `faq` `core-rules.errata.tank-shock-stratagem`
+- `faq` `core-rules.faq.aerialists-ability-allows-you`
+- `faq` `core-rules.faq.does-an-arkanyst-evaluators`
+- `faq` `core-rules.faq.how-many-mortals-do`
+- `faq` `core-rules.faq.if-a-rule-says`
+- `faq` `core-rules.faq.when-a-unit-with-2`
+- `faq` `core-rules.faq.when-a-unit-with`
+- `faq` `core-rules.faq.when-i-select-one`
+- `faq` `core-rules.faq.when-my-biovores-unit`
+- `faq` `core-rules.faq.when-using-the-windrider`
+- `faq` `imperial-armour-tau-empire.errata.ax-1-0-tiger-shark`
+
+### No row of the app build in force matches the rule, so it has no official citation yet (18)
+
+- `ability` `adeptus-custodes.aleya.daughter-of-the-abyss`
+- `ability` `adeptus-custodes.anathema-psykana-rhino.psychic-null-aura`
+- `ability` `adeptus-custodes.anathema-psykana`
+- `ability` `adeptus-custodes.aquilan-shield.favoured-katah-salvus`
+- `ability` `adeptus-custodes.dread-host.favoured-katah-dacatarai`
+- `ability` `adeptus-custodes.emissaries-imperatus.favoured-katah-conservai`
+- `ability` `adeptus-custodes.emperors-chosen.favoured-katah-rendax`
+- `ability` `adeptus-custodes.knight-centura.psychic-null-aura`
+- `ability` `adeptus-custodes.might-of-the-moritoi.augury-uplink-upgrade`
+- `ability` `adeptus-custodes.might-of-the-moritoi.memento-moritoi-upgrade`
+- `ability` `adeptus-custodes.prosecutor-squad.psychic-null-aura`
+- `ability` `adeptus-custodes.shadowkeepers.favoured-katah-kaptaris`
+- `ability` `adeptus-custodes.shield-host.martial-mastery`
+- `ability` `adeptus-custodes.solar-spearhead.moritoi-ancients`
+- `ability` `adeptus-custodes.solar-watch.favoured-katah-calistus`
+- `ability` `adeptus-custodes.vigilator-squad.psychic-null-aura`
+- `ability` `adeptus-custodes.witchseeker-squad.psychic-null-aura`
+- `faq` `codex-space-marines.errata.kayvaan-shrike`
+
+### The mission action is identified only by its position on the card, not by an ID of its own (15)
+
+- `mission-action` `chapter-approved-2026-2027.cleanse.cleanse`
+- `mission-action` `chapter-approved-2026-2027.death-trap.booby-trap`
+- `mission-action` `chapter-approved-2026-2027.extract-relic.sensor-sweep`
+- `mission-action` `chapter-approved-2026-2027.gather-intel.extract-intelligence`
+- `mission-action` `chapter-approved-2026-2027.locate-and-deny.sensor-sweep`
+- `mission-action` `chapter-approved-2026-2027.plunder.plunder`
+- `mission-action` `chapter-approved-2026-2027.sabotage.sabotage`
+- `mission-action` `chapter-approved-2026-2027.secure-asset.secure-asset`
+- `mission-action` `chapter-approved-2026-2027.smoke-and-mirrors.decoy`
+- `mission-action` `chapter-approved-2026-2027.surveil-the-foe.surveil-the-foe`
+- `mission-action` `chapter-approved-2026-2027.triangulation.triangulate`
+- `mission-action` `chapter-approved-2026-2027.vanguard-operation.vanguard-operation`
+- `mission-action` `chapter-approved-2026-2027.vital-link.maintain-control`
+- `mission-action` `combat-patrol.purification.sanctification`
+- `mission-action` `combat-patrol.uphold-your-vows.hallowed-ground`
+
+### The summary names a rule that has no catalogue entry yet (10)
+
+- `core-rule` `command-re-roll`
+- `core-rule` `counteroffensive`
+- `core-rule` `crushing-impact`
+- `core-rule` `epic-challenge`
+- `core-rule` `explosives`
+- `core-rule` `fire-overwatch`
+- `core-rule` `heroic-intervention`
+- `core-rule` `insane-bravery`
+- `core-rule` `rapid-ingress`
+- `core-rule` `smokescreen`
+
+### The rule's text is not yet tied to an official source (5)
+
+- `ability` `core.deadly-demise-2d6-6`
+- `ability` `core.deadly-demise-2d6`
+- `ability` `core.deadly-demise-3d6`
+- `ability` `core.deadly-demise`
+- `ability` `core.super-heavy-walker`
+
+### The summary is still generated from upstream structured data and awaits a redraft in original wording (3)
+
+- `ability` `adeptus-custodes.shield-captain.praesidium-shield`
+- `ability` `blood-angels.sanguinary-guard.angelic-visage`
+- `ability` `dark-angels.lion-eljonson.supreme-commander`
+
+### The FAQ's question and answer are not both captured (1)
+
+- `faq` `codex-emperors-children.faq.carnival-of-excess`
+
+### The summary links to a weapon profile, which has no catalogue entry yet (1)
+
+- `faq` `codex-imperial-agents.errata.callidus-assassin`

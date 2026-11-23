@@ -1,0 +1,129 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "charge-move",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "37",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=37"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "11. Charge Phase",
+    "ruleNumber": "11.04",
+    "summary": "Used by a unit that declared a charge this phase; it can move up to its Charge roll, following the Moving rules (03). Before moving, choose one or more enemy units within 12\" and within that distance; until the move ends each is a charge target. Every model has to end nearer to at least one charge target. It must also get within 1\" of a target if possible and engage a target if possible. Afterwards the unit has to be engaged with every charge target and with no other enemy unit, and its models gain Fights First until the turn ends.",
+    "summarySpans": [
+      {
+        "start": 99,
+        "end": 111,
+        "target": {
+          "kind": "core-rule",
+          "id": "moving"
+        }
+      },
+      {
+        "start": 421,
+        "end": 428,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 504,
+        "end": 516,
+        "target": {
+          "kind": "core-ability",
+          "id": "fights-first"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "37",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=37"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "move-type",
+        "phase": "charge",
+        "chosenIn": "11.02",
+        "eligibility": {
+          "all": [
+            "declared-charge-this-phase"
+          ]
+        },
+        "maximumDistance": "charge-roll",
+        "effect": {
+          "action": "move",
+          "procedure": "03.00"
+        },
+        "beforeMoving": {
+          "selectChargeTargets": {
+            "count": {
+              "min": 1
+            },
+            "of": "enemy-units",
+            "within": [
+              {
+                "inches": 12,
+                "of": "your-unit"
+              },
+              {
+                "distance": "maximum-distance",
+                "of": "your-unit"
+              }
+            ],
+            "lasts": "until-end-of-this-move"
+          }
+        },
+        "whileMoving": [
+          {
+            "order": 1,
+            "each": "model",
+            "must": "end-move-closer-to-at-least-one-charge-target",
+            "ifAble": false
+          },
+          {
+            "order": 2,
+            "each": "model",
+            "must": "end-move-within-1-inch-of-at-least-one-charge-target",
+            "ifAble": true
+          },
+          {
+            "order": 3,
+            "each": "model",
+            "must": "end-move-engaged-with-at-least-one-charge-target",
+            "ifAble": true
+          }
+        ],
+        "afterMoving": {
+          "mustBeEngagedWith": "all-charge-targets",
+          "mustNotBeEngagedWith": "enemy-units-that-are-not-charge-targets",
+          "grants": {
+            "ability": "Fights First",
+            "to": "each-model-in-unit",
+            "until": "end-of-turn",
+            "ruleNumber": "24.13"
+          }
+        },
+        "failureOutcomeStatedHere": false
+      }
+    }
+  }
+}

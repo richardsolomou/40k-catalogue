@@ -1,0 +1,363 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.final-day.psionic-parasitism",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Final Day",
+    "summary": "As your Movement phase ends, each friendly TYRANIDS SYNAPSE unit may select two units from your army it can see within 9″: one TYRANIDS unit and one GENESTEALER CULTS unit other than a PATRIARCH or PURESTRAIN GENESTEALER unit. Roll D3+1 once. That many mortal wounds go to the cult unit, and restore that number of lost wounds to one of the selected TYRANIDS unit’s models. Until your next Movement phase starts, apply +1 on Hit rolls for that chosen TYRANIDS unit. Catalyst (Aura) — Friendly TYRANIDS units give your GENESTEALER CULTS units +1 to Hit rolls against enemies within 6″ of them.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 43,
+        "end": 59,
+        "bold": true
+      },
+      {
+        "start": 127,
+        "end": 135,
+        "bold": true
+      },
+      {
+        "start": 149,
+        "end": 166,
+        "bold": true
+      },
+      {
+        "start": 185,
+        "end": 194,
+        "bold": true
+      },
+      {
+        "start": 198,
+        "end": 220,
+        "bold": true
+      },
+      {
+        "start": 253,
+        "end": 266,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 350,
+        "end": 358,
+        "bold": true
+      },
+      {
+        "start": 390,
+        "end": 404,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 451,
+        "end": 459,
+        "bold": true
+      },
+      {
+        "start": 466,
+        "end": 474,
+        "bold": true
+      },
+      {
+        "start": 476,
+        "end": 480,
+        "bold": true
+      },
+      {
+        "start": 493,
+        "end": 501,
+        "bold": true
+      },
+      {
+        "start": 518,
+        "end": 535,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "reactive",
+        "scope": {
+          "duration": "permanent"
+        },
+        "effect": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "ability-part",
+              "trigger": {
+                "event": "phase-ended",
+                "condition": {
+                  "operator": "and",
+                  "operands": [
+                    {
+                      "type": "phase-is",
+                      "parameters": {
+                        "phase": "movement"
+                      }
+                    },
+                    {
+                      "type": "player-turn-is",
+                      "parameters": {
+                        "turn": "your-turn"
+                      }
+                    }
+                  ]
+                }
+              },
+              "duration": "until-next-movement-phase",
+              "effect": {
+                "type": "for-each-unit",
+                "selector": {
+                  "filter": {
+                    "owner": "friendly",
+                    "all_of": [
+                      "SYNAPSE",
+                      "TYRANIDS"
+                    ]
+                  }
+                },
+                "effect": {
+                  "type": "ability-part",
+                  "optional": true,
+                  "effect": {
+                    "type": "select-units",
+                    "selector": {
+                      "filter": {
+                        "owner": "friendly",
+                        "all_of": [
+                          "GENESTEALER CULTS"
+                        ],
+                        "none_of": [
+                          "PATRIARCH",
+                          "PURESTRAIN GENESTEALERS"
+                        ]
+                      },
+                      "count": {
+                        "min": 1,
+                        "max": 1
+                      },
+                      "eligibility": {
+                        "operator": "and",
+                        "operands": [
+                          {
+                            "type": "matches",
+                            "parameters": {
+                              "subject": "selected-unit",
+                              "filter": {
+                                "within": {
+                                  "of": "recipient",
+                                  "range": {
+                                    "inches": 9
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "matches",
+                            "parameters": {
+                              "subject": "selected-unit",
+                              "filter": {
+                                "visible": {
+                                  "to": "recipient"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "bind_as": "cult"
+                    },
+                    "effect": {
+                      "type": "select-units",
+                      "selector": {
+                        "filter": {
+                          "owner": "friendly",
+                          "all_of": [
+                            "TYRANIDS"
+                          ]
+                        },
+                        "count": {
+                          "min": 1,
+                          "max": 1
+                        },
+                        "eligibility": {
+                          "operator": "and",
+                          "operands": [
+                            {
+                              "type": "matches",
+                              "parameters": {
+                                "subject": "selected-unit",
+                                "filter": {
+                                  "within": {
+                                    "of": "recipient",
+                                    "range": {
+                                      "inches": 9
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "type": "matches",
+                              "parameters": {
+                                "subject": "selected-unit",
+                                "filter": {
+                                  "visible": {
+                                    "to": "recipient"
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "bind_as": "brood"
+                      },
+                      "effect": {
+                        "type": "sequence",
+                        "steps": [
+                          {
+                            "type": "roll",
+                            "dice": "D3+1",
+                            "roll_var": "that-many",
+                            "effect": {
+                              "type": "sequence",
+                              "steps": [
+                                {
+                                  "type": "mortal-wounds",
+                                  "target": {
+                                    "selection_var": "cult"
+                                  },
+                                  "modifier": {
+                                    "count": {
+                                      "roll_var": "that-many"
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "heal",
+                                  "target": {
+                                    "selection_var": "brood"
+                                  },
+                                  "modifier": {
+                                    "amount": {
+                                      "roll_var": "that-many"
+                                    },
+                                    "per": "one-model"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "roll-modifier",
+                            "target": {
+                              "selection_var": "brood"
+                            },
+                            "modifier": {
+                              "roll": "hit",
+                              "operation": "add",
+                              "value": 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "ability-grant",
+              "target": {
+                "owner": "friendly",
+                "all_of": [
+                  "TYRANIDS"
+                ]
+              },
+              "modifier": {
+                "ability": {
+                  "ability_id": "psionic-parasitism-genestealer-cults",
+                  "definition_id": "catalyst"
+                },
+                "definition": {
+                  "type": "ability-part",
+                  "name": "Catalyst",
+                  "effect": {
+                    "type": "aura",
+                    "target": "enemy-within-aura",
+                    "modifier": {
+                      "range": {
+                        "inches": 6
+                      },
+                      "effect": {
+                        "type": "conditional",
+                        "condition": {
+                          "type": "same-unit",
+                          "parameters": {
+                            "subject": "defender",
+                            "as": "recipient"
+                          }
+                        },
+                        "effect": {
+                          "type": "roll-modifier",
+                          "target": {
+                            "owner": "friendly",
+                            "all_of": [
+                              "GENESTEALER CULTS"
+                            ]
+                          },
+                          "modifier": {
+                            "roll": "hit",
+                            "operation": "add",
+                            "value": 1
+                          }
+                        }
+                      },
+                      "eligible": {
+                        "owner": "enemy"
+                      },
+                      "of": "this-unit"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.tech-priest-dominus.dataspike",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Tech-Priest Dominus",
+    "summary": "As each Fight phase begins, you may pick one enemy VEHICLE unit that this model's unit has within its Engagement Range, then roll a D6. If it shows 4+, D6 mortal wounds are inflicted on that VEHICLE unit, and its melee weapons have their Weapon Skill worsened by 1 for the rest of the phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Tech-Priest Dominus",
+        "trigger": {
+          "timing": "start-of-fight-phase",
+          "turn": "either"
+        },
+        "optional": true,
+        "selection": {
+          "count": 1,
+          "side": "enemy",
+          "keywordsAll": [
+            "VEHICLE"
+          ],
+          "withinEngagementRangeOf": "this-model-unit"
+        },
+        "roll": {
+          "dice": "D6",
+          "diceSides": 6,
+          "success": "4+"
+        },
+        "effects": [
+          {
+            "kind": "mortal-wounds",
+            "amount": "D6",
+            "condition": "roll-succeeded"
+          },
+          {
+            "kind": "weapon-modifier",
+            "weaponType": "melee",
+            "target": "selected-enemy",
+            "characteristic": "WS",
+            "worsenBy": 1,
+            "duration": "phase",
+            "condition": "roll-succeeded"
+          }
+        ]
+      }
+    }
+  }
+}

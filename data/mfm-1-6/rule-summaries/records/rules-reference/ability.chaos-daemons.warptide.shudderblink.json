@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.warptide.shudderblink",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Warptide",
+    "summary": "On selection for an Advance Move, check for both Legiones Daemonica and Battleline on the friendly unit. Its ranged attacks gain [ASSAULT] through turn end. The move leaves its eligibility to declare a charge intact.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 32,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 49,
+        "end": 67,
+        "bold": true
+      },
+      {
+        "start": 72,
+        "end": 82,
+        "bold": true
+      },
+      {
+        "start": 129,
+        "end": 138,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "assault"
+        }
+      },
+      {
+        "start": 177,
+        "end": 208,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "target": {
+          "owner": "friendly",
+          "level": "unit",
+          "allOf": [
+            "Legiones Daemonica",
+            "Battleline"
+          ]
+        },
+        "trigger": {
+          "event": "selected-to-move",
+          "moveTypes": [
+            "advance"
+          ]
+        },
+        "effects": [
+          {
+            "type": "weapon-ability-grant",
+            "keyword": "assault",
+            "attackType": "ranged",
+            "expires": {
+              "event": "turn-ended",
+              "turn": "triggering"
+            }
+          },
+          {
+            "type": "eligibility-exception",
+            "action": "declare-charge",
+            "ignores": "triggering-move-only"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.carnival-of-excess.daemonic-empowerment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Carnival of Excess",
+    "summary": "Your EMPEROR’S CHILDREN and LEGIONS OF EXCESS units become empowered when they are 6″ or closer to a friendly unit of the other listed faction. Weapons on models in an empowered unit gain Sustained Hits 1. If it already has that ability, an attack with it scores a Critical Hit on an unmodified 5+.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 23,
+        "bold": true
+      },
+      {
+        "start": 28,
+        "end": 45,
+        "bold": true
+      },
+      {
+        "start": 188,
+        "end": 204,
+        "target": {
+          "kind": "core-rule",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "conditions": [
+          {
+            "subject": {
+              "side": "own-army",
+              "allKeywords": [
+                "EMPEROR’S CHILDREN"
+              ]
+            },
+            "within": {
+              "inches": 6,
+              "of": {
+                "side": "friendly",
+                "allKeywords": [
+                  "LEGIONS OF EXCESS"
+                ]
+              }
+            }
+          },
+          {
+            "subject": {
+              "side": "own-army",
+              "allKeywords": [
+                "LEGIONS OF EXCESS"
+              ]
+            },
+            "within": {
+              "inches": 6,
+              "of": {
+                "side": "friendly",
+                "allKeywords": [
+                  "EMPEROR’S CHILDREN"
+                ]
+              }
+            }
+          }
+        ],
+        "state": {
+          "name": "empowered",
+          "duration": "while-a-condition-applies"
+        },
+        "effects": [
+          {
+            "type": "grant-weapon-ability",
+            "recipient": "weapons-equipped-by-models-in-empowered-unit",
+            "ability": "sustained-hits",
+            "value": 1
+          },
+          {
+            "type": "set-critical-hit-threshold",
+            "recipient": "attacks-with-weapon-in-empowered-unit",
+            "condition": {
+              "weaponAlreadyHas": "sustained-hits"
+            },
+            "roll": "unmodified-hit",
+            "threshold": 5
+          }
+        ]
+      }
+    }
+  }
+}

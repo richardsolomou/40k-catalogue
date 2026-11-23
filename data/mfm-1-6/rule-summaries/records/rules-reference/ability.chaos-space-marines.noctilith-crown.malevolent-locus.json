@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.noctilith-crown.malevolent-locus",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Noctilith Crown",
+    "summary": "Friendly HERETIC ASTARTES units in this FORTIFICATION’s 9″ aura improve Leadership by 1.",
+    "summarySpans": [
+      {
+        "start": 9,
+        "end": 25,
+        "bold": true
+      },
+      {
+        "start": 40,
+        "end": 53,
+        "bold": true
+      },
+      {
+        "start": 72,
+        "end": 82,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-fortification",
+        "aura": {
+          "emitter": {
+            "entity": "unit",
+            "selector": "this-fortification",
+            "requiredKeyword": "FORTIFICATION"
+          },
+          "recipient": {
+            "side": "friendly",
+            "entity": "unit",
+            "allKeywords": [
+              "HERETIC ASTARTES"
+            ],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-fortification",
+            "to": "recipient-unit",
+            "kind": "within",
+            "distanceInches": 9
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "characteristic-modifier",
+            "recipient": "recipient-unit",
+            "characteristic": "leadership",
+            "operation": "improve",
+            "amount": 1
+          }
+        ]
+      }
+    }
+  }
+}

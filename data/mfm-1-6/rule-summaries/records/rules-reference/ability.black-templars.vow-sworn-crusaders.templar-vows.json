@@ -1,0 +1,291 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.vow-sworn-crusaders.templar-vows",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Vow-sworn Crusaders",
+    "summary": "As battle round one opens, you may pick one Vow for your Adeptus Astartes units. It remains active through battle end. Abhor the Witch gives both [PRECISION] and [LANCE] to melee attacks against a PSYKER unit. Accept Any Challenge gives melee attacks +1 to wound rolls when the target’s T exceeds the attack’s S. Uphold the Honour applies to Infantry units. Treat an objective as secured at your Movement phase’s close if one of those units controls it. An advance move still lets the chosen unit start an action. Restrictions: Black Templars units are permitted. Adeptus Astartes from another Chapter are excluded.",
+    "summarySpans": [
+      {
+        "start": 44,
+        "end": 47,
+        "bold": true
+      },
+      {
+        "start": 57,
+        "end": 73,
+        "bold": true
+      },
+      {
+        "start": 119,
+        "end": 134,
+        "bold": true
+      },
+      {
+        "start": 146,
+        "end": 157,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "precision"
+        }
+      },
+      {
+        "start": 162,
+        "end": 169,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lance"
+        }
+      },
+      {
+        "start": 197,
+        "end": 203,
+        "bold": true
+      },
+      {
+        "start": 210,
+        "end": 230,
+        "bold": true
+      },
+      {
+        "start": 257,
+        "end": 268,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 287,
+        "end": 288,
+        "bold": true
+      },
+      {
+        "start": 310,
+        "end": 311,
+        "bold": true
+      },
+      {
+        "start": 313,
+        "end": 330,
+        "bold": true
+      },
+      {
+        "start": 342,
+        "end": 350,
+        "bold": true
+      },
+      {
+        "start": 367,
+        "end": 376,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 380,
+        "end": 387,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "secured-objectives"
+        }
+      },
+      {
+        "start": 396,
+        "end": 410,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 457,
+        "end": 469,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 497,
+        "end": 512,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "performing-actions"
+        }
+      },
+      {
+        "start": 514,
+        "end": 527,
+        "bold": true
+      },
+      {
+        "start": 528,
+        "end": 542,
+        "bold": true
+      },
+      {
+        "start": 564,
+        "end": 580,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "28162de0-fd36-450b-87ee-39e973ead32d",
+          "faction": "Black Templars",
+          "detachmentId": "ced4cd04-74b5-4341-a7c8-5da07b5b5620",
+          "detachment": "Vow-sworn Crusaders",
+          "uniqueTags": [],
+          "sourceId": "ced4cd04-74b5-4341-a7c8-5da07b5b5620:templar-vows",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "trigger": {
+          "event": "battle-round-started",
+          "round": 1
+        },
+        "selection": {
+          "count": 1,
+          "optional": true
+        },
+        "target": {
+          "owner": "friendly",
+          "level": "unit",
+          "allOf": [
+            "Adeptus Astartes"
+          ]
+        },
+        "expires": {
+          "event": "battle-ended"
+        },
+        "options": [
+          {
+            "name": "Abhor the Witch, Destroy the Witch",
+            "condition": {
+              "attackType": "melee",
+              "target": {
+                "level": "unit",
+                "allOf": [
+                  "PSYKER"
+                ]
+              }
+            },
+            "effects": [
+              {
+                "type": "weapon-ability-grant",
+                "keyword": "precision",
+                "attackType": "melee"
+              },
+              {
+                "type": "weapon-ability-grant",
+                "keyword": "lance",
+                "attackType": "melee"
+              }
+            ]
+          },
+          {
+            "name": "Accept Any Challenge, No Matter the Odds",
+            "condition": {
+              "attackType": "melee",
+              "compare": {
+                "targetStat": "toughness",
+                "operation": "greater-than",
+                "attackStat": "strength"
+              }
+            },
+            "effect": {
+              "type": "roll-modifier",
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "name": "Uphold the Honour of the Emperor",
+            "bearer": {
+              "owner": "friendly",
+              "level": "unit",
+              "allOf": [
+                "Adeptus Astartes",
+                "Infantry"
+              ]
+            },
+            "effects": [
+              {
+                "type": "secure-objective",
+                "trigger": {
+                  "event": "phase-ended",
+                  "phase": "movement",
+                  "owner": "self"
+                },
+                "objective": {
+                  "controlledBy": "bearer-unit"
+                }
+              },
+              {
+                "type": "eligibility-exception",
+                "action": "start-action",
+                "ignores": "triggering-move-only",
+                "trigger": {
+                  "event": "selected-to-move",
+                  "moveTypes": [
+                    "advance"
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "roster": {
+          "type": "roster-restriction",
+          "permits": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "Black Templars"
+            ]
+          },
+          "excludes": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "Adeptus Astartes"
+            ],
+            "chapter": {
+              "otherThan": "Black Templars"
+            }
+          }
+        }
+      }
+    }
+  }
+}

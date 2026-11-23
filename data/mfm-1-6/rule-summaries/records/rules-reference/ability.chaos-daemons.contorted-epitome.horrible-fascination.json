@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.contorted-epitome.horrible-fascination",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Contorted Epitome",
+    "summary": "As the opponent’s Shooting phase begins, you may have one of your army’s PSYKER models use Horrible Fascination. Choose an enemy unit the caster can see up to 12″ away and roll one D6. A 1 deals D3 mortal wounds to the caster. On 2–5 the target takes −1 on its Hit rolls for the phase. On 6 the enemy unit becomes ineligible to shoot for that phase.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 32,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 73,
+        "end": 79,
+        "bold": true
+      },
+      {
+        "start": 198,
+        "end": 211,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 261,
+        "end": 270,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "one PSYKER from your army",
+        "optional": true,
+        "trigger": "start of opponent Shooting phase",
+        "target": {
+          "count": 1,
+          "side": "enemy",
+          "withinInches": 12,
+          "visibleTo": "caster"
+        },
+        "roll": "one D6",
+        "branches": [
+          {
+            "result": 1,
+            "mortalWounds": "D3",
+            "recipient": "caster model"
+          },
+          {
+            "results": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "hitModifier": -1,
+            "recipient": "target unit",
+            "expires": "end of that phase"
+          },
+          {
+            "result": 6,
+            "recipient": "target unit",
+            "cannotShoot": "that phase"
+          }
+        ]
+      }
+    }
+  }
+}

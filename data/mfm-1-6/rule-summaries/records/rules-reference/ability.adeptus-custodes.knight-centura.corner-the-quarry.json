@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.knight-centura.corner-the-quarry",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Knight-Centura",
+    "summary": "If an enemy unit that is engaged with this unit falls back and it is not a MONSTER or VEHICLE unit, it has to use desperate escape mode for that fall-back move. If it is battle-shocked, its hazard rolls for that move take -1.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "enemy-unit-makes-fall-back-move",
+          "enemyEngagedWith": "this-unit",
+          "enemyExcludesKeywords": [
+            "MONSTER",
+            "VEHICLE"
+          ]
+        },
+        "effects": [
+          {
+            "enemyMustUse": "desperate-escape-mode"
+          },
+          {
+            "ifEnemyBattleShocked": true,
+            "hazardRollModifier": {
+              "direction": "subtract",
+              "amount": 1
+            }
+          }
+        ]
+      }
+    }
+  }
+}

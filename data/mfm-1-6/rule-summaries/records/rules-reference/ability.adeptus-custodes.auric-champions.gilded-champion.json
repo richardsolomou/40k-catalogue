@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.auric-champions.gilded-champion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "In any phase, pick a friendly Character model from Adeptus Custodes just after it uses a datasheet ability limited to one use per unit per battle. The model gets one extra use of that ability in a later phase. Each model can receive this Stratagem only once in the battle.",
+    "summarySpans": [
+      {
+        "start": 233,
+        "end": 247,
+        "target": {
+          "kind": "core-rule",
+          "id": "using-stratagems"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Auric Champions",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "friendly-model-used-once-per-battle-per-unit-datasheet-ability"
+          },
+          "target": {
+            "entity": "model",
+            "count": 1,
+            "controller": "friendly",
+            "allKeywords": [
+              "ADEPTUS CUSTODES",
+              "CHARACTER"
+            ],
+            "relation": "triggering-model"
+          },
+          "effects": [
+            {
+              "action": "grant-additional-datasheet-ability-use",
+              "count": 1,
+              "ability": "triggering-ability",
+              "samePhaseAllowed": false
+            }
+          ],
+          "restrictions": [
+            {
+              "limit": 1,
+              "per": "model",
+              "reset": "battle"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.canoptek-court.solar-pulse",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Canoptek Court",
+    "cp": 1,
+    "summary": "1 CP, as your Shooting phase begins. Choose one CRYPTEK model of yours and pick one objective marker no more than 18″ away from it. For the rest of this phase, weapons carried by NECRONS models in your army have [IGNORES COVER] while they target units within range of the picked objective marker.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Canoptek Court",
+          "when": [
+            {
+              "phase": "shooting",
+              "turn": "own",
+              "timing": "start"
+            }
+          ],
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "model",
+            "keywordsAll": [
+              "CRYPTEK"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "select-objective-marker",
+              "withinInches": 18
+            },
+            {
+              "kind": "weapon-ability",
+              "ability": "IGNORES COVER",
+              "recipients": {
+                "modelKeywords": [
+                  "NECRONS"
+                ]
+              },
+              "condition": "targeting-unit-within-range-of-selected-objective"
+            }
+          ],
+          "restrictions": [],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

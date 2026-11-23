@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.exorcist.devastating-refrain",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Exorcist",
+    "summary": "In your Shooting phase, finish the Exorcist’s shooting, then test each enemy unit for Battle-shock if any of its Indirect Fire attacks hit it. When the Exorcist destroys a model with Deadly Demise, lower the ability’s D6 threshold for mortal wounds from 6 to 5+.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 113,
+        "end": 126,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "indirect-fire"
+        }
+      },
+      {
+        "start": 183,
+        "end": 196,
+        "target": {
+          "kind": "core-ability",
+          "id": "deadly-demise"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "effects": [
+          {
+            "trigger": {
+              "phase": "Shooting",
+              "side": "own",
+              "event": "owner model finished shooting"
+            },
+            "targets": "enemy units hit by at least one attack from an Indirect Fire weapon",
+            "requiredTest": "Battle-shock"
+          },
+          {
+            "trigger": "owner attack destroys model with Deadly Demise",
+            "effect": "Deadly Demise roll for mortal wounds",
+            "thresholdOnD6": 5,
+            "replaces": 6
+          }
+        ]
+      }
+    }
+  }
+}

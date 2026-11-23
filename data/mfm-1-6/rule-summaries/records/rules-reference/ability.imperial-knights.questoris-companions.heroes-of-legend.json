@@ -1,0 +1,137 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.questoris-companions.heroes-of-legend",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Questoris Companions",
+    "summary": "Use Code Chivalric again when your turn begins if you have fulfilled your current oath. Pick a new deed and quality, or roll for them; replace a duplicate roll with an unchosen option. Stop when these options are exhausted. Models with Code Chivalric retain the benefits of the qualities of fulfilled oaths. Completing a further deed gives 1 CP instead of that deed’s normal reward, regardless of selection method.",
+    "summarySpans": [
+      {
+        "start": 4,
+        "end": 18,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.code-chivalric"
+        }
+      },
+      {
+        "start": 236,
+        "end": 250,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.code-chivalric"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "reactive",
+        "scope": {
+          "duration": "permanent"
+        },
+        "effect": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "ability-part",
+              "trigger": {
+                "event": "turn-started",
+                "condition": {
+                  "type": "player-turn-is",
+                  "parameters": {
+                    "turn": "your-turn"
+                  }
+                }
+              },
+              "effect": {
+                "type": "conditional",
+                "condition": {
+                  "type": "oath-state",
+                  "parameters": {
+                    "ability": "code-chivalric-imperial-knights",
+                    "state": "fulfilled"
+                  }
+                },
+                "effect": {
+                  "type": "ability-activate",
+                  "target": "this-unit",
+                  "modifier": {
+                    "ability": "code-chivalric-imperial-knights",
+                    "procedure": "oath"
+                  }
+                }
+              }
+            },
+            {
+              "type": "oath-modifier",
+              "target": "this-unit",
+              "modifier": {
+                "ability": "code-chivalric-imperial-knights",
+                "aspect": "selection",
+                "domains": [
+                  "deed",
+                  "quality"
+                ],
+                "exclude_previously_selected": true,
+                "duplicate_roll": "choose-unselected",
+                "stop_when": "all-domains-exhausted"
+              }
+            },
+            {
+              "type": "oath-modifier",
+              "target": {
+                "owner": "friendly",
+                "level": "model",
+                "has_ability": [
+                  "code-chivalric-imperial-knights"
+                ]
+              },
+              "modifier": {
+                "ability": "code-chivalric-imperial-knights",
+                "aspect": "quality-persistence",
+                "from": "fulfilled"
+              }
+            },
+            {
+              "type": "oath-modifier",
+              "target": "this-unit",
+              "modifier": {
+                "ability": "code-chivalric-imperial-knights",
+                "aspect": "deed-reward",
+                "applies_to": "additional",
+                "operation": "replace",
+                "selection_method": "any",
+                "effect": {
+                  "type": "cp-gain",
+                  "target": "this-model",
+                  "modifier": {
+                    "amount": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.xenocreed-congregation.vengeance-for-the-martyr",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Xenocreed Congregation",
+    "cp": 1,
+    "summary": "When an enemy destroys a CHARACTER model from your GENESTEALER CULTS during Fight or while your opponent is shooting, select that casualty. Your models in NEOPHYTE HYBRIDS or ACOLYTE HYBRIDS units may reroll a 1 on Hit rolls against the killer’s unit. The same benefit applies to HYBRID METAMORPHS models. The benefit lasts until the battle is over. If you lost a MAGUS, a PRIMUS or an ACOLYTE ICONWARD, they may reroll any Hit roll against that enemy instead.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Xenocreed Congregation",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "after": "enemy-unit-destroys-friendly-genestealer-cults-character-model"
+          },
+          "target": {
+            "entity": "model",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "GENESTEALER CULTS",
+              "CHARACTER"
+            ],
+            "condition": "destroyed-by-triggering-enemy-unit"
+          },
+          "effects": [
+            {
+              "action": "allow-hit-reroll",
+              "recipient": "friendly-acolyte-hybrids-hybrid-metamorphs-and-neophyte-hybrids-models",
+              "attackTarget": "triggering-enemy-unit",
+              "duration": "through-battle-end",
+              "rollValue": 1,
+              "alternative": {
+                "condition": "destroyed-model-is-magus-primus-or-acolyte-iconward",
+                "anyRollValue": true
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

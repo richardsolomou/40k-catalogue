@@ -1,0 +1,63 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.land-raider.assault-ramp",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Land Raider",
+    "summary": "Once this Land Raider has completed a Normal move, any unit that disembarks from it afterwards still may charge that turn.",
+    "summarySpans": [
+      {
+        "start": 38,
+        "end": 49,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 65,
+        "end": 75,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "disembarking"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "unit-disembarks",
+          "from": "this-transport",
+          "condition": {
+            "transportMadeNormalMoveFirst": true
+          }
+        },
+        "effect": {
+          "recipient": "disembarking-unit",
+          "remainsEligibleToDeclareCharge": "this-turn"
+        }
+      }
+    }
+  }
+}

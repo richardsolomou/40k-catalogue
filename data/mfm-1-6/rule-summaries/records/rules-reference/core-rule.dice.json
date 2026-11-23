@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "dice",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "01. Core Concepts",
+    "ruleNumber": "01.05",
+    "summary": "D6 means a six-sided die. A number with a trailing plus is a minimum. A printed interval includes its endpoints. A coefficient before D6 gives the number of dice to sum. To get a D3 result, roll a D6 and round half the face value upward. Add any number printed after the plus to the rolled total.\n\nAn automatic success skips its die roll and advances the sequence. It supplies no rolled number for effects that check a particular face. An automatic hit goes directly to wounding and an automatic wound goes directly to saving. Neither counts as a Critical result.\n\nA re-roll repeats the permitted dice. Repeat all dice if the rule lets you repeat the whole roll, including a total made from several dice. A rule can give separate permission for selected dice. Never repeat a die twice, and finish re-rolls before applying modifiers. The re-roll keeps the type of the first roll. Effects tied to that type can trigger from the new result too. Apply the modifier or ignore-modifier procedure in Profiles when the corresponding rule calls for it.\n\nFor a roll-off, each player throws a D6. The higher face wins. If tied, repeat until there is a winner. A double or triple requires two or three equal faces in the same roll. If several dice share the relevant extreme value, the active player picks which of those dice counts. For a set result, use the specified number as though it had been rolled, even if the die could not produce it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "dice-resolution",
+        "notation": {
+          "defaultDie": "D6",
+          "threshold": "inclusive-minimum",
+          "range": "inclusive-interval",
+          "countPrefix": "sum-that-many-dice",
+          "d3": {
+            "roll": "D6",
+            "operation": "halve-and-ceil"
+          },
+          "bonusSuffix": "add-to-total"
+        },
+        "automatic": {
+          "skipRoll": true,
+          "advanceSequence": true,
+          "suppliesSpecificDieValue": false,
+          "hitAdvancesTo": "wound-roll",
+          "woundAdvancesTo": "saving-throw",
+          "critical": false
+        },
+        "reroll": {
+          "wholeRollRepeatsAllDice": true,
+          "selectedDiceCanBeGranted": true,
+          "repeatLimitPerDie": 1,
+          "beforeModifiers": true,
+          "retainsRollType": true,
+          "rerolledValueStillQualifiesForTriggeredRules": true
+        },
+        "rollOff": {
+          "dicePerPlayer": "D6",
+          "winner": "higher-face",
+          "ties": "repeat"
+        },
+        "repeatedFace": {
+          "double": 2,
+          "triple": 3,
+          "inSameRoll": true
+        },
+        "extremeTie": {
+          "choiceBy": "active-player",
+          "chooseAmong": "dice-tied-at-relevant-extreme"
+        },
+        "setResult": {
+          "treatAssignedValueAsRolled": true,
+          "valueMayBeOutsideDieFaces": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.tacticus-attack-force.transhuman-swiftness",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Tacticus Attack Force",
+    "cp": 1,
+    "summary": "Spend 1 CP in any Fight phase once an enemy unit has finished fighting, picking one of your TACTICUS units in range of an objective that can still fight. It gains Fights First, and you must pick it as the next unit to fight.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Tacticus Attack Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-has-fought"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "TACTICUS"
+            ],
+            "withinRangeOf": "objective",
+            "eligibleToFight": true
+          },
+          "effects": [
+            {
+              "kind": "grant-ability",
+              "ability": "Fights First"
+            },
+            {
+              "kind": "must-be-next-selected-to-fight"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

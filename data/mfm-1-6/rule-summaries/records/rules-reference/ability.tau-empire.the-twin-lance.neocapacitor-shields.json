@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.the-twin-lance.neocapacitor-shields",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "The Twin Lance",
+    "summary": "As the opposing player's Charge phase begins, you may pick one visible enemy unit no more than 12″ from this unit that is not a MONSTER or VEHICLE. It must test for Battle-shock, and until the turn is over its Charge rolls get -1.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "charge",
+          "turn": "opponent",
+          "timing": "start"
+        },
+        "optional": true,
+        "selection": {
+          "side": "enemy",
+          "count": 1,
+          "visible": true,
+          "withinInches": 12,
+          "excludeKeywords": [
+            "MONSTER",
+            "VEHICLE"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "force-battle-shock-test"
+          },
+          {
+            "kind": "charge-roll-modifier",
+            "value": -1,
+            "duration": "end-of-turn",
+            "magnitude": 1
+          }
+        ]
+      }
+    }
+  }
+}

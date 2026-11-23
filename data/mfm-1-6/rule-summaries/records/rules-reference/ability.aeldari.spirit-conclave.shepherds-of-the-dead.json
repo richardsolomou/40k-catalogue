@@ -1,0 +1,201 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.spirit-conclave.shepherds-of-the-dead",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Spirit Conclave",
+    "summary": "When an enemy unit destroys a friendly ASURYANI PSYKER model, mark that enemy for the Vengeful Dead. Friendly WRAITH CONSTRUCT models gain +1 to Hit and Wound rolls when attacking it. Spirit Guides (Aura) — Each of your ASURYANI PSYKER models gives Battle Focus to friendly WRAITHBLADES, WRAITHGUARD and WRAITHLORD units within 12″.",
+    "summarySpans": [
+      {
+        "start": 39,
+        "end": 54,
+        "bold": true
+      },
+      {
+        "start": 110,
+        "end": 126,
+        "bold": true
+      },
+      {
+        "start": 184,
+        "end": 203,
+        "bold": true
+      },
+      {
+        "start": 220,
+        "end": 235,
+        "bold": true
+      },
+      {
+        "start": 249,
+        "end": 261,
+        "target": {
+          "kind": "ability",
+          "id": "aeldari.battle-focus"
+        }
+      },
+      {
+        "start": 274,
+        "end": 286,
+        "bold": true
+      },
+      {
+        "start": 288,
+        "end": 299,
+        "bold": true
+      },
+      {
+        "start": 304,
+        "end": 314,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "reactive",
+        "scope": {
+          "duration": "permanent"
+        },
+        "effect": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "ability-part",
+              "trigger": {
+                "event": "model-destroyed",
+                "object": {
+                  "owner": "friendly",
+                  "all_of": [
+                    "ASURYANI",
+                    "PSYKER"
+                  ],
+                  "level": "model"
+                },
+                "subject": {
+                  "owner": "enemy"
+                }
+              },
+              "effect": {
+                "type": "designate",
+                "target": "event-subject",
+                "modifier": {
+                  "tag": "vengeful-dead"
+                }
+              }
+            },
+            {
+              "type": "conditional",
+              "condition": {
+                "type": "matches",
+                "parameters": {
+                  "filter": {
+                    "designated": "vengeful-dead"
+                  }
+                }
+              },
+              "effect": {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "roll-modifier",
+                    "target": {
+                      "owner": "friendly",
+                      "all_of": [
+                        "WRAITH CONSTRUCT"
+                      ],
+                      "level": "model"
+                    },
+                    "modifier": {
+                      "roll": "hit",
+                      "operation": "add",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "type": "roll-modifier",
+                    "target": {
+                      "owner": "friendly",
+                      "all_of": [
+                        "WRAITH CONSTRUCT"
+                      ],
+                      "level": "model"
+                    },
+                    "modifier": {
+                      "roll": "wound",
+                      "operation": "add",
+                      "value": 1
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "ability-grant",
+              "target": {
+                "owner": "friendly",
+                "all_of": [
+                  "ASURYANI",
+                  "PSYKER"
+                ],
+                "level": "model"
+              },
+              "modifier": {
+                "ability": {
+                  "ability_id": "shepherds-of-the-dead-aeldari",
+                  "definition_id": "spirit-guides"
+                },
+                "definition": {
+                  "type": "ability-part",
+                  "name": "Spirit Guides",
+                  "effect": {
+                    "type": "aura",
+                    "target": "friendly-within-aura",
+                    "modifier": {
+                      "range": {
+                        "inches": 12
+                      },
+                      "effect": {
+                        "type": "ability-grant",
+                        "target": "recipient",
+                        "modifier": {
+                          "ability": "battle-focus-aeldari"
+                        }
+                      },
+                      "eligible": {
+                        "owner": "friendly",
+                        "any_of": [
+                          "WRAITHBLADES",
+                          "WRAITHGUARD",
+                          "WRAITHLORD"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

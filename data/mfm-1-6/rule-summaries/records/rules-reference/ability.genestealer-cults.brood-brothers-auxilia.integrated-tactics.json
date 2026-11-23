@@ -1,0 +1,166 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.brood-brothers-auxilia.integrated-tactics",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Brood Brothers Auxilia",
+    "summary": "On choosing a friendly ASTRA MILITARUM unit to shoot, you may nominate a visible enemy unit no farther than 18″ from it. If you do, that shooter must direct its ranged attacks at the nominee. For the balance of the phase, friendly GENESTEALER CULTS models gain +1 on ranged Hit rolls against that enemy.",
+    "summarySpans": [
+      {
+        "start": 23,
+        "end": 38,
+        "bold": true
+      },
+      {
+        "start": 231,
+        "end": 248,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "reactive",
+        "trigger": {
+          "event": "selected",
+          "filter": {
+            "to": "shoot"
+          },
+          "subject": {
+            "owner": "friendly",
+            "all_of": [
+              "ASTRA MILITARUM"
+            ]
+          },
+          "optional": true
+        },
+        "scope": {
+          "duration": "phase"
+        },
+        "effect": {
+          "type": "select-units",
+          "selector": {
+            "filter": {
+              "owner": "enemy"
+            },
+            "count": {
+              "min": 1,
+              "max": 1
+            },
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "subject": "selected-unit",
+                    "filter": {
+                      "within": {
+                        "of": "event-subject",
+                        "range": {
+                          "inches": 18
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "subject": "selected-unit",
+                    "filter": {
+                      "visible": {
+                        "to": "event-subject"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "targeting",
+                "target": "event-subject",
+                "modifier": {
+                  "by": "event-subject",
+                  "may": "must-target",
+                  "kind": "attack",
+                  "weapons": {
+                    "type": "ranged"
+                  },
+                  "target": "selected-unit"
+                }
+              },
+              {
+                "type": "designate",
+                "target": "selected-unit",
+                "modifier": {
+                  "tag": "overlapping-fire"
+                }
+              },
+              {
+                "type": "conditional",
+                "condition": {
+                  "operator": "and",
+                  "operands": [
+                    {
+                      "type": "matches",
+                      "parameters": {
+                        "subject": "defender",
+                        "filter": {
+                          "designated": "overlapping-fire"
+                        }
+                      }
+                    },
+                    {
+                      "type": "attack-is",
+                      "parameters": {
+                        "attack_type": "ranged"
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "roll-modifier",
+                  "target": {
+                    "owner": "friendly",
+                    "all_of": [
+                      "GENESTEALER CULTS"
+                    ],
+                    "level": "model"
+                  },
+                  "modifier": {
+                    "roll": "hit",
+                    "operation": "add",
+                    "value": 1
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

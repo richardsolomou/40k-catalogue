@@ -1,0 +1,129 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.covenite-coterie.connoisseurs-of-pain",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Covenite Coterie",
+    "cp": 1,
+    "summary": "React immediately after an enemy picks targets in its Shooting phase or either Fight phase. Pick a DRUKHARI unit of yours among those targets. Gain one Pain token and spend one to worsen AP by 1 on that enemy’s attacks against your pick until it finishes attacking. Gain one Pain token at phase end if your HAEMONCULUS COVENS pick survives.",
+    "summarySpans": [
+      {
+        "start": 54,
+        "end": 68,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 79,
+        "end": 90,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 99,
+        "end": 107,
+        "bold": true
+      },
+      {
+        "start": 307,
+        "end": 325,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-enemy-selects-attack-targets",
+            "actor": "enemy-attacking-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "DRUKHARI"
+            ],
+            "triggerRelation": {
+              "event": "selected-as-target-of-triggering-attacks",
+              "minimum": 1
+            }
+          },
+          "effects": [
+            {
+              "kind": "gain-resource",
+              "recipient": "your-pool",
+              "resource": "pain-token",
+              "amount": 1
+            },
+            {
+              "kind": "spend-resource",
+              "recipient": "your-pool",
+              "resource": "pain-token",
+              "amount": 1
+            },
+            {
+              "kind": "attack-characteristic-modifier",
+              "actor": "triggering-enemy-unit",
+              "recipient": "attacks-targeting-your-unit",
+              "characteristic": "armour-penetration",
+              "operation": "worsen",
+              "amount": 1,
+              "duration": {
+                "until": "triggering-enemy-finishes-attacks"
+              }
+            },
+            {
+              "kind": "gain-resource",
+              "recipient": "your-pool",
+              "resource": "pain-token",
+              "amount": 1,
+              "trigger": "end-of-this-phase",
+              "condition": {
+                "targetKeywords": [
+                  "HAEMONCULUS COVENS"
+                ],
+                "state": "target-unit-survives"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

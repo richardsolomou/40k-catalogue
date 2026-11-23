@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.null-maiden-vigil.psy-chaff-volley",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "After a friendly PROSECUTOR SQUAD finishes shooting in your Shooting phase, pick one enemy it hit. Through turn end, mark that enemy as prosecuted and add 1 AP to attacks aimed at it.",
+    "summarySpans": [
+      {
+        "start": 60,
+        "end": 74,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Null Maiden Vigil",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "event": "unit-finished-shooting",
+            "actor": "chosen-unit"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "bind": "chosen-unit",
+            "allKeywords": [
+              "PROSECUTOR SQUAD"
+            ],
+            "condition": {
+              "event": "triggering-unit"
+            }
+          },
+          "effects": [
+            {
+              "action": "select-unit",
+              "bind": "prosecuted-enemy",
+              "controller": "opponent",
+              "count": 1,
+              "condition": {
+                "hitBy": "chosen-unit-triggering-attacks"
+              }
+            },
+            {
+              "action": "mark-unit",
+              "recipient": "prosecuted-enemy",
+              "marker": "prosecuted"
+            },
+            {
+              "action": "modify-attack-characteristic",
+              "recipient": "attacks-targeting-prosecuted-enemy",
+              "characteristic": "armour-penetration",
+              "modifier": 1
+            }
+          ],
+          "duration": {
+            "until": "turn-end",
+            "turn": "own"
+          }
+        }
+      }
+    }
+  }
+}

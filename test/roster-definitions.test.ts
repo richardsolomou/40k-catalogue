@@ -464,3 +464,20 @@ test("points joins skip a unit no roster may hold", () => {
     { ref: { kind: "unit", id: "synthetic.ember-host.ash-wyrm" }, reason: "no-definition" },
   ]);
 });
+
+test("an option without a carrier may replace wargear the unit itself carries", () => {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "unit", PACK).data, { wargear: { "synthetic.ember-staff": 1 } });
+  identity.entries.find((e) => e.id === PACK)!.references!.push({ kind: "wargear", id: "synthetic.ember-staff" });
+  records.push({ ...find(records, "roster-option", `${COLOSSUS}.cannons`), id: `${PACK}.staff`, data: { formatVersion: 2, unit: PACK, choose: { min: 0, max: 1 }, replaces: { "synthetic.ember-staff": 1 }, choices: ["synthetic.ember-maul"] } as any });
+  identity.entries.push({ kind: "roster-option", id: `${PACK}.staff`, name: "Staff", references: [{ kind: "unit", id: PACK }, { kind: "wargear", id: "synthetic.ember-staff" }, { kind: "wargear", id: "synthetic.ember-maul" }] });
+  assert.deepEqual(validateDefinitions(identity, records).ok, true);
+});
+
+test("a weighted option group member counts each selection that many times", () => {
+  const { identity, records } = input("1.2");
+  (find(records, "unit", WARDENS).data as any).optionGroups = [{ options: [{ option: `${WARDENS}.cannon`, weight: 2 }, { option: `${WARDENS}.projector` }], max: 2 }];
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(codes(validated.definitions, legal12), ["0 option-group-count"]);
+});

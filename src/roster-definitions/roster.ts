@@ -198,7 +198,7 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
       }
     }
     for (const group of unit.data.optionGroups ?? []) {
-      const taken = group.options.reduce((sum, { option, choices }) => sum + takenOf(option, choices), 0);
+      const taken = group.options.reduce((sum, { option, choices, weight = 1 }) => sum + weight * takenOf(option, choices), 0);
       const carriers = group.carrier ? (counts.get(group.carrier) ?? 0) : total;
       const most = group.bySize?.find(({ size }) => size === total)?.max ?? group.max * blocks(group.per, total, carriers);
       if (taken > most) add("option-group-count", `${group.options.map(({ option }) => `roster-option:${option}`).join(", ")} together take at most ${most}, have ${taken}`);
@@ -268,7 +268,7 @@ export function importUnit(definitions: Definitions, faction: string, printed: P
   const counts = importedModelCounts(models, printed, misses);
 
   const options = new Map<string, Record<string, number>>();
-  const defaults = new Set(models.flatMap((m) => Object.keys(m.data.wargear)));
+  const defaults = new Set([...models.flatMap((m) => Object.keys(m.data.wargear)), ...Object.keys(unit.data.wargear ?? {})]);
   for (const [name, count] of Object.entries(printed.wargear ?? {})) {
     const offers = definitions.optionsOf(unit.id).flatMap((o) => o.data.choices.filter((id) => same(definitions.get("wargear", id)?.name ?? "", name)).map((id) => ({ o, id })));
     if (offers.length === 1) {

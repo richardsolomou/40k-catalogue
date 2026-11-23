@@ -132,8 +132,8 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
   const refsOf = (entry: Entry | undefined, kind: string) => entry?.references?.filter((r) => r.kind === kind).map((r) => r.id) ?? [];
   const unitWargear = new Map<string, Set<string>>();
   for (const entry of identity.entries) {
-    if (entry.retired || (entry.kind !== "model" && entry.kind !== "roster-option")) continue;
-    for (const unit of refsOf(entry, "unit")) {
+    if (entry.retired || (entry.kind !== "model" && entry.kind !== "roster-option" && entry.kind !== "unit")) continue;
+    for (const unit of entry.kind === "unit" ? [entry.id] : refsOf(entry, "unit")) {
       const carried = unitWargear.get(unit) ?? unitWargear.set(unit, new Set()).get(unit)!;
       for (const id of refsOf(entry, "wargear")) carried.add(id);
     }

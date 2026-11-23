@@ -103,6 +103,14 @@ test("a weapon profile may name wargear included by a bundle its unit offers", (
   assert.deepEqual(errors((id, recs) => nameWargear(id, recs, LORD_STAFF, "synthetic.ember-maul")), []);
 });
 
+test("a weapon profile may name wargear its unit carries itself rather than any model", () => {
+  const found = errors((id, recs) => {
+    nameWargear(id, recs, `${WARDENS}.ember-rifle`, "synthetic.ember-staff");
+    entry(id, "unit", WARDENS).references!.push({ kind: "wargear", id: "synthetic.ember-staff" });
+  });
+  assert.deepEqual(found, []);
+});
+
 test("a weapon profile cannot name wargear only another unit's bundle includes", () => {
   const found = errors((id, recs) => nameWargear(id, recs, `${WARDENS}.ember-rifle`, "synthetic.ward-shield"));
   assert.deepEqual(found, [`weapon-profile:${WARDENS}.ember-rifle names wargear:synthetic.ward-shield, which unit:${WARDENS} neither carries nor offers`]);

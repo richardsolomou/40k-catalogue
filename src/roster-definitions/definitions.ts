@@ -35,9 +35,12 @@ export type UnitData = {
   limits?: Limit[];
   legends?: true;
   enhancements?: false;
+  /** Wargear the unit carries that none of its models does. */
+  wargear?: Counts;
 };
 export type Bounds = { min: number; max: number };
-export type OptionGroup = { options: { option: string; choices?: string[] }[]; max: number; carrier?: string; per?: Per; bySize?: SizeMaximum[] };
+/** Each selection of a member's choices counts `weight` (default 1) towards the group's maximum. */
+export type OptionGroup = { options: { option: string; choices?: string[]; weight?: number }[]; max: number; carrier?: string; per?: Per; bySize?: SizeMaximum[] };
 type SizeBounds = Bounds & { size: number };
 type SizeMaximum = { size: number; max: number };
 type ModelCountBounds = Bounds & { bySize?: SizeBounds[] };
@@ -129,6 +132,7 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
       const unit = data as UnitData;
       return [
         ...refs("faction", [unit.faction]),
+        ...refs("wargear", Object.keys(unit.wargear ?? {})),
         ...(unit.conditionalKeywords ?? []).flatMap((c) => whenRefs(c.when)),
         ...refs("battle-size", unit.limits?.map((l) => l.battleSize)),
         ...(unit.limits ?? []).flatMap((l) => whenRefs(l.when)),
@@ -281,10 +285,11 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     }
     for (const [i, group] of (unit.data.optionGroups ?? []).entries()) {
       const path = `${at} optionGroups/${i}`;
-      const seen = new Set<string>();
+      const seen = new Map<string, string[] | undefined>();
       for (const { option: id, choices } of group.options) {
-        if (seen.has(id)) errors.push(`${path} names roster-option:${id} more than once`);
-        seen.add(id);
+        const before = seen.get(id);
+        if (seen.has(id) && (!before || !choices || choices.some((w) => before.includes(w)))) errors.push(`${path} names roster-option:${id} more than once`);
+        seen.set(id, !seen.has(id) ? choices : before && choices ? [...before, ...choices] : undefined);
         const option = get("roster-option", id);
         if (option && option.data.unit !== unit.id) errors.push(`${path} names roster-option:${id}, which belongs to another unit`);
         for (const w of choices ?? []) if (option && !option.data.choices.includes(w)) errors.push(`${path} names wargear:${w}, which roster-option:${id} does not offer`);
@@ -314,9 +319,9 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     if (choose.min > choose.max) errors.push(`${at} choose min is above max`);
     if (bySize) checkSizeBounds(`${at} bySize`, bySize, unit);
     if (carrierModel && carrierModel.data.unit !== unit) errors.push(`${at} carrier model:${carrier} belongs to another unit`);
-    const carriers = carrier ? [carrierModel] : modelsOf(unit);
+    const carriers = carrier ? [carrierModel?.data] : [...modelsOf(unit).map((m) => m.data), get("unit", unit)?.data];
     for (const [id, n] of Object.entries(replaces)) {
-      const most = Math.max(0, ...carriers.map((m) => m?.data.wargear[id] ?? 0));
+      const most = Math.max(0, ...carriers.map((m) => m?.wargear?.[id] ?? 0));
       if (most === 0) errors.push(`${at} replaces wargear:${id}, which its carriers do not carry`);
       else if (most < n) errors.push(`${at} replaces ${n} of wargear:${id}, but its carriers carry ${most}`);
     }

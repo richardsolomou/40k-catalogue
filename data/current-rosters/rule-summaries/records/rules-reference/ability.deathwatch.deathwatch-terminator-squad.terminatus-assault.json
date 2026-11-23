@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "deathwatch.deathwatch-terminator-squad.terminatus-assault",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Deathwatch Terminator Squad",
+    "summary": "Allow a reroll on charge rolls for the Deathwatch Terminators. At the end of their charge move, every foe now engaged with the Terminators must make a battle-shock roll at −1.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 30,
+        "bold": true
+      },
+      {
+        "start": 83,
+        "end": 94,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 110,
+        "end": 117,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 151,
+        "end": 168,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "effects": [
+          {
+            "operation": "allow-reroll",
+            "roll": "charge",
+            "actor": "owning-unit"
+          },
+          {
+            "trigger": "after-owning-unit-ends-charge-move",
+            "selection": {
+              "side": "enemy",
+              "engagedWith": "owning-unit",
+              "all": true
+            },
+            "operation": "require-roll",
+            "roll": "battle-shock",
+            "modifier": {
+              "operation": "subtract",
+              "magnitude": 1
+            }
+          }
+        ]
+      }
+    }
+  }
+}

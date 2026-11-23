@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.iconoclast-fiefdom.dark-sacrifice",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Chaos Knights Faction Pack: Version 1.2",
+    "page": "4",
+    "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_chaos_knights-87ywk2jovh-xk68yzyb18.pdf#page=4"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Iconoclast Fiefdom",
+    "cp": 1,
+    "summary": "In your Command phase, choose a Chaos Knights model with a friendly Damned unit no farther than 9\" away. Pick a Damned model within 9\" of that Knight. Roll D3+3 and deal that many mortal wounds to the Damned model’s unit. Heal the Knight by the rolled total.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 180,
+        "end": 193,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Knights Faction Pack: Version 1.2",
+        "page": "4",
+        "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_chaos_knights-87ywk2jovh-xk68yzyb18.pdf#page=4"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "model",
+            "count": 1,
+            "keywords": [
+              "CHAOS KNIGHTS"
+            ],
+            "nearFriendly": {
+              "entity": "unit",
+              "keywords": [
+                "DAMNED"
+              ],
+              "distance": {
+                "unit": "inch",
+                "amount": 9,
+                "from": "target-model",
+                "comparator": "at-most"
+              }
+            }
+          },
+          "effects": [
+            {
+              "action": "select-model",
+              "recipient": "sacrifice-model",
+              "owner": "friendly",
+              "keywords": [
+                "DAMNED"
+              ],
+              "count": 1,
+              "distance": {
+                "unit": "inch",
+                "amount": 9,
+                "from": "target-model",
+                "comparator": "at-most"
+              }
+            },
+            {
+              "action": "inflict-mortal-wounds",
+              "recipient": "unit-containing-sacrifice-model",
+              "amount": {
+                "kind": "die",
+                "sides": 3,
+                "count": 1,
+                "bonus": 3
+              },
+              "bindAmount": "sacrifice-roll"
+            },
+            {
+              "action": "heal",
+              "recipient": "target-model",
+              "amountFrom": "sacrifice-roll"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.blade-of-ultramar.tactical-foresight",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Blade of Ultramar",
+    "cp": 1,
+    "summary": "When an enemy targets your Adeptus Astartes unit in their Shooting phase or either Fight phase, attacks against that unit take -1 to wound if the attack’s Strength exceeds the defender’s Toughness.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 43,
+        "bold": true
+      },
+      {
+        "start": 58,
+        "end": 72,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 83,
+        "end": 94,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 153,
+        "end": 154,
+        "bold": true
+      },
+      {
+        "start": 185,
+        "end": 186,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight",
+              "shooting"
+            ],
+            "event": "enemy-targets-selected",
+            "window": {
+              "shooting": "opponent",
+              "fight": "either"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "referencedByTrigger": true,
+            "sourceKeywordLabel": "Adeptus Astartes"
+          },
+          "effects": [
+            {
+              "kind": "modifier",
+              "subject": "attacks",
+              "characteristic": "wound-roll",
+              "delta": -1,
+              "conditions": {
+                "attacks": "against-selected-unit",
+                "comparison": {
+                  "left": "attack-strength",
+                  "operator": "greater-than",
+                  "right": "target-toughness"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

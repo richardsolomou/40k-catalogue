@@ -1,0 +1,133 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.lords-of-dread.crushed-like-vermin",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Lords of Dread",
+    "cp": 1,
+    "summary": "After your CHAOS KNIGHTS CHARACTER completes a Normal Move in your Movement phase, pick one enemy unit it crossed, excluding MONSTERS and VEHICLES. Roll six D6. Each 4+ deals 1 mortal wound to that unit. If this kills any of its models, the unit takes a Battle-shock test.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 34,
+        "bold": true
+      },
+      {
+        "start": 47,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 67,
+        "end": 81,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 125,
+        "end": 133,
+        "bold": true
+      },
+      {
+        "start": 138,
+        "end": 146,
+        "bold": true
+      },
+      {
+        "start": 177,
+        "end": 189,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 254,
+        "end": 271,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ],
+            "event": "immediately-after-friendly-normal-move"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "CHAOS KNIGHTS CHARACTER"
+            ],
+            "binding": "unit-that-moved"
+          },
+          "effects": [
+            {
+              "action": "inflict-mortal-wounds",
+              "recipient": "selected-enemy-unit",
+              "minimumRoll": 4,
+              "mortalWoundsPerSuccess": 1,
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 6
+              },
+              "actor": "target-unit",
+              "selectRecipient": {
+                "owner": "opponent",
+                "entity": "unit",
+                "count": 1,
+                "movedOverBy": "target-unit",
+                "excludingKeywords": [
+                  "MONSTERS",
+                  "VEHICLES"
+                ]
+              }
+            },
+            {
+              "action": "force-battle-shock-test",
+              "recipient": "selected-enemy-unit",
+              "condition": "at-least-one-model-in-that-unit-destroyed-by-these-mortal-wounds"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

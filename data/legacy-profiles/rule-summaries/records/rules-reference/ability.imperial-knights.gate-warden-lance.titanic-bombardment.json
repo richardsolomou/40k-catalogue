@@ -1,0 +1,166 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.gate-warden-lance.titanic-bombardment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Gate Warden Lance",
+    "cp": 1,
+    "summary": "Your Shooting Phase. Choose an IMPERIAL KNIGHTS TITANIC unit of yours in your Defensive Line that already Remained Stationary during this turn and has yet to be picked to shoot. For the phase, its models’ ranged weapons gain [SUSTAINED HITS 2].",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 19,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 31,
+        "end": 55,
+        "bold": true
+      },
+      {
+        "start": 78,
+        "end": 92,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.gate-warden-lance.dauntless-defenders"
+        }
+      },
+      {
+        "start": 106,
+        "end": 125,
+        "target": {
+          "kind": "core-rule",
+          "id": "remain-stationary"
+        }
+      },
+      {
+        "start": 225,
+        "end": 243,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "weapon-ability-grant",
+            "target": "this-unit",
+            "modifier": {
+              "keywords": [
+                {
+                  "keyword_id": "sustained-hits",
+                  "parameters": {
+                    "value": 2
+                  }
+                }
+              ],
+              "weapons": {
+                "type": "ranged"
+              }
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "behavior": "activated"
+        },
+        "stratagem": {
+          "id": "titanic-bombardment-gate-warden-lance-imperial-knights",
+          "cp_cost": 1,
+          "phases": [
+            "shooting"
+          ],
+          "player_turn": "your-turn",
+          "timing": "once-per-phase",
+          "type": "battle-tactic",
+          "target_restrictions": {
+            "required_keywords": [
+              "Imperial Knights",
+              "Titanic"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "owner": "friendly"
+                    }
+                  }
+                },
+                {
+                  "type": "happened",
+                  "parameters": {
+                    "event": "move-ended",
+                    "filter": {
+                      "move_types": [
+                        "remain-stationary"
+                      ]
+                    },
+                    "window": "turn"
+                  }
+                },
+                {
+                  "type": "in-region",
+                  "parameters": {
+                    "subject": "this-unit",
+                    "region": {
+                      "rule_region": {
+                        "region_id": "defensive-line",
+                        "owner_faction": "imperial-knights"
+                      }
+                    }
+                  }
+                },
+                {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "type": "happened",
+                      "parameters": {
+                        "event": "selected",
+                        "filter": {
+                          "to": "shoot"
+                        },
+                        "window": "phase"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {
+          "2": "Sustained Hits grant parameter"
+        }
+      }
+    }
+  }
+}

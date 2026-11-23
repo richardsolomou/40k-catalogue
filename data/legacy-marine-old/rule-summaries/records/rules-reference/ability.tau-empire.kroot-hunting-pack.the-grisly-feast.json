@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.kroot-hunting-pack.the-grisly-feast",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Kroot Hunting Pack",
+    "cp": 1,
+    "summary": "In either Fight phase, choose a KROOT unit that killed an enemy model this phase. Force each enemy within 6\" to test for Battle-shock. Apply a −1 penalty if it’s below Half-strength. A unit tested this way can skip that test in its next Command phase.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 32,
+        "end": 37,
+        "bold": true
+      },
+      {
+        "start": 237,
+        "end": 250,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "KROOT"
+            ],
+            "eligibility": "destroyed-one-or-more-enemy-models-this-phase"
+          },
+          "effects": [
+            {
+              "action": "force-battle-shock-test",
+              "actor": "target-unit",
+              "recipient": "each-nearby-enemy-unit",
+              "distance": {
+                "unit": "inch",
+                "amount": 6,
+                "from": "target-unit",
+                "comparator": "at-most"
+              },
+              "waives": "required-battle-shock-test-in-tested-units-next-command-phase",
+              "modifier": {
+                "operation": "subtract",
+                "amount": 1,
+                "condition": "tested-unit-below-half-strength"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

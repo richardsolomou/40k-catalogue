@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.grand-coven.psychic-dominion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Grand Coven",
+    "cp": 1,
+    "summary": "React in any phase once an enemy unit has picked its attack targets, and choose one of your THOUSAND SONS units among them. For the rest of the phase, Psychic weapon attacks against that unit gain HAZARDOUS. Its models get Feel No Pain 4+ against Psychic attacks for the same period.",
+    "summarySpans": [
+      {
+        "start": 92,
+        "end": 105,
+        "bold": true
+      },
+      {
+        "start": 151,
+        "end": 158,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "psychic"
+        }
+      },
+      {
+        "start": 197,
+        "end": 206,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "hazardous"
+        }
+      },
+      {
+        "start": 223,
+        "end": 235,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      },
+      {
+        "start": 247,
+        "end": 254,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "psychic"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selects-attack-targets",
+            "proximity": "immediate"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "THOUSAND SONS"
+            ],
+            "selection": "target-of-one-or-more-triggering-enemy-attacks"
+          },
+          "effects": [
+            {
+              "kind": "grant-weapon-ability-to-attacks",
+              "subject": "all-attacks-against-selected-unit",
+              "weaponAbilityRequired": "psychic",
+              "ability": "hazardous",
+              "until": "end-of-phase"
+            },
+            {
+              "kind": "grant-defensive-ability",
+              "subject": "all-models-in-selected-unit",
+              "ability": "feel-no-pain",
+              "threshold": 4,
+              "against": "psychic-attacks",
+              "until": "end-of-phase"
+            }
+          ],
+          "type": "epic-deed"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.knight-centura.corner-the-quarry",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Knight-Centura",
+    "summary": "Whenever an enemy unit that is not a MONSTER or VEHICLE Falls Back while within Engagement Range of the unit this model is in, every model in the enemy unit has to make a Desperate Escape test. Each of those tests takes a -1 penalty when the fleeing unit is Battle-shocked.",
+    "summarySpans": [
+      {
+        "start": 37,
+        "end": 44,
+        "bold": true
+      },
+      {
+        "start": 48,
+        "end": 55,
+        "bold": true
+      },
+      {
+        "start": 56,
+        "end": 66,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 80,
+        "end": 96,
+        "bold": true
+      },
+      {
+        "start": 171,
+        "end": 192,
+        "bold": true
+      },
+      {
+        "start": 258,
+        "end": 272,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Knight-Centura",
+        "clauses": [
+          {
+            "trigger": {
+              "event": "enemy-unit-falls-back",
+              "excludedKeywords": [
+                "Monster",
+                "Vehicle"
+              ],
+              "condition": "within Engagement Range of this model’s unit"
+            },
+            "effect": {
+              "requiredTest": "Desperate Escape",
+              "recipients": "every model in that enemy unit"
+            },
+            "modifier": {
+              "if": "that enemy unit is Battle-shocked",
+              "operation": "subtract",
+              "value": 1,
+              "appliesTo": "each of those tests"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

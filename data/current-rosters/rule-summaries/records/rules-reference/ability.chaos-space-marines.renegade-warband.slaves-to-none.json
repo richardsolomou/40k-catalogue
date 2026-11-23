@@ -1,0 +1,163 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.renegade-warband.slaves-to-none",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Chaos Space Marines Faction Pack: Version 1.0",
+    "page": "15",
+    "url": "https://assets.warhammer-community.com/eng_10-06_warhammer40000_faction_pack_chaos_space_marines-h16lkqvvnq-bcejav0qap.pdf#page=15"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Renegade Warband",
+    "summary": "Your Heretic Astartes models lose Dark Pacts and gain Assault on their ranged weapons. At muster, forgo the Dark Gods army rule. As your Command phase begins, name one enemy unit as your Vendetta target until your following Command phase starts. Your Heretic Astartes models other than the Damned may reroll hits against it. In your Movement phase, a Heretic Astartes unit can Default to Doctrine when it arrives or is picked to move, unless it is Battle-shocked. Resolve its Battle-shock test first. Then choose one permission for the rest of the turn: shoot and charge after Falling Back, or charge after Advancing.",
+    "summarySpans": [
+      {
+        "start": 34,
+        "end": 44,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-space-marines.dark-pacts"
+        }
+      },
+      {
+        "start": 54,
+        "end": 61,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "assault"
+        }
+      },
+      {
+        "start": 108,
+        "end": 127,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-space-marines.cults-of-the-dark-gods"
+        }
+      },
+      {
+        "start": 137,
+        "end": 150,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 333,
+        "end": 347,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 476,
+        "end": 493,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 577,
+        "end": 589,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 607,
+        "end": 616,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Space Marines Faction Pack: Version 1.0",
+        "page": "15",
+        "url": "https://assets.warhammer-community.com/eng_10-06_warhammer40000_faction_pack_chaos_space_marines-h16lkqvvnq-bcejav0qap.pdf#page=15"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "detachment": "Renegade Warband",
+        "override": {
+          "affectedModels": "friendly Heretic Astartes",
+          "remove": "Dark Pacts",
+          "grant": {
+            "rangedWeapons": "Assault"
+          },
+          "musterProhibits": "Cults of the Dark Gods"
+        },
+        "vendetta": {
+          "select": {
+            "side": "enemy",
+            "entity": "unit",
+            "count": 1
+          },
+          "timing": "start of own Command phase",
+          "expires": "start of next own Command phase",
+          "reroll": "hit",
+          "target": "selected enemy",
+          "attacker": {
+            "side": "friendly",
+            "keyword": "Heretic Astartes",
+            "excludeKeyword": "Damned",
+            "entity": "model"
+          }
+        },
+        "twistedDoctrine": {
+          "when": "own Movement phase",
+          "triggerAnyOf": [
+            "unit is set up",
+            "unit is selected to move"
+          ],
+          "unit": {
+            "side": "friendly",
+            "keyword": "Heretic Astartes",
+            "excludeBattleShocked": true
+          },
+          "optional": true,
+          "firstTake": "Battle-shock test",
+          "requiresPass": false,
+          "choose": 1,
+          "until": "end of turn",
+          "branches": [
+            {
+              "move": "Fall Back",
+              "allow": [
+                "shoot",
+                "declare a charge"
+              ]
+            },
+            {
+              "move": "Advance",
+              "allow": [
+                "declare a charge"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

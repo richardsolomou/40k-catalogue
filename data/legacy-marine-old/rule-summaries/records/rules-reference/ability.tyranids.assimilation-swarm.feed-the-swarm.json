@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.assimilation-swarm.feed-the-swarm",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Assimilation Swarm",
+    "summary": "Each friendly HARVESTER can use regeneration during your Command phase on one TYRANIDS unit from your army within 6\". A recipient can get this benefit just once that phase. Choose a recovery for each. On one model, heal a maximum of D3+1 lost wounds. For INFANTRY, you can instead restore a destroyed model at full wounds, excluding CHARACTERS. An ENDLESS MULTITUDE unit can use the return option for as many as 3 models.",
+    "summarySpans": [
+      {
+        "start": 14,
+        "end": 23,
+        "bold": true
+      },
+      {
+        "start": 57,
+        "end": 70,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 78,
+        "end": 86,
+        "bold": true
+      },
+      {
+        "start": 255,
+        "end": 263,
+        "bold": true
+      },
+      {
+        "start": 333,
+        "end": 343,
+        "bold": true
+      },
+      {
+        "start": 348,
+        "end": 365,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "command",
+          "player": "self"
+        },
+        "origin": {
+          "owner": "friendly",
+          "allOf": [
+            "HARVESTER"
+          ],
+          "quantifier": "each"
+        },
+        "selection": {
+          "owner": "friendly",
+          "allOf": [
+            "TYRANIDS"
+          ],
+          "rangeInches": 6,
+          "count": 1,
+          "optional": true,
+          "maxRegenerationsPerRecipientPerPhase": 1
+        },
+        "choices": [
+          {
+            "type": "heal",
+            "selectModels": 1,
+            "recipient": "selected-unit-model",
+            "maxLostWoundsRestored": "D3+1"
+          },
+          {
+            "type": "return-destroyed-models",
+            "unitAllOf": [
+              "INFANTRY"
+            ],
+            "modelNoneOf": [
+              "CHARACTERS"
+            ],
+            "woundsOnReturn": "full",
+            "maxModels": 1,
+            "countOverride": {
+              "unitAllOf": [
+                "ENDLESS MULTITUDE"
+              ],
+              "maxModels": 3
+            }
+          }
+        ],
+        "choosePerRegeneration": 1
+      }
+    }
+  }
+}

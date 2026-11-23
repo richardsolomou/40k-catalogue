@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.kill-tank.rolling-fortress",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Kill Tank",
+    "summary": "An attack against a friendly ORKS unit confers the Benefit of Cover if the Kill Tank prevents the attacking model from seeing that unit in full.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 33,
+        "bold": true
+      },
+      {
+        "start": 51,
+        "end": 67,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "trigger": {
+          "event": "attack",
+          "actor": "attacking-model",
+          "mode": "any",
+          "target": {
+            "entity": "unit",
+            "side": "friendly",
+            "requireAllKeywords": [
+              "ORKS"
+            ]
+          }
+        },
+        "condition": {
+          "visibilityBy": "attacking-model",
+          "fullyVisible": false,
+          "obstruction": "this-unit"
+        },
+        "effect": {
+          "operation": "grant-ability",
+          "recipient": "target-unit-versus-attack",
+          "label": "Benefit of Cover"
+        }
+      }
+    }
+  }
+}

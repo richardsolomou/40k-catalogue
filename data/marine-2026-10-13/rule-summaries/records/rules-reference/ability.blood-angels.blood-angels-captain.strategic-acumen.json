@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.blood-angels-captain.strategic-acumen",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Blood Angels Captain",
+    "summary": "During your Command phase, you may use this ability to make one combat doctrine of your choice apply to this unit until your following Command phase begins.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 33,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 78,
+        "end": 91,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "command"
+                }
+              },
+              {
+                "type": "player-turn-is",
+                "parameters": {
+                  "turn": "your-turn"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-activate",
+            "target": "this-unit",
+            "modifier": {
+              "ability": "combat-doctrines-adeptus-astartes",
+              "select": {
+                "by": "player"
+              },
+              "exclusive": true
+            }
+          }
+        },
+        "scope": {
+          "duration": "until-next-command-phase"
+        },
+        "optional": true,
+        "behavior": "activated"
+      }
+    }
+  }
+}

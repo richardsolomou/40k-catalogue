@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.cronos.pain-engine",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Cronos",
+    "summary": "When you spend a token through Power From Pain, check the recipient’s distance from the Cronos unit. Roll a D6 if you Empowered a friendly unit at most 9″ away. Add 1 if any model in the Cronos unit lacks a Spirit Vortex. On 5+, put one Pain token back in the army pool. Spending a token for any other reason gives no roll. Overlapping copies of the aura give one roll for the same spend.",
+    "summarySpans": [
+      {
+        "start": 31,
+        "end": 46,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "pain-spend-refund-aura",
+        "trigger": {
+          "controller": "self",
+          "spendPainTokens": 1,
+          "purpose": "empower",
+          "recipient": "friendly-unit",
+          "recipientMaxInchesFromSourceUnit": 9
+        },
+        "refund": {
+          "die": "D6",
+          "rollCount": 1,
+          "modifiedResultAtLeast": 5,
+          "gainPainTokens": 1,
+          "modifier": {
+            "add": 1,
+            "requiresAtLeastOneModelInSourceUnitWithoutWeapon": "Spirit Vortex"
+          }
+        },
+        "excludeSpendsForOtherPurposes": true,
+        "identicalAuraApplicationsPerRecipient": 1
+      }
+    }
+  }
+}

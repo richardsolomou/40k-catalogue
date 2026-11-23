@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.cerastus-knight-castigator.storm-of-bolts",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Cerastus Knight Castigator",
+    "summary": "In your Shooting phase, once this model has shot, pick one unit, other than a MONSTER or VEHICLE, that at least one of those attacks hit. Until your next turn starts, and as long as this model is still on the table, the chosen unit counts as suppressed. Attacks made by models in a suppressed unit get -1 to the Hit roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Cerastus Knight Castigator",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "after-this-model-has-shot"
+        },
+        "selection": {
+          "count": 1,
+          "condition": "hit-by-those-attacks",
+          "excludeKeywordsAny": [
+            "MONSTER",
+            "VEHICLE"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "apply-state",
+            "state": "suppressed",
+            "duration": "until-start-of-next-own-turn",
+            "condition": "this-model-on-battlefield"
+          },
+          {
+            "kind": "state-definition",
+            "state": "suppressed",
+            "outgoingHitModifier": {
+              "subtract": 1
+            }
+          }
+        ]
+      }
+    }
+  }
+}

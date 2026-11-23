@@ -1,0 +1,120 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.commissar-yarrick.counterstrategist",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Commissar Yarrick",
+    "summary": "While Counterstrategist is active through Hero of Hades Hive, use it as the opponent’s Movement phase ends. Pick an enemy that finished a move or was set up within 8″ of Yarrick. Within 6″ of Yarrick, choose a friendly REGIMENT unit he can see. That unit is ineligible if it took a Normal Move or was targeted by Fire Overwatch during this phase. Choose one response. Move up to D6″ using a Normal Move, shoot solely at the chosen enemy subject to normal target eligibility, or declare a charge. For the rest of the phase, its ranged attacks hit on unmodified 6s regardless of Ballistic Skill or modifiers. The Charge Move must engage the chosen enemy. A successful charge grants the REGIMENT unit no Charge Bonus this turn.",
+    "summarySpans": [
+      {
+        "start": 42,
+        "end": 60,
+        "target": {
+          "kind": "ability",
+          "id": "astra-militarum.commissar-yarrick.hero-of-hades-hive"
+        }
+      },
+      {
+        "start": 87,
+        "end": 101,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 282,
+        "end": 293,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 313,
+        "end": 327,
+        "target": {
+          "kind": "core-rule",
+          "id": "fire-overwatch"
+        }
+      },
+      {
+        "start": 611,
+        "end": 622,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "reactive-command-menu-option",
+        "activation": "Hero of Hades Hive",
+        "timing": "end-of-opponent-movement-phase",
+        "chooseEnemy": {
+          "count": 1,
+          "withinInchesOfYarrick": 8,
+          "either": [
+            "ended-a-move",
+            "was-set-up"
+          ]
+        },
+        "chooseFriendly": {
+          "count": 1,
+          "keyword": "REGIMENT",
+          "withinInchesOfYarrick": 6,
+          "visibleTo": "Yarrick",
+          "excludesThisPhase": [
+            "made-a-normal-move",
+            "targeted-by-fire-overwatch"
+          ]
+        },
+        "chooseActions": 1,
+        "actions": [
+          {
+            "kind": "normal-move",
+            "maxDistance": "D6 inches"
+          },
+          {
+            "kind": "shoot",
+            "onlyEligibleTarget": "selected-enemy-unit"
+          },
+          {
+            "kind": "declare-charge",
+            "chargeMoveMustEndEngagedWith": "selected-enemy-unit",
+            "chargeBonusThisTurn": false
+          }
+        ],
+        "rangedOverride": {
+          "recipient": "selected-friendly-unit",
+          "expires": "end-of-triggering-phase",
+          "requiredUnmodifiedHitRoll": 6,
+          "disregard": [
+            "ballistic-skill",
+            "modifiers"
+          ]
+        }
+      }
+    }
+  }
+}

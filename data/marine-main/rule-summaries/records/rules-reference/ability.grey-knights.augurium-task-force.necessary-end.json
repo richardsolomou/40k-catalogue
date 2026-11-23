@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.augurium-task-force.necessary-end",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Augurium Task Force",
+    "cp": 1,
+    "summary": "In either Fight phase, react immediately when an enemy chooses a friendly GREY KNIGHTS INFANTRY unit as an attack target. For the rest of that phase, roll 1D6 whenever one of its models dies before it has fought. Compare the result with the battle round number. A higher result delays removal. Once the attacker has resolved its attacks, the model can fight and is then removed.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 74,
+        "end": 95,
+        "bold": true
+      },
+      {
+        "start": 241,
+        "end": 253,
+        "target": {
+          "kind": "core-rule",
+          "id": "the-battle-round"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-enemy-selects-attack-targets"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "keywords": [
+              "GREY KNIGHTS",
+              "INFANTRY"
+            ],
+            "count": 1,
+            "state": "targeted-by-triggering-enemy-attacks"
+          },
+          "effects": [
+            {
+              "action": "roll",
+              "dice": "D6",
+              "quantity": 1,
+              "event": "each-target-unit-model-destroyed-before-fighting-this-phase",
+              "duration": {
+                "until": "end-of-this-phase"
+              },
+              "bind": "retaliation-roll"
+            },
+            {
+              "action": "defer-removal",
+              "recipient": "destroyed-model",
+              "condition": {
+                "roll": "retaliation-roll",
+                "comparator": "greater-than",
+                "value": "current-battle-round-number"
+              }
+            },
+            {
+              "action": "permit-fight",
+              "recipient": "destroyed-model-with-passing-roll",
+              "optional": true,
+              "when": "after-attacking-unit-finishes-attacks"
+            },
+            {
+              "action": "remove-model",
+              "recipient": "destroyed-model-with-passing-roll",
+              "when": "after-fight-permission-resolves"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.combined-arms.flexible-command",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Combined Arms",
+    "cp": 2,
+    "summary": "Your Command Phase. Choose one or more of your ASTRA MILITARUM OFFICER units. Those OFFICERS can use Voice of Command this phase to issue Orders to your REGIMENT and SQUADRON units.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 47,
+        "end": 70,
+        "bold": true
+      },
+      {
+        "start": 84,
+        "end": 92,
+        "bold": true
+      },
+      {
+        "start": 101,
+        "end": 117,
+        "target": {
+          "kind": "ability",
+          "id": "astra-militarum.voice-of-command"
+        }
+      },
+      {
+        "start": 153,
+        "end": 161,
+        "bold": true
+      },
+      {
+        "start": 166,
+        "end": 174,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "ability-modifier",
+            "target": "this-unit",
+            "modifier": {
+              "ability": "voice-of-command-astra-militarum",
+              "aspect": "recipients",
+              "operation": "add",
+              "recipients": {
+                "owner": "friendly",
+                "any_of": [
+                  "REGIMENT",
+                  "SQUADRON"
+                ]
+              }
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "behavior": "activated"
+        },
+        "stratagem": {
+          "id": "flexible-command-combined-arms-astra-militarum",
+          "cp_cost": 2,
+          "phases": [
+            "command"
+          ],
+          "player_turn": "your-turn",
+          "timing": "once-per-phase",
+          "type": "strategic-ploy",
+          "target_restrictions": {
+            "required_keywords": [
+              "Astra Militarum",
+              "Officer"
+            ],
+            "count": "one-or-more",
+            "side": "your-army",
+            "selects": "unit",
+            "eligibility": {
+              "type": "matches",
+              "parameters": {
+                "filter": {
+                  "owner": "friendly"
+                }
+              }
+            }
+          }
+        },
+        "valueRoles": {}
+      }
+    }
+  }
+}

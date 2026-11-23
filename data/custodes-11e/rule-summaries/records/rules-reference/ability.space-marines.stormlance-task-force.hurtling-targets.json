@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.stormlance-task-force.hurtling-targets",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Stormlance Task Force",
+    "cp": 1,
+    "summary": "Spend 1 CP during the opposing player's Shooting phase as an enemy unit picks one of your ADEPTUS ASTARTES units with MOUNTED or SPEEDER as a target; that unit is the target. Ranged attacks aimed at it suffer -1 on their Hit rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Stormlance Task Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-targets-friendly-unit"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "keywordsAny": [
+              "MOUNTED",
+              "SPEEDER"
+            ],
+            "sameAs": "targeted-unit"
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "roll": "hit",
+              "delta": -1,
+              "magnitude": 1,
+              "attackType": "ranged",
+              "appliesTo": "attacks-against-target"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.weirdboy.da-jump-psychic-level-1-once-per-army-per-battle-round",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Weirdboy",
+    "summary": "Once per battle round across your army, Da Jump lets a non-battle-shocked Weirdboy unit attempt a D6 psychic roll in your Movement phase. A 1 battle-shocks the unit. Send the unit into Strategic Reserves and give it Deep Strike.",
+    "summarySpans": [
+      {
+        "start": 59,
+        "end": 73,
+        "bold": true
+      },
+      {
+        "start": 122,
+        "end": 136,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 185,
+        "end": 203,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 216,
+        "end": 227,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "deep-strike"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "psychicLevel": 1,
+        "trigger": "own-movement-phase",
+        "actor": "owning-unit",
+        "optional": true,
+        "requires": {
+          "battleShocked": false
+        },
+        "psychicRoll": {
+          "dice": "D6",
+          "onNatural": {
+            "value": 1,
+            "effect": "owning-unit-becomes-battle-shocked"
+          }
+        },
+        "effect": {
+          "effects": [
+            {
+              "operation": "place-owning-unit-in-strategic-reserves"
+            },
+            {
+              "operation": "grant-core-ability",
+              "abilityId": "deep-strike",
+              "recipient": "owning-unit"
+            }
+          ]
+        },
+        "usage": {
+          "count": 1,
+          "period": "battle-round",
+          "scope": "army"
+        }
+      }
+    }
+  }
+}

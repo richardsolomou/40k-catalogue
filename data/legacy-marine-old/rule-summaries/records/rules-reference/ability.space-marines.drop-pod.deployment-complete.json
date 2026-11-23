@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.drop-pod.deployment-complete",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Drop Pod",
+    "summary": "Once the Drop Pod is on the battlefield and all its passengers have disembarked, it closes to embarkation for the rest of the battle.",
+    "summarySpans": [
+      {
+        "start": 68,
+        "end": 79,
+        "target": {
+          "kind": "core-rule",
+          "id": "disembarking"
+        }
+      },
+      {
+        "start": 94,
+        "end": 105,
+        "target": {
+          "kind": "core-rule",
+          "id": "embarking"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "trigger": {
+          "allOf": [
+            "this-unit-set-up",
+            "all-units-embarked-at-setup-have-disembarked"
+          ]
+        },
+        "duration": "remainder-of-battle",
+        "effect": {
+          "subject": "any-unit",
+          "operation": "prohibit-embarking-in-source-unit"
+        }
+      }
+    }
+  }
+}

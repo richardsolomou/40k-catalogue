@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.wulfen.savage-frenzy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Wulfen",
+    "summary": "An enemy unit that performs a fall-back move while engaged with your unit is forced into the desperate escape mode; MONSTER and VEHICLE units are exempt. If the escaping unit is battle-shocked, subtract 1 from its hazard rolls for that move. The card says “your unit” rather than “this unit”, so it leaves open whether engagement with any of your units counts or only with the Wulfen.",
+    "summarySpans": [
+      {
+        "start": 30,
+        "end": 44,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 51,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 93,
+        "end": 114,
+        "bold": true
+      },
+      {
+        "start": 116,
+        "end": 123,
+        "bold": true
+      },
+      {
+        "start": 128,
+        "end": 135,
+        "bold": true
+      },
+      {
+        "start": 178,
+        "end": 192,
+        "bold": true
+      },
+      {
+        "start": 214,
+        "end": 226,
+        "target": {
+          "kind": "core-rule",
+          "id": "hazard-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Wulfen",
+        "clauses": [
+          {
+            "trigger": {
+              "event": "enemy unit makes a fall-back move",
+              "condition": "engaged with your unit"
+            },
+            "excludesKeywords": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "effect": {
+              "requiredMode": "desperate escape"
+            }
+          },
+          {
+            "condition": {
+              "enemyBattleShocked": true
+            },
+            "appliesTo": "hazard rolls for that fall-back move",
+            "modifier": {
+              "operation": "subtract",
+              "value": 1
+            }
+          }
+        ]
+      }
+    }
+  }
+}

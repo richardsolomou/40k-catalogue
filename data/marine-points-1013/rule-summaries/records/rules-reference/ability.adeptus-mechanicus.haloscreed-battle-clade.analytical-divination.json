@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.haloscreed-battle-clade.analytical-divination",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Haloscreed Battle Clade",
+    "cp": 1,
+    "summary": "Spend 1 CP in the opposing player's Movement phase once an enemy unit finishes a Normal move, an Advance or a Fall Back move. Choose an ADEPTUS MECHANICUS INFANTRY unit in your army, other than a KATAPHRON unit, that is 8\" or less from that enemy unit and outside Engagement Range of every enemy unit. It may move up to D6\" as a Normal move; a HALO OVERRIDE unit may move up to 6\" instead.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Haloscreed Battle Clade",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-ends-normal-advance-or-fall-back-move"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS MECHANICUS",
+              "INFANTRY"
+            ],
+            "excludeKeywords": [
+              "KATAPHRON"
+            ],
+            "withinInchesOfTriggeringEnemy": 8,
+            "notWithinEngagementRange": true
+          },
+          "effects": [
+            {
+              "kind": "normal-move",
+              "maxDistance": "D6",
+              "diceSides": 6
+            },
+            {
+              "kind": "normal-move",
+              "maxInches": 6,
+              "condition": {
+                "keywordsAll": [
+                  "HALO OVERRIDE"
+                ]
+              },
+              "replacesPrevious": true
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

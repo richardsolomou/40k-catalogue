@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.toxicrene.grasping-tendrils",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Toxicrene",
+    "summary": "Whenever an enemy unit (other than a TITANIC unit) that is in Engagement Range of at least one of your units with this ability is picked to Fall Back, you may roll a D6; on a 3+, it must Remain Stationary instead.",
+    "summarySpans": [
+      {
+        "start": 62,
+        "end": 78,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 140,
+        "end": 149,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Toxicrene",
+        "trigger": {
+          "event": "enemy-unit-selected-to-fall-back",
+          "condition": "within-engagement-range-of-unit-with-this-ability",
+          "excludeKeywords": [
+            "TITANIC"
+          ]
+        },
+        "roll": {
+          "dice": "D6",
+          "success": "3+",
+          "optional": true
+        },
+        "onSuccess": {
+          "mustRemainStationary": true
+        }
+      }
+    }
+  }
+}

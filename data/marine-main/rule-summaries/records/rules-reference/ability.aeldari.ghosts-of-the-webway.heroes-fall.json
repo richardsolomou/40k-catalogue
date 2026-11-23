@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.ghosts-of-the-webway.heroes-fall",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ghosts of the Webway",
+    "cp": 1,
+    "summary": "Spend 1 CP in the Fight phase of either turn, right after an enemy unit picks its targets, on a HARLEQUINS unit of yours that it targeted with at least one attack. Until the phase ends, whenever a model in that unit that has not yet fought this phase is destroyed, roll a D6, and on a 4+ leave it in play: once the attacking unit has made all its attacks, that model can fight, after which it is removed.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Ghosts of the Webway",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "timing": "after-enemy-unit-selects-targets",
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "HARLEQUINS"
+            ],
+            "targetedByThatEnemyUnit": true
+          },
+          "effects": [
+            {
+              "trigger": "model-destroyed-before-it-fought-this-phase",
+              "roll": "D6",
+              "threshold": "4+",
+              "onSuccess": {
+                "remainsInPlay": true,
+                "fightsAfter": "attacking-unit-finishes-attacks",
+                "thenRemoved": true
+              }
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

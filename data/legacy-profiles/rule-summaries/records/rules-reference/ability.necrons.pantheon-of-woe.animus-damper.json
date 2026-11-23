@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.pantheon-of-woe.animus-damper",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Pantheon of Woe",
+    "summary": "Restricted to the C'TAN SHARD OF THE VOIDDRAGON. Once per turn, as the opposing player's Shooting phase begins, pick one enemy VEHICLE unit the bearer can see. That unit takes a Leadership test. For the rest of this phase, attacks by its models get -1 to Hit, and also -1 to Wound if it failed that test.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "pointsCost": 35,
+        "detachment": "Pantheon of Woe",
+        "eligibility": {
+          "modelKeywords": [
+            "C'TAN SHARD OF THE VOIDDRAGON"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "debuff",
+            "timing": {
+              "phase": "shooting",
+              "turn": "opponent",
+              "at": "start"
+            },
+            "on": {
+              "side": "enemy",
+              "count": 1,
+              "unitKeywords": [
+                "VEHICLE"
+              ],
+              "visibleToBearer": true
+            },
+            "leadershipTest": true,
+            "hitRollModifier": -1,
+            "woundRollModifier": {
+              "value": -1,
+              "condition": "leadership-test-failed",
+              "magnitude": 1
+            },
+            "duration": "end-of-phase",
+            "magnitude": 1
+          }
+        ],
+        "usage": {
+          "limit": "once-per-turn"
+        }
+      }
+    }
+  }
+}

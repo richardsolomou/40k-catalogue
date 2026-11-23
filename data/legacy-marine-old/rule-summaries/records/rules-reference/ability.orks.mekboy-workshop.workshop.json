@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.mekboy-workshop.workshop",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Mekboy Workshop",
+    "summary": "Set the Workshop up so every part is no farther than 1″ from another part. At Movement phase end, every friendly Orks Vehicle unit no farther than 6″ from the Workshop heals by D3 wounds. A unit can receive this repair once in a turn.",
+    "summarySpans": [
+      {
+        "start": 53,
+        "end": 55,
+        "bold": true
+      },
+      {
+        "start": 78,
+        "end": 92,
+        "target": {
+          "kind": "core-rule",
+          "id": "end-of-movement-phase"
+        }
+      },
+      {
+        "start": 147,
+        "end": 149,
+        "bold": true
+      },
+      {
+        "start": 168,
+        "end": 173,
+        "bold": true
+      },
+      {
+        "start": 177,
+        "end": 179,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "effects": [
+          {
+            "trigger": {
+              "event": "setup",
+              "actor": "this-unit"
+            },
+            "operation": "require-part-placement",
+            "eachPart": {
+              "minimumOtherParts": 1,
+              "origin": "part",
+              "comparison": "within",
+              "inclusive": true,
+              "distanceInches": 1
+            }
+          },
+          {
+            "trigger": {
+              "event": "phase",
+              "phase": "movement",
+              "timing": "end",
+              "turn": "either-turn"
+            },
+            "operation": "heal",
+            "recipient": {
+              "origin": "this-unit",
+              "comparison": "within",
+              "inclusive": true,
+              "distanceInches": 6,
+              "side": "friendly",
+              "scope": "unit",
+              "requireAllKeywords": [
+                "ORKS",
+                "VEHICLE"
+              ],
+              "selection": "all"
+            },
+            "quantity": {
+              "count": 1,
+              "sides": 3,
+              "additive": 0
+            },
+            "usage": {
+              "limit": 1,
+              "period": "turn",
+              "per": "recipient-unit",
+              "sharedBy": "this-ability"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

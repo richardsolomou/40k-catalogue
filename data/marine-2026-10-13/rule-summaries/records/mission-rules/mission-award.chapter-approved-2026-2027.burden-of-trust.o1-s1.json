@@ -1,0 +1,131 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-award",
+  "id": "chapter-approved-2026-2027.burden-of-trust.o1-s1",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "card": "secondary",
+    "vp": 2,
+    "max": 5,
+    "summary": "Score at the earlier checkpoint, when your opponent’s turn ends or when round 5 ends. Tally 2 VP per objective guarded at that point for your army. This award tops out at 5 VP.",
+    "summarySpans": [
+      {
+        "start": 72,
+        "end": 84,
+        "target": {
+          "kind": "core-rule",
+          "id": "end-of-battle-round"
+        }
+      },
+      {
+        "start": 92,
+        "end": 96,
+        "bold": true
+      },
+      {
+        "start": 101,
+        "end": 118,
+        "bold": true
+      },
+      {
+        "start": 171,
+        "end": 175,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "mission-player",
+        "windows": [
+          {
+            "at": "turn-end",
+            "turn": "opponent"
+          },
+          {
+            "at": "battle-round-end",
+            "rounds": {
+              "from": 5,
+              "to": 5
+            }
+          }
+        ],
+        "mode": "standard",
+        "vp": 2,
+        "awardCap": 5,
+        "count": "each",
+        "cumulative": false,
+        "cardModes": [
+          "tactical"
+        ],
+        "exclusiveGroup": null,
+        "exclusivePolicy": null,
+        "packScoringLimits": {
+          "perRound": 15,
+          "perBattle": 45,
+          "perFixedCard": 20
+        },
+        "windowPolicy": "first-occurring-window",
+        "criterion": {
+          "predicate": "guarded-objective",
+          "attributedTo": "mission-player-army",
+          "designation": {
+            "timing": [
+              "when-drawn",
+              "start-of-own-turn"
+            ],
+            "actor": "mission-player",
+            "mode": "optional",
+            "selector": {
+              "per": "each-objective",
+              "kind": "unit",
+              "side": "friendly",
+              "count": 1,
+              "position": "on-battlefield"
+            },
+            "effect": {
+              "kind": "designate-objective",
+              "status": "guarded",
+              "recipient": "acting-army",
+              "expiresAt": "start-of-next-own-turn",
+              "whileAll": [
+                {
+                  "predicate": "control",
+                  "actor": "mission-player",
+                  "target": "assigned-objective"
+                },
+                {
+                  "predicate": "within-range",
+                  "actor": "assigned-unit",
+                  "target": "assigned-objective"
+                }
+              ]
+            }
+          }
+        },
+        "scoring": {
+          "type": "standard",
+          "cumulative": false,
+          "mutuallyExclusive": false
+        }
+      }
+    }
+  }
+}

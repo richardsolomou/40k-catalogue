@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.unending-swarm.unending-waves",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Unending Swarm",
+    "cp": 2,
+    "summary": "Pick your ENDLESS MULTITUDE unit immediately after its destruction in any phase. Place an identical replacement in Strategic Reserves at Starting Strength. Use this at most once per battle. This cannot restore a destroyed CHARACTER unit to an Attached unit.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 27,
+        "bold": true
+      },
+      {
+        "start": 115,
+        "end": 133,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 222,
+        "end": 231,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "any"
+            ],
+            "event": "friendly-unit-destroyed"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "ENDLESS MULTITUDE"
+            ],
+            "destroyed": true
+          },
+          "effects": [
+            {
+              "kind": "add-identical-unit-to-army",
+              "from": "selected-destroyed-unit",
+              "where": "strategic-reserves",
+              "startingStrength": true
+            }
+          ],
+          "restrictions": {
+            "usesPerBattle": 1,
+            "excludeDestroyedAttachedCharacterUnits": true
+          }
+        }
+      }
+    }
+  }
+}

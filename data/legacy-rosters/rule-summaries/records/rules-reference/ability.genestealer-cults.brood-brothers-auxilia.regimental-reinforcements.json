@@ -1,0 +1,174 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.brood-brothers-auxilia.regimental-reinforcements",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Brood Brothers Auxilia",
+    "cp": 1,
+    "summary": "After an enemy destroys your ASTRA MILITARUM INFANTRY REGIMENT during its Shooting phase or either Fight phase, you may target the destroyed unit. ARTILLERY and CHARACTER units are excluded. Roll a D6. On 3+, put a Cult Ambush marker more than 8\" from each enemy unit if there is space. Either way on a success, add a copy of the unit to Cult Ambush at full Starting Strength and wounds, with its ONE SHOT weapons unfired. Once per battle.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 74,
+        "end": 88,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 99,
+        "end": 110,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 147,
+        "end": 156,
+        "bold": true
+      },
+      {
+        "start": 161,
+        "end": 170,
+        "bold": true
+      },
+      {
+        "start": 215,
+        "end": 226,
+        "target": {
+          "kind": "ability",
+          "id": "genestealer-cults.cult-ambush"
+        }
+      },
+      {
+        "start": 338,
+        "end": 349,
+        "target": {
+          "kind": "ability",
+          "id": "genestealer-cults.cult-ambush"
+        }
+      },
+      {
+        "start": 397,
+        "end": 405,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "one-shot"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-enemy-unit-destroys-friendly-unit",
+            "destroyed": {
+              "keywords": [
+                "ASTRA MILITARUM INFANTRY REGIMENT"
+              ],
+              "excludingKeywords": [
+                "ARTILLERY",
+                "CHARACTER"
+              ]
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ASTRA MILITARUM INFANTRY REGIMENT"
+            ],
+            "binding": "unit-just-destroyed",
+            "canTargetDespiteDestroyed": true,
+            "excludingKeywords": [
+              "ARTILLERY",
+              "CHARACTER"
+            ]
+          },
+          "effects": [
+            {
+              "action": "roll-to-replace",
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1
+              },
+              "minimumRoll": 3,
+              "onSuccess": [
+                {
+                  "action": "place-cult-ambush-marker",
+                  "count": 1,
+                  "location": "battlefield",
+                  "distance": {
+                    "unit": "inch",
+                    "amount": 8,
+                    "from": "every-enemy-unit",
+                    "comparator": "more-than"
+                  },
+                  "fallback": "skip-marker-if-no-valid-placement"
+                },
+                {
+                  "action": "add-unit",
+                  "recipient": "your-army",
+                  "location": "cult-ambush",
+                  "copyOf": "target-unit",
+                  "count": 1,
+                  "startingStrength": "full",
+                  "woundsRemaining": "full",
+                  "oneShotWeaponState": "unfired",
+                  "independentOfMarkerPlacement": true
+                }
+              ]
+            }
+          ],
+          "restrictions": [
+            {
+              "action": "limit-use",
+              "count": 1,
+              "window": "battle"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

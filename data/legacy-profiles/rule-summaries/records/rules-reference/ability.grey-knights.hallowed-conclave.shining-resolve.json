@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.hallowed-conclave.shining-resolve",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hallowed Conclave",
+    "cp": 1,
+    "summary": "Spend 1 CP during the opposing player's Shooting phase right after an enemy unit picks its targets, choosing a GREY KNIGHTS INFANTRY unit of yours that at least one of those attacks will target. For the rest of the phase, an attack aimed at that unit subtracts 1 from its Wound roll when the attack's Strength is higher than your unit's Toughness.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Hallowed Conclave",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-has-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "GREY KNIGHTS",
+              "INFANTRY"
+            ],
+            "targetedBy": "triggering-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "roll": "wound",
+              "delta": -1,
+              "magnitude": 1,
+              "appliesTo": "attacks-against-target",
+              "condition": "attack Strength greater than target Toughness",
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": [],
+          "category": "Strategic Ploy"
+        }
+      }
+    }
+  }
+}

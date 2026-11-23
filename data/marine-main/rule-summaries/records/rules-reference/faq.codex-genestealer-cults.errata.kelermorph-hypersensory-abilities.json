@@ -1,0 +1,113 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-genestealer-cults.errata.kelermorph-hypersensory-abilities",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Genestealer Cults Faction Pack: Version 1.0",
+    "page": "8",
+    "url": "https://assets.warhammer-community.com/eng_09-06_warhammer40000_faction_pack_genestealer_cults-ee2tg004ty-lfbh6g1gr7.pdf#page=8"
+  },
+  "data": {
+    "publication": "Codex: Genestealer Cults",
+    "amends": [
+      {
+        "kind": "unit",
+        "id": "genestealer-cults.kelermorph"
+      }
+    ],
+    "summary": "Hypersensory Abilities can trigger once each turn, during the other player’s Movement phase. An enemy must finish a Normal Move, Advance or Fall Back within 8″ of the Kelermorph, who must be clear of all enemy Engagement Ranges. The Kelermorph can shoot the moving unit as in its own Shooting phase, and follow the shots with a Normal Move. Roll D6 for the maximum inches it can travel. Embarking during that move is prohibited.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 22,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "genestealer-cults.kelermorph.hypersensory-abilities"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Genestealer Cults Faction Pack: Version 1.0",
+        "page": "8",
+        "url": "https://assets.warhammer-community.com/eng_09-06_warhammer40000_faction_pack_genestealer_cults-ee2tg004ty-lfbh6g1gr7.pdf#page=8"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "bd36dee6-ca32-4d97-8800-ba67cd90e669",
+          "typedMechanics": {
+            "operation": "replace-ability",
+            "abilityQid": "ability:genestealer-cults.kelermorph.hypersensory-abilities",
+            "limit": {
+              "scope": "this-model",
+              "uses": 1,
+              "period": "turn"
+            },
+            "trigger": {
+              "side": "opponent",
+              "phase": "movement",
+              "event": "enemy-unit-ends-move",
+              "minimumEnemyUnits": 1,
+              "moveTypes": [
+                "normal",
+                "advance",
+                "fall-back"
+              ],
+              "withinInches": 8
+            },
+            "condition": {
+              "outsideEngagementRangeOfAllEnemies": true
+            },
+            "reaction": {
+              "optional": true,
+              "sequence": [
+                {
+                  "action": "shoot",
+                  "onlyTarget": "triggering-enemy-unit",
+                  "asIf": "own-shooting-phase"
+                },
+                {
+                  "action": "normal-move",
+                  "maximumDistanceInchesDice": "D6",
+                  "embarkPermitted": false
+                }
+              ]
+            },
+            "targetQids": []
+          },
+          "statedValues": [
+            {
+              "kind": "uses-per-turn",
+              "value": 1
+            },
+            {
+              "kind": "trigger-distance",
+              "value": 8
+            },
+            {
+              "kind": "move-die-sides",
+              "value": 6
+            }
+          ]
+        }
+      }
+    }
+  }
+}

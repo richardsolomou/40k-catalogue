@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.army-of-faith.divine-guidance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Army of Faith",
+    "cp": 1,
+    "summary": "Use this in your Shooting phase or either Fight phase on an ADEPTA SORORITAS unit of yours that you have yet to select for the phase’s attacks. Improve its models’ attack AP by 1 through phase end. If their attacks kill any enemy models this phase, gain one Miracle die.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 31,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 42,
+        "end": 53,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 60,
+        "end": 76,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "in-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ADEPTA SORORITAS"
+            ],
+            "stateByPhase": {
+              "shooting": "not-yet-selected-to-shoot",
+              "fight": "not-yet-selected-to-fight"
+            }
+          },
+          "effects": [
+            {
+              "kind": "attack-characteristic-modifier",
+              "recipient": {
+                "actor": "target-unit-model",
+                "subset": "all",
+                "attackType": "any"
+              },
+              "characteristic": "armour-penetration",
+              "operation": "improve",
+              "amount": 1,
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "kind": "gain-miracle-dice",
+              "recipient": "your-pool",
+              "count": 1,
+              "condition": {
+                "event": "enemy-model-destroyed-by-target-unit-attacks",
+                "minModels": 1,
+                "window": "this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

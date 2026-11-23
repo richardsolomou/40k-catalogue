@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.shroud-runners.target-acquisition",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Shroud Runners",
+    "summary": "In your Shooting phase, once this unit has shot, pick one enemy unit that a long rifle hit with at least one of those attacks. That enemy unit cannot gain the Benefit of Cover for the rest of the phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "when": {
+            "turn": "own",
+            "phase": "shooting"
+          },
+          "trigger": "after-this-unit-has-shot",
+          "weapon": "long rifle",
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "hitByThoseAttacks": {
+              "minimum": 1
+            }
+          },
+          "effects": [
+            {
+              "denyBenefitOfCover": true
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

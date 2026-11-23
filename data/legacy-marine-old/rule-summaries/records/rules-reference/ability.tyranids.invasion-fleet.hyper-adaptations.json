@@ -1,0 +1,193 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.invasion-fleet.hyper-adaptations",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Invasion Fleet",
+    "summary": "Choose one Hyper-adaptation for your TYRANIDS units as the first battle round opens. Keep it through battle end. With the chosen adaptation, their models’ attacks gain these abilities. Swarming Instincts gives [SUSTAINED HITS 1] against INFANTRY or SWARM. Hyper-aggression gives [LETHAL HITS] against MONSTER or VEHICLE. Hive Predators gives [PRECISION] only on Critical Hits against CHARACTER units.",
+    "summarySpans": [
+      {
+        "start": 37,
+        "end": 45,
+        "bold": true
+      },
+      {
+        "start": 59,
+        "end": 77,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-battle-round"
+        }
+      },
+      {
+        "start": 210,
+        "end": 228,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 237,
+        "end": 245,
+        "bold": true
+      },
+      {
+        "start": 249,
+        "end": 254,
+        "bold": true
+      },
+      {
+        "start": 279,
+        "end": 292,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 301,
+        "end": 308,
+        "bold": true
+      },
+      {
+        "start": 312,
+        "end": 319,
+        "bold": true
+      },
+      {
+        "start": 342,
+        "end": 353,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "precision"
+        }
+      },
+      {
+        "start": 362,
+        "end": 375,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 384,
+        "end": 393,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "battle-round-started",
+          "round": 1
+        },
+        "target": {
+          "owner": "friendly",
+          "level": "unit",
+          "allOf": [
+            "TYRANIDS"
+          ]
+        },
+        "selection": {
+          "type": "hyper-adaptation",
+          "count": 1
+        },
+        "expires": {
+          "event": "battle-ended"
+        },
+        "branches": [
+          {
+            "name": "Swarming Instincts",
+            "attacker": {
+              "owner": "friendly",
+              "level": "model",
+              "allOf": [
+                "TYRANIDS"
+              ]
+            },
+            "attackTarget": {
+              "level": "unit",
+              "anyOf": [
+                "INFANTRY",
+                "SWARM"
+              ]
+            },
+            "effect": {
+              "type": "weapon-ability-grant",
+              "keyword": "sustained-hits",
+              "extraHits": 1
+            }
+          },
+          {
+            "name": "Hyper-aggression",
+            "attacker": {
+              "owner": "friendly",
+              "level": "model",
+              "allOf": [
+                "TYRANIDS"
+              ]
+            },
+            "attackTarget": {
+              "level": "unit",
+              "anyOf": [
+                "MONSTER",
+                "VEHICLE"
+              ]
+            },
+            "effect": {
+              "type": "weapon-ability-grant",
+              "keyword": "lethal-hits"
+            }
+          },
+          {
+            "name": "Hive Predators",
+            "attacker": {
+              "owner": "friendly",
+              "level": "model",
+              "allOf": [
+                "TYRANIDS"
+              ]
+            },
+            "attackTarget": {
+              "level": "unit",
+              "allOf": [
+                "CHARACTER"
+              ]
+            },
+            "condition": {
+              "type": "critical-hit"
+            },
+            "effect": {
+              "type": "weapon-ability-grant",
+              "keyword": "precision"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

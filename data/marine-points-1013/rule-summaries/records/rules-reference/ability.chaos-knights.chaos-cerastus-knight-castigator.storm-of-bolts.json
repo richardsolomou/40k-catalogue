@@ -1,0 +1,60 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.chaos-cerastus-knight-castigator.storm-of-bolts",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Chaos Cerastus Knight Castigator",
+    "summary": "During your Shooting phase, once this model has shot, pick one unit other than a MONSTER or VEHICLE that its attacks hit at least once. The chosen unit counts as suppressed until your next turn begins, but only for as long as this model remains on the battlefield. Attacks made by models in a suppressed unit take -1 to their Hit rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "datasheet-ability",
+        "datasheet": "Chaos Cerastus Knight Castigator",
+        "holder": "model",
+        "effects": [
+          {
+            "kind": "apply-state",
+            "state": "suppressed",
+            "turn": "own",
+            "phase": "shooting",
+            "trigger": "after-model-has-shot",
+            "select": {
+              "count": 1,
+              "condition": "hit-by-those-attacks",
+              "excludedKeywords": [
+                "MONSTER",
+                "VEHICLE"
+              ]
+            },
+            "until": "start-of-your-next-turn",
+            "while": "this-model-on-battlefield",
+            "stateEffect": {
+              "roll": "hit",
+              "operation": "subtract",
+              "value": 1,
+              "appliesTo": "attacks-by-models-in-suppressed-unit"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

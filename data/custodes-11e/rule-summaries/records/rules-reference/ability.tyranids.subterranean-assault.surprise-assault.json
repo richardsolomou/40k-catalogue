@@ -1,0 +1,159 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.subterranean-assault.surprise-assault",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Subterranean Assault",
+    "summary": "Reroll hit rolls of 1 for each attacking TYRANIDS model in your army. Each time your BURROWER unit deploys from Reserves onto the battlefield, put down a Tunnel marker 40 mm across. Place it no farther than 1\" from the arrival and over 3\" away horizontally from all opponents’ units. You may use a Tunnel marker to bring a unit in from Reserves during Reinforcements in your Movement phase. Set it up entirely within the marker’s 9\" radius and over 6\" away horizontally from enemy units. An enemy model ending any move 3\" or less from the marker removes it. AIRCRAFT never remove it this way.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 16,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 41,
+        "end": 49,
+        "bold": true
+      },
+      {
+        "start": 85,
+        "end": 93,
+        "bold": true
+      },
+      {
+        "start": 375,
+        "end": 389,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 558,
+        "end": 566,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "b30b3258-9140-46b8-9c9e-113be9008ea9",
+          "faction": "Tyranids",
+          "detachmentId": "1589d16c-5e24-4e72-b352-b674041fdc84",
+          "detachment": "Subterranean Assault",
+          "uniqueTags": [],
+          "sourceId": "1589d16c-5e24-4e72-b352-b674041fdc84:surprise-assault",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "effects": [
+          {
+            "type": "re-roll",
+            "roll": "hit",
+            "optional": true,
+            "naturalValue": 1,
+            "trigger": {
+              "event": "attack-made",
+              "actor": {
+                "owner": "friendly",
+                "level": "model",
+                "allOf": [
+                  "TYRANIDS"
+                ]
+              }
+            }
+          },
+          {
+            "type": "place-marker",
+            "marker": "Tunnel",
+            "sizeMm": 40,
+            "trigger": {
+              "event": "unit-set-up",
+              "from": "reserves",
+              "to": "battlefield",
+              "actor": {
+                "owner": "friendly",
+                "level": "unit",
+                "allOf": [
+                  "BURROWER"
+                ]
+              }
+            },
+            "placement": {
+              "maximum": 1,
+              "near": "triggering-unit",
+              "minimumExclusive": 3,
+              "clearOf": "all-enemy-units",
+              "clearanceHorizontal": true,
+              "unit": "inches"
+            }
+          },
+          {
+            "type": "setup-alternative",
+            "trigger": {
+              "event": "unit-set-up",
+              "owner": "self",
+              "phase": "movement",
+              "step": "reinforcements",
+              "from": "reserves",
+              "to": "battlefield"
+            },
+            "optional": true,
+            "placement": {
+              "wholly": true,
+              "maximum": 9,
+              "near": "Tunnel",
+              "minimumExclusive": 6,
+              "clearOf": "enemy-units",
+              "clearanceHorizontal": true,
+              "unit": "inches"
+            }
+          },
+          {
+            "type": "remove-marker",
+            "marker": "Tunnel",
+            "trigger": {
+              "event": "move-ended",
+              "move": "any",
+              "actor": {
+                "owner": "enemy",
+                "level": "model",
+                "noneOf": [
+                  "AIRCRAFT"
+                ]
+              }
+            },
+            "condition": {
+              "maximum": 3,
+              "near": "Tunnel",
+              "unit": "inches"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.runt-swarm.scarper",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Runt Swarm",
+    "cp": 1,
+    "summary": "In the enemy Movement phase, use this when an enemy finishes moving within 8\" of your unengaged Gretchin unit. It may make a Normal Move capped at D6\", or choose a fixed 6\" limit if it is an attached unit.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 27,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 86,
+        "end": 95,
+        "bold": true
+      },
+      {
+        "start": 96,
+        "end": 104,
+        "bold": true
+      },
+      {
+        "start": 125,
+        "end": 136,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 191,
+        "end": 204,
+        "target": {
+          "kind": "core-rule",
+          "id": "attached-units"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-ends-move",
+            "actor": "enemy-unit",
+            "spatial": {
+              "distance": {
+                "amount": 8,
+                "unit": "inches",
+                "comparison": "at-most"
+              },
+              "relation": "to-triggering-enemy-unit"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Gretchin"
+            ],
+            "state": "unengaged",
+            "distance": {
+              "amount": 8,
+              "unit": "inches",
+              "comparison": "at-most"
+            },
+            "relation": "to-triggering-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "choose-one-mode",
+              "alternatives": [
+                {
+                  "effects": [
+                    {
+                      "kind": "move",
+                      "recipient": "target-unit",
+                      "move": "normal",
+                      "maximum": {
+                        "amount": {
+                          "die": "D6",
+                          "sides": 6
+                        },
+                        "unit": "inches",
+                        "comparison": "at-most"
+                      },
+                      "optional": true
+                    }
+                  ]
+                },
+                {
+                  "condition": {
+                    "targetState": "attached"
+                  },
+                  "effects": [
+                    {
+                      "kind": "move",
+                      "recipient": "target-unit",
+                      "move": "normal",
+                      "maximum": {
+                        "amount": 6,
+                        "unit": "inches",
+                        "comparison": "at-most"
+                      },
+                      "optional": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

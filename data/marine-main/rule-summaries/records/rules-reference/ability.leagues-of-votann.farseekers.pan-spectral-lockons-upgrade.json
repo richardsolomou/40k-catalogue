@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.farseekers.pan-spectral-lockons-upgrade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Farseekers",
+    "summary": "Unit eligibility — PIONEERS. The PIONEERS may spot one enemy unit during your Shooting phase if it is visible and no farther than 12\" away. It counts as spotted. Its detection range increases by +3\" while spotted.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 27,
+        "bold": true
+      },
+      {
+        "start": 33,
+        "end": 41,
+        "bold": true
+      },
+      {
+        "start": 78,
+        "end": 92,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 102,
+        "end": 109,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "visibility"
+        }
+      },
+      {
+        "start": 153,
+        "end": 160,
+        "bold": true
+      },
+      {
+        "start": 166,
+        "end": 181,
+        "bold": true
+      },
+      {
+        "start": 205,
+        "end": 212,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "unit",
+          "match": "all",
+          "keywords": [
+            "PIONEERS"
+          ],
+          "anyOf": [],
+          "excludes": [],
+          "equipment": null,
+          "characterOnly": false,
+          "equipableByNonCharacter": true
+        },
+        "effects": [
+          {
+            "recipient": "selected visible enemy unit",
+            "operation": "apply-state",
+            "actor": "controlling player",
+            "optional": true,
+            "select": 1,
+            "rangeInches": 12,
+            "rangeFrom": "upgrade unit",
+            "timing": "your Shooting phase",
+            "state": "spotted",
+            "whileActive": [
+              {
+                "recipient": "spotted unit",
+                "operation": "modify-distance",
+                "stat": "detection range",
+                "deltaInches": 3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

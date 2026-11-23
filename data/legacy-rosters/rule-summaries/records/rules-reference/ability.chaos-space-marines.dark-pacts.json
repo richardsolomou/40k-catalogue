@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.dark-pacts",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "Applies only when HERETIC ASTARTES is your Army Faction. Whenever a unit that has this rule is chosen to shoot or to fight, you may have it make a Dark Pact. Before anything from the pact resolves, the unit takes a Leadership test; if that test fails, the unit takes D3 mortal wounds. After that, pick either [LETHAL HITS] or [SUSTAINED HITS 1]; the unit's weapons have the chosen ability until the phase ends.",
+    "summarySpans": [
+      {
+        "start": 309,
+        "end": 322,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 326,
+        "end": 344,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "army-rule",
+        "armyFaction": "HERETIC ASTARTES",
+        "trigger": {
+          "events": [
+            "selected-to-shoot",
+            "selected-to-fight"
+          ],
+          "unit": "has-this-ability"
+        },
+        "optional": true,
+        "action": "Dark Pact",
+        "cost": {
+          "test": "Leadership",
+          "timing": "before-pact-effects",
+          "onFail": {
+            "mortalWounds": "D3",
+            "to": "this-unit"
+          }
+        },
+        "choice": {
+          "pickOne": [
+            {
+              "weaponAbility": "LETHAL HITS"
+            },
+            {
+              "weaponAbility": "SUSTAINED HITS",
+              "value": 1
+            }
+          ],
+          "appliesTo": "this-unit-weapons",
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

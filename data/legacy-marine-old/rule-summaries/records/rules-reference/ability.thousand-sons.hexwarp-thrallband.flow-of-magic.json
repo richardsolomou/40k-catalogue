@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.hexwarp-thrallband.flow-of-magic",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Hexwarp Thrallband",
+    "summary": "The Flow of Magic for your army always includes your deployment zone. At the start of each phase, look at No Man's Land and at the opposing deployment zone in turn: each one where you hold half or more of the objective markers joins the Flow of Magic until the phase ends. Your THOUSAND SONS models re-roll Wound rolls of 1 with Psychic Attacks; a model wholly within the Flow of Magic instead adds 1 to its Wound rolls for those attacks.",
+    "summarySpans": [
+      {
+        "start": 4,
+        "end": 17,
+        "bold": true
+      },
+      {
+        "start": 106,
+        "end": 119,
+        "bold": true
+      },
+      {
+        "start": 278,
+        "end": 291,
+        "bold": true
+      },
+      {
+        "start": 329,
+        "end": 344,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Hexwarp Thrallband",
+        "area": {
+          "name": "Flow of Magic",
+          "always": [
+            "own-deployment-zone"
+          ],
+          "conditional": [
+            {
+              "zone": "no-mans-land",
+              "check": "start-of-any-phase",
+              "controlShareAtLeast": 0.5,
+              "duration": "phase"
+            },
+            {
+              "zone": "opponent-deployment-zone",
+              "check": "start-of-any-phase",
+              "controlShareAtLeast": 0.5,
+              "duration": "phase"
+            }
+          ]
+        },
+        "recipients": {
+          "side": "friendly",
+          "keywordsAll": [
+            "THOUSAND SONS"
+          ],
+          "level": "model"
+        },
+        "attacks": [
+          "psychic"
+        ],
+        "reroll": {
+          "roll": "wound",
+          "value": 1
+        },
+        "upgrade": {
+          "condition": "model-wholly-within-flow-of-magic",
+          "replacesReroll": true,
+          "rollModifiers": [
+            {
+              "roll": "wound",
+              "delta": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.wraithknight.point-blank-devastation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Wraithknight",
+    "summary": "When this model selects a target for either weapon, check whether the unit is at half range or closer. If it is, you may re-roll the weapon’s attack-count dice. This applies to the Heavy wraithcannon and Suncannon.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "trigger": {
+          "event": "source-model-weapon-targets-unit",
+          "anyWeapon": [
+            "Heavy wraithcannon",
+            "Suncannon"
+          ],
+          "target": {
+            "maximumFractionOfWeaponRange": {
+              "numerator": 1,
+              "denominator": 2
+            }
+          }
+        },
+        "effect": {
+          "recipient": "triggering-weapon-attack-count-dice",
+          "operation": "reroll",
+          "optional": true
+        }
+      }
+    }
+  }
+}

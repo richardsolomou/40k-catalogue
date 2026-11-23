@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.dread-mob.crazed-rampage",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Dread Mob",
+    "cp": 1,
+    "summary": "When the enemy picks your Orks Walker unit as a Fight phase target, you can choose that unit unless it is Titanic. For each killed model, roll a D6 if its unit still awaits selection to fight. Add 3 if its unit contains a Deff Dread. On 4+, keep the model in play. Remove the model as soon as its unit finishes fighting. If it never does so, lift it when the phase closes.",
+    "summarySpans": [
+      {
+        "start": 48,
+        "end": 59,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-attack-targets"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Orks Walker"
+            ],
+            "excludingKeywords": [
+              "Titanic"
+            ],
+            "binding": "friendly-unit-chosen-for-trigger-attacks"
+          },
+          "effects": [
+            {
+              "action": "delay-destroyed-model-removal",
+              "actor": "destroyed-target-model",
+              "condition": "target-unit-has-not-been-selected-to-fight-this-phase",
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1
+              },
+              "rollModifier": {
+                "amount": 3,
+                "condition": "target-unit-contains-a-deff-dread"
+              },
+              "minimumRoll": 4,
+              "removal": "after-unit-fights-or-end-of-phase-whichever-comes-first"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

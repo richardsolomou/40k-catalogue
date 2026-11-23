@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.brotherhood-techmarine.guardians-of-the-machine",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Brotherhood Techmarine",
+    "summary": "An enemy unit must finish its charge engaged with a friendly GREY KNIGHTS VEHICLE unit and no farther than 6″ from this unit. Each time that happens, you may use Heroic Intervention here for 1 CP less, regardless of earlier uses that phase. This use never counts against uses on other units that phase.",
+    "summarySpans": [
+      {
+        "start": 61,
+        "end": 73,
+        "bold": true
+      },
+      {
+        "start": 74,
+        "end": 81,
+        "bold": true
+      },
+      {
+        "start": 162,
+        "end": 181,
+        "target": {
+          "kind": "core-rule",
+          "id": "heroic-intervention"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "trigger": {
+          "event": "enemy unit ends charge move",
+          "perEvent": true,
+          "enemyUnitWithinInchesOfSourceUnit": 6,
+          "enemyUnitEngagedWith": {
+            "side": "friendly",
+            "minimumUnits": 1,
+            "requiresAllKeywords": [
+              "GREY KNIGHTS",
+              "VEHICLE"
+            ]
+          }
+        },
+        "effect": {
+          "optional": true,
+          "kind": "stratagem-use",
+          "target": "datasheet-unit",
+          "stratagem": "Heroic Intervention",
+          "cpCostModifier": -1,
+          "priorUsesThisPhaseAllowed": true,
+          "doesNotPreventOtherUnitUsesThisPhase": true
+        }
+      }
+    }
+  }
+}

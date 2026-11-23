@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.medusas-wrath.adept-of-the-omnissiah",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Medusa's Wrath",
+    "summary": "You can protect one friendly ADEPTUS ASTARTES VEHICLE each battle round when an enemy targets it, provided the vehicle is 6″ or closer to the bearer’s unit. Give it Feel No Pain 5+ through that enemy unit’s attack.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 53,
+        "bold": true
+      },
+      {
+        "start": 165,
+        "end": 180,
+        "target": {
+          "kind": "core-rule",
+          "id": "feel-no-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "unit-targeted",
+          "actor": "enemy-unit",
+          "target": {
+            "side": "friendly",
+            "allKeywords": [
+              "ADEPTUS ASTARTES",
+              "VEHICLE"
+            ]
+          },
+          "distance": {
+            "relation": "within",
+            "inches": 6,
+            "origin": "bearer-unit"
+          }
+        },
+        "limit": {
+          "count": 1,
+          "period": "battle-round"
+        },
+        "effect": {
+          "type": "grant-core-ability",
+          "ability": "feel-no-pain",
+          "threshold": 5,
+          "subject": "trigger-target",
+          "optional": true,
+          "expiry": {
+            "event": "attacks-completed",
+            "subject": "trigger-enemy-unit"
+          }
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Techmarine"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

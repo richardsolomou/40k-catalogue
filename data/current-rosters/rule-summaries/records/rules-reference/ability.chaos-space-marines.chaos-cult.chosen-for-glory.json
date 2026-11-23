@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.chaos-cult.chosen-for-glory",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Chaos Cult",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP. Use it in your Shooting phase or in any Fight phase on one DAMNED unit of yours that has not yet shot or fought in this phase. The unit may make a Desperate Pact. Having done so, for the rest of the phase its models may re-roll Hit rolls for their attacks, and if the unit passed the Leadership test for that Desperate Pact they may re-roll Wound rolls as well.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Chaos Cult",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "DAMNED"
+            ],
+            "notYetSelectedToShootOrFightThisPhase": true
+          },
+          "effects": [
+            {
+              "optional": true,
+              "action": "Desperate Pact"
+            },
+            {
+              "condition": "made-desperate-pact",
+              "reroll": [
+                "hit"
+              ]
+            },
+            {
+              "condition": "desperate-pact-leadership-test-passed",
+              "reroll": [
+                "wound"
+              ]
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

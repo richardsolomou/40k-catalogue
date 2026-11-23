@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "weapon-ability",
+  "id": "linked-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "summary": "For target selection, the bearer may use one other friendly FIRE PRISM as the origin for range and sight, provided the bearer can see that model. This sets the weapon’s Attacks to 1.",
+    "summarySpans": [
+      {
+        "start": 4,
+        "end": 20,
+        "target": {
+          "kind": "core-rule",
+          "id": "select-targets"
+        }
+      },
+      {
+        "start": 60,
+        "end": 70,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "weapon-specific-ability",
+        "trigger": {
+          "step": "select-targets",
+          "attacks": "this-weapon"
+        },
+        "optional": true,
+        "referenceModel": {
+          "count": 1,
+          "side": "friendly",
+          "differentFrom": "bearer",
+          "keyword": "FIRE PRISM",
+          "visibleTo": "bearer"
+        },
+        "effects": {
+          "measureRangeFrom": "reference-model",
+          "determineVisibilityFrom": "reference-model",
+          "setAttacksCharacteristic": {
+            "weapon": "this-weapon",
+            "value": 1,
+            "condition": "using-reference-model"
+          }
+        }
+      }
+    }
+  }
+}

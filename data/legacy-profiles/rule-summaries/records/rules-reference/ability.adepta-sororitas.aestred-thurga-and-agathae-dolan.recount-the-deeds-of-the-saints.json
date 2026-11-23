@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.aestred-thurga-and-agathae-dolan.recount-the-deeds-of-the-saints",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Aestred Thurga and Agathae Dolan",
+    "summary": "While Agathae is part of this unit and it’s leading, earn 1 Miracle die per enemy unit the led unit destroys. Gain D3 Miracle dice on Agathae’s destruction.",
+    "summarySpans": [
+      {
+        "start": 58,
+        "end": 59,
+        "bold": true
+      },
+      {
+        "start": 60,
+        "end": 71,
+        "target": {
+          "kind": "ability",
+          "id": "adepta-sororitas.acts-of-faith"
+        }
+      },
+      {
+        "start": 115,
+        "end": 117,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 130,
+        "target": {
+          "kind": "ability",
+          "id": "adepta-sororitas.acts-of-faith"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "effects": [
+          {
+            "condition": {
+              "all": [
+                "this-unit-leading-a-unit",
+                {
+                  "thisUnitContains": "Agathae Dolan"
+                }
+              ]
+            },
+            "trigger": {
+              "event": "destroy-unit",
+              "actor": "led-unit",
+              "targetSide": "enemy",
+              "frequency": "each-time"
+            },
+            "effect": {
+              "operation": "gain-miracle-dice",
+              "recipient": "you",
+              "quantity": 1
+            }
+          },
+          {
+            "trigger": {
+              "event": "model-destroyed",
+              "model": "Agathae Dolan",
+              "owner": "this-unit"
+            },
+            "effect": {
+              "operation": "gain-miracle-dice",
+              "recipient": "you",
+              "quantity": {
+                "count": 1,
+                "sides": 3,
+                "additive": 0
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

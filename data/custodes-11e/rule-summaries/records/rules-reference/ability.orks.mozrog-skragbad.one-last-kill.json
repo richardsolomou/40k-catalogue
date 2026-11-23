@@ -1,0 +1,61 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.mozrog-skragbad.one-last-kill",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Mozrog Skragbad",
+    "summary": "If this model is destroyed in the Fight Phase before its unit has been selected to fight, roll a D6. On a 2+, leave the model in play until its unit has fought or the phase ends, whichever happens first.",
+    "summarySpans": [
+      {
+        "start": 34,
+        "end": 45,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "type": "delayed-removal-on-death",
+        "trigger": "this-model-destroyed",
+        "phase": "fight",
+        "requires": "this-unit-not-selected-to-fight-yet",
+        "roll": {
+          "sides": 6,
+          "count": 1,
+          "threshold": {
+            "comparison": "at-least",
+            "value": 2
+          }
+        },
+        "removal": {
+          "recipient": "this-model",
+          "onFirstOf": [
+            "this-unit-has-fought",
+            "fight-phase-ends"
+          ]
+        }
+      }
+    }
+  }
+}

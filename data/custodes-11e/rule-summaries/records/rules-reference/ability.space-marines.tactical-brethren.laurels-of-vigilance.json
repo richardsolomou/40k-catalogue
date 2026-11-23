@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.tactical-brethren.laurels-of-vigilance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Tactical Brethren",
+    "summary": "This enhancement requires Adeptus Astartes on the bearer. Once per battle round, you can save 1 CP on Heroic Intervention or Fire Overwatch. The recipient must be a unit with Adeptus Astartes Battleline that belongs to your army and is no farther than 12″ from this model.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 42,
+        "bold": true
+      },
+      {
+        "start": 102,
+        "end": 121,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "core.heroic-intervention"
+        }
+      },
+      {
+        "start": 125,
+        "end": 139,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "core.fire-overwatch"
+        }
+      },
+      {
+        "start": 175,
+        "end": 202,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Adeptus Astartes"
+          ],
+          "excludes": []
+        },
+        "trigger": {
+          "event": "use-stratagem-to-target",
+          "actor": "own-player",
+          "recipient": {
+            "owner": "own-army",
+            "allOf": [
+              "Adeptus Astartes",
+              "Battleline"
+            ],
+            "within": {
+              "inches": 12,
+              "of": "this-model"
+            }
+          },
+          "stratagems": [
+            "Fire Overwatch",
+            "Heroic Intervention"
+          ]
+        },
+        "effect": {
+          "type": "modify-cp-cost",
+          "operation": "subtract",
+          "amount": 1,
+          "use": "triggering-use"
+        },
+        "usage": {
+          "limit": 1,
+          "per": "battle-round",
+          "scope": "army"
+        }
+      }
+    }
+  }
+}

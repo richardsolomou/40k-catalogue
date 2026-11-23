@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.null-maiden-vigil.anathema-blademastery",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Null Maiden Vigil",
+    "cp": 1,
+    "summary": "In either player's Fight phase, spend 1 CP on one VIGILATORS unit of yours that has not been picked to fight yet this phase. While the phase lasts, its models may re-roll Hit rolls for their melee attacks, and may also re-roll Wound rolls when attacking a PSYKER or a unit that is Battle-shocked.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 50,
+        "end": 60,
+        "bold": true
+      },
+      {
+        "start": 256,
+        "end": 262,
+        "bold": true
+      },
+      {
+        "start": 281,
+        "end": 295,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Null Maiden Vigil",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "VIGILATORS"
+            ],
+            "condition": "not-selected-to-fight-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "reroll",
+              "roll": "hit",
+              "attacks": "melee",
+              "expires": "end-of-phase"
+            },
+            {
+              "kind": "reroll",
+              "roll": "wound",
+              "attacks": "melee",
+              "condition": "target-battle-shocked-or-PSYKER",
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

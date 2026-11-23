@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.the-silent-king.phaeron-of-the-stars-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "The Silent King",
+    "summary": "With this option active, friendly NECRONS units up to 6″ from the Silent King’s unit re-roll 1s to Hit and to Wound on their attacks. MONSTER units are excluded.",
+    "summarySpans": [
+      {
+        "start": 34,
+        "end": 41,
+        "bold": true
+      },
+      {
+        "start": 54,
+        "end": 56,
+        "bold": true
+      },
+      {
+        "start": 93,
+        "end": 95,
+        "bold": true
+      },
+      {
+        "start": 99,
+        "end": 102,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 110,
+        "end": 115,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 134,
+        "end": 141,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "aura-option",
+        "activation": {
+          "event": "parent-option-active",
+          "parentAbility": "Triarch Abilities"
+        },
+        "area": {
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 6,
+          "origin": "this-unit",
+          "candidate": {
+            "entity": "unit",
+            "side": "friendly",
+            "requireAllKeywords": [
+              "NECRONS"
+            ],
+            "excludeAnyKeywords": [
+              "MONSTER"
+            ]
+          }
+        },
+        "trigger": {
+          "event": "attack",
+          "actor": "model-in-eligible-unit",
+          "mode": "any"
+        },
+        "effect": {
+          "operation": "re-roll",
+          "rolls": [
+            "hit",
+            "wound"
+          ],
+          "optional": false,
+          "unmodifiedFace": 1
+        }
+      }
+    }
+  }
+}

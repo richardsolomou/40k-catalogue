@@ -1,0 +1,217 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.cult-of-blood.idols-of-khorne",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Cult of Blood",
+    "summary": "As your Command phase begins, you may pick one Idol. Each Idol can be picked once per battle. Until your next Command phase opens, assign the chosen Aura to all your WORLD EATERS MONSTER units and WORLD EATERS TITANIC units. It benefits friendly JAKHALS and GOREMONGERS up to 6\" from its bearer model, or 9\" from a TITANIC bearer. Idol of Infinite Rage gives the recipient’s attacking models +1 to their hit and wound rolls. Idol of Burning Wrath adds 1\" Move to its models and +1 to the unit’s advance and charge rolls. Idol of Blessed Blood gives its models a 4+ invulnerable save.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 110,
+        "end": 123,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 166,
+        "end": 186,
+        "bold": true
+      },
+      {
+        "start": 197,
+        "end": 217,
+        "bold": true
+      },
+      {
+        "start": 246,
+        "end": 253,
+        "bold": true
+      },
+      {
+        "start": 258,
+        "end": 269,
+        "bold": true
+      },
+      {
+        "start": 315,
+        "end": 322,
+        "bold": true
+      },
+      {
+        "start": 331,
+        "end": 352,
+        "bold": true
+      },
+      {
+        "start": 412,
+        "end": 423,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 425,
+        "end": 446,
+        "bold": true
+      },
+      {
+        "start": 495,
+        "end": 519,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      },
+      {
+        "start": 521,
+        "end": 542,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "8bd4c67d-4aba-4502-8561-7c6c6faae51d",
+          "faction": "World Eaters",
+          "detachmentId": "ae5e755c-230d-46a9-ad1a-d3afaf3633ca",
+          "detachment": "Cult of Blood",
+          "uniqueTags": [],
+          "sourceId": "ae5e755c-230d-46a9-ad1a-d3afaf3633ca:idols-of-khorne",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "trigger": {
+          "event": "phase-started",
+          "phase": "command",
+          "owner": "self"
+        },
+        "selection": {
+          "maximum": 1,
+          "optional": true,
+          "limitPerOption": {
+            "count": 1,
+            "period": "battle"
+          }
+        },
+        "expires": {
+          "event": "next-phase-started",
+          "phase": "command",
+          "owner": "self"
+        },
+        "aura": {
+          "bearer": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "WORLD EATERS"
+            ],
+            "anyOf": [
+              "TITANIC",
+              "MONSTER"
+            ]
+          },
+          "emitter": "bearer-model",
+          "recipient": {
+            "owner": "friendly",
+            "level": "unit",
+            "anyOf": [
+              "JAKHALS",
+              "GOREMONGERS"
+            ]
+          },
+          "range": {
+            "maximum": 6,
+            "titanicMaximum": 9,
+            "unit": "inches"
+          }
+        },
+        "options": [
+          {
+            "name": "Idol of Infinite Rage",
+            "effects": [
+              {
+                "type": "roll-modifier",
+                "roll": "hit",
+                "operation": "add",
+                "value": 1,
+                "subject": "models-in-recipient"
+              },
+              {
+                "type": "roll-modifier",
+                "roll": "wound",
+                "operation": "add",
+                "value": 1,
+                "subject": "models-in-recipient"
+              }
+            ]
+          },
+          {
+            "name": "Idol of Burning Wrath",
+            "effects": [
+              {
+                "type": "stat-modifier",
+                "stat": "move",
+                "operation": "add",
+                "value": 1,
+                "unit": "inches",
+                "subject": "models-in-recipient"
+              },
+              {
+                "type": "roll-modifier",
+                "roll": "advance",
+                "operation": "add",
+                "value": 1,
+                "subject": "recipient-unit"
+              },
+              {
+                "type": "roll-modifier",
+                "roll": "charge",
+                "operation": "add",
+                "value": 1,
+                "subject": "recipient-unit"
+              }
+            ]
+          },
+          {
+            "name": "Idol of Blessed Blood",
+            "effect": {
+              "type": "invulnerable-save",
+              "threshold": 4,
+              "subject": "models-in-recipient"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

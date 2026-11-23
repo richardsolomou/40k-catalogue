@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.incursor-squad.divinator-class-auspexes-once-per-phase-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Incursor Squad",
+    "summary": "Once in your Shooting phase, each Incursor unit can scan a visible enemy up to 18″ away when you choose one of your Adeptus Astartes units to fire. Until the phase closes, ranged attacks against the scanned target may re-roll 1s to hit.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 27,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "limit": {
+          "period": "phase",
+          "scope": "unit",
+          "count": 1
+        },
+        "trigger": {
+          "phase": "shooting",
+          "turn": "controlling-player",
+          "event": "friendly-adeptus-astartes-unit-selected-to-shoot",
+          "optional": true
+        },
+        "selection": {
+          "count": 1,
+          "side": "enemy",
+          "entity": "unit",
+          "visibleTo": "owning-unit",
+          "maxDistanceInches": 18,
+          "origin": "owning-unit"
+        },
+        "effect": {
+          "operation": "apply-status",
+          "status": "scanned",
+          "recipient": "selected-enemy-unit",
+          "expires": "end-of-triggering-shooting-phase",
+          "whileActive": {
+            "operation": "allow-reroll",
+            "attacks": "ranged-attacks-targeting-selected-enemy-unit",
+            "roll": "hit",
+            "value": 1
+          }
+        }
+      }
+    }
+  }
+}

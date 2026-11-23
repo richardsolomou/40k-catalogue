@@ -1,0 +1,270 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.lords-of-dread.titanic-duel",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Lords of Dread",
+    "cp": 1,
+    "summary": "Your Shooting Phase or either Fight Phase. Choose a CHAOS KNIGHTS CHARACTER unit of yours that has yet to be picked to shoot or fight in that phase. Also designate a single enemy unit with the MONSTER or VEHICLE keyword. Through this phase, your unit can reroll Hit and Wound rolls of 1 against the designated enemy. If that enemy is TITANIC, it can reroll any Hit or Wound roll against it instead.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 19,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 30,
+        "end": 41,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 52,
+        "end": 75,
+        "bold": true
+      },
+      {
+        "start": 193,
+        "end": 200,
+        "bold": true
+      },
+      {
+        "start": 204,
+        "end": 211,
+        "bold": true
+      },
+      {
+        "start": 334,
+        "end": 342,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "designate-target",
+            "designation": "titanic-duel-target",
+            "select": {
+              "kind": "unit",
+              "selector": {
+                "filter": {
+                  "owner": "enemy",
+                  "any_of": [
+                    "MONSTER",
+                    "VEHICLE"
+                  ]
+                },
+                "count": {
+                  "min": 1,
+                  "max": 1
+                }
+              }
+            },
+            "applies": {
+              "to": "attackers-of-target",
+              "effect": {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "conditional",
+                    "condition": {
+                      "operator": "not",
+                      "operands": [
+                        {
+                          "type": "matches",
+                          "parameters": {
+                            "subject": "selected-unit",
+                            "filter": {
+                              "all_of": [
+                                "TITANIC"
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "effect": {
+                      "type": "re-roll",
+                      "target": "this-unit",
+                      "modifier": {
+                        "roll": "hit",
+                        "subset": "ones"
+                      }
+                    }
+                  },
+                  {
+                    "type": "conditional",
+                    "condition": {
+                      "operator": "not",
+                      "operands": [
+                        {
+                          "type": "matches",
+                          "parameters": {
+                            "subject": "selected-unit",
+                            "filter": {
+                              "all_of": [
+                                "TITANIC"
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "effect": {
+                      "type": "re-roll",
+                      "target": "this-unit",
+                      "modifier": {
+                        "roll": "wound",
+                        "subset": "ones"
+                      }
+                    }
+                  },
+                  {
+                    "type": "conditional",
+                    "condition": {
+                      "type": "matches",
+                      "parameters": {
+                        "subject": "selected-unit",
+                        "filter": {
+                          "all_of": [
+                            "TITANIC"
+                          ]
+                        }
+                      }
+                    },
+                    "effect": {
+                      "type": "re-roll",
+                      "target": "this-unit",
+                      "modifier": {
+                        "roll": "hit",
+                        "result_scope": "any-result"
+                      }
+                    }
+                  },
+                  {
+                    "type": "conditional",
+                    "condition": {
+                      "type": "matches",
+                      "parameters": {
+                        "subject": "selected-unit",
+                        "filter": {
+                          "all_of": [
+                            "TITANIC"
+                          ]
+                        }
+                      }
+                    },
+                    "effect": {
+                      "type": "re-roll",
+                      "target": "this-unit",
+                      "modifier": {
+                        "roll": "wound",
+                        "result_scope": "any-result"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "duration": "phase"
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "behavior": "activated"
+        },
+        "stratagem": {
+          "id": "titanic-duel-lords-of-dread-chaos-knights",
+          "cp_cost": 1,
+          "phases": [
+            "fight",
+            "shooting"
+          ],
+          "player_turn": "either",
+          "timing": "once-per-phase",
+          "type": "epic-deed",
+          "target_restrictions": {
+            "required_keywords": [
+              "Chaos Knights",
+              "Character"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "owner": "friendly"
+                    }
+                  }
+                },
+                {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "operator": "or",
+                      "operands": [
+                        {
+                          "type": "happened",
+                          "parameters": {
+                            "event": "selected",
+                            "filter": {
+                              "to": "fight"
+                            },
+                            "window": "phase"
+                          }
+                        },
+                        {
+                          "type": "happened",
+                          "parameters": {
+                            "event": "selected",
+                            "filter": {
+                              "to": "shoot"
+                            },
+                            "window": "phase"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {
+          "1": "reroll result for non-Titanic opponent"
+        }
+      }
+    }
+  }
+}

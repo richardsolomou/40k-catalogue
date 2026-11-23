@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.cohort-acquisitus.defect-scrutiny",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Cohort Acquisitus",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Shooting phase when one of your ADEPTUS MECHANICUS units is picked to shoot; that unit is the target. Pick an enemy unit that your chosen unit can see and that is 12\" or less from any friendly RECON AUGURY unit. Ranged attacks your chosen unit makes against it have [IGNORES COVER] for the rest of that phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Cohort Acquisitus",
+          "category": null,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-adeptus-mechanicus-unit-selected-to-shoot"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS MECHANICUS"
+            ],
+            "is": "that-unit"
+          },
+          "effects": [
+            {
+              "kind": "select-enemy",
+              "count": 1,
+              "visibleTo": "target",
+              "visibilityBasis": {
+                "rule": "06.01.01 Describing Visible Units",
+                "signedSelector": "/data/rule_container_component/1174"
+              },
+              "withinInches": 12,
+              "of": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "RECON AUGURY"
+                ]
+              }
+            },
+            {
+              "kind": "grant-attack-ability",
+              "attackType": "ranged",
+              "ability": "IGNORES COVER",
+              "against": "selected-enemy",
+              "duration": "phase",
+              "durationBasis": {
+                "rule": "01.02.02 Persisting Rules Effects",
+                "effect": "no stated duration, so it lasts for the phase in which it was applied",
+                "signedSelector": "/data/rule_container_component/351"
+              }
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

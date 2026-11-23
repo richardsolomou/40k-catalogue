@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.biosanctic-broodsurge.evasive-vanguard",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Biosanctic Broodsurge",
+    "cp": 1,
+    "summary": "You can use this in any phase of either turn. Check the enemy unit’s position at the end of its move. If a Cult Ambush marker of yours is now 8″ away or nearer, use the Stratagem before taking the affected markers off the battlefield. Pick one affected marker. You may set it back down anywhere on the battlefield with horizontal clearance greater than 8″ from every enemy unit.",
+    "summarySpans": [
+      {
+        "start": 107,
+        "end": 118,
+        "target": {
+          "kind": "ability",
+          "id": "genestealer-cults.cult-ambush"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Biosanctic Broodsurge",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-completes-move",
+            "distanceInches": 8,
+            "boundary": "at-most",
+            "relativeTo": "at-least-one-friendly-cult-ambush-marker",
+            "before": "remove-triggering-markers"
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "cult-ambush-marker",
+            "count": 1,
+            "fromSet": "triggering-markers"
+          },
+          "effects": [
+            {
+              "action": "reposition-marker",
+              "actor": "chosen-marker",
+              "optional": true,
+              "destination": "battlefield",
+              "distanceInches": 8,
+              "measure": "horizontal",
+              "boundary": "strictly-greater",
+              "relativeTo": "every-enemy-unit"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.helbrute.terrifying-assault",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Helbrute",
+    "summary": "Each time this model finishes shooting in your Shooting phase, or finishes fighting in a Fight phase, pick an enemy unit that took at least one hit from those attacks. That unit has to test for Battle-shock, with 1 subtracted from the test if it is no more than 9\" from at least one of your THOUSAND SONS PSYKER units.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "datasheet-ability",
+        "datasheet": "Helbrute",
+        "holder": "model",
+        "effects": [
+          {
+            "kind": "force-battle-shock-test",
+            "phases": [
+              "own-shooting",
+              "fight"
+            ],
+            "trigger": "after-model-has-shot-or-fought",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "condition": "hit-by-those-attacks"
+            },
+            "testModifier": {
+              "operation": "subtract",
+              "value": 1,
+              "if": {
+                "withinInchesOfFriendly": 9,
+                "keywordsAll": [
+                  "THOUSAND SONS",
+                  "PSYKER"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

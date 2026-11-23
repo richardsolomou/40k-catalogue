@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.coterie-of-the-conceited.pledges-to-the-dark-prince",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Coterie of the Conceited",
+    "summary": "With your Warlord on the board as a round opens, commit to an enemy-unit kill count. At round close, meeting or beating the pledge banks the pledged amount in Pact Points. A round with no points costs the Warlord D3 mortal wounds.\nEvery unlocked tier stays active. The bonuses apply only to your Emperor’s Children. At 1 point, reroll Hit rolls showing 1. At 3, also reroll Wound rolls showing 1. At 5, melee weapons pick up Lethal Hits plus Sustained Hits 1. At 7, an unmodified hit of 5+ counts as a critical.",
+    "summarySpans": [
+      {
+        "start": 216,
+        "end": 229,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 425,
+        "end": 436,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 442,
+        "end": 458,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "pledge": {
+          "trigger": "battle-round-start",
+          "requiredIf": {
+            "warlord": "on-battlefield"
+          },
+          "measure": "enemy-units-destroyed-during-round"
+        },
+        "settlement": {
+          "trigger": "battle-round-end",
+          "award": {
+            "ifActualVersusPledged": ">=",
+            "pactPoints": "pledged-count"
+          },
+          "penalty": {
+            "ifRoundPactPoints": 0,
+            "recipient": "warlord-model",
+            "mortalWounds": "D3"
+          }
+        },
+        "benefits": {
+          "recipient": "friendly-emperors-children-units",
+          "cumulative": true,
+          "thresholds": [
+            {
+              "pactPoints": 1,
+              "reroll": {
+                "roll": "hit",
+                "face": 1
+              }
+            },
+            {
+              "pactPoints": 3,
+              "reroll": {
+                "roll": "wound",
+                "face": 1
+              }
+            },
+            {
+              "pactPoints": 5,
+              "weapons": "melee",
+              "grant": [
+                {
+                  "ability": "lethal-hits"
+                },
+                {
+                  "ability": "sustained-hits",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "pactPoints": 7,
+              "criticalHit": {
+                "roll": "hit",
+                "unmodified": true,
+                "atLeast": 5
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

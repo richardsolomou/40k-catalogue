@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-action",
+  "id": "combat-patrol.uphold-your-vows.hallowed-ground",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Combat Patrol",
+    "summary": "As your Shooting phase begins, one of your Vow-Sworn of Vedrenn units that lacks the Character keyword may start this action. Choose an objective in its range that is still unblessed. You can start once per turn. When that turn ends, your army marks the chosen objective as blessed.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 43,
+        "end": 63,
+        "bold": true
+      },
+      {
+        "start": 85,
+        "end": 94,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 124,
+        "target": {
+          "kind": "core-rule",
+          "id": "performing-actions"
+        }
+      },
+      {
+        "start": 136,
+        "end": 145,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 261,
+        "end": 270,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 274,
+        "end": 281,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "starts": {
+          "player": "acting-player",
+          "phase": "shooting",
+          "point": "start"
+        },
+        "eligibleUnit": {
+          "side": "friendly",
+          "countPerStart": 1,
+          "position": {
+            "relation": "within-range",
+            "selector": "objective",
+            "excludeState": "blessed"
+          },
+          "patrolKeyword": "Vow-Sworn of Vedrenn",
+          "excludedKeyword": "Character"
+        },
+        "useLimit": {
+          "maxStartsPerOwnTurn": 1
+        },
+        "completes": {
+          "window": "end-of-starting-turn"
+        },
+        "effects": [
+          {
+            "kind": "mark-objective",
+            "objective": "selected-objective",
+            "state": "blessed",
+            "attributedTo": "acting-army"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.tacticus-firestorm-force.relentless-assault",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Tacticus Firestorm Force",
+    "cp": 1,
+    "summary": "During your Shooting phase or either Fight phase, use this as you pick a friendly Tacticus unit to attack. Choose Sustained Hits 1 against targets without Monster or Vehicle, or Lethal Hits against targets with either keyword.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 37,
+        "end": 48,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 82,
+        "end": 90,
+        "bold": true
+      },
+      {
+        "start": 114,
+        "end": 130,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 178,
+        "end": 189,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "selected-to-attack",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Tacticus"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "choose-one-mode",
+              "alternatives": [
+                {
+                  "attackTarget": {
+                    "excludesAnyKeywords": [
+                      "Monster",
+                      "Vehicle"
+                    ]
+                  },
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "triggering",
+                      "abilities": [
+                        {
+                          "ability": "Sustained Hits",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "attackTarget": {
+                    "anyKeyword": [
+                      "Monster",
+                      "Vehicle"
+                    ]
+                  },
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "triggering",
+                      "abilities": [
+                        "Lethal Hits"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "duration": {
+            "scope": "target-unit-attacks-in-trigger"
+          }
+        }
+      }
+    }
+  }
+}

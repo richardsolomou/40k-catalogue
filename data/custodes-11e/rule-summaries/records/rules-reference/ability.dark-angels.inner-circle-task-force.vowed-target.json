@@ -1,0 +1,165 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.inner-circle-task-force.vowed-target",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Inner Circle Task Force",
+    "summary": "During your Command phase, you may vow to take one objective. The vowed objective designation clears when your next Command phase opens. A friendly Deathwing Infantry unit adds +1 to wound rolls when its attack targets an enemy in range of that objective. Restrictions: Dark Angels units are permitted. Adeptus Astartes from another Chapter are excluded.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 51,
+        "end": 60,
+        "bold": true
+      },
+      {
+        "start": 66,
+        "end": 81,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 116,
+        "end": 129,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 148,
+        "end": 166,
+        "bold": true
+      },
+      {
+        "start": 183,
+        "end": 194,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 245,
+        "end": 254,
+        "bold": true
+      },
+      {
+        "start": 256,
+        "end": 269,
+        "bold": true
+      },
+      {
+        "start": 270,
+        "end": 281,
+        "bold": true
+      },
+      {
+        "start": 303,
+        "end": 319,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "fa0e86ef-b5da-4510-9a9f-8cd86267bb6a",
+          "faction": "Dark Angels",
+          "detachmentId": "0af88b8c-951a-442c-987b-85384f0020e7",
+          "detachment": "Inner Circle Task Force",
+          "uniqueTags": [],
+          "sourceId": "0af88b8c-951a-442c-987b-85384f0020e7:vowed-target",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "trigger": {
+          "event": "during-phase",
+          "phase": "command",
+          "owner": "self"
+        },
+        "selection": {
+          "count": 1,
+          "optional": true,
+          "target": {
+            "kind": "objective"
+          },
+          "designation": "vowed objective"
+        },
+        "expires": {
+          "event": "next-phase-started",
+          "phase": "command",
+          "owner": "self"
+        },
+        "effect": {
+          "type": "roll-modifier",
+          "roll": "wound",
+          "operation": "add",
+          "value": 1,
+          "actor": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "Deathwing",
+              "Infantry"
+            ]
+          },
+          "targetCondition": {
+            "owner": "enemy",
+            "level": "unit",
+            "withinRangeOf": "vowed-objective"
+          }
+        },
+        "roster": {
+          "type": "roster-restriction",
+          "permits": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "Dark Angels"
+            ]
+          },
+          "excludes": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "Adeptus Astartes"
+            ],
+            "chapter": {
+              "otherThan": "Dark Angels"
+            }
+          }
+        }
+      }
+    }
+  }
+}

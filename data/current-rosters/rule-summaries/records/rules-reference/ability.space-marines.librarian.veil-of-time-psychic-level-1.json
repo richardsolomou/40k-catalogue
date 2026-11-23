@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.librarian.veil-of-time-psychic-level-1",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Librarian",
+    "summary": "The Librarian’s unit may roll a D6 for Veil of Time when chosen to Advance. A 1 causes Battle-shock. Success sets the Advance roll to 6.",
+    "summarySpans": [
+      {
+        "start": 32,
+        "end": 34,
+        "bold": true
+      },
+      {
+        "start": 67,
+        "end": 74,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 78,
+        "end": 79,
+        "bold": true
+      },
+      {
+        "start": 87,
+        "end": 99,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 118,
+        "end": 125,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 134,
+        "end": 135,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "psychic-spell",
+        "psychicLevel": 1,
+        "source": "this-unit",
+        "trigger": {
+          "event": "selected-to-move",
+          "move": "advance"
+        },
+        "optional": true,
+        "effect": {
+          "operation": "roll-and-branch",
+          "dice": {
+            "count": 1,
+            "sides": 6,
+            "additive": 0
+          },
+          "branches": [
+            {
+              "comparison": "at-least",
+              "value": 2,
+              "effect": {
+                "operation": "replace-roll",
+                "roll": "advance",
+                "value": 6
+              }
+            },
+            {
+              "comparison": "less-than",
+              "value": 2,
+              "effect": {
+                "operation": "apply-condition",
+                "condition": "battle-shocked",
+                "recipient": "this-unit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.servants-of-change.prismatic-displacement",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Servants of Change",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Movement phase when one of your INFANTRY or MOUNTED units that is also MUTANT is picked to Advance or Fall Back; that unit is the target. Its ranged attacks gain [ASSAULT] for the rest of the turn, and it stays eligible to shoot and to declare a charge despite that move. The card's phase field says Shooting phase while its timing names your Movement phase, so it does not settle when it is used.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 33,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 51,
+        "end": 59,
+        "bold": true
+      },
+      {
+        "start": 63,
+        "end": 70,
+        "bold": true
+      },
+      {
+        "start": 90,
+        "end": 96,
+        "bold": true
+      },
+      {
+        "start": 110,
+        "end": 117,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 121,
+        "end": 130,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 181,
+        "end": 190,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "assault"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Servants of Change",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "cardPhaseField": [
+              "shooting"
+            ],
+            "openPoint": "phase field and timing text name different phases",
+            "event": "friendly-unit-selected-to-advance-or-fall-back"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "MUTANT"
+            ],
+            "keywordsAny": [
+              "INFANTRY",
+              "MOUNTED"
+            ],
+            "condition": "the-triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "weapon-ability-grant",
+              "attackType": "ranged",
+              "ability": "ASSAULT",
+              "expires": "end-of-turn"
+            },
+            {
+              "kind": "eligibility-exception",
+              "keeps": [
+                "eligible-to-shoot",
+                "eligible-to-declare-charge"
+              ],
+              "ignores": "triggering-move"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

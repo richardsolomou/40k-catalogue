@@ -1,0 +1,141 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.da-big-hunt.where-dya-fink-youre-going",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Da Big Hunt",
+    "cp": 1,
+    "summary": "In the opponent’s Movement phase, pick your BEAST SNAGGA unit if an enemy it is engaged with gets picked to Fall Back. That enemy has to use Desperate Escape mode. A retreating MONSTER or VEHICLE makes three extra Hazard Rolls for every engaged BEAST SNAGGA unit. Subtract 1 from those extra rolls if the retreating unit is Battle-shocked.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 32,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 44,
+        "end": 56,
+        "bold": true
+      },
+      {
+        "start": 108,
+        "end": 117,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 141,
+        "end": 157,
+        "target": {
+          "kind": "core-rule",
+          "id": "desperate-escape-2"
+        }
+      },
+      {
+        "start": 177,
+        "end": 184,
+        "bold": true
+      },
+      {
+        "start": 188,
+        "end": 195,
+        "bold": true
+      },
+      {
+        "start": 214,
+        "end": 226,
+        "target": {
+          "kind": "core-rule",
+          "id": "hazard-rolls"
+        }
+      },
+      {
+        "start": 245,
+        "end": 257,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "unit-selected-to-move",
+            "actingUnitOwner": "enemy",
+            "move": "fall-back",
+            "condition": "acting-unit-engaged-with-target-unit"
+          },
+          "target": {
+            "owner": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "BEAST SNAGGA"
+            ],
+            "condition": "engaged-with-acting-enemy-unit"
+          },
+          "effects": [
+            {
+              "action": "require-move-mode",
+              "recipient": "acting-enemy-unit",
+              "move": "fall-back",
+              "mode": "desperate-escape"
+            },
+            {
+              "action": "add-hazard-rolls",
+              "recipient": "acting-enemy-unit",
+              "condition": {
+                "anyKeyword": [
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              },
+              "countPerUnit": 3,
+              "perUnit": {
+                "relation": "engaged-with-acting-enemy-unit",
+                "keywords": [
+                  "BEAST SNAGGA"
+                ]
+              },
+              "modifier": {
+                "value": -1,
+                "condition": "acting-enemy-unit-battle-shocked",
+                "scope": "additional-hazard-rolls"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.knight-abominant.vortex-terrors",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Knight Abominant",
+    "summary": "As your Shooting phase begins, the Knight Abominant picks one visible enemy unit up to 24″ away. Make that unit roll for Battle-shock.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 87,
+        "end": 90,
+        "bold": true
+      },
+      {
+        "start": 121,
+        "end": 133,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "role": "psychic",
+        "trigger": {
+          "event": "phase",
+          "phase": "shooting",
+          "timing": "start",
+          "turn": "own"
+        },
+        "selection": {
+          "actor": "controlling-player",
+          "entity": "unit",
+          "side": "enemy",
+          "count": 1,
+          "visibilityOrigin": "this-model",
+          "optional": false,
+          "comparison": "within",
+          "inclusive": true,
+          "origin": "this-model",
+          "distanceInches": 24
+        },
+        "effect": {
+          "recipient": "selected-unit",
+          "operation": "require-test",
+          "test": "battle-shock"
+        }
+      }
+    }
+  }
+}

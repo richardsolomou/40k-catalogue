@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.madcap-meks.enhanced-runt-maw-upgrade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Madcap Meks",
+    "summary": "Model eligibility — Big Mek equipped with the Shokk Attack Gun. After the bearer’s unit shoots, pick one enemy unit those attacks hit. It is infested with Snotlings and takes −1 on its leadership rolls while that status lasts. The status expires as your next turn begins.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 27,
+        "bold": true
+      },
+      {
+        "start": 46,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 141,
+        "end": 164,
+        "bold": true
+      },
+      {
+        "start": 185,
+        "end": 201,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Big Mek with Shokk Attack Gun"
+          ],
+          "anyOf": [],
+          "excludes": [],
+          "equipment": "Shokk Attack Gun",
+          "characterOnly": false,
+          "equipableByNonCharacter": true
+        },
+        "trigger": "after bearer unit shoots",
+        "effects": [
+          {
+            "recipient": "one enemy unit hit by the bearer unit’s attacks",
+            "operation": "apply-state",
+            "actor": "controlling player",
+            "select": 1,
+            "state": "infested with Snotlings",
+            "expires": "start of your next turn",
+            "whileActive": [
+              {
+                "recipient": "infested enemy unit",
+                "operation": "modify-roll",
+                "roll": "leadership rolls",
+                "adjustment": {
+                  "operation": "subtract",
+                  "amount": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

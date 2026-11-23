@@ -1,0 +1,158 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.houndpack-lance.vox-howl",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Houndpack Lance",
+    "cp": 2,
+    "summary": "Pay 2 CP when either player's Shooting phase or Fight phase opens. Choose a single unit in your force bearing both WAR DOG and CHARACTER. Measure 6 inches from the chosen unit for both effects. Require Battle-shock checks from every opposing unit in reach. Require Leadership checks from all friendly WAR DOG units in reach that are already Battle-shocked. Clear Battle-shock for each friendly tester that succeeds. Limit activation to once each turn.",
+    "summarySpans": [
+      {
+        "start": 30,
+        "end": 44,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 48,
+        "end": 59,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 115,
+        "end": 122,
+        "bold": true
+      },
+      {
+        "start": 127,
+        "end": 136,
+        "bold": true
+      },
+      {
+        "start": 202,
+        "end": 221,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 265,
+        "end": 282,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      },
+      {
+        "start": 301,
+        "end": 308,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "either"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": [
+            {
+              "owner": "your-army",
+              "entity": "unit",
+              "count": 1,
+              "keywordsAllOf": [
+                "WAR DOG",
+                "CHARACTER"
+              ],
+              "bind": "selected-unit"
+            }
+          ],
+          "effects": [
+            {
+              "action": "test",
+              "test": "battle-shock",
+              "required": true,
+              "entity": "unit",
+              "recipient": {
+                "side": "enemy",
+                "count": "each",
+                "range": {
+                  "amount": 6,
+                  "unit": "inch",
+                  "fromEntity": "selected-unit",
+                  "comparator": "at-most"
+                }
+              }
+            },
+            {
+              "action": "test",
+              "test": "leadership",
+              "required": true,
+              "entity": "unit",
+              "recipient": {
+                "side": "friendly",
+                "count": "each",
+                "requiredKeyword": "WAR DOG",
+                "battleShocked": true,
+                "range": {
+                  "amount": 6,
+                  "unit": "inch",
+                  "fromEntity": "selected-unit",
+                  "comparator": "at-most"
+                }
+              },
+              "onSuccess": {
+                "action": "clear-battle-shock",
+                "recipient": "same-tested-unit"
+              }
+            }
+          ],
+          "restrictions": [
+            {
+              "action": "activate-stratagem",
+              "maxUses": 1,
+              "per": "turn"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

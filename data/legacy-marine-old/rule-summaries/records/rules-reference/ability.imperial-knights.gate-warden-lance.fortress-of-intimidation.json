@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.gate-warden-lance.fortress-of-intimidation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Gate Warden Lance",
+    "cp": 1,
+    "summary": "As the enemy Charge phase starts, choose one of your IMPERIAL KNIGHTS TITANIC units on your defensive line. Through phase end, every enemy that includes the Knight in a charge declaration takes a Battle-shock test at −1.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 53,
+        "end": 77,
+        "bold": true
+      },
+      {
+        "start": 196,
+        "end": 213,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "keywords": [
+              "IMPERIAL KNIGHTS",
+              "TITANIC"
+            ],
+            "count": 1,
+            "state": "on-your-defensive-line"
+          },
+          "effects": [
+            {
+              "action": "require-test",
+              "test": "battle-shock",
+              "recipient": "each-enemy-unit-choosing-target-unit-as-a-charge-target",
+              "resultModifier": {
+                "operation": "subtract",
+                "amount": 1
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

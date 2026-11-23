@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.vanguard-onslaught.hypersensory-scillia",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Vanguard Onslaught",
+    "cp": 2,
+    "summary": "Strategic Ploy, 2 CP, in the Movement phase of your opponent's turn, once an enemy unit has finished a Normal move, Advance move or Fall Back move. Choose as many as two VANGUARD INVADER units of yours, or a single other TYRANIDS INFANTRY unit, each no more than 8″ from that enemy unit and none of them in Engagement Range of any enemy unit. Each may move up to 6″ as a Normal move.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 43,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 132,
+        "end": 141,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 307,
+        "end": 323,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "category": "Strategic Ploy",
+          "detachment": "Vanguard Onslaught",
+          "when": {
+            "phase": "movement",
+            "turn": "opponent",
+            "event": "enemy-unit-ended-move",
+            "moveTypes": [
+              "normal",
+              "advance",
+              "fall-back"
+            ]
+          },
+          "target": {
+            "side": "friendly",
+            "withinInchesOfEnemyUnit": 8,
+            "options": [
+              {
+                "maxCount": 2,
+                "keywordsAll": [
+                  "VANGUARD INVADER"
+                ]
+              },
+              {
+                "count": 1,
+                "keywordsAll": [
+                  "TYRANIDS",
+                  "INFANTRY"
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "each": true,
+              "move": "normal",
+              "maxInches": 6
+            }
+          ],
+          "restrictions": [
+            {
+              "cannotTarget": "units-within-engagement-range-of-enemies"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

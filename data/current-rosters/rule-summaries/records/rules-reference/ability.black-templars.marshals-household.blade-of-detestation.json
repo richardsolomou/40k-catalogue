@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.marshals-household.blade-of-detestation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Marshal's Household",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Charge phase once your SWORD BRETHREN SQUAD finishes charging. Pick one of its engaged enemies. Count only squad models engaged with that enemy and throw a D6 for each. Every 4+ deals it one mortal wound, capped at six.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 31,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 42,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 98,
+        "end": 105,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 210,
+        "end": 222,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "phase": "charge",
+            "turn": "your",
+            "event": "charge-move-ended",
+            "subject": {
+              "owner": "friendly",
+              "keywordsAllOf": [
+                "SWORD BRETHREN SQUAD"
+              ]
+            }
+          },
+          "target": {
+            "bind": "triggering-squad"
+          },
+          "effects": [
+            {
+              "action": "choose-unit",
+              "owner": "enemy",
+              "count": 1,
+              "engagedWith": "triggering-squad",
+              "bind": "enemy-unit"
+            },
+            {
+              "action": "roll-per-model",
+              "dice": "D6",
+              "modelOwner": "friendly",
+              "memberOf": "triggering-squad",
+              "engagedWith": "enemy-unit",
+              "success": {
+                "comparison": "gte",
+                "value": 4
+              },
+              "result": {
+                "recipient": "enemy-unit",
+                "mortalWoundsPerSuccess": 1,
+                "maxMortalWounds": 6
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

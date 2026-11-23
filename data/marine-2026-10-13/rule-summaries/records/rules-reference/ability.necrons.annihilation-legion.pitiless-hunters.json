@@ -1,0 +1,116 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.annihilation-legion.pitiless-hunters",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Annihilation Legion",
+    "cp": 1,
+    "summary": "In the Fight phase, pick a friendly unit with FLAYED ONES or DESTROYER CULT that still awaits selection to fight. Its models can Pile In or Consolidate with a 6\" cap in place of 3\" for this phase.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 46,
+        "end": 57,
+        "bold": true
+      },
+      {
+        "start": 61,
+        "end": 75,
+        "bold": true
+      },
+      {
+        "start": 129,
+        "end": 136,
+        "target": {
+          "kind": "core-rule",
+          "id": "pile-in-move"
+        }
+      },
+      {
+        "start": 140,
+        "end": 151,
+        "target": {
+          "kind": "core-rule",
+          "id": "consolidation-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "choose",
+            "anyKeyword": [
+              "DESTROYER CULT",
+              "FLAYED ONES"
+            ],
+            "fightSelection": "not-selected-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "replace-move-cap",
+              "recipient": "each-target-unit-model",
+              "moves": [
+                "pile-in",
+                "consolidate"
+              ],
+              "previousMaximum": {
+                "amount": 3,
+                "unit": "inches",
+                "comparison": "at-most"
+              },
+              "maximum": {
+                "amount": 6,
+                "unit": "inches",
+                "comparison": "at-most"
+              },
+              "duration": {
+                "until": "end-of-this-fight-phase"
+              }
+            }
+          ],
+          "type": "battle-tactic"
+        }
+      }
+    }
+  }
+}

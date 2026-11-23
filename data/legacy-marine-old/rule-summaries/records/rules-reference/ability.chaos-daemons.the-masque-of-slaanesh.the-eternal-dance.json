@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.the-masque-of-slaanesh.the-eternal-dance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "The Masque of Slaanesh",
+    "summary": "As the Fight phase begins, pick one enemy unit that this model is within 6\" of. For the rest of the phase, melee attacks by friendly SLAANESH LEGIONES DAEMONICA models against that unit get +1 to their Wound rolls, and melee attacks by models in that enemy unit get -1 to their Wound rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "datasheet": "The Masque of Slaanesh",
+        "trigger": {
+          "when": "start-of-fight-phase"
+        },
+        "effect": {
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "withinInches": 6
+          },
+          "duration": "end-of-phase",
+          "modifiers": [
+            {
+              "roll": "wound",
+              "attacks": "melee attacks by friendly SLAANESH LEGIONES DAEMONICA models targeting that unit",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "roll": "wound",
+              "attacks": "melee attacks by models in that enemy unit",
+              "op": "subtract",
+              "value": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

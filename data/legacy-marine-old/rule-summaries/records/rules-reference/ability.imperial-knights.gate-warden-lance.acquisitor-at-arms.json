@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.gate-warden-lance.acquisitor-at-arms",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Gate Warden Lance",
+    "summary": "Check the bearer and enemy units against your Defensive Line from Dauntless Defenders. With the bearer on that line and every enemy unit off it, increase Objective Control for models affected by Bondsman from this bearer. Each increase equals the bearer’s own Objective Control.",
+    "summarySpans": [
+      {
+        "start": 66,
+        "end": 85,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.gate-warden-lance.dauntless-defenders"
+        }
+      },
+      {
+        "start": 195,
+        "end": 203,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.bondsman"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "condition": {
+          "all": [
+            {
+              "subject": "bearer",
+              "position": "on-own-defensive-line"
+            },
+            {
+              "subject": "enemy-unit",
+              "operator": "none",
+              "position": "on-own-defensive-line"
+            }
+          ]
+        },
+        "effect": {
+          "operation": "add",
+          "stat": "objective-control",
+          "recipient": "each-model-affected-by-the-bearers-Bondsman-ability",
+          "amount": "bearer-objective-control"
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Imperial Knights"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

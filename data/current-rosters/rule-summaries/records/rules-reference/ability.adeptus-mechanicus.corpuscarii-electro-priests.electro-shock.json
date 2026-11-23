@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.corpuscarii-electro-priests.electro-shock",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Corpuscarii Electro-Priests",
+    "summary": "In your Shooting phase, once this unit has shot, pick one enemy unit that at least one of those attacks hit, other than a MONSTER or VEHICLE. That unit is shocked until the opposing player's next turn ends. A shocked unit gets -2\" to its models' Move characteristic and -2 to its Advance and Charge rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Corpuscarii Electro-Priests",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "after-unit-has-shot"
+        },
+        "selection": {
+          "count": 1,
+          "side": "enemy",
+          "condition": "hit-by-those-attacks",
+          "excludeKeywordsAny": [
+            "MONSTER",
+            "VEHICLE"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "apply-state",
+            "state": "shocked",
+            "duration": "until-end-of-opponent-next-turn"
+          },
+          {
+            "kind": "state-definition",
+            "state": "shocked",
+            "moveInches": -2,
+            "moveMagnitudeInches": 2,
+            "advanceAndChargeRolls": {
+              "subtract": 2
+            }
+          }
+        ]
+      }
+    }
+  }
+}

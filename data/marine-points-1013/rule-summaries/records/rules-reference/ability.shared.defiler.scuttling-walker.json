@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "shared.defiler.scuttling-walker",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Defiler",
+    "summary": "For this unit, terrain works the same as for Titanic models on Normal, Advance and Fall-Back moves. It may cross the Engagement Range of an enemy model while moving. It needs to finish beyond that range.",
+    "summarySpans": [
+      {
+        "start": 45,
+        "end": 52,
+        "bold": true
+      },
+      {
+        "start": 63,
+        "end": 69,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 71,
+        "end": 78,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 83,
+        "end": 98,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 117,
+        "end": 133,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "this-unit",
+        "trigger": {
+          "event": "each-move",
+          "eligibleMoves": [
+            "normal",
+            "advance",
+            "fall-back"
+          ]
+        },
+        "permissions": {
+          "terrainTraversal": "same-as-TITANIC",
+          "passThroughEnemyEngagementRange": true
+        },
+        "endRestriction": "outside-enemy-engagement-range"
+      }
+    }
+  }
+}

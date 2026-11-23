@@ -84,6 +84,10 @@ Pass the previous release when building. The build checks it against the [identi
 
 The first release reports every entry and record as added.
 
+### Release lines
+
+A release follows the latest release of its own rules version, or of the rules version it replaces in play, so the history rules carry IDs forward. An earlier rules version published after a later one, to keep data saved under it resolvable, starts a line of its own with no previous release: it predates the later version's splits and retirements, so following that release would drop their IDs. IDs still name the same entity in every rules version that has it, and its catalogue revisions count from 1 within its own line.
+
 ## Building and verifying
 
 Build from a clean checkout with every input tracked at the release commit:

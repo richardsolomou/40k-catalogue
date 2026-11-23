@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.renegade-raiders.opportunistic-raiders",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Renegade Raiders",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it at the end of any Fight phase on one HERETIC ASTARTES unit of yours that could fight in that phase. If no enemy unit is within Engagement Range of it, it may make a Normal move of no more than 6\" (12\" for a MOUNTED unit); failing that, it may make a Fall Back move instead. If it left a TRANSPORT earlier this turn, it may not embark once this move is over.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Renegade Raiders",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "end-of-phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "HERETIC ASTARTES"
+            ],
+            "wasEligibleToFightThisPhase": true
+          },
+          "effects": [
+            {
+              "condition": "not-within-engagement-range",
+              "normalMoveInches": 6,
+              "mountedNormalMoveInches": 12
+            },
+            {
+              "condition": "within-engagement-range",
+              "fallBackMove": true
+            },
+            {
+              "restriction": "cannot-embark-at-end-of-move-if-disembarked-this-turn"
+            }
+          ],
+          "duration": "instant",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

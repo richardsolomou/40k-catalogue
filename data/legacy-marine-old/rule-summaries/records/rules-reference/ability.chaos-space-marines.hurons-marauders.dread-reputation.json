@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.hurons-marauders.dread-reputation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Huron’s Marauders",
+    "summary": "Model eligibility — HERETIC ASTARTES (exclude DAMNED). Whenever this bearer’s unit enters the battlefield, check nearby enemy units. Those within 6\" must test for Battle-shock. Expand that radius to 12\" for arrivals by Deep Strike.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 36,
+        "bold": true
+      },
+      {
+        "start": 46,
+        "end": 52,
+        "bold": true
+      },
+      {
+        "start": 219,
+        "end": 230,
+        "target": {
+          "kind": "core-rule",
+          "id": "deep-strike"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "HERETIC ASTARTES"
+          ],
+          "excludes": [
+            "DAMNED"
+          ],
+          "characterOnly": true
+        },
+        "effects": [
+          {
+            "type": "force-test",
+            "target": "each-enemy-unit",
+            "test": "Battle-shock",
+            "rangeInches": 6,
+            "rangeOrigin": "bearer-unit",
+            "rangeOverride": {
+              "condition": "setup-using-Deep-Strike",
+              "inches": 12
+            }
+          }
+        ],
+        "trigger": "bearer-unit-set-up-on-battlefield"
+      }
+    }
+  }
+}

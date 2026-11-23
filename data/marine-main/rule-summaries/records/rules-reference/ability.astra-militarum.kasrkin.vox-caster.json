@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.kasrkin.vox-caster",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Kasrkin",
+    "summary": "Whenever you use a Stratagem on the bearer’s unit, roll one D6. Give the roll +1 if at least one friendly OFFICER model is within 6″ of that unit. A result of 5+ earns you 1 CP.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 28,
+        "target": {
+          "kind": "core-rule",
+          "id": "using-stratagems"
+        }
+      },
+      {
+        "start": 60,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 78,
+        "end": 80,
+        "bold": true
+      },
+      {
+        "start": 106,
+        "end": 113,
+        "bold": true
+      },
+      {
+        "start": 130,
+        "end": 132,
+        "bold": true
+      },
+      {
+        "start": 159,
+        "end": 161,
+        "bold": true
+      },
+      {
+        "start": 172,
+        "end": 176,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "wargear-bearer",
+        "trigger": {
+          "event": "target-with-stratagem",
+          "actor": "controlling-player",
+          "recipient": "bearers-unit",
+          "frequency": "each-occurrence"
+        },
+        "roll": {
+          "dice": {
+            "count": 1,
+            "sides": 6
+          },
+          "modifier": {
+            "operation": "add",
+            "amount": 1,
+            "condition": {
+              "minimumCount": 1,
+              "side": "friendly",
+              "entity": "model",
+              "keyword": "OFFICER",
+              "comparison": "within",
+              "distanceInches": 6,
+              "origin": "bearers-unit"
+            }
+          },
+          "successMinimum": 5
+        },
+        "effect": {
+          "recipient": "controlling-player",
+          "operation": "gain-command-points",
+          "amount": 1
+        }
+      }
+    }
+  }
+}

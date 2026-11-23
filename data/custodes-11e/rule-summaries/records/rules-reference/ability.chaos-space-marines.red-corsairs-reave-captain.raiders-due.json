@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.red-corsairs-reave-captain.raiders-due",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Red Corsairs Reave-Captain",
+    "summary": "When the Reave-Captain’s unit declares a charge, look for enemy units in range of an objective and no farther than 12″ from the charging unit. If you find any, you may invoke Raider’s Due and choose whether to reroll the dice for that charge. Any charge move the unit then makes must finish engaged with at least one eligible enemy.",
+    "summarySpans": [
+      {
+        "start": 30,
+        "end": 47,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      },
+      {
+        "start": 82,
+        "end": 94,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 247,
+        "end": 258,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 291,
+        "end": 298,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "charge-reroll-with-conditional-engagement",
+        "trigger": {
+          "event": "own-unit-declares-charge"
+        },
+        "optional": true,
+        "eligibility": {
+          "enemyUnitsAtLeast": 1,
+          "maxDistanceFromOwnUnitInches": 12,
+          "enemyWithinRangeOfAnObjective": true
+        },
+        "reroll": {
+          "roll": "own-unit-charge-roll",
+          "optional": true
+        },
+        "requireChargeMoveEnd": {
+          "when": "ability-used-and-charge-move-made",
+          "engagedWithQualifyingEnemyUnitsAtLeast": 1
+        }
+      }
+    }
+  }
+}

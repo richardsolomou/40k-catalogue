@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.dread-talons.merciless-pursuit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Dread Talons",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it at the end of the opposing player's Movement phase on a HERETIC ASTARTES INFANTRY unit of yours that is outside Engagement Range of all enemy units. Choose an enemy unit within 6\" of yours that made a Fall Back move this turn. Your unit may charge, declaring the charge as though it were your Charge phase, targeting only that enemy unit and only when that unit is an eligible target. Even if the charge succeeds, your unit gains no Charge bonus this turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Dread Talons",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "end-of-phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "HERETIC ASTARTES",
+              "INFANTRY"
+            ],
+            "notInEngagementRange": true
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "fellBackThisTurn": true,
+                "withinInches": 6
+              }
+            },
+            {
+              "declareChargeOutOfPhase": true,
+              "onlyTarget": "selected-enemy-unit-if-eligible",
+              "noChargeBonusThisTurn": true
+            }
+          ],
+          "duration": "instant",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

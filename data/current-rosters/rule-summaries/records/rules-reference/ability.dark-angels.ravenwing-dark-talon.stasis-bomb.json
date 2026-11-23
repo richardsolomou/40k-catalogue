@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.ravenwing-dark-talon.stasis-bomb",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Ravenwing Dark Talon",
+    "summary": "When the enemy Fight phase finishes, choose one enemy unit the Ravenwing Dark Talon can see no farther than 24″ away, excluding AIRCRAFT. Until the enemy’s next Movement phase ends, roll one D6 whenever that unit is picked to move. Skip the roll if it Remains Stationary. On 1–4 it takes D3 mortal wounds and moves 2″ less. On 5–6 it takes 2D3 mortal wounds and moves 3″ less.",
+    "summarySpans": [
+      {
+        "start": 15,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 128,
+        "end": 136,
+        "bold": true
+      },
+      {
+        "start": 161,
+        "end": 175,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 291,
+        "end": 304,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 344,
+        "end": 357,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "Ravenwing Dark Talon unit",
+        "trigger": "end of opponent Fight phase",
+        "target": {
+          "count": 1,
+          "side": "enemy",
+          "visible": true,
+          "withinInches": 24,
+          "excludes": "AIRCRAFT"
+        },
+        "effect": {
+          "when": "target selected to move",
+          "unless": "target Remains Stationary",
+          "until": "end of opponent next Movement phase",
+          "roll": "one D6",
+          "branches": [
+            {
+              "results": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "mortalWounds": "D3",
+              "moveInchesLess": 2
+            },
+            {
+              "results": [
+                5,
+                6
+              ],
+              "mortalWounds": "2D3",
+              "moveInchesLess": 3
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.wreckas.wreckin-and-lootin",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Wreckas",
+    "summary": "In your Shooting phase, this applies when you pick friendly Tankbustas, Flash Gitz or Breaka Boyz to shoot. For each attack, they may re-roll 1s on Hit rolls if the shooter’s unit or that attack’s target is within objective range.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 60,
+        "end": 70,
+        "bold": true
+      },
+      {
+        "start": 72,
+        "end": 82,
+        "bold": true
+      },
+      {
+        "start": 86,
+        "end": 97,
+        "bold": true
+      },
+      {
+        "start": 98,
+        "end": 106,
+        "bold": true
+      },
+      {
+        "start": 148,
+        "end": 157,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 214,
+        "end": 223,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "target": {
+          "owner": "friendly",
+          "level": "unit",
+          "anyOf": [
+            "Breaka Boyz",
+            "Flash Gitz",
+            "Tankbustas"
+          ]
+        },
+        "trigger": {
+          "event": "selected-to-shoot",
+          "phase": "shooting",
+          "owner": "self"
+        },
+        "condition": {
+          "type": "within-objective-range",
+          "anySubject": [
+            "attacking-unit",
+            "attack-target"
+          ]
+        },
+        "effect": {
+          "type": "re-roll",
+          "roll": "hit",
+          "naturalValue": 1,
+          "optional": true
+        }
+      }
+    }
+  }
+}

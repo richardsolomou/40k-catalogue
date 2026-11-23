@@ -1,0 +1,118 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.brandfast-oathband.vengeance-flare",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Brandfast Oathband",
+    "cp": 2,
+    "summary": "Use this after the enemy shooter finishes in the opponent’s Shooting phase. Pick one of your Infantry units with the Leagues of Votann keyword that took a hit from the shooter. Choose a friendly Kapricus or a friendly Sagitaur no farther than 6″ from that Infantry. You can spend 2 Yield Points on this use to make a friendly Hekaton Land Fortress an alternative selection at the same distance. Resolve the selected vehicle’s shooting using your own phase’s procedure. Its models may fire exclusively at the original shooter, subject to target eligibility.",
+    "summarySpans": [
+      {
+        "start": 60,
+        "end": 74,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 282,
+        "end": 294,
+        "target": {
+          "kind": "ability",
+          "id": "leagues-of-votann.prioritised-efficiency"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "detachment": "Brandfast Oathband",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponents"
+              }
+            ],
+            "event": "enemy-unit-finishes-shooting",
+            "actor": "triggering-enemy"
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "allKeywords": [
+              "LEAGUES OF VOTANN",
+              "INFANTRY"
+            ],
+            "condition": {
+              "hitBy": "triggering-enemy",
+              "minimumHits": 1
+            }
+          },
+          "effects": [
+            {
+              "action": "spend-yield-points",
+              "optional": true,
+              "amount": 2
+            },
+            {
+              "action": "select-shooting-unit",
+              "controller": "friendly",
+              "count": 1,
+              "distanceInches": 6,
+              "relativeTo": "chosen-infantry",
+              "alternatives": [
+                {
+                  "condition": "base-selection",
+                  "anyKeywords": [
+                    "KAPRICUS",
+                    "SAGITAUR"
+                  ]
+                },
+                {
+                  "condition": "yield-points-spent-optional-replacement",
+                  "allKeywords": [
+                    "HEKATON LAND FORTRESS"
+                  ]
+                }
+              ]
+            },
+            {
+              "action": "shoot",
+              "actor": "selected-vehicle-unit",
+              "optional": true,
+              "asPhase": "friendly-shooting",
+              "modelTargets": {
+                "only": "triggering-enemy",
+                "requireEligibleTarget": true
+              }
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

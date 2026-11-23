@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "active-player-and-opposing-player",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "01. Core Concepts",
+    "ruleNumber": "01.03",
+    "summary": "The turn owner is active by default. Between turns, use the round’s first player. A unit selected to move, shoot or fight temporarily makes its controller active. Resolve automatic mission effects first. Then handle each player’s mandatory effects before their elective ones, starting with the active player. Each player orders their own effects within each step. New triggers wait for the current timing group to finish.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "active-and-opposing-player",
+        "roles": {
+          "outsideTurns": "round-first-player",
+          "duringTurn": "turn-owner",
+          "otherRole": "other-player",
+          "override": {
+            "player": "selected-unit-controller",
+            "from": "selection-to-move-shoot-or-fight",
+            "until": [
+              "end-of-move",
+              "attacks-resolved"
+            ]
+          }
+        },
+        "ownedRules": [
+          "army-rules",
+          "detachments",
+          "played-stratagems",
+          "enhancements",
+          "datasheet-rules",
+          "mission-rules-used-by-player"
+        ],
+        "useRestrictionsApplyTo": "owner",
+        "automaticMissionRules": {
+          "beforePlayerRules": true,
+          "orderChosenBy": "active-player"
+        },
+        "defaultsWhileTimingTied": [
+          {
+            "player": "active",
+            "use": "mandatory"
+          },
+          {
+            "player": "active",
+            "use": "chosen-optional"
+          },
+          {
+            "player": "opposing",
+            "use": "mandatory"
+          },
+          {
+            "player": "opposing",
+            "use": "chosen-optional"
+          }
+        ],
+        "orderWithinStep": "player-whose-rules-resolve",
+        "newlyTriggeredRulesWaitFor": "remaining-rules-at-original-timing"
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.spearpoint-task-force.evasive-manoeuvers",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Spearpoint Task Force",
+    "cp": 1,
+    "summary": "During the opposing player’s Shooting phase, use this when an enemy targets one of your units with the Adeptus Astartes Mounted/Speeder keyword. Reduce wound rolls for ranged attacks against it by 1.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 43,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 103,
+        "end": 135,
+        "bold": true
+      },
+      {
+        "start": 152,
+        "end": 163,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "shooting"
+            ],
+            "event": "enemy-targets-selected",
+            "window": {
+              "shooting": "opponent"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "referencedByTrigger": true,
+            "sourceKeywordLabel": "Adeptus Astartes Mounted/Speeder"
+          },
+          "effects": [
+            {
+              "kind": "modifier",
+              "subject": "attacks",
+              "characteristic": "wound-roll",
+              "delta": -1,
+              "conditions": {
+                "attacks": "ranged-versus-selected-unit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

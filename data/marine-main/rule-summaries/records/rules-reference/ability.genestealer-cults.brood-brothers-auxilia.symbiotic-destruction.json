@@ -1,0 +1,137 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.brood-brothers-auxilia.symbiotic-destruction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Brood Brothers Auxilia",
+    "cp": 1,
+    "summary": "Pick two of your units that are still waiting to fire in your Shooting phase. One must be ASTRA MILITARUM and the other GENESTEALER CULTS. Mark one enemy both can see that at least one model in each unit has in range of a ranged weapon. Through phase end, they may shoot only that enemy and must still be able to legally target it. Reroll their Wound rolls of 1 against it.",
+    "summarySpans": [
+      {
+        "start": 62,
+        "end": 76,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 90,
+        "end": 105,
+        "bold": true
+      },
+      {
+        "start": 120,
+        "end": 137,
+        "bold": true
+      },
+      {
+        "start": 345,
+        "end": 356,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": [
+            {
+              "owner": "your-army",
+              "entity": "unit",
+              "count": 1,
+              "keywords": [
+                "ASTRA MILITARUM"
+              ],
+              "bind": "guard",
+              "state": "not-yet-selected-to-shoot-this-phase"
+            },
+            {
+              "owner": "your-army",
+              "entity": "unit",
+              "count": 1,
+              "keywords": [
+                "GENESTEALER CULTS"
+              ],
+              "bind": "cult",
+              "state": "not-yet-selected-to-shoot-this-phase"
+            }
+          ],
+          "effects": [
+            {
+              "action": "mark-enemy-unit",
+              "count": 1,
+              "visibleTo": [
+                "guard",
+                "cult"
+              ],
+              "inRangeOf": {
+                "minRangedWeapons": 1,
+                "equippedBy": "at-least-one-model-in-each-selected-unit"
+              },
+              "bind": "enemy"
+            },
+            {
+              "action": "restrict-targets",
+              "recipient": [
+                "guard-models",
+                "cult-models"
+              ],
+              "onlyTarget": "enemy",
+              "condition": "enemy-is-an-eligible-target",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "reroll-wound-rolls",
+              "results": [
+                1
+              ],
+              "recipient": [
+                "guard-models",
+                "cult-models"
+              ],
+              "against": "enemy",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

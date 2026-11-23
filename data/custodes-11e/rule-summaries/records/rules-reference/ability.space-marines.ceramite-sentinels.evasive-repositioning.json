@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.ceramite-sentinels.evasive-repositioning",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ceramite Sentinels",
+    "cp": 1,
+    "summary": "Once an enemy unit finishes firing in the opposing Shooting phase, pick one of your unengaged Adeptus Astartes units with the Infantry or Mounted keyword that took damage from those attacks and lost at least one wound. Roll a D6 for the maximum distance of its optional Normal move. If Entrenched, it can use a D3+3″ cap instead. It cannot use Embark to enter a Transport before that turn ends.",
+    "summarySpans": [
+      {
+        "start": 51,
+        "end": 65,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 270,
+        "end": 281,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 286,
+        "end": 296,
+        "target": {
+          "kind": "ability",
+          "id": "space-marines.ceramite-sentinels.adaptive-defence"
+        }
+      },
+      {
+        "start": 344,
+        "end": 350,
+        "target": {
+          "kind": "core-rule",
+          "id": "embarking"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Ceramite Sentinels",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponents"
+              }
+            ],
+            "event": "enemy-unit-finishes-shooting",
+            "actor": "triggering-enemy"
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "allKeywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "anyKeywords": [
+              "INFANTRY",
+              "MOUNTED"
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "minimumWoundsLost": {
+              "count": 1,
+              "to": "triggering-enemy-attacks"
+            }
+          },
+          "effects": [
+            {
+              "action": "normal-move",
+              "actor": "chosen-unit",
+              "optional": true,
+              "maximumInches": "D6",
+              "alternative": {
+                "condition": "entrenched",
+                "maximumInches": "D3+3"
+              }
+            }
+          ],
+          "restrictions": [
+            {
+              "action": "prevent-embark",
+              "actor": "chosen-unit",
+              "expires": "end-of-current-turn"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

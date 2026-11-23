@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.sagittarum-custodians.saturation-volleys",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Sagittarum Custodians",
+    "summary": "In your Shooting phase, once this unit has finished shooting, choose one enemy unit hit by at least one of those attacks that is not a MONSTER or VEHICLE. That unit is suppressed until your next turn starts, for as long as this unit remains on the battlefield. Attacks made by models in a suppressed unit take −1 on the Hit roll.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 135,
+        "end": 142,
+        "bold": true
+      },
+      {
+        "start": 146,
+        "end": 153,
+        "bold": true
+      },
+      {
+        "start": 168,
+        "end": 178,
+        "bold": true
+      },
+      {
+        "start": 289,
+        "end": 299,
+        "bold": true
+      },
+      {
+        "start": 320,
+        "end": 328,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Sagittarum Custodians",
+        "clauses": [
+          {
+            "trigger": {
+              "turn": "own",
+              "phase": "shooting",
+              "event": "after-this-unit-has-shot"
+            },
+            "selection": {
+              "relationship": "enemy",
+              "count": 1,
+              "optional": false,
+              "excludesAnyKeyword": [
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "requires": "hit by at least one of those attacks"
+            },
+            "effect": {
+              "grantState": {
+                "state": "suppressed",
+                "expires": "start-of-your-next-turn",
+                "while": "this unit is on the battlefield"
+              }
+            }
+          },
+          {
+            "state": "suppressed",
+            "appliesTo": "attacks by models in a suppressed unit",
+            "modifier": {
+              "roll": "hit",
+              "operation": "subtract",
+              "value": 1
+            }
+          }
+        ]
+      }
+    }
+  }
+}

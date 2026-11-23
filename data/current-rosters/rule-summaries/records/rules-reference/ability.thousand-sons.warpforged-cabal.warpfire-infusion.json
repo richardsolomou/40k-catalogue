@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.warpforged-cabal.warpfire-infusion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Warpforged Cabal",
+    "summary": "Whenever one of your THOUSAND SONS VEHICLE units is picked to shoot or fight, then for the attacks it resolves: if any THOUSAND SONS PSYKER model of yours lies within 6\" of it, you may re-roll a single Hit roll, a single Wound roll and a single Damage roll; if not, you may re-roll just one Hit roll, Wound roll or Damage roll. Also, when one of your THOUSAND SONS VEHICLE models that has Deadly Demise is destroyed within 6\" of at least one friendly THOUSAND SONS PSYKER model, its Deadly Demise deals its mortal wounds on a 5+ on the D6 rather than needing a 6.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Warpforged Cabal",
+        "attackRerolls": {
+          "trigger": "unit-selected-to-shoot-or-fight",
+          "unit": {
+            "side": "friendly",
+            "keywordsAll": [
+              "THOUSAND SONS",
+              "VEHICLE"
+            ]
+          },
+          "ifNearPsyker": {
+            "withinInches": 6,
+            "of": {
+              "scope": "model",
+              "keywordsAll": [
+                "THOUSAND SONS",
+                "PSYKER"
+              ]
+            },
+            "reroll": {
+              "hit": 1,
+              "wound": 1,
+              "damage": 1,
+              "combine": "all"
+            }
+          },
+          "otherwise": {
+            "reroll": {
+              "count": 1,
+              "chooseFrom": [
+                "hit",
+                "wound",
+                "damage"
+              ]
+            }
+          }
+        },
+        "deadlyDemise": {
+          "model": {
+            "keywordsAll": [
+              "THOUSAND SONS",
+              "VEHICLE"
+            ],
+            "hasAbility": "Deadly Demise"
+          },
+          "condition": {
+            "destroyedWithinInches": 6,
+            "of": {
+              "scope": "model",
+              "keywordsAll": [
+                "THOUSAND SONS",
+                "PSYKER"
+              ]
+            }
+          },
+          "mortalWoundsOn": {
+            "die": "D6",
+            "threshold": "5+",
+            "replaces": 6
+          }
+        }
+      }
+    }
+  }
+}

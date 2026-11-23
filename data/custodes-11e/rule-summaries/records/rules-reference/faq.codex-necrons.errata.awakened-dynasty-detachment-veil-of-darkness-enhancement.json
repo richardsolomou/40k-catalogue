@@ -1,0 +1,136 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-necrons.errata.awakened-dynasty-detachment-veil-of-darkness-enhancement",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "publication": "Codex: Necrons",
+    "amends": [
+      {
+        "kind": "ability",
+        "id": "necrons.awakened-dynasty.veil-of-darkness"
+      }
+    ],
+    "summary": "Veil of Darkness can be used once in the battle across your army. As the opponent finishes their turn, you may put the bearer’s unit into Strategic Reserves if no enemies are engaging it. Return it in the Reinforcements step of your following Movement phase, including during battle round one. It has Deep Strike until your next Shooting phase begins.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 16,
+        "bold": true
+      },
+      {
+        "start": 301,
+        "end": 312,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "deep-strike"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "87f1c81a-f2a3-41d6-b010-d8cb53c23816",
+          "typedMechanics": {
+            "operation": "replace-enhancement",
+            "effect": {
+              "effect": {
+                "type": "conditional",
+                "condition": {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "type": "matches",
+                      "parameters": {
+                        "filter": {
+                          "state": "engaged"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "sequence",
+                  "steps": [
+                    {
+                      "type": "set-up",
+                      "target": "this-unit",
+                      "modifier": {
+                        "to": "strategic-reserves",
+                        "arrives": "next-movement-phase",
+                        "allow_first_round": true
+                      }
+                    },
+                    {
+                      "type": "ability-grant",
+                      "target": "this-unit",
+                      "modifier": {
+                        "ability": "deep-strike"
+                      }
+                    }
+                  ]
+                }
+              },
+              "scope": {
+                "duration": "until-next-shooting-phase"
+              },
+              "trigger": {
+                "event": "turn-ended",
+                "condition": {
+                  "type": "player-turn-is",
+                  "parameters": {
+                    "turn": "opponent-turn"
+                  }
+                },
+                "optional": true
+              },
+              "usage": {
+                "frequency": "n-per-battle",
+                "count": 1,
+                "per": "army"
+              },
+              "behavior": "reactive"
+            },
+            "detachmentId": "awakened-dynasty",
+            "eligibility": {
+              "scope": "model",
+              "allOf": [
+                "Necrons"
+              ]
+            },
+            "targetQid": "ability:necrons.awakened-dynasty.veil-of-darkness"
+          },
+          "statedValues": [
+            {
+              "kind": "army-use-limit",
+              "value": 1
+            },
+            {
+              "kind": "first-battle-round",
+              "value": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

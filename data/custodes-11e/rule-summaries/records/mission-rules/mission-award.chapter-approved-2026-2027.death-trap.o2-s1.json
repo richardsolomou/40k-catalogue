@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-award",
+  "id": "chapter-approved-2026-2027.death-trap.o2-s1",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "card": "primary",
+    "vp": 3,
+    "summary": "Check as your turn finishes. Gain 3 VP if an enemy unit that began the turn inside a terrain area is destroyed this turn, and the area counts as trapped at scoring time; the trap need not have existed when the unit was destroyed.",
+    "summarySpans": [
+      {
+        "start": 34,
+        "end": 38,
+        "bold": true
+      },
+      {
+        "start": 85,
+        "end": 97,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "terrain"
+        }
+      },
+      {
+        "start": 145,
+        "end": 152,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "mission-player",
+        "windows": [
+          {
+            "at": "turn-end",
+            "turn": "own",
+            "rounds": {
+              "from": 1,
+              "to": 5
+            }
+          }
+        ],
+        "mode": null,
+        "vp": 3,
+        "awardCap": null,
+        "count": "once",
+        "cumulative": false,
+        "exclusiveGroup": null,
+        "exclusivePolicy": null,
+        "packScoringLimits": {
+          "perRound": 15,
+          "perBattle": 45
+        },
+        "criterion": {
+          "type": "destroyed-in-tagged-terrain",
+          "parameters": {
+            "count": {
+              "min": 1
+            },
+            "victim": {
+              "side": "enemy",
+              "kind": "unit"
+            },
+            "window": "current-own-turn",
+            "victimPosition": {
+              "at": "turn-start",
+              "relation": "within",
+              "selector": "terrain-area"
+            },
+            "terrainTag": {
+              "tag": "trapped",
+              "evaluatedAt": "scoring",
+              "requiredAtDestruction": false,
+              "designationSource": {
+                "kind": "same-card-action",
+                "name": "BOOBY TRAP"
+              }
+            }
+          }
+        },
+        "scoring": {
+          "cumulative": false,
+          "mutuallyExclusive": false,
+          "rounds": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.code-chivalric",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "If Imperial Knights are your faction, make an oath once the Read Mission Rules step closes. Choose a deed and a quality independently. For either choice, you may pick an entry or roll a D6 against its table. Your selected quality benefits the army’s models all battle. The first time the deed is met, your army becomes Honoured for the rest of the battle. Earn 2 CP, or 3 CP if you rolled for either choice. This award bypasses the usual single extra CP per round limit. Lay Low the Tyrant checks at turn end whether the enemy Character model named at battle start has died. Reclaim the Realm checks at the close of the opposing turn. You need more controlled objectives than the opponent. Reap a Great Tally checks each round’s losses at round end. The enemy must have lost more units that round than its round number. A unit still counts if it subsequently returns to the field. Martial Valour offers one Hit or Wound re-roll whenever a model is picked to shoot or fight. Eager for the Challenge boosts Move by 2 inches and Advance and Charge rolls by 1. Legacy Unsullied improves Objective Control by 2 and Leadership by 1.",
+    "summarySpans": [
+      {
+        "start": 739,
+        "end": 748,
+        "target": {
+          "kind": "core-rule",
+          "id": "end-of-battle-round"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "oath-and-permanent-quality",
+        "armyFaction": "IMPERIAL KNIGHTS",
+        "selection": {
+          "timing": "read-mission-rules-step-end",
+          "required": true,
+          "deedCount": 1,
+          "qualityCount": 1,
+          "methods": [
+            "choose",
+            "independent-table-roll"
+          ],
+          "die": "D6"
+        },
+        "oath": {
+          "fulfilment": "first-completed-selected-deed",
+          "honouredUntil": "battle-end",
+          "award": {
+            "cp": 2,
+            "cpIfEitherRandom": 3,
+            "exemptFromExtraCpLimit": 1
+          }
+        },
+        "deeds": [
+          {
+            "id": "lay-low-the-tyrant",
+            "d6Results": [
+              1,
+              2
+            ],
+            "chooseAt": "battle-start",
+            "object": "enemy-character-model",
+            "count": 1,
+            "fulfilledAt": "end-of-either-turn",
+            "condition": "chosen-model-destroyed"
+          },
+          {
+            "id": "reclaim-the-realm",
+            "d6Results": [
+              3,
+              4
+            ],
+            "fulfilledAt": "end-of-opponents-turn",
+            "condition": "control-more-objectives-than-opponent"
+          },
+          {
+            "id": "reap-a-great-tally",
+            "d6Results": [
+              5,
+              6
+            ],
+            "fulfilledAt": "end-of-battle-round",
+            "measure": "enemy-units-destroyed-this-round",
+            "comparison": "greater-than-battle-round-number",
+            "countsUnitsSubsequentlyReturned": true,
+            "firstRoundMinimum": 2
+          }
+        ],
+        "qualityDuration": "battle",
+        "qualityRecipient": "all-models-in-army",
+        "qualities": [
+          {
+            "id": "martial-valour",
+            "d6Results": [
+              1,
+              2
+            ],
+            "owner": "model",
+            "trigger": "selected-to-shoot-or-fight",
+            "choice": [
+              "one-hit-reroll",
+              "one-wound-reroll"
+            ]
+          },
+          {
+            "id": "eager-for-the-challenge",
+            "d6Results": [
+              3,
+              4
+            ],
+            "moveInchesAdd": 2,
+            "advanceAdd": 1,
+            "chargeAdd": 1
+          },
+          {
+            "id": "legacy-unsullied",
+            "d6Results": [
+              5,
+              6
+            ],
+            "objectiveControlImprove": 2,
+            "leadershipImprove": 1
+          }
+        ]
+      }
+    }
+  }
+}

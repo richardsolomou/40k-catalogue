@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.kelermorph.hypersensory-abilities",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Kelermorph",
+    "summary": "The Kelermorph, while outside enemy Engagement Range, may react once each turn during the enemy Movement phase. The trigger is a foe ending its move at most 8″ from the Kelermorph, whether it moved Normally, Advanced or Fell Back. If able, the Kelermorph can shoot that foe as in your Shooting phase, then move Normally up to D6″. Embarking in a TRANSPORT is forbidden as part of that move.",
+    "summarySpans": [
+      {
+        "start": 36,
+        "end": 52,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 96,
+        "end": 110,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 285,
+        "end": 299,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 306,
+        "end": 319,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 346,
+        "end": 355,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "transports"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "Kelermorph model",
+        "limit": {
+          "uses": 1,
+          "per": "turn"
+        },
+        "trigger": {
+          "phase": "opponent Movement phase",
+          "enemyUnitEndsMove": [
+            "Normal",
+            "Advance",
+            "Fall Back"
+          ],
+          "withinInchesOfKelermorph": 8
+        },
+        "requires": "Kelermorph outside enemy Engagement Range",
+        "optional": true,
+        "shoot": {
+          "onlyTarget": "moving enemy unit",
+          "asIf": "own Shooting phase",
+          "subjectToEligibility": true
+        },
+        "afterShooting": {
+          "move": "Normal",
+          "upToInches": "D6",
+          "mayEmbarkDuringMove": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.pantheon-of-woe.phase-melding",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Pantheon of Woe",
+    "cp": 1,
+    "summary": "In the opposing Movement phase, react to an Unravelling enemy being chosen for a Fall-Back Move. Pick one of your NECRONS within that enemy’s Engagement Range. If the enemy Falls Back, every model in it takes a Desperate Escape test, at −1 if the enemy is Battle-shocked.",
+    "summarySpans": [
+      {
+        "start": 16,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 81,
+        "end": 95,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 114,
+        "end": 121,
+        "bold": true
+      },
+      {
+        "start": 142,
+        "end": 158,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 211,
+        "end": 232,
+        "target": {
+          "kind": "core-rule",
+          "id": "desperate-escape"
+        }
+      },
+      {
+        "start": 256,
+        "end": 270,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "cp": 1,
+        "window": {
+          "phase": "Movement",
+          "turn": "active player is opponent",
+          "event": "Unravelling enemy selected to Fall Back"
+        },
+        "target": {
+          "side": "friendly",
+          "count": 1,
+          "keywords": "NECRONS",
+          "within": "Engagement Range",
+          "relativeTo": "triggering enemy"
+        },
+        "effect": {
+          "type": "forced test per model",
+          "test": "Desperate Escape",
+          "recipient": "triggering enemy",
+          "condition": "triggering enemy actually Falls Back",
+          "modifier": {
+            "ifState": "Battle-shocked",
+            "amount": -1
+          }
+        },
+        "restrictions": []
+      }
+    }
+  }
+}

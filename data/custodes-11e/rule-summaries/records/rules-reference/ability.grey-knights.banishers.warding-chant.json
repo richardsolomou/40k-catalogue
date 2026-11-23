@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.banishers.warding-chant",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Banishers",
+    "cp": 1,
+    "summary": "Immediately after an enemy chooses attack targets in their Shooting phase or either Fight phase, pick a GREY KNIGHTS PSYKER unit among the targets. Its models gain Feel No Pain 5+ for attacks with Damage 1 through the rest of that phase.",
+    "summarySpans": [
+      {
+        "start": 59,
+        "end": 73,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 84,
+        "end": 95,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 104,
+        "end": 123,
+        "bold": true
+      },
+      {
+        "start": 164,
+        "end": 179,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight",
+              "shooting"
+            ],
+            "event": "enemy-targets-selected",
+            "proximity": "immediate",
+            "window": {
+              "shooting": "opponent",
+              "fight": "either"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "GREY KNIGHTS PSYKER"
+            ],
+            "targetedBy": "at-least-one-of-triggering-enemy-attacks"
+          },
+          "effects": [
+            {
+              "kind": "grant-ability",
+              "subject": "selected-unit-models",
+              "ability": "feel-no-pain",
+              "conditions": {
+                "attackDamageCharacteristic": {
+                  "equals": 1
+                }
+              },
+              "value": "5+"
+            }
+          ],
+          "duration": {
+            "until": "end-of-phase"
+          }
+        }
+      }
+    }
+  }
+}

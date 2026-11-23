@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.hearthfyre-arsenal.delayed-fire-rounds",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hearthfyre Arsenal",
+    "cp": 1,
+    "summary": "Wargear, 1 CP. Use it in your Shooting phase, right after one of your IRONKIN STEELJACKS, ARKANYST EVALUATOR or BRÔKHYR units has shot; that unit is the target. Pick one enemy unit that is neither a MONSTER nor a VEHICLE and that at least one of those attacks hit. Until your next Shooting phase begins, whenever it makes a Normal move, an Advance move or a Fall Back move, roll a D6 for every model in it; each roll of 1 inflicts 1 mortal wound on it, with at most 6 mortal wounds each time.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Hearthfyre Arsenal",
+          "category": "Wargear",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "moment": "after-unit-has-shot"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAny": [
+              "BRÔKHYR",
+              "IRONKIN STEELJACKS",
+              "ARKANYST EVALUATOR"
+            ],
+            "justShot": true
+          },
+          "effects": [
+            {
+              "kind": "move-penalty",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsNone": [
+                  "MONSTER",
+                  "VEHICLE"
+                ],
+                "condition": "hit by one or more of those attacks"
+              },
+              "until": "start-of-your-next-shooting-phase",
+              "trigger": [
+                "normal move",
+                "advance move",
+                "fall back move"
+              ],
+              "dicePerModel": 1,
+              "die": "D6",
+              "failsOn": 1,
+              "mortalWoundsPerFailure": 1,
+              "maxMortalWounds": 6
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

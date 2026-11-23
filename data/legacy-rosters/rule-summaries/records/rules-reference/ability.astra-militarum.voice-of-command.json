@@ -1,0 +1,232 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.voice-of-command",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "For an ASTRA MILITARUM Army Faction, OFFICER models may issue Orders. Use each Officer’s datasheet for its Orders per battle round and eligible recipients. For each Order choose one eligible friendly unit up to 6″ from the issuer. Your Command phase is the normal window for Orders. In any phase when an OFFICER exits a Transport or arrives on the battlefield, they may also give Orders as that phase ends. An Order runs until your next Command phase starts. Unless a rule specifies otherwise, a unit keeps only one Order and a later Order supersedes the earlier one. Battle-shock stops both issuing an Order to that unit and any Order already affecting it. Only ASTRA MILITARUM units can benefit. MOVE! MOVE! MOVE! adds 3″ Move. FIX BAYONETS! improves melee Weapon Skill by 1. TAKE AIM! improves ranged Ballistic Skill by 1. The FIRST RANK, FIRE! and SECOND RANK, FIRE! Order increases the Attacks of Rapid Fire weapons by 1. TAKE COVER! improves Save by 1 to a best of 3+. DUTY AND HONOUR! improves Leadership and Objective Control by 1.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 22,
+        "bold": true
+      },
+      {
+        "start": 23,
+        "end": 35,
+        "target": {
+          "kind": "core-rule",
+          "id": "select-army-faction"
+        }
+      },
+      {
+        "start": 37,
+        "end": 44,
+        "bold": true
+      },
+      {
+        "start": 79,
+        "end": 86,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 130,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-battle-round"
+        }
+      },
+      {
+        "start": 236,
+        "end": 249,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 304,
+        "end": 311,
+        "bold": true
+      },
+      {
+        "start": 437,
+        "end": 450,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 568,
+        "end": 580,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 663,
+        "end": 678,
+        "bold": true
+      },
+      {
+        "start": 698,
+        "end": 715,
+        "bold": true
+      },
+      {
+        "start": 730,
+        "end": 743,
+        "bold": true
+      },
+      {
+        "start": 778,
+        "end": 787,
+        "bold": true
+      },
+      {
+        "start": 830,
+        "end": 847,
+        "bold": true
+      },
+      {
+        "start": 852,
+        "end": 870,
+        "bold": true
+      },
+      {
+        "start": 902,
+        "end": 912,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "rapid-fire"
+        }
+      },
+      {
+        "start": 927,
+        "end": 938,
+        "bold": true
+      },
+      {
+        "start": 975,
+        "end": 991,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "issue-orders",
+        "armyFaction": "ASTRA MILITARUM",
+        "issuer": {
+          "scope": "model",
+          "keyword": "OFFICER",
+          "owner": "friendly",
+          "countPerBattleRound": "issuer-datasheet"
+        },
+        "optional": true,
+        "recipient": {
+          "owner": "friendly",
+          "countPerOrder": 1,
+          "withinInchesOfOfficer": 6,
+          "eligible": "issuer-datasheet",
+          "benefitsRequireKeyword": "ASTRA MILITARUM",
+          "excludeState": "battle-shocked"
+        },
+        "timings": [
+          {
+            "phase": "command",
+            "owner": "self"
+          },
+          {
+            "phase": "any",
+            "at": "end",
+            "ifIssuerThisPhase": [
+              "disembarked-from-transport",
+              "set-up-on-battlefield"
+            ]
+          }
+        ],
+        "expiration": {
+          "phase": "command",
+          "owner": "self",
+          "occurrence": "next",
+          "at": "start",
+          "alsoOn": [
+            "recipient-becomes-battle-shocked",
+            "replaced-by-subsequent-order"
+          ]
+        },
+        "simultaneousLimit": {
+          "count": 1,
+          "unlessSpecifiedOtherwise": true
+        },
+        "orders": [
+          {
+            "name": "MOVE! MOVE! MOVE!",
+            "characteristic": "Move",
+            "operation": "add",
+            "amount": 3,
+            "unit": "inches"
+          },
+          {
+            "name": "FIX BAYONETS!",
+            "characteristic": "Weapon Skill",
+            "weapons": "melee",
+            "operation": "improve",
+            "amount": 1
+          },
+          {
+            "name": "TAKE AIM!",
+            "characteristic": "Ballistic Skill",
+            "weapons": "ranged",
+            "operation": "improve",
+            "amount": 1
+          },
+          {
+            "name": "FIRST RANK, FIRE! SECOND RANK, FIRE!",
+            "characteristic": "Attacks",
+            "weapons": "Rapid Fire",
+            "operation": "increase",
+            "amount": 1
+          },
+          {
+            "name": "TAKE COVER!",
+            "characteristic": "Save",
+            "operation": "improve",
+            "amount": 1,
+            "best": "3+"
+          },
+          {
+            "name": "DUTY AND HONOUR!",
+            "characteristics": [
+              "Leadership",
+              "Objective Control"
+            ],
+            "operation": "improve",
+            "amount": 1
+          }
+        ]
+      }
+    }
+  }
+}

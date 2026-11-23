@@ -1,0 +1,161 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.war-horde.mow-em-down",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "War Horde",
+    "cp": 1,
+    "summary": "In the Fight phase, use this as you choose a friendly Orks Vehicle to fight after it charged this turn. Walker units are excluded. Give its melee attacks Cleave 1. For an attack that already has Cleave, use +1 to its existing value instead, such as Cleave 1 increasing to Cleave 2.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 54,
+        "end": 66,
+        "bold": true
+      },
+      {
+        "start": 104,
+        "end": 110,
+        "bold": true
+      },
+      {
+        "start": 154,
+        "end": 162,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "cleave"
+        }
+      },
+      {
+        "start": 195,
+        "end": 201,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "cleave"
+        }
+      },
+      {
+        "start": 249,
+        "end": 257,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "cleave"
+        }
+      },
+      {
+        "start": 272,
+        "end": 280,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "cleave"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "selected-to-fight",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Orks Vehicle"
+            ],
+            "excludingKeywords": [
+              "Walker"
+            ],
+            "requiresMove": {
+              "move": "charge",
+              "time": "this-turn"
+            }
+          },
+          "effects": [
+            {
+              "kind": "choose-one-mode",
+              "alternatives": [
+                {
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "melee",
+                      "abilities": [
+                        {
+                          "ability": "Cleave",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "condition": {
+                    "attackingWeaponAbility": "Cleave"
+                  },
+                  "effects": [
+                    {
+                      "kind": "modify",
+                      "recipient": "target-unit-melee-attacks",
+                      "subject": "cleave-value",
+                      "operation": "add",
+                      "amount": 1,
+                      "example": {
+                        "before": 1,
+                        "after": 2
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "duration": {
+            "scope": "target-unit-attacks-in-trigger"
+          }
+        }
+      }
+    }
+  }
+}

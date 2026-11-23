@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.strike-squad.sanctifying-ritual",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Strike Squad",
+    "summary": "Keep an objective under your control if this unit is in its range when your Command phase ends. Your opponent takes it back by having a higher Level of Control at a phase’s end.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 17,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 143,
+        "end": 159,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "actor": "controlling-player",
+        "trigger": {
+          "phase": "command",
+          "turn": "own",
+          "timing": "end"
+        },
+        "subject": {
+          "entity": "objective-marker",
+          "proximity": "unit-within-objective-range",
+          "controller": "actor"
+        },
+        "effect": {
+          "operation": "retain-objective-control",
+          "endsWhen": {
+            "timing": "end-of-phase",
+            "otherPlayerControl": "strictly-greater"
+          }
+        }
+      }
+    }
+  }
+}

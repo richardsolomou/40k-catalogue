@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.synaptic-nexus.reinforced-hive-node",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Synaptic Nexus",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP, in the Shooting phase of your opponent's turn or in either player's Fight phase, right after an enemy unit picks its targets. Choose one SYNAPSE unit of yours that those attacks are aimed at. Until that enemy unit is done attacking, every attack against your unit has its Armour Penetration worsened by 1.",
+    "summarySpans": [
+      {
+        "start": 28,
+        "end": 42,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 89,
+        "end": 100,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Synaptic Nexus",
+          "when": {
+            "phases": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "SYNAPSE"
+            ],
+            "condition": "targeted-by-that-enemy-unit"
+          },
+          "effects": [
+            {
+              "incomingAttacks": "all",
+              "worsen": {
+                "AP": 1
+              },
+              "duration": "until-attacking-unit-finishes-attacks"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

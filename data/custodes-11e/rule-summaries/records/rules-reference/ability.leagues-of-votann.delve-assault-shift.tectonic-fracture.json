@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.delve-assault-shift.tectonic-fracture",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Dêlve Assault Shift",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it in your Shooting phase, right after one of your CTHONIAN EARTHSHAKERS units has shot; that unit is the target, and you may also spend 2YP. Pick one enemy unit that your unit hit with at least one attack this phase. Until your next Shooting phase begins, that unit's models get -2 Move, plus, if you spent YP on this use, Charge rolls for that unit also get -2.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Dêlve Assault Shift",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "moment": "after-unit-has-shot"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "CTHONIAN EARTHSHAKERS"
+            ],
+            "justShot": true
+          },
+          "effects": [
+            {
+              "kind": "optional-cost",
+              "spendYP": 2
+            },
+            {
+              "kind": "debuff",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "condition": "struck by at least one of your unit's attacks this phase"
+              },
+              "until": "start-of-your-next-shooting-phase",
+              "modifiers": [
+                {
+                  "characteristic": "M",
+                  "op": "subtract",
+                  "value": 2
+                },
+                {
+                  "roll": "charge",
+                  "op": "subtract",
+                  "value": 2,
+                  "condition": "YP spent on this use"
+                }
+              ]
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

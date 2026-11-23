@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.inner-circle-task-force.duty-unto-death",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Inner Circle Task Force",
+    "cp": 1,
+    "summary": "When an enemy selects its Fight phase targets, pick a friendly DEATHWING unit among them. Roll a D6 each time it loses a model in that phase while it still awaits selection to fight. Add 1 if an enemy engaging your unit is close enough to be in range of the objective you vowed to take. A 4+ leaves the casualty in play through its unit’s fight, or through the close of the phase if that comes sooner.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Inner Circle Task Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "when": "enemy-targets-friendly-deathwing-unit"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "DEATHWING"
+            ],
+            "condition": "targeted-by-triggering-enemy"
+          },
+          "effects": [
+            {
+              "action": "roll-to-delay-removal",
+              "recipient": "each-destroyed-model-in-chosen-unit",
+              "die": "D6",
+              "threshold": "4+",
+              "condition": "chosen-unit-not-yet-selected-to-fight-this-phase",
+              "modifiers": [
+                {
+                  "amount": 1,
+                  "condition": "chosen-unit-engaged-with-enemy-unit-within-range-of-own-vowed-objective"
+                }
+              ],
+              "removeOnPassAt": {
+                "firstOf": [
+                  "chosen-unit-has-fought",
+                  "phase-end"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

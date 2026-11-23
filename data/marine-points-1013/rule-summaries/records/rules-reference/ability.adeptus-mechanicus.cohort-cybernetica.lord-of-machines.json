@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.cohort-cybernetica.lord-of-machines",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Cohort Cybernetica",
+    "summary": "Bearer must be a TECH-PRIEST model. Once per turn, as the opposing player's Shooting phase starts, pick one enemy VEHICLE unit that is visible to the bearer and no more than 12\" from it. That unit takes a Leadership test. On a pass, its models' attacks get -1 to the Hit roll for the rest of the phase; on a fail, it cannot shoot at all this phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "enhancement",
+        "detachment": "Cohort Cybernetica",
+        "pointsCost": 15,
+        "eligibility": {
+          "scope": "model",
+          "keywordsAll": [
+            "TECH-PRIEST"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "leadership-test-on-enemy",
+            "usage": {
+              "oncePer": "turn"
+            },
+            "timing": "start-of-opponent-shooting-phase",
+            "selection": {
+              "count": 1,
+              "side": "enemy",
+              "keywordsAll": [
+                "VEHICLE"
+              ],
+              "withinInches": 12,
+              "visibleToBearer": true
+            },
+            "onPass": {
+              "outgoingHitModifier": {
+                "subtract": 1
+              },
+              "duration": "phase"
+            },
+            "onFail": {
+              "notEligibleToShoot": true,
+              "duration": "phase"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

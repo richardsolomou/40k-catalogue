@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "deathwatch.watch-master.purgatus-quarry",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Watch Master",
+    "summary": "As the first battle round opens, designate one enemy unit as this unit’s hunted target. For this unit’s attacks against that target, it can reroll Wound rolls that show 1. When the hunted target is destroyed, designate an enemy unit to take its place.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-battle-round"
+        }
+      },
+      {
+        "start": 73,
+        "end": 79,
+        "bold": true
+      },
+      {
+        "start": 147,
+        "end": 158,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 181,
+        "end": 187,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": "start-of-first-battle-round",
+        "duration": "battle",
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "count": 1
+        },
+        "activeDesignationsPerBearer": 1,
+        "replacement": {
+          "trigger": "designated-unit-destroyed",
+          "selection": "one-enemy-unit",
+          "optional": false
+        },
+        "type": "designated-target-reroll",
+        "tag": "hunted",
+        "initialSelectionOptional": false,
+        "attacker": "this-unit",
+        "target": "hunted",
+        "reroll": {
+          "roll": "wound",
+          "only": 1
+        }
+      }
+    }
+  }
+}

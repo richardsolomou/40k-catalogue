@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.canoptek-court.suboptimal-facade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Canoptek Court",
+    "cp": 1,
+    "summary": "Right after an enemy declares a charge in its Charge phase, choose one of the charged CANOPTEK units wholly inside your Power Matrix. Resolve its Reanimation Protocols before the charge proceeds.",
+    "summarySpans": [
+      {
+        "start": 46,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 86,
+        "end": 94,
+        "bold": true
+      },
+      {
+        "start": 120,
+        "end": 132,
+        "target": {
+          "kind": "ability",
+          "id": "necrons.canoptek-court.power-matrix"
+        }
+      },
+      {
+        "start": 146,
+        "end": 167,
+        "target": {
+          "kind": "ability",
+          "id": "necrons.reanimation-protocols"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-declares-charge"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "CANOPTEK"
+            ],
+            "binding": "target-of-triggering-charge",
+            "area": {
+              "region": "power-matrix",
+              "relation": "wholly-within"
+            }
+          },
+          "effects": [
+            {
+              "action": "activate-reanimation-protocols",
+              "recipient": "target-unit",
+              "timing": "after-charge-declared-before-charge-roll"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

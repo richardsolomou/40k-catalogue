@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.biophagus.alchemicus-familiar",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Biophagus",
+    "summary": "The bearer may spend one use per battle when you pick its unit to fight. The bearer’s unit then gets +1 to Wound when its models attack Infantry, ending with that phase.",
+    "summarySpans": [
+      {
+        "start": 107,
+        "end": 112,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 136,
+        "end": 144,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "bearer",
+        "actor": "controlling-player",
+        "limit": {
+          "count": 1,
+          "period": "battle",
+          "scope": "bearer"
+        },
+        "trigger": "bearers-unit-selected-to-fight",
+        "optional": true,
+        "duration": "through-end-of-triggering-phase",
+        "effect": {
+          "actor": "model-in-bearers-unit",
+          "trigger": "each-attack",
+          "target": {
+            "entity": "unit",
+            "allKeywords": [
+              "INFANTRY"
+            ]
+          },
+          "roll": "wound",
+          "modifier": 1
+        }
+      }
+    }
+  }
+}

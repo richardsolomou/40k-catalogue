@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.kauyon.patient-hunter",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Kauyon",
+    "summary": "In battle rounds three to five, ranged weapons that your T'AU EMPIRE models carry have [SUSTAINED HITS 1]. In those same battle rounds, when a model in a Guided unit (a rule from For the Greater Good) makes a ranged attack against a Spotted unit, you may set aside some or every modifier to the Ballistic Skill of the attack, and you may also set aside its Hit roll modifiers, but only all of them together.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "battleRounds": [
+          3,
+          4,
+          5
+        ],
+        "effects": [
+          {
+            "kind": "weapon-ability",
+            "weapons": "ranged",
+            "ability": "SUSTAINED HITS",
+            "value": 1,
+            "recipients": {
+              "modelKeywords": [
+                "T'AU EMPIRE"
+              ]
+            }
+          },
+          {
+            "kind": "ignore-modifiers",
+            "attackType": "ranged",
+            "condition": [
+              "attacker-in-guided-unit",
+              "target-is-spotted-unit"
+            ],
+            "to": [
+              "ballistic-skill"
+            ],
+            "optional": "any-or-all",
+            "ruleReference": "For the Greater Good"
+          },
+          {
+            "kind": "ignore-modifiers",
+            "attackType": "ranged",
+            "condition": [
+              "attacker-in-guided-unit",
+              "target-is-spotted-unit"
+            ],
+            "to": [
+              "hit-roll"
+            ],
+            "optional": "all-or-none",
+            "ruleReference": "For the Greater Good"
+          }
+        ]
+      }
+    }
+  }
+}

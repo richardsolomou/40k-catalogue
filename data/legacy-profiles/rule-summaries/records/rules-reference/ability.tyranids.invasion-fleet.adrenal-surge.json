@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.invasion-fleet.adrenal-surge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Invasion Fleet",
+    "cp": 2,
+    "summary": "In the Fight phase, choose up to two of your TYRANIDS units in your army’s Synapse Range, or choose a single different unit with TYRANIDS. All chosen units must be able to fight. For the rest of the phase, they score Critical Hits on 5+ before any Hit roll modifiers.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 45,
+        "end": 53,
+        "bold": true
+      },
+      {
+        "start": 75,
+        "end": 88,
+        "target": {
+          "kind": "ability",
+          "id": "tyranids.synapse"
+        }
+      },
+      {
+        "start": 129,
+        "end": 137,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "chooseOneOf": [
+              {
+                "owner": "your-army",
+                "count": {
+                  "max": 2
+                },
+                "keywords": [
+                  "TYRANIDS"
+                ],
+                "withinSynapseRangeOf": "your-army",
+                "eligibleToFight": true
+              },
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "TYRANIDS"
+                ],
+                "alternative": "one-other-unit",
+                "eligibleToFight": true
+              }
+            ]
+          },
+          "effects": [
+            {
+              "kind": "critical-hit-threshold",
+              "subject": "attacks-by-models-in-selected-units",
+              "roll": "unmodified-hit-roll",
+              "minimum": 5,
+              "until": "end-of-phase"
+            }
+          ],
+          "type": "battle-tactic"
+        }
+      }
+    }
+  }
+}

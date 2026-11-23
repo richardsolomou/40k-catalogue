@@ -1,0 +1,102 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.succubus.lithe-agility",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Succubus",
+    "summary": "You may pay 1 Pain token to make this model’s unit Empowered in either window. In your Movement phase, pay when picking the unit to Advance. In your Charge phase, pay before rolling its charge. The unit may reroll its Advance and Charge rolls while Empowered.",
+    "summarySpans": [
+      {
+        "start": 14,
+        "end": 24,
+        "bold": true
+      },
+      {
+        "start": 51,
+        "end": 60,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      },
+      {
+        "start": 87,
+        "end": 101,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 149,
+        "end": 161,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 249,
+        "end": 258,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "source": "datasheet-model",
+        "recipient": "source-model-unit",
+        "trigger": {
+          "anyOf": [
+            {
+              "phase": "Movement",
+              "turnOwner": "self",
+              "event": "select recipient to Advance"
+            },
+            {
+              "phase": "Charge",
+              "turnOwner": "self",
+              "event": "before recipient Charge roll"
+            }
+          ]
+        },
+        "optional": true,
+        "cost": {
+          "resource": "Pain token",
+          "amount": 1
+        },
+        "designation": "Empowered",
+        "effect": {
+          "requires": "Empowered",
+          "recipient": "source-model-unit",
+          "optionalRerolls": [
+            "Advance",
+            "Charge"
+          ]
+        }
+      }
+    }
+  }
+}

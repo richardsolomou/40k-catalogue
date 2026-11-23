@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.assimilation-swarm.ablative-carapace",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Assimilation Swarm",
+    "cp": 2,
+    "summary": "Epic Deed, 2 CP, in the Shooting phase of your opponent's turn or in either player's Fight phase, right after an enemy unit picks its targets. Choose one HARVESTER unit of yours that those attacks are aimed at; until the phase ends its models gain Feel No Pain 5+, improved to Feel No Pain 4+ while the unit is in an objective marker's range and you control that marker.",
+    "summarySpans": [
+      {
+        "start": 24,
+        "end": 38,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 85,
+        "end": 96,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 248,
+        "end": 263,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "category": "Epic Deed",
+          "detachment": "Assimilation Swarm",
+          "when": {
+            "phases": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "HARVESTER"
+            ],
+            "condition": "targeted-by-that-enemy-unit"
+          },
+          "effects": [
+            {
+              "grantAbility": "Feel No Pain",
+              "threshold": "5+",
+              "duration": "end-of-phase"
+            },
+            {
+              "ifWithinRangeOfControlledObjective": true,
+              "grantAbility": "Feel No Pain",
+              "threshold": "4+",
+              "replaces": "5+",
+              "duration": "end-of-phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

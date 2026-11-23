@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.solar-spearhead.punishment-inescapable",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Solar Spearhead",
+    "cp": 1,
+    "summary": "In your Shooting phase, spend 1 CP on one ADEPTUS CUSTODES unit of yours that has not shot yet this phase. While the phase lasts, the ranged weapons its models carry gain [IGNORES COVER], and whenever one of its models attacks you may set aside some or every modifier to its Ballistic Skill, to its Hit roll, or to both.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 42,
+        "end": 58,
+        "bold": true
+      },
+      {
+        "start": 171,
+        "end": 186,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "ignores-cover"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Solar Spearhead",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES"
+            ],
+            "condition": "not-selected-to-shoot-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "grant-weapon-ability",
+              "ability": "IGNORES COVER",
+              "weapons": "ranged",
+              "expires": "end-of-phase"
+            },
+            {
+              "kind": "ignore-modifiers",
+              "to": [
+                "ballistic-skill",
+                "hit-roll"
+              ],
+              "choice": "any-or-all",
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

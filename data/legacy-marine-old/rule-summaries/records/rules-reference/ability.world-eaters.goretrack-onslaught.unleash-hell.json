@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.goretrack-onslaught.unleash-hell",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Goretrack Onslaught",
+    "summary": "As your Shooting phase opens, you may designate one VEHICLE model no farther than 6″ from the bearer, or use the TRANSPORT model the bearer is aboard. After that model shoots in the same phase, pick one enemy unit it scored a hit against. The chosen unit is Suppressed until your next turn begins. Every attack by its models takes −1 on the Hit roll during that window.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "shooting",
+          "player": "self",
+          "timing": "start"
+        },
+        "selector": {
+          "optional": true,
+          "count": 1,
+          "options": [
+            {
+              "type": "VEHICLE",
+              "entity": "model",
+              "maximumDistanceInches": 6,
+              "origin": "bearer"
+            },
+            {
+              "type": "TRANSPORT",
+              "entity": "model",
+              "condition": "bearer-embarked-in-this-model"
+            }
+          ]
+        },
+        "afterShooting": {
+          "actor": "selected-model",
+          "within": "same-shooting-phase",
+          "choose": {
+            "count": 1,
+            "side": "enemy",
+            "entity": "unit",
+            "minimumHitsReceived": 1,
+            "from": "selected-model-attacks-in-that-shooting"
+          }
+        },
+        "effect": {
+          "subject": "chosen-enemy-unit",
+          "state": "Suppressed",
+          "expires": "start-of-next-own-turn",
+          "modifier": {
+            "attackOwner": "each-model-in-that-unit",
+            "stat": "hit-roll",
+            "delta": -1,
+            "attackScope": "all-attacks"
+          }
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "World Eaters"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

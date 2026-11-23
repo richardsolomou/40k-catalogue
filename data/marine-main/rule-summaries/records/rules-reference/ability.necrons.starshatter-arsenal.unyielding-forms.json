@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.starshatter-arsenal.unyielding-forms",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Starshatter Arsenal",
+    "cp": 2,
+    "summary": "2 CP, in the opposing player's Shooting phase or in a Fight phase of either turn, right after an enemy unit picks its targets. Choose one NECRONS MOUNTED or NECRONS VEHICLE unit of yours, other than a TITANIC unit, that it picked as a target for at least one attack. For the rest of this phase, when an attack aimed at one of your unit's models has a higher Strength than your unit's Toughness, that attack's Wound roll gets -1.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "detachment": "Starshatter Arsenal",
+          "when": [
+            {
+              "phase": "shooting",
+              "turn": "opponent"
+            },
+            {
+              "phase": "fight",
+              "turn": "either"
+            }
+          ],
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAny": [
+              [
+                "NECRONS",
+                "VEHICLE"
+              ],
+              [
+                "NECRONS",
+                "MOUNTED"
+              ]
+            ],
+            "excludeKeywords": [
+              "TITANIC"
+            ],
+            "condition": "selected-as-target-of-attacking-unit"
+          },
+          "effects": [
+            {
+              "kind": "wound-roll-modifier",
+              "value": -1,
+              "appliesTo": "attacks-targeting-your-unit",
+              "condition": "attack-strength-greater-than-unit-toughness",
+              "magnitude": 1
+            }
+          ],
+          "restrictions": [],
+          "duration": "end-of-phase",
+          "trigger": "after-enemy-unit-selects-targets"
+        }
+      }
+    }
+  }
+}

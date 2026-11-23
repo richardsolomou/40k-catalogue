@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.invictor-tactical-warsuit.forward-assault-warsuit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Invictor Tactical Warsuit",
+    "summary": "As the first battle round opens, you may name one enemy unit as this unit’s mark. The unit can reroll Wound rolls that show 1 for attacks against its mark. When its mark is destroyed, name an enemy unit as the replacement.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-battle-round"
+        }
+      },
+      {
+        "start": 76,
+        "end": 80,
+        "bold": true
+      },
+      {
+        "start": 102,
+        "end": 113,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 150,
+        "end": 154,
+        "bold": true
+      },
+      {
+        "start": 165,
+        "end": 169,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": "start-of-first-battle-round",
+        "duration": "battle",
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "count": 1
+        },
+        "activeDesignationsPerBearer": 1,
+        "replacement": {
+          "trigger": "designated-unit-destroyed",
+          "selection": "one-enemy-unit",
+          "optional": false
+        },
+        "type": "designated-target-reroll",
+        "tag": "mark",
+        "initialSelectionOptional": true,
+        "attacker": "this-unit",
+        "target": "mark",
+        "reroll": {
+          "roll": "wound",
+          "only": 1
+        }
+      }
+    }
+  }
+}

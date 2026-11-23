@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.falcon.fire-support",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Falcon",
+    "summary": "In your Shooting phase, once this model has shot, pick one enemy unit that at least one of those attacks hit. For the rest of the turn, friendly models that disembarked from it during this turn may re-roll Wound rolls for attacks against that enemy unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "when": {
+            "turn": "own",
+            "phase": "shooting"
+          },
+          "trigger": "after-this-model-has-shot",
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "hitByThoseAttacks": {
+              "minimum": 1
+            }
+          },
+          "effects": [
+            {
+              "appliesTo": "friendly-models-disembarked-from-this-transport-this-turn",
+              "againstSelectedUnit": true,
+              "reroll": "wound"
+            }
+          ],
+          "duration": "end-of-turn"
+        }
+      }
+    }
+  }
+}

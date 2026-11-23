@@ -1,0 +1,176 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.cult-ambush",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "Genestealer Cults begin with Resurgence points by size: 6 for Incursion, 10 at Strike Force and 14 at Onslaught. When an eligible unit dies, you may pay the cost for its original size, omitting Attached Characters. Each non-Character model must have Cult Ambush. Costs at the two sizes are Aberrants 4/8, Acolyte Hybrids or Hybrid Metamorphs 2/4, Atalan Jackals 2/6, Neophyte Hybrids 3/6 and Purestrain Genestealers 2/6. The two Neophyte sizes are 10 and 20. The others are 5 and 10. Add a fresh copy without Characters to Cult Ambush. Restore its full strength and wounds, with One Shot weapons available again. Use a circular 32 mm Ambush marker, placed over 9 inches horizontally from every enemy unit if possible. A non-Aircraft enemy model ending any move within 8 inches of a marker removes it. Units in ambush count as being in Strategic Reserves, with special setup through the markers. They are ineligible for Rapid Ingress and avoid the normal round-three destruction deadline. When the opposing side’s next Movement phase ends, you may make one Ingress move per surviving marker, using a unit in Cult Ambush. Set up that unit so the marker touches a model’s base and the other models fit entirely within 3 inches of it. Remove the marker after setup. This form of arrival is available in round one.",
+    "summarySpans": [
+      {
+        "start": 835,
+        "end": 853,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 919,
+        "end": 932,
+        "target": {
+          "kind": "core-rule",
+          "id": "rapid-ingress"
+        }
+      },
+      {
+        "start": 1018,
+        "end": 1032,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 1056,
+        "end": 1068,
+        "target": {
+          "kind": "core-rule",
+          "id": "ingress-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "replacement-unit-and-marker-sequence",
+        "armyFaction": "GENESTEALER CULTS",
+        "initialResurgence": {
+          "incursion": 6,
+          "strikeForce": 10,
+          "onslaught": 14
+        },
+        "purchase": {
+          "optional": true,
+          "on": "friendly-unit-destroyed",
+          "requiresEveryNonCharacterModelHasRule": true,
+          "costByStartingStrengthExcludingAttachedCharacters": [
+            {
+              "units": [
+                "aberrants"
+              ],
+              "prices": {
+                "5": 4,
+                "10": 8
+              }
+            },
+            {
+              "units": [
+                "acolyte-hybrids-with-autopistols",
+                "acolyte-hybrids-with-hand-flamers",
+                "hybrid-metamorphs"
+              ],
+              "prices": {
+                "5": 2,
+                "10": 4
+              }
+            },
+            {
+              "units": [
+                "atalan-jackals"
+              ],
+              "prices": {
+                "5": 2,
+                "10": 6
+              }
+            },
+            {
+              "units": [
+                "neophyte-hybrids"
+              ],
+              "prices": {
+                "10": 3,
+                "20": 6
+              }
+            },
+            {
+              "units": [
+                "purestrain-genestealers"
+              ],
+              "prices": {
+                "5": 2,
+                "10": 6
+              }
+            }
+          ]
+        },
+        "replacement": {
+          "source": "destroyed-unit",
+          "count": 1,
+          "excludeCharacterModels": true,
+          "startingStrength": true,
+          "fullWounds": true,
+          "oneShotWeaponsReset": true,
+          "destination": "cult-ambush"
+        },
+        "marker": {
+          "placeCount": 1,
+          "ifPossible": true,
+          "shape": "circle",
+          "diameterMm": 32,
+          "enemySeparation": {
+            "strictlyMoreThanInches": 9,
+            "measurement": "horizontal",
+            "fromUnits": "all-enemy-units"
+          },
+          "removedWhen": {
+            "event": "move-end",
+            "moveType": "any",
+            "subject": "enemy-model",
+            "excludeKeyword": "AIRCRAFT",
+            "withinInches": 8
+          }
+        },
+        "ambushState": {
+          "isStrategicReserves": true,
+          "rapidIngressEligible": false,
+          "usesAmbushMarkerSetup": true,
+          "followsNormalStrategicReserveSetup": false,
+          "notDestroyedAtRound3End": true
+        },
+        "arrival": {
+          "owner": "opponent",
+          "phase": "movement",
+          "occurrence": "next",
+          "at": "end",
+          "optional": true,
+          "unitSelection": "any-friendly-unit-in-cult-ambush",
+          "maxUnitsPerRemainingMarker": 1,
+          "method": "ingress",
+          "setup": {
+            "atLeastOneModelInBaseContact": true,
+            "otherModelsWhollyWithinInches": 3
+          },
+          "removeMarkerAfterPlacement": true,
+          "firstBattleRoundAllowed": true
+        }
+      }
+    }
+  }
+}

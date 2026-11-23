@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.explorator-maniple.cached-acquisition",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Explorator Maniple",
+    "cp": 1,
+    "summary": "Epic Deed. Spend 1 CP in any phase on one ADEPTUS MECHANICUS unit in your army that was destroyed a moment ago while it was in range of one of your controlled objective markers; you may target it even though it was destroyed. That objective marker stays under your control until the opposing player ends a phase with a higher Level of Control there than you.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Explorator Maniple",
+          "category": "Epic Deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS MECHANICUS"
+            ],
+            "condition": "just-destroyed-within-range-of-objective-you-controlled",
+            "targetableWhileDestroyed": true
+          },
+          "effects": [
+            {
+              "kind": "sticky-objective",
+              "objective": "that-objective-marker",
+              "endsWhen": "end-of-a-phase-where-opponent-level-of-control-exceeds-yours"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

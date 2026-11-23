@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.cryptek-conclave.gravitic-bolas",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Cryptek Conclave",
+    "summary": "Restricted to CRYPTEK models. In your Shooting phase, once the bearer has shot, pick one enemy unit other than a TITANIC unit that took at least one hit from those attacks. It is pinned until your next turn starts; a pinned unit has -2 to its Move characteristic and -2 to its Charge rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "pointsCost": 15,
+        "detachment": "Cryptek Conclave",
+        "eligibility": {
+          "modelKeywords": [
+            "CRYPTEK"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "apply-state",
+            "state": "pinned",
+            "trigger": {
+              "phase": "shooting",
+              "turn": "own",
+              "event": "after-bearer-has-shot"
+            },
+            "on": {
+              "side": "enemy",
+              "count": 1,
+              "condition": "hit-by-bearer-attacks",
+              "excludeKeywords": [
+                "TITANIC"
+              ]
+            },
+            "duration": "start-of-your-next-turn",
+            "stateEffects": {
+              "moveModifier": -2,
+              "chargeRollModifier": -2,
+              "magnitude": 2
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.canoptek-court.power-matrix",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Canoptek Court",
+    "summary": "The Power Matrix of your army permanently contains your own deployment zone. When any phase begins, No Man's Land joins the Power Matrix for that phase if most or exactly half of its objective markers are yours to control, and the opposing player's deployment zone is judged the same way on its own. Attacks by models in your CRYPTEK and CANOPTEK units may re-roll any 1 on the Hit roll; while their unit is wholly within the Power Matrix, they may re-roll any Hit roll instead.",
+    "summarySpans": [
+      {
+        "start": 4,
+        "end": 16,
+        "bold": true
+      },
+      {
+        "start": 100,
+        "end": 113,
+        "bold": true
+      },
+      {
+        "start": 326,
+        "end": 333,
+        "bold": true
+      },
+      {
+        "start": 338,
+        "end": 346,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Canoptek Court",
+        "area": {
+          "name": "Power Matrix",
+          "always": [
+            "own-deployment-zone"
+          ],
+          "conditional": [
+            {
+              "zone": "no-mans-land",
+              "check": "start-of-any-phase",
+              "controlShareAtLeast": 0.5,
+              "duration": "phase"
+            },
+            {
+              "zone": "opponent-deployment-zone",
+              "check": "start-of-any-phase",
+              "controlShareAtLeast": 0.5,
+              "duration": "phase"
+            }
+          ]
+        },
+        "recipients": {
+          "side": "friendly",
+          "keywordsAny": [
+            "CRYPTEK",
+            "CANOPTEK"
+          ]
+        },
+        "reroll": {
+          "roll": "hit",
+          "value": 1
+        },
+        "upgrade": {
+          "condition": "unit-wholly-within-power-matrix",
+          "reroll": {
+            "roll": "hit",
+            "value": "any"
+          }
+        }
+      }
+    }
+  }
+}

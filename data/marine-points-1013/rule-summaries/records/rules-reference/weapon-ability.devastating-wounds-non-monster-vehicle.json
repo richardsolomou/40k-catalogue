@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "weapon-ability",
+  "id": "devastating-wounds-non-monster-vehicle",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "summary": "[DEVASTATING WOUNDS] counts only when this attack targets a unit with neither MONSTER nor VEHICLE. If even one model in the target unit has either keyword, the whole unit counts as having it, so the ability does nothing. Otherwise a critical wound ends that attack's sequence, and the target unit instead takes as many mortal wounds as the weapon's Damage, added once normal damage from those attacks is done. Each critical wound's mortal wounds can reach only one model, and any left over are discarded.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 20,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "devastating-wounds"
+        }
+      },
+      {
+        "start": 78,
+        "end": 85,
+        "bold": true
+      },
+      {
+        "start": 90,
+        "end": 97,
+        "bold": true
+      },
+      {
+        "start": 171,
+        "end": 190,
+        "target": {
+          "kind": "core-rule",
+          "id": "keywords"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "qualified-weapon-ability",
+        "label": "DEVASTATING WOUNDS: non-MONSTER/VEHICLE",
+        "baseRule": "weapon-ability:devastating-wounds",
+        "targetGate": {
+          "scope": "per-attack",
+          "target": "unit",
+          "noneOfKeywords": [
+            "MONSTER",
+            "VEHICLE"
+          ],
+          "unitHasEveryModelKeyword": true,
+          "mixedUnitExcluded": true,
+          "ruleRefs": [
+            "02.05.01",
+            "24.01"
+          ]
+        },
+        "trigger": "critical-wound",
+        "effect": {
+          "attackSequenceEnds": true,
+          "mortalWounds": "weapon-damage-characteristic",
+          "timing": "after-normal-damage-from-those-attacks",
+          "modelCapPerCriticalWound": 1,
+          "discardExcess": true
+        },
+        "example": {
+          "damage": 3,
+          "mortalWounds": 3,
+          "woundsToDestroyOneModel": 2,
+          "lost": 1
+        }
+      }
+    }
+  }
+}

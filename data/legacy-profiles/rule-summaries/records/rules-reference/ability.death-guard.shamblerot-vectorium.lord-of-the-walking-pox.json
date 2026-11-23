@@ -1,0 +1,89 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.shamblerot-vectorium.lord-of-the-walking-pox",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Shamblerot Vectorium",
+    "summary": "Model eligibility. DEATH GUARD. For battlefield entry from Strategic Reserves, count the round as 3 if the unit has the POXWALKER keyword and the bearer is its Leader.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 30,
+        "bold": true
+      },
+      {
+        "start": 59,
+        "end": 77,
+        "target": {
+          "kind": "core-rule",
+          "id": "arriving-from-strategic-reserves"
+        }
+      },
+      {
+        "start": 120,
+        "end": 129,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "characterOnly": true,
+          "match": "all",
+          "keywords": [
+            "DEATH GUARD"
+          ],
+          "excludes": []
+        },
+        "trigger": {
+          "event": "set-up-on-battlefield",
+          "zoneBefore": "strategic-reserves",
+          "subject": "bearer-led-unit"
+        },
+        "conditions": [
+          {
+            "type": "leader-of-unit",
+            "actor": "bearer-model",
+            "unit": "bearer-led-unit",
+            "requiredUnitKeyword": "POXWALKER"
+          },
+          {
+            "type": "unit-location",
+            "target": "bearer-led-unit",
+            "location": "strategic-reserves"
+          }
+        ],
+        "effects": [
+          {
+            "type": "substitute-battle-round",
+            "value": 3,
+            "target": "bearer-led-unit",
+            "scope": "setting-up-on-battlefield-from-strategic-reserves",
+            "normalRoundUnaffected": true,
+            "ruleQid": "core-rule:arriving-from-strategic-reserves"
+          }
+        ]
+      }
+    }
+  }
+}

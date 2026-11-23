@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.yvraine.word-of-the-phoenix",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Yvraine",
+    "summary": "Roll a D6 in your Command phase while Yvraine leads a unit. On 2+, restore D3+1 of the led unit’s destroyed Bodyguard models. SUPPORT WEAPON models are excluded.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 9,
+        "bold": true
+      },
+      {
+        "start": 18,
+        "end": 31,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 63,
+        "end": 65,
+        "bold": true
+      },
+      {
+        "start": 75,
+        "end": 79,
+        "bold": true
+      },
+      {
+        "start": 126,
+        "end": 140,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "psychic",
+        "source": "this-model",
+        "trigger": {
+          "event": "phase",
+          "phase": "command",
+          "timing": "during",
+          "turn": "your-turn"
+        },
+        "condition": "this-model-leading-a-unit",
+        "optional": false,
+        "effect": {
+          "operation": "roll-and-branch",
+          "dice": {
+            "count": 1,
+            "sides": 6,
+            "additive": 0
+          },
+          "branches": [
+            {
+              "comparison": "at-least",
+              "value": 2,
+              "effect": {
+                "operation": "return-destroyed-models",
+                "recipient": "led-unit",
+                "quantity": {
+                  "count": 1,
+                  "sides": 3,
+                  "additive": 1
+                },
+                "excludeAnyKeywords": [
+                  "SUPPORT WEAPON"
+                ],
+                "modelRole": "bodyguard"
+              }
+            },
+            {
+              "comparison": "less-than",
+              "value": 2,
+              "effect": null
+            }
+          ]
+        }
+      }
+    }
+  }
+}

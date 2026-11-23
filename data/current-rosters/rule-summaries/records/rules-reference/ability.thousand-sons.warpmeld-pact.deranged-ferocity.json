@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.warpmeld-pact.deranged-ferocity",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Warpmeld Pact",
+    "cp": 1,
+    "summary": "Spend 1 CP in either player's Fight phase right after you select one of your TZEENTCH MUTANT units to fight; that unit is the target. Until the phase ends, Pile-in and Consolidation moves by its models may cover up to 6 inches instead of 3. When working out which of its models can fight, any model within 3 inches of an enemy model is eligible, and those models may direct their attacks at an enemy unit of that kind that lies within 3 inches of them and in Engagement Range of their own unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Warpmeld Pact",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "friendly-unit-selected-to-fight",
+            "keywordsAll": [
+              "TZEENTCH",
+              "MUTANT"
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "sameAs": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "pile-in-and-consolidation-distance",
+              "maxInches": 6,
+              "replaces": 3
+            },
+            {
+              "kind": "fight-eligibility",
+              "modelsWithinInchesOfEnemyModel": 3
+            },
+            {
+              "kind": "target-restriction",
+              "enemyWithinInchesOfModel": 3,
+              "enemyInEngagementRangeOfUnit": true
+            }
+          ],
+          "expires": "end-of-phase",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

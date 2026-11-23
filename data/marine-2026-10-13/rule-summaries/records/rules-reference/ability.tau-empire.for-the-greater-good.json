@@ -1,0 +1,155 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.for-the-greater-good",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "T’au Empire Faction Pack: Version 1.2",
+    "page": "19",
+    "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_tau_empire-sxhzmfrlud-mpzjzuhupn.pdf#page=19"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "For a T'AU EMPIRE Army Faction, when your Shooting phase begins you may designate Observers from your own units. For each eligible Observer, mark one enemy it can see as Spotted through phase end. The Observer must be eligible to shoot and await selection for shooting. Battle-shocked units and FORTIFICATION cannot mark an enemy. Each enemy can be marked only once that phase. When your non-Observer units target a Spotted enemy, they count as Guided against it. Improve their models’ attacking weapons’ Ballistic Skill by 1. The weapons also gain [IGNORES COVER] for those attacks if the Observer that marked the enemy has MARKERLIGHT.",
+    "summarySpans": [
+      {
+        "start": 6,
+        "end": 17,
+        "bold": true
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "select-army-faction"
+        }
+      },
+      {
+        "start": 42,
+        "end": 56,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 131,
+        "end": 139,
+        "bold": true
+      },
+      {
+        "start": 170,
+        "end": 177,
+        "bold": true
+      },
+      {
+        "start": 201,
+        "end": 209,
+        "bold": true
+      },
+      {
+        "start": 270,
+        "end": 284,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 295,
+        "end": 308,
+        "bold": true
+      },
+      {
+        "start": 416,
+        "end": 423,
+        "bold": true
+      },
+      {
+        "start": 445,
+        "end": 451,
+        "bold": true
+      },
+      {
+        "start": 549,
+        "end": 564,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "ignores-cover"
+        }
+      },
+      {
+        "start": 590,
+        "end": 598,
+        "bold": true
+      },
+      {
+        "start": 625,
+        "end": 636,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "T’au Empire Faction Pack: Version 1.2",
+        "page": "19",
+        "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_tau_empire-sxhzmfrlud-mpzjzuhupn.pdf#page=19"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "observer-target-marking",
+        "armyFaction": "T'AU EMPIRE",
+        "timing": {
+          "owner": "self",
+          "phase": "shooting",
+          "at": "start"
+        },
+        "optional": true,
+        "observers": {
+          "owner": "friendly",
+          "eligibilityToMark": {
+            "mustBeEligibleToShoot": true,
+            "excludes": [
+              "FORTIFICATION",
+              "already-selected-to-shoot",
+              "battle-shocked"
+            ]
+          }
+        },
+        "mark": {
+          "owner": "enemy",
+          "requiredPerEligibleObserver": true,
+          "countPerObserver": 1,
+          "visibleTo": "assigning-observer",
+          "timesPerTargetPerPhase": 1,
+          "duration": "end-of-phase"
+        },
+        "guided": {
+          "owner": "friendly",
+          "excludeObservers": true,
+          "when": "targeting-spotted-enemy",
+          "weaponBallisticSkillImprove": 1,
+          "conditionalWeaponAbility": {
+            "ifMarkingObserverHas": "MARKERLIGHT",
+            "grant": "ignores-cover"
+          }
+        }
+      }
+    }
+  }
+}

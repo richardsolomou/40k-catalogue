@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "deathwatch.black-spear-task-force.dragonfire-rounds",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Black Spear Task Force",
+    "cp": 1,
+    "summary": "In your Shooting phase, use this as you pick a friendly KILL TEAM to shoot. Its ranged attacks gain IGNORES COVER and may reroll Wound results of 1.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 56,
+        "end": 65,
+        "bold": true
+      },
+      {
+        "start": 100,
+        "end": 113,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "ignores-cover"
+        }
+      },
+      {
+        "start": 129,
+        "end": 142,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "selected-to-shoot",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "KILL TEAM"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "reroll",
+              "recipient": "target-unit-attacks",
+              "attackType": "ranged",
+              "roll": "wound",
+              "face": 1,
+              "optional": true
+            },
+            {
+              "kind": "weapon-ability-grant",
+              "recipient": "target-unit-attacks",
+              "attackType": "ranged",
+              "abilities": [
+                "IGNORES COVER"
+              ]
+            }
+          ],
+          "duration": {
+            "scope": "target-unit-attacks-in-trigger"
+          }
+        }
+      }
+    }
+  }
+}

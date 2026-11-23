@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.spearpoint-task-force.hunters-instincts",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Spearpoint Task Force",
+    "cp": 1,
+    "summary": "In the enemy Movement phase, react as soon as one of their units finishes a move no farther than 8″ from an unengaged Adeptus Astartes unit of yours with the Infantry, Mounted or Speeder keyword. Choose that friendly unit. It may make a Normal move with a maximum distance of D3+3″.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 27,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 237,
+        "end": 248,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Spearpoint Task Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponents"
+              }
+            ],
+            "event": "enemy-unit-finishes-move",
+            "distanceInches": 8,
+            "boundary": "at-most",
+            "relativeTo": "chosen-unit"
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "allKeywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "anyKeywords": [
+              "INFANTRY",
+              "MOUNTED",
+              "SPEEDER"
+            ],
+            "condition": "unengaged"
+          },
+          "effects": [
+            {
+              "action": "normal-move",
+              "actor": "chosen-unit",
+              "optional": true,
+              "maximumInches": "D3+3"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

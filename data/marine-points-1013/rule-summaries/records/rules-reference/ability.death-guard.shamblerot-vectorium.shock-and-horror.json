@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.shamblerot-vectorium.shock-and-horror",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Shamblerot Vectorium",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it in your Charge phase, right after one of your DEATH GUARD units finishes a Charge move; that unit is the target. Every enemy unit in Engagement Range of it takes a Battle-shock test with a -1 modifier.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Shamblerot Vectorium",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "own"
+              }
+            ],
+            "moment": "after-charge-move"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "DEATH GUARD"
+            ],
+            "justEndedChargeMove": true
+          },
+          "effects": [
+            {
+              "kind": "battle-shock-test",
+              "affects": "each enemy unit within Engagement Range of the target",
+              "modifier": {
+                "op": "subtract",
+                "value": 1
+              }
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

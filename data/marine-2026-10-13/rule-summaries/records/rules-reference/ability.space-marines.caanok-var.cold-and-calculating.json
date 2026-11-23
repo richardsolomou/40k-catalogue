@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.caanok-var.cold-and-calculating",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Caanok Var",
+    "summary": "Choose one attack benefit when you pick Var’s unit to fire during your Shooting phase. The same choice applies if you pick it to fight during the Fight phase. It can gain [LETHAL HITS] against MONSTER or VEHICLE targets, or [SUSTAINED HITS 1] against targets with neither keyword. An active Tactical Doctrine gives the unit both effects under Combat Doctrines.",
+    "summarySpans": [
+      {
+        "start": 71,
+        "end": 85,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 146,
+        "end": 157,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 171,
+        "end": 184,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 193,
+        "end": 200,
+        "bold": true
+      },
+      {
+        "start": 204,
+        "end": 211,
+        "bold": true
+      },
+      {
+        "start": 224,
+        "end": 242,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 343,
+        "end": 359,
+        "target": {
+          "kind": "ability",
+          "id": "space-marines.combat-doctrines"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "triggers": [
+          {
+            "phase": "Shooting",
+            "side": "own",
+            "event": "selected to shoot"
+          },
+          {
+            "phase": "Fight",
+            "event": "selected to fight"
+          }
+        ],
+        "attackActor": "owner unit",
+        "selectCount": 1,
+        "effects": [
+          {
+            "grant": "LETHAL HITS",
+            "targetAnyKeyword": [
+              "MONSTER",
+              "VEHICLE"
+            ]
+          },
+          {
+            "grant": "SUSTAINED HITS",
+            "value": 1,
+            "targetNoneOfKeywords": [
+              "MONSTER",
+              "VEHICLE"
+            ]
+          }
+        ],
+        "override": {
+          "activeDoctrine": "Tactical",
+          "recipient": "owner unit",
+          "grantBoth": true
+        }
+      }
+    }
+  }
+}

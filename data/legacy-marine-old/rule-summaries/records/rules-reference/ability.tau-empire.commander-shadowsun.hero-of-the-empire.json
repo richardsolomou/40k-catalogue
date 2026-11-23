@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.commander-shadowsun.hero-of-the-empire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Commander Shadowsun",
+    "summary": "The models in friendly T’AU EMPIRE units re-roll Hit rolls of 1 on ranged attacks while their unit is in this model’s 6″ aura.",
+    "summarySpans": [
+      {
+        "start": 23,
+        "end": 34,
+        "bold": true
+      },
+      {
+        "start": 49,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-model",
+        "aura": {
+          "emitter": {
+            "entity": "model",
+            "selector": "this-model"
+          },
+          "recipient": {
+            "side": "friendly",
+            "entity": "unit",
+            "allKeywords": [
+              "T’AU EMPIRE"
+            ],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-model",
+            "to": "recipient-unit",
+            "kind": "within",
+            "distanceInches": 6
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "reroll",
+            "actor": "models-in-recipient-unit",
+            "trigger": "each-attack",
+            "attackType": "ranged",
+            "roll": "hit",
+            "onlyOn": 1
+          }
+        ]
+      }
+    }
+  }
+}

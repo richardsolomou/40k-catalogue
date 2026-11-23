@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.aspect-host.path-of-the-warrior",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Aspect Host",
+    "summary": "When one of your units is picked for shooting or fighting, check its keywords. This rule applies to ASPECT WARRIORS and to AVATAR OF KHAINE units. Pick a roll type, Hit dice or Wound dice. For the rest of that phase, its models re-roll a 1 on that type of roll for each attack.",
+    "summarySpans": [
+      {
+        "start": 100,
+        "end": 115,
+        "bold": true
+      },
+      {
+        "start": 123,
+        "end": 139,
+        "bold": true
+      },
+      {
+        "start": 165,
+        "end": 173,
+        "target": {
+          "kind": "core-rule",
+          "id": "making-attacks"
+        }
+      },
+      {
+        "start": 177,
+        "end": 187,
+        "target": {
+          "kind": "core-rule",
+          "id": "making-attacks"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "anyOf": [
+            "selected-to-shoot",
+            "selected-to-fight"
+          ]
+        },
+        "target": {
+          "owner": "friendly",
+          "level": "unit",
+          "anyOf": [
+            "ASPECT WARRIORS",
+            "AVATAR OF KHAINE"
+          ]
+        },
+        "expires": {
+          "event": "phase-ended",
+          "phase": "triggering"
+        },
+        "effect": {
+          "type": "choice",
+          "count": 1,
+          "options": [
+            {
+              "type": "re-roll",
+              "roll": "hit",
+              "naturalValue": 1,
+              "scope": "each-attack-by-model"
+            },
+            {
+              "type": "re-roll",
+              "roll": "wound",
+              "naturalValue": 1,
+              "scope": "each-attack-by-model"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

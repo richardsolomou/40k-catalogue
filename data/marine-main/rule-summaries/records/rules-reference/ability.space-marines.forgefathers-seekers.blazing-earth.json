@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.forgefathers-seekers.blazing-earth",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Forgefather's Seekers",
+    "cp": 1,
+    "summary": "As the opponent’s Charge phase begins, pick an unengaged Adeptus Astartes unit of yours carrying at least one Torrent or Melta weapon. From that unit, pick a visible enemy at most 12″ away. Apply a −1 penalty to the chosen enemy’s Charge rolls.",
+    "summarySpans": [
+      {
+        "start": 110,
+        "end": 117,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "torrent"
+        }
+      },
+      {
+        "start": 121,
+        "end": 126,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "melta"
+        }
+      },
+      {
+        "start": 231,
+        "end": 243,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Forgefather's Seekers",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponents"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "controller": "friendly",
+            "allKeywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "engaged": false,
+            "weaponAny": [
+              "TORRENT",
+              "MELTA"
+            ],
+            "minimumWeapons": 1
+          },
+          "effects": [
+            {
+              "action": "modify-charge-roll",
+              "amount": -1,
+              "target": {
+                "controller": "enemy",
+                "entity": "unit",
+                "count": 1,
+                "visibleFrom": "selected-unit",
+                "distanceInches": 12,
+                "boundary": "at-most"
+              }
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

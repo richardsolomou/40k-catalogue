@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.broodlord.hypnotic-gaze",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Broodlord",
+    "summary": "As the Fight phase begins, choose one enemy unit in this model’s Engagement Range. Its models take −1 on Hit rolls for the rest of that phase.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 65,
+        "end": 81,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 105,
+        "end": 114,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "trigger": "start-of-fight-phase",
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "count": 1,
+          "within": "engagement-range",
+          "origin": "this-model",
+          "optional": false
+        },
+        "duration": "through-end-of-that-fight-phase",
+        "effect": {
+          "actor": "model-in-selected-enemy-unit",
+          "trigger": "each-attack",
+          "roll": "hit",
+          "modifier": -1
+        }
+      }
+    }
+  }
+}

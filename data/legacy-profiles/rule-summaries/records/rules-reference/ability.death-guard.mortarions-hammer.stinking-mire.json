@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.mortarions-hammer.stinking-mire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Mortarion’s Hammer",
+    "cp": 1,
+    "summary": "At the start of the opposing Charge phase pick a DEATH GUARD VEHICLE unit that is unengaged. Choose an enemy unit it can see up to 12\" away. Apply a −1 penalty to that enemy’s Charge rolls when it declares a charge.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 41,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 49,
+        "end": 68,
+        "bold": true
+      },
+      {
+        "start": 82,
+        "end": 91,
+        "bold": true
+      },
+      {
+        "start": 197,
+        "end": 214,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "start-of-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "DEATH GUARD VEHICLE"
+            ],
+            "state": "unengaged"
+          },
+          "effects": [
+            {
+              "kind": "select-unit",
+              "id": "affected-enemy",
+              "owner": "enemy",
+              "count": 1,
+              "visibleFrom": "target-unit",
+              "distance": {
+                "unit": "inch",
+                "amount": 12,
+                "comparator": "at-most",
+                "from": "target-unit"
+              }
+            },
+            {
+              "kind": "roll-modifier",
+              "recipient": "affected-enemy",
+              "trigger": "that-unit-declares-a-charge",
+              "roll": "charge",
+              "operation": "subtract",
+              "amount": 1,
+              "duration": {
+                "until": "resolution-of-affected-charge-rolls"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

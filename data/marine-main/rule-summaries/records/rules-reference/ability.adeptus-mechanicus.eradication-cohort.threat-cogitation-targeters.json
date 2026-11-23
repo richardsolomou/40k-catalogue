@@ -1,0 +1,156 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.eradication-cohort.threat-cogitation-targeters",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Eradication Cohort",
+    "cp": 1,
+    "summary": "Your Shooting Phase. Pick one SKITARII VEHICLE unit of yours that has yet to be picked to shoot. For this phase, its models can reroll the Damage roll for their ranged attacks against MONSTER or VEHICLE models.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 19,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 30,
+        "end": 46,
+        "bold": true
+      },
+      {
+        "start": 184,
+        "end": 191,
+        "bold": true
+      },
+      {
+        "start": 195,
+        "end": 202,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "attack-is",
+                  "parameters": {
+                    "attack_type": "ranged"
+                  }
+                },
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "subject": "defender",
+                    "filter": {
+                      "any_of": [
+                        "MONSTER",
+                        "VEHICLE"
+                      ],
+                      "level": "model"
+                    }
+                  }
+                }
+              ]
+            },
+            "effect": {
+              "type": "re-roll",
+              "target": "this-unit",
+              "modifier": {
+                "roll": "damage",
+                "result_scope": "any-result",
+                "weapons": {
+                  "type": "ranged"
+                }
+              }
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "applies_to": {
+            "all_of": [
+              "SKITARII",
+              "VEHICLE"
+            ]
+          },
+          "behavior": "activated"
+        },
+        "stratagem": {
+          "id": "threat-cogitation-targeters-eradication-cohort-adeptus-mechanicus",
+          "cp_cost": 1,
+          "phases": [
+            "shooting"
+          ],
+          "player_turn": "your-turn",
+          "timing": "once-per-phase",
+          "type": "wargear",
+          "target_restrictions": {
+            "required_keywords": [
+              "Skitarii",
+              "Vehicle"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "owner": "friendly"
+                    }
+                  }
+                },
+                {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "type": "happened",
+                      "parameters": {
+                        "event": "selected",
+                        "filter": {
+                          "to": "shoot"
+                        },
+                        "window": "phase"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {}
+      }
+    }
+  }
+}

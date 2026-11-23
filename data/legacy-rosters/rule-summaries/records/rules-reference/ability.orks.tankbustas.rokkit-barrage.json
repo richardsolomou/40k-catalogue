@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.tankbustas.rokkit-barrage",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Tankbustas",
+    "summary": "In your Shooting phase, once this unit has fired, pick an enemy unit it hit; that unit has to roll for Battle-shock, applying -1 to the roll.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 103,
+        "end": 115,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Tankbustas",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "this-unit-has-shot"
+        },
+        "select": {
+          "count": 1,
+          "side": "enemy",
+          "condition": "hit-by-those-attacks"
+        },
+        "effects": [
+          {
+            "battleShockRoll": {
+              "change": 1,
+              "direction": "decrease"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.armiger-helverin.suppression-protocols",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Armiger Helverin",
+    "summary": "In your Shooting phase, once this model has shot, pick one enemy unit, other than a MONSTER or VEHICLE, that its Armiger autocannon attacks hit at least once. That unit is suppressed until your next turn starts. Attacks made by models in a suppressed unit get -1 to the Hit roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Armiger Helverin",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "after-this-model-has-shot"
+        },
+        "selection": {
+          "count": 1,
+          "side": "enemy",
+          "condition": "hit-by-Armiger-autocannon-attacks",
+          "excludeKeywordsAny": [
+            "MONSTER",
+            "VEHICLE"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "apply-state",
+            "state": "suppressed",
+            "duration": "until-start-of-next-own-turn"
+          },
+          {
+            "kind": "state-definition",
+            "state": "suppressed",
+            "outgoingHitModifier": {
+              "subtract": 1
+            }
+          }
+        ]
+      }
+    }
+  }
+}

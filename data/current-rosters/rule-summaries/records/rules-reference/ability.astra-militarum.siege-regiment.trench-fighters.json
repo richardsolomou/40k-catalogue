@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.siege-regiment.trench-fighters",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Siege Regiment",
+    "cp": 1,
+    "summary": "Spend 1 CP in the Fight phase, right after an enemy unit picks its targets, on an ASTRA MILITARUM INFANTRY unit of yours that it targeted with at least one attack. For the rest of the phase, whenever one of your unit's models is destroyed before it has fought this phase, roll a D6 (add 2 for a REGIMENT model); if the result is 4+, the model stays: it may fight after the attackers have resolved all their attacks, then it is removed from play.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Siege Regiment",
+          "when": {
+            "phase": "fight",
+            "turn": "either",
+            "moment": "just-after-enemy-unit-selects-targets"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ASTRA MILITARUM",
+              "INFANTRY"
+            ],
+            "wasSelectedAsTarget": true
+          },
+          "effects": [
+            {
+              "duration": "end-of-phase",
+              "trigger": "model-in-unit-destroyed",
+              "condition": "model-has-not-fought-this-phase",
+              "roll": {
+                "dice": "D6",
+                "successOn": "4+",
+                "bonusIfKeyword": {
+                  "keyword": "REGIMENT",
+                  "add": 2
+                }
+              },
+              "onSuccess": {
+                "notRemovedYet": true,
+                "mayFightAfterAttackingUnitFinishes": true,
+                "thenRemoved": true
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

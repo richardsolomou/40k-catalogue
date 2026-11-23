@@ -1,0 +1,129 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.ceramite-sentinels.augmented-targeting",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ceramite Sentinels",
+    "cp": 1,
+    "summary": "When you select a Adeptus Astartes unit to attack in your Shooting phase or either Fight phase, choose one ability for its attacks. Pick SUSTAINED HITS 1 or LETHAL HITS. An entrenched unit gets the pair.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 34,
+        "bold": true
+      },
+      {
+        "start": 58,
+        "end": 72,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 83,
+        "end": 94,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 137,
+        "end": 153,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 157,
+        "end": 168,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 173,
+        "end": 183,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight",
+              "shooting"
+            ],
+            "event": "friendly-selected-to-attack",
+            "window": {
+              "shooting": "your",
+              "fight": "either"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "referencedByTrigger": true,
+            "sourceKeywordLabel": "Adeptus Astartes"
+          },
+          "effects": [
+            {
+              "kind": "choose-one-ability",
+              "subject": "selected-unit-attacks",
+              "options": [
+                {
+                  "ability": "lethal-hits"
+                },
+                {
+                  "ability": "sustained-hits",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "kind": "grant-both-instead",
+              "condition": "selected-unit-entrenched",
+              "options": [
+                {
+                  "ability": "lethal-hits"
+                },
+                {
+                  "ability": "sustained-hits",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.death-jester.death-is-not-enough",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Death Jester",
+    "summary": "After shooting by this model in your Shooting phase, pick an enemy it hit. MONSTERS and VEHICLES are ineligible. The chosen unit must test for Battle-shock, with −1 if those shots killed any of its models.",
+    "summarySpans": [
+      {
+        "start": 37,
+        "end": 51,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 75,
+        "end": 83,
+        "bold": true
+      },
+      {
+        "start": 88,
+        "end": 96,
+        "bold": true
+      },
+      {
+        "start": 143,
+        "end": 155,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "source": "datasheet-model",
+        "trigger": {
+          "phase": "Shooting",
+          "turnOwner": "self",
+          "event": "after-source-model-shoots"
+        },
+        "selection": {
+          "side": "enemy",
+          "count": 1,
+          "minimumHitsBySource": 1,
+          "exclude": [
+            "MONSTERS",
+            "VEHICLES"
+          ]
+        },
+        "effect": {
+          "recipient": "selected-enemy-unit",
+          "test": "Battle-shock",
+          "mustTake": true,
+          "conditionalModifier": {
+            "minimumModelsKilledByThoseAttacks": 1,
+            "value": -1
+          }
+        }
+      }
+    }
+  }
+}

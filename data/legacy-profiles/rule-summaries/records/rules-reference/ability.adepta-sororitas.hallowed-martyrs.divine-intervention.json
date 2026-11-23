@@ -1,0 +1,122 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.hallowed-martyrs.divine-intervention",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hallowed Martyrs",
+    "cp": 1,
+    "summary": "Spend 1 CP immediately after one of your ADEPTA SORORITAS CHARACTER models is destroyed in any phase of either turn. You may discard 1 to 3 Miracle dice. At phase end, return the model unengaged, as near as you can to its death location. It forms a separate unit with Starting Strength 1, even if it previously belonged to an Attached unit. Roll a D3 and add one for every die discarded. The result is the model’s remaining wounds, capped at its starting wounds. Saint Celestine is ineligible. Each Character can be chosen only once in a battle.",
+    "summarySpans": [
+      {
+        "start": 140,
+        "end": 152,
+        "target": {
+          "kind": "ability",
+          "id": "adepta-sororitas.acts-of-faith"
+        }
+      },
+      {
+        "start": 185,
+        "end": 194,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 268,
+        "end": 285,
+        "target": {
+          "kind": "core-rule",
+          "id": "units-and-models"
+        }
+      },
+      {
+        "start": 326,
+        "end": 339,
+        "target": {
+          "kind": "core-rule",
+          "id": "attached-units"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "cost": {
+          "commandPoints": 1
+        },
+        "activation": {
+          "phase": "any",
+          "turn": "either",
+          "event": "model-just-destroyed"
+        },
+        "target": {
+          "controller": "you",
+          "entity": "model",
+          "count": 1,
+          "allKeywords": [
+            "ADEPTA SORORITAS",
+            "CHARACTER"
+          ],
+          "eventSubject": true,
+          "mayTargetDestroyedModel": true
+        },
+        "effect": {
+          "discard": {
+            "resource": "miracle-dice",
+            "optional": true,
+            "chosenCount": {
+              "min": 1,
+              "max": 3
+            },
+            "declineCount": 0
+          },
+          "return": {
+            "recipient": "target-model",
+            "timing": "end-of-triggering-phase",
+            "destination": "battlefield",
+            "placementCriteria": {
+              "all": [
+                "unengaged",
+                "nearest-legal-position-to-destruction-site"
+              ]
+            },
+            "attachedUnitMembership": false,
+            "separateUnit": true,
+            "startingStrength": 1
+          },
+          "woundsRemaining": {
+            "recipient": "returned-model",
+            "operation": "set",
+            "baseRoll": "D3",
+            "increasePerMiracleDieDiscarded": 1,
+            "maximum": "target-model-starting-wounds"
+          }
+        },
+        "restrictions": {
+          "excludedModel": "Saint Celestine",
+          "oncePerBattlePerCharacter": true
+        }
+      }
+    }
+  }
+}

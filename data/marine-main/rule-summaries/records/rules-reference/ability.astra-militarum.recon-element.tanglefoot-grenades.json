@@ -1,0 +1,95 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.recon-element.tanglefoot-grenades",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Recon Element",
+    "cp": 1,
+    "summary": "As the enemy Charge phase starts, pick an ASTRA MILITARUM GRENADES unit of yours. Choose one visible enemy unit up to 12\" from your pick. That enemy takes a −1 penalty to Charge rolls when it declares a charge.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 42,
+        "end": 66,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "wargear",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "start-of-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ASTRA MILITARUM GRENADES"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "select-unit",
+              "id": "affected-enemy",
+              "owner": "enemy",
+              "count": 1,
+              "visibleFrom": "target-unit",
+              "distance": {
+                "unit": "inch",
+                "amount": 12,
+                "comparator": "at-most",
+                "from": "target-unit"
+              }
+            },
+            {
+              "kind": "roll-modifier",
+              "recipient": "affected-enemy",
+              "trigger": "that-unit-declares-a-charge",
+              "roll": "charge",
+              "operation": "subtract",
+              "amount": 1,
+              "duration": {
+                "until": "resolution-of-affected-charge-rolls"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.plague-legion.maggot-maws",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Chaos Daemons Faction Pack: Version 1.2",
+    "page": "127",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_chaos_daemons-e67vyzvv3x-mownb49uc3.pdf#page=127"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Plague Legion",
+    "summary": "Model eligibility. LEGIONES DAEMONICA / NURGLE. During your Shooting phase, pick an opposing unit up to 6″ from the bearer. Force a Battle-shock test for it. Roll a D6 independently of the test result and deal D3 mortal wounds to that unit on 3+. This use prevents damage from Daemonic Terror.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 37,
+        "bold": true
+      },
+      {
+        "start": 40,
+        "end": 46,
+        "bold": true
+      },
+      {
+        "start": 60,
+        "end": 74,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 132,
+        "end": 149,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 213,
+        "end": 226,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 277,
+        "end": 292,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-daemons.the-shadow-of-chaos"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Daemons Faction Pack: Version 1.2",
+        "page": "127",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_chaos_daemons-e67vyzvv3x-mownb49uc3.pdf#page=127"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "characterOnly": true,
+          "match": "all",
+          "keywords": [
+            "LEGIONES DAEMONICA",
+            "NURGLE"
+          ],
+          "excludes": []
+        },
+        "trigger": {
+          "phase": "shooting",
+          "owner": "own-player",
+          "timing": "during"
+        },
+        "selection": {
+          "actor": "own-player",
+          "target": "enemy-unit",
+          "count": 1,
+          "rangeInches": 6,
+          "origin": "bearer-model",
+          "comparison": "within"
+        },
+        "effects": [
+          {
+            "type": "force-test",
+            "test": "battle-shock",
+            "target": "selected-enemy-unit",
+            "order": 1
+          },
+          {
+            "type": "roll-for-mortal-wounds",
+            "target": "selected-enemy-unit",
+            "order": 2,
+            "after": "test",
+            "requiresTestResult": false,
+            "roll": {
+              "dice": "D6",
+              "count": 1
+            },
+            "minimum": 3,
+            "mortalWounds": "D3"
+          },
+          {
+            "type": "suppress-mortal-wounds",
+            "trigger": "each-use-of-this-enhancement",
+            "sourceRuleQid": "ability:chaos-daemons.the-shadow-of-chaos",
+            "sourceRuleSection": "Daemonic Terror",
+            "scope": "this-use",
+            "preservesOtherEffects": true
+          }
+        ]
+      }
+    }
+  }
+}

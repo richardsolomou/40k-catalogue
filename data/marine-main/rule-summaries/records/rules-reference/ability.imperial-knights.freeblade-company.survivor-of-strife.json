@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.freeblade-company.survivor-of-strife",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Freeblade Company",
+    "cp": 1,
+    "summary": "Epic Deed. Spend 1 CP in the opposing player's Shooting phase, right after an enemy unit picks its targets. Choose one IMPERIAL KNIGHTS unit in your army that it targeted with at least one attack. For the rest of the phase, any attack against that unit whose Strength exceeds your unit's Toughness gets -1 to the Wound roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Freeblade Company",
+          "category": "Epic Deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-has-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "IMPERIAL KNIGHTS"
+            ],
+            "condition": "targeted-by-that-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "incoming-wound-modifier",
+              "subtract": 1,
+              "condition": "attack-strength-greater-than-unit-toughness",
+              "duration": "phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

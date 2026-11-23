@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.farseer.guide",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Farseer",
+    "summary": "With your Movement phase finished, choose a visible enemy unit no farther than 18″ from this model. Guide gives friendly Aeldari attackers +1 to Hit when they target that unit. The bonus ends when your next Command phase begins. Limit one use per turn.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 24,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 79,
+        "end": 82,
+        "bold": true
+      },
+      {
+        "start": 121,
+        "end": 128,
+        "bold": true
+      },
+      {
+        "start": 145,
+        "end": 148,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 207,
+        "end": 220,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "timing": "end-of-own-movement-phase",
+        "optional": false,
+        "selection": {
+          "count": 1,
+          "entity": "unit",
+          "side": "enemy",
+          "rangeInches": 18,
+          "origin": "this-model",
+          "visibleToOrigin": true
+        },
+        "duration": "until-start-of-next-own-command-phase",
+        "useLimit": {
+          "count": 1,
+          "period": "turn",
+          "scope": "player"
+        },
+        "effect": {
+          "actor": "friendly-model",
+          "keyword": "Aeldari",
+          "trigger": "each-attack-targeting-selected-enemy-unit",
+          "roll": "hit",
+          "modifier": 1
+        }
+      }
+    }
+  }
+}

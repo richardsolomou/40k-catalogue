@@ -1,0 +1,129 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.wreckas.grab-it",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Wreckas",
+    "cp": 1,
+    "summary": "In your Shooting phase, use this once your Flash Gitz, Tankbustas or Breaka Boyz have finished shooting, provided the unit is unengaged. It may make a Normal Move capped at 6\", finishing in range of an objective. It cannot declare a charge for the remainder of the turn.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 43,
+        "end": 53,
+        "bold": true
+      },
+      {
+        "start": 55,
+        "end": 65,
+        "bold": true
+      },
+      {
+        "start": 69,
+        "end": 80,
+        "bold": true
+      },
+      {
+        "start": 126,
+        "end": 135,
+        "bold": true
+      },
+      {
+        "start": 151,
+        "end": 162,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 202,
+        "end": 211,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "after-unit-shoots",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [],
+            "anyKeyword": [
+              "Breaka Boyz",
+              "Flash Gitz",
+              "Tankbustas"
+            ],
+            "state": "unengaged"
+          },
+          "effects": [
+            {
+              "kind": "move",
+              "recipient": "target-unit",
+              "move": "normal",
+              "maximum": {
+                "amount": 6,
+                "unit": "inches",
+                "comparison": "at-most"
+              },
+              "optional": true,
+              "endPosition": "within-range-of-an-objective"
+            },
+            {
+              "kind": "prohibit",
+              "recipient": "target-unit",
+              "action": "declare-charge",
+              "duration": {
+                "until": "end-of-this-turn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

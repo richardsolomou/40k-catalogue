@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.biged-bossbunka.fortification",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Big’Ed Bossbunka",
+    "summary": "As long as an enemy unit has no engagement except with FORTIFICATION units: it can still be chosen as the target of ranged attacks; ranged attacks against it take −1 to Hit rolls, except attacks with [Close-quarters]; and when it is selected for a fall-back move while not battle-shocked, every hazard roll made for it passes automatically.",
+    "summarySpans": [
+      {
+        "start": 55,
+        "end": 68,
+        "bold": true
+      },
+      {
+        "start": 169,
+        "end": 178,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 200,
+        "end": 216,
+        "bold": true
+      },
+      {
+        "start": 248,
+        "end": 262,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 273,
+        "end": 287,
+        "bold": true
+      },
+      {
+        "start": 295,
+        "end": 306,
+        "target": {
+          "kind": "core-rule",
+          "id": "hazard-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Big’Ed Bossbunka",
+        "clauses": [
+          {
+            "condition": {
+              "enemyUnitEngagedOnlyWithKeyword": "FORTIFICATION"
+            },
+            "effects": [
+              {
+                "allowRangedTargeting": true
+              },
+              {
+                "appliesTo": "ranged attacks targeting that enemy unit",
+                "excludesWeaponAbility": "CLOSE-QUARTERS",
+                "modifier": {
+                  "roll": "hit",
+                  "operation": "subtract",
+                  "value": 1
+                }
+              },
+              {
+                "trigger": "qualified-enemy-unit-selected-to-make-fall-back-move",
+                "condition": {
+                  "enemyBattleShocked": false
+                },
+                "effect": {
+                  "hazardRolls": "automatically passed"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

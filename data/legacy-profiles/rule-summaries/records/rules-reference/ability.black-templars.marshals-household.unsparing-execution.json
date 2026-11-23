@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.marshals-household.unsparing-execution",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Marshal's Household",
+    "cp": 1,
+    "summary": "Spend 1 CP during the opposing player's Movement phase as an enemy unit that is engaged with a SWORD BRETHREN SQUAD unit of yours is picked to fall back; your SWORD BRETHREN SQUAD unit is the target. For the rest of that phase, every enemy unit that is engaged with your unit and is picked to fall back, the triggering one included, has to do so in desperate escape mode, and one that is battle-shocked takes a -1 penalty on those hazard rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Marshal's Household",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-selected-to-fall-back-while-engaged-with-target"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "SWORD BRETHREN SQUAD"
+            ],
+            "engagedWith": "triggering-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "force-fall-back-mode",
+              "subject": "each enemy unit engaged with the target that is selected to make a fall-back move",
+              "mode": "desperate-escape",
+              "expires": "end-of-phase",
+              "durationBasis": "core 01.02.02 persisting rules effects"
+            },
+            {
+              "kind": "roll-modifier",
+              "roll": "hazard",
+              "delta": -1,
+              "magnitude": 1,
+              "subject": "each such enemy unit",
+              "condition": "that enemy unit is battle-shocked",
+              "expires": "end-of-phase",
+              "durationBasis": "core 01.02.02 persisting rules effects"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.ravager.agonising-suppression",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Ravager",
+    "summary": "Choosing this model to shoot in your Shooting Phase lets you Empower it for one Pain token. Once it finishes shooting, designate an enemy unit that took a hit from it as suppressed. Each attack by a model from that unit suffers a Hit roll penalty of 1 while suppressed. Suppression ends when your next turn begins.",
+    "summarySpans": [
+      {
+        "start": 37,
+        "end": 51,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 80,
+        "end": 90,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      },
+      {
+        "start": 230,
+        "end": 238,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "type": "pain-token-suppression",
+        "activation": "selected-to-shoot-in-your-shooting-phase",
+        "optional": true,
+        "cost": {
+          "resource": "pain-token",
+          "amount": 1
+        },
+        "empower": "this-model",
+        "selection": {
+          "after": "this-model-shoots",
+          "side": "enemy",
+          "count": 1,
+          "hitBy": "this-model"
+        },
+        "effect": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1,
+          "target": "models-in-selected-unit"
+        },
+        "expires": "start-of-your-next-turn"
+      }
+    }
+  }
+}

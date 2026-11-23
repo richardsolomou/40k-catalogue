@@ -1,0 +1,169 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.corsair-coterie.cloak-and-shadow",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Corsair Coterie",
+    "cp": 1,
+    "summary": "Opponent’s Shooting Phase. After an enemy unit picks its shooting targets, choose an AELDARI INFANTRY unit of yours it picked. Your army must control an objective marker with its range reaching that unit. Through this phase it gains Stealth, and enemy models more than 18″ away cannot pick it as a ranged attack target.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 85,
+        "end": 101,
+        "bold": true
+      },
+      {
+        "start": 233,
+        "end": 240,
+        "target": {
+          "kind": "core-ability",
+          "id": "stealth"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "ability-grant",
+                "target": "this-unit",
+                "modifier": {
+                  "ability": "stealth"
+                }
+              },
+              {
+                "type": "conditional",
+                "condition": {
+                  "type": "matches",
+                  "parameters": {
+                    "subject": "attacker",
+                    "filter": {
+                      "within": {
+                        "of": "this-unit",
+                        "range": {
+                          "inches": 18
+                        }
+                      }
+                    }
+                  }
+                },
+                "effect": {
+                  "type": "targeting",
+                  "target": {
+                    "owner": "enemy"
+                  },
+                  "modifier": {
+                    "by": {
+                      "owner": "enemy"
+                    },
+                    "may": "target",
+                    "kind": "attack",
+                    "weapons": {
+                      "type": "ranged"
+                    },
+                    "target": "this-unit"
+                  }
+                }
+              }
+            ]
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "trigger": {
+            "event": "targets-selected",
+            "filter": {
+              "kind": "attack"
+            },
+            "subject": {
+              "owner": "enemy"
+            },
+            "object": "this-unit"
+          },
+          "behavior": "reactive"
+        },
+        "stratagem": {
+          "id": "cloak-and-shadow-corsair-coterie-aeldari",
+          "cp_cost": 1,
+          "phases": [
+            "shooting"
+          ],
+          "player_turn": "opponent-turn",
+          "timing": "once-per-phase",
+          "type": "strategic-ploy",
+          "target_restrictions": {
+            "required_keywords": [
+              "Aeldari",
+              "Infantry"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "bound_to": "attacked-unit",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "owner": "friendly"
+                    }
+                  }
+                },
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "within": {
+                        "of": {
+                          "objective": {
+                            "controlled_by": "friendly"
+                          }
+                        },
+                        "range": "objective-control"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {
+          "18": "maximum range of enemy attacking model"
+        }
+      }
+    }
+  }
+}

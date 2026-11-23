@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.lord-of-change.master-of-magicks",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Lord of Change",
+    "summary": "During your Shooting phase, choose [LETHAL HITS] or [IGNORES COVER] or [SUSTAINED HITS D3]. Both Bolt of Change profiles on this model get that benefit for the rest of the phase.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 35,
+        "end": 48,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 52,
+        "end": 67,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "ignores-cover"
+        }
+      },
+      {
+        "start": 71,
+        "end": 90,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 97,
+        "end": 111,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "role": "psychic",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own"
+        },
+        "selection": {
+          "actor": "controlling-player",
+          "count": 1,
+          "optional": false,
+          "type": "weapon-ability",
+          "choices": [
+            {
+              "keyword": "IGNORES COVER"
+            },
+            {
+              "keyword": "LETHAL HITS"
+            },
+            {
+              "keyword": "SUSTAINED HITS",
+              "value": {
+                "dice": {
+                  "count": 1,
+                  "sides": 3
+                }
+              }
+            }
+          ]
+        },
+        "effect": {
+          "operation": "grant-selected-ability",
+          "recipient": "this-models-weapon",
+          "weapon": "Bolt of Change",
+          "duration": "until-end-of-triggering-phase"
+        }
+      }
+    }
+  }
+}

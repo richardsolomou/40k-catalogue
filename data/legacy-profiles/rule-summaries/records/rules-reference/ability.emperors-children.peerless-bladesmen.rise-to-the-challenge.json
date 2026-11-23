@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.peerless-bladesmen.rise-to-the-challenge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Peerless Bladesmen",
+    "summary": "Once each battle, you may let the bearer fight an extra time as the Fight phase ends, provided they are in enemy Engagement Range. You may choose a single Exquisite Swordsmanship ability for those attacks.",
+    "summarySpans": [
+      {
+        "start": 68,
+        "end": 79,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 113,
+        "end": 129,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 155,
+        "end": 178,
+        "target": {
+          "kind": "ability",
+          "id": "emperors-children.peerless-bladesmen.exquisite-swordsmanship"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "phase-end",
+          "phase": "fight",
+          "owner": "either"
+        },
+        "condition": {
+          "subject": "bearer",
+          "state": "within-engagement-range",
+          "reference": "enemy-models"
+        },
+        "limit": {
+          "count": 1,
+          "period": "battle"
+        },
+        "effects": [
+          {
+            "type": "extra-fight",
+            "subject": "bearer",
+            "optional": true
+          },
+          {
+            "type": "choose-linked-ability",
+            "rule": "exquisite-swordsmanship",
+            "count": 1,
+            "optional": true,
+            "scope": "bearer-attacks-in-extra-fight"
+          }
+        ],
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Infantry",
+            "Emperor’s Children"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

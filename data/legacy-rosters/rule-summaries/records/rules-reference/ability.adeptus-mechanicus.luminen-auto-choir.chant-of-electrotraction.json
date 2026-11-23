@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.luminen-auto-choir.chant-of-electrotraction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Luminen Auto-Choir",
+    "cp": 1,
+    "summary": "In your Movement phase, when one of your ELECTRO-PRIESTS Battleclade units is picked for an Advance move, spend 1 CP on that ELECTRO-PRIESTS unit. Advancing this way does not count against its eligibility to charge.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 41,
+        "end": 68,
+        "bold": true
+      },
+      {
+        "start": 92,
+        "end": 104,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 125,
+        "end": 140,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Luminen Auto-Choir",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-unit-selected-to-advance",
+            "printedTriggerKeywords": "ELECTRO-PRIESTS Battleclade"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ELECTRO-PRIESTS"
+            ],
+            "sameAs": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "ignore-move-caused-ineligibility",
+              "move": "triggering-advance-move",
+              "actions": [
+                "declare-charge"
+              ]
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

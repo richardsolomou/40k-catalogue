@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.phobos-shadow-force.execute-and-redeploy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Phobos Shadow Force",
+    "summary": "Eligible bearers: PHOBOS models. In your Shooting phase, once the bearer's unit has finished shooting, if it is unengaged it may make a normal move, going no further than 6″. A unit that does so cannot declare a charge for the rest of the turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "enhancement",
+        "detachment": "Phobos Shadow Force",
+        "pointsCost": 25,
+        "eligibility": {
+          "scope": "model",
+          "keywordsAll": [
+            "PHOBOS"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "normal-move",
+            "maxDistanceInches": 6,
+            "optional": true,
+            "trigger": "bearer-unit-has-shot",
+            "window": {
+              "phase": "shooting",
+              "turn": "own"
+            },
+            "condition": "unengaged"
+          },
+          {
+            "kind": "forbid-charge",
+            "expires": "end-of-turn",
+            "condition": "move was made"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.soulforged-warpack.tempting-addendum",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Soulforged Warpack",
+    "summary": "A contract invoked by one of your DAEMON VEHICLE units qualifies if the unit has HERETIC ASTARTES and is 3″ or closer to the bearer. Increase its Dark Pact mortal wounds by 1. Until phase end, its models may re-roll each attack’s Hit roll.",
+    "summarySpans": [
+      {
+        "start": 34,
+        "end": 48,
+        "bold": true
+      },
+      {
+        "start": 81,
+        "end": 97,
+        "bold": true
+      },
+      {
+        "start": 146,
+        "end": 155,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-space-marines.dark-pacts"
+        }
+      },
+      {
+        "start": 156,
+        "end": 169,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "invoke-infernal-contract",
+          "actor": {
+            "side": "own-army",
+            "allKeywords": [
+              "HERETIC ASTARTES",
+              "DAEMON",
+              "VEHICLE"
+            ]
+          },
+          "repeat": "each",
+          "condition": {
+            "subject": "contracting-unit",
+            "relation": "within",
+            "inches": 3,
+            "of": "bearer"
+          }
+        },
+        "effects": [
+          {
+            "type": "modify-mortal-wound-amount",
+            "operation": "add",
+            "amount": 1,
+            "subject": "contracting-unit",
+            "from": "trigger-dark-pact"
+          },
+          {
+            "type": "reroll",
+            "roll": "hit",
+            "optional": true,
+            "subject": "each-model-in-contracting-unit",
+            "on": "each-attack",
+            "expiry": {
+              "event": "phase-end"
+            }
+          }
+        ],
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Heretic Astartes"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

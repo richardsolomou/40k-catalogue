@@ -1,0 +1,123 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-action",
+  "id": "chapter-approved-2026-2027.triangulation.triangulate",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "summary": "From battle round 2, one friendly unit can start this action during your Shooting phase, once per turn. Pick an objective in range, excluding your home objective. If the unit still controls the chosen objective as your turn ends, it becomes triangulated. Choose from your operation markers and place one in its range.",
+    "summarySpans": [
+      {
+        "start": 54,
+        "end": 60,
+        "target": {
+          "kind": "core-rule",
+          "id": "performing-actions"
+        }
+      },
+      {
+        "start": 73,
+        "end": 87,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 112,
+        "end": 121,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 147,
+        "end": 161,
+        "bold": true
+      },
+      {
+        "start": 201,
+        "end": 210,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 241,
+        "end": 253,
+        "bold": true
+      },
+      {
+        "start": 272,
+        "end": 289,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "starts": {
+          "player": "acting-player",
+          "phase": "shooting",
+          "battleRoundAtLeast": 2
+        },
+        "eligibleUnit": {
+          "side": "friendly",
+          "countPerStart": 1,
+          "position": {
+            "relation": "within-range",
+            "selector": "objective",
+            "exclude": "own-home-objective"
+          }
+        },
+        "useLimit": {
+          "maxStartsPerOwnTurn": 1
+        },
+        "completes": {
+          "window": "end-of-own-turn",
+          "requires": {
+            "subject": "acting-unit",
+            "predicate": "controls",
+            "object": "selected-objective"
+          }
+        },
+        "effects": [
+          {
+            "kind": "mark-objective",
+            "objective": "selected-objective",
+            "state": "triangulated"
+          },
+          {
+            "kind": "place-operation-marker",
+            "count": 1,
+            "owner": "acting-player",
+            "position": {
+              "relation": "within-range",
+              "selector": "selected-objective"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

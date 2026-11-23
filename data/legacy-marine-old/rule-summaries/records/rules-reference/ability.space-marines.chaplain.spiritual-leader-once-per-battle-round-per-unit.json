@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.chaplain.spiritual-leader-once-per-battle-round-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Chaplain",
+    "summary": "When any phase starts, you may choose one allied Adeptus Astartes unit no farther than 6″ from the Chaplain. It must be Battle-shocked, and you clear its Battle-shock on selection. Each source unit can use this once per battle round.",
+    "summarySpans": [
+      {
+        "start": 49,
+        "end": 65,
+        "bold": true
+      },
+      {
+        "start": 120,
+        "end": 134,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 154,
+        "end": 166,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "limit": {
+          "count": 1,
+          "period": "battle-round",
+          "counterOwner": "source-unit",
+          "resetsAt": "start-of-next-battle-round"
+        },
+        "trigger": {
+          "timing": "start",
+          "phase": "any",
+          "turn": "either"
+        },
+        "selection": {
+          "side": "friendly",
+          "entity": "unit",
+          "keyword": "ADEPTUS ASTARTES",
+          "requiredState": "battle-shocked",
+          "count": 1,
+          "optional": true,
+          "measure": "within",
+          "rangeInches": 6,
+          "origin": "this-model"
+        },
+        "effect": {
+          "recipient": "selected-unit",
+          "clearState": "battle-shocked"
+        }
+      }
+    }
+  }
+}

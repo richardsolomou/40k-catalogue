@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.bladeguard-veteran-squad.bladeguard-once-per-turn-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Bladeguard Veteran Squad",
+    "summary": "The Bladeguard may choose once per turn in the Fight phase, either on being selected to fight or on being targeted by an enemy unit. Their melee hit rolls get +1, or the attacker takes −1 to hit rolls against the Bladeguard.",
+    "summarySpans": [
+      {
+        "start": 47,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 76,
+        "end": 93,
+        "bold": true
+      },
+      {
+        "start": 145,
+        "end": 154,
+        "bold": true
+      },
+      {
+        "start": 191,
+        "end": 200,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "fight",
+          "anyOf": [
+            "owning-unit-selected-to-fight",
+            "enemy-unit-targets-owning-unit"
+          ]
+        },
+        "optional": true,
+        "limit": {
+          "count": 1,
+          "period": "turn",
+          "scope": "unit"
+        },
+        "choice": {
+          "count": 1,
+          "effects": [
+            {
+              "operation": "modify-roll",
+              "roll": "hit",
+              "attackType": "melee",
+              "actor": "owning-unit",
+              "amount": 1
+            },
+            {
+              "operation": "modify-roll",
+              "roll": "hit",
+              "target": "owning-unit",
+              "amount": -1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

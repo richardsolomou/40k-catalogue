@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.warpmeld-pact.warpmeld-sacrifice",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Warpmeld Pact",
+    "summary": "Defensive use: whenever an enemy unit, once picked to shoot or fight, targets one or more of your TZEENTCH MUTANT units that are INFANTRY or MOUNTED, each targeted unit may perform a Warpmeld Sacrifice; a unit that does so has -1 applied to the Wound rolls of attacks aimed at it for the rest of the phase, and takes D3 mortal wounds as the phase ends. Offensive use: whenever one of your TZEENTCH MUTANT units that is INFANTRY or MOUNTED is picked to shoot or fight, it may perform a Warpmeld Sacrifice before choosing targets, in which case its models' attacks get +1 to their Wound rolls for the rest of the phase, and it takes D3 mortal wounds as the phase ends.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Warpmeld Pact",
+        "units": {
+          "side": "friendly",
+          "keywordsAll": [
+            "TZEENTCH",
+            "MUTANT"
+          ],
+          "keywordsAny": [
+            "INFANTRY",
+            "MOUNTED"
+          ]
+        },
+        "defensive": {
+          "trigger": "enemy-unit-selected-to-shoot-or-fight-targets-unit",
+          "optional": true,
+          "effect": {
+            "roll": "wound",
+            "operation": "subtract",
+            "value": 1,
+            "appliesTo": "attacks-targeting-unit"
+          },
+          "duration": "end-of-phase",
+          "cost": {
+            "timing": "end-of-phase",
+            "mortalWounds": "D3"
+          }
+        },
+        "offensive": {
+          "trigger": "unit-selected-to-shoot-or-fight",
+          "timing": "before-selecting-targets",
+          "optional": true,
+          "effect": {
+            "roll": "wound",
+            "delta": 1,
+            "appliesTo": "attacks-by-unit-models"
+          },
+          "duration": "end-of-phase",
+          "cost": {
+            "timing": "end-of-phase",
+            "mortalWounds": "D3"
+          }
+        }
+      }
+    }
+  }
+}

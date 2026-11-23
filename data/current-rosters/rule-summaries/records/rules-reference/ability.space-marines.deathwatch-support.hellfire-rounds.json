@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.deathwatch-support.hellfire-rounds",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Deathwatch Support",
+    "cp": 1,
+    "summary": "In your Shooting phase, wait until you pick a Kill Team to fire. Use this on that unit. Its ranged attacks gain Anti-Non-Vehicle 4+. Skip any attack that already has Devastating Wounds.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 112,
+        "end": 131,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "anti"
+        }
+      },
+      {
+        "start": 166,
+        "end": 184,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "devastating-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Deathwatch Support",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "selected-to-shoot",
+            "actor": "selected-unit"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "controller": "friendly",
+            "allKeywords": [
+              "KILL TEAM"
+            ],
+            "identity": "triggering-unit"
+          },
+          "effects": [
+            {
+              "action": "grant-weapon-ability",
+              "actor": "selected-unit",
+              "attackType": "ranged",
+              "ability": "anti",
+              "excludedAttackAbilities": [
+                "devastating-wounds"
+              ],
+              "targetKeyword": "VEHICLE",
+              "targetKeywordPolarity": "absent",
+              "threshold": 4,
+              "comparator": "at-least",
+              "roll": "unmodified-wound",
+              "result": "critical-wound"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

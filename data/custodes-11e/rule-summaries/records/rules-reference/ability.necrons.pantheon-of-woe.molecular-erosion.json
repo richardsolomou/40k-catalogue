@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.pantheon-of-woe.molecular-erosion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Pantheon of Woe",
+    "cp": 1,
+    "summary": "1 CP, in the Command phase of either player, no more than once per battle round. Choose one NECRONS MONSTER unit of yours, then pick one unravelling enemy unit it can see. That enemy unit must test for Battle-shock, subtracting 1 from that roll, and on a failed test it takes D3+1 mortal wounds.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Pantheon of Woe",
+          "when": [
+            {
+              "phase": "command",
+              "turn": "either"
+            }
+          ],
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "NECRONS",
+              "MONSTER"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "force-battle-shock-test",
+              "on": {
+                "side": "enemy",
+                "count": 1,
+                "condition": [
+                  "unravelling",
+                  "visible-to-your-unit"
+                ]
+              },
+              "resultModifier": -1,
+              "onFail": {
+                "mortalWounds": "D3+1"
+              },
+              "magnitude": 1
+            }
+          ],
+          "restrictions": [
+            "once-per-battle-round"
+          ]
+        }
+      }
+    }
+  }
+}

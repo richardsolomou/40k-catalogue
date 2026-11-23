@@ -1,0 +1,136 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.iron-priest.gift-of-the-iron-wolf",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Iron Priest",
+    "summary": "When this unit starts or finishes its move in your Movement phase, select a friendly Space Wolves Vehicle within 3″ of the Iron Priest. The selected vehicle heals D3 wounds and that VEHICLE model may ignore modifiers to wound rolls as well as hit rolls until your following Movement phase starts. A vehicle model can be chosen for this once in a phase.",
+    "summarySpans": [
+      {
+        "start": 51,
+        "end": 65,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 113,
+        "end": 115,
+        "bold": true
+      },
+      {
+        "start": 157,
+        "end": 162,
+        "bold": true
+      },
+      {
+        "start": 163,
+        "end": 165,
+        "bold": true
+      },
+      {
+        "start": 182,
+        "end": 189,
+        "bold": true
+      },
+      {
+        "start": 220,
+        "end": 231,
+        "bold": true
+      },
+      {
+        "start": 243,
+        "end": 252,
+        "bold": true
+      },
+      {
+        "start": 274,
+        "end": 288,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "trigger": {
+          "event": "move",
+          "actor": "this-unit",
+          "timings": [
+            "start",
+            "end"
+          ],
+          "phase": "movement",
+          "turn": "your-turn"
+        },
+        "target": {
+          "origin": "this-model",
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 3,
+          "side": "friendly",
+          "scope": "vehicle",
+          "count": 1,
+          "requireAllKeywords": [
+            "SPACE WOLVES",
+            "VEHICLE"
+          ]
+        },
+        "effects": [
+          {
+            "operation": "heal",
+            "recipient": "selected-vehicle",
+            "quantity": {
+              "count": 1,
+              "sides": 3,
+              "additive": 0
+            }
+          },
+          {
+            "operation": "ignore-modifiers",
+            "recipient": "selected-vehicle-model",
+            "rolls": [
+              "hit",
+              "wound"
+            ],
+            "optional": true,
+            "expiry": {
+              "event": "phase",
+              "phase": "movement",
+              "timing": "start",
+              "turn": "next-your-turn"
+            }
+          }
+        ],
+        "usage": {
+          "limit": 1,
+          "period": "phase",
+          "per": "vehicle-model",
+          "sharedBy": "this-ability"
+        }
+      }
+    }
+  }
+}

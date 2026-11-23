@@ -1,0 +1,126 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.vanguard-onslaught.surprise-assault",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Vanguard Onslaught",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP, in your own Shooting phase or in either player's Fight phase, right after one of your VANGUARD INVADER units picks its targets; that unit is the target. Choose one enemy unit it is aiming at, which then has to test for Battle-shock. Until the phase ends, your unit's attacks against it get +1 to Hit rolls, and +1 to Wound rolls as well if the test was failed.",
+    "summarySpans": [
+      {
+        "start": 33,
+        "end": 47,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 70,
+        "end": 81,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 240,
+        "end": 252,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 317,
+        "end": 326,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 338,
+        "end": 349,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Vanguard Onslaught",
+          "when": {
+            "phases": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "friendly-unit-selected-targets"
+          },
+          "target": {
+            "unit": "that-vanguard-invader-unit",
+            "keywordsAll": [
+              "VANGUARD INVADER"
+            ]
+          },
+          "effects": [
+            {
+              "select": {
+                "count": 1,
+                "side": "enemy",
+                "condition": "targeted-by-your-unit"
+              }
+            },
+            {
+              "selected": "battle-shock-test"
+            },
+            {
+              "attacksAgainstSelected": {
+                "roll": "hit",
+                "modifier": 1
+              },
+              "duration": "end-of-phase"
+            },
+            {
+              "ifTestFailed": true,
+              "attacksAgainstSelected": {
+                "roll": "wound",
+                "modifier": 1
+              },
+              "duration": "end-of-phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.tallyband-summoners.mireslick",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Tallyband Summoners",
+    "cp": 1,
+    "summary": "When the opponent picks a unit without MONSTERS or VEHICLES to Fall Back during movement, choose a PLAGUE LEGIONS unit engaged with it. For the rest of the phase an enemy selected to Fall Back while engaged with your chosen unit first tests Leadership. If unsuccessful, it stays put.",
+    "summarySpans": [
+      {
+        "start": 39,
+        "end": 47,
+        "bold": true
+      },
+      {
+        "start": 51,
+        "end": 59,
+        "bold": true
+      },
+      {
+        "start": 99,
+        "end": 113,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "movement"
+            ],
+            "event": "enemy-unit-selected-to-fall-back",
+            "excludingKeywords": [
+              "MONSTERS",
+              "VEHICLES"
+            ]
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "PLAGUE LEGIONS"
+            ],
+            "inEngagementRangeOf": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "require-leadership-test",
+              "subject": "enemy-unit-selected-to-fall-back-while-engaged-with-selected-unit",
+              "onFailure": {
+                "kind": "prevent-move",
+                "move": "fall-back",
+                "replacement": "remain-stationary"
+              }
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

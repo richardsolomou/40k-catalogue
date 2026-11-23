@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.slaaneshs-chosen.heightened-jealousy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Slaanesh’s Chosen",
+    "cp": 1,
+    "summary": "During Shooting or Fight, this follows either of two events immediately. One of your CHARACTER units from EMPEROR’S CHILDREN becomes Favoured Champions, or your Champions destroy an enemy unit. Select the Champions. Until that phase closes, boost attack Strength by 1 for every model in your other CHARACTER units that have EMPEROR’S CHILDREN.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Slaanesh’s Chosen",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "either"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "afterAny": [
+              "friendly-emperors-children-character-unit-becomes-favoured-champions",
+              "favoured-champions-destroy-an-enemy-unit"
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [],
+            "condition": "own-favoured-champions-unit"
+          },
+          "effects": [
+            {
+              "action": "modify-attack-strength",
+              "recipient": "models-in-friendly-emperors-children-character-units",
+              "exclude": "favoured-champions-unit",
+              "amount": 1,
+              "duration": "through-phase-end"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

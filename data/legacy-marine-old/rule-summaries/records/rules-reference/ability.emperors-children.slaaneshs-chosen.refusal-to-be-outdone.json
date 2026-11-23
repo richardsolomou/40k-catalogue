@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.slaaneshs-chosen.refusal-to-be-outdone",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Slaanesh’s Chosen",
+    "cp": 1,
+    "summary": "When declaring a charge in your Charge phase, select the charging friendly CHARACTER unit if it has EMPEROR’S CHILDREN and is at most 12″ from an enemy already engaged. It may reroll Charge rolls. The charge must put it in Engagement Range of at least one of those enemies.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Slaanesh’s Chosen",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "own"
+              }
+            ],
+            "when": "friendly-emperors-children-character-unit-declares-charge"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "EMPEROR’S CHILDREN",
+              "CHARACTER"
+            ],
+            "condition": "triggering-unit",
+            "within": {
+              "of": "engaged-enemy-unit",
+              "inches": 12
+            }
+          },
+          "effects": [
+            {
+              "action": "allow-charge-roll-reroll",
+              "recipient": "chosen-unit"
+            },
+            {
+              "action": "require-charge-end-engagement",
+              "recipient": "chosen-unit",
+              "withAtLeast": 1,
+              "eligibleEnemies": "engaged-enemies-in-trigger-range"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

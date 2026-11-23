@@ -1,0 +1,89 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.cavalcade-of-chaos.soul-shattering-charge-upgrade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Chaos Daemons Faction Pack: Version 1.0",
+    "page": "120",
+    "url": "https://assets.warhammer-community.com/eng_10-06_warhammer40000_faction_pack_chaos_daemons-kisvudjypt-uzk9pla0dk.pdf#page=120"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Cavalcade of Chaos",
+    "summary": "Only a LEGIONES DAEMONICA unit with MOUNTED can take this upgrade. When you pick the upgraded unit to fight, you may use this if it charged earlier in the turn. Each of its models can then target an enemy unit up to 3″ away, provided that enemy is engaged with the upgraded unit.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 25,
+        "bold": true
+      },
+      {
+        "start": 36,
+        "end": 43,
+        "bold": true
+      },
+      {
+        "start": 248,
+        "end": 255,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Daemons Faction Pack: Version 1.0",
+        "page": "120",
+        "url": "https://assets.warhammer-community.com/eng_10-06_warhammer40000_faction_pack_chaos_daemons-kisvudjypt-uzk9pla0dk.pdf#page=120"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "conditional-melee-target-permission",
+        "eligibility": {
+          "scope": "unit",
+          "keywordsAll": [
+            "LEGIONES DAEMONICA",
+            "MOUNTED"
+          ]
+        },
+        "trigger": {
+          "phase": "fight",
+          "event": "upgraded-unit-selected-to-fight",
+          "upgradedUnitMadeChargeMoveThisTurn": true
+        },
+        "activation": {
+          "optional": true
+        },
+        "permission": {
+          "stage": "determine-models-that-can-fight",
+          "attacker": "model-in-upgraded-unit",
+          "target": "enemy-unit",
+          "maximumDistance": {
+            "amount": 3,
+            "unit": "inch",
+            "from": "attacking-model",
+            "to": "target-enemy-unit",
+            "inclusive": true
+          },
+          "requiresTargetEngagedWith": "upgraded-unit",
+          "allowance": "target-that-enemy-unit"
+        }
+      }
+    }
+  }
+}

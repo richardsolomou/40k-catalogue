@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "core.deadly-demise-2d6",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Adeptus Titanicus Faction Pack: Version 1.0",
+    "page": "3",
+    "url": "https://assets.warhammer-community.com/eng_11-06_warhammer40000_faction_pack_adeptus_titanicus-w2uqxtzclf-9hqf20r3dc.pdf#page=3"
+  },
+  "data": {
+    "ruleType": "core-ability",
+    "group": "Core",
+    "summary": "If the bearer dies, let any passengers finish emergency disembarkation, then throw a D6. On a 6, every unit up to 6 inches from the bearer takes mortal wounds equal to its own 2D6 roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      },
+      {
+        "type": "publisher",
+        "title": "Adeptus Titanicus Faction Pack: Version 1.0",
+        "page": "3",
+        "url": "https://assets.warhammer-community.com/eng_11-06_warhammer40000_faction_pack_adeptus_titanicus-w2uqxtzclf-9hqf20r3dc.pdf#page=3"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "deadly-demise",
+        "trigger": {
+          "event": "model-destroyed",
+          "subject": "ability-bearer"
+        },
+        "sequence": {
+          "rollAfter": "emergency-disembark-moves",
+          "when": "if-bearer-had-embarked-units"
+        },
+        "check": {
+          "diceCount": 1,
+          "diceSides": 6,
+          "successFace": 6
+        },
+        "effect": {
+          "kind": "mortal-wounds",
+          "targets": "all-units",
+          "center": "destroyed-bearer",
+          "rangeInches": 6,
+          "rangeInclusive": true,
+          "amount": {
+            "rating": "2D6",
+            "diceCount": 2,
+            "diceSides": 6,
+            "add": 0
+          },
+          "independentRollPerUnitWhenRandom": true
+        }
+      }
+    }
+  }
+}

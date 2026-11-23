@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.imperialis-fleet.displacer-field",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Imperialis Fleet",
+    "cp": 1,
+    "summary": "When an enemy chooses shooting targets in its Shooting phase, pick a targeted CHARACTER unit with the AGENTS OF THE IMPERIUM keyword. Omit OFFICIO ASSASSINORUM candidates. The model’s invulnerable save becomes 4+ for the remaining phase. Once that shooter has resolved its attacks, the model may make a Normal move capped at 6 inches using FLY. It cannot make this move while within enemy Engagement Range.",
+    "summarySpans": [
+      {
+        "start": 46,
+        "end": 60,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 78,
+        "end": 87,
+        "bold": true
+      },
+      {
+        "start": 102,
+        "end": 124,
+        "bold": true
+      },
+      {
+        "start": 139,
+        "end": 159,
+        "bold": true
+      },
+      {
+        "start": 303,
+        "end": 314,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 340,
+        "end": 343,
+        "bold": true
+      },
+      {
+        "start": 389,
+        "end": 405,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "wargear",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "shooting"
+            ],
+            "event": "enemy-unit-selected-shooting-targets"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "AGENTS OF THE IMPERIUM",
+              "CHARACTER"
+            ],
+            "excludingKeywords": [
+              "OFFICIO ASSASSINORUM"
+            ],
+            "targetedBy": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "set-invulnerable-save",
+              "subject": "selected-unit-model",
+              "minimum": 4,
+              "savingThrow": "invulnerable",
+              "duration": "end-of-phase"
+            },
+            {
+              "kind": "move",
+              "move": "normal",
+              "optional": true,
+              "subject": "selected-unit-model",
+              "maximumInches": 6,
+              "asIfKeyword": "FLY",
+              "after": "triggering-unit-finishes-attacks",
+              "condition": "outside-enemy-engagement-range"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

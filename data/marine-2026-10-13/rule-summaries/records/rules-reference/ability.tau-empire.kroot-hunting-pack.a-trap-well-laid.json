@@ -1,0 +1,134 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.kroot-hunting-pack.a-trap-well-laid",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Kroot Hunting Pack",
+    "cp": 1,
+    "summary": "Pick KROOT that still have to shoot in your Shooting phase or fight in either Fight phase. Once they attack, mark one enemy unit they hit or one that is Battle-shocked. For this phase, models in your KROOT units improve AP by 1 against that enemy unless their own unit is Battle-shocked.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 10,
+        "bold": true
+      },
+      {
+        "start": 44,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 78,
+        "end": 89,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 153,
+        "end": 167,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 200,
+        "end": 205,
+        "bold": true
+      },
+      {
+        "start": 272,
+        "end": 286,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "KROOT"
+            ],
+            "stateByPhase": {
+              "shooting": "not-yet-selected-to-shoot",
+              "fight": "not-yet-selected-to-fight"
+            }
+          },
+          "effects": [
+            {
+              "action": "mark-enemy-unit",
+              "timing": "after-target-unit-shoots-or-fights",
+              "recipient": {
+                "owner": "opponent",
+                "count": 1,
+                "eligibility": {
+                  "any": [
+                    "hit-by-at-least-one-target-unit-attack",
+                    "battle-shocked"
+                  ]
+                }
+              }
+            },
+            {
+              "action": "modify-weapon-characteristic",
+              "characteristic": "armour-penetration",
+              "operation": "improve",
+              "amount": 1,
+              "actor": "friendly-kroot-model",
+              "attackTarget": "marked-enemy-unit",
+              "condition": "attacking-model-unit-is-not-battle-shocked",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

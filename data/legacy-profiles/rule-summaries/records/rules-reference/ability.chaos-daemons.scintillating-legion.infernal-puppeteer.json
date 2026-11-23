@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.scintillating-legion.infernal-puppeteer",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Scintillating Legion",
+    "summary": "Only a model combining LEGIONES DAEMONICA, TZEENTCH and MONSTER qualifies. In your Shooting phase, this applies when you choose the bearer’s unit to fire. An enemy unit that a friendly TZEENTCH LEGIONES DAEMONICA unit can see gains 9 inches of detection range while that visibility lasts. The bonus ends once the bearer’s unit finishes shooting. Apply the sight and distance rules for Hidden using the enemy unit’s increased range.",
+    "summarySpans": [
+      {
+        "start": 23,
+        "end": 41,
+        "bold": true
+      },
+      {
+        "start": 43,
+        "end": 51,
+        "bold": true
+      },
+      {
+        "start": 56,
+        "end": 63,
+        "bold": true
+      },
+      {
+        "start": 185,
+        "end": 193,
+        "bold": true
+      },
+      {
+        "start": 194,
+        "end": 212,
+        "bold": true
+      },
+      {
+        "start": 385,
+        "end": 391,
+        "target": {
+          "kind": "core-rule",
+          "id": "hidden"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "conditional-enemy-detection-range-increase",
+        "eligibility": {
+          "scope": "model",
+          "keywordsAll": [
+            "LEGIONES DAEMONICA",
+            "TZEENTCH",
+            "MONSTER"
+          ]
+        },
+        "trigger": {
+          "turn": "your",
+          "phase": "shooting",
+          "event": "bearer-unit-selected-to-shoot"
+        },
+        "condition": {
+          "subject": "enemy-unit",
+          "relation": "visible-to",
+          "observer": {
+            "scope": "friendly-unit",
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "TZEENTCH"
+            ]
+          },
+          "evaluation": "while-true"
+        },
+        "effect": {
+          "recipient": "visible-enemy-unit",
+          "characteristic": "detection-range",
+          "operation": "add",
+          "amount": 9,
+          "unit": "inch"
+        },
+        "expiration": {
+          "event": "bearer-unit-finished-shooting"
+        },
+        "hiddenScope": {
+          "rangeOwner": "hidden-model-in-recipient-unit",
+          "rangeMeasuredTo": "enemy-observer-model",
+          "ordinaryVisibilityStillRequired": true
+        }
+      }
+    }
+  }
+}

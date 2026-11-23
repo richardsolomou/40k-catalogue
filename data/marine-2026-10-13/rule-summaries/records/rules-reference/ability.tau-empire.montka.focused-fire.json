@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.montka.focused-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Mont’ka",
+    "cp": 1,
+    "summary": "At the opening of your Shooting phase, designate an enemy unit and two of your T’AU EMPIRE units. Both friendly units still need to be awaiting shooting selection. For this phase the pair can only fire at that enemy. Improve the AP of their attacks by 1. Unavailable in rounds four and five.",
+    "summarySpans": [
+      {
+        "start": 23,
+        "end": 37,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 79,
+        "end": 90,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "selection": [
+              {
+                "owner": "your-army",
+                "entity": "unit",
+                "count": 2,
+                "keywords": [
+                  "T’AU EMPIRE"
+                ],
+                "eligibility": "not-yet-selected-to-shoot"
+              },
+              {
+                "owner": "opponent",
+                "entity": "unit",
+                "count": 1
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "modify-weapon-characteristic",
+              "actor": "models-in-selected-friendly-units",
+              "attackTarget": "selected-enemy-unit",
+              "characteristic": "armour-penetration",
+              "operation": "improve",
+              "amount": 1,
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "restrict-attack-targets",
+              "actor": "selected-friendly-units",
+              "attackTarget": "selected-enemy-unit-only",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ],
+          "restrictions": {
+            "excludedBattleRounds": [
+              4,
+              5
+            ]
+          }
+        }
+      }
+    }
+  }
+}

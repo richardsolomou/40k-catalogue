@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.eradication-cohort.analytic-reprisals",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Eradication Cohort",
+    "cp": 1,
+    "summary": "Spend 1 CP in the opposing player's Shooting phase once an enemy unit finishes shooting. Choose one SKITARII INFANTRY unit of yours that had at least one model destroyed by those attacks. It may shoot as if this were your own Shooting phase, but only at that enemy unit, and only provided that unit is a legal target for it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Eradication Cohort",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-has-shot"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "SKITARII",
+              "INFANTRY"
+            ],
+            "condition": "lost-one-or-more-models-to-that-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "out-of-phase-shooting",
+              "onlyTarget": "triggering-enemy-unit",
+              "requiresEligibleTarget": true
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

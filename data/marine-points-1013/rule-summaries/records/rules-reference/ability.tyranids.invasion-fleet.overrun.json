@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.invasion-fleet.overrun",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Invasion Fleet",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP, in the Fight phase of either turn, just before one of your TYRANIDS units Consolidates; that unit is the target. Until the phase ends, whenever it Consolidates its models may go 3″ further, provided the unit can finish in Engagement Range of at least one enemy unit. If instead the unit is inside your army's Synapse Range and out of Engagement Range of all enemies, it may swap that Consolidation move for a Normal move covering no more than 6″.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 40,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 244,
+        "end": 260,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Invasion Fleet",
+          "when": {
+            "phase": "fight",
+            "turn": "either",
+            "event": "friendly-unit-about-to-consolidate"
+          },
+          "target": {
+            "unit": "that-tyranids-unit",
+            "keywordsAll": [
+              "TYRANIDS"
+            ]
+          },
+          "effects": [
+            {
+              "consolidateExtraInches": 3,
+              "condition": "can-end-within-engagement-range-of-enemy",
+              "duration": "end-of-phase"
+            },
+            {
+              "condition": "within-synapse-range-and-not-within-engagement-range",
+              "replaceConsolidationWith": {
+                "move": "normal",
+                "maxInches": 6
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

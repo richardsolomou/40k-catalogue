@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.tervigon.spawn-termagants",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Tervigon",
+    "summary": "In your Command phase, the Tervigon may choose a friendly TERMAGANTS unit up to 6″ away to return D3+3 destroyed models. An eligible unit can receive this once in that phase.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 58,
+        "end": 68,
+        "bold": true
+      },
+      {
+        "start": 80,
+        "end": 82,
+        "bold": true
+      },
+      {
+        "start": 98,
+        "end": 102,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "trigger": {
+          "event": "phase",
+          "phase": "command",
+          "timing": "during",
+          "turn": "controlling-player"
+        },
+        "selection": {
+          "optional": true,
+          "count": 1,
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 6,
+          "origin": "this-model",
+          "candidate": {
+            "entity": "unit",
+            "side": "friendly",
+            "requireAllKeywords": [
+              "TERMAGANTS"
+            ],
+            "excludeAnyKeywords": []
+          },
+          "recipientLimit": {
+            "period": "phase",
+            "scope": "target-unit",
+            "count": 1
+          }
+        },
+        "effect": {
+          "operation": "return-destroyed-models",
+          "recipient": "selected-unit",
+          "count": {
+            "count": 1,
+            "sides": 3,
+            "additive": 3
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.possessed-slaughterband.immortal-fury",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Possessed Slaughterband",
+    "cp": 2,
+    "summary": "Battle Tactic, 2 CP. Use it in any Fight phase, as soon as an enemy unit has picked its targets, on one WORLD EATERS POSSESSED unit of yours that was chosen as a target for at least one of those attacks. Until the phase ends, whenever one of your unit's models is destroyed while it has yet to fight this phase, it stays in play: it gets to fight once the enemy unit doing the attacking has resolved all of its attacks, then is removed.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "category": "Battle Tactic",
+          "detachment": "Possessed Slaughterband",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-has-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "WORLD EATERS",
+              "POSSESSED"
+            ],
+            "wasSelectedAsTargetOfThatUnit": true
+          },
+          "effects": [
+            {
+              "when": "model-destroyed-before-fighting-this-phase",
+              "effect": "not-removed-fights-after-attacking-unit-then-removed"
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

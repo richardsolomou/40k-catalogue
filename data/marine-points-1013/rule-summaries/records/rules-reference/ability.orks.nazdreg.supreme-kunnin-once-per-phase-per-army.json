@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.nazdreg.supreme-kunnin-once-per-phase-per-army",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Nazdreg",
+    "summary": "Your army gets one use per phase. During the opposing side’s Movement phase, an enemy unit can trigger this by finishing a move 8\" or less from Nazdreg’s unit. If Nazdreg’s unit is unengaged, it may respond with a Normal Move capped at D6\". If already Riled Up, it can use a 5\" cap instead.",
+    "summarySpans": [
+      {
+        "start": 252,
+        "end": 260,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "orks.waaagh"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "usage": {
+          "maximum": 1,
+          "period": "phase",
+          "scope": "army",
+          "optional": true
+        },
+        "trigger": {
+          "turn": "opponent",
+          "phase": "movement",
+          "actor": "enemy-unit",
+          "event": "move-end",
+          "rangeInches": 8,
+          "measuredFrom": "owning-unit"
+        },
+        "target": {
+          "unit": "owning-unit"
+        },
+        "conditions": {
+          "requiresUnengaged": true,
+          "requiresOnBattlefieldForNormalMove": true,
+          "normalMoveMustFinishUnengaged": true,
+          "cardBattleShockFilter": false
+        },
+        "effect": {
+          "chooseAtMost": 1,
+          "alternatives": [
+            {
+              "move": "normal",
+              "maxInches": "D6",
+              "requiresRiledUp": false
+            },
+            {
+              "move": "normal",
+              "maxInches": 5,
+              "requiresRiledUp": true
+            }
+          ],
+          "stateCheck": {
+            "state": "Riled Up",
+            "ruleQid": "ability:orks.waaagh",
+            "timing": "trigger",
+            "grantsState": false,
+            "extendsState": false
+          }
+        }
+      }
+    }
+  }
+}

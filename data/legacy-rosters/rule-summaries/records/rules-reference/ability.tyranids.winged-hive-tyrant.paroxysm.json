@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.winged-hive-tyrant.paroxysm",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Winged Hive Tyrant",
+    "summary": "As either Fight phase begins, you may choose one enemy unit this model can see within 12″, then roll a D6. A 1 deals D3 mortal wounds to the psyker. On 2+, each chosen unit model’s weapons lose 1 Attack until the phase ends.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 86,
+        "end": 89,
+        "bold": true
+      },
+      {
+        "start": 120,
+        "end": 133,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 152,
+        "end": 154,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "timing": "start-of-fight-phase-either-turn",
+        "optional": true,
+        "selection": {
+          "count": 1,
+          "entity": "unit",
+          "side": "enemy",
+          "rangeInches": 12,
+          "origin": "this-model",
+          "visibleToOrigin": true
+        },
+        "dice": {
+          "count": 1,
+          "sides": 6
+        },
+        "outcomes": [
+          {
+            "result": 1,
+            "recipient": "this-psyker-model",
+            "mortalWoundsDice": {
+              "count": 1,
+              "sides": 3
+            }
+          },
+          {
+            "minimumResult": 2,
+            "recipient": "weapons-equipped-by-models-in-selected-enemy-unit",
+            "characteristic": "attacks",
+            "modifier": -1,
+            "duration": "through-end-of-fight-phase"
+          }
+        ]
+      }
+    }
+  }
+}

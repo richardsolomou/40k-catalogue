@@ -1,0 +1,123 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.servants-of-change.all-seeing-mutant-hordes",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Servants of Change",
+    "summary": "Treat friendly Tzaangors as Battleline units. While one of your friendly MUTANT units shoots in your Shooting phase, increase each enemy unit’s detection range by 6\". The detachment carries the MUTANT tag. A second detachment carrying MUTANT is forbidden.",
+    "summarySpans": [
+      {
+        "start": 15,
+        "end": 24,
+        "bold": true
+      },
+      {
+        "start": 28,
+        "end": 38,
+        "bold": true
+      },
+      {
+        "start": 73,
+        "end": 79,
+        "bold": true
+      },
+      {
+        "start": 101,
+        "end": 115,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 144,
+        "end": 159,
+        "bold": true
+      },
+      {
+        "start": 171,
+        "end": 181,
+        "bold": true
+      },
+      {
+        "start": 194,
+        "end": 200,
+        "bold": true
+      },
+      {
+        "start": 215,
+        "end": 225,
+        "bold": true
+      },
+      {
+        "start": 235,
+        "end": 241,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "effects": [
+          {
+            "type": "keyword-grant",
+            "target": {
+              "owner": "friendly",
+              "anyOf": [
+                "TZAANGORS"
+              ]
+            },
+            "keyword": "battleline"
+          },
+          {
+            "type": "stat-modifier",
+            "stat": "detection-range",
+            "operation": "add",
+            "value": 6,
+            "unit": "inches",
+            "target": {
+              "owner": "enemy",
+              "level": "unit"
+            },
+            "when": {
+              "event": "shooting",
+              "phase": "shooting",
+              "owner": "self",
+              "subject": {
+                "owner": "friendly",
+                "allOf": [
+                  "MUTANT"
+                ]
+              }
+            }
+          }
+        ],
+        "roster": {
+          "detachmentKeyword": "MUTANT",
+          "prohibitedCoSelection": {
+            "detachmentKeyword": "MUTANT",
+            "otherDetachment": true
+          }
+        }
+      }
+    }
+  }
+}

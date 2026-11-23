@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.null-maiden-vigil.psy-chaff-volley",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Null Maiden Vigil",
+    "cp": 1,
+    "summary": "In your Shooting phase, spend 1 CP on one PROSECUTORS unit of yours that has just shot. Pick an enemy unit hit by at least one of those attacks; until your next turn begins, and only while your unit remains on the battlefield, the chosen enemy unit counts as prosecuted. Attacks by ANATHEMA PSYKANA models against a prosecuted unit improve their AP by 1, and while a prosecuted unit is PSYKER or Battle-shocked, attacks made by its models take −1 to the Hit roll.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 42,
+        "end": 53,
+        "bold": true
+      },
+      {
+        "start": 282,
+        "end": 298,
+        "bold": true
+      },
+      {
+        "start": 386,
+        "end": 392,
+        "bold": true
+      },
+      {
+        "start": 396,
+        "end": 410,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Null Maiden Vigil",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "PROSECUTORS"
+            ],
+            "condition": "has-just-shot"
+          },
+          "effects": [
+            {
+              "kind": "mark-enemy-unit",
+              "status": "prosecuted",
+              "select": "enemy-unit-hit-by-those-attacks",
+              "expires": "start-of-your-next-turn",
+              "whileTargetUnitOnBattlefield": true
+            },
+            {
+              "kind": "improve-characteristic",
+              "characteristic": "AP",
+              "by": 1,
+              "attackers": {
+                "entity": "model",
+                "keywordsAll": [
+                  "ANATHEMA PSYKANA"
+                ]
+              },
+              "against": "prosecuted-unit"
+            },
+            {
+              "kind": "roll-modifier",
+              "roll": "hit",
+              "delta": -1,
+              "attackers": "models-in-prosecuted-unit",
+              "condition": "prosecuted-unit-is-PSYKER-or-battle-shocked"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

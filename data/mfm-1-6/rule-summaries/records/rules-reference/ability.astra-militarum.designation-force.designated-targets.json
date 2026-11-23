@@ -88,87 +88,90 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "scope": {
-          "factionId": "9b847488-9663-48dc-b819-08ab93ac4382",
-          "faction": "Astra Militarum",
-          "detachmentId": "7c12acc3-f2ae-4fa7-b80b-03dae96b72da",
-          "detachment": "Designation Force",
-          "uniqueTags": [
-            {
-              "id": "30a9528f-1692-4a82-9559-b9ef448d845d",
-              "name": {
-                "en": "Recon"
-              }
-            }
-          ],
-          "sourceId": "7c12acc3-f2ae-4fa7-b80b-03dae96b72da:designated-targets",
-          "cardType": "detachmentRule",
-          "cardEdition": "40k-11e"
-        },
-        "grant": {
-          "type": "ability-grant",
-          "name": "Signal Flares",
-          "bearer": {
-            "owner": "friendly",
-            "level": "unit",
-            "anyOfFilters": [
+        "detail": {
+          "scope": {
+            "factionId": "9b847488-9663-48dc-b819-08ab93ac4382",
+            "faction": "Astra Militarum",
+            "detachmentId": "7c12acc3-f2ae-4fa7-b80b-03dae96b72da",
+            "detachment": "Designation Force",
+            "uniqueTags": [
               {
-                "allOf": [
-                  "Scout Sentinel"
-                ]
-              },
-              {
-                "allOf": [
-                  "ASTRA MILITARUM",
-                  "INFANTRY",
-                  "SMOKE"
-                ]
+                "id": "30a9528f-1692-4a82-9559-b9ef448d845d",
+                "name": {
+                  "en": "Recon"
+                }
               }
-            ]
+            ],
+            "sourceId": "7c12acc3-f2ae-4fa7-b80b-03dae96b72da:designated-targets",
+            "cardType": "detachmentRule",
+            "cardEdition": "40k-11e"
           },
-          "timing": {
-            "event": "during-phase",
-            "phase": "shooting",
-            "owner": "self"
-          },
-          "selection": {
-            "count": 1,
-            "optional": true,
-            "target": {
-              "owner": "enemy",
+          "grant": {
+            "type": "ability-grant",
+            "name": "Signal Flares",
+            "bearer": {
+              "owner": "friendly",
               "level": "unit",
-              "visibleTo": "bearer-unit",
-              "distance": {
-                "from": "bearer-unit",
-                "maximum": 12,
-                "unit": "inches"
+              "anyOfFilters": [
+                {
+                  "allOf": [
+                    "Scout Sentinel"
+                  ]
+                },
+                {
+                  "allOf": [
+                    "ASTRA MILITARUM",
+                    "INFANTRY",
+                    "SMOKE"
+                  ]
+                }
+              ]
+            },
+            "timing": {
+              "event": "during-phase",
+              "phase": "shooting",
+              "owner": "self"
+            },
+            "selection": {
+              "count": 1,
+              "optional": true,
+              "target": {
+                "owner": "enemy",
+                "level": "unit",
+                "visibleTo": "bearer-unit",
+                "distance": {
+                  "from": "bearer-unit",
+                  "maximum": 12,
+                  "unit": "inches"
+                }
+              }
+            },
+            "designation": {
+              "target": "selected-enemy-unit",
+              "tag": "designated"
+            },
+            "effect": {
+              "type": "stat-modifier",
+              "stat": "detection-range",
+              "operation": "add",
+              "value": 3,
+              "unit": "inches",
+              "target": "designated-enemy-unit",
+              "while": {
+                "designation": "designated"
               }
             }
           },
-          "designation": {
-            "target": "selected-enemy-unit",
-            "tag": "designated"
-          },
-          "effect": {
-            "type": "stat-modifier",
-            "stat": "detection-range",
-            "operation": "add",
-            "value": 3,
-            "unit": "inches",
-            "target": "designated-enemy-unit",
-            "while": {
-              "designation": "designated"
-            }
+          "roster": {
+            "type": "detachment-tag-exclusivity",
+            "tag": "RECON",
+            "scope": "friendly-army",
+            "allowedIn": "this-detachment",
+            "prohibitedIn": "other-detachments"
           }
-        },
-        "roster": {
-          "type": "detachment-tag-exclusivity",
-          "tag": "RECON",
-          "scope": "friendly-army",
-          "allowedIn": "this-detachment",
-          "prohibitedIn": "other-detachments"
         }
       }
     }

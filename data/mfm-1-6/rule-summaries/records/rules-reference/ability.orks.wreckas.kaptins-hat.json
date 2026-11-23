@@ -34,38 +34,56 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "enhancement",
-        "detachment": "Wreckas",
-        "pointsCost": 25,
-        "eligibility": {
-          "scope": "model",
-          "keywordsAll": [
-            "INFANTRY"
-          ],
-          "keywordsAny": [
-            "BIG MEK",
-            "WARBOSS"
-          ]
-        },
-        "effects": [
-          {
-            "trigger": "after-both-players-deployed",
-            "select": {
-              "maxUnits": 3,
-              "side": "friendly",
-              "keywordsAll": [
-                "ORKS",
-                "INFANTRY"
-              ],
-              "optional": true
-            },
-            "redeploy": true,
-            "mayPlaceInStrategicReserves": true,
-            "ignoresReserveLimit": true
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "BIG MEK",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "INFANTRY",
+                  "WARBOSS"
+                ]
+              },
+              {
+                "unit": {
+                  "kind": "unit",
+                  "id": "orks.big-mek"
+                }
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Wreckas",
+          "effects": [
+            {
+              "trigger": "after-both-players-deployed",
+              "select": {
+                "maxUnits": 3,
+                "side": "friendly",
+                "keywordsAll": [
+                  "ORKS",
+                  "INFANTRY"
+                ],
+                "optional": true
+              },
+              "redeploy": true,
+              "mayPlaceInStrategicReserves": true,
+              "ignoresReserveLimit": true
+            }
+          ]
+        }
       }
     }
   }

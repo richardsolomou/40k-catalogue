@@ -42,94 +42,97 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "behavior": "reactive",
-        "scope": {
-          "duration": "permanent"
-        },
-        "effect": {
-          "type": "sequence",
-          "steps": [
-            {
-              "type": "ability-part",
-              "trigger": {
-                "event": "turn-started",
-                "condition": {
-                  "type": "player-turn-is",
-                  "parameters": {
-                    "turn": "your-turn"
-                  }
-                }
-              },
-              "effect": {
-                "type": "conditional",
-                "condition": {
-                  "type": "oath-state",
-                  "parameters": {
-                    "ability": "code-chivalric-imperial-knights",
-                    "state": "fulfilled"
+        "detail": {
+          "behavior": "reactive",
+          "scope": {
+            "duration": "permanent"
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "ability-part",
+                "trigger": {
+                  "event": "turn-started",
+                  "condition": {
+                    "type": "player-turn-is",
+                    "parameters": {
+                      "turn": "your-turn"
+                    }
                   }
                 },
                 "effect": {
-                  "type": "ability-activate",
-                  "target": "this-unit",
-                  "modifier": {
-                    "ability": "code-chivalric-imperial-knights",
-                    "procedure": "oath"
+                  "type": "conditional",
+                  "condition": {
+                    "type": "oath-state",
+                    "parameters": {
+                      "ability": "code-chivalric-imperial-knights",
+                      "state": "fulfilled"
+                    }
+                  },
+                  "effect": {
+                    "type": "ability-activate",
+                    "target": "this-unit",
+                    "modifier": {
+                      "ability": "code-chivalric-imperial-knights",
+                      "procedure": "oath"
+                    }
                   }
                 }
-              }
-            },
-            {
-              "type": "oath-modifier",
-              "target": "this-unit",
-              "modifier": {
-                "ability": "code-chivalric-imperial-knights",
-                "aspect": "selection",
-                "domains": [
-                  "deed",
-                  "quality"
-                ],
-                "exclude_previously_selected": true,
-                "duplicate_roll": "choose-unselected",
-                "stop_when": "all-domains-exhausted"
-              }
-            },
-            {
-              "type": "oath-modifier",
-              "target": {
-                "owner": "friendly",
-                "level": "model",
-                "has_ability": [
-                  "code-chivalric-imperial-knights"
-                ]
               },
-              "modifier": {
-                "ability": "code-chivalric-imperial-knights",
-                "aspect": "quality-persistence",
-                "from": "fulfilled"
-              }
-            },
-            {
-              "type": "oath-modifier",
-              "target": "this-unit",
-              "modifier": {
-                "ability": "code-chivalric-imperial-knights",
-                "aspect": "deed-reward",
-                "applies_to": "additional",
-                "operation": "replace",
-                "selection_method": "any",
-                "effect": {
-                  "type": "cp-gain",
-                  "target": "this-model",
-                  "modifier": {
-                    "amount": 1
+              {
+                "type": "oath-modifier",
+                "target": "this-unit",
+                "modifier": {
+                  "ability": "code-chivalric-imperial-knights",
+                  "aspect": "selection",
+                  "domains": [
+                    "deed",
+                    "quality"
+                  ],
+                  "exclude_previously_selected": true,
+                  "duplicate_roll": "choose-unselected",
+                  "stop_when": "all-domains-exhausted"
+                }
+              },
+              {
+                "type": "oath-modifier",
+                "target": {
+                  "owner": "friendly",
+                  "level": "model",
+                  "has_ability": [
+                    "code-chivalric-imperial-knights"
+                  ]
+                },
+                "modifier": {
+                  "ability": "code-chivalric-imperial-knights",
+                  "aspect": "quality-persistence",
+                  "from": "fulfilled"
+                }
+              },
+              {
+                "type": "oath-modifier",
+                "target": "this-unit",
+                "modifier": {
+                  "ability": "code-chivalric-imperial-knights",
+                  "aspect": "deed-reward",
+                  "applies_to": "additional",
+                  "operation": "replace",
+                  "selection_method": "any",
+                  "effect": {
+                    "type": "cp-gain",
+                    "target": "this-model",
+                    "modifier": {
+                      "amount": 1
+                    }
                   }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

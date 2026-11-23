@@ -55,36 +55,44 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "ADEPTUS CUSTODES",
-            "INFANTRY",
-            "CHARACTER"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "return-model-on-roll",
-            "target": "bearer",
-            "dice": "D6",
-            "threshold": "2+",
-            "remainingWounds": 3,
-            "placement": "closest-possible-to-destruction-location",
-            "requiresUnengaged": true
+        "enhancement": {
+          "type": "model",
+          "points": 30,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY"
+                ],
+                "factionKeywords": [
+                  "ADEPTUS CUSTODES"
+                ]
+              }
+            ]
           }
-        ],
-        "trigger": {
-          "event": "phase-ended",
-          "condition": "bearer-destroyed-during-that-phase"
         },
-        "usage": {
-          "limit": "once-per-battle"
+        "detail": {
+          "effects": [
+            {
+              "type": "return-model-on-roll",
+              "target": "bearer",
+              "dice": "D6",
+              "threshold": "2+",
+              "remainingWounds": 3,
+              "placement": "closest-possible-to-destruction-location",
+              "requiresUnengaged": true
+            }
+          ],
+          "trigger": {
+            "event": "phase-ended",
+            "condition": "bearer-destroyed-during-that-phase"
+          },
+          "usage": {
+            "limit": "once-per-battle"
+          }
         }
       }
     }

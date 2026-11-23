@@ -42,44 +42,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "effect": {
-          "type": "conditional",
-          "condition": {
-            "operator": "and",
-            "operands": [
-              {
-                "type": "phase-is",
-                "parameters": {
-                  "phase": "command"
-                }
-              },
-              {
-                "type": "player-turn-is",
-                "parameters": {
-                  "turn": "your-turn"
-                }
-              }
-            ]
-          },
+        "detail": {
           "effect": {
-            "type": "ability-activate",
-            "target": "this-unit",
-            "modifier": {
-              "ability": "combat-doctrines-adeptus-astartes",
-              "select": {
-                "by": "player"
-              },
-              "exclusive": true
+            "type": "conditional",
+            "condition": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "phase-is",
+                  "parameters": {
+                    "phase": "command"
+                  }
+                },
+                {
+                  "type": "player-turn-is",
+                  "parameters": {
+                    "turn": "your-turn"
+                  }
+                }
+              ]
+            },
+            "effect": {
+              "type": "ability-activate",
+              "target": "this-unit",
+              "modifier": {
+                "ability": "combat-doctrines-adeptus-astartes",
+                "select": {
+                  "by": "player"
+                },
+                "exclusive": true
+              }
             }
-          }
-        },
-        "scope": {
-          "duration": "until-next-command-phase"
-        },
-        "optional": true,
-        "behavior": "activated"
+          },
+          "scope": {
+            "duration": "until-next-command-phase"
+          },
+          "optional": true,
+          "behavior": "activated"
+        }
       }
     }
   }

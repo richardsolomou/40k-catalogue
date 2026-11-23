@@ -52,33 +52,36 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "trigger": "each-ranged-attack-by-this-unit",
-        "branchResolution": "first-match",
-        "branches": [
-          {
-            "target": {
-              "side": "enemy",
-              "entity": "unit",
-              "condition": "within-range-of-objective"
+        "detail": {
+          "source": "this-unit",
+          "trigger": "each-ranged-attack-by-this-unit",
+          "branchResolution": "first-match",
+          "branches": [
+            {
+              "target": {
+                "side": "enemy",
+                "entity": "unit",
+                "condition": "within-range-of-objective"
+              },
+              "effect": {
+                "roll": "hit",
+                "optional": true,
+                "kind": "re-roll"
+              }
             },
-            "effect": {
-              "roll": "hit",
-              "operation": "reroll",
-              "optional": true
+            {
+              "effect": {
+                "roll": "hit",
+                "unmodifiedResult": 1,
+                "optional": true,
+                "kind": "re-roll"
+              }
             }
-          },
-          {
-            "effect": {
-              "roll": "hit",
-              "operation": "reroll",
-              "unmodifiedResult": 1,
-              "optional": true
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

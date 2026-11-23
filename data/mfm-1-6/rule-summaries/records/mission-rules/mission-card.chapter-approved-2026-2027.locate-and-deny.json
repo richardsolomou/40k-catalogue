@@ -46,27 +46,30 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "timing": "start-of-battle",
-        "actor": "mission-player",
-        "selector": {
-          "kind": "terrain-area",
-          "exclude": {
-            "relation": "within",
-            "area": "own-deployment-zone"
+        "detail": {
+          "timing": "start-of-battle",
+          "actor": "mission-player",
+          "selector": {
+            "kind": "terrain-area",
+            "exclude": {
+              "relation": "within",
+              "area": "own-deployment-zone"
+            },
+            "count": 5,
+            "fallback": {
+              "when": "cannot-select-five",
+              "count": "all-eligible"
+            }
           },
-          "count": 5,
-          "fallback": {
-            "when": "cannot-select-five",
-            "count": "all-eligible"
+          "effect": {
+            "kind": "place-operation-marker",
+            "owner": "mission-player",
+            "countPerArea": 1,
+            "position": "within-selected-area"
           }
-        },
-        "effect": {
-          "kind": "place-operation-marker",
-          "owner": "mission-player",
-          "countPerArea": 1,
-          "position": "within-selected-area"
         }
       }
     }

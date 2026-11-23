@@ -61,107 +61,110 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "behavior": "reactive",
-        "trigger": {
-          "event": "phase-ended",
-          "condition": {
-            "operator": "and",
-            "operands": [
-              {
-                "type": "phase-is",
-                "parameters": {
-                  "phase": "command"
-                }
-              },
-              {
-                "type": "player-turn-is",
-                "parameters": {
-                  "turn": "your-turn"
-                }
-              }
-            ]
-          }
-        },
-        "scope": {
-          "duration": "permanent"
-        },
-        "effect": {
-          "type": "sequence",
-          "steps": [
-            {
-              "type": "for-each-unit",
-              "selector": {
-                "filter": {
-                  "owner": "friendly",
-                  "all_of": [
-                    "DEATH GUARD"
-                  ]
-                }
-              },
-              "effect": {
-                "type": "sequence",
-                "steps": [
-                  {
-                    "type": "objective-sticky",
-                    "target": "recipient"
-                  },
-                  {
-                    "type": "designate",
-                    "target": "recipient",
-                    "modifier": {
-                      "subject": {
-                        "objective": {
-                          "controlled_by_unit": "recipient"
-                        }
-                      },
-                      "tag": "secured"
-                    }
+        "detail": {
+          "behavior": "reactive",
+          "trigger": {
+            "event": "phase-ended",
+            "condition": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "phase-is",
+                  "parameters": {
+                    "phase": "command"
                   }
-                ]
-              }
-            },
-            {
-              "type": "ability-part",
-              "effect": {
+                },
+                {
+                  "type": "player-turn-is",
+                  "parameters": {
+                    "turn": "your-turn"
+                  }
+                }
+              ]
+            }
+          },
+          "scope": {
+            "duration": "permanent"
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
                 "type": "for-each-unit",
                 "selector": {
                   "filter": {
-                    "owner": "enemy"
+                    "owner": "friendly",
+                    "all_of": [
+                      "DEATH GUARD"
+                    ]
                   }
                 },
                 "effect": {
-                  "type": "conditional",
-                  "condition": {
-                    "type": "matches",
-                    "parameters": {
-                      "subject": "recipient",
-                      "filter": {
-                        "within": {
-                          "of": {
-                            "objective": {
-                              "controlled_by": "friendly",
-                              "designated": "secured"
-                            }
-                          },
-                          "range": "objective-control"
-                        }
+                  "type": "sequence",
+                  "steps": [
+                    {
+                      "type": "objective-sticky",
+                      "target": "recipient"
+                    },
+                    {
+                      "type": "designate",
+                      "target": "recipient",
+                      "modifier": {
+                        "subject": {
+                          "objective": {
+                            "controlled_by_unit": "recipient"
+                          }
+                        },
+                        "tag": "secured"
                       }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "ability-part",
+                "effect": {
+                  "type": "for-each-unit",
+                  "selector": {
+                    "filter": {
+                      "owner": "enemy"
                     }
                   },
                   "effect": {
-                    "type": "designate",
-                    "target": "recipient",
-                    "modifier": {
-                      "tag": "afflicted"
+                    "type": "conditional",
+                    "condition": {
+                      "type": "matches",
+                      "parameters": {
+                        "subject": "recipient",
+                        "filter": {
+                          "within": {
+                            "of": {
+                              "objective": {
+                                "controlled_by": "friendly",
+                                "designated": "secured"
+                              }
+                            },
+                            "range": "objective-control"
+                          }
+                        }
+                      }
+                    },
+                    "effect": {
+                      "type": "designate",
+                      "target": "recipient",
+                      "modifier": {
+                        "tag": "afflicted"
+                      }
                     }
                   }
-                }
-              },
-              "duration": "control-lost"
-            }
-          ]
+                },
+                "duration": "control-lost"
+              }
+            ]
+          }
         }
       }
     }

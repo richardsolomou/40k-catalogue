@@ -47,48 +47,51 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "faq": {
-          "entryType": "errata",
-          "publicationId": "22143edf-b54a-470c-9780-f89d96a05591",
-          "typedMechanics": {
-            "operation": "replace-stratagem-fields",
-            "when": {
-              "phase": "any",
-              "trigger": "last-model-of-a-unit-destroyed",
-              "triggerUnitOwnership": "unspecified",
-              "before": "remove-destroyed-model",
-              "conditionalFirst": {
-                "condition": "destroyed-unit-is-a-transport",
-                "mandatoryAction": "disembark-all-those-units"
-              }
+        "detail": {
+          "faq": {
+            "entryType": "errata",
+            "publicationId": "22143edf-b54a-470c-9780-f89d96a05591",
+            "typedMechanics": {
+              "when": {
+                "phase": "any",
+                "trigger": "last-model-of-a-unit-destroyed",
+                "triggerUnitOwnership": "unspecified",
+                "before": "remove-destroyed-model",
+                "conditionalFirst": {
+                  "condition": "destroyed-unit-is-a-transport",
+                  "mandatoryAction": "disembark-all-those-units"
+                }
+              },
+              "target": {
+                "unitCount": 1,
+                "yourArmy": true,
+                "keyword": "BLOODLETTERS",
+                "location": "Reserves"
+              },
+              "effect": {
+                "sequence": [
+                  "set-up-target-on-battlefield",
+                  "remove-destroyed-model"
+                ],
+                "setup": {
+                  "whollyWithinInches": 9,
+                  "of": "destroyed-model",
+                  "horizontalSeparationInches": 6,
+                  "exclusive": true,
+                  "from": "every-enemy-unit"
+                }
+              },
+              "limit": {
+                "count": 1,
+                "per": "battle-round"
+              },
+              "kind": "replace-stratagem-fields"
             },
-            "target": {
-              "unitCount": 1,
-              "yourArmy": true,
-              "keyword": "BLOODLETTERS",
-              "location": "Reserves"
-            },
-            "effect": {
-              "sequence": [
-                "set-up-target-on-battlefield",
-                "remove-destroyed-model"
-              ],
-              "setup": {
-                "whollyWithinInches": 9,
-                "of": "destroyed-model",
-                "horizontalSeparationInches": 6,
-                "exclusive": true,
-                "from": "every-enemy-unit"
-              }
-            },
-            "limit": {
-              "count": 1,
-              "per": "battle-round"
-            }
-          },
-          "signedValueMagnitudes": []
+            "signedValueMagnitudes": []
+          }
         }
       }
     }

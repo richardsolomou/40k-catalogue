@@ -39,156 +39,159 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "behavior": "passive",
-        "scope": {
-          "duration": "permanent"
-        },
-        "effect": {
-          "type": "named-region-state",
-          "target": {
-            "owner": "friendly"
+        "detail": {
+          "behavior": "passive",
+          "scope": {
+            "duration": "permanent"
           },
-          "modifier": {
-            "region_ref": {
-              "region_id": "flow-of-magic",
-              "owner_faction": "thousand-sons"
+          "effect": {
+            "type": "named-region-state",
+            "target": {
+              "owner": "friendly"
             },
-            "producer": {
+            "modifier": {
               "region_ref": {
                 "region_id": "flow-of-magic",
                 "owner_faction": "thousand-sons"
               },
-              "mode": "complete",
-              "parent_ref": null,
-              "baseline": [
-                {
-                  "region": {
-                    "territory": "your-deployment-zone"
-                  },
-                  "duration": "permanent"
-                }
-              ],
-              "phase_extensions": [
-                {
-                  "region": {
-                    "territory": "no-mans-land"
-                  },
-                  "condition": {
-                    "type": "controls",
-                    "parameters": {
-                      "by": "friendly",
-                      "objective": {
-                        "territory": "no-mans-land"
-                      },
-                      "proportion": {
-                        "comparison": "gte",
-                        "fraction": 0.5
-                      }
-                    }
-                  },
-                  "trigger": {
-                    "event": "phase-started"
-                  },
-                  "duration": "phase",
-                  "evaluation": "snapshot-once"
+              "producer": {
+                "region_ref": {
+                  "region_id": "flow-of-magic",
+                  "owner_faction": "thousand-sons"
                 },
-                {
-                  "region": {
-                    "territory": "enemy-deployment-zone"
-                  },
-                  "condition": {
-                    "type": "controls",
-                    "parameters": {
-                      "by": "friendly",
-                      "objective": {
-                        "territory": "enemy-deployment-zone"
-                      },
-                      "proportion": {
-                        "comparison": "gte",
-                        "fraction": 0.5
-                      }
-                    }
-                  },
-                  "trigger": {
-                    "event": "phase-started"
-                  },
-                  "duration": "phase",
-                  "evaluation": "snapshot-once"
-                }
-              ],
-              "additive_extensions": []
-            },
-            "consumer": {
-              "state_ref": {
-                "region_id": "flow-of-magic",
-                "owner_faction": "thousand-sons"
-              },
-              "beneficiary_filter": {
-                "owner": "friendly",
-                "all_of": [
-                  "THOUSAND SONS"
-                ]
-              },
-              "membership": {
-                "unit_scope": "model",
-                "relation": "wholly-within"
-              },
-              "qualified_condition": {
-                "type": "in-region",
-                "parameters": {
-                  "subject": "this-model",
-                  "region": {
-                    "rule_region": {
-                      "region_id": "flow-of-magic",
-                      "owner_faction": "thousand-sons"
-                    }
-                  },
-                  "wholly": true
-                }
-              },
-              "default_branch": {
-                "effect": {
-                  "type": "ability-part",
-                  "effect": {
-                    "type": "re-roll",
-                    "target": "attacker",
-                    "modifier": {
-                      "roll": "wound",
-                      "subset": "ones",
-                      "weapons": {
-                        "keyword": {
-                          "keyword_id": "psychic"
+                "mode": "complete",
+                "parent_ref": null,
+                "baseline": [
+                  {
+                    "region": {
+                      "territory": "your-deployment-zone"
+                    },
+                    "duration": "permanent"
+                  }
+                ],
+                "phase_extensions": [
+                  {
+                    "region": {
+                      "territory": "no-mans-land"
+                    },
+                    "condition": {
+                      "type": "controls",
+                      "parameters": {
+                        "by": "friendly",
+                        "objective": {
+                          "territory": "no-mans-land"
+                        },
+                        "proportion": {
+                          "comparison": "gte",
+                          "fraction": 0.5
                         }
                       }
-                    }
+                    },
+                    "trigger": {
+                      "event": "phase-started"
+                    },
+                    "duration": "phase",
+                    "evaluation": "snapshot-once"
                   },
-                  "optional": false
-                }
-              },
-              "qualified_branch": {
-                "effect": {
-                  "type": "ability-part",
-                  "effect": {
-                    "type": "roll-modifier",
-                    "target": "attacker",
-                    "modifier": {
-                      "roll": "wound",
-                      "operation": "add",
-                      "value": 1,
-                      "weapons": {
-                        "keyword": {
-                          "keyword_id": "psychic"
+                  {
+                    "region": {
+                      "territory": "enemy-deployment-zone"
+                    },
+                    "condition": {
+                      "type": "controls",
+                      "parameters": {
+                        "by": "friendly",
+                        "objective": {
+                          "territory": "enemy-deployment-zone"
+                        },
+                        "proportion": {
+                          "comparison": "gte",
+                          "fraction": 0.5
                         }
                       }
-                    }
-                  },
-                  "optional": false
+                    },
+                    "trigger": {
+                      "event": "phase-started"
+                    },
+                    "duration": "phase",
+                    "evaluation": "snapshot-once"
+                  }
+                ],
+                "additive_extensions": []
+              },
+              "consumer": {
+                "state_ref": {
+                  "region_id": "flow-of-magic",
+                  "owner_faction": "thousand-sons"
+                },
+                "beneficiary_filter": {
+                  "owner": "friendly",
+                  "all_of": [
+                    "THOUSAND SONS"
+                  ]
+                },
+                "membership": {
+                  "unit_scope": "model",
+                  "relation": "wholly-within"
+                },
+                "qualified_condition": {
+                  "type": "in-region",
+                  "parameters": {
+                    "subject": "this-model",
+                    "region": {
+                      "rule_region": {
+                        "region_id": "flow-of-magic",
+                        "owner_faction": "thousand-sons"
+                      }
+                    },
+                    "wholly": true
+                  }
+                },
+                "default_branch": {
+                  "effect": {
+                    "type": "ability-part",
+                    "effect": {
+                      "type": "re-roll",
+                      "target": "attacker",
+                      "modifier": {
+                        "roll": "wound",
+                        "subset": "ones",
+                        "weapons": {
+                          "keyword": {
+                            "keyword_id": "psychic"
+                          }
+                        }
+                      }
+                    },
+                    "optional": false
+                  }
+                },
+                "qualified_branch": {
+                  "effect": {
+                    "type": "ability-part",
+                    "effect": {
+                      "type": "roll-modifier",
+                      "target": "attacker",
+                      "modifier": {
+                        "roll": "wound",
+                        "operation": "add",
+                        "value": 1,
+                        "weapons": {
+                          "keyword": {
+                            "keyword_id": "psychic"
+                          }
+                        }
+                      }
+                    },
+                    "optional": false
+                  }
                 }
-              }
-            },
-            "branch_precedence": "qualified-replaces-default"
+              },
+              "branch_precedence": "qualified-replaces-default"
+            }
           }
         }
       }

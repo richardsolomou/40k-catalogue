@@ -45,7 +45,7 @@ The record's `source` locates the printed rule, so it is the publisher document 
 
 ## Typed facts
 
-`format` names the vocabulary of `fields` and `version` its version. Facts in the `vs-data-mechanic` format, version `1`, are a mechanic record's structured fields (`usage`, `trigger`, `target`, `conditions`, `effect`, `duration`, `restriction`) and must validate as a mechanic record with the summary record's ID, name, rules version and source. Other formats are carried as given. Read behaviour from the mechanics release where the rule has a mechanic record.
+`format` names the vocabulary of `fields` and `version` its version. [Rule facts](rule-facts.md) defines the `vs-data-facts` format, version `1`: closed typed blocks, such as an Enhancement's eligibility or an award's scoring, and the drafted structured reading as `detail`. Facts in the `vs-data-mechanic` format, version `1`, are a mechanic record's structured fields (`usage`, `trigger`, `target`, `conditions`, `effect`, `duration`, `restriction`) and must validate as a mechanic record with the summary record's ID, name, rules version and source. Other formats are carried as given. Read behaviour from the mechanics release where the rule has a mechanic record.
 
 ## FAQs
 
@@ -65,7 +65,7 @@ Identity entries without a record are listed as `unresolved`, and their category
 - Spans lie within the summary, in ascending order, without overlapping.
 - Every rule a span links to or an FAQ amends is current and appears in the identity entry's `references`, so a release's `dependsOn` and `unresolvedReferences` include it. A summary may link its own rule's name without a reference.
 - A Stratagem has a `cp` cost, and no other ability has a cost or Stratagem timing.
-- `vs-data-mechanic` facts validate as a mechanic record.
+- `vs-data-facts` facts match the shape for the record's kind, with award rounds in ascending order, and `vs-data-mechanic` facts validate as a mechanic record.
 
 ## Versioning
 

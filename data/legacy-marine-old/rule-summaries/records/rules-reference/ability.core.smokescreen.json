@@ -92,6 +92,184 @@
             ]
           }
         },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "opponent"
+            }
+          ]
+        },
+        "combat": {
+          "applies": {
+            "target": {
+              "anyOf": [
+                [
+                  "SMOKE"
+                ]
+              ]
+            }
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "cover": true
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "stated",
+                      "label": "Obscured by the source unit"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "cover": true
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "cover": true
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "defender"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0,
+              "roles": [
+                "defender"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "ask": {
+                  "unitHas": "SMOKE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 0
+              },
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "unitHas": "SMOKE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 2
+              },
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "reading": 3
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 1,
+            "own.many.known": 0,
+            "own.many.unknown": 1,
+            "leading.one.known": 0,
+            "leading.one.unknown": 1,
+            "leading.many.known": 0,
+            "leading.many.unknown": 1,
+            "aura.one.known": 2,
+            "aura.one.unknown": 1,
+            "aura.many.known": 2,
+            "aura.many.unknown": 1,
+            "stratagem-shooting.one.known": 2,
+            "stratagem-shooting.one.unknown": 1,
+            "stratagem-shooting.many.known": 2,
+            "stratagem-shooting.many.unknown": 1,
+            "stratagem-fight.one.known": 3,
+            "stratagem-fight.one.unknown": 3,
+            "stratagem-fight.many.known": 3,
+            "stratagem-fight.many.unknown": 3,
+            "stratagem-both.one.known": 2,
+            "stratagem-both.one.unknown": 1,
+            "stratagem-both.many.known": 2,
+            "stratagem-both.many.unknown": 1,
+            "army.one.known": 0,
+            "army.one.unknown": 1,
+            "army.many.known": 0,
+            "army.many.unknown": 1
+          }
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "benefit-of-cover"
+          }
+        ],
         "detail": {
           "kind": "core-stratagem",
           "when": {

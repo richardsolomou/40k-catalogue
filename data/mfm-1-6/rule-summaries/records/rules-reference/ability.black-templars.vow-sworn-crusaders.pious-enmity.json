@@ -74,18 +74,95 @@
             "unresolved": "not typed yet; see the summary"
           }
         },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ]
+        },
         "combat": {
           "applies": {
             "target": {
               "anyOf": [
                 [
-                  "CHAPLIN/JUDICIAR"
+                  "CHAPLIN"
+                ],
+                [
+                  "JUDICIAR"
                 ]
               ]
             }
           },
           "readings": [
             {
+              "choices": [
+                {
+                  "option": "Option 1",
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitReroll": "ones"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Option 2",
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "targetKeywords": [
+                        "MONSTER",
+                        "VEHICLE"
+                      ],
+                      "rolls": {
+                        "hitReroll": "ones"
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "targetKeywords": [
+                        "MONSTER",
+                        "VEHICLE"
+                      ],
+                      "rolls": {
+                        "woundReroll": "ones"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0,
               "roles": [
                 "attacker"
               ]
@@ -95,6 +172,11 @@
             [
               {
                 "reading": 0
+              }
+            ],
+            [
+              {
+                "reading": 1
               }
             ]
           ],
@@ -111,10 +193,10 @@
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 0,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 0,
+            "stratagem-shooting.one.known": 1,
+            "stratagem-shooting.one.unknown": 1,
+            "stratagem-shooting.many.known": 1,
+            "stratagem-shooting.many.unknown": 1,
             "stratagem-fight.one.known": 0,
             "stratagem-fight.one.unknown": 0,
             "stratagem-fight.many.known": 0,
@@ -129,16 +211,6 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "hit-rolls"
-          },
-          {
-            "kind": "core-rule",
-            "id": "wound-rolls"
-          }
-        ],
         "detail": {
           "detachment": "Vow-sworn Crusaders",
           "trigger": {

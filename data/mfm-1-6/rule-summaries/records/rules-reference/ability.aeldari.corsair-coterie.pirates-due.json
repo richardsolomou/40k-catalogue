@@ -56,6 +56,15 @@
             ]
           }
         },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ]
+        },
         "combat": {
           "applies": {
             "target": {
@@ -68,6 +77,41 @@
           },
           "readings": [
             {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundReroll": "ones"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundReroll": "failed"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
               "roles": [
                 "attacker"
               ]
@@ -80,7 +124,6 @@
                     {
                       "role": "attacker",
                       "attacks": [
-                        "ranged",
                         "melee"
                       ],
                       "rolls": {
@@ -103,7 +146,92 @@
                     {
                       "role": "attacker",
                       "attacks": [
-                        "ranged",
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundReroll": "ones"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "ANHRATHE"
+                      ]
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundReroll": "failed"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundReroll": "ones"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundReroll": "failed"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
                         "melee"
                       ],
                       "rolls": {
@@ -126,10 +254,34 @@
                     {
                       "role": "attacker",
                       "attacks": [
-                        "ranged"
+                        "melee"
                       ],
                       "rolls": {
                         "woundReroll": "ones"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "ANHRATHE"
+                      ]
+                    },
+                    {
+                      "kind": "target-on-objective"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundReroll": "failed"
                       }
                     }
                   ]
@@ -141,22 +293,7 @@
               ]
             },
             {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "rolls": {
-                        "woundReroll": "ones"
-                      }
-                    }
-                  ]
-                }
-              ],
+              "choices": [],
               "default": 0,
               "roles": [
                 "attacker"
@@ -181,21 +318,6 @@
             ],
             [
               {
-                "reading": 0
-              }
-            ],
-            [
-              {
-                "ask": {
-                  "unitHas": "ANHRATHE"
-                },
-                "yes": 1,
-                "no": 2
-              },
-              {
-                "reading": 0
-              },
-              {
                 "reading": 2
               }
             ],
@@ -208,25 +330,20 @@
                 "no": 2
               },
               {
-                "reading": 0
+                "reading": 3
               },
               {
-                "reading": 3
+                "reading": 4
               }
             ],
             [
               {
-                "ask": {
-                  "unitHas": "ANHRATHE"
-                },
-                "yes": 1,
-                "no": 2
-              },
+                "reading": 5
+              }
+            ],
+            [
               {
-                "reading": 0
-              },
-              {
-                "reading": 4
+                "reading": 6
               }
             ]
           ],
@@ -240,21 +357,21 @@
             "leading.many.known": 0,
             "leading.many.unknown": 1,
             "aura.one.known": 2,
-            "aura.one.unknown": 1,
+            "aura.one.unknown": 3,
             "aura.many.known": 2,
-            "aura.many.unknown": 1,
-            "stratagem-shooting.one.known": 3,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 3,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 4,
-            "stratagem-fight.one.unknown": 1,
-            "stratagem-fight.many.known": 4,
-            "stratagem-fight.many.unknown": 1,
+            "aura.many.unknown": 3,
+            "stratagem-shooting.one.known": 4,
+            "stratagem-shooting.one.unknown": 4,
+            "stratagem-shooting.many.known": 4,
+            "stratagem-shooting.many.unknown": 4,
+            "stratagem-fight.one.known": 2,
+            "stratagem-fight.one.unknown": 3,
+            "stratagem-fight.many.known": 2,
+            "stratagem-fight.many.unknown": 3,
             "stratagem-both.one.known": 2,
-            "stratagem-both.one.unknown": 1,
+            "stratagem-both.one.unknown": 3,
             "stratagem-both.many.known": 2,
-            "stratagem-both.many.unknown": 1,
+            "stratagem-both.many.unknown": 3,
             "army.one.known": 0,
             "army.one.unknown": 1,
             "army.many.known": 0,

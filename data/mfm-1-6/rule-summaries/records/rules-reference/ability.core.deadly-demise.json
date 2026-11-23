@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "core.deadly-demise",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "core-ability",
+    "group": "Core",
+    "summary": "On the bearer’s destruction, wait for any passengers to finish emergency disembarkation, then throw a D6. Only a 6 deals mortal wounds to all units up to 6 inches from the bearer. The ability rating sets the amount, rolled afresh for each affected unit if variable.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "deadly-demise",
+        "trigger": {
+          "event": "model-destroyed",
+          "subject": "ability-bearer"
+        },
+        "sequence": {
+          "rollAfter": "emergency-disembark-moves",
+          "when": "if-bearer-had-embarked-units"
+        },
+        "check": {
+          "diceCount": 1,
+          "diceSides": 6,
+          "successFace": 6
+        },
+        "effect": {
+          "kind": "mortal-wounds",
+          "targets": "all-units",
+          "center": "destroyed-bearer",
+          "rangeInches": 6,
+          "rangeInclusive": true,
+          "amount": {
+            "parameter": "X",
+            "source": "ability-rating"
+          },
+          "independentRollPerUnitWhenRandom": true
+        }
+      }
+    }
+  }
+}

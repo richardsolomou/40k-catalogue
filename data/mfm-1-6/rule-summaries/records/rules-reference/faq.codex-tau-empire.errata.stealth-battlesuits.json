@@ -1,0 +1,117 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-tau-empire.errata.stealth-battlesuits",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "T’au Empire Faction Pack: Version 1.2",
+    "page": "20",
+    "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_tau_empire-sxhzmfrlud-mpzjzuhupn.pdf#page=20"
+  },
+  "data": {
+    "publication": "Codex: T’au Empire",
+    "amends": [
+      {
+        "kind": "unit",
+        "id": "tau-empire.stealth-battlesuits"
+      }
+    ],
+    "summary": "While the Stealth Battlesuits serve as an Observer, Guided models attacking their Spotted unit with ranged weapons can re-roll hit and wound results of 1 through phase end under Forward Observers. The Homing Beacon’s 9″ limit becomes 8″.",
+    "summarySpans": [
+      {
+        "start": 178,
+        "end": 195,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "tau-empire.stealth-battlesuits.forward-observers"
+        }
+      },
+      {
+        "start": 201,
+        "end": 214,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "tau-empire.stealth-battlesuits.homing-beacon"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "T’au Empire Faction Pack: Version 1.2",
+        "page": "20",
+        "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_tau_empire-sxhzmfrlud-mpzjzuhupn.pdf#page=20"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "1e7879a0-7da5-4c68-ae93-ada19f02a2de",
+          "typedMechanics": {
+            "operation": "update-two-abilities",
+            "changes": [
+              {
+                "operation": "replace-ability",
+                "abilityQid": "ability:tau-empire.stealth-battlesuits.forward-observers",
+                "trigger": {
+                  "thisUnitIsObserver": true,
+                  "actor": "model-in-guided-unit",
+                  "event": "makes-ranged-attack",
+                  "target": "their-spotted-unit"
+                },
+                "rerolls": {
+                  "optional": true,
+                  "rolls": [
+                    "hit",
+                    "wound"
+                  ],
+                  "onlyResult": 1
+                },
+                "expires": "end-of-phase"
+              },
+              {
+                "operation": "set-distance",
+                "abilityQid": "ability:tau-empire.stealth-battlesuits.homing-beacon",
+                "scope": "minimum-distance-from-every-enemy-unit-at-setup",
+                "previousInches": 9,
+                "distanceInches": 8,
+                "comparison": "greater-than"
+              }
+            ],
+            "targetQids": []
+          },
+          "statedValues": [
+            {
+              "kind": "reroll-result",
+              "value": 1
+            },
+            {
+              "kind": "previous-distance",
+              "value": 9,
+              "unit": "inch"
+            },
+            {
+              "kind": "distance",
+              "value": 8,
+              "unit": "inch"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -26,6 +26,17 @@
     "text": { "type": "string", "pattern": "\\S" },
     "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
     "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "anyOf": [{ "required": ["page"] }, { "required": ["url"] }],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "page": { "$ref": "#/$defs/text" },
+        "url": { "type": "string", "pattern": "^https://\\S+$" }
+      }
+    },
     "ref": {
       "type": "object",
       "additionalProperties": false,
@@ -49,7 +60,8 @@
           "additionalProperties": false,
           "required": ["replacedBy"],
           "properties": {
-            "replacedBy": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } }
+            "replacedBy": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+            "sources": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/source" } }
           }
         },
         "references": { "type": "array", "items": { "$ref": "#/$defs/ref" } }

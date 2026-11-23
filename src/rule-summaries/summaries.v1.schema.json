@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/richardsolomou/vs-data/src/rule-summaries/summaries.v1.schema.json",
+  "title": "Rule summary record data, format version 1",
+  "$defs": {
+    "text": { "type": "string", "pattern": "\\S" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+    "ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": { "kind": { "$ref": "#/$defs/slug" }, "id": { "$ref": "#/$defs/id" } }
+    },
+    "phase": { "enum": ["command", "movement", "shooting", "charge", "fight"] },
+    "card": { "enum": ["primary", "secondary"] },
+    "summarySpans": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["start", "end"],
+        "anyOf": [{ "required": ["bold"] }, { "required": ["target"] }],
+        "properties": {
+          "start": { "type": "integer", "minimum": 0 },
+          "end": { "type": "integer", "minimum": 1 },
+          "bold": { "const": true },
+          "target": { "$ref": "#/$defs/ref" }
+        }
+      }
+    },
+    "citation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "title", "appVersion", "dataBuild", "releaseDate"],
+          "properties": {
+            "type": { "const": "app" },
+            "title": { "$ref": "#/$defs/text" },
+            "appVersion": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)*$" },
+            "dataBuild": { "type": "integer", "minimum": 1 },
+            "releaseDate": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "title", "url"],
+          "properties": {
+            "type": { "const": "publisher" },
+            "title": { "$ref": "#/$defs/text" },
+            "page": { "$ref": "#/$defs/text" },
+            "url": { "type": "string", "pattern": "^https://\\S+$" }
+          }
+        }
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "required": ["summary", "citations"],
+      "properties": {
+        "summary": { "$ref": "#/$defs/text" },
+        "summarySpans": { "$ref": "#/$defs/summarySpans" },
+        "citations": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/citation" } },
+        "interpretation": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["question"],
+            "properties": { "question": { "$ref": "#/$defs/text" } }
+          }
+        },
+        "facts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["format", "fields"],
+          "properties": {
+            "format": { "$ref": "#/$defs/slug" },
+            "version": { "$ref": "#/$defs/text" },
+            "fields": { "type": "object" }
+          }
+        }
+      }
+    },
+    "ability": {
+      "type": "object",
+      "$ref": "#/$defs/summary",
+      "unevaluatedProperties": false,
+      "required": ["ruleType"],
+      "properties": {
+        "ruleType": { "enum": ["army-rule", "detachment-rule", "stratagem", "core-stratagem", "enhancement", "unit-ability"] },
+        "group": { "$ref": "#/$defs/text" },
+        "cp": { "type": "integer", "minimum": 0 },
+        "stratagem": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["phases", "turn"],
+          "properties": {
+            "phases": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/phase" } },
+            "turn": { "enum": ["own", "opponent", "any"] },
+            "type": { "enum": ["battle-tactic", "strategic-ploy", "epic-deed", "wargear"] },
+            "oncePerPhase": { "const": true }
+          }
+        }
+      }
+    },
+    "core-rule": {
+      "type": "object",
+      "$ref": "#/$defs/summary",
+      "unevaluatedProperties": false,
+      "required": ["document"],
+      "properties": {
+        "document": { "$ref": "#/$defs/text" },
+        "section": { "$ref": "#/$defs/text" },
+        "ruleNumber": { "$ref": "#/$defs/text" }
+      }
+    },
+    "keyword": {
+      "type": "object",
+      "$ref": "#/$defs/summary",
+      "unevaluatedProperties": false,
+      "properties": { "parameterized": { "const": true } }
+    },
+    "core-ability": { "$ref": "#/$defs/keyword" },
+    "weapon-ability": { "$ref": "#/$defs/keyword" },
+    "faq": {
+      "type": "object",
+      "$ref": "#/$defs/summary",
+      "unevaluatedProperties": false,
+      "required": ["publication", "amends"],
+      "properties": {
+        "publication": { "$ref": "#/$defs/text" },
+        "amends": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/ref" } },
+        "amendsUnlisted": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "name"],
+            "properties": { "kind": { "$ref": "#/$defs/slug" }, "name": { "$ref": "#/$defs/text" } }
+          }
+        }
+      }
+    },
+    "mission-award": {
+      "type": "object",
+      "$ref": "#/$defs/summary",
+      "unevaluatedProperties": false,
+      "required": ["pack", "card", "vp"],
+      "properties": {
+        "pack": { "$ref": "#/$defs/text" },
+        "card": { "$ref": "#/$defs/card" },
+        "vp": { "type": "integer", "minimum": 1 },
+        "max": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "mission-card": {
+      "type": "object",
+      "$ref": "#/$defs/summary",
+      "unevaluatedProperties": false,
+      "required": ["pack", "card"],
+      "properties": { "pack": { "$ref": "#/$defs/text" }, "card": { "$ref": "#/$defs/card" } }
+    },
+    "pack-rule": {
+      "type": "object",
+      "$ref": "#/$defs/summary",
+      "unevaluatedProperties": false,
+      "required": ["pack"],
+      "properties": { "pack": { "$ref": "#/$defs/text" } }
+    },
+    "mission-action": { "$ref": "#/$defs/pack-rule" },
+    "mission-twist": { "$ref": "#/$defs/pack-rule" }
+  }
+}

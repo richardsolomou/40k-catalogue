@@ -15,7 +15,7 @@ An identity release lists every entry published in one revision of a rules versi
 | `entries[].id` | The project ID, lowercase words separated by `.` or `-`. A mechanic record's `id` is its `ability` entry's ID. |
 | `entries[].name` | Display name in that rules version. |
 | `entries[].aliases` | Other IDs of the same kind that resolve to this entry. |
-| `entries[].retired` | Present when the entry no longer applies. `replacedBy` lists the active entries of the same kind that take its place, or is empty. |
+| `entries[].retired` | Present when the entry no longer applies. `replacedBy` lists the active entries of the same kind that take its place, or is empty. Optional `sources` name the publications that retired it, each with a `title` and a `page` or `url`, such as the document that supersedes an FAQ. |
 | `entries[].references` | The entries this one depends on, each as `{ "kind", "id" }`. |
 
 An entry is identified by its kind and ID together, and an ID is unique within its kind. A reference names both, so a roster option refers to its unit and its wargear, and a mission to its layout, without guessing the kind from the ID.

@@ -15,6 +15,7 @@
 | [Datasheet profiles](datasheet-profiles.md) | Look up characteristics, weapons, transport capacity and attachments. |
 | [Points snapshots](points.md) | Price units and enhancements under a specific update. |
 | [Localised names](localisation.md) | Display names and resolve imported lists to catalogue IDs. |
+| [Rule summaries](rule-summaries.md) | Show a rule, FAQ or mission card in plain language with its links and official citations. |
 | [Mission packs](mission-packs.md) | Read mission setup, scoring windows and award values. |
 | [Terrain geometry](terrain.md) | Place terrain, deployment zones and objectives. |
 | [Faction marks](icons.md) | Use the original SVG marks in an app. |

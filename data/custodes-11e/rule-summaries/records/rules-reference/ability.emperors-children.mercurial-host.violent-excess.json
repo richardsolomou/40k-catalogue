@@ -10,27 +10,15 @@
     "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Mercurial Host",
     "cp": 1,
-    "summary": "During either player's Fight phase, you can use this to select one friendly Emperor’s Children unit that has not been selected to fight this phase, then grant [SUSTAINED HITS 1] to melee weapons equipped by models in the selected unit until the end of the phase. Use once per phase.",
+    "summary": "Spend 1 CP in the Fight phase of either player's turn and pick one of your EMPEROR’S CHILDREN units that is not yet chosen to fight in this phase. For the rest of the phase, the melee weapons its models carry gain [SUSTAINED HITS 1].",
     "summarySpans": [
       {
-        "start": 76,
-        "end": 94,
-        "bold": true
-      },
-      {
-        "start": 160,
-        "end": 176,
+        "start": 214,
+        "end": 232,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -48,51 +36,36 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "use"
-        },
-        "target": {
-          "select": {
-            "side": "friendly",
-            "keywords": [
-              "Emperor’s Children"
-            ]
-          }
-        },
-        "conditions": [
-          {
-            "kind": "not-selected",
-            "unit": "target",
-            "to": [
-              "fight"
-            ]
-          }
-        ],
-        "effect": {
-          "kind": "grant-weapon-abilities",
-          "abilities": [
-            {
-              "ability": "sustained-hits",
-              "value": 1
-            }
-          ],
-          "weapons": "melee"
-        },
-        "duration": {
-          "until": "end-of-phase"
-        },
-        "usage": {
-          "cp": 1,
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Mercurial Host",
+          "type": "Battle Tactic",
           "windows": [
             {
-              "phase": "fight",
-              "turn": "any"
+              "turn": "either",
+              "phase": "fight"
             }
           ],
-          "oncePerPhase": true
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "EMPEROR’S CHILDREN"
+            ],
+            "notSelectedToFightThisPhase": true
+          },
+          "effects": [
+            {
+              "weapons": "melee",
+              "grantWeaponAbility": {
+                "ability": "SUSTAINED HITS",
+                "value": 1
+              }
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

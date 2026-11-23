@@ -10,17 +10,10 @@
     "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "unit-ability",
     "group": "Old One Eye",
-    "summary": "While this model is leading a unit, re-roll Hit rolls for this unit.",
+    "summary": "When this model leads a unit, that unit's models may re-roll any of their Hit rolls.",
     "citations": [
       {
         "type": "app",
@@ -31,24 +24,16 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "always"
-        },
-        "target": {
-          "unit": "this-unit"
-        },
-        "conditions": [
-          {
-            "kind": "source-model-leading"
-          }
-        ],
-        "effect": {
-          "kind": "re-roll",
-          "roll": "hit",
-          "results": "all"
+        "ability": {
+          "condition": "this-model-leading-a-unit",
+          "effects": [
+            {
+              "appliesTo": "led-unit-models",
+              "reroll": "hit"
+            }
+          ]
         }
       }
     }

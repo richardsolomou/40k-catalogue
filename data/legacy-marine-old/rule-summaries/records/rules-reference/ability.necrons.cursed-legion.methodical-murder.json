@@ -10,37 +10,15 @@
     "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Cursed Legion",
     "cp": 1,
-    "summary": "During either player's Fight phase or either player's Shooting phase, you can use this to select one friendly Necrons non-Monster non-Vehicle unit that has not been selected to fight or shoot this phase, then grant [SUSTAINED HITS 1] to weapons equipped by models in the selected unit until the end of the phase. Use once per phase.",
+    "summary": "Spend 1 CP in your Shooting phase or in the Fight phase of either player's turn. Pick one NECRONS unit of yours, other than a MONSTER or VEHICLE, that has not been picked to shoot or to fight in this phase. For the rest of the phase, the weapons its models carry gain [SUSTAINED HITS 1].",
     "summarySpans": [
       {
-        "start": 110,
-        "end": 117,
-        "bold": true
-      },
-      {
-        "start": 118,
-        "end": 129,
-        "bold": true
-      },
-      {
-        "start": 130,
-        "end": 141,
-        "bold": true
-      },
-      {
-        "start": 216,
-        "end": 232,
+        "start": 268,
+        "end": 286,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -58,59 +36,44 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "use"
-        },
-        "target": {
-          "select": {
-            "side": "friendly",
-            "keywords": [
-              "Necrons"
-            ],
-            "excludedKeywords": [
-              "Monster",
-              "Vehicle"
-            ]
-          }
-        },
-        "conditions": [
-          {
-            "kind": "not-selected",
-            "unit": "target",
-            "to": [
-              "fight",
-              "shoot"
-            ]
-          }
-        ],
-        "effect": {
-          "kind": "grant-weapon-abilities",
-          "abilities": [
-            {
-              "ability": "sustained-hits",
-              "value": 1
-            }
-          ]
-        },
-        "duration": {
-          "until": "end-of-phase"
-        },
-        "usage": {
-          "cp": 1,
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Cursed Legion",
+          "type": "Battle Tactic",
           "windows": [
             {
-              "phase": "fight",
-              "turn": "any"
+              "turn": "own",
+              "phase": "shooting"
             },
             {
-              "phase": "shooting",
-              "turn": "any"
+              "turn": "either",
+              "phase": "fight"
             }
           ],
-          "oncePerPhase": true
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "NECRONS"
+            ],
+            "keywordsNone": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "notSelectedToShootOrFightThisPhase": true
+          },
+          "effects": [
+            {
+              "weaponsOf": "target-unit-models",
+              "grantWeaponAbility": {
+                "ability": "SUSTAINED HITS",
+                "value": 1
+              }
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

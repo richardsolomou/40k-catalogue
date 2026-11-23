@@ -10,21 +10,14 @@
     "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "enhancement",
     "group": "Ironstorm Spearhead",
-    "summary": "Grant [HEAVY] to ranged weapons equipped by models in this unit.",
+    "summary": "Upgrade for an ADEPTUS ASTARTES VEHICLE unit that is not a DEDICATED TRANSPORT and has neither FLY nor WALKER. Ranged attacks made by that unit gain [HEAVY].",
     "summarySpans": [
       {
-        "start": 7,
-        "end": 12,
+        "start": 149,
+        "end": 156,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -42,25 +35,31 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "always"
-        },
-        "target": {
-          "unit": "this-unit"
-        },
-        "conditions": [],
-        "effect": {
-          "kind": "grant-weapon-abilities",
-          "abilities": [
-            {
-              "ability": "heavy"
-            }
+        "kind": "enhancement",
+        "detachment": "Ironstorm Spearhead",
+        "pointsCost": 15,
+        "upgrade": true,
+        "eligibility": {
+          "scope": "unit",
+          "keywordsAll": [
+            "ADEPTUS ASTARTES",
+            "VEHICLE"
           ],
-          "weapons": "ranged"
-        }
+          "keywordsNone": [
+            "DEDICATED TRANSPORT",
+            "FLY",
+            "WALKER"
+          ]
+        },
+        "effects": [
+          {
+            "appliesTo": "bearer-unit",
+            "attackType": "ranged",
+            "grantWeaponAbility": "HEAVY"
+          }
+        ]
       }
     }
   }

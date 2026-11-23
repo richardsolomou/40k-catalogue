@@ -14,38 +14,7 @@
     "ruleType": "stratagem",
     "group": "Gate Warden Lance",
     "cp": 1,
-    "summary": "Either Fight Phase. Pick one IMPERIAL KNIGHTS unit of yours in your Defensive Line that is in Engagement Range of an enemy unit and has yet to be picked to fight. For the phase, its models can reroll their Hit rolls.",
-    "summarySpans": [
-      {
-        "start": 7,
-        "end": 18,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 29,
-        "end": 45,
-        "bold": true
-      },
-      {
-        "start": 68,
-        "end": 82,
-        "target": {
-          "kind": "ability",
-          "id": "imperial-knights.gate-warden-lance.dauntless-defenders"
-        }
-      },
-      {
-        "start": 94,
-        "end": 110,
-        "target": {
-          "kind": "core-rule",
-          "id": "engagement-range"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in the Fight phase of either player's turn. Pick one of your IMPERIAL KNIGHTS units that stands on your defensive line, has at least one enemy unit within its Engagement Range and has not yet been chosen to fight this phase. For the rest of the phase, its models may re-roll any Hit roll for their attacks.",
     "citations": [
       {
         "type": "app",
@@ -58,87 +27,34 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "re-roll",
-            "target": "this-unit",
-            "modifier": {
-              "roll": "hit",
-              "result_scope": "any-result"
-            }
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "behavior": "activated"
-        },
         "stratagem": {
-          "id": "steadfast-superiority-gate-warden-lance-imperial-knights",
-          "cp_cost": 1,
-          "phases": [
-            "fight"
-          ],
-          "player_turn": "either",
-          "timing": "once-per-phase",
-          "type": "battle-tactic",
-          "target_restrictions": {
-            "required_keywords": [
-              "Imperial Knights"
-            ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "owner": "friendly"
-                    }
-                  }
-                },
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "state": "engaged"
-                    }
-                  }
-                },
-                {
-                  "type": "in-region",
-                  "parameters": {
-                    "subject": "this-unit",
-                    "region": {
-                      "rule_region": {
-                        "region_id": "defensive-line",
-                        "owner_faction": "imperial-knights"
-                      }
-                    }
-                  }
-                },
-                {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "type": "happened",
-                      "parameters": {
-                        "event": "selected",
-                        "filter": {
-                          "to": "fight"
-                        },
-                        "window": "phase"
-                      }
-                    }
-                  ]
-                }
-              ]
+          "cpCost": 1,
+          "detachment": "Gate Warden Lance",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          }
-        },
-        "valueRoles": {}
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "IMPERIAL KNIGHTS"
+            ],
+            "onYourDefensiveLine": true,
+            "withinEngagementRangeOfEnemy": true,
+            "notSelectedToFightThisPhase": true
+          },
+          "effects": [
+            {
+              "reroll": "hit",
+              "attacks": "target-unit-models"
+            }
+          ],
+          "duration": "end-of-phase"
+        }
       }
     }
   }

@@ -10,30 +10,11 @@
     "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Augurium Task Force",
     "cp": 1,
-    "summary": "During either player's Fight phase or either player's Shooting phase, you can use this to select one friendly Grey Knights Psyker unit that has not been selected to fight or shoot this phase, then re-roll Hit rolls for the selected unit until the end of the phase. Use once per phase.",
-    "summarySpans": [
-      {
-        "start": 110,
-        "end": 122,
-        "bold": true
-      },
-      {
-        "start": 123,
-        "end": 129,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase or in any Fight phase, yours or your opponent's, targeting a GREY KNIGHTS PSYKER unit in your army; it must not have been chosen to shoot or fight yet this phase. For the rest of that phase, the unit's attacks may re-roll their Hit rolls.",
     "citations": [
       {
         "type": "app",
@@ -44,52 +25,40 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "use"
-        },
-        "target": {
-          "select": {
-            "side": "friendly",
-            "keywords": [
-              "Grey Knights",
-              "Psyker"
-            ]
-          }
-        },
-        "conditions": [
-          {
-            "kind": "not-selected",
-            "unit": "target",
-            "to": [
-              "fight",
-              "shoot"
-            ]
-          }
-        ],
-        "effect": {
-          "kind": "re-roll",
-          "roll": "hit",
-          "results": "all"
-        },
-        "duration": {
-          "until": "end-of-phase"
-        },
-        "usage": {
-          "cp": 1,
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Augurium Task Force",
+          "type": "Battle Tactic",
           "windows": [
             {
-              "phase": "fight",
-              "turn": "any"
+              "turn": "own",
+              "phase": "shooting"
             },
             {
-              "phase": "shooting",
-              "turn": "any"
+              "turn": "either",
+              "phase": "fight"
             }
           ],
-          "oncePerPhase": true
+          "durationBasis": "Core Rules 01.02.02: the effect has no printed duration, so it lasts only for the phase in which it was applied.",
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "GREY KNIGHTS",
+              "PSYKER"
+            ],
+            "notSelectedToShootOrFightThisPhase": true
+          },
+          "effects": [
+            {
+              "attacks": "target-unit-models",
+              "reroll": "hit",
+              "optional": true
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

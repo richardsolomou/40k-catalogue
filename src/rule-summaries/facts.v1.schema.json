@@ -3,32 +3,76 @@
   "$id": "https://github.com/richardsolomou/vs-data/src/rule-summaries/facts.v1.schema.json",
   "title": "Rule summary typed facts: vs-data-facts version 1",
   "$defs": {
-    "text": { "type": "string", "pattern": "\\S" },
-    "keyword": { "type": "string", "pattern": "^[^a-z]*[A-Z0-9][^a-z]*$" },
-    "keywords": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/keyword" } },
+    "text": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "keyword": {
+      "type": "string",
+      "pattern": "^[^a-z]*[A-Z0-9][^a-z]*$"
+    },
+    "keywords": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/keyword"
+      }
+    },
     "ref": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["kind", "id"],
+      "required": [
+        "kind",
+        "id"
+      ],
       "properties": {
-        "kind": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
-        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" }
+        "kind": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"
+        }
       }
     },
-    "detail": { "type": "object", "minProperties": 1 },
+    "detail": {
+      "type": "object",
+      "minProperties": 1
+    },
     "enhancement": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["type", "eligibility"],
+      "required": [
+        "type",
+        "eligibility"
+      ],
       "properties": {
-        "type": { "enum": ["model", "unit", "upgrade"] },
-        "points": { "type": "integer", "minimum": 0 },
-        "perRoster": { "type": "integer", "minimum": 2 },
-        "outsideLimit": { "const": true },
+        "type": {
+          "enum": [
+            "model",
+            "unit",
+            "upgrade"
+          ]
+        },
+        "points": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "perRoster": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "outsideLimit": {
+          "const": true
+        },
         "eligibility": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["anyOf"],
+          "required": [
+            "anyOf"
+          ],
           "properties": {
             "anyOf": {
               "type": "array",
@@ -39,17 +83,38 @@
                 "additionalProperties": false,
                 "minProperties": 1,
                 "properties": {
-                  "keywords": { "$ref": "#/$defs/keywords" },
-                  "factionKeywords": { "$ref": "#/$defs/keywords" },
-                  "unit": { "$ref": "#/$defs/ref" }
+                  "keywords": {
+                    "$ref": "#/$defs/keywords"
+                  },
+                  "factionKeywords": {
+                    "$ref": "#/$defs/keywords"
+                  },
+                  "unit": {
+                    "$ref": "#/$defs/ref"
+                  }
                 }
               }
             },
-            "excludedKeywords": { "$ref": "#/$defs/keywords" },
-            "requiredWargear": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/text" } },
-            "epicHeroes": { "const": true },
-            "nonCharacters": { "const": true },
-            "notWarlord": { "const": true }
+            "excludedKeywords": {
+              "$ref": "#/$defs/keywords"
+            },
+            "requiredWargear": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/$defs/text"
+              }
+            },
+            "epicHeroes": {
+              "const": true
+            },
+            "nonCharacters": {
+              "const": true
+            },
+            "notWarlord": {
+              "const": true
+            }
           }
         }
       }
@@ -57,34 +122,325 @@
     "award": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["count", "cumulative", "mutuallyExclusive"],
+      "required": [
+        "count",
+        "cumulative",
+        "mutuallyExclusive"
+      ],
       "properties": {
-        "count": { "enum": ["once", "each"] },
-        "scoring": { "enum": ["standard", "fixed", "tactical"] },
-        "cumulative": { "type": "boolean" },
-        "mutuallyExclusive": { "type": "boolean" },
-        "rounds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "integer", "minimum": 1 } },
-        "endOfBattle": { "const": true }
+        "count": {
+          "enum": [
+            "once",
+            "each"
+          ]
+        },
+        "scoring": {
+          "enum": [
+            "standard",
+            "fixed",
+            "tactical"
+          ]
+        },
+        "cumulative": {
+          "type": "boolean"
+        },
+        "mutuallyExclusive": {
+          "type": "boolean"
+        },
+        "rounds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "endOfBattle": {
+          "const": true
+        }
       }
     },
     "plain": {
       "type": "object",
       "additionalProperties": false,
       "minProperties": 1,
-      "properties": { "detail": { "$ref": "#/$defs/detail" } }
+      "properties": {
+        "detail": {
+          "$ref": "#/$defs/detail"
+        }
+      }
     },
-    "stratagem": { "$ref": "#/$defs/plain" },
+    "stratagem": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "stratagem": {
+          "$ref": "#/$defs/stratagem-block"
+        },
+        "detail": {
+          "$ref": "#/$defs/detail"
+        }
+      }
+    },
     "enhancement-fields": {
       "type": "object",
       "additionalProperties": false,
       "minProperties": 1,
-      "properties": { "enhancement": { "$ref": "#/$defs/enhancement" }, "detail": { "$ref": "#/$defs/detail" } }
+      "properties": {
+        "enhancement": {
+          "$ref": "#/$defs/enhancement"
+        },
+        "detail": {
+          "$ref": "#/$defs/detail"
+        }
+      }
     },
     "mission-award": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["award"],
-      "properties": { "award": { "$ref": "#/$defs/award" }, "detail": { "$ref": "#/$defs/detail" } }
+      "required": [
+        "award"
+      ],
+      "properties": {
+        "award": {
+          "$ref": "#/$defs/award"
+        },
+        "detail": {
+          "$ref": "#/$defs/detail"
+        }
+      }
+    },
+    "unresolved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unresolved"
+      ],
+      "properties": {
+        "unresolved": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "when": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "at"
+      ],
+      "properties": {
+        "at": {
+          "enum": [
+            "phase",
+            "phase-start",
+            "phase-end",
+            "turn-start",
+            "turn-end",
+            "reinforcements-step"
+          ]
+        },
+        "after": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "enum": [
+              "enemy-selected-targets",
+              "enemy-shot",
+              "enemy-fought",
+              "enemy-shot-or-fought",
+              "enemy-declared-charge",
+              "enemy-ended-charge",
+              "enemy-ended-move",
+              "enemy-set-up",
+              "friendly-fell-back",
+              "friendly-ended-charge",
+              "friendly-declared-charge",
+              "friendly-selected-to-advance-or-fall-back",
+              "friendly-selected-to-fall-back",
+              "friendly-selected-to-advance",
+              "friendly-selected-to-consolidate",
+              "friendly-selected-to-move",
+              "friendly-selected-to-attack",
+              "friendly-selected-to-shoot",
+              "friendly-selected-to-fight",
+              "friendly-ended-advance",
+              "friendly-suffered-mortal-wound",
+              "friendly-started-action",
+              "friendly-shot",
+              "friendly-fought",
+              "friendly-destroyed-enemy",
+              "friendly-destroyed"
+            ]
+          }
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "count"
+          ]
+        },
+        {
+          "required": [
+            "triggering"
+          ]
+        }
+      ],
+      "properties": {
+        "count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "triggering": {
+          "const": true
+        },
+        "side": {
+          "enum": [
+            "friendly",
+            "enemy"
+          ]
+        },
+        "entity": {
+          "enum": [
+            "unit",
+            "model"
+          ]
+        },
+        "keywords": {
+          "$ref": "#/$defs/keywords"
+        },
+        "anyOf": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "keywords"
+            ],
+            "properties": {
+              "keywords": {
+                "$ref": "#/$defs/keywords"
+              }
+            }
+          }
+        },
+        "excludedKeywords": {
+          "$ref": "#/$defs/keywords"
+        },
+        "conditions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "not-selected-to-shoot-or-fight",
+              "not-selected-to-shoot",
+              "not-selected-to-fight",
+              "not-selected-to-move-or-charge",
+              "not-selected-to-move",
+              "targeted-by-the-attacking-unit",
+              "not-in-engagement-range",
+              "in-engagement-range",
+              "just-destroyed",
+              "arriving-by-deep-strike",
+              "battle-shocked",
+              "below-half-strength",
+              "unengaged"
+            ]
+          }
+        },
+        "more": {
+          "const": true
+        }
+      }
+    },
+    "stratagem-block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "limit",
+        "when",
+        "target"
+      ],
+      "properties": {
+        "limit": {
+          "enum": [
+            "phase",
+            "turn",
+            "battle-round",
+            "battle"
+          ]
+        },
+        "perTarget": {
+          "enum": [
+            "phase",
+            "turn",
+            "battle-round",
+            "battle"
+          ]
+        },
+        "restricted": {
+          "const": true
+        },
+        "when": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/when"
+          }
+        },
+        "target": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/target"
+          }
+        },
+        "extraCp": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "cp"
+          ],
+          "properties": {
+            "cp": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "exclusive": {
+              "const": true
+            }
+          }
+        }
+      }
     }
   }
 }

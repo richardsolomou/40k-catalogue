@@ -15,6 +15,7 @@ A mission-pack record describes what a player decides and scores in one pack: fo
 | `primaries` | Primary missions. Each `pairing` names a `friendly` and `opposition` disposition and the deployments and layouts the pairing allows. A primary may also name a stable `detachment` ID. Each pairing or detachment maps to at most one primary in a pack. |
 | `secondaries` | Secondary cards, the `modes` (`fixed`, `tactical`) they can be played in, their awards, and an optional `whenDrawn` redraw. |
 | `twists` | Optional battle-wide changes, flagged `changesPrimary` when they rewrite primary scoring. |
+| `aliases` | On dispositions, deployments, layouts, primaries, secondaries and twists: other IDs of the same member, such as those another data source uses. |
 
 An award is `vp` scored `once` or for `each` occurrence, up to an optional `max`, limited to some `modes`, and in an optional `exclusive` group. Awards on one card add up, except that one claim per exclusive group is allowed at a moment. `criterion` is a short summary in original wording. Apps show it for players to confirm; it is not machine-checkable.
 
@@ -24,11 +25,17 @@ Any of `battleRounds`, `battleReady`, each cap, an award's `criterion`, each win
 
 `validatePack` also checks that IDs are unique in each section and that pairings, layouts, and redraws name existing dispositions, deployments, layouts, and cards. It checks that each layout in a pairing permits one of the pairing's deployments, that award modes are modes the card can be played in, and that round ranges fit the battle.
 
+## In catalogue releases
+
+A catalogue release carries each mission pack as one record of kind `mission-pack` in the `mission-packs` category, with the pack as its `data`. Its identity entry references the `mission-card`, `mission-award` and `mission-twist` summaries the pack uses, and the IDs of its cards, awards and twists are those entries' IDs, so an app can show a card's [rule summary](rule-summaries.md) beside its scoring. Each award's `criterion` and each twist's `effect` repeat those summaries.
+
+The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds Chapter Approved 2026-2027, built from the official app's mission tables. Its members' `aliases` are the IDs Game Datacards uses, which equal the app's own IDs, in the same dotted form as the catalogue's other Game Datacards aliases (`gdc.mission.deployment.<id>`).
+
 ## Joining terrain and saved battles
 
 A mission pack lists which layouts and deployments can be used. Load the [terrain records](terrain.md#joining-mission-packs) with the same layout and deployment IDs for zones, objective positions and terrain shapes.
 
-Store the rules version with the pack, card, twist, layout and deployment IDs. When importing saved battles from another source, map their IDs to catalogue IDs in the consumer. Keep references to retired versions resolvable.
+Store the rules version with the pack, card, twist, layout and deployment IDs. When importing saved battles from another source, resolve their IDs through the pack's `aliases` and the catalogue identity, and map any other IDs in the consumer. Keep references to retired versions resolvable.
 
 ## Fixtures and checks
 

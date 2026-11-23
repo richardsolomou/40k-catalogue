@@ -13,6 +13,16 @@
   "data": {
     "ruleType": "stratagem",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "When a phase concludes, restore readiness to one of your units with ADEPTUS CUSTODES if it is currently unready. Each unit can benefit once per battle round.",
     "summarySpans": [
       {
@@ -37,6 +47,22 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "perTarget": "battle-round",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "detachment": "Emperor’s Chosen",
           "trigger": {

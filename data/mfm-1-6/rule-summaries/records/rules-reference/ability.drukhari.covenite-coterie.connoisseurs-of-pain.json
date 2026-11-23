@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Covenite Coterie",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "React immediately after an enemy picks targets in its Shooting phase or either Fight phase. Pick a DRUKHARI unit of yours among those targets. Gain one Pain token and spend one to worsen AP by 1 on that enemy’s attacks against your pick until it finishes attacking. Gain one Pain token at phase end if your HAEMONCULUS COVENS pick survives.",
     "summarySpans": [
       {
@@ -56,6 +64,24 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DRUKHARI"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
         "detail": {
           "type": "battle-tactic",
           "trigger": {

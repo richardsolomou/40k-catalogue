@@ -176,3 +176,35 @@ test("typed facts name their format version", () => {
     [`mission-award:${AWARD} facts use vs-data-facts version 2, not 1`],
   );
 });
+
+const STRATAGEM = {
+  format: "vs-data-facts",
+  version: "1",
+  fields: {
+    stratagem: {
+      limit: "battle",
+      when: { at: "phase", after: "enemy-selected-targets" },
+      target: { count: 1, side: "friendly", entity: "unit", keywords: ["INFANTRY"], conditions: ["targeted-by-the-attacking-unit"] },
+    },
+  },
+};
+
+test("a Stratagem's typed facts give its limit, moment and target, or say what is unresolved", () => {
+  const unresolved = structuredClone(STRATAGEM);
+  (unresolved.fields.stratagem as { when: object }).when = { unresolved: "event not typed" };
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", VOLLEY).facts = STRATAGEM)), []);
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", VOLLEY).facts = unresolved)), []);
+});
+
+test("a Stratagem's moment names a typed event", () => {
+  const unknown = structuredClone(STRATAGEM);
+  unknown.fields.stratagem.when.after = "enemy-sneezed";
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "ability", VOLLEY).facts = unknown)),
+    [
+      `ability:${VOLLEY} facts/stratagem/when/after must be equal to one of the allowed values`,
+      `ability:${VOLLEY} facts/stratagem/when/after must match "else" schema`,
+      `ability:${VOLLEY} facts/stratagem/when must match "else" schema`,
+    ],
+  );
+});

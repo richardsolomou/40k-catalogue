@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Hexwarp Thrallband",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "After an enemy chooses its Fight phase targets, pick one THOUSAND SONS unit it targeted. For this phase, roll a D6 when one of its models dies before fighting. Add 1 if its unit is wholly inside the Flow of Magic. On 4+, keep the model in place. Once the attacker is done, let the model fight before removing it.",
     "summarySpans": [
       {
@@ -58,6 +65,24 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "THOUSAND SONS"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
         "detail": {
           "type": "strategic-ploy",
           "trigger": {

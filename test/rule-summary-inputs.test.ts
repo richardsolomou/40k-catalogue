@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { test } from "node:test";
 import { buildCatalogueRelease, type CatalogueRecord } from "../src/catalogue-releases/catalogue.ts";
+import { validatePack } from "../src/mission-packs/validate.ts";
 import { buildRelease } from "../src/releases/release.ts";
 import { validateSummaries } from "../src/rule-summaries/summaries.ts";
 
@@ -21,12 +22,23 @@ for (const version of versions) {
   const summaries = join(data, version, "rule-summaries");
   const mechanics = join(data, version, "mechanics");
 
+  const records = (): CatalogueRecord[] =>
+    readdirSync(join(summaries, "records")).flatMap((c) => readdirSync(join(summaries, "records", c)).map((f) => json(join(summaries, "records", c, f))));
+
   test(`every ${version} rule summary validates against its identity release`, () => {
-    const records: CatalogueRecord[] = readdirSync(join(summaries, "records")).flatMap((c) =>
-      readdirSync(join(summaries, "records", c)).map((f) => json(join(summaries, "records", c, f))),
+    const result = validateSummaries(
+      json(join(summaries, "identity.json")),
+      records().filter((r) => r.kind !== "mission-pack"),
     );
-    const result = validateSummaries(json(join(summaries, "identity.json")), records);
     if (!result.ok) assert.fail(result.errors.slice(0, 20).join("\n"));
+  });
+
+  test(`every ${version} mission pack validates as a mission pack under its record's ID`, () => {
+    for (const record of records().filter((r) => r.kind === "mission-pack")) {
+      const result = validatePack(record.data);
+      if (!result.ok) assert.fail(result.errors.slice(0, 20).join("\n"));
+      assert.equal((record.data as { id: string }).id, record.id);
+    }
   });
 
   test(`the ${version} rule summaries build as a catalogue release`, () => {

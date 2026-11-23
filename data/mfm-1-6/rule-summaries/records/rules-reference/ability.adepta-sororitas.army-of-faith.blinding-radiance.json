@@ -43,92 +43,92 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cost": {
-          "commandPoints": 1
-        },
-        "activation": {
-          "phaseAnyOf": [
-            {
-              "phase": "shooting",
-              "turn": "opponent"
-            },
-            {
-              "phase": "fight",
-              "turn": "either"
-            }
-          ],
-          "event": "immediately-after-targets-selected",
-          "actor": "enemy-unit"
-        },
-        "target": {
-          "entity": "unit",
-          "count": 1,
-          "anyOf": [
-            {
-              "controller": "you",
-              "allKeywords": [
-                "ADEPTA SORORITAS",
-                "INFANTRY"
-              ],
-              "selectedAsTargetOfAtLeastOneAttackBy": "triggering-enemy-unit"
-            },
-            {
-              "controller": "friendly",
-              "allKeywords": [
-                "ADEPTA SORORITAS",
-                "JUMP PACK"
-              ],
-              "within": {
-                "inches": 3,
-                "atSelection": true,
-                "unitMeeting": {
-                  "controller": "you",
-                  "allKeywords": [
-                    "ADEPTA SORORITAS",
-                    "INFANTRY"
-                  ],
-                  "selectedAsTargetOfAtLeastOneAttackBy": "triggering-enemy-unit"
+        "detail": {
+          "activation": {
+            "phaseAnyOf": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-targets-selected",
+            "actor": "enemy-unit"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "anyOf": [
+              {
+                "controller": "you",
+                "allKeywords": [
+                  "ADEPTA SORORITAS",
+                  "INFANTRY"
+                ],
+                "selectedAsTargetOfAtLeastOneAttackBy": "triggering-enemy-unit"
+              },
+              {
+                "controller": "friendly",
+                "allKeywords": [
+                  "ADEPTA SORORITAS",
+                  "JUMP PACK"
+                ],
+                "within": {
+                  "inches": 3,
+                  "atSelection": true,
+                  "unitMeeting": {
+                    "controller": "you",
+                    "allKeywords": [
+                      "ADEPTA SORORITAS",
+                      "INFANTRY"
+                    ],
+                    "selectedAsTargetOfAtLeastOneAttackBy": "triggering-enemy-unit"
+                  }
                 }
               }
-            }
-          ]
-        },
-        "effect": {
-          "expires": "end-of-triggering-phase",
-          "chosenUnit": {
-            "event": "attack-targets-chosen-unit",
-            "repeat": "each",
-            "statistic": "hit-roll",
-            "modifier": -1
+            ]
           },
-          "jumpPackBranch": {
-            "condition": {
-              "chosenUnitController": "you",
-              "chosenUnitAllKeywords": [
-                "ADEPTA SORORITAS",
-                "JUMP PACK"
-              ]
-            },
-            "recipient": {
-              "controller": "friendly",
-              "entity": "unit",
-              "allKeywords": [
-                "ADEPTA SORORITAS",
-                "INFANTRY"
-              ],
-              "within": {
-                "inches": 3,
-                "of": "chosen-unit",
-                "checked": "while-attack-targets-recipient"
-              }
-            },
-            "effect": {
-              "event": "attack-targets-recipient",
+          "effect": {
+            "expires": "end-of-triggering-phase",
+            "chosenUnit": {
+              "event": "attack-targets-chosen-unit",
               "repeat": "each",
               "statistic": "hit-roll",
               "modifier": -1
+            },
+            "jumpPackBranch": {
+              "condition": {
+                "chosenUnitController": "you",
+                "chosenUnitAllKeywords": [
+                  "ADEPTA SORORITAS",
+                  "JUMP PACK"
+                ]
+              },
+              "recipient": {
+                "controller": "friendly",
+                "entity": "unit",
+                "allKeywords": [
+                  "ADEPTA SORORITAS",
+                  "INFANTRY"
+                ],
+                "within": {
+                  "inches": 3,
+                  "of": "chosen-unit",
+                  "checked": "while-attack-targets-recipient"
+                }
+              },
+              "effect": {
+                "event": "attack-targets-recipient",
+                "repeat": "each",
+                "statistic": "hit-roll",
+                "modifier": -1
+              }
             }
           }
         }

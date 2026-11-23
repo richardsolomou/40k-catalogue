@@ -69,20 +69,90 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "behavior": "reactive",
-        "scope": {
-          "duration": "permanent"
-        },
-        "effect": {
-          "type": "sequence",
-          "steps": [
-            {
-              "type": "ability-part",
-              "trigger": {
-                "event": "model-destroyed",
-                "object": {
+        "detail": {
+          "behavior": "reactive",
+          "scope": {
+            "duration": "permanent"
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "ability-part",
+                "trigger": {
+                  "event": "model-destroyed",
+                  "object": {
+                    "owner": "friendly",
+                    "all_of": [
+                      "ASURYANI",
+                      "PSYKER"
+                    ],
+                    "level": "model"
+                  },
+                  "subject": {
+                    "owner": "enemy"
+                  }
+                },
+                "effect": {
+                  "type": "designate",
+                  "target": "event-subject",
+                  "modifier": {
+                    "tag": "vengeful-dead"
+                  }
+                }
+              },
+              {
+                "type": "conditional",
+                "condition": {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "designated": "vengeful-dead"
+                    }
+                  }
+                },
+                "effect": {
+                  "type": "sequence",
+                  "steps": [
+                    {
+                      "type": "roll-modifier",
+                      "target": {
+                        "owner": "friendly",
+                        "all_of": [
+                          "WRAITH CONSTRUCT"
+                        ],
+                        "level": "model"
+                      },
+                      "modifier": {
+                        "roll": "hit",
+                        "operation": "add",
+                        "value": 1
+                      }
+                    },
+                    {
+                      "type": "roll-modifier",
+                      "target": {
+                        "owner": "friendly",
+                        "all_of": [
+                          "WRAITH CONSTRUCT"
+                        ],
+                        "level": "model"
+                      },
+                      "modifier": {
+                        "roll": "wound",
+                        "operation": "add",
+                        "value": 1
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "ability-grant",
+                "target": {
                   "owner": "friendly",
                   "all_of": [
                     "ASURYANI",
@@ -90,110 +160,43 @@
                   ],
                   "level": "model"
                 },
-                "subject": {
-                  "owner": "enemy"
-                }
-              },
-              "effect": {
-                "type": "designate",
-                "target": "event-subject",
                 "modifier": {
-                  "tag": "vengeful-dead"
-                }
-              }
-            },
-            {
-              "type": "conditional",
-              "condition": {
-                "type": "matches",
-                "parameters": {
-                  "filter": {
-                    "designated": "vengeful-dead"
-                  }
-                }
-              },
-              "effect": {
-                "type": "sequence",
-                "steps": [
-                  {
-                    "type": "roll-modifier",
-                    "target": {
-                      "owner": "friendly",
-                      "all_of": [
-                        "WRAITH CONSTRUCT"
-                      ],
-                      "level": "model"
-                    },
-                    "modifier": {
-                      "roll": "hit",
-                      "operation": "add",
-                      "value": 1
-                    }
+                  "ability": {
+                    "ability_id": "shepherds-of-the-dead-aeldari",
+                    "definition_id": "spirit-guides"
                   },
-                  {
-                    "type": "roll-modifier",
-                    "target": {
-                      "owner": "friendly",
-                      "all_of": [
-                        "WRAITH CONSTRUCT"
-                      ],
-                      "level": "model"
-                    },
-                    "modifier": {
-                      "roll": "wound",
-                      "operation": "add",
-                      "value": 1
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "type": "ability-grant",
-              "target": {
-                "owner": "friendly",
-                "all_of": [
-                  "ASURYANI",
-                  "PSYKER"
-                ],
-                "level": "model"
-              },
-              "modifier": {
-                "ability": {
-                  "ability_id": "shepherds-of-the-dead-aeldari",
-                  "definition_id": "spirit-guides"
-                },
-                "definition": {
-                  "type": "ability-part",
-                  "name": "Spirit Guides",
-                  "effect": {
-                    "type": "aura",
-                    "target": "friendly-within-aura",
-                    "modifier": {
-                      "range": {
-                        "inches": 12
-                      },
-                      "effect": {
-                        "type": "ability-grant",
-                        "target": "recipient",
-                        "modifier": {
-                          "ability": "battle-focus-aeldari"
+                  "definition": {
+                    "type": "ability-part",
+                    "name": "Spirit Guides",
+                    "effect": {
+                      "type": "aura",
+                      "target": "friendly-within-aura",
+                      "modifier": {
+                        "range": {
+                          "inches": 12
+                        },
+                        "effect": {
+                          "type": "ability-grant",
+                          "target": "recipient",
+                          "modifier": {
+                            "ability": "battle-focus-aeldari"
+                          }
+                        },
+                        "eligible": {
+                          "owner": "friendly",
+                          "any_of": [
+                            "WRAITHBLADES",
+                            "WRAITHGUARD",
+                            "WRAITHLORD"
+                          ]
                         }
-                      },
-                      "eligible": {
-                        "owner": "friendly",
-                        "any_of": [
-                          "WRAITHBLADES",
-                          "WRAITHGUARD",
-                          "WRAITHLORD"
-                        ]
                       }
                     }
                   }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

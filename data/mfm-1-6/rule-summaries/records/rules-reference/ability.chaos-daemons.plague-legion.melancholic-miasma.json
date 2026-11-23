@@ -63,67 +63,46 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "behavior": "passive",
-        "scope": {
-          "duration": "permanent"
-        },
-        "effect": {
-          "type": "sequence",
-          "steps": [
-            {
-              "type": "conditional",
-              "condition": {
-                "type": "matches",
-                "parameters": {
-                  "subject": "recipient",
-                  "filter": {
-                    "within": {
-                      "of": {
-                        "owner": "friendly",
-                        "all_of": [
-                          "LEGIONES DAEMONICA",
-                          "NURGLE"
-                        ]
-                      },
-                      "range": {
-                        "inches": 9
+        "detail": {
+          "behavior": "passive",
+          "scope": {
+            "duration": "permanent"
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "conditional",
+                "condition": {
+                  "type": "matches",
+                  "parameters": {
+                    "subject": "recipient",
+                    "filter": {
+                      "within": {
+                        "of": {
+                          "owner": "friendly",
+                          "all_of": [
+                            "LEGIONES DAEMONICA",
+                            "NURGLE"
+                          ]
+                        },
+                        "range": {
+                          "inches": 9
+                        }
                       }
                     }
                   }
-                }
-              },
-              "effect": {
-                "type": "counts-as",
-                "target": {
-                  "owner": "enemy"
                 },
-                "modifier": {
-                  "in_region": {
-                    "rule_region": {
-                      "region_id": "the-shadow-of-chaos",
-                      "owner_faction": "chaos-daemons"
-                    }
-                  }
-                }
-              }
-            },
-            {
-              "type": "select-units",
-              "selector": {
-                "filter": {
-                  "owner": "enemy"
-                },
-                "count": {
-                  "min": 1,
-                  "max": 1
-                },
-                "eligibility": {
-                  "type": "in-region",
-                  "parameters": {
-                    "subject": "selected-unit",
-                    "region": {
+                "effect": {
+                  "type": "counts-as",
+                  "target": {
+                    "owner": "enemy"
+                  },
+                  "modifier": {
+                    "in_region": {
                       "rule_region": {
                         "region_id": "the-shadow-of-chaos",
                         "owner_faction": "chaos-daemons"
@@ -132,24 +111,48 @@
                   }
                 }
               },
-              "effect": {
-                "type": "conditional",
-                "condition": {
-                  "type": "phase-is",
-                  "parameters": {
-                    "phase": "command"
+              {
+                "type": "select-units",
+                "selector": {
+                  "filter": {
+                    "owner": "enemy"
+                  },
+                  "count": {
+                    "min": 1,
+                    "max": 1
+                  },
+                  "eligibility": {
+                    "type": "in-region",
+                    "parameters": {
+                      "subject": "selected-unit",
+                      "region": {
+                        "rule_region": {
+                          "region_id": "the-shadow-of-chaos",
+                          "owner_faction": "chaos-daemons"
+                        }
+                      }
+                    }
                   }
                 },
                 "effect": {
-                  "type": "test",
-                  "target": "selected-unit",
-                  "modifier": {
-                    "test": "battle-shock"
+                  "type": "conditional",
+                  "condition": {
+                    "type": "phase-is",
+                    "parameters": {
+                      "phase": "command"
+                    }
+                  },
+                  "effect": {
+                    "type": "test",
+                    "target": "selected-unit",
+                    "modifier": {
+                      "test": "battle-shock"
+                    }
                   }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

@@ -143,108 +143,111 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "per-unit-readied-options",
-        "initial": {
-          "phase": "command",
-          "owner": "self",
-          "at": "start",
-          "subject": {
-            "owner": "friendly",
-            "keyword": "Adeptus Custodes",
-            "requiresAbility": true
-          }
-        },
-        "optional": true,
-        "maxPerReadiedState": 1,
-        "consumeReadiedOnUse": true,
-        "options": [
-          {
-            "name": "Dacatarai",
-            "at": "fight-phase-start",
-            "expires": "fight-phase-end",
-            "recipient": "selected-friendly-readied-unit",
-            "effect": {
-              "kind": "re-roll",
-              "roll": "hit",
-              "face": 1,
-              "attack": "outgoing-melee",
-              "enemyTargetExcludesAny": [
-                "MONSTER",
-                "VEHICLE"
-              ]
+        "detail": {
+          "kind": "per-unit-readied-options",
+          "initial": {
+            "phase": "command",
+            "owner": "self",
+            "at": "start",
+            "subject": {
+              "owner": "friendly",
+              "keyword": "Adeptus Custodes",
+              "requiresAbility": true
             }
           },
-          {
-            "name": "Kaptaris",
-            "at": "fight-phase-start",
-            "expires": "fight-phase-end",
-            "recipient": "selected-friendly-readied-unit",
-            "effect": {
-              "kind": "roll-modifier",
-              "roll": "hit",
-              "value": -1,
-              "attack": "incoming-melee"
+          "optional": true,
+          "maxPerReadiedState": 1,
+          "consumeReadiedOnUse": true,
+          "options": [
+            {
+              "name": "Dacatarai",
+              "at": "fight-phase-start",
+              "expires": "fight-phase-end",
+              "recipient": "selected-friendly-readied-unit",
+              "effect": {
+                "kind": "re-roll",
+                "roll": "hit",
+                "face": 1,
+                "attack": "outgoing-melee",
+                "enemyTargetExcludesAny": [
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              }
+            },
+            {
+              "name": "Kaptaris",
+              "at": "fight-phase-start",
+              "expires": "fight-phase-end",
+              "recipient": "selected-friendly-readied-unit",
+              "effect": {
+                "kind": "roll-modifier",
+                "roll": "hit",
+                "value": -1,
+                "attack": "incoming-melee"
+              }
+            },
+            {
+              "name": "Rendax",
+              "at": "selected-to-fight-in-fight-phase",
+              "expires": "fight-phase-end",
+              "recipient": "selected-friendly-readied-unit",
+              "effect": {
+                "kind": "weapon-ability-grant",
+                "weapon": "melee",
+                "ability": "Lethal Hits",
+                "enemyTargetRequiresAny": [
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              }
+            },
+            {
+              "name": "Conservai",
+              "at": "own-command-phase",
+              "recipient": "selected-friendly-readied-unit",
+              "expires": "turn-end",
+              "effect": {
+                "mayStartActionDespite": [
+                  "engaged",
+                  "battle-shocked"
+                ],
+                "mayShootDespite": "starting-action"
+              }
+            },
+            {
+              "name": "Calistus",
+              "at": "selected-to-move-in-own-movement-phase",
+              "expires": "end-of-selected-move",
+              "recipient": "selected-friendly-readied-unit",
+              "effect": {
+                "moveTypes": [
+                  "normal",
+                  "advance",
+                  "fall-back"
+                ],
+                "passThrough": "models"
+              }
+            },
+            {
+              "name": "Salvus",
+              "at": "selected-to-shoot-in-own-shooting-phase",
+              "expires": "end-of-selected-shooting",
+              "recipient": "selected-friendly-readied-unit",
+              "effect": {
+                "optional": true,
+                "mayIgnoreModifiersTo": [
+                  "BS",
+                  "hit-roll",
+                  "wound-roll"
+                ]
+              }
             }
-          },
-          {
-            "name": "Rendax",
-            "at": "selected-to-fight-in-fight-phase",
-            "expires": "fight-phase-end",
-            "recipient": "selected-friendly-readied-unit",
-            "effect": {
-              "kind": "weapon-ability-grant",
-              "weapon": "melee",
-              "ability": "Lethal Hits",
-              "enemyTargetRequiresAny": [
-                "MONSTER",
-                "VEHICLE"
-              ]
-            }
-          },
-          {
-            "name": "Conservai",
-            "at": "own-command-phase",
-            "recipient": "selected-friendly-readied-unit",
-            "expires": "turn-end",
-            "effect": {
-              "mayStartActionDespite": [
-                "engaged",
-                "battle-shocked"
-              ],
-              "mayShootDespite": "starting-action"
-            }
-          },
-          {
-            "name": "Calistus",
-            "at": "selected-to-move-in-own-movement-phase",
-            "expires": "end-of-selected-move",
-            "recipient": "selected-friendly-readied-unit",
-            "effect": {
-              "moveTypes": [
-                "normal",
-                "advance",
-                "fall-back"
-              ],
-              "passThrough": "models"
-            }
-          },
-          {
-            "name": "Salvus",
-            "at": "selected-to-shoot-in-own-shooting-phase",
-            "expires": "end-of-selected-shooting",
-            "recipient": "selected-friendly-readied-unit",
-            "effect": {
-              "optional": true,
-              "mayIgnoreModifiersTo": [
-                "BS",
-                "hit-roll",
-                "wound-roll"
-              ]
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

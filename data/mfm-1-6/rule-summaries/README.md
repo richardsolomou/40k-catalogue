@@ -11,7 +11,7 @@ Every summary is original wording, checked against the official sources it cites
 
 6,179 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 1 record that no app row carries cites only the dated Games Workshop page that prints it. 1,235 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-FAQs and links also name 436 units, 45 detachments, 1 piece of wargear and 1 publication. They are identity entries of the `rosters` and `publications` categories, which are retained: their records still come from the app build.
+FAQs and links also name 483 units, 45 detachments, 1 piece of wargear and 1 publication. They are identity entries of the `rosters` and `publications` categories, which are retained: their records still come from the app build.
 
 ## Retired
 

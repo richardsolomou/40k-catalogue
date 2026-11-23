@@ -49,38 +49,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "phase": "fight",
-          "anyOf": [
-            "owning-unit-selected-to-fight",
-            "enemy-unit-targets-owning-unit"
-          ]
-        },
-        "optional": true,
-        "limit": {
-          "count": 1,
-          "period": "turn",
-          "scope": "unit"
-        },
-        "choice": {
-          "count": 1,
-          "effects": [
-            {
-              "operation": "modify-roll",
-              "roll": "hit",
-              "attackType": "melee",
-              "actor": "owning-unit",
-              "amount": 1
-            },
-            {
-              "operation": "modify-roll",
-              "roll": "hit",
-              "target": "owning-unit",
-              "amount": -1
-            }
-          ]
+        "detail": {
+          "trigger": {
+            "phase": "fight",
+            "anyOf": [
+              "owning-unit-selected-to-fight",
+              "enemy-unit-targets-owning-unit"
+            ]
+          },
+          "optional": true,
+          "limit": {
+            "count": 1,
+            "period": "turn",
+            "scope": "unit"
+          },
+          "choice": {
+            "count": 1,
+            "effects": [
+              {
+                "roll": "hit",
+                "attackType": "melee",
+                "actor": "owning-unit",
+                "amount": 1,
+                "kind": "modify-roll"
+              },
+              {
+                "roll": "hit",
+                "target": "owning-unit",
+                "amount": -1,
+                "kind": "modify-roll"
+              }
+            ]
+          }
         }
       }
     }

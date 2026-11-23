@@ -50,50 +50,53 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "type": "post-shooting-weapon-dependent-effect",
-        "actor": "owning-unit",
-        "trigger": {
-          "event": "owning-unit-finished-shooting",
-          "during": "your-shooting-phase",
-          "requires": {
-            "models": "each-Mek-Gunz-model-in-owning-unit",
-            "loadout": "same-ranged-weapon"
+        "detail": {
+          "type": "post-shooting-weapon-dependent-effect",
+          "actor": "owning-unit",
+          "trigger": {
+            "event": "owning-unit-finished-shooting",
+            "during": "your-shooting-phase",
+            "requires": {
+              "models": "each-Mek-Gunz-model-in-owning-unit",
+              "loadout": "same-ranged-weapon"
+            }
+          },
+          "choose": {
+            "count": 1,
+            "subject": "enemy-unit",
+            "requires": "hit-by-at-least-one-attack-in-that-shooting"
+          },
+          "duration": "until-start-of-your-next-turn",
+          "weaponEffects": {
+            "Bubblechukka": {
+              "status": "Wobbled",
+              "givesBenefitOfCoverTo": "targets-of-marked-unit-ranged-attacks"
+            },
+            "Kustom Mega-kannon": {
+              "status": "Zapped",
+              "stat": "Ld",
+              "subtract": 1
+            },
+            "Smasha Gun": {
+              "status": "Smashed",
+              "stat": "M",
+              "subtractInches": 2
+            },
+            "Traktor Kannon": {
+              "status": "Grounded",
+              "prevents": "take-to-the-skies-declaration"
+            }
+          },
+          "tracking": {
+            "per": "Mek-Gunz-model",
+            "token": "Grot Crew",
+            "initial": 5,
+            "removePerWoundLost": 1,
+            "finalWoundRepresentedBy": "Mek-Gunz-model-itself"
           }
-        },
-        "choose": {
-          "count": 1,
-          "subject": "enemy-unit",
-          "requires": "hit-by-at-least-one-attack-in-that-shooting"
-        },
-        "duration": "until-start-of-your-next-turn",
-        "weaponEffects": {
-          "Bubblechukka": {
-            "status": "Wobbled",
-            "givesBenefitOfCoverTo": "targets-of-marked-unit-ranged-attacks"
-          },
-          "Kustom Mega-kannon": {
-            "status": "Zapped",
-            "stat": "Ld",
-            "subtract": 1
-          },
-          "Smasha Gun": {
-            "status": "Smashed",
-            "stat": "M",
-            "subtractInches": 2
-          },
-          "Traktor Kannon": {
-            "status": "Grounded",
-            "prevents": "take-to-the-skies-declaration"
-          }
-        },
-        "tracking": {
-          "per": "Mek-Gunz-model",
-          "token": "Grot Crew",
-          "initial": 5,
-          "removePerWoundLost": 1,
-          "finalWoundRepresentedBy": "Mek-Gunz-model-itself"
         }
       }
     }

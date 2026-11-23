@@ -70,48 +70,51 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "starts": {
-          "player": "acting-player",
-          "phase": "shooting"
-        },
-        "eligibleUnit": {
-          "side": "friendly",
-          "countPerStart": 1,
-          "position": {
-            "relation": "within-range",
-            "selector": "central-objective"
-          }
-        },
-        "useLimit": {
-          "maxStartsPerOwnTurn": 1
-        },
-        "completes": {
-          "window": "end-of-own-turn",
-          "requires": {
-            "subject": "acting-unit",
-            "predicate": "controls",
-            "object": "selected-objective"
-          }
-        },
-        "effects": [
-          {
-            "kind": "record-unit-result",
-            "unit": "acting-unit",
-            "result": "sensor-sweep"
+        "detail": {
+          "starts": {
+            "player": "acting-player",
+            "phase": "shooting"
           },
-          {
-            "kind": "remove-operation-marker",
-            "count": 1,
+          "eligibleUnit": {
+            "side": "friendly",
+            "countPerStart": 1,
+            "position": {
+              "relation": "within-range",
+              "selector": "central-objective"
+            }
+          },
+          "useLimit": {
+            "maxStartsPerOwnTurn": 1
+          },
+          "completes": {
+            "window": "end-of-own-turn",
+            "requires": {
+              "subject": "acting-unit",
+              "predicate": "controls",
+              "object": "selected-objective"
+            }
+          },
+          "effects": [
+            {
+              "kind": "record-unit-result",
+              "unit": "acting-unit",
+              "result": "sensor-sweep"
+            },
+            {
+              "kind": "remove-operation-marker",
+              "count": 1,
+              "area": "battlefield",
+              "ownerSelector": "unspecified"
+            }
+          ],
+          "additionalStartBar": {
+            "selector": "operation-marker",
             "area": "battlefield",
-            "ownerSelector": "unspecified"
+            "countExactly": 1
           }
-        ],
-        "additionalStartBar": {
-          "selector": "operation-marker",
-          "area": "battlefield",
-          "countExactly": 1
         }
       }
     }

@@ -57,118 +57,121 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "replacement-unit-and-marker-sequence",
-        "armyFaction": "GENESTEALER CULTS",
-        "initialResurgence": {
-          "incursion": 6,
-          "strikeForce": 10,
-          "onslaught": 14
-        },
-        "purchase": {
-          "optional": true,
-          "on": "friendly-unit-destroyed",
-          "requiresEveryNonCharacterModelHasRule": true,
-          "costByStartingStrengthExcludingAttachedCharacters": [
-            {
-              "units": [
-                "aberrants"
-              ],
-              "prices": {
-                "5": 4,
-                "10": 8
+        "detail": {
+          "kind": "replacement-unit-and-marker-sequence",
+          "armyFaction": "GENESTEALER CULTS",
+          "initialResurgence": {
+            "incursion": 6,
+            "strikeForce": 10,
+            "onslaught": 14
+          },
+          "purchase": {
+            "optional": true,
+            "on": "friendly-unit-destroyed",
+            "requiresEveryNonCharacterModelHasRule": true,
+            "costByStartingStrengthExcludingAttachedCharacters": [
+              {
+                "units": [
+                  "aberrants"
+                ],
+                "prices": {
+                  "5": 4,
+                  "10": 8
+                }
+              },
+              {
+                "units": [
+                  "acolyte-hybrids-with-autopistols",
+                  "acolyte-hybrids-with-hand-flamers",
+                  "hybrid-metamorphs"
+                ],
+                "prices": {
+                  "5": 2,
+                  "10": 4
+                }
+              },
+              {
+                "units": [
+                  "atalan-jackals"
+                ],
+                "prices": {
+                  "5": 2,
+                  "10": 6
+                }
+              },
+              {
+                "units": [
+                  "neophyte-hybrids"
+                ],
+                "prices": {
+                  "10": 3,
+                  "20": 6
+                }
+              },
+              {
+                "units": [
+                  "purestrain-genestealers"
+                ],
+                "prices": {
+                  "5": 2,
+                  "10": 6
+                }
               }
+            ]
+          },
+          "replacement": {
+            "source": "destroyed-unit",
+            "count": 1,
+            "excludeCharacterModels": true,
+            "startingStrength": true,
+            "fullWounds": true,
+            "oneShotWeaponsReset": true,
+            "destination": "cult-ambush"
+          },
+          "marker": {
+            "placeCount": 1,
+            "ifPossible": true,
+            "shape": "circle",
+            "diameterMm": 32,
+            "enemySeparation": {
+              "strictlyMoreThanInches": 9,
+              "measurement": "horizontal",
+              "fromUnits": "all-enemy-units"
             },
-            {
-              "units": [
-                "acolyte-hybrids-with-autopistols",
-                "acolyte-hybrids-with-hand-flamers",
-                "hybrid-metamorphs"
-              ],
-              "prices": {
-                "5": 2,
-                "10": 4
-              }
-            },
-            {
-              "units": [
-                "atalan-jackals"
-              ],
-              "prices": {
-                "5": 2,
-                "10": 6
-              }
-            },
-            {
-              "units": [
-                "neophyte-hybrids"
-              ],
-              "prices": {
-                "10": 3,
-                "20": 6
-              }
-            },
-            {
-              "units": [
-                "purestrain-genestealers"
-              ],
-              "prices": {
-                "5": 2,
-                "10": 6
-              }
+            "removedWhen": {
+              "event": "move-end",
+              "moveType": "any",
+              "subject": "enemy-model",
+              "excludeKeyword": "AIRCRAFT",
+              "withinInches": 8
             }
-          ]
-        },
-        "replacement": {
-          "source": "destroyed-unit",
-          "count": 1,
-          "excludeCharacterModels": true,
-          "startingStrength": true,
-          "fullWounds": true,
-          "oneShotWeaponsReset": true,
-          "destination": "cult-ambush"
-        },
-        "marker": {
-          "placeCount": 1,
-          "ifPossible": true,
-          "shape": "circle",
-          "diameterMm": 32,
-          "enemySeparation": {
-            "strictlyMoreThanInches": 9,
-            "measurement": "horizontal",
-            "fromUnits": "all-enemy-units"
           },
-          "removedWhen": {
-            "event": "move-end",
-            "moveType": "any",
-            "subject": "enemy-model",
-            "excludeKeyword": "AIRCRAFT",
-            "withinInches": 8
+          "ambushState": {
+            "isStrategicReserves": true,
+            "rapidIngressEligible": false,
+            "usesAmbushMarkerSetup": true,
+            "followsNormalStrategicReserveSetup": false,
+            "notDestroyedAtRound3End": true
+          },
+          "arrival": {
+            "owner": "opponent",
+            "phase": "movement",
+            "occurrence": "next",
+            "at": "end",
+            "optional": true,
+            "unitSelection": "any-friendly-unit-in-cult-ambush",
+            "maxUnitsPerRemainingMarker": 1,
+            "method": "ingress",
+            "setup": {
+              "atLeastOneModelInBaseContact": true,
+              "otherModelsWhollyWithinInches": 3
+            },
+            "removeMarkerAfterPlacement": true,
+            "firstBattleRoundAllowed": true
           }
-        },
-        "ambushState": {
-          "isStrategicReserves": true,
-          "rapidIngressEligible": false,
-          "usesAmbushMarkerSetup": true,
-          "followsNormalStrategicReserveSetup": false,
-          "notDestroyedAtRound3End": true
-        },
-        "arrival": {
-          "owner": "opponent",
-          "phase": "movement",
-          "occurrence": "next",
-          "at": "end",
-          "optional": true,
-          "unitSelection": "any-friendly-unit-in-cult-ambush",
-          "maxUnitsPerRemainingMarker": 1,
-          "method": "ingress",
-          "setup": {
-            "atLeastOneModelInBaseContact": true,
-            "otherModelsWhollyWithinInches": 3
-          },
-          "removeMarkerAfterPlacement": true,
-          "firstBattleRoundAllowed": true
         }
       }
     }

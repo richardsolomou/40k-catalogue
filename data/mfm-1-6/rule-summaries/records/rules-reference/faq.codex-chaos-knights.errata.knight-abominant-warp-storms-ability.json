@@ -47,56 +47,59 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "faq": {
-          "entryType": "errata",
-          "publicationId": "47cc2382-dce6-450a-9267-dd4160948007",
-          "typedMechanics": {
-            "operation": "replace-current-field",
-            "field": "description",
-            "componentQid": "ability:chaos-knights.knight-abominant.warp-storms",
-            "change": {
-              "trigger": {
-                "turn": "own",
-                "phase": "movement",
-                "window": "end"
+        "detail": {
+          "faq": {
+            "entryType": "errata",
+            "publicationId": "47cc2382-dce6-450a-9267-dd4160948007",
+            "typedMechanics": {
+              "field": "description",
+              "componentQid": "ability:chaos-knights.knight-abominant.warp-storms",
+              "change": {
+                "trigger": {
+                  "turn": "own",
+                  "phase": "movement",
+                  "window": "end"
+                },
+                "recipients": {
+                  "entity": "unit",
+                  "side": "enemy",
+                  "maxDistanceInches": 9,
+                  "rangeOrigin": "Knight Abominant"
+                },
+                "test": {
+                  "per": "eligible-enemy-unit",
+                  "dice": "D6",
+                  "minimum": 3
+                },
+                "onPass": {
+                  "mortalWounds": "D3",
+                  "recipient": "tested-unit"
+                }
               },
-              "recipients": {
-                "entity": "unit",
-                "side": "enemy",
-                "maxDistanceInches": 9,
-                "rangeOrigin": "Knight Abominant"
+              "kind": "replace-current-field"
+            },
+            "statedValues": [
+              {
+                "role": "maximum-range-inches",
+                "value": 9
               },
-              "test": {
-                "per": "eligible-enemy-unit",
-                "dice": "D6",
-                "minimum": 3
+              {
+                "role": "test-die-sides",
+                "value": 6
               },
-              "onPass": {
-                "mortalWounds": "D3",
-                "recipient": "tested-unit"
+              {
+                "role": "success-minimum",
+                "value": 3
+              },
+              {
+                "role": "mortal-wounds-die-sides",
+                "value": 3
               }
-            }
-          },
-          "statedValues": [
-            {
-              "role": "maximum-range-inches",
-              "value": 9
-            },
-            {
-              "role": "test-die-sides",
-              "value": 6
-            },
-            {
-              "role": "success-minimum",
-              "value": 3
-            },
-            {
-              "role": "mortal-wounds-die-sides",
-              "value": 3
-            }
-          ]
+            ]
+          }
         }
       }
     }

@@ -34,58 +34,67 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "phase": "shooting",
-          "player": "self",
-          "timing": "start"
+        "enhancement": {
+          "type": "model",
+          "points": 10,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "WORLD EATERS"
+                ]
+              }
+            ]
+          }
         },
-        "selector": {
-          "optional": true,
-          "count": 1,
-          "options": [
-            {
-              "type": "VEHICLE",
-              "entity": "model",
-              "maximumDistanceInches": 6,
-              "origin": "bearer"
-            },
-            {
-              "type": "TRANSPORT",
-              "entity": "model",
-              "condition": "bearer-embarked-in-this-model"
-            }
-          ]
-        },
-        "afterShooting": {
-          "actor": "selected-model",
-          "within": "same-shooting-phase",
-          "choose": {
+        "detail": {
+          "trigger": {
+            "phase": "shooting",
+            "player": "self",
+            "timing": "start"
+          },
+          "selector": {
+            "optional": true,
             "count": 1,
-            "side": "enemy",
-            "entity": "unit",
-            "minimumHitsReceived": 1,
-            "from": "selected-model-attacks-in-that-shooting"
+            "options": [
+              {
+                "type": "VEHICLE",
+                "entity": "model",
+                "maximumDistanceInches": 6,
+                "origin": "bearer"
+              },
+              {
+                "type": "TRANSPORT",
+                "entity": "model",
+                "condition": "bearer-embarked-in-this-model"
+              }
+            ]
+          },
+          "afterShooting": {
+            "actor": "selected-model",
+            "within": "same-shooting-phase",
+            "choose": {
+              "count": 1,
+              "side": "enemy",
+              "entity": "unit",
+              "minimumHitsReceived": 1,
+              "from": "selected-model-attacks-in-that-shooting"
+            }
+          },
+          "effect": {
+            "subject": "chosen-enemy-unit",
+            "state": "Suppressed",
+            "expires": "start-of-next-own-turn",
+            "modifier": {
+              "attackOwner": "each-model-in-that-unit",
+              "stat": "hit-roll",
+              "delta": -1,
+              "attackScope": "all-attacks"
+            }
           }
-        },
-        "effect": {
-          "subject": "chosen-enemy-unit",
-          "state": "Suppressed",
-          "expires": "start-of-next-own-turn",
-          "modifier": {
-            "attackOwner": "each-model-in-that-unit",
-            "stat": "hit-roll",
-            "delta": -1,
-            "attackScope": "all-attacks"
-          }
-        },
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "World Eaters"
-          ],
-          "excludedKeywords": []
         }
       }
     }

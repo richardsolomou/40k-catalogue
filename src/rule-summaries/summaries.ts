@@ -2,6 +2,7 @@ import { Ajv2020 } from "ajv/dist/2020.js";
 import { resolve, validateRelease, type Ref, type Release } from "../catalogue-identity/identity.ts";
 import type { CatalogueRecord } from "../catalogue-releases/catalogue.ts";
 import { validate as validateMechanic } from "../validate.ts";
+import factsSchema from "./facts.v1.schema.json" with { type: "json" };
 import schema from "./summaries.v1.schema.json" with { type: "json" };
 
 // Mirrors summaries.v1.schema.json, which is the contract consumers rely on.
@@ -9,7 +10,7 @@ export type Citation =
   | { type: "app"; title: string; appVersion: string; dataBuild: number; releaseDate: string }
   | { type: "publisher"; title: string; page?: string; url: string };
 export type SummarySpan = { start: number; end: number; bold?: true; target?: Ref };
-/** Typed facts in a named format; VS Data checks the `vs-data-mechanic` format version `1` as mechanic fields. */
+/** Typed facts in a named format; VS Data checks `vs-data-facts` version `1` against its schema and `vs-data-mechanic` version `1` as mechanic fields. */
 export type Facts = { format: string; version?: string; fields: Record<string, unknown> };
 export type SummaryData = {
   summary: string;
@@ -60,8 +61,17 @@ export type SummariesValidation = { ok: true; summaries: Summaries } | { ok: fal
 
 export const KINDS: SummaryKind[] = ["ability", "core-rule", "core-ability", "weapon-ability", "faq", "mission-award", "mission-card", "mission-action", "mission-twist"];
 
-const ajv = new Ajv2020({ allErrors: true }).addSchema(schema);
+const ajv = new Ajv2020({ allErrors: true }).addSchema(schema).addSchema(factsSchema);
 const checkData = new Map(KINDS.map((kind) => [kind, ajv.getSchema(`${schema.$id}#/$defs/${kind}`)!]));
+const checkFacts = new Map(["plain", "stratagem", "enhancement-fields", "mission-award"].map((shape) => [shape, ajv.getSchema(`${factsSchema.$id}#/$defs/${shape}`)!]));
+// Which `vs-data-facts` shape a record's fields take: its kind's, or for an ability its rule type's.
+function factsShape(kind: SummaryKind, data: SummaryData): string {
+  if (kind === "mission-award") return "mission-award";
+  const ruleType = (data as AbilityData).ruleType;
+  if (kind === "ability" && ruleType === "enhancement") return "enhancement-fields";
+  if (kind === "ability" && STRATAGEMS.has(ruleType)) return "stratagem";
+  return "plain";
+}
 const key = ({ kind, id }: Ref) => `${kind}:${id}`;
 const STRATAGEMS = new Set<AbilityData["ruleType"]>(["stratagem", "core-stratagem"]);
 
@@ -119,6 +129,15 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
       const target = entries.get(key(ref));
       if (!target || target.retired) errors.push(`${at} names ${key(ref)}, which is not current in the identity release`);
       else if (!entry.references?.some((r) => key(r) === key(ref))) errors.push(`${at} names ${key(ref)} but its identity entry does not reference it`);
+    }
+    if (facts?.format === "vs-data-facts") {
+      const check = checkFacts.get(factsShape(summary.kind, summary.data))!;
+      if (facts.version !== "1") errors.push(`${at} facts use vs-data-facts version ${facts.version ?? "(none)"}, not 1`);
+      else if (!check(facts.fields)) errors.push(...(check.errors ?? []).map((e) => `${at} facts${e.instancePath} ${e.message}`));
+      else {
+        const rounds = (facts.fields.award as { rounds?: number[] } | undefined)?.rounds ?? [];
+        if (rounds.some((r, i) => i > 0 && r <= rounds[i - 1])) errors.push(`${at} facts/award/rounds are not in ascending order`);
+      }
     }
     if (facts?.format === "vs-data-mechanic" && facts.version === "1") {
       const mechanic = validateMechanic({ ...facts.fields, formatVersion: 1, id: record.id, name: entry.name, rulesVersion: record.rulesVersion, source: record.source });

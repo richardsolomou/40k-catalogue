@@ -757,6 +757,9 @@
         },
         "recipientKeywords": {
           "$ref": "#/$defs/selectors"
+        },
+        "conditional": {
+          "const": true
         }
       },
       "if": {
@@ -914,6 +917,12 @@
           "type": "integer",
           "minimum": 2,
           "maximum": 6
+        },
+        "conditional": {
+          "const": true
+        },
+        "keywords": {
+          "$ref": "#/$defs/selectors"
         }
       }
     },
@@ -1243,7 +1252,8 @@
                 "source-destroyed-unit",
                 "target-below-starting-strength",
                 "target-below-half-strength",
-                "target-battle-shocked"
+                "target-battle-shocked",
+                "target-tougher"
               ]
             }
           }
@@ -1387,6 +1397,22 @@
           "properties": {
             "kind": {
               "const": "enemy-status"
+            },
+            "status": {
+              "$ref": "#/$defs/keyword"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "status"
+          ],
+          "properties": {
+            "kind": {
+              "const": "own-status"
             },
             "status": {
               "$ref": "#/$defs/keyword"
@@ -1740,6 +1766,9 @@
         },
         "bearerOnly": {
           "const": true
+        },
+        "modelKeywords": {
+          "$ref": "#/$defs/selectors"
         }
       }
     },

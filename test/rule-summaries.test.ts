@@ -265,3 +265,12 @@ test("an effect can be the bearer's alone, and a target only an Attached unit", 
   scoped.fields.combat.readings[0]!.choices![0]!.conditions.push({ kind: "enemy-status", status: "BATTLE-SHOCKED" } as never);
   assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = scoped)), []);
 });
+
+test("a grant, an invulnerable save and an effect can be limited to some models or a stated condition", () => {
+  const limited = structuredClone(EFFECTS);
+  (limited.fields.grants.abilities[0] as Record<string, unknown>).conditional = true;
+  (limited.fields as Record<string, unknown>).invulnerableSave = { roll: 4, keywords: ["CHARACTER"], conditional: true };
+  (limited.fields.combat.readings[0]!.choices![0]!.effects[0] as Record<string, unknown>).modelKeywords = ["CHARACTER"];
+  limited.fields.combat.readings[0]!.choices![0]!.conditions.push({ kind: "own-status", status: "EMPOWERED" } as never, { kind: "target-tougher" } as never);
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = limited)), []);
+});

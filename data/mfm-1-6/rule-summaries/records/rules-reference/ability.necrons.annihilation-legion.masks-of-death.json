@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Annihilation Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "1 CP, in the opposing player's Shooting phase or in a Fight phase of either turn, right after an enemy unit picks its targets. Choose one FLAYED ONES or DESTROYER CULT unit of yours that it picked as a target for at least one attack. For the rest of this phase, attacks aimed at your unit get -1 to the Hit roll.",
     "citations": [
       {
@@ -28,6 +36,33 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "DESTROYER CULT"
+                ]
+              },
+              {
+                "keywords": [
+                  "FLAYED ONES"
+                ]
+              }
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
         "detail": {
           "detachment": "Annihilation Legion",
           "when": [

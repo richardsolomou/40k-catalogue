@@ -28,11 +28,15 @@ export function packGaps(value: unknown, path = ""): Gap[] {
 // Joins between sections, which the schema cannot express.
 function referenceErrors(pack: MissionPack): string[] {
   const errors: string[] = [];
-  const ids = (path: string, items: { id: string }[]) => {
+  // An alias names its member like its ID, so neither may repeat another member's ID or alias in the section.
+  const ids = (path: string, items: { id: string; aliases?: string[] }[]) => {
     const seen = new Set<string>();
+    const names = new Set<string>();
     items.forEach((item, i) => {
       if (seen.has(item.id)) errors.push(`${path}/${i}/id repeats "${item.id}"`);
+      for (const alias of item.aliases ?? []) if (alias === item.id || names.has(alias) || items.some((other) => other.id === alias)) errors.push(`${path}/${i}/aliases repeats "${alias}"`);
       seen.add(item.id);
+      for (const alias of item.aliases ?? []) names.add(alias);
     });
     return seen;
   };

@@ -78,6 +78,13 @@ test("rejects two primaries assigned to the same detachment", () => {
   assert.deepEqual(result, { ok: false, errors: ['/primaries/1/detachment repeats "flame-wardens"'] });
 });
 
+test("a member's alias cannot repeat another member's ID or alias", () => {
+  const value = raw();
+  value.deployments[1].aliases = ["split-field"];
+  const result = validatePack(value);
+  assert.deepEqual(result, { ok: false, errors: ['/deployments/1/aliases repeats "split-field"'] });
+});
+
 test("a primary scores at the end of the command phase from its first scoring round", () => {
   const p = pack();
   assert.equal(scoreCard(p, card(p, "hold-the-line"), [{ award: "hold-one", times: 1 }], commandEnd(2), none).vp, 3);

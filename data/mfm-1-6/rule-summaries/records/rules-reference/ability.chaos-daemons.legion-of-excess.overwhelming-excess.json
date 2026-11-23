@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Legion of Excess",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "opponent",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP. Use it in the opposing player's Shooting phase or Fight phase, right after an enemy unit picks its targets. Choose one of your LEGIONES DAEMONICA SLAANESH units that at least one of that enemy unit's attacks is aimed at. For the rest of the phase, attacks that target it suffer -1 to their Hit rolls.",
     "citations": [
       {
@@ -28,6 +36,25 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "SLAANESH"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
         "detail": {
           "detachment": "Legion of Excess",
           "trigger": {

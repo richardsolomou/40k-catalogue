@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Siege Regiment",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "During your Shooting phase, pick a PLATOON of yours that is engaged with the enemy. Through phase end you can fire ranged weapons at enemies engaged with that platoon. Once a firing unit resolves its attacks, roll a D6 per wound its fire took from an enemy model engaged with the platoon. For every 4+, choose a model from your platoon to destroy.",
     "summarySpans": [
       {
@@ -58,6 +65,23 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "PLATOON"
+            ],
+            "conditions": [
+              "in-engagement-range"
+            ]
+          }
+        },
         "detail": {
           "type": "battle-tactic",
           "trigger": {

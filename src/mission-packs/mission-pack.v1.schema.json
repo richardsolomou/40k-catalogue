@@ -172,6 +172,9 @@
             },
             "minItems": 1,
             "uniqueItems": true
+          },
+          "aliases": {
+            "$ref": "#/$defs/aliases"
           }
         }
       }
@@ -242,6 +245,9 @@
               "$ref": "#/$defs/award"
             },
             "minItems": 1
+          },
+          "aliases": {
+            "$ref": "#/$defs/aliases"
           }
         }
       },
@@ -297,6 +303,9 @@
             "else": {
               "$ref": "#/$defs/whenDrawn"
             }
+          },
+          "aliases": {
+            "$ref": "#/$defs/aliases"
           }
         }
       }
@@ -339,6 +348,9 @@
             "else": {
               "$ref": "#/$defs/summary"
             }
+          },
+          "aliases": {
+            "$ref": "#/$defs/aliases"
           }
         }
       }
@@ -411,6 +423,9 @@
         },
         "name": {
           "$ref": "#/$defs/text"
+        },
+        "aliases": {
+          "$ref": "#/$defs/aliases"
         }
       }
     },
@@ -469,7 +484,18 @@
           "const": true
         }
       },
-      "anyOf": [{ "required": ["perRound"] }, { "required": ["perBattle"] }]
+      "anyOf": [
+        {
+          "required": [
+            "perRound"
+          ]
+        },
+        {
+          "required": [
+            "perBattle"
+          ]
+        }
+      ]
     },
     "phase": {
       "enum": [
@@ -672,6 +698,14 @@
           "$ref": "#/$defs/id"
         }
       }
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/id"
+      },
+      "minItems": 1,
+      "uniqueItems": true
     }
   }
 }

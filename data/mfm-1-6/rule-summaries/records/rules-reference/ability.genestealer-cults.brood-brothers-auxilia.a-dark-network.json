@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Brood Brothers Auxilia",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "When enemy Reserves arrive in their Movement phase, pick a unit of yours within 12\" of the arrival. ASTRA MILITARUM and GENESTEALER CULTS qualify, apart from MONSTERS and VEHICLES. The unit may move up to 6\" using a Normal Move.",
     "summarySpans": [
       {
@@ -66,6 +73,35 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "reinforcements-step",
+            "after": "enemy-set-up"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ASTRA MILITARUM"
+                ]
+              },
+              {
+                "keywords": [
+                  "GENESTEALER CULTS"
+                ]
+              }
+            ],
+            "excludedKeywords": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "type": "strategic-ploy",
           "trigger": {

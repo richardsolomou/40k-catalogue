@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Ceramite Sentinels",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent"
+    },
     "summary": "Once an enemy unit finishes firing in the opposing Shooting phase, pick one of your unengaged Adeptus Astartes units with the Infantry or Mounted keyword that took damage from those attacks and lost at least one wound. Roll a D6 for the maximum distance of its optional Normal move. If Entrenched, it can use a D3+3″ cap instead. It cannot use Embark to enter a Transport before that turn ends.",
     "summarySpans": [
       {
@@ -62,6 +68,36 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              }
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "detachment": "Ceramite Sentinels",
           "trigger": {

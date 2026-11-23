@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Shamblerot Vectorium",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "When an enemy picks Fight phase targets, choose one targeted POXWALKERS unit. Once the attacker has finished, roll D6 per model from that unit killed by its attacks. Each 6 causes the attacker 1 mortal wound. If the chosen unit survives, treat enemy models killed by these wounds as casualties from the chosen unit’s attacks when applying their Curse ability.",
     "summarySpans": [
       {
@@ -60,6 +67,24 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "POXWALKERS"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
         "detail": {
           "type": "strategic-ploy",
           "trigger": {

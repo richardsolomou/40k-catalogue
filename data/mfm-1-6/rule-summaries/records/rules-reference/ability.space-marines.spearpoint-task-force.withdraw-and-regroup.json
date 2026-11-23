@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Spearpoint Task Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent"
+    },
     "summary": "At the close of the opposing Fight phase, choose a unit with the Adeptus Astartes Mounted/Speeder keyword. It must be unengaged. Transfer it to strategic reserves.",
     "summarySpans": [
       {
@@ -57,6 +63,34 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "SPEEDER"
+                ]
+              }
+            ],
+            "conditions": [
+              "unengaged"
+            ]
+          }
+        },
         "detail": {
           "type": "",
           "trigger": {

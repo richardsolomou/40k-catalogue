@@ -14,6 +14,16 @@
     "ruleType": "stratagem",
     "group": "Wrath of the Rock",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Spend 1 CP when a friendly DEATHWING or RAVENWING unit is destroyed in objective range, in either player’s phase. Use the destroyed unit as the target. Pick an objective it controlled at the previous phase’s close, provided no enemy unit other than AIRCRAFT is in range of that objective. The chosen objective becomes secured.",
     "summarySpans": [
       {
@@ -61,6 +71,32 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "DEATHWING"
+                ]
+              },
+              {
+                "keywords": [
+                  "RAVENWING"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "trigger": {
             "phase": "any",

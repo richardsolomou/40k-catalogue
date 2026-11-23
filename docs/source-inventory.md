@@ -28,7 +28,7 @@ The [MFM 1.6 rule summaries](../data/mfm-1-6/rule-summaries/README.md) cite offi
 - Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14. It is the signed build in force at the update's cutoff, and every record but one cites it.
 - Games Workshop's faction packs and other rules PDFs on warhammer-community.com, by their printed title and the page that prints the rule, for 1,235 records. One erratum, first printed in a dated publisher update the app build does not yet carry, cites that page alone.
 
-Typed [rule facts](rule-facts.md) come from the same build's structured rows: each Enhancement's eligibility, points and limits, and each mission award's scoring. VS Data publishes the game's numbers and structure from the signed app as facts in its own structure, never its rules wording.
+Each Stratagem's CP cost, phases, turn and type, typed [rule facts](rule-facts.md), and the [mission pack](mission-packs.md) come from the same build's structured rows: Stratagem limits, timing and targets, each Enhancement's eligibility, points and limits, each mission award's scoring, and the pack's caps, pairings, battlefields and cards. VS Data publishes the game's numbers and structure from the signed app as facts in its own structure, never its rules wording.
 
 The units, detachments, wargear and publications that FAQs amend and Enhancements name are identity entries of the retained `rosters` and `publications` categories, which still come from the app build.
 
@@ -46,6 +46,6 @@ Where a source leaves a point open and the project chooses a reading, the record
 
 ## Where mappings live
 
-Catalogue records use [catalogue IDs and rules versions](catalogue-identity.md). Keep mappings to a consumer's stored IDs or other sources in that consumer.
+Catalogue records use [catalogue IDs and rules versions](catalogue-identity.md). Where an entry's ID in another data source can be derived, the catalogue publishes it as an alias: Game Datacards IDs for rules, Stratagems, Enhancements, FAQs and mission records, and mission pack members' IDs in the pack. Keep any other mapping to a consumer's stored IDs in that consumer.
 
 [Source and migration issues](https://github.com/richardsolomou/vs-data/issues/13) · [Archived source inventory](https://github.com/richardsolomou/vs-data/blob/80733c1fb93dd338b3078408c7f46c30c4ec422d/docs/source-inventory.md)

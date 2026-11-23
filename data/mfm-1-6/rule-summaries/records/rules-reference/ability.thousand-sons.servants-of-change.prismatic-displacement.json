@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Servants of Change",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own"
+    },
     "summary": "In your Movement phase, spend 1 CP when you pick a friendly MUTANT unit to Advance or Fall Back. The unit must have INFANTRY or MOUNTED. It gains Assault on ranged attacks through turn end. It can still shoot and declare charges after the chosen move if it otherwise qualifies.",
     "summarySpans": [
       {
@@ -45,6 +51,31 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-advance-or-fall-back"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY",
+                  "MUTANT"
+                ]
+              },
+              {
+                "keywords": [
+                  "MOUNTED",
+                  "MUTANT"
+                ]
+              }
+            ]
+          }
+        },
         "detail": {
           "detachment": "Servants of Change",
           "trigger": {

@@ -78,7 +78,7 @@ The effect blocks say what an ability, Stratagem, Enhancement, army or detachmen
 
 Keyword values are written in capitals. A **selector** is a keyword, keywords printed together (`ADEPTUS ASTARTES INFANTRY`), or a datasheet's name, and a unit matches it when its keywords include every keyword of it (a keyword also matches its plural). A few selectors name a status a rule treats like a keyword, such as `BATTLE-SHOCKED` or `AFFLICTED`.
 
-**`grants`**: the abilities the rule gives. `abilities` lists each grant; an empty list means the rule gives abilities none of which is a core ability by name.
+**`grants`**: the abilities the rule gives. `abilities` lists each grant; an empty list means the rule's text reads as a grant but names no ability the block can type.
 
 | Field | Meaning |
 | --- | --- |
@@ -98,7 +98,7 @@ Keyword values are written in capitals. A **selector** is a keyword, keywords pr
 
 **`invulnerableSave`**: `{ "roll": n }`, an invulnerable save of n+ the rule gives.
 
-**`upgradesWeapon`**: `true` for an Enhancement that improves a weapon its bearer is equipped with, named where the bearer takes it.
+**`upgradesWeapon`**: `true` for an Enhancement whose text ends by naming a weapon, whose profile the bearer gains or has in place of its own.
 
 **`reminder`**: when a player acts on the rule. Each of `timings` gives `at` (`phase-start`, `phase-end`, `turn-start`, `turn-end`, `round-start` or `round-end`), the `phase` (`command`, `movement`, `shooting`, `charge`, `fight` or `any`) for a phase moment, the `turn` (`own`, `opponent` or `any`) and `firstRoundOnly`. `whileDestroyed: true` when the rule acts as its unit is destroyed.
 
@@ -130,7 +130,7 @@ A context is `<use>.<models>.<keywords>`:
 
 A question is about the unit the rule applies to: `unitHas` a selector, `everyModelHas` a selector, has exactly the `keyword`, or whether the rule is a Psychic ability (`psychic`).
 
-A reading gives the player's `choices` and the one that applies by `default`, 1-based, or 0 when none applies until the player picks one. A reading without `choices` is one the rule's effect cannot be calculated from. `shown` is the same reading with the weapon abilities and characteristics that change no roll left in, for a datasheet that shows everything the rule gives, where that differs (`null` when nothing is shown). `fallback` is a coarser reading to offer where `choices` are absent, and `roles` whether the rule takes part in attacking, defending or both.
+A reading gives the player's `choices` and the one that applies by `default`, 1-based, or 0 when none applies until the player picks one. A reading without `choices` is one whose effect cannot be calculated: report the rule as not calculated rather than estimate it. `shown` is the reading a datasheet shows, with the weapon abilities and characteristics that change no roll left in, where it differs from `choices` (`null` when nothing is shown); it can be present where `choices` are not, and is for display only. `fallback` is a coarser reading to offer where `choices` are absent, and `roles` whether the rule takes part in attacking, defending or both.
 
 A choice holds `effects` that apply together while its `conditions` hold. A condition is a `kind`: `option` (the player picked the choice's `option`, a named option of the rule), `leading`, `charged`, `remained-stationary`, `activated`, `selected-target`, `selected-visible-attacker`, `set-up-as-reinforcements`, `source-destroyed-unit`, `target-in-engagement-range`, `selected-target-in-engagement-range`, `target-closest`, `target-on-objective`, a distance in `inches` (`within`, `attacker-within`, `selected-unit-within`, `selected-target-within`, `target-within`, `objective-within`), `wounds-remaining` between `min` and `max`, a `roll` (`attacks`, `roll`), `activated-at-start` of a `turn`, the `keywords` the models (`for-models`) or units (`for-units`) must have, or `stated`: a condition only the summary gives, with a short `label` where one can be shown. `armyWide` marks an option picked for the whole army rather than per unit, and `selected` the keyword units selected for it gain.
 

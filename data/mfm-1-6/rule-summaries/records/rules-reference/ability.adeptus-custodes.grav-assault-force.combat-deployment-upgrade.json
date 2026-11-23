@@ -33,35 +33,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "enhancement-upgrade",
-        "detachment": "Grav-Assault Force",
-        "pointsCost": 20,
-        "eligibility": {
-          "keywordsAll": [
-            "GRAV-ASSAULT",
-            "TRANSPORT"
-          ]
-        },
-        "trigger": {
-          "event": "friendly-unit-selected-to-disembark-from-bearer",
-          "keywordsAll": [
-            "ADEPTUS CUSTODES"
-          ]
-        },
-        "effects": [
-          {
-            "recipient": "disembarking-unit",
-            "reroll": "charge"
-          },
-          {
-            "recipient": "disembarking-unit",
-            "denyTargeting": "snap-shooting",
-            "by": "enemy"
+        "enhancement": {
+          "type": "upgrade",
+          "points": 20,
+          "perRoster": 3,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "GRAV-ASSAULT",
+                  "TRANSPORT"
+                ]
+              }
+            ],
+            "nonCharacters": true
           }
-        ],
-        "duration": "end-of-turn"
+        },
+        "detail": {
+          "kind": "enhancement-upgrade",
+          "detachment": "Grav-Assault Force",
+          "trigger": {
+            "event": "friendly-unit-selected-to-disembark-from-bearer",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES"
+            ]
+          },
+          "effects": [
+            {
+              "recipient": "disembarking-unit",
+              "reroll": "charge"
+            },
+            {
+              "recipient": "disembarking-unit",
+              "denyTargeting": "snap-shooting",
+              "by": "enemy"
+            }
+          ],
+          "duration": "end-of-turn"
+        }
       }
     }
   }

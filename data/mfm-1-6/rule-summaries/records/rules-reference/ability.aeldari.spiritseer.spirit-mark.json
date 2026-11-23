@@ -24,44 +24,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "ability": {
-          "limit": "once-per-turn",
-          "when": {
-            "turn": "own",
-            "phase": "movement"
-          },
-          "trigger": "this-model-starts-or-ends-a-move",
-          "select": [
-            {
-              "side": "friendly",
-              "count": 1,
-              "keywordsAll": [
-                "WRAITH CONSTRUCT"
-              ],
-              "keywordsNone": [
-                "TITANIC"
-              ],
-              "withinInches": 6
+        "detail": {
+          "ability": {
+            "limit": "once-per-turn",
+            "when": {
+              "turn": "own",
+              "phase": "movement"
             },
-            {
-              "side": "enemy",
-              "count": 1,
-              "visible": true
-            }
-          ],
-          "effects": [
-            {
-              "appliesTo": "selected-friendly-unit-weapons",
-              "againstSelectedEnemyUnit": true,
-              "grantWeaponAbility": {
-                "ability": "SUSTAINED HITS",
-                "value": 1
+            "trigger": "this-model-starts-or-ends-a-move",
+            "select": [
+              {
+                "side": "friendly",
+                "count": 1,
+                "keywordsAll": [
+                  "WRAITH CONSTRUCT"
+                ],
+                "keywordsNone": [
+                  "TITANIC"
+                ],
+                "withinInches": 6
+              },
+              {
+                "side": "enemy",
+                "count": 1,
+                "visible": true
               }
-            }
-          ],
-          "duration": "start-of-your-next-movement-phase"
+            ],
+            "effects": [
+              {
+                "appliesTo": "selected-friendly-unit-weapons",
+                "againstSelectedEnemyUnit": true,
+                "grantWeaponAbility": {
+                  "ability": "SUSTAINED HITS",
+                  "value": 1
+                }
+              }
+            ],
+            "duration": "start-of-your-next-movement-phase"
+          }
         }
       }
     }

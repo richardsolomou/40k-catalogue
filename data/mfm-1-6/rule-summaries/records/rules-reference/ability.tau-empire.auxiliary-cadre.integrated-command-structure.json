@@ -122,90 +122,31 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "scope": {
-          "factionId": "1a241f8e-2d79-47c4-82b1-f6faea353970",
-          "faction": "T’au Empire",
-          "detachmentId": "5bdc7f35-d1cc-4c58-9888-81ee3f0ee8ab",
-          "detachment": "Auxiliary Cadre",
-          "uniqueTags": [
-            {
-              "id": "8b57cdd4-e1c9-4ee6-9efc-350e67c7a072",
-              "name": {
-                "en": "Auxiliary"
+        "detail": {
+          "scope": {
+            "factionId": "1a241f8e-2d79-47c4-82b1-f6faea353970",
+            "faction": "T’au Empire",
+            "detachmentId": "5bdc7f35-d1cc-4c58-9888-81ee3f0ee8ab",
+            "detachment": "Auxiliary Cadre",
+            "uniqueTags": [
+              {
+                "id": "8b57cdd4-e1c9-4ee6-9efc-350e67c7a072",
+                "name": {
+                  "en": "Auxiliary"
+                }
               }
-            }
-          ],
-          "sourceId": "5bdc7f35-d1cc-4c58-9888-81ee3f0ee8ab:integrated-command-structure",
-          "cardType": "detachmentRule",
-          "cardEdition": "40k-11e"
-        },
-        "grant": {
-          "type": "ability-grant",
-          "name": "Harnessed Alien Instincts",
-          "bearer": {
-            "owner": "friendly",
-            "level": "unit",
-            "anyOf": [
-              "Kroot",
-              "Vespid Stingwings"
-            ]
+            ],
+            "sourceId": "5bdc7f35-d1cc-4c58-9888-81ee3f0ee8ab:integrated-command-structure",
+            "cardType": "detachmentRule",
+            "cardEdition": "40k-11e"
           },
-          "timing": {
-            "event": "during-phase",
-            "phase": "shooting",
-            "owner": "self"
-          },
-          "selection": {
-            "count": 1,
-            "optional": true,
-            "target": {
-              "owner": "enemy",
-              "level": "unit",
-              "visibleTo": "bearer-unit",
-              "distance": {
-                "from": "bearer-unit",
-                "maximum": 12,
-                "unit": "inches"
-              }
-            }
-          },
-          "designation": {
-            "target": "selected-enemy-unit",
-            "tag": "prey‑marked"
-          },
-          "effect": {
-            "type": "stat-modifier",
-            "stat": "detection-range",
-            "operation": "add",
-            "value": 3,
-            "unit": "inches",
-            "target": "designated-enemy-unit",
-            "while": {
-              "designation": "prey‑marked"
-            }
-          }
-        },
-        "aura": {
-          "type": "ability-grant",
-          "name": "Localised Stealth Projectors",
-          "bearer": {
-            "owner": "friendly",
-            "level": "unit",
-            "anyOf": [
-              "GHOSTKEEL BATTLESUIT",
-              "STEALTH BATTLESUITS"
-            ]
-          },
-          "effect": {
-            "type": "aura",
-            "range": {
-              "maximum": 6,
-              "unit": "inches",
-              "from": "bearer-unit"
-            },
-            "recipient": {
+          "grant": {
+            "type": "ability-grant",
+            "name": "Harnessed Alien Instincts",
+            "bearer": {
               "owner": "friendly",
               "level": "unit",
               "anyOf": [
@@ -213,18 +154,80 @@
                 "Vespid Stingwings"
               ]
             },
-            "exception": {
-              "type": "hidden-eligibility-exception",
-              "ignores": "those-ranged-attacks-only"
+            "timing": {
+              "event": "during-phase",
+              "phase": "shooting",
+              "owner": "self"
+            },
+            "selection": {
+              "count": 1,
+              "optional": true,
+              "target": {
+                "owner": "enemy",
+                "level": "unit",
+                "visibleTo": "bearer-unit",
+                "distance": {
+                  "from": "bearer-unit",
+                  "maximum": 12,
+                  "unit": "inches"
+                }
+              }
+            },
+            "designation": {
+              "target": "selected-enemy-unit",
+              "tag": "prey‑marked"
+            },
+            "effect": {
+              "type": "stat-modifier",
+              "stat": "detection-range",
+              "operation": "add",
+              "value": 3,
+              "unit": "inches",
+              "target": "designated-enemy-unit",
+              "while": {
+                "designation": "prey‑marked"
+              }
             }
+          },
+          "aura": {
+            "type": "ability-grant",
+            "name": "Localised Stealth Projectors",
+            "bearer": {
+              "owner": "friendly",
+              "level": "unit",
+              "anyOf": [
+                "GHOSTKEEL BATTLESUIT",
+                "STEALTH BATTLESUITS"
+              ]
+            },
+            "effect": {
+              "type": "aura",
+              "range": {
+                "maximum": 6,
+                "unit": "inches",
+                "from": "bearer-unit"
+              },
+              "recipient": {
+                "owner": "friendly",
+                "level": "unit",
+                "anyOf": [
+                  "Kroot",
+                  "Vespid Stingwings"
+                ]
+              },
+              "exception": {
+                "type": "hidden-eligibility-exception",
+                "ignores": "those-ranged-attacks-only"
+              }
+            }
+          },
+          "roster": {
+            "type": "detachment-tag-exclusivity",
+            "tag": "AUXILIARIES",
+            "scope": "friendly-army",
+            "allowedIn": "this-detachment",
+            "prohibitedIn": "other-detachments"
           }
-        },
-        "roster": {
-          "type": "detachment-tag-exclusivity",
-          "tag": "AUXILIARIES",
-          "scope": "friendly-army",
-          "allowedIn": "this-detachment",
-          "prohibitedIn": "other-detachments"
         }
       }
     }

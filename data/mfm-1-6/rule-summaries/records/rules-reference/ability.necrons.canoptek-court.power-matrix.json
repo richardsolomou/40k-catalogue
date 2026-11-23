@@ -36,146 +36,149 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "behavior": "passive",
-        "scope": {
-          "duration": "permanent"
-        },
-        "effect": {
-          "type": "named-region-state",
-          "target": {
-            "owner": "friendly"
+        "detail": {
+          "behavior": "passive",
+          "scope": {
+            "duration": "permanent"
           },
-          "modifier": {
-            "region_ref": {
-              "region_id": "power-matrix",
-              "owner_faction": "necrons"
+          "effect": {
+            "type": "named-region-state",
+            "target": {
+              "owner": "friendly"
             },
-            "producer": {
+            "modifier": {
               "region_ref": {
                 "region_id": "power-matrix",
                 "owner_faction": "necrons"
               },
-              "mode": "complete",
-              "parent_ref": null,
-              "baseline": [
-                {
-                  "region": {
-                    "territory": "your-deployment-zone"
-                  },
-                  "duration": "permanent"
-                }
-              ],
-              "phase_extensions": [
-                {
-                  "region": {
-                    "territory": "no-mans-land"
-                  },
-                  "condition": {
-                    "type": "controls",
-                    "parameters": {
-                      "by": "friendly",
-                      "objective": {
-                        "territory": "no-mans-land"
-                      },
-                      "proportion": {
-                        "comparison": "gte",
-                        "fraction": 0.5
-                      }
-                    }
-                  },
-                  "trigger": {
-                    "event": "phase-started"
-                  },
-                  "duration": "phase",
-                  "evaluation": "snapshot-once"
+              "producer": {
+                "region_ref": {
+                  "region_id": "power-matrix",
+                  "owner_faction": "necrons"
                 },
-                {
-                  "region": {
-                    "territory": "enemy-deployment-zone"
-                  },
-                  "condition": {
-                    "type": "controls",
-                    "parameters": {
-                      "by": "friendly",
-                      "objective": {
-                        "territory": "enemy-deployment-zone"
-                      },
-                      "proportion": {
-                        "comparison": "gte",
-                        "fraction": 0.5
+                "mode": "complete",
+                "parent_ref": null,
+                "baseline": [
+                  {
+                    "region": {
+                      "territory": "your-deployment-zone"
+                    },
+                    "duration": "permanent"
+                  }
+                ],
+                "phase_extensions": [
+                  {
+                    "region": {
+                      "territory": "no-mans-land"
+                    },
+                    "condition": {
+                      "type": "controls",
+                      "parameters": {
+                        "by": "friendly",
+                        "objective": {
+                          "territory": "no-mans-land"
+                        },
+                        "proportion": {
+                          "comparison": "gte",
+                          "fraction": 0.5
+                        }
                       }
-                    }
+                    },
+                    "trigger": {
+                      "event": "phase-started"
+                    },
+                    "duration": "phase",
+                    "evaluation": "snapshot-once"
                   },
-                  "trigger": {
-                    "event": "phase-started"
-                  },
-                  "duration": "phase",
-                  "evaluation": "snapshot-once"
-                }
-              ],
-              "additive_extensions": []
-            },
-            "consumer": {
-              "state_ref": {
-                "region_id": "power-matrix",
-                "owner_faction": "necrons"
+                  {
+                    "region": {
+                      "territory": "enemy-deployment-zone"
+                    },
+                    "condition": {
+                      "type": "controls",
+                      "parameters": {
+                        "by": "friendly",
+                        "objective": {
+                          "territory": "enemy-deployment-zone"
+                        },
+                        "proportion": {
+                          "comparison": "gte",
+                          "fraction": 0.5
+                        }
+                      }
+                    },
+                    "trigger": {
+                      "event": "phase-started"
+                    },
+                    "duration": "phase",
+                    "evaluation": "snapshot-once"
+                  }
+                ],
+                "additive_extensions": []
               },
-              "beneficiary_filter": {
-                "owner": "friendly",
-                "any_of": [
-                  "CRYPTEK",
-                  "CANOPTEK"
-                ]
-              },
-              "membership": {
-                "unit_scope": "whole-unit",
-                "relation": "wholly-within"
-              },
-              "qualified_condition": {
-                "type": "in-region",
-                "parameters": {
-                  "region": {
-                    "rule_region": {
-                      "region_id": "power-matrix",
-                      "owner_faction": "necrons"
-                    }
-                  },
-                  "wholly": true,
-                  "models": "every"
-                }
-              },
-              "default_branch": {
-                "effect": {
-                  "type": "ability-part",
+              "consumer": {
+                "state_ref": {
+                  "region_id": "power-matrix",
+                  "owner_faction": "necrons"
+                },
+                "beneficiary_filter": {
+                  "owner": "friendly",
+                  "any_of": [
+                    "CRYPTEK",
+                    "CANOPTEK"
+                  ]
+                },
+                "membership": {
+                  "unit_scope": "whole-unit",
+                  "relation": "wholly-within"
+                },
+                "qualified_condition": {
+                  "type": "in-region",
+                  "parameters": {
+                    "region": {
+                      "rule_region": {
+                        "region_id": "power-matrix",
+                        "owner_faction": "necrons"
+                      }
+                    },
+                    "wholly": true,
+                    "models": "every"
+                  }
+                },
+                "default_branch": {
                   "effect": {
-                    "type": "re-roll",
-                    "target": "attacker",
-                    "modifier": {
-                      "roll": "hit",
-                      "subset": "ones"
-                    }
-                  },
-                  "optional": false
+                    "type": "ability-part",
+                    "effect": {
+                      "type": "re-roll",
+                      "target": "attacker",
+                      "modifier": {
+                        "roll": "hit",
+                        "subset": "ones"
+                      }
+                    },
+                    "optional": false
+                  }
+                },
+                "qualified_branch": {
+                  "effect": {
+                    "type": "ability-part",
+                    "effect": {
+                      "type": "re-roll",
+                      "target": "attacker",
+                      "modifier": {
+                        "roll": "hit",
+                        "result_scope": "any-result"
+                      }
+                    },
+                    "optional": true
+                  }
                 }
               },
-              "qualified_branch": {
-                "effect": {
-                  "type": "ability-part",
-                  "effect": {
-                    "type": "re-roll",
-                    "target": "attacker",
-                    "modifier": {
-                      "roll": "hit",
-                      "result_scope": "any-result"
-                    }
-                  },
-                  "optional": true
-                }
-              }
-            },
-            "branch_precedence": "qualified-replaces-default"
+              "branch_precedence": "qualified-replaces-default"
+            }
           }
         }
       }

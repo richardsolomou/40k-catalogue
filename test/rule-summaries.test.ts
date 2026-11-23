@@ -130,3 +130,49 @@ test("mechanic facts are checked as mechanic fields", () => {
     [`ability:${VOLLEY} facts/effect/by must NOT be valid`],
   );
 });
+
+const AWARD = "synthetic-pack.hold-the-pyre.each-objective";
+const ENHANCEMENT = {
+  format: "vs-data-facts",
+  version: "1",
+  fields: { enhancement: { type: "model", points: 15, eligibility: { anyOf: [{ keywords: ["INFANTRY"], factionKeywords: ["SYNTHETIC"] }], excludedKeywords: ["EPIC HERO"] } } },
+};
+
+test("typed facts are checked against the shape for the record's kind", () => {
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "mission-award", AWARD).facts.fields = { detail: { window: "turn-end" } })),
+    [`mission-award:${AWARD} facts must have required property 'award'`],
+  );
+});
+
+test("an Enhancement's eligibility is typed facts of an Enhancement only", () => {
+  const asEnhancement = (recs: CatalogueRecord[], facts: object) => Object.assign(data(recs, "ability", OATH.id), { ruleType: "enhancement", facts });
+  assert.deepEqual(errors((_, recs) => asEnhancement(recs, ENHANCEMENT)), []);
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "ability", VOLLEY).facts = ENHANCEMENT)),
+    [`ability:${VOLLEY} facts must NOT have additional properties`],
+  );
+});
+
+test("typed keywords are upper case", () => {
+  const lower = structuredClone(ENHANCEMENT);
+  lower.fields.enhancement.eligibility.anyOf[0].keywords = ["Infantry"];
+  assert.deepEqual(
+    errors((_, recs) => Object.assign(data(recs, "ability", OATH.id), { ruleType: "enhancement", facts: lower })),
+    [`ability:${OATH.id} facts/enhancement/eligibility/anyOf/0/keywords/0 must match pattern "^[^a-z]*[A-Z0-9][^a-z]*$"`],
+  );
+});
+
+test("award rounds are ascending", () => {
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "mission-award", AWARD).facts.fields.award.rounds = [3, 2])),
+    [`mission-award:${AWARD} facts/award/rounds are not in ascending order`],
+  );
+});
+
+test("typed facts name their format version", () => {
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "mission-award", AWARD).facts.version = "2")),
+    [`mission-award:${AWARD} facts use vs-data-facts version 2, not 1`],
+  );
+});

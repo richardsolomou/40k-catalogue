@@ -41,42 +41,59 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "characterOnly": true,
-          "keywords": [
-            "ADEPTUS CUSTODES",
-            "SHIELD-CAPTAIN"
-          ]
-        },
-        "trigger": {
-          "phase": "charge",
-          "owner": "own-player",
-          "timing": "start"
-        },
-        "selection": {
-          "actor": "own-player",
-          "target": "friendly-unit",
-          "count": 1,
-          "allKeywords": [
-            "ADEPTUS CUSTODES",
-            "INFANTRY"
-          ],
-          "rangeInches": 6,
-          "origin": "bearer-model",
-          "comparison": "within"
-        },
-        "effects": [
-          {
-            "type": "override-charge-ineligibility",
-            "recipient": "selected-unit",
-            "reason": "selected-unit-advanced-this-turn",
-            "expiry": "end-of-triggering-charge-phase",
-            "otherEligibilityRequirementsApply": true
+        "enhancement": {
+          "type": "model",
+          "points": 30,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "SHIELD-CAPTAIN"
+                ],
+                "factionKeywords": [
+                  "ADEPTUS CUSTODES"
+                ]
+              },
+              {
+                "unit": {
+                  "kind": "unit",
+                  "id": "adeptus-custodes.shield-captain"
+                }
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "trigger": {
+            "phase": "charge",
+            "owner": "own-player",
+            "timing": "start"
+          },
+          "selection": {
+            "actor": "own-player",
+            "target": "friendly-unit",
+            "count": 1,
+            "allKeywords": [
+              "ADEPTUS CUSTODES",
+              "INFANTRY"
+            ],
+            "rangeInches": 6,
+            "origin": "bearer-model",
+            "comparison": "within"
+          },
+          "effects": [
+            {
+              "type": "override-charge-ineligibility",
+              "recipient": "selected-unit",
+              "reason": "selected-unit-advanced-this-turn",
+              "expiry": "end-of-triggering-charge-phase",
+              "otherEligibilityRequirementsApply": true
+            }
+          ]
+        }
       }
     }
   }

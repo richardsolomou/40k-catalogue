@@ -25,57 +25,60 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "distance-measurement",
-        "units": "inches",
-        "measurementTiming": "any-time",
-        "defaultMeasureFrom": "closest-part-of-base",
-        "within": {
-          "inclusive": true,
-          "model": "any-part-of-base",
-          "unit": "at-least-one-model"
-        },
-        "whollyWithin": {
-          "inclusive": true,
-          "model": "entire-base",
-          "frame": "entire-model",
-          "unit": "all-models"
-        },
-        "nearestTieChosenBy": "controller-of-rule-user",
-        "asCloseAsPossible": {
-          "toModelOrUnit": {
-            "goal": "base-contact-if-legal-and-reachable",
-            "fallback": "nearest-legal-position",
-            "alreadyClosest": "stay-but-count-as-moving"
+        "detail": {
+          "kind": "distance-measurement",
+          "units": "inches",
+          "measurementTiming": "any-time",
+          "defaultMeasureFrom": "closest-part-of-base",
+          "within": {
+            "inclusive": true,
+            "model": "any-part-of-base",
+            "unit": "at-least-one-model"
           },
-          "toObjective": {
-            "goal": "in-objective-range-if-legal-and-reachable",
-            "fallback": "nearest-legal-position",
-            "alreadyInRange": "may-move-within-allowance-and-end-in-range"
+          "whollyWithin": {
+            "inclusive": true,
+            "model": "entire-base",
+            "frame": "entire-model",
+            "unit": "all-models"
+          },
+          "nearestTieChosenBy": "controller-of-rule-user",
+          "asCloseAsPossible": {
+            "toModelOrUnit": {
+              "goal": "base-contact-if-legal-and-reachable",
+              "fallback": "nearest-legal-position",
+              "alreadyClosest": "stay-but-count-as-moving"
+            },
+            "toObjective": {
+              "goal": "in-objective-range-if-legal-and-reachable",
+              "fallback": "nearest-legal-position",
+              "alreadyInRange": "may-move-within-allowance-and-end-in-range"
+            }
+          },
+          "baseContact": {
+            "default": "bases-touch",
+            "enemyOverhangException": {
+              "until": "turn-end",
+              "mustReachWithoutOverhang": true,
+              "endAsCloseAsPossible": true,
+              "modelPartsAtMostInchesApart": 1
+            }
+          },
+          "tableQuarters": {
+            "shape": "four-equal-rectangles",
+            "dividerThicknessMm": 1,
+            "axes": [
+              "lengthwise-through-centre",
+              "widthwise-through-centre"
+            ]
+          },
+          "lineDrawingDefault": {
+            "straight": true,
+            "thickness": 0,
+            "unlessOtherwiseStated": true
           }
-        },
-        "baseContact": {
-          "default": "bases-touch",
-          "enemyOverhangException": {
-            "until": "turn-end",
-            "mustReachWithoutOverhang": true,
-            "endAsCloseAsPossible": true,
-            "modelPartsAtMostInchesApart": 1
-          }
-        },
-        "tableQuarters": {
-          "shape": "four-equal-rectangles",
-          "dividerThicknessMm": 1,
-          "axes": [
-            "lengthwise-through-centre",
-            "widthwise-through-centre"
-          ]
-        },
-        "lineDrawingDefault": {
-          "straight": true,
-          "thickness": 0,
-          "unlessOtherwiseStated": true
         }
       }
     }

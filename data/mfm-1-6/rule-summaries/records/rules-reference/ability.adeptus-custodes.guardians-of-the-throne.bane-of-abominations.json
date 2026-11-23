@@ -33,36 +33,45 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "characterOnly": true,
-          "keywords": [
-            "ADEPTUS CUSTODES"
-          ]
-        },
-        "trigger": {
-          "event": "attack-by-bearer-model",
-          "target": {
-            "side": "enemy",
-            "scope": "unit",
-            "anyKeywords": [
-              "CHARACTER",
-              "MONSTER",
-              "VEHICLE"
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "ADEPTUS CUSTODES"
+                ]
+              }
             ]
           }
         },
-        "effects": [
-          {
-            "type": "roll-modifier",
-            "roll": "wound",
-            "value": 1,
-            "recipient": "triggering-bearer-attack",
-            "expiry": "after-this-roll"
-          }
-        ]
+        "detail": {
+          "trigger": {
+            "event": "attack-by-bearer-model",
+            "target": {
+              "side": "enemy",
+              "scope": "unit",
+              "anyKeywords": [
+                "CHARACTER",
+                "MONSTER",
+                "VEHICLE"
+              ]
+            }
+          },
+          "effects": [
+            {
+              "type": "roll-modifier",
+              "roll": "wound",
+              "value": 1,
+              "recipient": "triggering-bearer-attack",
+              "expiry": "after-this-roll"
+            }
+          ]
+        }
       }
     }
   }

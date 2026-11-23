@@ -41,207 +41,210 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "behavior": "passive",
-        "scope": {
-          "duration": "permanent"
-        },
-        "effect": {
-          "type": "named-region-state",
-          "target": {
-            "owner": "friendly"
+        "detail": {
+          "behavior": "passive",
+          "scope": {
+            "duration": "permanent"
           },
-          "modifier": {
-            "region_ref": {
-              "region_id": "hallowed-ground",
-              "owner_faction": "grey-knights"
+          "effect": {
+            "type": "named-region-state",
+            "target": {
+              "owner": "friendly"
             },
-            "producer": {
+            "modifier": {
               "region_ref": {
                 "region_id": "hallowed-ground",
                 "owner_faction": "grey-knights"
               },
-              "mode": "complete",
-              "parent_ref": null,
-              "baseline": [
-                {
-                  "region": {
-                    "territory": "your-deployment-zone"
-                  },
-                  "duration": "permanent"
-                }
-              ],
-              "phase_extensions": [
-                {
-                  "region": {
-                    "territory": "no-mans-land"
-                  },
-                  "condition": {
-                    "type": "controls",
-                    "parameters": {
-                      "by": "friendly",
-                      "objective": {
-                        "territory": "no-mans-land"
-                      },
-                      "proportion": {
-                        "comparison": "gte",
-                        "fraction": 0.5
-                      }
-                    }
-                  },
-                  "trigger": {
-                    "event": "phase-started"
-                  },
-                  "duration": "phase",
-                  "evaluation": "snapshot-once"
+              "producer": {
+                "region_ref": {
+                  "region_id": "hallowed-ground",
+                  "owner_faction": "grey-knights"
                 },
-                {
-                  "region": {
-                    "territory": "enemy-deployment-zone"
-                  },
-                  "condition": {
-                    "type": "controls",
-                    "parameters": {
-                      "by": "friendly",
-                      "objective": {
-                        "territory": "enemy-deployment-zone"
-                      },
-                      "proportion": {
-                        "comparison": "gte",
-                        "fraction": 0.5
-                      }
-                    }
-                  },
-                  "trigger": {
-                    "event": "phase-started"
-                  },
-                  "duration": "phase",
-                  "evaluation": "snapshot-once"
-                }
-              ],
-              "additive_extensions": [
-                {
-                  "kind": "unit-proximity",
-                  "filter": {
-                    "owner": "friendly",
-                    "all_of": [
-                      "PURIFIER SQUAD"
-                    ]
-                  },
-                  "range": {
-                    "inches": 6
+                "mode": "complete",
+                "parent_ref": null,
+                "baseline": [
+                  {
+                    "region": {
+                      "territory": "your-deployment-zone"
+                    },
+                    "duration": "permanent"
                   }
-                }
-              ]
-            },
-            "consumer": {
-              "state_ref": {
-                "region_id": "hallowed-ground",
-                "owner_faction": "grey-knights"
-              },
-              "beneficiary_filter": {
-                "owner": "friendly",
-                "all_of": [
-                  "GREY KNIGHTS"
-                ]
-              },
-              "membership": {
-                "unit_scope": "whole-unit",
-                "relation": "wholly-within"
-              },
-              "qualified_condition": {
-                "operator": "or",
-                "operands": [
+                ],
+                "phase_extensions": [
                   {
-                    "type": "matches",
-                    "parameters": {
-                      "subject": "this-unit",
-                      "filter": {
-                        "all_of": [
-                          "PURIFIER SQUAD"
-                        ]
+                    "region": {
+                      "territory": "no-mans-land"
+                    },
+                    "condition": {
+                      "type": "controls",
+                      "parameters": {
+                        "by": "friendly",
+                        "objective": {
+                          "territory": "no-mans-land"
+                        },
+                        "proportion": {
+                          "comparison": "gte",
+                          "fraction": 0.5
+                        }
                       }
-                    }
+                    },
+                    "trigger": {
+                      "event": "phase-started"
+                    },
+                    "duration": "phase",
+                    "evaluation": "snapshot-once"
                   },
                   {
-                    "type": "in-region",
-                    "parameters": {
-                      "region": {
-                        "rule_region": {
-                          "region_id": "hallowed-ground",
-                          "owner_faction": "grey-knights"
+                    "region": {
+                      "territory": "enemy-deployment-zone"
+                    },
+                    "condition": {
+                      "type": "controls",
+                      "parameters": {
+                        "by": "friendly",
+                        "objective": {
+                          "territory": "enemy-deployment-zone"
+                        },
+                        "proportion": {
+                          "comparison": "gte",
+                          "fraction": 0.5
                         }
-                      },
-                      "wholly": true,
-                      "models": "every"
+                      }
+                    },
+                    "trigger": {
+                      "event": "phase-started"
+                    },
+                    "duration": "phase",
+                    "evaluation": "snapshot-once"
+                  }
+                ],
+                "additive_extensions": [
+                  {
+                    "kind": "unit-proximity",
+                    "filter": {
+                      "owner": "friendly",
+                      "all_of": [
+                        "PURIFIER SQUAD"
+                      ]
+                    },
+                    "range": {
+                      "inches": 6
                     }
                   }
                 ]
               },
-              "default_branch": {
-                "effect": {
-                  "type": "ability-part",
-                  "effect": {
-                    "type": "re-roll",
-                    "target": "attacker",
-                    "modifier": {
-                      "roll": "hit",
-                      "subset": "ones"
-                    }
-                  },
-                  "optional": false
-                }
-              },
-              "qualified_branch": {
-                "effect": {
-                  "type": "ability-part",
-                  "effect": {
-                    "type": "re-roll",
-                    "target": "attacker",
-                    "modifier": {
-                      "roll": "hit",
-                      "result_scope": "any-result"
-                    }
-                  },
-                  "optional": true
-                }
-              },
-              "attack_condition": {
-                "operator": "or",
-                "operands": [
-                  {
-                    "type": "attack-is",
-                    "parameters": {
-                      "attack_type": "melee"
-                    }
-                  },
-                  {
-                    "operator": "and",
-                    "operands": [
-                      {
-                        "type": "attack-is",
-                        "parameters": {
-                          "attack_type": "ranged"
+              "consumer": {
+                "state_ref": {
+                  "region_id": "hallowed-ground",
+                  "owner_faction": "grey-knights"
+                },
+                "beneficiary_filter": {
+                  "owner": "friendly",
+                  "all_of": [
+                    "GREY KNIGHTS"
+                  ]
+                },
+                "membership": {
+                  "unit_scope": "whole-unit",
+                  "relation": "wholly-within"
+                },
+                "qualified_condition": {
+                  "operator": "or",
+                  "operands": [
+                    {
+                      "type": "matches",
+                      "parameters": {
+                        "subject": "this-unit",
+                        "filter": {
+                          "all_of": [
+                            "PURIFIER SQUAD"
+                          ]
                         }
-                      },
-                      {
-                        "type": "matches",
-                        "parameters": {
-                          "subject": "defender",
-                          "filter": {
-                            "visible": {
-                              "to": "attacker"
+                      }
+                    },
+                    {
+                      "type": "in-region",
+                      "parameters": {
+                        "region": {
+                          "rule_region": {
+                            "region_id": "hallowed-ground",
+                            "owner_faction": "grey-knights"
+                          }
+                        },
+                        "wholly": true,
+                        "models": "every"
+                      }
+                    }
+                  ]
+                },
+                "default_branch": {
+                  "effect": {
+                    "type": "ability-part",
+                    "effect": {
+                      "type": "re-roll",
+                      "target": "attacker",
+                      "modifier": {
+                        "roll": "hit",
+                        "subset": "ones"
+                      }
+                    },
+                    "optional": false
+                  }
+                },
+                "qualified_branch": {
+                  "effect": {
+                    "type": "ability-part",
+                    "effect": {
+                      "type": "re-roll",
+                      "target": "attacker",
+                      "modifier": {
+                        "roll": "hit",
+                        "result_scope": "any-result"
+                      }
+                    },
+                    "optional": true
+                  }
+                },
+                "attack_condition": {
+                  "operator": "or",
+                  "operands": [
+                    {
+                      "type": "attack-is",
+                      "parameters": {
+                        "attack_type": "melee"
+                      }
+                    },
+                    {
+                      "operator": "and",
+                      "operands": [
+                        {
+                          "type": "attack-is",
+                          "parameters": {
+                            "attack_type": "ranged"
+                          }
+                        },
+                        {
+                          "type": "matches",
+                          "parameters": {
+                            "subject": "defender",
+                            "filter": {
+                              "visible": {
+                                "to": "attacker"
+                              }
                             }
                           }
                         }
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            "branch_precedence": "qualified-replaces-default"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "branch_precedence": "qualified-replaces-default"
+            }
           }
         }
       }

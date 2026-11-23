@@ -41,42 +41,51 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "characterOnly": true,
-          "keywords": [
-            "ANATHEMA PSYKANA"
-          ]
-        },
-        "trigger": {
-          "event": "attack-by-model-in-bearer-unit"
-        },
-        "effects": [
-          {
-            "type": "roll-modifier",
-            "roll": "hit",
-            "value": 1,
-            "recipient": "triggering-bearer-unit-attack",
-            "expiry": "after-this-roll"
-          },
-          {
-            "type": "roll-modifier",
-            "roll": "wound",
-            "value": 1,
-            "recipient": "triggering-bearer-unit-attack",
-            "targetAny": [
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
               {
-                "keyword": "PSYKER"
-              },
-              {
-                "state": "battle-shocked"
+                "factionKeywords": [
+                  "ANATHEMA PSYKANA"
+                ]
               }
-            ],
-            "expiry": "after-this-roll"
+            ]
           }
-        ]
+        },
+        "detail": {
+          "trigger": {
+            "event": "attack-by-model-in-bearer-unit"
+          },
+          "effects": [
+            {
+              "type": "roll-modifier",
+              "roll": "hit",
+              "value": 1,
+              "recipient": "triggering-bearer-unit-attack",
+              "expiry": "after-this-roll"
+            },
+            {
+              "type": "roll-modifier",
+              "roll": "wound",
+              "value": 1,
+              "recipient": "triggering-bearer-unit-attack",
+              "targetAny": [
+                {
+                  "keyword": "PSYKER"
+                },
+                {
+                  "state": "battle-shocked"
+                }
+              ],
+              "expiry": "after-this-roll"
+            }
+          ]
+        }
       }
     }
   }

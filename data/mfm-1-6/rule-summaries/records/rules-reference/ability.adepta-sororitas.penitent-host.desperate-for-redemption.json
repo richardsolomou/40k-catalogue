@@ -68,122 +68,125 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "phase-started",
-          "phase": "command",
-          "owner": "self"
-        },
-        "selection": {
-          "type": "vow-choice",
-          "maximum": 1,
-          "optional": true,
-          "limitPerOption": {
-            "count": 1,
-            "period": "battle"
-          }
-        },
-        "activeFor": "friendly-army",
-        "expires": {
-          "event": "next-phase-started",
-          "phase": "command",
-          "owner": "self"
-        },
-        "branches": [
-          {
-            "name": "The Path of the Penitent",
-            "target": {
-              "owner": "friendly",
-              "level": "model",
-              "allOf": [
-                "PENITENT"
-              ]
-            },
-            "effect": {
-              "type": "stat-modifier",
-              "stat": "move",
-              "operation": "add",
-              "value": 3,
-              "unit": "inches"
-            }
+        "detail": {
+          "trigger": {
+            "event": "phase-started",
+            "phase": "command",
+            "owner": "self"
           },
-          {
-            "name": "Absolution in Battle",
-            "trigger": {
-              "event": "selected-to-fight",
-              "subject": "friendly-unit"
-            },
-            "condition": {
-              "type": "move-completed",
-              "move": "charge",
-              "turn": "triggering",
-              "subject": "selected-unit"
-            },
-            "target": {
-              "owner": "friendly",
-              "level": "model",
-              "allOf": [
-                "PENITENT"
-              ],
-              "inUnit": "selected-unit"
-            },
-            "expires": {
-              "event": "phase-ended",
-              "phase": "triggering"
-            },
-            "effects": [
-              {
-                "type": "stat-modifier",
-                "stat": "attacks",
-                "operation": "add",
-                "value": 1,
-                "attackType": "melee"
-              },
-              {
-                "type": "stat-modifier",
-                "stat": "strength",
-                "operation": "add",
-                "value": 1,
-                "attackType": "melee"
-              }
-            ]
-          },
-          {
-            "name": "Death Before Disgrace",
-            "trigger": {
-              "event": "model-destroyed",
-              "cause": "melee-attack"
-            },
-            "target": {
-              "owner": "friendly",
-              "level": "model",
-              "allOf": [
-                "PENITENT"
-              ]
-            },
-            "condition": {
-              "type": "has-not-fought",
-              "phase": "triggering",
-              "subject": "destroyed-model"
-            },
-            "roll": {
-              "dice": "D6",
+          "selection": {
+            "type": "vow-choice",
+            "maximum": 1,
+            "optional": true,
+            "limitPerOption": {
               "count": 1,
-              "threshold": 2
-            },
-            "effect": {
-              "type": "fight-on-death",
-              "deferRemoval": true,
-              "fightOptional": true,
-              "timing": {
-                "event": "unit-finished-attacks",
-                "subject": "attacking-unit"
-              },
-              "removal": "after-fight-opportunity"
+              "period": "battle"
             }
-          }
-        ]
+          },
+          "activeFor": "friendly-army",
+          "expires": {
+            "event": "next-phase-started",
+            "phase": "command",
+            "owner": "self"
+          },
+          "branches": [
+            {
+              "name": "The Path of the Penitent",
+              "target": {
+                "owner": "friendly",
+                "level": "model",
+                "allOf": [
+                  "PENITENT"
+                ]
+              },
+              "effect": {
+                "type": "stat-modifier",
+                "stat": "move",
+                "operation": "add",
+                "value": 3,
+                "unit": "inches"
+              }
+            },
+            {
+              "name": "Absolution in Battle",
+              "trigger": {
+                "event": "selected-to-fight",
+                "subject": "friendly-unit"
+              },
+              "condition": {
+                "type": "move-completed",
+                "move": "charge",
+                "turn": "triggering",
+                "subject": "selected-unit"
+              },
+              "target": {
+                "owner": "friendly",
+                "level": "model",
+                "allOf": [
+                  "PENITENT"
+                ],
+                "inUnit": "selected-unit"
+              },
+              "expires": {
+                "event": "phase-ended",
+                "phase": "triggering"
+              },
+              "effects": [
+                {
+                  "type": "stat-modifier",
+                  "stat": "attacks",
+                  "operation": "add",
+                  "value": 1,
+                  "attackType": "melee"
+                },
+                {
+                  "type": "stat-modifier",
+                  "stat": "strength",
+                  "operation": "add",
+                  "value": 1,
+                  "attackType": "melee"
+                }
+              ]
+            },
+            {
+              "name": "Death Before Disgrace",
+              "trigger": {
+                "event": "model-destroyed",
+                "cause": "melee-attack"
+              },
+              "target": {
+                "owner": "friendly",
+                "level": "model",
+                "allOf": [
+                  "PENITENT"
+                ]
+              },
+              "condition": {
+                "type": "has-not-fought",
+                "phase": "triggering",
+                "subject": "destroyed-model"
+              },
+              "roll": {
+                "dice": "D6",
+                "count": 1,
+                "threshold": 2
+              },
+              "effect": {
+                "type": "fight-on-death",
+                "deferRemoval": true,
+                "fightOptional": true,
+                "timing": {
+                  "event": "unit-finished-attacks",
+                  "subject": "attacking-unit"
+                },
+                "removal": "after-fight-opportunity"
+              }
+            }
+          ]
+        }
       }
     }
   }

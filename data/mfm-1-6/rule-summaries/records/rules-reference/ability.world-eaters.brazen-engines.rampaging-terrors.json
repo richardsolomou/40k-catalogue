@@ -73,60 +73,63 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "scope": {
-          "factionId": "8bd4c67d-4aba-4502-8561-7c6c6faae51d",
-          "faction": "World Eaters",
-          "detachmentId": "b316e2f6-0b93-4805-9b5e-38f050875ad3",
-          "detachment": "Brazen Engines",
-          "uniqueTags": [],
-          "sourceId": "b316e2f6-0b93-4805-9b5e-38f050875ad3:rampaging-terrors",
-          "cardType": "detachmentRule",
-          "cardEdition": "40k-11e"
-        },
-        "grant": {
-          "type": "ability-grant",
-          "name": "Terror of Khorne",
-          "bearer": {
-            "owner": "friendly",
-            "level": "unit",
-            "allOf": [
-              "Daemon",
-              "Vehicle"
-            ]
+        "detail": {
+          "scope": {
+            "factionId": "8bd4c67d-4aba-4502-8561-7c6c6faae51d",
+            "faction": "World Eaters",
+            "detachmentId": "b316e2f6-0b93-4805-9b5e-38f050875ad3",
+            "detachment": "Brazen Engines",
+            "uniqueTags": [],
+            "sourceId": "b316e2f6-0b93-4805-9b5e-38f050875ad3:rampaging-terrors",
+            "cardType": "detachmentRule",
+            "cardEdition": "40k-11e"
           },
-          "trigger": {
-            "event": "phase-started",
-            "phase": "fight",
-            "owner": "either"
-          },
-          "selection": {
-            "count": 1,
-            "optional": true,
-            "target": {
-              "owner": "enemy",
+          "grant": {
+            "type": "ability-grant",
+            "name": "Terror of Khorne",
+            "bearer": {
+              "owner": "friendly",
               "level": "unit",
-              "engagedWith": "bearer-unit"
+              "allOf": [
+                "Daemon",
+                "Vehicle"
+              ]
             },
-            "limitPerTarget": {
+            "trigger": {
+              "event": "phase-started",
+              "phase": "fight",
+              "owner": "either"
+            },
+            "selection": {
               "count": 1,
-              "period": "phase"
+              "optional": true,
+              "target": {
+                "owner": "enemy",
+                "level": "unit",
+                "engagedWith": "bearer-unit"
+              },
+              "limitPerTarget": {
+                "count": 1,
+                "period": "phase"
+              }
+            },
+            "effect": {
+              "type": "test",
+              "test": "battle-shock",
+              "target": "selected-enemy-unit",
+              "modifier": -1
             }
           },
-          "effect": {
-            "type": "test",
-            "test": "battle-shock",
-            "target": "selected-enemy-unit",
-            "modifier": -1
+          "roster": {
+            "type": "detachment-tag-exclusivity",
+            "tag": "onslaught",
+            "scope": "friendly-army",
+            "allowedIn": "this-detachment",
+            "prohibitedIn": "other-detachments"
           }
-        },
-        "roster": {
-          "type": "detachment-tag-exclusivity",
-          "tag": "onslaught",
-          "scope": "friendly-army",
-          "allowedIn": "this-detachment",
-          "prohibitedIn": "other-detachments"
         }
       }
     }

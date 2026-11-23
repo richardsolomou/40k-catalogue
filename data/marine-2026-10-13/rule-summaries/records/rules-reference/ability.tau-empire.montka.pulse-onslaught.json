@@ -1,0 +1,122 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.montka.pulse-onslaught",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Mont’ka",
+    "cp": 2,
+    "summary": "In your Shooting phase, pick one of your units with the T’AU EMPIRE INFANTRY keywords, excluding KROOT. Pick an enemy it hit, excluding MONSTERS and VEHICLES. Apply −2 to the enemy’s Move and Charge rolls through the close of the opponent’s following turn.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 56,
+        "end": 76,
+        "bold": true
+      },
+      {
+        "start": 97,
+        "end": 102,
+        "bold": true
+      },
+      {
+        "start": 136,
+        "end": 144,
+        "bold": true
+      },
+      {
+        "start": 149,
+        "end": 157,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ]
+          },
+          "target": {
+            "selection": [
+              {
+                "owner": "your-army",
+                "entity": "unit",
+                "count": 1,
+                "keywords": [
+                  "T’AU EMPIRE INFANTRY"
+                ],
+                "excludingKeywords": [
+                  "KROOT"
+                ]
+              },
+              {
+                "owner": "opponent",
+                "entity": "unit",
+                "count": 1,
+                "excludingKeywords": [
+                  "MONSTERS",
+                  "VEHICLES"
+                ],
+                "eligibility": "hit-at-least-once-by-selected-friendly-unit"
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "modify-characteristic",
+              "recipient": "selected-enemy-unit-models",
+              "characteristic": "move",
+              "operation": "subtract",
+              "amount": 2,
+              "duration": {
+                "until": "end-of-opponents-next-turn"
+              }
+            },
+            {
+              "action": "modify-roll",
+              "recipient": "selected-enemy-unit",
+              "roll": "charge",
+              "operation": "subtract",
+              "amount": 2,
+              "duration": {
+                "until": "end-of-opponents-next-turn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

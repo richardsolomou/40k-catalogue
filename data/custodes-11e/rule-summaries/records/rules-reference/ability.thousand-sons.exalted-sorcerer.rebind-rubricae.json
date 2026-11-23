@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.exalted-sorcerer.rebind-rubricae",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Exalted Sorcerer",
+    "summary": "Your Command phase gives this model an optional D6 roll while it leads a unit. A 1 deals D3 mortal wounds to the led unit. Restore at most 1 of its fallen Bodyguard models on 2–5, or at most 2 on 6.",
+    "summarySpans": [
+      {
+        "start": 92,
+        "end": 105,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 113,
+        "end": 121,
+        "target": {
+          "kind": "core-rule",
+          "id": "leader"
+        }
+      },
+      {
+        "start": 155,
+        "end": 164,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "source": "this-model",
+        "condition": "leading",
+        "activation": {
+          "turn": "own",
+          "phase": "command",
+          "optional": true
+        },
+        "die": "D6",
+        "branches": [
+          {
+            "result": 1,
+            "recipient": "led-unit",
+            "effect": {
+              "mortalWounds": "D3"
+            }
+          },
+          {
+            "min": 2,
+            "max": 5,
+            "recipient": "led-unit",
+            "effect": {
+              "returnDestroyedBodyguardModelsUpTo": 1
+            }
+          },
+          {
+            "result": 6,
+            "recipient": "led-unit",
+            "effect": {
+              "returnDestroyedBodyguardModelsUpTo": 2
+            }
+          }
+        ]
+      }
+    }
+  }
+}

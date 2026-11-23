@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.recon-element.courageous-diversion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Recon Element",
+    "cp": 1,
+    "summary": "Spend 1 CP as the opponent's Shooting phase begins, on an ASTRA MILITARUM MOUNTED or ASTRA MILITARUM INFANTRY unit you control. Until the phase ends, the unit has Feel No Pain 6+, and every enemy attack made while it is the nearest eligible target suffers -1 to the hit roll. The card does not say whether the penalty is limited to attacks aimed at your unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Recon Element",
+          "when": {
+            "turn": "opponent",
+            "phase": "shooting",
+            "point": "start"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              [
+                "ASTRA MILITARUM",
+                "INFANTRY"
+              ],
+              [
+                "ASTRA MILITARUM",
+                "MOUNTED"
+              ]
+            ]
+          },
+          "effects": [
+            {
+              "duration": "end-of-phase",
+              "grantsAbility": {
+                "name": "Feel No Pain",
+                "threshold": "6+"
+              }
+            },
+            {
+              "duration": "end-of-phase",
+              "appliesTo": "enemy-attacks",
+              "condition": "your-unit-is-closest-eligible-target",
+              "hitRollModifier": {
+                "direction": "subtract",
+                "amount": 1
+              }
+            }
+          ]
+        },
+        "openQuestions": [
+          "The penalty applies to each enemy attack while your unit is the closest eligible target; the card does not say whether only attacks that target your unit are affected."
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.mechanised-assault.vox-relay",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Mechanised Assault",
+    "cp": 1,
+    "summary": "In your Command phase, choose a friendly INFANTRY OFFICER unit riding in a Transport. For the rest of that phase, the unit may issue Orders while embarked. Friendly recipients with ASTRA MILITARUM can receive an Order at any distance from its Transport. TITANIC recipients are ineligible.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Mechanised Assault",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "OFFICER",
+              "INFANTRY"
+            ],
+            "condition": "embarked-in-transport",
+            "eligibleWhileEmbarked": true
+          },
+          "effects": [
+            {
+              "action": "permit-issuing-orders-while-embarked",
+              "recipient": "chosen-unit",
+              "duration": "through-phase-end",
+              "orderRecipients": {
+                "controller": "friendly",
+                "allKeywords": [
+                  "ASTRA MILITARUM"
+                ],
+                "excludeKeywords": [
+                  "TITANIC"
+                ]
+              },
+              "ignoreDistanceFrom": "transport-carrying-chosen-unit"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.crusader-squad.righteous-zeal",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Crusader Squad",
+    "summary": "In the opponent’s Shooting phase, wait until an enemy unit has finished shooting. The Crusader Squad may make a Surge move up to D6+1″ if those attacks killed a model from this unit.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 32,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 112,
+        "end": 122,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-move"
+        }
+      },
+      {
+        "start": 129,
+        "end": 134,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "finished-shooting",
+          "actor": "enemy-unit",
+          "phase": "shooting",
+          "turn": "opponent",
+          "resultForThisUnit": "model-destroyed"
+        },
+        "effect": {
+          "operation": "make-move",
+          "move": "surge",
+          "recipient": "this-unit",
+          "optional": true,
+          "maximumInches": {
+            "count": 1,
+            "sides": 6,
+            "additive": 1
+          },
+          "comparison": "at-most",
+          "inclusive": true
+        }
+      }
+    }
+  }
+}

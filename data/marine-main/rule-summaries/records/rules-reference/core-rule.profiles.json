@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "profiles",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "02. Datasheets",
+    "ruleNumber": "02.02",
+    "summary": "Resolve a specified replacement first, then multiply, add, divide and subtract in that order. Round fractions upward after applying the modifiers. A replacement setting a characteristic to zero blocks further modification. Apply characteristic bounds and modify dice only after rerolls. Roll random Movement once for the unit and generate random attacks separately for each weapon. Determine random Damage once the target model is assigned.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "model-profiles-and-modifiers",
+        "modelProfile": [
+          "M",
+          "T",
+          "Sv",
+          "InSv-when-present",
+          "W",
+          "Ld",
+          "OC"
+        ],
+        "withoutMoveCharacteristic": "setup-only",
+        "destroyedAtWoundsAtMost": 0,
+        "withoutObjectiveControlCharacteristic": "cannot-control-objectives",
+        "modifiers": {
+          "stack": true,
+          "steps": [
+            "replace",
+            "multiply",
+            "add",
+            "divide",
+            "subtract",
+            "round-up"
+          ],
+          "replacementCharacteristicZeroStopsArithmetic": true,
+          "unmodifiablePlaceholder": "N/A",
+          "modelSkillModifierAppliesTo": "each-equipped-weapon",
+          "improve": {
+            "skills-save-leadership": "subtract-from-target-number",
+            "AP": "subtract",
+            "others": "add"
+          },
+          "worsen": {
+            "skills-save-leadership": "add-to-target-number",
+            "AP": "add-to-maximum-zero",
+            "others": "subtract"
+          }
+        },
+        "bounds": {
+          "M-min": 1,
+          "T-min": 1,
+          "OC-min": 0,
+          "range-min-inches": 1,
+          "A-min": 1,
+          "S-min": 1,
+          "AP-worst": 0,
+          "D-min": 1,
+          "dice-roll-min": 1,
+          "hit-wound-modifier-absolute-max": 1,
+          "charge-roll-max": 12,
+          "lone-operative-detection-min-inches": 9,
+          "lone-operative-detection-max-inches": 30,
+          "stratagem-cost-max-increase": 1,
+          "stratagem-cost-min": 0,
+          "Sv-best-forbidden": 1,
+          "InSv-best-forbidden": 1,
+          "Ld-best-forbidden": 4,
+          "Ld-worst-forbidden": 9,
+          "WS-best-forbidden": 1,
+          "WS-worst-forbidden": 7,
+          "BS-best-forbidden": 1,
+          "BS-worst-forbidden": 7
+        },
+        "rolls": {
+          "modifyAfterRerolls": true,
+          "unmodified": "after-rerolls-before-modifiers",
+          "canExceedDieFaces": true
+        },
+        "ignoringModifiers": {
+          "selection": "any-subset",
+          "defaultScopes": [
+            "unit-rolls",
+            "unit-profile",
+            "weapon-characteristics"
+          ]
+        },
+        "random": {
+          "movement": "roll-per-unit-at-selection-to-move",
+          "attacks": "roll-per-weapon-at-generation-then-group-identical",
+          "damage": "roll-per-damaging-attack-after-allocation",
+          "builtInDamageArithmeticIsModifier": false,
+          "other": "roll-per-model-or-weapon-on-use"
+        },
+        "healing": {
+          "unit": [
+            "heal-one-wound-on-a-wounded-model",
+            "if-all-survivors-full-revive-a-destroyed-non-character-with-one-wound"
+          ],
+          "model": "heal-named-model-only-without-revival",
+          "cap": "starting-wounds",
+          "full": "remaining-wounds-equal-to-W"
+        }
+      }
+    }
+  }
+}

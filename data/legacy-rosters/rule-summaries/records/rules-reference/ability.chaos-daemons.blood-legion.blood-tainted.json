@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.blood-legion.blood-tainted",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Chaos Daemons Faction Pack: Version 1.0",
+    "page": "123",
+    "url": "https://assets.warhammer-community.com/eng_10-06_warhammer40000_faction_pack_chaos_daemons-kisvudjypt-uzk9pla0dk.pdf#page=123"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Blood Legion",
+    "summary": "When a phase closes, check the enemies your LEGIONES DAEMONICA KHORNE units destroyed during it. For each such enemy, check markers it was in range of as the phase began. If the destroying unit has the higher Level of Control at such a marker, you retain it until the opposing player exceeds your control level at a phase end.",
+    "summarySpans": [
+      {
+        "start": 44,
+        "end": 69,
+        "bold": true
+      },
+      {
+        "start": 209,
+        "end": 225,
+        "target": {
+          "kind": "core-rule",
+          "id": "level-of-control"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Daemons Faction Pack: Version 1.0",
+        "page": "123",
+        "url": "https://assets.warhammer-community.com/eng_10-06_warhammer40000_faction_pack_chaos_daemons-kisvudjypt-uzk9pla0dk.pdf#page=123"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "phase-end",
+          "destruction": {
+            "event": "destroy-unit",
+            "during": "ending-phase",
+            "recipient": {
+              "side": "enemy",
+              "type": "unit"
+            },
+            "actor": {
+              "side": "own-army",
+              "type": "unit",
+              "allKeywords": [
+                "LEGIONES DAEMONICA",
+                "KHORNE"
+              ]
+            }
+          }
+        },
+        "markerCondition": {
+          "relationship": "within-objective-range",
+          "reference": "destroyed-enemy-unit",
+          "at": "start-of-ending-phase"
+        },
+        "controlCondition": {
+          "subject": "destroying-friendly-unit",
+          "metric": "level-of-control",
+          "comparison": "strictly-higher",
+          "at": "ending-phase-end",
+          "objective": "qualified-marker"
+        },
+        "effect": {
+          "type": "retain-objective-control",
+          "owner": "army-of-destroying-unit",
+          "objective": "qualified-marker"
+        },
+        "expiry": {
+          "event": "phase-end",
+          "comparison": {
+            "left": "opponent-level-of-control",
+            "operator": ">",
+            "right": "own-level-of-control",
+            "objective": "same-marker"
+          }
+        }
+      }
+    }
+  }
+}

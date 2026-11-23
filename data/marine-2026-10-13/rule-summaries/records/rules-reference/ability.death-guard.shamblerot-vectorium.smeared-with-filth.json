@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.shamblerot-vectorium.smeared-with-filth",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Shamblerot Vectorium",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it in the Fight phase of either player's turn, when one of your POXWALKERS units has just been destroyed; that destroyed unit can still be chosen as the target. Pick one enemy unit that attacked it at least once this phase. From then until the battle ends, that enemy unit counts as Afflicted.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Shamblerot Vectorium",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "moment": "unit-just-destroyed"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "POXWALKERS"
+            ],
+            "justDestroyed": true,
+            "targetableWhileDestroyed": true
+          },
+          "effects": [
+            {
+              "kind": "afflict",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "condition": "made one or more attacks targeting your unit this phase"
+              },
+              "duration": "end-of-battle"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.warhost.martial-grace",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Warhost",
+    "summary": "Gain 1 Battle Focus token when each battle round opens. If your unit uses Swift as the Wind, its models receive +1\" Move through phase end. When one of your units performs a manoeuvre that uses a D6, increase that result by 1.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 19,
+        "target": {
+          "kind": "ability",
+          "id": "aeldari.battle-focus"
+        }
+      },
+      {
+        "start": 36,
+        "end": 48,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-battle-round"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "2cb72f92-bfc7-4d2c-a183-b2bff6b26bfc",
+          "faction": "Asuryani",
+          "detachmentId": "df808d6f-3013-4a9b-8a6f-0b68785891d0",
+          "detachment": "Warhost",
+          "uniqueTags": [],
+          "sourceId": "df808d6f-3013-4a9b-8a6f-0b68785891d0:martial-grace",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "effects": [
+          {
+            "type": "resource-gain",
+            "trigger": {
+              "event": "battle-round-started"
+            },
+            "recipient": "friendly-army",
+            "resource": "battle-focus-token",
+            "count": 1
+          },
+          {
+            "type": "stat-modifier",
+            "stat": "move",
+            "operation": "add",
+            "value": 1,
+            "unit": "inches",
+            "trigger": {
+              "event": "manoeuvre-performed",
+              "name": "Swift as the Wind",
+              "actor": {
+                "owner": "friendly",
+                "level": "unit",
+                "allOf": []
+              }
+            },
+            "target": "models-in-triggering-unit",
+            "expires": {
+              "event": "phase-ended",
+              "phase": "triggering"
+            }
+          },
+          {
+            "type": "roll-modifier",
+            "roll": "manoeuvre",
+            "operation": "add",
+            "value": 1,
+            "trigger": {
+              "event": "manoeuvre-performed",
+              "actor": {
+                "owner": "friendly",
+                "level": "unit",
+                "allOf": []
+              },
+              "requires": {
+                "dice": "D6"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

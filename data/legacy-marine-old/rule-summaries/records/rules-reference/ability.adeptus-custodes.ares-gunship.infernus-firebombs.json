@@ -1,0 +1,123 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.ares-gunship.infernus-firebombs",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Ares Gunship",
+    "summary": "As your Movement phase ends, pick one enemy unit this unit can see within 24″, other than AIRCRAFT or Lone Operative units. Until your next Shooting phase has ended, that unit is denied the benefit of cover. Also roll a D6 for every model in it; each 6 inflicts 1 mortal wound on that unit.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 90,
+        "end": 98,
+        "bold": true
+      },
+      {
+        "start": 102,
+        "end": 116,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "lone-operative"
+        }
+      },
+      {
+        "start": 140,
+        "end": 154,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 190,
+        "end": 206,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      },
+      {
+        "start": 264,
+        "end": 276,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Ares Gunship",
+        "clauses": [
+          {
+            "trigger": {
+              "turn": "own",
+              "phase": "movement",
+              "at": "end"
+            },
+            "selection": {
+              "relationship": "enemy",
+              "count": 1,
+              "visibleTo": "this-unit",
+              "withinInches": 24,
+              "measuredFrom": "this-unit",
+              "excludedKeywords": [
+                "Aircraft"
+              ],
+              "excludedAbilities": [
+                "Lone Operative"
+              ]
+            },
+            "effects": [
+              {
+                "recipient": "selected-unit",
+                "cannotHaveBenefitOfCover": true,
+                "expires": "end-of-your-next-shooting-phase"
+              },
+              {
+                "roll": {
+                  "dice": "D6",
+                  "per": "model in selected unit"
+                },
+                "onRoll": 6,
+                "mortalWoundsPerSuccess": 1,
+                "recipient": "selected-unit"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

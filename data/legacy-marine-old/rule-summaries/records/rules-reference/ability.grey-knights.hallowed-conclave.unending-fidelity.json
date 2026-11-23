@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.hallowed-conclave.unending-fidelity",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hallowed Conclave",
+    "cp": 1,
+    "summary": "Once an enemy assigns its attacks in the Fight phase or while your opponent is shooting, select a friendly GREY KNIGHTS INFANTRY unit it aimed at with at least one attack. For the remainder of the phase, roll a D6 for each model it loses that has yet to shoot or fight in that phase. On 4+, keep the model in play. Once the attacker finishes its attacks, that model may shoot or fight and is then removed.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Hallowed Conclave",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "after": "enemy-unit-selects-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "GREY KNIGHTS",
+              "INFANTRY"
+            ],
+            "condition": "targeted-by-at-least-one-attack-of-triggering-unit"
+          },
+          "effects": [
+            {
+              "action": "roll-for-post-destruction-activation",
+              "recipient": "each-destroyed-model-in-chosen-unit",
+              "die": "D6",
+              "threshold": "4+",
+              "condition": "model-has-not-shot-or-fought-this-phase",
+              "duration": "through-phase-end",
+              "onPass": {
+                "keepInPlay": true,
+                "optionalChoices": [
+                  "shoot",
+                  "fight"
+                ],
+                "after": "attacking-unit-finishes-attacks",
+                "removeAfter": true
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.questoris-companions.moment-of-glory",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Questoris Companions",
+    "cp": 1,
+    "summary": "In either Fight phase, use this just before your IMPERIAL KNIGHTS TITANIC unit makes a Consolidation Move. Its models can go an extra 3″ on that move provided the unit can finish within Engagement Range of at least one enemy unit. The permission lasts for the phase.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 49,
+        "end": 73,
+        "bold": true
+      },
+      {
+        "start": 87,
+        "end": 105,
+        "target": {
+          "kind": "core-rule",
+          "id": "consolidation-move"
+        }
+      },
+      {
+        "start": 186,
+        "end": 202,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-before-friendly-unit-consolidates"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "IMPERIAL KNIGHTS",
+              "TITANIC"
+            ],
+            "binding": "unit-about-to-consolidate"
+          },
+          "effects": [
+            {
+              "action": "extend-consolidation",
+              "recipient": "target-unit-models",
+              "additionalMaximumDistance": {
+                "unit": "inch",
+                "amount": 3
+              },
+              "condition": {
+                "requiredEndpoint": {
+                  "entity": "target-unit",
+                  "within": "engagement-range",
+                  "minimumEnemyUnits": 1
+                }
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.freeblade-company.strength-from-exile",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Freeblade Company",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Shooting phase or in any Fight phase on one IMPERIAL KNIGHTS unit in your army that hasn't been picked yet this phase to shoot or to fight. For the rest of the phase, as long as no other friendly unit is within 9\" of it, its models' attacks re-roll any Hit roll of 1 as well as any Wound roll of 1.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Freeblade Company",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "IMPERIAL KNIGHTS"
+            ],
+            "condition": "not-yet-selected-to-shoot-or-fight-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "reroll",
+              "roll": "hit",
+              "only": 1,
+              "condition": {
+                "noOtherFriendlyUnitsWithinInches": 9
+              },
+              "duration": "phase"
+            },
+            {
+              "kind": "reroll",
+              "roll": "wound",
+              "only": 1,
+              "condition": {
+                "noOtherFriendlyUnitsWithinInches": 9
+              },
+              "duration": "phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

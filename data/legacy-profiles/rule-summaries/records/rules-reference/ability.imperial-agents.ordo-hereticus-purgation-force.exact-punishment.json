@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.ordo-hereticus-purgation-force.exact-punishment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ordo Hereticus, Purgation Force",
+    "cp": 1,
+    "summary": "In the enemy Shooting phase, react when enemy fire destroys one of your AGENTS OF THE IMPERIUM units. Choose a surviving friendly unit no more than 6″ from the casualty. The eligible keywords are ADEPTUS ARBITES, INQUISITORIAL AGENTS, and ORDO HERETICUS. After the attacker has fired, your pick may shoot as in your own Shooting phase if eligible, and may fire only at that attacker.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 27,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 72,
+        "end": 94,
+        "bold": true
+      },
+      {
+        "start": 196,
+        "end": 211,
+        "bold": true
+      },
+      {
+        "start": 213,
+        "end": 233,
+        "bold": true
+      },
+      {
+        "start": 239,
+        "end": 253,
+        "bold": true
+      },
+      {
+        "start": 320,
+        "end": 334,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "after-enemy-shooting-destroys-your-agents-of-the-imperium-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ADEPTUS ARBITES",
+              "INQUISITORIAL AGENTS",
+              "ORDO HERETICUS"
+            ],
+            "keywordMatch": "any",
+            "distance": {
+              "unit": "inch",
+              "amount": 6,
+              "comparator": "at-most",
+              "fromEntity": "destroyed-unit"
+            },
+            "excludeEntities": [
+              "destroyed-unit"
+            ]
+          },
+          "effects": [
+            {
+              "action": "allow-out-of-phase-shooting",
+              "recipient": "target-unit",
+              "asIf": "your-shooting-phase",
+              "condition": "eligible-to-shoot",
+              "timing": "after-attacking-enemy-unit-has-shot",
+              "permittedTarget": "the-enemy-unit-that-destroyed-your-unit"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

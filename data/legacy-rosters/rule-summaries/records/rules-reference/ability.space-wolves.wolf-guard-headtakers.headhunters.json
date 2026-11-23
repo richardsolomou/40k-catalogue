@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.wolf-guard-headtakers.headhunters",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Wolf Guard Headtakers",
+    "summary": "When the first battle round starts, you may name one enemy unit as this unit’s quarry. Attacks this unit makes against its quarry gain [DEVASTATING WOUNDS] and [PRECISION]. Whenever the quarry is destroyed, name a new enemy unit as the quarry.",
+    "summarySpans": [
+      {
+        "start": 135,
+        "end": 155,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "devastating-wounds"
+        }
+      },
+      {
+        "start": 160,
+        "end": 171,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "precision"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "battle-round-start",
+          "battleRound": 1
+        },
+        "selection": {
+          "relationship": "enemy",
+          "maxCount": 1,
+          "optional": true,
+          "designation": "quarry"
+        },
+        "effect": {
+          "appliesTo": "attacks by this unit that target its quarry",
+          "grants": [
+            "DEVASTATING WOUNDS",
+            "PRECISION"
+          ]
+        },
+        "replacement": {
+          "event": "quarry-destroyed",
+          "select": {
+            "relationship": "enemy",
+            "count": 1,
+            "designation": "quarry"
+          }
+        }
+      }
+    }
+  }
+}

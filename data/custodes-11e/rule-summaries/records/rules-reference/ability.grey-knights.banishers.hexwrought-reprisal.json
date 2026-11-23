@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.banishers.hexwrought-reprisal",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Banishers",
+    "cp": 1,
+    "summary": "At any phase end, choose a GREY KNIGHTS PSYKER still on the battlefield after taking mortal wounds that phase. Pick one enemy unit that dealt those wounds. Count the wounds it dealt this way to the PSYKER and roll that many dice. Each 2+ deals a mortal wound to that enemy, with 6 as the upper limit.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 46,
+        "bold": true
+      },
+      {
+        "start": 85,
+        "end": 98,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 246,
+        "end": 258,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "any"
+            ],
+            "event": "phase-end"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "GREY KNIGHTS PSYKER"
+            ],
+            "onBattlefield": true,
+            "sufferedMortalWoundsThisPhase": true
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds",
+              "recipient": {
+                "choose": 1,
+                "from": "enemy-units-that-inflicted-mortal-wounds-on-selected-unit-this-phase"
+              },
+              "roll": {
+                "minimum": 2,
+                "comparison": "at-least",
+                "dicePer": "mortal-wound-from-chosen-enemy-this-phase"
+              },
+              "amountPerSuccess": 1,
+              "maximum": 6
+            }
+          ]
+        }
+      }
+    }
+  }
+}

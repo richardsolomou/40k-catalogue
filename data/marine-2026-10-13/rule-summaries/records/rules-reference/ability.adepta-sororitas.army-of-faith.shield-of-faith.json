@@ -1,0 +1,144 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.army-of-faith.shield-of-faith",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Army of Faith",
+    "cp": 1,
+    "summary": "React immediately when an ADEPTA SORORITAS unit of yours suffers a mortal wound. Pick it or a unit of yours up to 3\" away with ADEPTA SORORITAS JUMP PACK. The chosen unit’s models get Feel No Pain 5+ against mortal wounds through phase end. If your pick is ADEPTA SORORITAS JUMP PACK, the same protection covers models in your friendly ADEPTA SORORITAS units while those units are up to 3\" from it.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 42,
+        "bold": true
+      },
+      {
+        "start": 127,
+        "end": 153,
+        "bold": true
+      },
+      {
+        "start": 208,
+        "end": 221,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 257,
+        "end": 283,
+        "bold": true
+      },
+      {
+        "start": 336,
+        "end": 352,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-unit-suffers-mortal-wounds",
+            "actor": "friendly-suffering-unit",
+            "keywords": [
+              "ADEPTA SORORITAS"
+            ]
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "alternatives": [
+              {
+                "binding": "friendly-suffering-unit",
+                "keywords": [
+                  "ADEPTA SORORITAS"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTA SORORITAS JUMP PACK"
+                ],
+                "distance": {
+                  "unit": "inch",
+                  "amount": 3,
+                  "comparator": "at-most",
+                  "from": "friendly-suffering-unit"
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "kind": "feel-no-pain",
+              "recipient": "target-unit-models",
+              "threshold": 5,
+              "woundKind": "mortal",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "kind": "conditional-aura",
+              "condition": {
+                "targetKeywords": [
+                  "ADEPTA SORORITAS JUMP PACK"
+                ]
+              },
+              "recipient": {
+                "owner": "your-army",
+                "keywords": [
+                  "ADEPTA SORORITAS"
+                ],
+                "entity": "models-in-unit",
+                "unitDistance": {
+                  "unit": "inch",
+                  "amount": 3,
+                  "comparator": "at-most",
+                  "from": "target-unit"
+                }
+              },
+              "benefit": {
+                "kind": "feel-no-pain",
+                "threshold": 5,
+                "woundKind": "mortal"
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

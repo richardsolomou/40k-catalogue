@@ -1,0 +1,127 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.hypercrypt-legion.hyperphasic-recall",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hypercrypt Legion",
+    "cp": 2,
+    "summary": "Immediately after an enemy shoots in its Shooting phase or fights, select your NECRONS INFANTRY unit that lost at least one model to it and a friendly MONOLITH. Lift the infantry and set them back down wholly inside a 6\" radius of the MONOLITH, outside all enemy Engagement Range.",
+    "summarySpans": [
+      {
+        "start": 41,
+        "end": 55,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 79,
+        "end": 95,
+        "bold": true
+      },
+      {
+        "start": 151,
+        "end": 159,
+        "bold": true
+      },
+      {
+        "start": 170,
+        "end": 178,
+        "bold": true
+      },
+      {
+        "start": 235,
+        "end": 243,
+        "bold": true
+      },
+      {
+        "start": 263,
+        "end": 279,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-enemy-unit-shoots-or-fights"
+          },
+          "target": {
+            "selection": [
+              {
+                "owner": "your-army",
+                "entity": "unit",
+                "count": 1,
+                "keywords": [
+                  "NECRONS INFANTRY"
+                ],
+                "eligibility": "lost-at-least-one-model-to-trigger-attacks"
+              },
+              {
+                "owner": "friendly",
+                "entity": "model",
+                "count": 1,
+                "keywords": [
+                  "MONOLITH"
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "reposition",
+              "actor": "you",
+              "recipient": "selected-infantry-unit",
+              "removeFrom": "battlefield",
+              "setup": {
+                "distance": {
+                  "unit": "inch",
+                  "amount": 6,
+                  "from": "selected-monolith",
+                  "comparator": "at-most",
+                  "wholly": true
+                },
+                "outsideEngagementRangeOf": "every-enemy-unit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

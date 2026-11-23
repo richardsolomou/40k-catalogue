@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.chaos-spawn.mind-breaking-mutations",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Chaos Spawn",
+    "summary": "Enemy units in this unit’s 3″ aura lose 1 Objective Control per model. VEHICLE units are exempt.",
+    "summarySpans": [
+      {
+        "start": 71,
+        "end": 78,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-unit",
+        "aura": {
+          "emitter": {
+            "entity": "unit",
+            "selector": "this-unit"
+          },
+          "recipient": {
+            "side": "enemy",
+            "entity": "unit",
+            "allKeywords": [],
+            "excludedKeywords": [
+              "VEHICLE"
+            ]
+          },
+          "measurement": {
+            "from": "this-unit",
+            "to": "recipient-unit",
+            "kind": "within",
+            "distanceInches": 3
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "characteristic-modifier",
+            "recipient": "models-in-recipient-unit",
+            "characteristic": "objective-control",
+            "operation": "subtract",
+            "amount": 1
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.chaos-cult.selfless-demise",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Chaos Cult",
+    "cp": 1,
+    "summary": "In either Fight phase, respond immediately when an enemy picks its attack targets. Choose a DAMNED unit among those targets. Once that attacker resolves its attacks, roll one D6 for each selected-unit model those attacks destroyed. For every 6, the attacker takes 1 mortal wound.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 92,
+        "end": 98,
+        "bold": true
+      },
+      {
+        "start": 266,
+        "end": 278,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight"
+            ],
+            "event": "enemy-selects-attack-targets",
+            "proximity": "immediate-after"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "DAMNED"
+            ],
+            "targetedBy": "triggering-enemy-attacks"
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds",
+              "subject": "triggering-enemy-unit",
+              "timing": "after-triggering-attacks-resolve",
+              "roll": {
+                "dice": "D6",
+                "per": "selected-unit-model-destroyed-by-triggering-attacks",
+                "minimum": 6
+              },
+              "amount": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

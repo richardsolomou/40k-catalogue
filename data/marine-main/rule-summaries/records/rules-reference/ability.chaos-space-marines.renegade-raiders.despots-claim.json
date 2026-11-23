@@ -1,0 +1,82 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.renegade-raiders.despots-claim",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Renegade Raiders",
+    "summary": "This enhancement requires HERETIC ASTARTES on the bearer. If the battlefield still contains the bearer when your Command phase starts, roll a D6. Add 1 to the result for a bearer wholly within 12″ of the opposing deployment zone. Score 5+ after that adjustment to gain 1 CP.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 42,
+        "bold": true
+      },
+      {
+        "start": 113,
+        "end": 126,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Heretic Astartes"
+          ],
+          "excludes": []
+        },
+        "trigger": {
+          "event": "phase-start",
+          "phase": "command",
+          "turn": "own"
+        },
+        "condition": "bearer-on-battlefield",
+        "effect": {
+          "dice": "D6",
+          "bonus": {
+            "amount": 1,
+            "condition": {
+              "subject": "bearer",
+              "whollyWithin": {
+                "inches": 12,
+                "of": "opponent-deployment-zone"
+              }
+            }
+          },
+          "comparison": "at-least",
+          "threshold": 5,
+          "success": {
+            "type": "gain-resource",
+            "recipient": "own-player",
+            "pool": "CP",
+            "amount": 1
+          }
+        }
+      }
+    }
+  }
+}

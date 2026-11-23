@@ -1,0 +1,128 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.null-maiden-vigil.witch-hunters",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Null Maiden Vigil",
+    "cp": 1,
+    "summary": "In your Shooting phase or in either player's Fight phase, spend 1 CP on one ANATHEMA PSYKANA unit of yours that has yet to be picked this phase to either shoot or fight. Choose one of two abilities, [LETHAL HITS] and [SUSTAINED HITS 1]; while the phase lasts, the unit's weapons have the chosen one, but its models may aim their attacks only at PSYKER units.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 45,
+        "end": 56,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 76,
+        "end": 92,
+        "bold": true
+      },
+      {
+        "start": 199,
+        "end": 212,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 217,
+        "end": 235,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 345,
+        "end": 351,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Null Maiden Vigil",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ANATHEMA PSYKANA"
+            ],
+            "condition": "not-selected-to-shoot-or-fight-this-phase"
+          },
+          "effects": {
+            "selection": "choose-one",
+            "weapons": "all",
+            "expires": "end-of-phase",
+            "alternatives": [
+              {
+                "kind": "grant-weapon-ability",
+                "ability": "LETHAL HITS"
+              },
+              {
+                "kind": "grant-weapon-ability",
+                "ability": "SUSTAINED HITS",
+                "value": 1
+              }
+            ],
+            "alsoApplies": [
+              {
+                "kind": "target-restriction",
+                "onlyTargetKeywords": [
+                  "PSYKER"
+                ]
+              }
+            ]
+          },
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

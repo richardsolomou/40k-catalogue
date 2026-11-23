@@ -34,6 +34,10 @@ Drafting also used Game Datacards' community data as private evidence, checked a
 
 Every summary is original wording. 168 records adapt structured fields from [40kdc-data](https://github.com/wn-mitch/40kdc-data) and carry its attribution under CC BY 4.0: the 140 mechanic records, translated from its ability records, and 28 summaries whose typed facts use its Stratagem timing and target records. The other records are drafted from the official sources alone.
 
+## Earlier 11th-edition rule summaries
+
+The inputs for the eight earlier rules versions (`data/<version>/rule-summaries/` and `mechanics/`) follow the same rules. Each cites the signed app build in force at its own cutoff instead of build 981: Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02, for `legacy-marine-old`; 2.7.0, data build 963, released 2026-09-30, for `legacy-rosters`; and 2.7.1, data build 972, released 2026-10-02, for the other six. A rule whose text first appears in a later build, or that no official source dated before the cutoff prints, has no record, and its input's README lists it.
+
 ## Interpretations
 
 Where a source leaves a point open and the project chooses a reading, the record states that reading and flags the open question in its [`interpretation`](rule-summaries.md#common-fields), so consumers can show it.

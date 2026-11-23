@@ -1,0 +1,133 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.warpforged-cabal.mutate-landscape",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Warpforged Cabal",
+    "cp": 1,
+    "summary": "In your Command phase, pick a THOUSAND SONS PSYKER unit in range of an objective you hold. Keep control until an enemy gains the marker at a phase’s close. While it’s yours, roll a D6 when an enemy finishes a qualifying move inside that marker’s range. Normal and Charge Moves qualify, as do Advance and Fall Back. A 4+ deals the enemy D3 mortal wounds.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 30,
+        "end": 50,
+        "bold": true
+      },
+      {
+        "start": 71,
+        "end": 80,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 292,
+        "end": 299,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 304,
+        "end": 313,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 339,
+        "end": 352,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "your"
+              }
+            ]
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "THOUSAND SONS PSYKER"
+            ],
+            "eligibility": "within-range-of-controlled-objective"
+          },
+          "effects": [
+            {
+              "action": "retain-objective-control",
+              "actor": "you",
+              "recipient": "selected-objective-in-range-of-target",
+              "duration": {
+                "until": "opponent-controls-at-end-of-a-phase"
+              }
+            },
+            {
+              "action": "inflict-mortal-wounds",
+              "recipient": "each-enemy-unit-ending-qualifying-move-in-range-of-objective",
+              "qualifyingMoves": [
+                "normal",
+                "advance",
+                "fall-back",
+                "charge"
+              ],
+              "condition": "you-control-objective",
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1
+              },
+              "minimumRoll": 4,
+              "mortalWoundsPerSuccess": {
+                "kind": "die",
+                "sides": 3,
+                "count": 1
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

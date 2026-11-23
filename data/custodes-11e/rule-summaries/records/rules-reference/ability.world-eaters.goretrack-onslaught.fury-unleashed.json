@@ -1,0 +1,133 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.goretrack-onslaught.fury-unleashed",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "World Eaters Faction Pack: Version 1.3",
+    "page": "7",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_world_eaters-rxxj1fzeoh-kfx1cectxb.pdf#page=7"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Goretrack Onslaught",
+    "cp": 1,
+    "summary": "After an enemy finishes firing in the opponent’s Shooting phase, pick one of your World Eaters Rhino models hit by the attacker and still on one wound or more. Pick a single embarked Khorne Berzerkers unit in that Rhino. It can get out via a Disembark move, then follow up with a Surge move. The second move has a D6+2″ cap. A unit cannot receive both Fury Unleashed and Unrelenting Advance during one phase.",
+    "summarySpans": [
+      {
+        "start": 49,
+        "end": 63,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 242,
+        "end": 256,
+        "target": {
+          "kind": "core-rule",
+          "id": "disembark-move"
+        }
+      },
+      {
+        "start": 280,
+        "end": 290,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-move"
+        }
+      },
+      {
+        "start": 371,
+        "end": 390,
+        "target": {
+          "kind": "ability",
+          "id": "world-eaters.goretrack-onslaught.unrelenting-advance"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "World Eaters Faction Pack: Version 1.3",
+        "page": "7",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_world_eaters-rxxj1fzeoh-kfx1cectxb.pdf#page=7"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Goretrack Onslaught",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponents"
+              }
+            ],
+            "event": "enemy-unit-finishes-shooting",
+            "actor": "triggering-enemy"
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "model",
+            "count": 1,
+            "allKeywords": [
+              "WORLD EATERS",
+              "RHINO"
+            ],
+            "condition": {
+              "hitBy": "triggering-enemy",
+              "minimumHits": 1,
+              "minimumRemainingWounds": 1
+            }
+          },
+          "effects": [
+            {
+              "action": "disembark",
+              "actor": "one-embarked-unit",
+              "keywords": [
+                "KHORNE BERZERKERS"
+              ],
+              "fromModel": "chosen-rhino",
+              "optional": true
+            },
+            {
+              "action": "surge-move",
+              "actor": "disembarked-unit",
+              "after": "disembark",
+              "maximumInches": {
+                "dice": "D6",
+                "bonus": 2
+              }
+            }
+          ],
+          "restrictions": [
+            {
+              "action": "forbid-combined-targeting",
+              "recipient": "same-unit",
+              "stratagems": [
+                "fury-unleashed",
+                "unrelenting-advance"
+              ],
+              "window": "same-phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

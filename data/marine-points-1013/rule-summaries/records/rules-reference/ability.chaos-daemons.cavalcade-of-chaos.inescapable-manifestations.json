@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.cavalcade-of-chaos.inescapable-manifestations",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Cavalcade of Chaos",
+    "cp": 1,
+    "summary": "1 CP. Use it during the opposing player's Movement phase, at the moment a unit engaged with one of your LEGIONES DAEMONICA MOUNTED units is chosen to fall back. Target your LEGIONES DAEMONICA MOUNTED unit. For the rest of that phase, any enemy unit engaged with it that is chosen to fall back must do so in desperate escape mode; a battle-shocked enemy unit doing so has its hazard rolls reduced by 1.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Cavalcade of Chaos",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "moment": "unit-selected-to-fall-back"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "MOUNTED"
+            ],
+            "engagedWithTriggeringUnit": true
+          },
+          "effects": [
+            {
+              "kind": "force-fall-back-mode",
+              "mode": "desperate escape",
+              "appliesTo": "enemy units engaged with the target when selected to fall back"
+            },
+            {
+              "kind": "roll-modifier",
+              "roll": "hazard",
+              "op": "subtract",
+              "value": 1,
+              "condition": "that enemy unit is battle-shocked"
+            }
+          ],
+          "restrictions": [],
+          "duration": "end-of-phase",
+          "durationBasis": {
+            "coreRule": "01.02.02",
+            "name": "Persisting Rules Effects",
+            "reason": "the card prints no duration, so the effect lasts only for the phase in which it was applied"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.flyboyz.skyborne-loons",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Flyboyz",
+    "summary": "Exclude friendly Orks Aircraft from the points total for your Strategic Reserves. Riled up friendly Orks Aircraft or Deffkoptas get +1 on Hit rolls for their ranged attacks.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 30,
+        "bold": true
+      },
+      {
+        "start": 62,
+        "end": 80,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 82,
+        "end": 90,
+        "bold": true
+      },
+      {
+        "start": 100,
+        "end": 113,
+        "bold": true
+      },
+      {
+        "start": 117,
+        "end": 127,
+        "bold": true
+      },
+      {
+        "start": 138,
+        "end": 147,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "effects": [
+          {
+            "type": "roster-points-exemption",
+            "counted": "strategic-reserves-points",
+            "target": {
+              "owner": "friendly",
+              "level": "unit",
+              "allOf": [
+                "Orks",
+                "Aircraft"
+              ]
+            }
+          },
+          {
+            "type": "roll-modifier",
+            "roll": "hit",
+            "operation": "add",
+            "value": 1,
+            "attackType": "ranged",
+            "target": {
+              "level": "unit",
+              "owner": "friendly",
+              "anyOf": [
+                {
+                  "allOf": [
+                    "Orks",
+                    "Aircraft"
+                  ]
+                },
+                {
+                  "allOf": [
+                    "Deffkoptas"
+                  ]
+                }
+              ]
+            },
+            "condition": {
+              "type": "unit-state",
+              "state": "riled-up",
+              "subject": "recipient"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

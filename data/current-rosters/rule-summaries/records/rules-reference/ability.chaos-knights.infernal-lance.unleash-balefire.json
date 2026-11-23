@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.infernal-lance.unleash-balefire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Infernal Lance",
+    "cp": 1,
+    "summary": "Wargear, 1 CP, used in your Shooting phase on one of your CHAOS KNIGHTS units that has not yet been picked to shoot this phase. Once it has shot, choose one enemy unit that at least one of its attacks hit; that unit must test for Battle-shock. On a failed test, the enemy unit is aflame until the end of the opposing player's following turn: its Move characteristic is reduced by 2\" and its Charge rolls are reduced by 2.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Infernal Lance",
+          "category": "Wargear",
+          "trigger": {
+            "turn": "own",
+            "phases": [
+              "shooting"
+            ],
+            "timing": "during-phase"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "CHAOS KNIGHTS"
+            ],
+            "notYetSelectedToShootThisPhase": true
+          },
+          "effects": [
+            {
+              "kind": "after-shooting-select-enemy",
+              "select": "one-enemy-unit-hit-by-those-attacks",
+              "test": "battle-shock",
+              "onFail": {
+                "state": "aflame",
+                "duration": "end-of-opponent-next-turn",
+                "moveReductionInches": 2,
+                "chargeRollReduction": 2
+              }
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

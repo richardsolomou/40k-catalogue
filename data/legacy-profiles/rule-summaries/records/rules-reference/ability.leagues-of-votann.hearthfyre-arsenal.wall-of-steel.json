@@ -1,0 +1,123 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.hearthfyre-arsenal.wall-of-steel",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hearthfyre Arsenal",
+    "cp": 1,
+    "summary": "In your Charge phase, use this once your IRONKIN STEELJACKS finish charging. You can spend 1 Yield Point. Pick an enemy in Engagement Range of the Steeljacks and roll a D6 per Steeljack model. If you spent the point, roll another D6 per model in the enemy unit, counting neither MONSTERS nor VEHICLES. Each 4+ deals 1 mortal wound to the enemy, up to 6 in total.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 20,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 41,
+        "end": 59,
+        "bold": true
+      },
+      {
+        "start": 123,
+        "end": 139,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 279,
+        "end": 287,
+        "bold": true
+      },
+      {
+        "start": 292,
+        "end": 300,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "your"
+              }
+            ],
+            "event": "just-after-friendly-unit-makes-charge-move"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "IRONKIN STEELJACKS"
+            ],
+            "state": "just-made-charge-move"
+          },
+          "effects": [
+            {
+              "action": "spend-yield-points",
+              "amount": 1,
+              "optional": true
+            },
+            {
+              "action": "select-enemy-unit",
+              "count": 1,
+              "condition": "within-engagement-range-of-target-unit",
+              "bind": "enemy"
+            },
+            {
+              "action": "roll-dice",
+              "dice": "D6",
+              "normalCount": "one-per-model-in-target-unit",
+              "extra": {
+                "condition": "spent-yield-point-for-this-use",
+                "count": "one-per-model-in-marked-enemy-unit",
+                "excluded": [
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              },
+              "onResult": {
+                "atLeast": 4,
+                "result": {
+                  "action": "inflict-mortal-wounds",
+                  "amount": 1,
+                  "recipient": "enemy",
+                  "maximumTotal": 6
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

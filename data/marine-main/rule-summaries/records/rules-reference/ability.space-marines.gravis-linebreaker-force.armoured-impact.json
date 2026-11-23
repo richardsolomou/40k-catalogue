@@ -1,0 +1,95 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.gravis-linebreaker-force.armoured-impact",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Gravis Linebreaker Force",
+    "cp": 1,
+    "summary": "After your Gravis unit finishes its Charge Move, it can pick an enemy unit it engaged. Roll a D6 per charging model engaged with that enemy. Each 3+ deals it 1 mortal wound.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 17,
+        "bold": true
+      },
+      {
+        "start": 78,
+        "end": 85,
+        "bold": true
+      },
+      {
+        "start": 116,
+        "end": 123,
+        "bold": true
+      },
+      {
+        "start": 160,
+        "end": 172,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "your"
+              }
+            ],
+            "event": "friendly-unit-finishes-charge-move"
+          },
+          "target": {
+            "fromTrigger": "charging-unit",
+            "keywords": [
+              "Gravis"
+            ]
+          },
+          "effects": [
+            {
+              "action": "inflict-mortal-wounds",
+              "actor": "target-unit",
+              "recipient": "selected-engaged-enemy-unit",
+              "selectRecipient": {
+                "owner": "opponent",
+                "entity": "unit",
+                "count": 1,
+                "engagedWith": "target-unit",
+                "optional": true
+              },
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1
+              },
+              "rollPer": "model-in-target-unit-engaged-with-selected-enemy",
+              "minimumRoll": 3,
+              "mortalWoundsPerSuccess": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

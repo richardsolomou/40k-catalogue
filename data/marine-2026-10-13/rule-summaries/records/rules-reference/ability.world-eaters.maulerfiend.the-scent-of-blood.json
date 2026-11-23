@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.maulerfiend.the-scent-of-blood",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Maulerfiend",
+    "summary": "Add +1 on this unit’s Charge rolls during the Charge phase if a nearby enemy is Below Starting Strength. The maximum distance is 9″. If any enemy unit in that radius is Below Half-strength, the bonus is +2 instead.",
+    "summarySpans": [
+      {
+        "start": 22,
+        "end": 34,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      },
+      {
+        "start": 46,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 80,
+        "end": 103,
+        "bold": true
+      },
+      {
+        "start": 169,
+        "end": 188,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "this-unit",
+        "trigger": {
+          "phase": "charge",
+          "turn": "either",
+          "event": "charge-roll"
+        },
+        "branches": [
+          {
+            "area": {
+              "measure": "within",
+              "origin": "this-unit",
+              "rangeInches": 9
+            },
+            "nearbyEntity": {
+              "side": "enemy",
+              "type": "unit",
+              "strength": "below-half"
+            },
+            "effect": {
+              "roll": "charge",
+              "modifier": 2
+            }
+          },
+          {
+            "area": {
+              "measure": "within",
+              "origin": "this-unit",
+              "rangeInches": 9
+            },
+            "nearbyEntity": {
+              "side": "enemy",
+              "type": "unit",
+              "strength": "below-starting"
+            },
+            "effect": {
+              "roll": "charge",
+              "modifier": 1
+            }
+          }
+        ],
+        "branchResolution": "first-match"
+      }
+    }
+  }
+}

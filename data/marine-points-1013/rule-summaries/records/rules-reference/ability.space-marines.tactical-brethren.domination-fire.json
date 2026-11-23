@@ -1,0 +1,113 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.tactical-brethren.domination-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Tactical Brethren",
+    "cp": 1,
+    "summary": "In your Shooting phase, use this once your unit with Adeptus Astartes has fired. Pick an enemy unit it hit. That enemy is suppressed, taking -1 on its Hit rolls until your next turn starts.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 53,
+        "end": 69,
+        "bold": true
+      },
+      {
+        "start": 122,
+        "end": 132,
+        "bold": true
+      },
+      {
+        "start": 151,
+        "end": 160,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "after-unit-shoots",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Adeptus Astartes"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "select-effect-recipient",
+              "recipient": {
+                "owner": "opponent",
+                "count": 1,
+                "entity": "unit",
+                "mode": "enemy-hit-by-target-unit-in-trigger"
+              }
+            },
+            {
+              "kind": "mark",
+              "recipient": "selected-enemy-unit",
+              "marker": "suppressed",
+              "duration": {
+                "until": "start-of-your-next-turn"
+              }
+            },
+            {
+              "kind": "modify",
+              "recipient": "selected-enemy-unit-attacks",
+              "subject": "hit-roll",
+              "operation": "subtract",
+              "amount": 1,
+              "duration": {
+                "while": "selected-enemy-unit-is-suppressed"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

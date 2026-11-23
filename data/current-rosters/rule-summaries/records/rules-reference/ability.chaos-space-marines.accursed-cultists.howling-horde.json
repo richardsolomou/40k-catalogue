@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.accursed-cultists.howling-horde",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Accursed Cultists",
+    "summary": "In the opponent’s Shooting phase, wait for an enemy unit to finish shooting. If that shooting killed a member of this unit, this unit may Surge Move up to D6″.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 32,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 138,
+        "end": 148,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-move"
+        }
+      },
+      {
+        "start": 155,
+        "end": 158,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "trigger": {
+          "turn": "opponent",
+          "phase": "shooting",
+          "event": "enemy-unit-finished-shooting",
+          "condition": {
+            "event": "model-destroyed",
+            "model": "member-of-this-unit",
+            "cause": "triggering-enemy-units-attacks"
+          }
+        },
+        "effect": {
+          "recipient": "this-unit",
+          "optional": true,
+          "action": "surge-move",
+          "maximum": {
+            "dice": {
+              "count": 1,
+              "sides": 6
+            },
+            "unit": "inches"
+          }
+        }
+      }
+    }
+  }
+}

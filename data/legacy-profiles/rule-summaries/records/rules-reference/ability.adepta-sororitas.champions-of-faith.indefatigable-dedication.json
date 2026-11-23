@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.champions-of-faith.indefatigable-dedication",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Champions of Faith",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Movement phase once an ADEPTA SORORITAS unit of yours Falls Back; that unit is the target. For the rest of the turn it may shoot despite having Fallen Back. If the unit is Righteous, it may instead shoot and also declare a charge this turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Champions of Faith",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-adepta-sororitas-unit-just-fell-back"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTA SORORITAS"
+            ],
+            "is": "that-unit"
+          },
+          "effects": [
+            {
+              "kind": "after-fall-back",
+              "allow": "shoot",
+              "duration": "turn"
+            },
+            {
+              "kind": "after-fall-back",
+              "allow": "shoot-and-charge",
+              "duration": "turn",
+              "condition": "unit-is-righteous",
+              "replacesPrevious": true
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

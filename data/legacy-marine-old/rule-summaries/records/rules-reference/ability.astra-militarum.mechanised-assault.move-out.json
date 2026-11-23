@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.mechanised-assault.move-out",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Mechanised Assault",
+    "cp": 1,
+    "summary": "Spend 1 CP as the opponent's turn ends, on an ASTRA MILITARUM unit of yours. If no enemy unit is within Engagement Range of it and all of its models are no more than 3\" from one ASTRA MILITARUM TRANSPORT you control, it may then embark in that TRANSPORT.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Mechanised Assault",
+          "when": {
+            "turn": "opponent",
+            "point": "end-of-turn"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ASTRA MILITARUM"
+            ]
+          },
+          "effects": [
+            {
+              "conditions": [
+                "not-within-engagement-range",
+                {
+                  "everyModelWithinInchesOfFriendlyTransport": 3,
+                  "transportKeywordsAll": [
+                    "ASTRA MILITARUM",
+                    "TRANSPORT"
+                  ]
+                }
+              ],
+              "mayEmbarkIn": "that-transport"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

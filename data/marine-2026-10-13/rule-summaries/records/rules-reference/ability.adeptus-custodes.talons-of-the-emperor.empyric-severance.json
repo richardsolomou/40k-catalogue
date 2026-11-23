@@ -1,0 +1,134 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.talons-of-the-emperor.empyric-severance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Talons of the Emperor",
+    "cp": 1,
+    "summary": "Spend 1 CP in the opposing Shooting phase or in either player's Fight phase, once an enemy unit picks its targets. Choose a single ADEPTUS CUSTODES unit of yours that it aimed at least one attack at, plus an ANATHEMA PSYKANA unit of yours no more than 6\" from it. While the phase lasts, the attacked unit has Feel No Pain 4+ against mortal wounds and against Psychic attacks.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 41,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 64,
+        "end": 75,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 131,
+        "end": 147,
+        "bold": true
+      },
+      {
+        "start": 208,
+        "end": 224,
+        "bold": true
+      },
+      {
+        "start": 309,
+        "end": 324,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      },
+      {
+        "start": 333,
+        "end": 346,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 359,
+        "end": 366,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Talons of the Emperor",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "primary": {
+              "entity": "unit",
+              "count": 1,
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS CUSTODES"
+              ],
+              "condition": "selected-as-target-of-triggering-enemy-attack"
+            },
+            "secondary": {
+              "entity": "unit",
+              "count": 1,
+              "side": "friendly",
+              "keywordsAll": [
+                "ANATHEMA PSYKANA"
+              ],
+              "withinInchesOfPrimary": 6
+            }
+          },
+          "effects": [
+            {
+              "kind": "grant-ability",
+              "ability": "FEEL NO PAIN",
+              "threshold": "4+",
+              "recipient": "primary",
+              "against": [
+                "psychic-attacks",
+                "mortal-wounds"
+              ],
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.green-tide.mob-handed-brutality",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Green Tide",
+    "summary": "Friendly Boyz get [Sustained Hits 1] on melee attacks. For friendly Orks Infantry, also grant [Lethal Hits] for melee attacks against targets without Monster or Vehicle in the turn they complete a Charge Move.",
+    "summarySpans": [
+      {
+        "start": 9,
+        "end": 13,
+        "bold": true
+      },
+      {
+        "start": 18,
+        "end": 36,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 68,
+        "end": 81,
+        "bold": true
+      },
+      {
+        "start": 94,
+        "end": 107,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits-non-monster-vehicle"
+        }
+      },
+      {
+        "start": 150,
+        "end": 157,
+        "bold": true
+      },
+      {
+        "start": 161,
+        "end": 168,
+        "bold": true
+      },
+      {
+        "start": 197,
+        "end": 208,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "effects": [
+          {
+            "type": "weapon-ability-grant",
+            "keyword": "sustained-hits",
+            "attackType": "melee",
+            "target": {
+              "owner": "friendly",
+              "level": "unit",
+              "allOf": [
+                "Boyz"
+              ]
+            },
+            "extraHits": 1
+          },
+          {
+            "type": "weapon-ability-grant",
+            "keyword": "lethal-hits",
+            "attackType": "melee",
+            "target": {
+              "owner": "friendly",
+              "level": "unit",
+              "allOf": [
+                "Orks",
+                "Infantry"
+              ]
+            },
+            "condition": {
+              "type": "move-completed",
+              "move": "charge",
+              "turn": "triggering"
+            },
+            "attackTarget": {
+              "owner": "enemy",
+              "level": "unit",
+              "noneOf": [
+                "Monster",
+                "Vehicle"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

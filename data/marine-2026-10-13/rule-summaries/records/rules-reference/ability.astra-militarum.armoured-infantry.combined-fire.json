@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.armoured-infantry.combined-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Armoured Infantry",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Shooting phase, right after one of your ARMOURED SKIRMISHER units has shot, on that unit. Pick an enemy unit that at least one of those attacks hit. For the rest of the phase, the chosen enemy can't benefit from cover, and attacks from your ARMOURED SKIRMISHER units against it get +2 Strength.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Armoured Infantry",
+          "when": {
+            "turn": "own",
+            "phase": "shooting",
+            "moment": "just-after-unit-has-shot"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ARMOURED SKIRMISHER"
+            ],
+            "is": "the-unit-that-shot"
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "hitByThoseAttacks": true
+              },
+              "duration": "end-of-phase",
+              "effects": [
+                "cannot-have-benefit-of-cover",
+                {
+                  "attacksBy": {
+                    "side": "friendly",
+                    "keywordsAll": [
+                      "ARMOURED SKIRMISHER"
+                    ]
+                  },
+                  "characteristic": "S",
+                  "modifier": {
+                    "direction": "improve",
+                    "amount": 2
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

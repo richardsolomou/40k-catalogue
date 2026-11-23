@@ -1,0 +1,194 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.canoptek-court.cynosure-of-eradication",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Canoptek Court",
+    "cp": 2,
+    "summary": "Your Shooting Phase or either Fight Phase. As the phase begins, pick one CANOPTEK or CRYPTEK unit of yours wholly in your Power Matrix. For the phase, weapons of CANOPTEK and CRYPTEK models in that unit gain [DEVASTATING WOUNDS].",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 19,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 30,
+        "end": 41,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 73,
+        "end": 81,
+        "bold": true
+      },
+      {
+        "start": 85,
+        "end": 92,
+        "bold": true
+      },
+      {
+        "start": 122,
+        "end": 134,
+        "target": {
+          "kind": "ability",
+          "id": "necrons.canoptek-court.power-matrix"
+        }
+      },
+      {
+        "start": 162,
+        "end": 170,
+        "bold": true
+      },
+      {
+        "start": 175,
+        "end": 182,
+        "bold": true
+      },
+      {
+        "start": 208,
+        "end": 228,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "weapon-ability-grant",
+            "target": {
+              "owner": "friendly",
+              "any_of": [
+                "CANOPTEK",
+                "CRYPTEK"
+              ],
+              "level": "model",
+              "member_of": "stratagem-target"
+            },
+            "modifier": {
+              "keywords": [
+                {
+                  "keyword_id": "devastating-wounds"
+                }
+              ]
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "trigger": [
+            {
+              "event": "phase-started",
+              "condition": {
+                "operator": "and",
+                "operands": [
+                  {
+                    "type": "phase-is",
+                    "parameters": {
+                      "phase": "shooting"
+                    }
+                  },
+                  {
+                    "type": "player-turn-is",
+                    "parameters": {
+                      "turn": "your-turn"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "event": "phase-started",
+              "condition": {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "fight"
+                }
+              }
+            }
+          ],
+          "behavior": "reactive"
+        },
+        "stratagem": {
+          "id": "cynosure-of-eradication-canoptek-court-necrons",
+          "cp_cost": 2,
+          "phases": [
+            "fight",
+            "shooting"
+          ],
+          "player_turn": "either",
+          "timing": "once-per-phase",
+          "type": "battle-tactic",
+          "target_restrictions": {
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "any_of": [
+                        "CANOPTEK",
+                        "CRYPTEK"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "owner": "friendly"
+                    }
+                  }
+                },
+                {
+                  "type": "in-region",
+                  "parameters": {
+                    "subject": "this-unit",
+                    "region": {
+                      "rule_region": {
+                        "region_id": "power-matrix",
+                        "owner_faction": "necrons"
+                      }
+                    },
+                    "wholly": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {}
+      }
+    }
+  }
+}

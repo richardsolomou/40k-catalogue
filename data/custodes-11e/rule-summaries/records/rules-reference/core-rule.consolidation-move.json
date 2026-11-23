@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "consolidation-move",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "12. Fight Phase",
+    "ruleNumber": "12.08",
+    "summary": "Available in the Fight phase to a unit that was eligible to fight in that phase; the unit moves under the Moving rules (03) up to 3\". Choose the mode first. Ongoing: required when the unit is engaged, picking all enemy units engaged with it; models already in base-to-base contact with an enemy model stay put, any model that moves has to finish nearer the nearest picked enemy unit, in engagement with it where it can, and afterwards every model that began the move in engagement with some enemy unit has to end it still in engagement with that same unit. Engaging: otherwise required when an enemy unit, or several, lies within 3\", picking at least one such unit; movers must finish nearer the nearest picked enemy unit, in engagement with it where they can, and afterwards the unit has to be engaged with all picked units; then any enemy unit engaged with it that has not yet been chosen to fight this phase is picked by the opponent, one by one, each becoming eligible to fight and being chosen to fight under 12.04 as it is picked. Objective: otherwise required when an objective, or several, lies within 3\", picking one; movers must finish in range of it if they can, otherwise nearer to it, and afterwards the unit has to be unengaged and in range of that objective.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "move-type",
+        "ruleNumber": "12.08",
+        "name": "Consolidation Move",
+        "effectRef": "03",
+        "eligibleIf": [
+          "fight-phase",
+          "unit-was-eligible-to-fight-this-phase"
+        ],
+        "maximumDistanceInches": 3,
+        "modes": [
+          {
+            "name": "Ongoing Consolidation",
+            "requiredIf": "engaged",
+            "select": "every-engaged-enemy-unit",
+            "whileMoving": [
+              "base-contact-models-cannot-move",
+              "end-closer-to-closest-selected-enemy-engaged-if-possible"
+            ],
+            "after": "models-starting-engaged-remain-engaged-with-same-unit"
+          },
+          {
+            "name": "Engaging Consolidation",
+            "requiredIf": "otherwise-within-inches-of-enemy",
+            "withinInches": 3,
+            "select": "one-or-more-of-those-enemy-units",
+            "whileMoving": [
+              "end-closer-to-closest-selected-enemy-engaged-if-possible"
+            ],
+            "after": [
+              "engaged-with-all-selected",
+              "opponent-selects-each-unselected-engaged-unit-to-fight-12.04"
+            ]
+          },
+          {
+            "name": "Objective Consolidation",
+            "requiredIf": "otherwise-within-inches-of-objective",
+            "withinInches": 3,
+            "select": "one-objective",
+            "whileMoving": [
+              "end-within-range-if-possible-else-closer"
+            ],
+            "after": [
+              "unengaged",
+              "within-range-of-selected-objective"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

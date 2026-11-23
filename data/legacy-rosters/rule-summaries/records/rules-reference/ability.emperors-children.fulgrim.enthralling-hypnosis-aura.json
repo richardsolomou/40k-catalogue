@@ -1,0 +1,95 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.fulgrim.enthralling-hypnosis-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Fulgrim",
+    "summary": "With this aura active, measure 6″ from Fulgrim. A foe chosen to Fall Back must roll a Leadership test and must Remain Stationary if it fails.",
+    "summarySpans": [
+      {
+        "start": 31,
+        "end": 33,
+        "bold": true
+      },
+      {
+        "start": 64,
+        "end": 73,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 86,
+        "end": 101,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      },
+      {
+        "start": 111,
+        "end": 128,
+        "target": {
+          "kind": "core-rule",
+          "id": "remain-stationary"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "aura-option",
+        "activation": {
+          "event": "parent-option-active",
+          "parentAbility": "Daemon Primarch of Slaanesh"
+        },
+        "area": {
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 6,
+          "origin": "this-model",
+          "candidate": {
+            "entity": "unit",
+            "side": "enemy",
+            "requireAllKeywords": [],
+            "excludeAnyKeywords": []
+          }
+        },
+        "trigger": {
+          "event": "selected-to-move",
+          "move": "fall-back",
+          "actor": "eligible-enemy-unit"
+        },
+        "effect": {
+          "operation": "take-test",
+          "test": "leadership",
+          "optional": false,
+          "onFailure": {
+            "operation": "replace-move",
+            "from": "fall-back",
+            "to": "remain-stationary"
+          }
+        }
+      }
+    }
+  }
+}

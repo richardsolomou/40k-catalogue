@@ -1,0 +1,56 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.razorback.fire-focus",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Razorback",
+    "summary": "In your Shooting phase, once this model has finished shooting, choose one enemy unit that at least one of those attacks hit. For the rest of the turn, attacks against that enemy unit by your models that got out of this TRANSPORT earlier in the turn have their Armour Penetration improved by 1. This ability can affect any one enemy unit no more than once per turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Razorback",
+        "trigger": {
+          "event": "this-model-has-shot",
+          "window": {
+            "phase": "shooting",
+            "turn": "own"
+          }
+        },
+        "select": {
+          "side": "enemy",
+          "count": 1,
+          "hitByThoseAttacks": true
+        },
+        "effects": [
+          {
+            "kind": "characteristic-modifier",
+            "characteristic": "AP",
+            "improveBy": 1,
+            "appliesTo": "attacks by friendly models that disembarked from this TRANSPORT this turn against the selected unit",
+            "expires": "end-of-turn"
+          }
+        ],
+        "limit": "each enemy unit affected once per turn"
+      }
+    }
+  }
+}

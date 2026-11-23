@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "hidden",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "13. Terrain",
+    "ruleNumber": "13.09",
+    "summary": "Hidden is checked model by model. A qualifying INFANTRY, BEASTS or SWARM model needs a terrain area containing a Light or Dense feature. Its unit must have fired no ranged attacks in either the current or immediately preceding turn. The battle’s opening turn satisfies the preceding-turn test automatically. Hidden limits enemy sight to observers inside the model’s detection range, ordinarily 15 inches. Resolve distance and sight using the general rules.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "hidden",
+        "evaluation": "per-model",
+        "eligibleModelKeywordsAny": [
+          "INFANTRY",
+          "BEASTS",
+          "SWARM"
+        ],
+        "terrain": {
+          "modelWithin": "terrain-area",
+          "areaContainsAtLeast": 1,
+          "featureCategoriesAny": [
+            "light",
+            "dense"
+          ]
+        },
+        "rangedAttacksByUnit": {
+          "maximum": 0,
+          "windows": [
+            "current-player-turn",
+            "immediately-previous-player-turn"
+          ],
+          "firstTurnPreviousTurnTest": "automatically-satisfied"
+        },
+        "detection": {
+          "visibleToEnemyModelRequires": "enemy-model-within-hidden-model-detection-range",
+          "defaultInches": 15,
+          "boundaryInclusive": true,
+          "generalDistanceRule": "01.04",
+          "ordinaryVisibilityStillRequired": true,
+          "generalVisibilityRule": "06.01"
+        }
+      }
+    }
+  }
+}

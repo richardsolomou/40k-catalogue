@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.shamblerot-vectorium.shambling-wall",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Shamblerot Vectorium",
+    "cp": 1,
+    "summary": "Once an enemy in its Shooting phase has assigned its attacks, select one friendly DEATH GUARD unit with an attack aimed at it. Select a friendly unit of POXWALKERS at most 3″ away from your first selection, in sight of both the attacker and that selection. Throughout the phase, whenever an attack would be assigned to a model in the protected unit, check that the attacking model can legally target and see the POXWALKERS. When both conditions hold, skip the save and destroy a number of POXWALKERS models matching the attack’s Damage.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Shamblerot Vectorium",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "after": "enemy-unit-selects-targets"
+          },
+          "target": {
+            "selections": [
+              {
+                "entity": "unit",
+                "controller": "friendly",
+                "count": 1,
+                "allKeywords": [
+                  "DEATH GUARD"
+                ],
+                "bind": "protected",
+                "condition": "targeted-by-at-least-one-attack-of-triggering-unit"
+              },
+              {
+                "entity": "unit",
+                "controller": "friendly",
+                "count": 1,
+                "allKeywords": [
+                  "POXWALKERS"
+                ],
+                "bind": "screen",
+                "within": {
+                  "of": "protected",
+                  "inches": 3
+                },
+                "visibleTo": [
+                  "protected",
+                  "triggering-unit"
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "replace-saving-throw-with-model-destruction",
+              "recipient": "screen",
+              "count": "attack-damage-characteristic",
+              "duration": "through-phase-end",
+              "condition": {
+                "event": "attack-would-be-allocated-to-protected-model",
+                "visibleTo": "attacking-model",
+                "eligibleTargetFor": "that-attack"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

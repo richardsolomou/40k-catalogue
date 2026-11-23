@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.biosanctic-broodsurge.saintly-paroxysm",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Biosanctic Broodsurge",
+    "cp": 1,
+    "summary": "Epic Deed, 1 CP, in the Fight phase as soon as an enemy unit kills one of your GENESTEALER CULTS CHARACTER models; the slain model is the target despite having been destroyed. Roll a D6; if it shows 2+, the enemy unit takes D3 mortal wounds, or 2D3 mortal wounds if the slain model was an ABOMINANT or PATRIARCH.",
+    "summarySpans": [
+      {
+        "start": 24,
+        "end": 35,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 227,
+        "end": 240,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Epic Deed",
+          "detachment": "Biosanctic Broodsurge",
+          "when": {
+            "phase": "fight",
+            "turn": "either",
+            "event": "enemy-unit-destroyed-friendly-model",
+            "modelKeywordsAll": [
+              "GENESTEALER CULTS",
+              "CHARACTER"
+            ]
+          },
+          "target": {
+            "model": "that-destroyed-character",
+            "usableAfterDestruction": true
+          },
+          "effects": [
+            {
+              "roll": "D6",
+              "success": "2+",
+              "mortalWounds": "D3",
+              "recipient": "that-enemy-unit"
+            },
+            {
+              "ifTargetKeywordsAny": [
+                "ABOMINANT",
+                "PATRIARCH"
+              ],
+              "mortalWoundsInstead": {
+                "dice": "D3",
+                "count": 2
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

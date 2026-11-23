@@ -1,0 +1,138 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.doctrina-imperatives",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "When a battle round starts, you may select one imperative. Through round end, each of your units with Doctrina Imperatives gains the selected effects. PROTECTOR IMPERATIVE grants [HEAVY] to its ranged weapons and improves their Ballistic Skill by 1. Apply −1 to incoming melee Hit rolls if the unit is within 6″ of a friendly ADEPTUS MECHANICUS BATTLELINE unit. CONQUEROR IMPERATIVE grants [ASSAULT] to its ranged weapons and improves its melee weapons’ Weapon Skill by 1. Under the same 6″ condition, improve the Armour Penetration of attacks made by models in the unit by 1.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 19,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-battle-round"
+        }
+      },
+      {
+        "start": 151,
+        "end": 171,
+        "bold": true
+      },
+      {
+        "start": 179,
+        "end": 186,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "heavy"
+        }
+      },
+      {
+        "start": 277,
+        "end": 286,
+        "target": {
+          "kind": "core-rule",
+          "id": "making-attacks"
+        }
+      },
+      {
+        "start": 326,
+        "end": 355,
+        "bold": true
+      },
+      {
+        "start": 362,
+        "end": 382,
+        "bold": true
+      },
+      {
+        "start": 390,
+        "end": 399,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "assault"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "round-stance-choice",
+        "timing": "battle-round-start",
+        "optional": true,
+        "chooseCount": 1,
+        "duration": "battle-round",
+        "recipient": "friendly-unit-with-ability",
+        "choices": [
+          {
+            "name": "PROTECTOR IMPERATIVE",
+            "grant": {
+              "weaponProfile": "ranged",
+              "ability": "heavy"
+            },
+            "improve": {
+              "weaponProfile": "ranged",
+              "stat": "BS",
+              "amount": 1
+            },
+            "conditional": {
+              "within": {
+                "owner": "friendly",
+                "faction": "ADEPTUS MECHANICUS",
+                "keyword": "BATTLELINE",
+                "withinInches": 6,
+                "atLeast": 1
+              },
+              "attack": "incoming-melee",
+              "roll": "hit",
+              "modifier": -1
+            }
+          },
+          {
+            "name": "CONQUEROR IMPERATIVE",
+            "grant": {
+              "weaponProfile": "ranged",
+              "ability": "assault"
+            },
+            "improve": {
+              "weaponProfile": "melee",
+              "stat": "WS",
+              "amount": 1
+            },
+            "conditional": {
+              "within": {
+                "owner": "friendly",
+                "faction": "ADEPTUS MECHANICUS",
+                "keyword": "BATTLELINE",
+                "withinInches": 6,
+                "atLeast": 1
+              },
+              "attack": "outgoing",
+              "stat": "AP",
+              "improve": 1
+            }
+          }
+        ]
+      }
+    }
+  }
+}

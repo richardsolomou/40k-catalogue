@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.lord-kakophonist.doom-siren",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Lord Kakophonist",
+    "summary": "During your Shooting phase, once the unit containing this model has shot, choose an enemy INFANTRY unit that its attacks hit and roll three D6, and for each 4+ inflict 1 mortal wound on it. An enemy unit that suffers any mortal wounds from this ability then has to test for Battle-shock.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "datasheet-ability",
+        "datasheet": "Lord Kakophonist",
+        "holder": "model",
+        "effects": [
+          {
+            "kind": "post-shooting-mortal-wounds",
+            "turn": "own",
+            "phase": "shooting",
+            "trigger": "after-unit-has-shot",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "keywordsAll": [
+                "INFANTRY"
+              ],
+              "condition": "hit-by-those-attacks"
+            },
+            "dice": 3,
+            "die": "D6",
+            "success": "4+",
+            "mortalWoundsPerSuccess": 1,
+            "then": {
+              "ifAnyMortalWounds": "battle-shock-test"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

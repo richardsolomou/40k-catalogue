@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.creations-of-bile.specimens-for-the-spider",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Creations of Bile",
+    "cp": 2,
+    "summary": "In either Fight phase, choose HERETIC ASTARTES INFANTRY still waiting to fight. For this phase, its models may reroll melee Wound rolls against CHARACTER units. Check their casualties after the fight. If they killed a CHARACTER model, force one enemy of your choice to test for Battle-shock. A WARLORD casualty makes every enemy in range test instead. Both cases have a 6\" radius measured from your unit.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 30,
+        "end": 55,
+        "bold": true
+      },
+      {
+        "start": 144,
+        "end": 153,
+        "bold": true
+      },
+      {
+        "start": 218,
+        "end": 227,
+        "bold": true
+      },
+      {
+        "start": 278,
+        "end": 290,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 294,
+        "end": 301,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "HERETIC ASTARTES INFANTRY"
+            ],
+            "eligibility": "not-yet-selected-to-fight"
+          },
+          "effects": [
+            {
+              "action": "reroll",
+              "roll": "wound",
+              "attackType": "melee",
+              "actor": "model-in-target-unit",
+              "attackTargetKeywords": [
+                "CHARACTER"
+              ],
+              "duration": {
+                "until": "end-of-this-phase"
+              },
+              "optional": true
+            },
+            {
+              "action": "force-battle-shock-test",
+              "event": "after-target-unit-fights",
+              "condition": "target-unit-destroyed-at-least-one-enemy-character-model-in-those-attacks",
+              "recipient": "one-selected-enemy-unit",
+              "distance": {
+                "unit": "inch",
+                "amount": 6,
+                "from": "target-unit",
+                "comparator": "at-most"
+              },
+              "replacement": {
+                "condition": "target-unit-destroyed-enemy-warlord-in-those-attacks",
+                "recipient": "each-enemy-unit-in-range"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

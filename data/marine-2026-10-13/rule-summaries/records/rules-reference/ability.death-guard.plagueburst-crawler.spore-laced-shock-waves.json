@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.plagueburst-crawler.spore-laced-shock-waves",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Plagueburst Crawler",
+    "summary": "During your Shooting phase, when the Plagueburst mortar of this model is given a target, roll a D6 for the target and a D6 for every other enemy unit that is within 3\" of it, with +1 to the roll for an Afflicted unit. Any unit whose roll is 6+ is struck by spores. Once this model has resolved every attack it makes against the target, D3 mortal wounds are inflicted on every unit that was struck by spores.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "datasheet": "Plagueburst Crawler",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "target-selected-for-plagueburst-mortar"
+        },
+        "effect": {
+          "rollFor": "target unit and every other enemy unit within 3 inches of it",
+          "rangeInches": 3,
+          "roll": "D6",
+          "modifier": {
+            "op": "add",
+            "value": 1,
+            "condition": "unit is Afflicted"
+          },
+          "success": "6+",
+          "onSuccess": "struck by spores",
+          "then": {
+            "when": "after all of this model's attacks against the target unit are resolved",
+            "mortalWounds": "D3",
+            "to": "each unit struck by spores"
+          }
+        }
+      }
+    }
+  }
+}

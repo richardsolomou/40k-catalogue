@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.ynnari-wyches.no-escape",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Ynnari Wyches",
+    "summary": "Whenever an enemy unit that is not a MONSTER or VEHICLE is picked to Fall Back while engaged with at least one of your units that has this ability, each of its models makes a Desperate Escape test as though their unit were Battle-shocked; if it is also Battle-shocked for some other reason, those tests take a -1 penalty.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "trigger": {
+            "event": "enemy-unit-selected-to-fall-back",
+            "keywordsNone": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "withinEngagementRangeOfUnitsWithThisAbility": {
+              "minimum": 1
+            }
+          },
+          "effects": [
+            {
+              "desperateEscapeTests": "as-if-battle-shocked"
+            },
+            {
+              "condition": "enemy-unit-also-battle-shocked-by-other-means",
+              "desperateEscapeModifier": -1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

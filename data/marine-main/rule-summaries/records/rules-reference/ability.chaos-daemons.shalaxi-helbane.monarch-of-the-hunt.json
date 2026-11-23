@@ -1,0 +1,56 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.shalaxi-helbane.monarch-of-the-hunt",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Shalaxi Helbane",
+    "summary": "As the first battle round begins, choose one enemy unit as this model's quarry. This model's melee attacks against its quarry may re-roll both Hit and Wound rolls. Whenever the quarry is destroyed, pick another enemy unit as the new quarry.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "datasheet": "Shalaxi Helbane",
+        "setup": {
+          "when": "start-of-battle-round",
+          "battleRound": 1,
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "as": "quarry"
+          }
+        },
+        "effect": {
+          "reRoll": [
+            "hit",
+            "wound"
+          ],
+          "attacks": "this model's melee attacks targeting its quarry"
+        },
+        "onQuarryDestroyed": {
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "as": "new quarry"
+          }
+        }
+      }
+    }
+  }
+}

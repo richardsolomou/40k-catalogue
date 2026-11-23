@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.army-of-faith.faith-and-fury",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Army of Faith",
+    "cp": 1,
+    "summary": "During either Fight phase pick an ADEPTA SORORITAS unit of yours before you select it to fight. Its models’ melee weapons get LANCE through phase end. Gain one Miracle die if its attacks destroy any enemy models during that phase.",
+    "summarySpans": [
+      {
+        "start": 14,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 34,
+        "end": 50,
+        "bold": true
+      },
+      {
+        "start": 126,
+        "end": 131,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lance"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "in-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ADEPTA SORORITAS"
+            ],
+            "state": "not-yet-selected-to-fight"
+          },
+          "effects": [
+            {
+              "kind": "weapon-ability-grant",
+              "recipient": "melee-weapons-of-target-unit-models",
+              "abilities": [
+                "LANCE"
+              ],
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "kind": "gain-miracle-dice",
+              "recipient": "your-pool",
+              "count": 1,
+              "condition": {
+                "event": "enemy-model-destroyed-by-target-unit-attacks",
+                "minModels": 1,
+                "window": "this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

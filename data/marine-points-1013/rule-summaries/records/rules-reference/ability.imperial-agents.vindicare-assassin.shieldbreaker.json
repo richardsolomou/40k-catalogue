@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.vindicare-assassin.shieldbreaker",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Vindicare Assassin",
+    "summary": "Once per battle, you may use a shieldbreaker round as this model chooses targets for its Exitus rifle. For the rest of that phase, its rifle attacks gain +1 on Wound rolls, and every successful Wound roll becomes a Critical Wound.",
+    "summarySpans": [
+      {
+        "start": 89,
+        "end": 101,
+        "bold": true
+      },
+      {
+        "start": 160,
+        "end": 171,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 194,
+        "end": 204,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 215,
+        "end": 229,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "this-model",
+        "useLimit": {
+          "count": 1,
+          "period": "battle",
+          "scope": "this-model"
+        },
+        "optional": true,
+        "trigger": "selecting-targets-for-exitus-rifle",
+        "duration": "through-end-of-that-phase",
+        "recipient": "this-model-exitus-rifle-attacks",
+        "effects": [
+          {
+            "roll": "wound",
+            "modifier": 1
+          },
+          {
+            "operation": "classify-as-critical-wound",
+            "condition": "wound-roll-succeeds"
+          }
+        ]
+      }
+    }
+  }
+}

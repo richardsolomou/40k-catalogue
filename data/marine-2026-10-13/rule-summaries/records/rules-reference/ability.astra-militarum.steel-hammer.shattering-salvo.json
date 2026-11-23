@@ -1,0 +1,63 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.steel-hammer.shattering-salvo",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Steel Hammer",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Shooting phase, right after one of your ASTRA MILITARUM TITANIC units has shot, on that unit. Pick an enemy unit that at least one of those attacks hit; for the rest of the phase, it can't benefit from cover.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Steel Hammer",
+          "when": {
+            "turn": "own",
+            "phase": "shooting",
+            "moment": "just-after-unit-has-shot"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ASTRA MILITARUM",
+              "TITANIC"
+            ],
+            "is": "the-unit-that-shot"
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "hitByThoseAttacks": true
+              },
+              "duration": "end-of-phase",
+              "effect": "cannot-have-benefit-of-cover"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

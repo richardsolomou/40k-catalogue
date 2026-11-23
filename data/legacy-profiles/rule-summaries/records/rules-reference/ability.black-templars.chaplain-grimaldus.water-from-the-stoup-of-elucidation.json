@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.chaplain-grimaldus.water-from-the-stoup-of-elucidation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Chaplain Grimaldus",
+    "summary": "You may select one Temple Relics option as your Command phase begins. Your unit needs a Cenobyte Servitor at that point. This choice improves the unit’s melee AP by 1 and expires as your next Command phase begins.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 32,
+        "target": {
+          "kind": "ability",
+          "id": "black-templars.chaplain-grimaldus.temple-relics"
+        }
+      },
+      {
+        "start": 48,
+        "end": 61,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 88,
+        "end": 105,
+        "bold": true
+      },
+      {
+        "start": 159,
+        "end": 161,
+        "bold": true
+      },
+      {
+        "start": 192,
+        "end": 205,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "activation": {
+          "parent": "Temple Relics",
+          "actor": "controlling-player",
+          "recipient": "this-model",
+          "trigger": {
+            "turn": "own",
+            "phase": "command",
+            "timing": "start"
+          },
+          "selection": {
+            "pool": "named-parent-options",
+            "minimum": 0,
+            "maximum": 1,
+            "selectedOptionRequired": true
+          },
+          "duration": "until-start-of-next-own-command-phase",
+          "condition": {
+            "sourceUnitContains": {
+              "model": "Cenobyte Servitor",
+              "minimum": 1
+            }
+          }
+        },
+        "effect": {
+          "recipient": "this-units-melee-attacks",
+          "characteristic": "armour-penetration",
+          "operation": "improve",
+          "amount": 1
+        }
+      }
+    }
+  }
+}

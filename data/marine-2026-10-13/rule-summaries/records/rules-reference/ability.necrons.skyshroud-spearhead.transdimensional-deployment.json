@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.skyshroud-spearhead.transdimensional-deployment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Skyshroud Spearhead",
+    "summary": "Give friendly TOMB BLADES units Deep Strike. When picked to shoot in a turn in which they made an Ingress Move, their ranged attacks get +1 on Hit rolls.",
+    "summarySpans": [
+      {
+        "start": 14,
+        "end": 25,
+        "bold": true
+      },
+      {
+        "start": 32,
+        "end": 43,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "deep-strike"
+        }
+      },
+      {
+        "start": 50,
+        "end": 65,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 98,
+        "end": 110,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "ingress-move"
+        }
+      },
+      {
+        "start": 143,
+        "end": 152,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "target": {
+          "owner": "friendly",
+          "level": "unit",
+          "allOf": [
+            "TOMB BLADES"
+          ]
+        },
+        "effects": [
+          {
+            "type": "ability-grant",
+            "keyword": "deep-strike",
+            "level": "unit"
+          },
+          {
+            "type": "roll-modifier",
+            "roll": "hit",
+            "operation": "add",
+            "value": 1,
+            "attackType": "ranged",
+            "trigger": {
+              "event": "selected-to-shoot"
+            },
+            "condition": {
+              "type": "move-completed",
+              "move": "ingress",
+              "turn": "triggering"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

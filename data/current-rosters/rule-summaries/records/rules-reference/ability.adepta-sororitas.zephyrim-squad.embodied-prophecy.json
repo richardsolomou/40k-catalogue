@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.zephyrim-squad.embodied-prophecy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Zephyrim Squad",
+    "summary": "Whenever this unit is picked to fight, choose either [SUSTAINED HITS 1] or [LETHAL HITS]; its models' melee weapons have the chosen ability for the rest of the phase. If the unit has made a Charge move during this turn, its melee weapons get both abilities for the rest of the phase instead.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Zephyrim Squad",
+        "trigger": {
+          "event": "unit-selected-to-fight"
+        },
+        "effects": [
+          {
+            "kind": "choose-weapon-ability",
+            "weaponType": "melee",
+            "options": [
+              {
+                "ability": "SUSTAINED HITS",
+                "value": 1
+              },
+              {
+                "ability": "LETHAL HITS"
+              }
+            ],
+            "choose": 1,
+            "duration": "phase"
+          },
+          {
+            "kind": "grant-weapon-ability",
+            "weaponType": "melee",
+            "abilities": [
+              "SUSTAINED HITS 1",
+              "LETHAL HITS"
+            ],
+            "condition": "made-charge-move-this-turn",
+            "replacesPrevious": true,
+            "duration": "phase"
+          }
+        ]
+      }
+    }
+  }
+}

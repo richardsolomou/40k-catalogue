@@ -1,0 +1,179 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.spectacle-of-spite.combat-drugs",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Spectacle of Spite",
+    "summary": "Set Combat Drugs for your army when your Command phase begins. They expire as your next Command phase opens. Choose one drug by name, at most once per battle for each named pick, or roll two D6 for two results. Rolls may repeat earlier drugs. An already active result adds nothing. On your WYCH CULT models, apply these bonuses. 1 Adrenalight gives melee +1 Attacks. 2 Hypex adds 2\" Move. 3 Serpentin improves melee Weapon Skill by 1. 4 Painbringer adds 1 Toughness. 5 Grave Lotus adds 1 melee Strength. 6 Splintermind improves Leadership by 1 and ranged Ballistic Skill by 1.",
+    "summarySpans": [
+      {
+        "start": 41,
+        "end": 54,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 88,
+        "end": 101,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 290,
+        "end": 299,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "phase-started",
+          "phase": "command",
+          "owner": "self"
+        },
+        "activeFor": "friendly-army",
+        "target": {
+          "owner": "friendly",
+          "level": "model",
+          "allOf": [
+            "WYCH CULT"
+          ]
+        },
+        "expires": {
+          "event": "next-phase-started",
+          "phase": "command",
+          "owner": "self"
+        },
+        "selection": {
+          "type": "choice",
+          "count": 1,
+          "options": [
+            {
+              "type": "named-drug",
+              "count": 1,
+              "limitPerOption": {
+                "count": 1,
+                "period": "battle"
+              }
+            },
+            {
+              "type": "roll-table",
+              "dice": "D6",
+              "count": 2,
+              "previousDrugsAllowed": true,
+              "duplicateActiveEffect": "no-additional-effect"
+            }
+          ]
+        },
+        "results": [
+          {
+            "roll": 1,
+            "name": "Adrenalight",
+            "effects": [
+              {
+                "type": "stat-modifier",
+                "stat": "attacks",
+                "operation": "add",
+                "value": 1,
+                "attackType": "melee"
+              }
+            ]
+          },
+          {
+            "roll": 2,
+            "name": "Hypex",
+            "effects": [
+              {
+                "type": "stat-modifier",
+                "stat": "move",
+                "operation": "add",
+                "value": 2,
+                "unit": "inches"
+              }
+            ]
+          },
+          {
+            "roll": 3,
+            "name": "Serpentin",
+            "effects": [
+              {
+                "type": "stat-modifier",
+                "stat": "weapon-skill",
+                "operation": "improve",
+                "value": 1,
+                "attackType": "melee"
+              }
+            ]
+          },
+          {
+            "roll": 4,
+            "name": "Painbringer",
+            "effects": [
+              {
+                "type": "stat-modifier",
+                "stat": "toughness",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "roll": 5,
+            "name": "Grave Lotus",
+            "effects": [
+              {
+                "type": "stat-modifier",
+                "stat": "strength",
+                "operation": "add",
+                "value": 1,
+                "attackType": "melee"
+              }
+            ]
+          },
+          {
+            "roll": 6,
+            "name": "Splintermind",
+            "effects": [
+              {
+                "type": "stat-modifier",
+                "stat": "leadership",
+                "operation": "improve",
+                "value": 1
+              },
+              {
+                "type": "stat-modifier",
+                "stat": "ballistic-skill",
+                "operation": "improve",
+                "value": 1,
+                "attackType": "ranged"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

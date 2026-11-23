@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.terminator-squad.teleport-homer-once-per-battle-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Terminator Squad",
+    "summary": "At battle start, you may give the unit one Teleport Homer token by placing it on the battlefield. Use that token when selecting the unit for the Rapid Ingress stratagem to save 1 CP. Set the unit up within 3\" of its token and more than 8\" from every enemy unit. Discard the token on use. An enemy unit also removes it by finishing a move 1\" or closer.",
+    "summarySpans": [
+      {
+        "start": 145,
+        "end": 168,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "core.rapid-ingress"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "setup": {
+          "at": "battle start",
+          "optional": true,
+          "tokens": 1,
+          "location": "battlefield"
+        },
+        "trigger": "owning unit selected for Rapid Ingress; token available",
+        "cpCostModifier": {
+          "operation": "subtract",
+          "value": 1
+        },
+        "placement": {
+          "subject": "owning unit",
+          "withinInchesOfToken": 3,
+          "outsideInchesOfEnemyUnits": 8
+        },
+        "removeToken": [
+          "after use",
+          {
+            "enemyMoveEndsWithinInches": 1
+          }
+        ],
+        "titleUsage": {
+          "maximum": 1,
+          "scope": "unit",
+          "reset": "battle"
+        },
+        "singleUseToken": true
+      }
+    }
+  }
+}

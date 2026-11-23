@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.augurium-task-force.aggressive-anticipation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "attribution": {
+    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
+    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
+    "credit": "Alpaca Software and the 40kdc community contributors",
+    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Augurium Task Force",
+    "cp": 1,
+    "summary": "During either player's Fight phase or either player's Shooting phase, you can use this to select one friendly Grey Knights Psyker unit that has not been selected to fight or shoot this phase, then re-roll Hit rolls for the selected unit until the end of the phase. Use once per phase.",
+    "summarySpans": [
+      {
+        "start": 110,
+        "end": 122,
+        "bold": true
+      },
+      {
+        "start": 123,
+        "end": 129,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-mechanic",
+      "version": "1",
+      "fields": {
+        "trigger": {
+          "kind": "use"
+        },
+        "target": {
+          "select": {
+            "side": "friendly",
+            "keywords": [
+              "Grey Knights",
+              "Psyker"
+            ]
+          }
+        },
+        "conditions": [
+          {
+            "kind": "not-selected",
+            "unit": "target",
+            "to": [
+              "fight",
+              "shoot"
+            ]
+          }
+        ],
+        "effect": {
+          "kind": "re-roll",
+          "roll": "hit",
+          "results": "all"
+        },
+        "duration": {
+          "until": "end-of-phase"
+        },
+        "usage": {
+          "cp": 1,
+          "windows": [
+            {
+              "phase": "fight",
+              "turn": "any"
+            },
+            {
+              "phase": "shooting",
+              "turn": "any"
+            }
+          ],
+          "oncePerPhase": true
+        }
+      }
+    }
+  }
+}

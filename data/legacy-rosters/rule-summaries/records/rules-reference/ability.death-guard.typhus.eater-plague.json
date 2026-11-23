@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.typhus.eater-plague",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Typhus",
+    "summary": "In your Shooting phase, Typhus may select one enemy unit he can see within 18″. His range drops to 12″ if he is outside an Attached unit. Roll one D6. A 1 deals D3 mortal wounds to Typhus’s unit, a 2–5 deals D3 to the enemy and a 6 deals D3+3 to the enemy.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 164,
+        "end": 177,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "Typhus",
+        "trigger": "own Shooting phase",
+        "optional": true,
+        "target": {
+          "count": 1,
+          "side": "enemy",
+          "visibleTo": "caster",
+          "withinInches": 18,
+          "ifCasterNotInAttachedUnit": 12
+        },
+        "dice": "one D6",
+        "branches": [
+          {
+            "result": 1,
+            "mortalWounds": "D3",
+            "recipient": "caster model"
+          },
+          {
+            "results": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "mortalWounds": "D3",
+            "recipient": "selected enemy unit"
+          },
+          {
+            "result": 6,
+            "mortalWounds": "D3+3",
+            "recipient": "selected enemy unit"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.banesword.armour-obliteration",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Banesword",
+    "summary": "If the Banesword’s quake cannon kills a model that has Deadly Demise, the ability deals mortal wounds on 3–6 on the D6. Normally, only a 6 triggers the damage.",
+    "summarySpans": [
+      {
+        "start": 55,
+        "end": 68,
+        "target": {
+          "kind": "core-rule",
+          "id": "deadly-demise"
+        }
+      },
+      {
+        "start": 88,
+        "end": 101,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "deadly-demise-roll-threshold-replacement",
+        "trigger": {
+          "weapon": "quake-cannon",
+          "weaponOwner": "this-model",
+          "event": "attack-destroys-enemy-model",
+          "targetMustHaveCoreAbility": "deadly-demise"
+        },
+        "effect": {
+          "recipient": "destroyed-enemy-model",
+          "roll": "D6",
+          "successAtLeast": 3,
+          "replacesSuccessAt": 6,
+          "damageType": "mortal-wounds"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.dread-mob.dreadherder",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Dread Mob",
+    "summary": "Model eligibility — Big Mek. A friendly unit with Orks Walker in the bearer’s 3\" radius gives it Lone Operative. Big Mek units cannot meet this condition. While that condition holds, you can choose a friendly unit with Orks Walker during your Shooting phase. It must be within the bearer’s 3\" radius. Attacks from the chosen unit can re-roll 1s on hit rolls until turn end.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 27,
+        "bold": true
+      },
+      {
+        "start": 50,
+        "end": 61,
+        "bold": true
+      },
+      {
+        "start": 97,
+        "end": 111,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "lone-operative"
+        }
+      },
+      {
+        "start": 113,
+        "end": 120,
+        "bold": true
+      },
+      {
+        "start": 219,
+        "end": 230,
+        "bold": true
+      },
+      {
+        "start": 243,
+        "end": 257,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 348,
+        "end": 357,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Big Mek"
+          ],
+          "anyOf": [],
+          "excludes": [],
+          "equipment": null,
+          "characterOnly": true,
+          "equipableByNonCharacter": false
+        },
+        "condition": {
+          "whileWithinInches": 3,
+          "of": "friendly Orks Walker unit",
+          "excluding": "Big Mek units"
+        },
+        "effects": [
+          {
+            "recipient": "bearer",
+            "operation": "grant-ability",
+            "ability": "Lone Operative"
+          },
+          {
+            "recipient": "selected friendly Orks Walker unit attacks",
+            "operation": "reroll",
+            "optional": true,
+            "actor": "controlling player",
+            "select": 1,
+            "rangeInches": 3,
+            "rangeFrom": "bearer",
+            "timing": "your Shooting phase",
+            "roll": "hit rolls",
+            "values": [
+              1
+            ],
+            "expires": "end of turn"
+          }
+        ]
+      }
+    }
+  }
+}

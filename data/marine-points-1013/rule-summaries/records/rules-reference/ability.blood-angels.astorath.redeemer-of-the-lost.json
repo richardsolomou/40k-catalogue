@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.astorath.redeemer-of-the-lost",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Astorath",
+    "summary": "During the Fight phase, roll a D6 when a model in Astorath’s unit dies, provided the unit has yet to be picked to fight this phase. Add 1 if the dead model was engaged with a foe whose unit Toughness is at least as high as Astorath’s unit’s. On 4+, leave the model in place until its unit finishes fighting or the phase ends, whichever happens sooner. Otherwise remove it normally.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 160,
+        "end": 167,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "delayed-removal-on-destruction",
+        "trigger": {
+          "phase": "fight",
+          "event": "model-in-own-unit-destroyed",
+          "ownUnitSelectedToFightThisPhase": false
+        },
+        "roll": {
+          "die": "D6",
+          "modifier": {
+            "add": 1,
+            "requires": {
+              "destroyedModelEngagedWithEnemyUnit": true,
+              "enemyUnitToughness": "at-least-own-unit-toughness"
+            }
+          }
+        },
+        "success": {
+          "modifiedRollAtLeast": 4,
+          "leaveDestroyedModelOnBattlefield": true,
+          "removeAtFirstOf": [
+            "own-unit-finishes-fighting",
+            "phase-ends"
+          ]
+        },
+        "failure": "normal-removal"
+      }
+    }
+  }
+}

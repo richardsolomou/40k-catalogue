@@ -1,0 +1,68 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.fires-of-purgation.spiritsear",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Fires of Purgation",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Shooting phase once a PURGATION SQUAD unit of yours has finished shooting; that unit is the target. Pick one enemy unit that those attacks hit, as long as it is battle-shocked; D3+1 mortal wounds are inflicted on it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Fires of Purgation",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-unit-has-shot"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "PURGATION SQUAD"
+            ],
+            "sameAs": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds",
+              "amount": "D3+1",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "battleShocked": true,
+                "hitByThoseAttacks": true
+              }
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

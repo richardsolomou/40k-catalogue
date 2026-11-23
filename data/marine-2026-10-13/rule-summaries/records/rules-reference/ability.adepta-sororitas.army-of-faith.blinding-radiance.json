@@ -1,0 +1,138 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.army-of-faith.blinding-radiance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Army of Faith",
+    "cp": 1,
+    "summary": "Spend 1 CP as soon as an enemy unit picks its targets. Use it in the Shooting phase on your opponent’s turn or the Fight phase on either turn. Choose one of your targeted ADEPTA SORORITAS units with INFANTRY, or pick a friendly JUMP PACK unit with ADEPTA SORORITAS no more than 3 inches from an Infantry unit that meets the first option. Every attack against your chosen unit takes a −1 Hit roll modifier through phase end. If your pick belongs to your army and has JUMP PACK, the penalty also applies to attacks against friendly units with both ADEPTA SORORITAS and INFANTRY while they are within 3 inches of your pick, through that same phase.",
+    "summarySpans": [
+      {
+        "start": 69,
+        "end": 83,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 115,
+        "end": 126,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "cost": {
+          "commandPoints": 1
+        },
+        "activation": {
+          "phaseAnyOf": [
+            {
+              "phase": "shooting",
+              "turn": "opponent"
+            },
+            {
+              "phase": "fight",
+              "turn": "either"
+            }
+          ],
+          "event": "immediately-after-targets-selected",
+          "actor": "enemy-unit"
+        },
+        "target": {
+          "entity": "unit",
+          "count": 1,
+          "anyOf": [
+            {
+              "controller": "you",
+              "allKeywords": [
+                "ADEPTA SORORITAS",
+                "INFANTRY"
+              ],
+              "selectedAsTargetOfAtLeastOneAttackBy": "triggering-enemy-unit"
+            },
+            {
+              "controller": "friendly",
+              "allKeywords": [
+                "ADEPTA SORORITAS",
+                "JUMP PACK"
+              ],
+              "within": {
+                "inches": 3,
+                "atSelection": true,
+                "unitMeeting": {
+                  "controller": "you",
+                  "allKeywords": [
+                    "ADEPTA SORORITAS",
+                    "INFANTRY"
+                  ],
+                  "selectedAsTargetOfAtLeastOneAttackBy": "triggering-enemy-unit"
+                }
+              }
+            }
+          ]
+        },
+        "effect": {
+          "expires": "end-of-triggering-phase",
+          "chosenUnit": {
+            "event": "attack-targets-chosen-unit",
+            "repeat": "each",
+            "statistic": "hit-roll",
+            "modifier": -1
+          },
+          "jumpPackBranch": {
+            "condition": {
+              "chosenUnitController": "you",
+              "chosenUnitAllKeywords": [
+                "ADEPTA SORORITAS",
+                "JUMP PACK"
+              ]
+            },
+            "recipient": {
+              "controller": "friendly",
+              "entity": "unit",
+              "allKeywords": [
+                "ADEPTA SORORITAS",
+                "INFANTRY"
+              ],
+              "within": {
+                "inches": 3,
+                "of": "chosen-unit",
+                "checked": "while-attack-targets-recipient"
+              }
+            },
+            "effect": {
+              "event": "attack-targets-recipient",
+              "repeat": "each",
+              "statistic": "hit-roll",
+              "modifier": -1
+            }
+          }
+        }
+      }
+    }
+  }
+}

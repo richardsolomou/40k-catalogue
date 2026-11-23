@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.veterans-of-the-long-war.contemptuous-disregard",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Veterans of the Long War",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP. Use it in the opposing player's Shooting phase, or in any Fight phase, as soon as an enemy unit has picked its targets. Target one HERETIC ASTARTES unit of yours (not a DAMNED unit) that was chosen as a target for at least one of those attacks. Until that enemy unit has resolved all of its attacks, any attack aimed at your unit has its Armour Penetration worsened by 1.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Veterans of the Long War",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-has-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "HERETIC ASTARTES"
+            ],
+            "keywordsNone": [
+              "DAMNED"
+            ],
+            "wasSelectedAsTargetOfThatUnit": true
+          },
+          "effects": [
+            {
+              "incomingAttacks": true,
+              "characteristic": "AP",
+              "worsen": 1
+            }
+          ],
+          "duration": "until-attacking-unit-finishes-attacks",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

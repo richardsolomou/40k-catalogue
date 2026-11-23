@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.nurgles-gift-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "Applies only when DEATH GUARD is your Army Faction. An enemy unit inside the Contagion Range of at least one of your DEATH GUARD models counts as Afflicted. That range is 3 inches in battle round one, 6 inches in round two and 9 inches from round three onward, and modifiers can never push it beyond 12 inches. When battle formations are declared, you pick a single Plague. For the rest of the battle, each Afflicted enemy unit's models lose 1 Toughness and the unit suffers that Plague. Skullsquirm Blight: targets of the unit's ranged attacks gain the benefit of cover, and its melee attacks take -1 on the Hit roll. Rattlejoint Ague: its models' Save worsens by 1. Scabrous Soulrot: its models' Objective Control, Leadership and Move each worsen by 1, though Objective Control cannot drop below 1 this way.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "faction-aura-condition",
+        "armyFaction": "DEATH GUARD",
+        "aura": {
+          "emitter": {
+            "scope": "model",
+            "side": "friendly",
+            "keywordsAll": [
+              "DEATH GUARD"
+            ]
+          },
+          "recipient": "enemy-unit",
+          "status": "Afflicted",
+          "contagionRangeInches": {
+            "battleRound1": 3,
+            "battleRound2": 6,
+            "battleRound3Plus": 9
+          },
+          "maximumAfterModifiersInches": 12
+        },
+        "plagueSelection": {
+          "step": "declare-battle-formations",
+          "count": 1,
+          "duration": "end-of-battle"
+        },
+        "afflicted": {
+          "toughness": -1,
+          "plus": "chosen-plague"
+        },
+        "plagues": {
+          "Skullsquirm Blight": [
+            {
+              "when": "afflicted-model-makes-ranged-attack",
+              "grant": "benefit-of-cover",
+              "to": "attack-target"
+            },
+            {
+              "when": "afflicted-model-makes-melee-attack",
+              "hitRoll": -1
+            }
+          ],
+          "Rattlejoint Ague": [
+            {
+              "saveWorsen": 1
+            }
+          ],
+          "Scabrous Soulrot": [
+            {
+              "moveWorsen": 1,
+              "leadershipWorsen": 1,
+              "objectiveControlWorsen": 1,
+              "objectiveControlFloor": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

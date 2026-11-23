@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.data-psalm-conclave.litany-of-the-electromancer",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Data-psalm Conclave",
+    "cp": 1,
+    "summary": "Pick one CULT MECHANICUS unit in your Shooting phase. Roll D6 separately for each opposing unit that is no farther than 6 inches from a model in the chosen unit. Add 1 if at least one of the nearby models is an ELECTRO-PRIEST. A result of 5+ deals D3 mortal wounds to the enemy unit rolled for.",
+    "summarySpans": [
+      {
+        "start": 9,
+        "end": 24,
+        "bold": true
+      },
+      {
+        "start": 38,
+        "end": 52,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 211,
+        "end": 225,
+        "bold": true
+      },
+      {
+        "start": 251,
+        "end": 264,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "your",
+            "phases": [
+              "shooting"
+            ],
+            "event": "phase-window"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "CULT MECHANICUS"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds",
+              "subject": "each-enemy-unit-within-range-of-selected-unit-model",
+              "rangeInches": 6,
+              "roll": {
+                "dice": "D6",
+                "minimum": 5,
+                "modifier": {
+                  "amount": 1,
+                  "if": {
+                    "atLeastOneQualifyingModelKeyword": "ELECTRO-PRIEST"
+                  }
+                }
+              },
+              "amount": {
+                "dice": "D3"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

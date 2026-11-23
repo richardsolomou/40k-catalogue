@@ -1,0 +1,146 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.grand-master-voldus.hammer-aflame",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Grand Master Voldus",
+    "summary": "When Voldus’s unit fights, you may pick a single enemy unit in its Engagement Range. Roll a D6 for the target: 2–3 deals 1 mortal wound, 4–5 deals D3, and 6 deals D3+3.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 92,
+        "end": 94,
+        "bold": true
+      },
+      {
+        "start": 111,
+        "end": 114,
+        "bold": true
+      },
+      {
+        "start": 121,
+        "end": 122,
+        "bold": true
+      },
+      {
+        "start": 123,
+        "end": 135,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 137,
+        "end": 149,
+        "bold": true
+      },
+      {
+        "start": 163,
+        "end": 167,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "psychic",
+        "source": "this-model",
+        "trigger": {
+          "event": "fight",
+          "actor": "this-models-unit",
+          "frequency": "each-time"
+        },
+        "optional": true,
+        "target": {
+          "side": "enemy",
+          "scope": "unit",
+          "count": 1,
+          "within": "engagement-range",
+          "origin": "this-models-unit"
+        },
+        "effect": {
+          "operation": "roll-and-branch",
+          "dice": {
+            "count": 1,
+            "sides": 6,
+            "additive": 0
+          },
+          "branches": [
+            {
+              "results": [
+                1
+              ],
+              "effect": null
+            },
+            {
+              "results": [
+                2,
+                3
+              ],
+              "effect": {
+                "operation": "inflict-mortal-wounds",
+                "recipient": "selected-unit",
+                "quantity": 1
+              }
+            },
+            {
+              "results": [
+                4,
+                5
+              ],
+              "effect": {
+                "operation": "inflict-mortal-wounds",
+                "recipient": "selected-unit",
+                "quantity": {
+                  "count": 1,
+                  "sides": 3,
+                  "additive": 0
+                }
+              }
+            },
+            {
+              "results": [
+                6
+              ],
+              "effect": {
+                "operation": "inflict-mortal-wounds",
+                "recipient": "selected-unit",
+                "quantity": {
+                  "count": 1,
+                  "sides": 3,
+                  "additive": 3
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

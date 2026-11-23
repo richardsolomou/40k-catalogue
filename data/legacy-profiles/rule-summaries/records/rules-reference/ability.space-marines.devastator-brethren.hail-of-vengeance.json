@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.devastator-brethren.hail-of-vengeance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Devastator Brethren",
+    "cp": 2,
+    "summary": "When enemy fire in the opponent’s Shooting phase kills a model in one of your Adeptus Astartes units, pick an Adeptus Astartes unit. It can use normal shooting against the attacker alone.",
+    "summarySpans": [
+      {
+        "start": 34,
+        "end": 48,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 78,
+        "end": 94,
+        "bold": true
+      },
+      {
+        "start": 110,
+        "end": 126,
+        "bold": true
+      },
+      {
+        "start": 144,
+        "end": 159,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "after-enemy-shooting-destroys-friendly-model",
+            "destroyed": {
+              "entity": "model",
+              "unitKeywords": [
+                "Adeptus Astartes"
+              ]
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Adeptus Astartes"
+            ]
+          },
+          "effects": [
+            {
+              "action": "shoot",
+              "actor": "target-unit",
+              "attackTarget": "trigger-enemy-unit-only",
+              "mode": "normal-shooting",
+              "optional": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.nork-deddog.loyal-protector",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Nork Deddog",
+    "summary": "At the opening of Declare Battle Formations, join Nork Deddog to one COMMAND SQUAD from your army that has no other LOYAL PROTECTOR. Add the model to the squad and increase its Starting Strength. If joining is impossible, leave the model out of the battle and count it as destroyed. It uses 3 places when embarked in a TRANSPORT and cannot be the WARLORD.",
+    "summarySpans": [
+      {
+        "start": 69,
+        "end": 82,
+        "bold": true
+      },
+      {
+        "start": 116,
+        "end": 131,
+        "bold": true
+      },
+      {
+        "start": 319,
+        "end": 328,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "transports"
+        }
+      },
+      {
+        "start": 347,
+        "end": 354,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "Nork Deddog",
+        "trigger": "start of Declare Battle Formations step",
+        "required": true,
+        "target": {
+          "count": 1,
+          "side": "own army",
+          "keyword": "COMMAND SQUAD",
+          "maxLoyalProtectors": 1
+        },
+        "ifJoined": {
+          "countsAsPartOfSquad": true,
+          "increaseStartingStrength": true
+        },
+        "ifCannotJoin": {
+          "takesPartInBattle": false,
+          "countsAsDestroyed": true
+        },
+        "transportSeatCost": 3,
+        "canSelectAsWarlord": false
+      }
+    }
+  }
+}

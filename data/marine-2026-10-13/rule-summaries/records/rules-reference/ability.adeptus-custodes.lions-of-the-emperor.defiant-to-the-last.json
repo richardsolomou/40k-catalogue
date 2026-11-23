@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.lions-of-the-emperor.defiant-to-the-last",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Lions of the Emperor",
+    "cp": 1,
+    "summary": "In either player's Fight phase, once an enemy unit picks its targets, spend 1 CP on one ADEPTUS CUSTODES unit of yours it aimed at least one attack at. While the phase lasts, whenever a model in that unit is destroyed before it has fought this phase, roll a D6, adding 2 for a CHARACTER model. On 4+, leave it in play: once the attacking unit is done with its attacks, the model can fight as if it had 1 wound left, and after that it is removed.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 88,
+        "end": 104,
+        "bold": true
+      },
+      {
+        "start": 277,
+        "end": 286,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Lions of the Emperor",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES"
+            ],
+            "condition": "selected-as-target-of-triggering-enemy-attack"
+          },
+          "effects": [
+            {
+              "kind": "fight-on-death",
+              "trigger": "model-destroyed-before-fighting-this-phase",
+              "roll": "D6",
+              "rollBonus": {
+                "delta": 2,
+                "condition": "model-has-CHARACTER"
+              },
+              "succeedsOn": "4+",
+              "fightsAfter": "attacking-unit-finishes",
+              "woundsRemainingWhileFighting": 1,
+              "thenRemoved": true,
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

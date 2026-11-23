@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.lords-of-the-warp.bilious-blessing",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Lords of the Warp",
+    "cp": 1,
+    "summary": "As your Shooting phase begins, pick a Nurgle Character from your Legiones Daemonica units. Monsters cannot be chosen. Choose one enemy unit it can see within 8\". Roll seven D6 and deal the enemy 1 mortal wound per 4+.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 197,
+        "end": 209,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "LEGIONES DAEMONICA CHARACTER NURGLE"
+            ],
+            "excludingKeywords": [
+              "MONSTER"
+            ]
+          },
+          "effects": [
+            {
+              "action": "inflict-mortal-wounds",
+              "recipient": "selected-enemy-unit",
+              "minimumRoll": 4,
+              "mortalWoundsPerSuccess": 1,
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 7
+              },
+              "actor": "target-unit",
+              "selectRecipient": {
+                "owner": "opponent",
+                "entity": "unit",
+                "count": 1,
+                "visibleFrom": "target-unit",
+                "distance": {
+                  "unit": "inch",
+                  "amount": 8,
+                  "from": "target-unit",
+                  "comparator": "at-most"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

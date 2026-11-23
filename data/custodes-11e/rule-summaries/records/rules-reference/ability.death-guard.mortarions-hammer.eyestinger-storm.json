@@ -1,0 +1,113 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.mortarions-hammer.eyestinger-storm",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Mortarion’s Hammer",
+    "cp": 1,
+    "summary": "During the enemy Command phase, choose a DEATH GUARD VEHICLE unit you control. Pick a marker visible to at least one of its models. Every Afflicted enemy in range of the marker takes a Battle-shock test and can skip its other tests of that kind this phase.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 41,
+        "end": 60,
+        "bold": true
+      },
+      {
+        "start": 138,
+        "end": 147,
+        "target": {
+          "kind": "ability",
+          "id": "death-guard.nurgles-gift-aura"
+        }
+      },
+      {
+        "start": 185,
+        "end": 202,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "opponent"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "keywords": [
+              "DEATH GUARD",
+              "VEHICLE"
+            ],
+            "count": 1
+          },
+          "effects": [
+            {
+              "action": "select-objective-marker",
+              "count": 1,
+              "visibleTo": "at-least-one-target-unit-model",
+              "bind": "marker"
+            },
+            {
+              "action": "require-test",
+              "test": "battle-shock",
+              "recipient": {
+                "owner": "opponent",
+                "entity": "unit",
+                "each": true,
+                "state": "afflicted",
+                "withinRangeOf": "marker"
+              }
+            },
+            {
+              "action": "waive-other-tests",
+              "test": "battle-shock",
+              "recipient": "affected-enemy-units",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

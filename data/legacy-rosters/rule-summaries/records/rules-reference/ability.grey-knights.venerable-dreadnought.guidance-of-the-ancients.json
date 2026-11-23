@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.venerable-dreadnought.guidance-of-the-ancients",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Venerable Dreadnought",
+    "summary": "After this unit shoots on your turn, pick one enemy unit it hit. Through the rest of that Shooting phase, your army gets +1 to Hit when attacking the chosen unit.",
+    "summarySpans": [
+      {
+        "start": 90,
+        "end": 104,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 127,
+        "end": 130,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "this-unit-finished-shooting"
+        },
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "count": 1,
+          "minHitsFromThisUnit": 1,
+          "optional": false
+        },
+        "duration": "through-end-of-triggering-phase",
+        "effect": {
+          "actor": "model-in-your-army",
+          "trigger": "attack-targets-selection",
+          "roll": "hit",
+          "modifier": 1
+        }
+      }
+    }
+  }
+}

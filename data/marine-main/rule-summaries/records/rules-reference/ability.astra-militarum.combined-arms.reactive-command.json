@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.combined-arms.reactive-command",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Combined Arms",
+    "summary": "The bearer can give one extra Order whenever setup places an enemy within 8″ of their unit. This preserves the bearer’s normal allowance for that battle round.",
+    "summarySpans": [
+      {
+        "start": 30,
+        "end": 35,
+        "target": {
+          "kind": "ability",
+          "id": "astra-militarum.voice-of-command"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "setup-unit",
+          "subject": {
+            "side": "enemy",
+            "level": "unit"
+          },
+          "repeat": "each",
+          "distance": {
+            "type": "within",
+            "inches": 8,
+            "origin": "bearer-unit"
+          }
+        },
+        "effect": {
+          "type": "permission",
+          "action": "issue-order",
+          "actor": "bearer",
+          "count": 1,
+          "optional": true,
+          "recipientEligibility": "voice-of-command-and-issuer-datasheet",
+          "countsAgainstBattleRoundAllowance": false
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Officer"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

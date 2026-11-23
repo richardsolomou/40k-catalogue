@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.veiled-blade-elimination-force.orbital-oversight",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Veiled Blade Elimination Force",
+    "cp": 1,
+    "summary": "Right after an enemy chooses targets in its Shooting phase, pick an INFANTRY unit of yours among its targets that has AGENTS OF THE IMPERIUM. Through phase end, enemy models can make ranged attacks against the pick only from up to 18\" away. Lone Operative on the pick reduces that limit to 6\".",
+    "summarySpans": [
+      {
+        "start": 44,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 68,
+        "end": 76,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 140,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-selects-attack-targets",
+            "actor": "enemy-attacking-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "AGENTS OF THE IMPERIUM"
+            ],
+            "allKeywords": [
+              "INFANTRY"
+            ],
+            "triggerRelation": {
+              "event": "selected-as-target-of-triggering-attacks",
+              "minimum": 1
+            }
+          },
+          "effects": [
+            {
+              "kind": "restrict-ranged-attack-targeting",
+              "recipient": "target-unit",
+              "actor": "attacking-model",
+              "rangeLimit": {
+                "unit": "inch",
+                "amount": 18,
+                "comparator": "at-most",
+                "from": "target-unit"
+              },
+              "replacement": {
+                "condition": {
+                  "targetAbility": "Lone Operative"
+                },
+                "rangeLimit": {
+                  "unit": "inch",
+                  "amount": 6,
+                  "comparator": "at-most",
+                  "from": "target-unit"
+                }
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.encarmine-speartip.judgement-of-the-golden-host",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Encarmine Speartip",
+    "cp": 1,
+    "summary": "After your Sanguinary Guard unit completes a Charge Move, choose one enemy unit it engaged. Roll a D6 per charging model engaged with that enemy. Each 3+ deals the enemy 1 mortal wound.",
+    "summarySpans": [
+      {
+        "start": 45,
+        "end": 56,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 83,
+        "end": 90,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 121,
+        "end": 128,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 172,
+        "end": 184,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "your"
+              }
+            ],
+            "event": "friendly-unit-finishes-charge-move"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Sanguinary Guard"
+            ],
+            "binding": "charging-unit"
+          },
+          "effects": [
+            {
+              "action": "inflict-mortal-wounds",
+              "recipient": "selected-engaged-enemy-unit",
+              "minimumRoll": 3,
+              "mortalWoundsPerSuccess": 1,
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1
+              },
+              "actor": "target-unit",
+              "selectRecipient": {
+                "owner": "opponent",
+                "count": 1,
+                "engagedWith": "target-unit"
+              },
+              "rollPer": "model-in-target-unit-engaged-with-selected-enemy"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

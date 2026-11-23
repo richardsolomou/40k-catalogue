@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.mek.clever-know-wotz",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Mek",
+    "summary": "At the end of your Movement phase, the Mek can pick a friendly ORKS VEHICLE model no farther than 3″ away. AIRCRAFT and TITANIC models are excluded. The chosen model heals D3 wounds and gets +1 on Hit rolls until your next Movement phase begins.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 33,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 63,
+        "end": 75,
+        "bold": true
+      },
+      {
+        "start": 107,
+        "end": 115,
+        "bold": true
+      },
+      {
+        "start": 120,
+        "end": 127,
+        "bold": true
+      },
+      {
+        "start": 197,
+        "end": 206,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 223,
+        "end": 237,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "Movement",
+          "step": "end",
+          "side": "own"
+        },
+        "optional": true,
+        "target": {
+          "count": 1,
+          "kind": "model",
+          "side": "friendly",
+          "requiresKeywords": [
+            "ORKS",
+            "VEHICLE"
+          ],
+          "withinInches": 3,
+          "origin": "owner model",
+          "excludedKeywords": [
+            "AIRCRAFT",
+            "TITANIC"
+          ]
+        },
+        "effects": [
+          {
+            "healWounds": "D3"
+          },
+          {
+            "roll": "Hit",
+            "add": 1,
+            "until": {
+              "phase": "Movement",
+              "side": "own",
+              "occurrence": "next",
+              "step": "start"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

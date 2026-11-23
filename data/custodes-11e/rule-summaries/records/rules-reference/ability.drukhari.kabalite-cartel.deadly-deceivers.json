@@ -1,0 +1,146 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.kabalite-cartel.deadly-deceivers",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Kabalite Cartel",
+    "cp": 1,
+    "summary": "Opponent’s Shooting Phase. React once an enemy unit has picked its shooting targets. Choose one of the BLADES FOR HIRE or KABAL units it picked from your army. Through this phase, enemy models more than 18″ away cannot choose your unit for ranged attacks.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 103,
+        "end": 118,
+        "bold": true
+      },
+      {
+        "start": 122,
+        "end": 127,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "matches",
+              "parameters": {
+                "subject": "attacker",
+                "filter": {
+                  "within": {
+                    "of": "this-unit",
+                    "range": {
+                      "inches": 18
+                    }
+                  }
+                }
+              }
+            },
+            "effect": {
+              "type": "targeting",
+              "target": {
+                "owner": "enemy"
+              },
+              "modifier": {
+                "by": {
+                  "owner": "enemy"
+                },
+                "may": "target",
+                "kind": "attack",
+                "weapons": {
+                  "type": "ranged"
+                },
+                "target": "this-unit"
+              }
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "trigger": {
+            "event": "targets-selected",
+            "filter": {
+              "kind": "attack"
+            },
+            "subject": {
+              "owner": "enemy"
+            },
+            "object": "this-unit"
+          },
+          "behavior": "reactive"
+        },
+        "stratagem": {
+          "id": "deadly-deceivers-kabalite-cartel-drukhari",
+          "cp_cost": 1,
+          "phases": [
+            "shooting"
+          ],
+          "player_turn": "opponent-turn",
+          "timing": "once-per-phase",
+          "type": "strategic-ploy",
+          "target_restrictions": {
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "bound_to": "attacked-unit",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "any_of": [
+                        "BLADES FOR HIRE",
+                        "KABAL"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "owner": "friendly"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {
+          "18": "maximum range of enemy attacking model"
+        }
+      }
+    }
+  }
+}

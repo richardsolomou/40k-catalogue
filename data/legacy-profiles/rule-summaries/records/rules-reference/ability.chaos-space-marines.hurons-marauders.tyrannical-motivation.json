@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.hurons-marauders.tyrannical-motivation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Huron’s Marauders",
+    "summary": "In your Command phase, choose Huron’s Elite or Mobile Marauders. The choice applies to your Infantry with the Heretic Astartes keyword and lasts until your next Command phase begins. At each phase opening, check what your Huron Blackheart can see. Eligible visible units have both abilities for that phase. Huron’s Elite gives the unit’s attacks +1 to Hit. Mobile Marauders lets the unit shoot and charge on its Fall Back turn. If the unit got this permission through Huron, moved out of his sight by Falling Back and needs the permission to shoot or charge, the unit must be visible to Huron when the relevant Shooting or Charge phase begins.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 161,
+        "end": 174,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 611,
+        "end": 619,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 623,
+        "end": 635,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "choose": {
+          "trigger": "own-command-phase",
+          "count": 1,
+          "recipients": "friendly-heretic-astartes-infantry",
+          "expires": "next-own-command-phase-start"
+        },
+        "huronGrant": {
+          "trigger": "each-phase-start",
+          "source": "friendly-huron-blackheart-model",
+          "eligible": "friendly-heretic-astartes-infantry-unit-visible-to-source",
+          "count": 2,
+          "expires": "current-phase-end"
+        },
+        "elite": {
+          "beneficiary": "model-in-beneficiary-unit",
+          "hitRollModifier": 1
+        },
+        "mobile": {
+          "eligibilityAfter": "fall-back",
+          "allows": [
+            "shoot",
+            "declare-charge"
+          ],
+          "temporaryGrantRecheckedAfterLosingVisibility": {
+            "check": "start-of-respective-shooting-or-charge-phase",
+            "required": "unit-visible-to-huron"
+          }
+        }
+      }
+    }
+  }
+}

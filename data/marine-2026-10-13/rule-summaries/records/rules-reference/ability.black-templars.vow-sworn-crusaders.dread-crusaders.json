@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.vow-sworn-crusaders.dread-crusaders",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Vow-sworn Crusaders",
+    "cp": 1,
+    "summary": "Spend 1 CP during the opposing player's Charge phase as an enemy unit declares its charge targets, picking an ADEPTUS ASTARTES INFANTRY unit of yours that it named as one of them. The charging unit must then take a battle-shock roll at -1.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Vow-sworn Crusaders",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-selects-charge-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "selectedAsChargeTargetBy": "triggering-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "force-battle-shock-roll",
+              "subject": "triggering-enemy-unit",
+              "modifier": -1
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

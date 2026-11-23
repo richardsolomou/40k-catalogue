@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.reanimation-protocols",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Necrons Faction Pack: Version 1.3",
+    "page": "29",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_necrons-1urphgbmpy-wbhocjbaba.pdf#page=29"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "For a NECRONS Army Faction, Reanimation Protocols activates as your Command phase finishes. It applies to your units on the battlefield that have the ability. The unit gets D3 wounds to restore. Resolve them singly. Heal a model that has a missing wound first. If the surviving models are unwounded and the unit is under Starting Strength, bring back a destroyed model with one wound. Continue while there are wounds to restore and the unit can benefit.",
+    "summarySpans": [
+      {
+        "start": 6,
+        "end": 13,
+        "bold": true
+      },
+      {
+        "start": 14,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "select-army-faction"
+        }
+      },
+      {
+        "start": 28,
+        "end": 49,
+        "bold": true
+      },
+      {
+        "start": 68,
+        "end": 81,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Necrons Faction Pack: Version 1.3",
+        "page": "29",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_necrons-1urphgbmpy-wbhocjbaba.pdf#page=29"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "heal-or-return-model",
+        "armyFaction": "NECRONS",
+        "trigger": {
+          "owner": "self",
+          "phase": "command",
+          "time": "end"
+        },
+        "eligible": {
+          "owner": "friendly",
+          "scope": "unit",
+          "hasAbility": true,
+          "onBattlefield": true
+        },
+        "pool": "D3",
+        "order": [
+          {
+            "kind": "heal",
+            "target": "wounded-model-in-unit",
+            "wounds": 1
+          },
+          {
+            "kind": "return-model",
+            "if": [
+              "no-wounded-models-remain",
+              "below-starting-strength"
+            ],
+            "target": "destroyed-model-from-unit",
+            "woundsRemaining": 1
+          }
+        ],
+        "repeat": "one-wound-at-a-time-until-pool-spent-or-unit-restored"
+      }
+    }
+  }
+}

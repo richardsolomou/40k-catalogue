@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.tormentors.icon-of-excess",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Tormentors",
+    "summary": "At the close of your Shooting phase and at the close of the Fight phase, check whether any enemy unit was destroyed by the bearer’s unit during that phase. If so, test its Leadership. Gain 1 CP if it passes.",
+    "summarySpans": [
+      {
+        "start": 21,
+        "end": 35,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 60,
+        "end": 71,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 172,
+        "end": 182,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "moment": "phase end",
+          "phases": [
+            "own Shooting",
+            "Fight"
+          ]
+        },
+        "condition": {
+          "actor": "bearer’s unit",
+          "destroyedEnemyUnits": "one or more in that phase"
+        },
+        "test": {
+          "type": "Leadership",
+          "actor": "bearer’s unit"
+        },
+        "onPass": {
+          "gainCp": 1
+        }
+      }
+    }
+  }
+}

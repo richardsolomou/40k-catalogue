@@ -1,0 +1,144 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.fist-of-the-god-emperor.purge-and-sanctify",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Fist of the God-Emperor",
+    "summary": "When a friendly CRUSADER SQUAD makes a surge move, you may replace its surge target with the objective nearest the unit. Each model must finish the move as near to that objective as it can. Restrictions: Black Templars units are permitted. Adeptus Astartes from another Chapter are excluded.",
+    "summarySpans": [
+      {
+        "start": 16,
+        "end": 30,
+        "bold": true
+      },
+      {
+        "start": 39,
+        "end": 49,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-move"
+        }
+      },
+      {
+        "start": 71,
+        "end": 83,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-moves"
+        }
+      },
+      {
+        "start": 93,
+        "end": 102,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 169,
+        "end": 178,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 190,
+        "end": 203,
+        "bold": true
+      },
+      {
+        "start": 204,
+        "end": 218,
+        "bold": true
+      },
+      {
+        "start": 240,
+        "end": 256,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "28162de0-fd36-450b-87ee-39e973ead32d",
+          "faction": "Black Templars",
+          "detachmentId": "c7cef828-bc60-4501-9309-dd7a1bb6d0b9",
+          "detachment": "Fist of the God-Emperor",
+          "uniqueTags": [],
+          "sourceId": "c7cef828-bc60-4501-9309-dd7a1bb6d0b9:purge-and-sanctify",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "trigger": {
+          "event": "move-performed",
+          "move": "surge",
+          "actor": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "CRUSADER SQUAD"
+            ]
+          }
+        },
+        "selection": {
+          "type": "replace-surge-target",
+          "optional": true,
+          "target": {
+            "kind": "objective",
+            "nearestTo": "triggering-unit"
+          }
+        },
+        "effect": {
+          "type": "move-end-position",
+          "subject": "each-model-in-triggering-unit",
+          "asCloseAsPossibleTo": "selected-objective"
+        },
+        "roster": {
+          "type": "roster-restriction",
+          "permits": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "Black Templars"
+            ]
+          },
+          "excludes": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "Adeptus Astartes"
+            ],
+            "chapter": {
+              "otherThan": "Black Templars"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.cohort-acquisitus.noospheric-recon",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Cohort Acquisitus",
+    "summary": "Give Recon Augury to your Serberys Raiders, Rangers, Pteraxii, Serberys Sulphurhounds and Infiltrators units. Friendly Recon Augury units gain Enhanced Augurs: The bearer may mark one visible enemy unit as analysed during your Shooting phase. The chosen foe must be up to 12\" away. A analysed unit adds 3\" to its own detection range.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 17,
+        "bold": true
+      },
+      {
+        "start": 26,
+        "end": 42,
+        "bold": true
+      },
+      {
+        "start": 44,
+        "end": 51,
+        "bold": true
+      },
+      {
+        "start": 53,
+        "end": 61,
+        "bold": true
+      },
+      {
+        "start": 63,
+        "end": 85,
+        "bold": true
+      },
+      {
+        "start": 90,
+        "end": 102,
+        "bold": true
+      },
+      {
+        "start": 119,
+        "end": 131,
+        "bold": true
+      },
+      {
+        "start": 143,
+        "end": 159,
+        "bold": true
+      },
+      {
+        "start": 184,
+        "end": 191,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "visibility"
+        }
+      },
+      {
+        "start": 206,
+        "end": 214,
+        "bold": true
+      },
+      {
+        "start": 227,
+        "end": 241,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 284,
+        "end": 292,
+        "bold": true
+      },
+      {
+        "start": 317,
+        "end": 332,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "60ecf26b-0c2b-4ea3-8a29-5f06bd02f6d8",
+          "faction": "Adeptus Mechanicus",
+          "detachmentId": "b8fe0260-4813-45c4-996b-1622ae022223",
+          "detachment": "Cohort Acquisitus",
+          "uniqueTags": [],
+          "sourceId": "b8fe0260-4813-45c4-996b-1622ae022223:noospheric-recon",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "keyword": {
+          "type": "keyword-grant",
+          "keyword": "Recon Augury",
+          "target": {
+            "owner": "friendly",
+            "level": "unit",
+            "anyOf": [
+              "Pteraxii",
+              "Infiltrators",
+              "Rangers",
+              "Serberys Raiders",
+              "Serberys Sulphurhounds"
+            ]
+          }
+        },
+        "grant": {
+          "type": "ability-grant",
+          "name": "Enhanced Augurs",
+          "bearer": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "Recon Augury"
+            ]
+          },
+          "timing": {
+            "event": "during-phase",
+            "phase": "shooting",
+            "owner": "self"
+          },
+          "selection": {
+            "count": 1,
+            "optional": true,
+            "target": {
+              "owner": "enemy",
+              "level": "unit",
+              "visibleTo": "bearer-unit",
+              "distance": {
+                "from": "bearer-unit",
+                "maximum": 12,
+                "unit": "inches"
+              }
+            }
+          },
+          "designation": {
+            "target": "selected-enemy-unit",
+            "tag": "analysed"
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "stat": "detection-range",
+            "operation": "add",
+            "value": 3,
+            "unit": "inches",
+            "target": "designated-enemy-unit",
+            "while": {
+              "designation": "analysed"
+            }
+          }
+        }
+      }
+    }
+  }
+}

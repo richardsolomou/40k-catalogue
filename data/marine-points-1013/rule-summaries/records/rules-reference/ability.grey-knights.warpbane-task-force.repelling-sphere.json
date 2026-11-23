@@ -1,0 +1,197 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.warpbane-task-force.repelling-sphere",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Warpbane Task Force",
+    "cp": 1,
+    "summary": "Opponent’s Charge Phase. As it begins, choose a GREY KNIGHTS INFANTRY unit of yours. Through that phase, enemy units that choose it as a charge target take a −1 penalty to their Charge rolls. The penalty becomes −2 when your Hallowed Ground contains the entire chosen unit.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 23,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 48,
+        "end": 69,
+        "bold": true
+      },
+      {
+        "start": 225,
+        "end": 240,
+        "target": {
+          "kind": "ability",
+          "id": "grey-knights.warpbane-task-force.hallowed-ground"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "ability-part",
+            "trigger": {
+              "event": "targets-selected",
+              "filter": {
+                "kind": "charge"
+              },
+              "subject": {
+                "owner": "enemy"
+              }
+            },
+            "effect": {
+              "type": "conditional",
+              "condition": {
+                "type": "happened",
+                "parameters": {
+                  "event": "targets-selected",
+                  "subject": "event-subject",
+                  "object": "this-unit",
+                  "window": "event"
+                }
+              },
+              "effect": {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "conditional",
+                    "condition": {
+                      "operator": "not",
+                      "operands": [
+                        {
+                          "type": "in-region",
+                          "parameters": {
+                            "subject": "this-unit",
+                            "region": {
+                              "rule_region": {
+                                "region_id": "hallowed-ground",
+                                "owner_faction": "grey-knights"
+                              }
+                            },
+                            "wholly": true
+                          }
+                        }
+                      ]
+                    },
+                    "effect": {
+                      "type": "roll-modifier",
+                      "target": "event-subject",
+                      "modifier": {
+                        "roll": "charge",
+                        "operation": "subtract",
+                        "value": 1
+                      }
+                    }
+                  },
+                  {
+                    "type": "conditional",
+                    "condition": {
+                      "type": "in-region",
+                      "parameters": {
+                        "subject": "this-unit",
+                        "region": {
+                          "rule_region": {
+                            "region_id": "hallowed-ground",
+                            "owner_faction": "grey-knights"
+                          }
+                        },
+                        "wholly": true
+                      }
+                    },
+                    "effect": {
+                      "type": "roll-modifier",
+                      "target": "event-subject",
+                      "modifier": {
+                        "roll": "charge",
+                        "operation": "subtract",
+                        "value": 2
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "trigger": {
+            "event": "phase-started",
+            "condition": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "phase-is",
+                  "parameters": {
+                    "phase": "charge"
+                  }
+                },
+                {
+                  "type": "player-turn-is",
+                  "parameters": {
+                    "turn": "opponent-turn"
+                  }
+                }
+              ]
+            }
+          },
+          "behavior": "reactive"
+        },
+        "stratagem": {
+          "id": "repelling-sphere-warpbane-task-force-grey-knights",
+          "cp_cost": 1,
+          "phases": [
+            "charge"
+          ],
+          "player_turn": "opponent-turn",
+          "timing": "once-per-phase",
+          "type": "battle-tactic",
+          "target_restrictions": {
+            "required_keywords": [
+              "Grey Knights",
+              "Infantry"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "eligibility": {
+              "type": "matches",
+              "parameters": {
+                "filter": {
+                  "owner": "friendly"
+                }
+              }
+            }
+          }
+        },
+        "valueRoles": {
+          "1": "normal Charge-roll penalty",
+          "2": "replacement penalty in own Hallowed Ground"
+        }
+      }
+    }
+  }
+}

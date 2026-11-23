@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.changehost-of-deceit.fractal-disjunction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Changehost of Deceit",
+    "cp": 1,
+    "summary": "As soon as an enemy declares targets in its Shooting phase, choose one SCINTILLATING LEGIONS unit it targeted, excluding MONSTERS. For the rest of that phase only models within 18\" can target it with ranged attacks.",
+    "summarySpans": [
+      {
+        "start": 44,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 71,
+        "end": 92,
+        "bold": true
+      },
+      {
+        "start": 121,
+        "end": 129,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-unit-selects-targets"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "SCINTILLATING LEGIONS"
+            ],
+            "excludingKeywords": [
+              "MONSTERS"
+            ],
+            "eligibility": "selected-for-one-or-more-trigger-attacks"
+          },
+          "effects": [
+            {
+              "action": "restrict-ranged-attack-targeting",
+              "recipient": "target-unit",
+              "actor": "attacking-model",
+              "maximumDistance": {
+                "unit": "inch",
+                "amount": 18,
+                "from": "target-unit",
+                "comparator": "at-most"
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-tau-empire.errata.army-rules-for-the-greater-good",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "T’au Empire Faction Pack: Version 1.2",
+    "page": "19",
+    "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_tau_empire-sxhzmfrlud-mpzjzuhupn.pdf#page=19"
+  },
+  "data": {
+    "publication": "Codex: T’au Empire",
+    "amends": [
+      {
+        "kind": "ability",
+        "id": "tau-empire.for-the-greater-good"
+      }
+    ],
+    "summary": "A T’au Empire army can nominate units with this ability as Observers as its Shooting phase starts. Each Observer that can shoot and has yet to be chosen to do so may tag a visible enemy. Fortifications and Battle-shocked units cannot tag. A target can be Spotted only once, and the tag expires with the phase. An ability holder guides its fire against Spotted targets unless it is an Observer. Guided attacks against those targets gain one point of Ballistic Skill and, if the matching Observer has Markerlight, Ignores Cover applies to that attack.",
+    "summarySpans": [
+      {
+        "start": 23,
+        "end": 37,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "tau-empire.for-the-greater-good"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      },
+      {
+        "type": "publisher",
+        "title": "T’au Empire Faction Pack: Version 1.2",
+        "page": "19",
+        "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_tau_empire-sxhzmfrlud-mpzjzuhupn.pdf#page=19"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "1e7879a0-7da5-4c68-ae93-ada19f02a2de",
+          "typedMechanics": {
+            "operation": "replace-observer-and-guided-sequence",
+            "armyFaction": "tau-empire",
+            "nominateObservers": {
+              "when": "start-own-shooting-phase",
+              "eligible": "own-ability-holders"
+            },
+            "spot": {
+              "when": "during-own-shooting-phase",
+              "source": "observer",
+              "eligibleToShoot": true,
+              "notSelectedToShoot": true,
+              "excluded": [
+                "fortification",
+                "battle-shocked"
+              ],
+              "target": "visible-enemy",
+              "enemyMarkLimitPerPhase": 1,
+              "expires": "end-of-phase"
+            },
+            "guided": {
+              "subject": "own-ability-holder",
+              "excludes": "observer",
+              "targetsAtLeastOne": "spotted-unit"
+            },
+            "perGuidedAttackIntoSpotted": {
+              "ballisticSkillImprovement": 1,
+              "grantIfSpottingObserverHasMarkerlight": "ignores-cover",
+              "expires": "end-of-phase"
+            }
+          }
+        }
+      }
+    }
+  }
+}

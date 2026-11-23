@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.medusas-wrath.methodical-brutality",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Medusa's Wrath",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Shooting phase or in either player's Fight phase as one of your ADEPTUS ASTARTES units is picked to attack; that unit is the target. Its attacks gain [SUSTAINED HITS 1]. If that unit is itself a VEHICLE unit, its attacks also get +1 to Wound rolls, at no extra CP.",
+    "summarySpans": [
+      {
+        "start": 169,
+        "end": 187,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Medusa's Wrath",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "friendly-unit-selected-to-attack",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "sameAs": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "grant-weapon-ability",
+              "ability": "SUSTAINED HITS",
+              "value": 1
+            }
+          ],
+          "secondaryEffect": {
+            "condition": {
+              "subject": "stratagem-target-unit",
+              "selfKeywordsAll": [
+                "VEHICLE"
+              ]
+            },
+            "effects": [
+              {
+                "kind": "roll-modifier",
+                "roll": "wound",
+                "delta": 1
+              }
+            ],
+            "additionalCp": 0,
+            "mutuallyExclusive": false
+          },
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

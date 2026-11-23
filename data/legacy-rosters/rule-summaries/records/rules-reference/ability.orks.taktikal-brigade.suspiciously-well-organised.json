@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.taktikal-brigade.suspiciously-well-organised",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Taktikal Brigade",
+    "summary": "Friendly Stormboyz gain Battleline. Selecting friendly Boyz, Kommandos or Stormboyz for a Fall-Back Move preserves their eligibility to declare a charge despite that move.",
+    "summarySpans": [
+      {
+        "start": 9,
+        "end": 18,
+        "bold": true
+      },
+      {
+        "start": 24,
+        "end": 34,
+        "bold": true
+      },
+      {
+        "start": 55,
+        "end": 59,
+        "bold": true
+      },
+      {
+        "start": 61,
+        "end": 70,
+        "bold": true
+      },
+      {
+        "start": 74,
+        "end": 83,
+        "bold": true
+      },
+      {
+        "start": 90,
+        "end": 104,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 121,
+        "end": 152,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "effects": [
+          {
+            "type": "keyword-grant",
+            "keyword": "Battleline",
+            "target": {
+              "owner": "friendly",
+              "level": "unit",
+              "allOf": [
+                "Stormboyz"
+              ]
+            }
+          },
+          {
+            "type": "eligibility-exception",
+            "action": "declare-charge",
+            "ignores": "triggering-move-only",
+            "target": {
+              "owner": "friendly",
+              "level": "unit",
+              "anyOf": [
+                "Boyz",
+                "Kommandos",
+                "Stormboyz"
+              ]
+            },
+            "trigger": {
+              "event": "selected-to-move",
+              "moveTypes": [
+                "fall-back"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

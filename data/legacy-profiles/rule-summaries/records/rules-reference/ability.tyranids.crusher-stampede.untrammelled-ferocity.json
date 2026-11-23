@@ -1,0 +1,142 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.crusher-stampede.untrammelled-ferocity",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Crusher Stampede",
+    "cp": 1,
+    "summary": "In your Movement phase, nominate one of your Tyranids Monster units before it is selected to move. The benefit lasts for the rest of that phase and applies to a Normal move, an Advance move and a Fall Back move. The unit can cross terrain up to 4″ tall and pass through non-Titanic models. Its path may enter enemy Engagement Range, provided the endpoint is outside that range. Taller terrain is also passable. After crossing any of it, test once with a D6 at the end of the move. A result of 1 leaves the unit Battle-shocked.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 161,
+        "end": 172,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 177,
+        "end": 189,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 196,
+        "end": 210,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 315,
+        "end": 331,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 511,
+        "end": 525,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Crusher Stampede",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ]
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "allKeywords": [
+              "TYRANIDS",
+              "MONSTER"
+            ],
+            "condition": "not-selected-to-move-this-phase"
+          },
+          "effects": [
+            {
+              "action": "modify-movement",
+              "actor": "chosen-unit",
+              "duration": "end-of-phase",
+              "moveTypes": [
+                "normal",
+                "advance",
+                "fall-back"
+              ],
+              "passThroughModels": {
+                "excludedKeywords": [
+                  "TITANIC"
+                ]
+              },
+              "passThroughTerrain": {
+                "heightInches": 4,
+                "boundary": "at-most"
+              },
+              "enterEnemyEngagementRange": true,
+              "endInEnemyEngagementRange": false
+            },
+            {
+              "action": "allow-passage-through-taller-terrain",
+              "heightInches": 4,
+              "boundary": "strictly-greater",
+              "onUse": {
+                "timing": "after-move",
+                "dice": 1,
+                "sides": 6,
+                "result": 1,
+                "apply": "battle-shocked",
+                "recipient": "chosen-unit"
+              }
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.archon.hatred-eternal",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Archon",
+    "summary": "Choosing the unit containing this model to attack lets you pay 1 Pain token to make it Empowered. This works for shooting on your turn and fighting on either turn. For its models’ attacks, you may reroll every Hit roll while the unit is Empowered.",
+    "summarySpans": [
+      {
+        "start": 65,
+        "end": 75,
+        "bold": true
+      },
+      {
+        "start": 87,
+        "end": 96,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      },
+      {
+        "start": 210,
+        "end": 213,
+        "bold": true
+      },
+      {
+        "start": 237,
+        "end": 246,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "source": "datasheet-model",
+        "recipient": "source-model-unit",
+        "optional": true,
+        "cost": {
+          "resource": "Pain token",
+          "amount": 1
+        },
+        "designation": "Empowered",
+        "trigger": {
+          "chooseRecipientToAct": [
+            {
+              "action": "shoot",
+              "phase": "Shooting",
+              "turnOwner": "self"
+            },
+            {
+              "action": "fight",
+              "phase": "Fight",
+              "turnOwner": "either"
+            }
+          ]
+        },
+        "effect": {
+          "while": "Empowered",
+          "actor": "models-in-recipient",
+          "attackKind": "any",
+          "roll": "Hit",
+          "optionalReroll": true
+        }
+      }
+    }
+  }
+}

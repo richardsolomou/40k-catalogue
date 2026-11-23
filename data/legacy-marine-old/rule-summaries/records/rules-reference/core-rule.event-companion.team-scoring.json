@@ -1,0 +1,169 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "event-companion.team-scoring",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Event Companion",
+    "section": "Teams Event Companion",
+    "summary": "After scoring the individual game, use its VP margin to work out Battle Points (BP). A margin of up to 5 VP produces 10 BP apiece. Beginning at 6 VP, each bracket shifts another BP from the lower scorer to the higher scorer, through 20–0 at 51 VP or above. When the round finishes, add the BP from every game for each team. To win the match, the higher team total must lead by 4, 6, 6, 8, 10 or 12 BP for teams of 3, 4, 5, 6, 7 or 8 players, respectively. A smaller margin gives a draw. Award 3 Team Points (TP) to the winning team and 1 TP to its opponent. In a draw, award 2 TP apiece.",
+    "summarySpans": [
+      {
+        "start": 6,
+        "end": 33,
+        "target": {
+          "kind": "core-rule",
+          "id": "event-companion.determine-victor.teams"
+        }
+      },
+      {
+        "start": 65,
+        "end": 78,
+        "bold": true
+      },
+      {
+        "start": 495,
+        "end": 506,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "mode": "teams",
+        "individualBattlePoints": {
+          "from": "VP margin",
+          "lowerEndpointInclusive": true,
+          "upperEndpointInclusive": true,
+          "combinedPerGame": 20,
+          "bands": [
+            {
+              "minVP": 0,
+              "maxVP": 5,
+              "highScorerBP": 10,
+              "lowScorerBP": 10
+            },
+            {
+              "minVP": 6,
+              "maxVP": 10,
+              "highScorerBP": 11,
+              "lowScorerBP": 9
+            },
+            {
+              "minVP": 11,
+              "maxVP": 15,
+              "highScorerBP": 12,
+              "lowScorerBP": 8
+            },
+            {
+              "minVP": 16,
+              "maxVP": 20,
+              "highScorerBP": 13,
+              "lowScorerBP": 7
+            },
+            {
+              "minVP": 21,
+              "maxVP": 25,
+              "highScorerBP": 14,
+              "lowScorerBP": 6
+            },
+            {
+              "minVP": 26,
+              "maxVP": 30,
+              "highScorerBP": 15,
+              "lowScorerBP": 5
+            },
+            {
+              "minVP": 31,
+              "maxVP": 35,
+              "highScorerBP": 16,
+              "lowScorerBP": 4
+            },
+            {
+              "minVP": 36,
+              "maxVP": 40,
+              "highScorerBP": 17,
+              "lowScorerBP": 3
+            },
+            {
+              "minVP": 41,
+              "maxVP": 45,
+              "highScorerBP": 18,
+              "lowScorerBP": 2
+            },
+            {
+              "minVP": 46,
+              "maxVP": 50,
+              "highScorerBP": 19,
+              "lowScorerBP": 1
+            },
+            {
+              "minVP": 51,
+              "maxVP": null,
+              "highScorerBP": 20,
+              "lowScorerBP": 0
+            }
+          ],
+          "example": {
+            "highVP": 86,
+            "lowVP": 54,
+            "marginVP": 32,
+            "highBP": 16,
+            "lowBP": 4
+          }
+        },
+        "teamRound": {
+          "aggregate": "sum own players’ BP",
+          "minimumLeadBPByTeamSize": [
+            {
+              "players": 3,
+              "minLeadBP": 4
+            },
+            {
+              "players": 4,
+              "minLeadBP": 6
+            },
+            {
+              "players": 5,
+              "minLeadBP": 6
+            },
+            {
+              "players": 6,
+              "minLeadBP": 8
+            },
+            {
+              "players": 7,
+              "minLeadBP": 10
+            },
+            {
+              "players": 8,
+              "minLeadBP": 12
+            }
+          ],
+          "belowThreshold": "draw",
+          "teamPoints": {
+            "winner": 3,
+            "loser": 1,
+            "eachOnDraw": 2
+          }
+        }
+      }
+    }
+  }
+}

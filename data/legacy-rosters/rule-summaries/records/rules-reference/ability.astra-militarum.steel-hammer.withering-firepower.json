@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.steel-hammer.withering-firepower",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Steel Hammer",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Shooting phase when an ASTRA MILITARUM VEHICLE in your army has just shot, on that unit. Pick an enemy unit that at least one of those attacks hit; it must test for Battle-shock with 1 subtracted from the result.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Steel Hammer",
+          "when": {
+            "turn": "own",
+            "phase": "shooting",
+            "moment": "just-after-unit-has-shot"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ASTRA MILITARUM",
+              "VEHICLE"
+            ],
+            "is": "the-unit-that-shot"
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "hitByThoseAttacks": true
+              },
+              "battleShockTest": {
+                "modifier": {
+                  "direction": "subtract",
+                  "amount": 1
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.rad-zone-corps.aggressor-imperative",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Rad-Zone Corps",
+    "cp": 1,
+    "summary": "In your Movement phase, pick an SKITARII unit of yours that you have yet to select to move. A BATTLELINE pick lets you add a friendly non-BATTLELINE Skitarii unit up to 6\" away. Through phase end, an Advance by either pick adds 6\" to its models’ Move instead of using an Advance roll.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 32,
+        "end": 40,
+        "bold": true
+      },
+      {
+        "start": 94,
+        "end": 104,
+        "bold": true
+      },
+      {
+        "start": 149,
+        "end": 157,
+        "bold": true
+      },
+      {
+        "start": 200,
+        "end": 207,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 271,
+        "end": 278,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ],
+            "event": "in-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": {
+              "min": 1,
+              "max": 2
+            },
+            "primary": {
+              "keywords": [
+                "SKITARII"
+              ],
+              "state": "not-yet-selected-to-move"
+            },
+            "optionalAdditional": {
+              "condition": {
+                "primaryKeywords": [
+                  "BATTLELINE"
+                ]
+              },
+              "keywords": [
+                "Skitarii"
+              ],
+              "excludingKeywords": [
+                "BATTLELINE"
+              ],
+              "distance": {
+                "unit": "inch",
+                "amount": 6,
+                "comparator": "at-most",
+                "from": "primary-target"
+              }
+            }
+          },
+          "effects": [
+            {
+              "kind": "replace-advance-roll",
+              "recipient": "each-target-unit-when-advancing",
+              "replacement": {
+                "stat": "move",
+                "operation": "add",
+                "amount": {
+                  "unit": "inch",
+                  "amount": 6,
+                  "comparator": "at-most"
+                },
+                "entity": "models-of-that-unit"
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

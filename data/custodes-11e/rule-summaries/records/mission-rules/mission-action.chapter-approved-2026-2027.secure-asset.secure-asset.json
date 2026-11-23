@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-action",
+  "id": "chapter-approved-2026-2027.secure-asset.secure-asset",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "summary": "Once each turn, have one friendly unit start this action during your Shooting phase. Choose an objective in its range other than your home objective. The unit secures the asset if it controls the chosen objective when your turn ends.",
+    "summarySpans": [
+      {
+        "start": 50,
+        "end": 56,
+        "target": {
+          "kind": "core-rule",
+          "id": "performing-actions"
+        }
+      },
+      {
+        "start": 69,
+        "end": 83,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 95,
+        "end": 104,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 134,
+        "end": 148,
+        "bold": true
+      },
+      {
+        "start": 159,
+        "end": 176,
+        "bold": true
+      },
+      {
+        "start": 203,
+        "end": 212,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "starts": {
+          "player": "acting-player",
+          "phase": "shooting"
+        },
+        "eligibleUnit": {
+          "side": "friendly",
+          "countPerStart": 1,
+          "position": {
+            "relation": "within-range",
+            "selector": "objective",
+            "exclude": "own-home-objective"
+          }
+        },
+        "useLimit": {
+          "maxStartsPerOwnTurn": 1
+        },
+        "completes": {
+          "window": "end-of-own-turn",
+          "requires": {
+            "subject": "acting-unit",
+            "predicate": "controls",
+            "object": "selected-objective"
+          }
+        },
+        "effects": [
+          {
+            "kind": "record-unit-result",
+            "unit": "acting-unit",
+            "result": "secure-asset"
+          }
+        ]
+      }
+    }
+  }
+}

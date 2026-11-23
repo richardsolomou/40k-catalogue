@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.pactbound-zealots.skinshift",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Pactbound Zealots",
+    "cp": 1,
+    "summary": "Epic Deed, 1 CP. Use it in your Command phase on one HERETIC ASTARTES unit of yours. One of its models recovers as many as 3 lost wounds. Also, for a TZEENTCH unit that is under its Starting Strength, one of its destroyed models (not a CHARACTER model) comes back to the unit with all of its wounds.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Epic Deed",
+          "detachment": "Pactbound Zealots",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "own"
+              }
+            ],
+            "event": "phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "HERETIC ASTARTES"
+            ]
+          },
+          "effects": [
+            {
+              "heal": {
+                "models": 1,
+                "upToWounds": 3
+              }
+            },
+            {
+              "condition": "unit-is-tzeentch-and-below-starting-strength",
+              "returnDestroyedModel": {
+                "count": 1,
+                "excludeKeywords": [
+                  "CHARACTER"
+                ],
+                "wounds": "full"
+              }
+            }
+          ],
+          "duration": "instant",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

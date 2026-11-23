@@ -1,0 +1,103 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.traitoris-lance.disdain-for-the-weak",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Traitoris Lance",
+    "cp": 1,
+    "summary": "In either Fight phase, react as soon as an enemy finishes choosing its attack targets. Pick one of your CHAOS KNIGHTS units among them. Your model has Feel No Pain 6+ until the phase ends, with Feel No Pain 5+ against attacks from Battle-shocked models.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 104,
+        "end": 117,
+        "bold": true
+      },
+      {
+        "start": 151,
+        "end": 163,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      },
+      {
+        "start": 194,
+        "end": 206,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selects-attack-targets",
+            "proximity": "immediate"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "CHAOS KNIGHTS"
+            ],
+            "selection": "target-of-one-or-more-triggering-enemy-attacks"
+          },
+          "effects": [
+            {
+              "kind": "grant-defensive-ability",
+              "subject": "your-model-in-target",
+              "ability": "feel-no-pain",
+              "threshold": 6,
+              "until": "end-of-phase"
+            },
+            {
+              "kind": "grant-defensive-ability",
+              "subject": "your-model-in-target",
+              "ability": "feel-no-pain",
+              "threshold": 5,
+              "against": "attacks-by-battle-shocked-models",
+              "until": "end-of-phase"
+            }
+          ],
+          "type": "strategic-ploy"
+        }
+      }
+    }
+  }
+}

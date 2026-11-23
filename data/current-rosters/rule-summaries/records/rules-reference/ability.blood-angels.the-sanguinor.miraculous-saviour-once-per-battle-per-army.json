@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.the-sanguinor.miraculous-saviour-once-per-battle-per-army",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "The Sanguinor",
+    "summary": "Your army gets one use in the battle. From round 2 onward, once the opposing Charge phase is over, you may pick one enemy that completed a charge move during it. You may bring in the Sanguinor with an Ingress move, arriving in engagement with the chosen unit. The Sanguinor retains its eligibility for further movement.",
+    "summarySpans": [
+      {
+        "start": 77,
+        "end": 89,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 139,
+        "end": 150,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 201,
+        "end": 213,
+        "target": {
+          "kind": "core-rule",
+          "id": "ingress-move"
+        }
+      },
+      {
+        "start": 227,
+        "end": 237,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "army-limited-reactive-ingress",
+        "usage": {
+          "limit": 1,
+          "per": "battle",
+          "scope": "army"
+        },
+        "trigger": {
+          "phase": "charge",
+          "phaseOwner": "opponent",
+          "window": "end",
+          "excludedRound": 1
+        },
+        "selection": {
+          "maxEnemyUnits": 1,
+          "mustHaveMadeChargeMoveThisPhase": true
+        },
+        "effect": {
+          "optionalMove": "ingress",
+          "setupMustEngage": "selected-enemy-unit",
+          "moveEligibilityRetained": true
+        }
+      }
+    }
+  }
+}

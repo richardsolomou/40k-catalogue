@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.ordo-xenos-alien-hunters.rapid-tactical-relocation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ordo Xenos, Alien Hunters",
+    "cp": 1,
+    "summary": "As the opposing Fight phase closes, pick a friendly unit with INQUISITOR, or one with both DEATHWATCH and INFANTRY. It must be outside every enemy unit’s Engagement Range. Take it off the battlefield. Set it up again during your next Movement phase’s Reinforcements step, leaving over 8″ of horizontal separation from every enemy model.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Ordo Xenos, Alien Hunters",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "opponent"
+              }
+            ],
+            "at": "phase-end"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [],
+            "anyOf": [
+              [
+                "INQUISITOR"
+              ],
+              [
+                "DEATHWATCH",
+                "INFANTRY"
+              ]
+            ],
+            "noneWithin": "engagement-range-of-enemy-units"
+          },
+          "effects": [
+            {
+              "action": "remove-from-battlefield",
+              "recipient": "chosen-unit"
+            },
+            {
+              "action": "set-up-on-battlefield",
+              "recipient": "chosen-unit",
+              "at": "own-next-movement-reinforcements-step",
+              "distanceFromEnemyModels": {
+                "axis": "horizontal",
+                "comparison": "greater-than",
+                "inches": 8
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

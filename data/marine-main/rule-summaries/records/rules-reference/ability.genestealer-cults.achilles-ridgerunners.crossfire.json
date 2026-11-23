@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.achilles-ridgerunners.crossfire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Achilles Ridgerunners",
+    "summary": "In your Shooting phase, once this unit has shot, pick one enemy unit struck by at least one of those attacks. For the rest of the turn, attacks by friendly GENESTEALER CULTS units against that enemy unit improve their Armour Penetration by 1. No enemy unit can be picked for this more than once per turn.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Achilles Ridgerunners",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "this-unit-has-shot"
+        },
+        "select": {
+          "count": 1,
+          "side": "enemy",
+          "condition": "hit-by-those-attacks"
+        },
+        "effects": [
+          {
+            "attacksBy": {
+              "keywordsAll": [
+                "GENESTEALER CULTS"
+              ],
+              "side": "friendly"
+            },
+            "againstSelected": true,
+            "improve": {
+              "AP": 1
+            },
+            "duration": "end-of-turn"
+          }
+        ],
+        "limit": {
+          "sameEnemyUnitOncePerTurn": true
+        }
+      }
+    }
+  }
+}

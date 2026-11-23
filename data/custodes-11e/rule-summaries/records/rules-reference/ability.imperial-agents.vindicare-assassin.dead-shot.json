@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.vindicare-assassin.dead-shot",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Vindicare Assassin",
+    "summary": "From the moment you pick the Vindicare to fire until its shots are resolved, strip Lone Operative from enemies and raise the detection distance of Hidden enemies by 15″.",
+    "summarySpans": [
+      {
+        "start": 83,
+        "end": 97,
+        "target": {
+          "kind": "core-ability",
+          "id": "lone-operative"
+        }
+      },
+      {
+        "start": 147,
+        "end": 153,
+        "target": {
+          "kind": "core-rule",
+          "id": "hidden"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "selected-to-shoot",
+          "unit": "owning-unit"
+        },
+        "duration": {
+          "ends": "owning-unit-finishes-shooting"
+        },
+        "effects": [
+          {
+            "type": "suppress-ability",
+            "recipient": "enemy-units",
+            "ability": "lone-operative"
+          },
+          {
+            "type": "modify-detection-range",
+            "recipient": "hidden-enemy-units",
+            "operation": "add",
+            "distanceInches": 15
+          }
+        ]
+      }
+    }
+  }
+}

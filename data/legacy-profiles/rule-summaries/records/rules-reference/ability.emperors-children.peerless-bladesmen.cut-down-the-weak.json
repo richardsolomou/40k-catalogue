@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.peerless-bladesmen.cut-down-the-weak",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Peerless Bladesmen",
+    "cp": 2,
+    "summary": "In the enemy Movement phase, respond immediately to a Fall Back. Pick one of your EMPEROR’S CHILDREN units up to 6″ from that enemy. A VEHICLE must be a WALKER, and check that your unit could legally charge that enemy in its own Charge phase. You may declare the charge with that enemy among its targets. Your unit loses the charge bonus for the turn if it does.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 27,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 82,
+        "end": 100,
+        "bold": true
+      },
+      {
+        "start": 135,
+        "end": 142,
+        "bold": true
+      },
+      {
+        "start": 153,
+        "end": 159,
+        "bold": true
+      },
+      {
+        "start": 229,
+        "end": 241,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-falls-back"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "keywords": [
+              "EMPEROR’S CHILDREN"
+            ],
+            "count": 1,
+            "vehicleRequires": "WALKER",
+            "distance": {
+              "unit": "inch",
+              "amount": 6,
+              "fromEntity": "enemy-that-fell-back",
+              "comparator": "at-most"
+            },
+            "eligibility": "could-declare-a-charge-against-that-enemy-in-your-charge-phase"
+          },
+          "effects": [
+            {
+              "action": "permit-charge-declaration",
+              "recipient": "target-unit",
+              "optional": true,
+              "requiredTarget": "enemy-that-fell-back"
+            },
+            {
+              "action": "suppress-charge-bonus",
+              "recipient": "target-unit-if-it-declares-this-charge",
+              "duration": {
+                "until": "end-of-this-turn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

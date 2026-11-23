@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "lone-operative",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "24. Core Abilities",
+    "ruleNumber": "24.24",
+    "summary": "Outside an Attached unit, a Lone Operative’s models count as invisible to enemy models farther than 12″ from their unit. The same distance restricts shots made with Indirect Fire. Use the specified distance for a rated ability. An Attached unit gets the protection only if every model has it, using its largest rating for everyone. Below Starting Strength, the protection returns as soon as every survivor qualifies. In the examples, a bodyguard with the 15″ version protects an eligible combined unit at 15″. A leader unit with the ability regains protection after losing a bodyguard without it, provided every survivor qualifies.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 24,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "attached-units"
+        }
+      },
+      {
+        "start": 165,
+        "end": 178,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "indirect-fire"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "lone-operative-targeting",
+        "base": {
+          "defaultInches": 12,
+          "override": "specified-ability-value-inches",
+          "rangeMeasurement": "attacking-model-to-unit",
+          "beyondRange": {
+            "visibleToAttacker": false,
+            "indirectFireTargetAllowed": false
+          }
+        },
+        "attached": {
+          "baseRestrictionExcepted": true,
+          "protectionRequires": "all-models-have-ability",
+          "differentValues": "maximum-applied-to-whole-unit",
+          "reactivation": {
+            "condition": "below-starting-strength-and-all-remaining-models-have-ability",
+            "timing": "immediate"
+          }
+        },
+        "examples": [
+          {
+            "bodyguardRangeInches": 15,
+            "attachedUnitUsesRangeInches": 15,
+            "requiresAllModels": true
+          },
+          {
+            "leaderHasAbility": true,
+            "bodyguardHasAbility": false,
+            "reactivation": "bodyguard-destroyed-and-all-survivors-eligible"
+          }
+        ]
+      }
+    }
+  }
+}

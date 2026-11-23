@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.plague-legion.foetid-resurgence",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Plague Legion",
+    "cp": 2,
+    "summary": "Strategic Ploy, 2 CP. Use it in your Command phase. Choose one of your LEGIONES DAEMONICA NURGLE units on the battlefield. Bring back one destroyed model that is not a CHARACTER to it with full wounds; if the unit is BATTLELINE, bring back up to D3 destroyed non-CHARACTER models instead. If it is a MONSTER, one of its models instead gets back as many as D3+1 lost wounds.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "detachment": "Plague Legion",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "NURGLE"
+            ],
+            "onBattlefield": true
+          },
+          "effects": [
+            {
+              "kind": "return-destroyed-models",
+              "upTo": 1,
+              "excludesKeywords": [
+                "CHARACTER"
+              ],
+              "wounds": "full"
+            },
+            {
+              "kind": "return-destroyed-models",
+              "upTo": "D3",
+              "excludesKeywords": [
+                "CHARACTER"
+              ],
+              "wounds": "full",
+              "condition": {
+                "unitKeywordsAll": [
+                  "BATTLELINE"
+                ]
+              },
+              "replaces": "previous"
+            },
+            {
+              "kind": "regain-wounds",
+              "models": 1,
+              "upTo": "D3+1",
+              "condition": {
+                "unitKeywordsAll": [
+                  "MONSTER"
+                ]
+              },
+              "replaces": "model return"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

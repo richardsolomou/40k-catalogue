@@ -1,0 +1,142 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-action",
+  "id": "chapter-approved-2026-2027.smoke-and-mirrors.decoy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "summary": "During your Shooting phase, a friendly unit can start this action at an objective in its range. Skip your home objective and any decoyed site. Starts are unlimited, with a different objective for every participating unit that phase. If the unit controls its objective when your turn ends, it becomes decoyed. Choose from your operation markers and place one in its range.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 59,
+        "end": 65,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "performing-actions"
+        }
+      },
+      {
+        "start": 72,
+        "end": 81,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 106,
+        "end": 120,
+        "bold": true
+      },
+      {
+        "start": 129,
+        "end": 136,
+        "bold": true
+      },
+      {
+        "start": 182,
+        "end": 191,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 258,
+        "end": 267,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 300,
+        "end": 307,
+        "bold": true
+      },
+      {
+        "start": 326,
+        "end": 343,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "starts": {
+          "player": "acting-player",
+          "phase": "shooting"
+        },
+        "eligibleUnit": {
+          "side": "friendly",
+          "countPerStart": 1,
+          "position": {
+            "relation": "within-range",
+            "selector": "objective",
+            "exclude": "own-home-objective",
+            "excludeState": "decoyed"
+          }
+        },
+        "useLimit": {
+          "starts": "unlimited",
+          "distinctSelectorsAmongStarts": {
+            "window": "same-phase",
+            "selector": "objective"
+          }
+        },
+        "completes": {
+          "window": "end-of-own-turn",
+          "requires": {
+            "subject": "acting-unit",
+            "predicate": "controls",
+            "object": "selected-objective"
+          }
+        },
+        "effects": [
+          {
+            "kind": "mark-objective",
+            "objective": "selected-objective",
+            "state": "decoyed"
+          },
+          {
+            "kind": "place-operation-marker",
+            "count": 1,
+            "owner": "acting-player",
+            "position": {
+              "relation": "within-range",
+              "selector": "selected-objective"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

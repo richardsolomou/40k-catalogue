@@ -1,0 +1,196 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.the-shadow-of-chaos",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Chaos Daemons Faction Pack: Version 1.2",
+    "page": "2",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_chaos_daemons-e67vyzvv3x-mownb49uc3.pdf#page=2"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "With LEGIONES DAEMONICA selected as your Army Faction, put your entire deployment zone in the Shadow for the battle. At phase start, check No Man’s Land and the enemy deployment zone separately. Cover either area through phase end when you hold half or more of that area’s objectives. In the Shadow, Battle-shock rolls by friendly LEGIONES DAEMONICA units get +1. If the unit passes, heal a single model for D3 wounds. For BATTLELINE, you may swap that healing for returning as many as D3 casualties. Omit CHARACTER models from those returns. Give enemy units −1 on a Battle-shock test in the Shadow or if any of these friendly units are within 6″: SKARBRAND, ROTIGUS, SHALAXI HELBANE, LORD OF CHANGE, GREAT UNCLEAN ONE, KEEPER OF SECRETS, BLOODTHIRSTER or KAIROS FATEWEAVER. The testing enemy suffers D3 mortal wounds on failure.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 23,
+        "bold": true
+      },
+      {
+        "start": 41,
+        "end": 53,
+        "target": {
+          "kind": "core-rule",
+          "id": "select-army-faction"
+        }
+      },
+      {
+        "start": 300,
+        "end": 318,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 331,
+        "end": 349,
+        "bold": true
+      },
+      {
+        "start": 423,
+        "end": 433,
+        "bold": true
+      },
+      {
+        "start": 506,
+        "end": 515,
+        "bold": true
+      },
+      {
+        "start": 568,
+        "end": 585,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 649,
+        "end": 658,
+        "bold": true
+      },
+      {
+        "start": 660,
+        "end": 667,
+        "bold": true
+      },
+      {
+        "start": 669,
+        "end": 684,
+        "bold": true
+      },
+      {
+        "start": 686,
+        "end": 700,
+        "bold": true
+      },
+      {
+        "start": 702,
+        "end": 719,
+        "bold": true
+      },
+      {
+        "start": 721,
+        "end": 738,
+        "bold": true
+      },
+      {
+        "start": 740,
+        "end": 753,
+        "bold": true
+      },
+      {
+        "start": 757,
+        "end": 774,
+        "bold": true
+      },
+      {
+        "start": 805,
+        "end": 818,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Daemons Faction Pack: Version 1.2",
+        "page": "2",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_chaos_daemons-e67vyzvv3x-mownb49uc3.pdf#page=2"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "region-state-and-test-effects",
+        "armyFaction": "LEGIONES DAEMONICA",
+        "region": {
+          "basis": "friendly-deployment-zone",
+          "basisDuration": "battle",
+          "extensions": [
+            "no-mans-land",
+            "enemy-deployment-zone"
+          ],
+          "evaluated": "each-phase-start",
+          "separateTests": true,
+          "controlledObjectiveShareMin": 0.5,
+          "duration": "phase"
+        },
+        "manifestation": {
+          "recipient": {
+            "owner": "friendly",
+            "keyword": "LEGIONES DAEMONICA",
+            "inShadow": true
+          },
+          "event": "battle-shock-test",
+          "rollModifier": 1,
+          "onPass": {
+            "heal": {
+              "modelCount": 1,
+              "fromRecipientUnit": true,
+              "wounds": "D3"
+            },
+            "alternative": {
+              "optional": true,
+              "keyword": "BATTLELINE",
+              "returnUpTo": "D3",
+              "excludeModelKeyword": "CHARACTER"
+            }
+          }
+        },
+        "terror": {
+          "recipient": "enemy-unit",
+          "event": "battle-shock-test",
+          "requireAny": [
+            "in-shadow",
+            {
+              "withinInches": 6,
+              "of": {
+                "owner": "friendly",
+                "keywordsAny": [
+                  "BLOODTHIRSTER",
+                  "GREAT UNCLEAN ONE",
+                  "KAIROS FATEWEAVER",
+                  "KEEPER OF SECRETS",
+                  "LORD OF CHANGE",
+                  "ROTIGUS",
+                  "SHALAXI HELBANE",
+                  "SKARBRAND"
+                ]
+              }
+            }
+          ],
+          "rollModifier": -1,
+          "onFailure": {
+            "mortalWounds": "D3",
+            "recipient": "test-unit"
+          }
+        }
+      }
+    }
+  }
+}

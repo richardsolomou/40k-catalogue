@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.questoris-companions.valours-reward",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Questoris Companions",
+    "summary": "This detachment’s expended Enhancements are unavailable. Fulfil your Oath to clear the expended state for every affected Enhancement.",
+    "summarySpans": [
+      {
+        "start": 69,
+        "end": 73,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.code-chivalric"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "appliesTo": {
+          "type": "enhancement",
+          "owner": "this-detachment"
+        },
+        "rules": [
+          {
+            "type": "supports-state",
+            "subject": "enhancement",
+            "state": "expended"
+          },
+          {
+            "type": "prohibit-activity",
+            "activity": "use-enhancement",
+            "subject": "enhancement",
+            "while": {
+              "state": "expended"
+            }
+          },
+          {
+            "type": "clear-state",
+            "state": "expended",
+            "subject": "each-expended-enhancement",
+            "trigger": {
+              "event": "fulfil-oath",
+              "owner": "own-player",
+              "ability": "Code Chivalric",
+              "repeat": "each"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

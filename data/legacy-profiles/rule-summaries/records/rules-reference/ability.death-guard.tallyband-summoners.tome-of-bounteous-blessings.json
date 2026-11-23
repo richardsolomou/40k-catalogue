@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.tallyband-summoners.tome-of-bounteous-blessings",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Tallyband Summoners",
+    "summary": "Whenever a PLAGUE LEGIONS unit is tested for Battle-shock 12″ or closer to the bearer, apply a +1 bonus to its roll. On a pass, one of its models recovers lost wounds, up to D3. A passing BATTLELINE unit may get back up to D3 of its destroyed models in place of healing.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 25,
+        "bold": true
+      },
+      {
+        "start": 45,
+        "end": 57,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 188,
+        "end": 198,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "battle-shock-test",
+          "quantifier": "each",
+          "unitKeyword": "PLAGUE LEGIONS",
+          "maxDistanceInches": 12,
+          "distanceFrom": "bearer"
+        },
+        "testModifier": 1,
+        "onPass": {
+          "default": {
+            "effect": "regain-lost-wounds",
+            "unit": "testing-unit",
+            "models": 1,
+            "upTo": "D3"
+          },
+          "alternative": {
+            "optional": true,
+            "replaces": "regain-lost-wounds",
+            "unit": "testing-unit",
+            "requiresUnitKeyword": "BATTLELINE",
+            "effect": "return-destroyed-models",
+            "upTo": "D3"
+          }
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Malignant Plaguecaster"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

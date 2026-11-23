@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.chaplain-grimaldus.faithful-cenobytes",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Chaplain Grimaldus",
+    "summary": "When Chaplain Grimaldus is destroyed, any Cenobyte Servitors still in his unit are destroyed along with him. Each Cenobyte Servitor counts as 0 against a transport’s capacity.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 36,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Chaplain Grimaldus",
+        "clauses": [
+          {
+            "trigger": {
+              "event": "model-destroyed",
+              "model": "Chaplain Grimaldus",
+              "scope": "this-unit"
+            },
+            "effect": {
+              "destroy": "every-remaining-Cenobyte-Servitor-model-in-this-unit"
+            }
+          },
+          {
+            "transportCapacityPerModel": {
+              "model": "Cenobyte Servitor",
+              "value": 0
+            }
+          }
+        ],
+        "authorityBoundary": {
+          "transportRulesDestination": "not-linked",
+          "claimsBeyondCard": "none"
+        }
+      }
+    }
+  }
+}

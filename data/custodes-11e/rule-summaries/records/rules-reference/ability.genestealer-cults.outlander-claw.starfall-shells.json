@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.outlander-claw.starfall-shells",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Outlander Claw",
+    "summary": "Only a GENESTEALER CULTS MOUNTED model can take this. In your Shooting phase, once the bearer has fired, pick one enemy unit struck by at least one of its cult sniper rifle attacks. Until your next Shooting phase begins, attacks made by models in that enemy unit get -1 to Hit rolls.",
+    "summarySpans": [
+      {
+        "start": 62,
+        "end": 76,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 273,
+        "end": 282,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "enhancement",
+        "detachment": "Outlander Claw",
+        "pointsCost": 10,
+        "eligibility": {
+          "scope": "model",
+          "keywordsAll": [
+            "GENESTEALER CULTS",
+            "MOUNTED"
+          ]
+        },
+        "effects": [
+          {
+            "trigger": {
+              "phase": "shooting",
+              "turn": "own",
+              "event": "bearer-has-shot"
+            },
+            "select": {
+              "count": 1,
+              "side": "enemy",
+              "condition": "hit-by-cult-sniper-rifle-attacks"
+            },
+            "roll": "hit",
+            "change": 1,
+            "direction": "decrease",
+            "appliesTo": "attacks-by-selected-unit",
+            "duration": "start-of-your-next-shooting-phase"
+          }
+        ]
+      }
+    }
+  }
+}

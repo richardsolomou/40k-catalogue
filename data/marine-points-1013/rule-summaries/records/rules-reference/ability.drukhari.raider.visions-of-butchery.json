@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.raider.visions-of-butchery",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Raider",
+    "summary": "Pick one Vanguard option as your Command phase begins. With this option active until your next Command phase begins, the Raider’s Bladevanes and chainsnares get +1 Attacks per embarked WRACKS model while any WRACKS unit is aboard.",
+    "summarySpans": [
+      {
+        "start": 9,
+        "end": 17,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.raider.vanguard-of-the-dark-city"
+        }
+      },
+      {
+        "start": 33,
+        "end": 46,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 95,
+        "end": 108,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 164,
+        "end": 171,
+        "bold": true
+      },
+      {
+        "start": 185,
+        "end": 191,
+        "bold": true
+      },
+      {
+        "start": 208,
+        "end": 214,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "activation": {
+          "parent": "Vanguard of the Dark City",
+          "actor": "controlling-player",
+          "recipient": "this-model",
+          "trigger": {
+            "turn": "own",
+            "phase": "command",
+            "timing": "start"
+          },
+          "selection": {
+            "pool": "named-parent-options",
+            "minimum": 1,
+            "maximum": 1,
+            "selectedOptionRequired": true
+          },
+          "duration": "until-start-of-next-own-command-phase"
+        },
+        "condition": {
+          "embarkedIn": "this-model",
+          "entity": "unit",
+          "keyword": "WRACKS",
+          "minimum": 1
+        },
+        "effect": {
+          "recipient": {
+            "weapon": "Bladevanes and chainsnares",
+            "equippedBy": "this-model"
+          },
+          "characteristic": "attacks",
+          "operation": "add",
+          "amount": 1,
+          "per": {
+            "entity": "model",
+            "keyword": "WRACKS",
+            "embarkedIn": "this-model"
+          }
+        }
+      }
+    }
+  }
+}

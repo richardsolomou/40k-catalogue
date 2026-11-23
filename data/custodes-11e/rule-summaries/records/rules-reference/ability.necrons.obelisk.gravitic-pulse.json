@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.obelisk.gravitic-pulse",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Obelisk",
+    "summary": "As the opposing player's Movement phase begins, you may pick one enemy unit that this model can see and that is no more than 18″ away. Until the turn is over, halve its models' Move characteristic and halve its Advance and Charge rolls. If it is able to FLY, then until your next Movement phase starts, roll a D6 every time it ends a move of any kind; on a 4+, it takes D3 mortal wounds.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "movement",
+          "turn": "opponent",
+          "timing": "start"
+        },
+        "optional": true,
+        "selection": {
+          "side": "enemy",
+          "count": 1,
+          "withinInches": 18,
+          "visible": true
+        },
+        "effects": [
+          {
+            "kind": "halve",
+            "values": [
+              "move",
+              "advance-roll",
+              "charge-roll"
+            ],
+            "duration": "end-of-turn"
+          },
+          {
+            "kind": "roll-on-move",
+            "condition": {
+              "unitKeywords": [
+                "FLY"
+              ]
+            },
+            "roll": "D6",
+            "success": "4+",
+            "onSuccess": {
+              "mortalWounds": "D3"
+            },
+            "duration": "start-of-your-next-movement-phase"
+          }
+        ]
+      }
+    }
+  }
+}

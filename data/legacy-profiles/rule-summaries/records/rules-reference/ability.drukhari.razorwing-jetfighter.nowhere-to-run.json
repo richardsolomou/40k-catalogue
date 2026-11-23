@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.razorwing-jetfighter.nowhere-to-run",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Razorwing Jetfighter",
+    "summary": "Picking this unit to shoot in your Shooting phase lets you pay 1 Pain token to make it Empowered. If Empowered after shooting, it marks one enemy unit hit by its attacks. MONSTERS and VEHICLES are ineligible. The mark imposes −2 Move and −2 on Charge rolls, expiring when your next turn begins.",
+    "summarySpans": [
+      {
+        "start": 35,
+        "end": 49,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 65,
+        "end": 75,
+        "bold": true
+      },
+      {
+        "start": 87,
+        "end": 96,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      },
+      {
+        "start": 101,
+        "end": 110,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      },
+      {
+        "start": 171,
+        "end": 179,
+        "bold": true
+      },
+      {
+        "start": 184,
+        "end": 192,
+        "bold": true
+      },
+      {
+        "start": 229,
+        "end": 233,
+        "bold": true
+      },
+      {
+        "start": 244,
+        "end": 250,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "source": "datasheet-unit",
+        "recipient": "datasheet-unit",
+        "optional": true,
+        "cost": {
+          "resource": "Pain token",
+          "amount": 1
+        },
+        "designation": "Empowered",
+        "trigger": {
+          "chooseRecipientToAct": "shoot",
+          "phase": "Shooting",
+          "turnOwner": "self"
+        },
+        "selection": {
+          "trigger": "after source unit shoots while Empowered",
+          "count": 1,
+          "side": "enemy",
+          "requiresHitBySourceUnit": true,
+          "exclude": [
+            "MONSTERS",
+            "VEHICLES"
+          ]
+        },
+        "duration": {
+          "until": {
+            "turnOwner": "self",
+            "next": true,
+            "edge": "start"
+          }
+        },
+        "effect": {
+          "recipient": "selected-enemy-unit",
+          "moveCharacteristicModifierInches": -2,
+          "chargeRollModifier": -2
+        }
+      }
+    }
+  }
+}

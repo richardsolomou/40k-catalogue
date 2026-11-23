@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.wrath-of-the-rock.in-sacrifice-victory",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Wrath of the Rock",
+    "cp": 1,
+    "summary": "Spend 1 CP when a friendly DEATHWING or RAVENWING unit is destroyed in objective range, in either player’s phase. Use the destroyed unit as the target. Pick an objective it controlled at the previous phase’s close, provided no enemy unit other than AIRCRAFT is in range of that objective. The chosen objective becomes secured.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 36,
+        "bold": true
+      },
+      {
+        "start": 40,
+        "end": 49,
+        "bold": true
+      },
+      {
+        "start": 71,
+        "end": 86,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 249,
+        "end": 257,
+        "bold": true
+      },
+      {
+        "start": 318,
+        "end": 325,
+        "target": {
+          "kind": "core-rule",
+          "id": "secured-objectives"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "phase": "any",
+            "turn": "either",
+            "event": "unit-destroyed",
+            "subject": {
+              "owner": "friendly",
+              "keywordsAnyOf": [
+                "DEATHWING",
+                "RAVENWING"
+              ],
+              "inRangeOf": "an-objective"
+            }
+          },
+          "target": {
+            "bind": "triggering-unit",
+            "allowDestroyed": true
+          },
+          "effects": [
+            {
+              "action": "choose-objective",
+              "count": 1,
+              "bind": "selected-objective",
+              "controlledBy": "triggering-unit",
+              "controlCheckedAt": "previous-phase-end",
+              "occupancyCheckedAt": "resolution",
+              "prohibitedOccupants": {
+                "owner": "enemy",
+                "exceptKeywords": [
+                  "AIRCRAFT"
+                ]
+              }
+            },
+            {
+              "action": "secure-objective",
+              "recipient": "selected-objective"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

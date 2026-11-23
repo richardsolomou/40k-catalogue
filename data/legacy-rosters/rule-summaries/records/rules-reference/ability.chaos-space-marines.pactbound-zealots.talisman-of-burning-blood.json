@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.pactbound-zealots.talisman-of-burning-blood",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Pactbound Zealots",
+    "summary": "Model eligibility. KHORNE / HERETIC ASTARTES. The bearer’s melee profile gains one point each in Attacks and Strength. A passed Leadership test for the unit’s Dark Pact replaces both increases with a single D3 result until that phase ends.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 25,
+        "bold": true
+      },
+      {
+        "start": 28,
+        "end": 44,
+        "bold": true
+      },
+      {
+        "start": 97,
+        "end": 104,
+        "bold": true
+      },
+      {
+        "start": 109,
+        "end": 117,
+        "bold": true
+      },
+      {
+        "start": 128,
+        "end": 143,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      },
+      {
+        "start": 159,
+        "end": 168,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-space-marines.dark-pacts"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "KHORNE",
+            "HERETIC ASTARTES"
+          ],
+          "excludes": [],
+          "characterOnly": true
+        },
+        "effects": [
+          {
+            "type": "modify-profile",
+            "target": "bearer-melee-weapons",
+            "stats": {
+              "Attacks": 1,
+              "Strength": 1
+            }
+          },
+          {
+            "type": "replace-profile-bonuses",
+            "target": "bearer-melee-weapons",
+            "stats": [
+              "Attacks",
+              "Strength"
+            ],
+            "sharedValueRoll": {
+              "dice": "D3",
+              "count": 1
+            },
+            "duration": "until-end-of-triggering-phase",
+            "requires": {
+              "event": "bearer-unit-makes-dark-pact",
+              "leadershipTest": "passes"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

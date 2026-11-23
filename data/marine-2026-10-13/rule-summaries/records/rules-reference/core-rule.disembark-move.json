@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "disembark-move",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "18. Transports",
+    "ruleNumber": "18.04",
+    "summary": "Eligibility needs all three: the unit is aboard a TRANSPORT model on the battlefield, it did not get in this phase, and that TRANSPORT has made neither an advance nor a fall-back move in this phase. The unit is placed per Set Up (03.02), each model wholly inside the set-up distance from the TRANSPORT: 3\" for Rapid or Tactical, 6\" for Combat. Before placing, choose the mode. Rapid must be used if the TRANSPORT made a normal move or an ingress move during the phase. Failing that, Tactical must be used when the TRANSPORT remained stationary or is still unselected for movement this phase and the unit can be placed as required. Otherwise the mode is Combat, and each model in the unit takes a hazard roll. Rapid: in a turn when the TRANSPORT arrived by ingress move, each model is bound by whatever rules bound the TRANSPORT during that move; afterwards the unit may not declare a charge for the rest of the turn. Tactical: afterwards, select the unit to make either a normal move or an advance move. Combat: models may be placed engaged with enemy units that the TRANSPORT is engaged with; afterwards the unit becomes battle-shocked and may not declare a charge for the rest of the turn.",
+    "summarySpans": [
+      {
+        "start": 50,
+        "end": 59,
+        "bold": true
+      },
+      {
+        "start": 125,
+        "end": 134,
+        "bold": true
+      },
+      {
+        "start": 292,
+        "end": 301,
+        "bold": true
+      },
+      {
+        "start": 403,
+        "end": 412,
+        "bold": true
+      },
+      {
+        "start": 514,
+        "end": 523,
+        "bold": true
+      },
+      {
+        "start": 735,
+        "end": 744,
+        "bold": true
+      },
+      {
+        "start": 818,
+        "end": 827,
+        "bold": true
+      },
+      {
+        "start": 1067,
+        "end": 1076,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "move-type",
+        "ruleNumber": "18.04",
+        "name": "Disembark Move",
+        "effectRef": "03.02",
+        "eligibleIfAll": [
+          "embarked-in-TRANSPORT-on-battlefield",
+          "did-not-embark-this-phase",
+          "TRANSPORT-no-advance-or-fall-back-this-phase"
+        ],
+        "setupDistanceInches": {
+          "Rapid Disembark": 3,
+          "Tactical Disembark": 3,
+          "Combat Disembark": 6
+        },
+        "modes": [
+          {
+            "name": "Rapid Disembark",
+            "requiredIf": "TRANSPORT-made-normal-or-ingress-move-this-phase",
+            "whileMoving": "follow-TRANSPORT-ingress-rules-if-ingress-this-turn",
+            "after": {
+              "eligibleToDeclareCharge": false,
+              "until": "end-of-turn"
+            }
+          },
+          {
+            "name": "Tactical Disembark",
+            "requiredIf": "otherwise-TRANSPORT-stationary-or-not-yet-selected-and-setup-possible",
+            "after": {
+              "selectToMove": [
+                "normal-move",
+                "advance-move"
+              ]
+            }
+          },
+          {
+            "name": "Combat Disembark",
+            "requiredIf": "otherwise",
+            "before": "hazard-roll-per-model",
+            "whileMoving": "may-be-engaged-with-enemies-engaged-with-TRANSPORT",
+            "after": {
+              "battleShocked": true,
+              "eligibleToDeclareCharge": false,
+              "until": "end-of-turn"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

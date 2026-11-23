@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.aspect-host.khaines-vengeance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Aspect Host",
+    "cp": 1,
+    "summary": "Spend 1 CP in the opposing player's Movement phase, right after an enemy unit that is not a MONSTER or VEHICLE is picked to Fall Back, on an AVATAR OF KHAINE or ASPECT WARRIORS unit of yours in Engagement Range of the unit falling back. Each model in that enemy unit takes a Desperate Escape test, and each such test takes a -1 penalty when the fleeing unit is Battle-shocked.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Aspect Host",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "movement"
+            }
+          ],
+          "timing": "after-enemy-unit-selected-to-fall-back",
+          "triggerUnitKeywordsNone": [
+            "MONSTER",
+            "VEHICLE"
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              "ASPECT WARRIORS",
+              "AVATAR OF KHAINE"
+            ],
+            "withinEngagementRangeOf": "triggering-enemy-unit"
+          },
+          "effects": [
+            {
+              "desperateEscapeTest": "every-model-in-enemy-unit"
+            },
+            {
+              "condition": "enemy-unit-battle-shocked",
+              "desperateEscapeModifier": -1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

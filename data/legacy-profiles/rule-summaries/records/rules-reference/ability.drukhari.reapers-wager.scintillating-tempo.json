@@ -1,0 +1,147 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.reapers-wager.scintillating-tempo",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Drukhari Faction Pack: Version 1.2",
+    "page": "6",
+    "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_drukhari-p7mpvgnmnn-clii96hzh6.pdf#page=6"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Reaper’s Wager",
+    "cp": 1,
+    "summary": "In your Movement or Charge phase, react with a friendly unit that has HARLEQUINS or DRUKHARI. Use it right after the unit is set up, declares a charge, or is chosen to make a Fall Back, Advance or Normal Move. Enemy units cannot shoot it with Fire Overwatch through turn end.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 32,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 70,
+        "end": 80,
+        "bold": true
+      },
+      {
+        "start": 84,
+        "end": 92,
+        "bold": true
+      },
+      {
+        "start": 175,
+        "end": 184,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 186,
+        "end": 193,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 197,
+        "end": 208,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 243,
+        "end": 257,
+        "target": {
+          "kind": "core-rule",
+          "id": "fire-overwatch"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Drukhari Faction Pack: Version 1.2",
+        "page": "6",
+        "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_drukhari-p7mpvgnmnn-clii96hzh6.pdf#page=6"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              },
+              {
+                "phase": "charge",
+                "turn": "your"
+              }
+            ],
+            "event": "immediately-after",
+            "alternatives": [
+              {
+                "event": "selected-to-move",
+                "anyMove": [
+                  "normal",
+                  "advance",
+                  "fall-back"
+                ]
+              },
+              {
+                "event": "declares-charge"
+              },
+              {
+                "event": "set-up-on-battlefield"
+              }
+            ],
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "anyKeyword": [
+              "DRUKHARI",
+              "HARLEQUINS"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "prohibit-stratagem-shooting",
+              "actor": "enemy-units",
+              "recipient": "target-unit",
+              "stratagem": "Fire Overwatch",
+              "duration": {
+                "until": "end-of-this-turn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.penitent-host.desperate-for-redemption",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Penitent Host",
+    "summary": "At the start of each battle round, you may choose one Vow of Atonement for your army; it lasts until the next battle round starts, and each vow can be chosen only once per battle. The Path of the Penitent: your PENITENT models get +3\" Move. Absolution in Battle: when one of your units is picked to fight after making a Charge move that turn, melee weapons of its PENITENT models get +1 Attacks and +1 Strength until the phase ends. Death Before Disgrace: when a melee attack destroys one of your PENITENT models that has not yet fought this phase, roll a D6; on a 2+ it stays in play, may fight once the attacking unit's attacks are finished, and is then removed.",
+    "summarySpans": [
+      {
+        "start": 54,
+        "end": 70,
+        "bold": true
+      },
+      {
+        "start": 180,
+        "end": 204,
+        "bold": true
+      },
+      {
+        "start": 211,
+        "end": 219,
+        "bold": true
+      },
+      {
+        "start": 241,
+        "end": 261,
+        "bold": true
+      },
+      {
+        "start": 433,
+        "end": 454,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Penitent Host",
+        "step": "start-of-battle-round",
+        "choice": {
+          "count": 1,
+          "optional": true,
+          "duration": "until-start-of-next-battle-round",
+          "eachOncePerBattle": true
+        },
+        "vows": {
+          "The Path of the Penitent": {
+            "modelsKeywordsAll": [
+              "PENITENT"
+            ],
+            "characteristic": "M",
+            "deltaInches": 3
+          },
+          "Absolution in Battle": {
+            "trigger": "friendly-unit-selected-to-fight",
+            "condition": "made-charge-move-this-turn",
+            "duration": "phase",
+            "weaponType": "melee",
+            "modelsKeywordsAll": [
+              "PENITENT"
+            ],
+            "characteristics": [
+              {
+                "name": "A",
+                "delta": 1
+              },
+              {
+                "name": "S",
+                "delta": 1
+              }
+            ]
+          },
+          "Death Before Disgrace": {
+            "trigger": "model-destroyed-by-melee-attack",
+            "modelsKeywordsAll": [
+              "PENITENT"
+            ],
+            "condition": "has-not-fought-this-phase",
+            "roll": {
+              "dice": "D6",
+              "threshold": "2+"
+            },
+            "onSuccess": "not-removed-fights-after-attacking-unit-then-removed"
+          }
+        }
+      }
+    }
+  }
+}

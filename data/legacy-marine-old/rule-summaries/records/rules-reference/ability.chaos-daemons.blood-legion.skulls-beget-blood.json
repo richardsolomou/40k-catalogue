@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.blood-legion.skulls-beget-blood",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Blood Legion",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it in your Shooting phase. Choose one of your LEGIONES DAEMONICA KHORNE units that is INFANTRY or MOUNTED, has not Fallen Back this turn, and is out of Engagement Range of all enemy units. Pick one enemy unit that your unit can see, that is within 8\" of it, and that is out of Engagement Range of every unit in your army. Roll six D6; each result of 4+ inflicts 1 mortal wound on that enemy unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Blood Legion",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAny": [
+              [
+                "LEGIONES DAEMONICA",
+                "KHORNE",
+                "INFANTRY"
+              ],
+              [
+                "LEGIONES DAEMONICA",
+                "KHORNE",
+                "MOUNTED"
+              ]
+            ],
+            "excludes": [
+              "fell-back-this-turn",
+              "within-engagement-range-of-enemy"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds-roll",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "withinInches": 8,
+                "visible": true,
+                "notWithinEngagementRangeOfYourUnits": true
+              },
+              "dice": 6,
+              "die": "D6",
+              "success": "4+",
+              "mortalWoundsPerSuccess": 1
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

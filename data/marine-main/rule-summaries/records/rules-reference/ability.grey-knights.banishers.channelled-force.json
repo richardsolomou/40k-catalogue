@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.banishers.channelled-force",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Banishers",
+    "summary": "When your GREY KNIGHTS unit is picked to fight, you may have it take a Leadership test. On a pass, choose Sustained Hits 1 or Lethal Hits for its Psychic melee weapons through phase end.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 22,
+        "bold": true
+      },
+      {
+        "start": 71,
+        "end": 86,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      },
+      {
+        "start": 106,
+        "end": 122,
+        "target": {
+          "kind": "core-rule",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 126,
+        "end": 137,
+        "target": {
+          "kind": "core-rule",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 146,
+        "end": 153,
+        "target": {
+          "kind": "core-rule",
+          "id": "psychic"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "unit-selected",
+          "action": "fight",
+          "repeat": "each",
+          "subject": {
+            "side": "own-army",
+            "allKeywords": [
+              "GREY KNIGHTS"
+            ]
+          }
+        },
+        "test": {
+          "kind": "leadership",
+          "subject": "selected-unit",
+          "optional": true
+        },
+        "effect": {
+          "result": "pass",
+          "choose": 1,
+          "type": "grant-weapon-ability",
+          "recipient": {
+            "subject": "selected-unit",
+            "weaponType": "melee",
+            "requiresAbility": "psychic"
+          },
+          "options": [
+            {
+              "ability": "sustained-hits",
+              "value": 1
+            },
+            {
+              "ability": "lethal-hits"
+            }
+          ],
+          "expiry": {
+            "event": "phase-end"
+          }
+        }
+      }
+    }
+  }
+}

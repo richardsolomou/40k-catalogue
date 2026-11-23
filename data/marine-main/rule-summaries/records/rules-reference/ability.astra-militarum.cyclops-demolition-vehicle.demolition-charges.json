@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.cyclops-demolition-vehicle.demolition-charges",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Cyclops Demolition Vehicle",
+    "summary": "Each time a move ends (either this model's or an enemy unit's) with this model within 3\" of any enemy units, choose one such enemy unit. This model is destroyed; instead of its Deadly Demise roll, roll a D6: 2 to 5 inflicts D3 mortal wounds on the chosen unit, and a 6 inflicts D6 mortal wounds.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "this-model-or-enemy-unit-ends-move",
+          "condition": {
+            "withinInchesOfEnemy": 3
+          }
+        },
+        "select": {
+          "side": "enemy",
+          "count": 1,
+          "from": "those-enemy-units"
+        },
+        "effects": [
+          {
+            "thisModelDestroyed": true,
+            "replacesDeadlyDemiseRoll": true
+          },
+          {
+            "roll": "D6",
+            "dieSides": 6,
+            "results": [
+              {
+                "range": [
+                  2,
+                  5
+                ],
+                "mortalWounds": "D3"
+              },
+              {
+                "value": 6,
+                "mortalWounds": "D6"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

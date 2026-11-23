@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.warptide.soulseeing",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Warptide",
+    "cp": 1,
+    "summary": "1 CP. Use it as your Shooting phase begins. Choose one of your LEGIONES DAEMONICA BATTLELINE units, then pick one enemy unit within 12\" that it can see. That enemy unit's detection range increases by 6\" for the rest of that phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Warptide",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "moment": "start-of-phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "BATTLELINE"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "detection-range-modifier",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "visible": true,
+                "withinInches": 12
+              },
+              "op": "add",
+              "inches": 6
+            }
+          ],
+          "restrictions": [],
+          "duration": "end-of-phase",
+          "durationBasis": {
+            "coreRule": "01.02.02",
+            "name": "Persisting Rules Effects",
+            "reason": "the card prints no duration, so the effect lasts only for the phase in which it was applied"
+          }
+        }
+      }
+    }
+  }
+}

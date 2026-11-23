@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.inquisitor-draxus.psychic-veil",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Inquisitor Draxus",
+    "summary": "During your Command phase you may activate Psychic Veil with a D6 roll. A result of 1 inflicts D3 mortal wounds on the psyker’s unit. A result of 2+ protects the unit from ranged attacks made farther than 18″ away until your next Command phase begins.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 98,
+        "end": 111,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 146,
+        "end": 148,
+        "bold": true
+      },
+      {
+        "start": 205,
+        "end": 208,
+        "bold": true
+      },
+      {
+        "start": 230,
+        "end": 243,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "activation": "own-command-phase",
+        "optional": true,
+        "dice": {
+          "count": 1,
+          "sides": 6
+        },
+        "recipient": "this-psyker-unit",
+        "outcomes": [
+          {
+            "result": 1,
+            "mortalWoundsDice": {
+              "count": 1,
+              "sides": 3
+            }
+          },
+          {
+            "minimumResult": 2,
+            "effect": {
+              "rangedAttackTargetRestriction": {
+                "measureFrom": "attacking-model",
+                "measureTo": "target-unit",
+                "maximumInches": 18
+              }
+            },
+            "duration": "until-start-of-next-own-command-phase"
+          }
+        ]
+      }
+    }
+  }
+}

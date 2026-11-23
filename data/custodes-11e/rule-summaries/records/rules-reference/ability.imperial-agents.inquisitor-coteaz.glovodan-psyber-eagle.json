@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.inquisitor-coteaz.glovodan-psyber-eagle",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Inquisitor Coteaz",
+    "summary": "On your turn’s Command phase, you may strip an enemy unit of its Benefit of Cover. Choose one up to 18″ from the bearer. The restriction expires as your following Command phase opens.",
+    "summarySpans": [
+      {
+        "start": 15,
+        "end": 28,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 65,
+        "end": 81,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      },
+      {
+        "start": 163,
+        "end": 176,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "trigger": {
+          "phase": "command",
+          "turn": "own",
+          "timing": "during"
+        },
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "count": 1,
+          "origin": "bearer",
+          "rangeInches": 18,
+          "measure": "within",
+          "optional": true
+        },
+        "duration": "until-start-of-own-next-command-phase",
+        "effect": {
+          "operation": "prohibit",
+          "rule": "benefit-of-cover",
+          "recipient": "selected-unit"
+        }
+      }
+    }
+  }
+}

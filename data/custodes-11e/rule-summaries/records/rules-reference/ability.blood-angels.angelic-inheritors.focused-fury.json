@@ -1,0 +1,140 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.angelic-inheritors.focused-fury",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Angelic Inheritors",
+    "cp": 1,
+    "summary": "Use in the Fight phase as you pick one of your units with ADEPTUS ASTARTES to fight. Its melee attacks gain LETHAL HITS. If it is a Character unit, you can choose LETHAL HITS plus LANCE instead.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 58,
+        "end": 74,
+        "bold": true
+      },
+      {
+        "start": 108,
+        "end": 119,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 132,
+        "end": 141,
+        "bold": true
+      },
+      {
+        "start": 163,
+        "end": 174,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 180,
+        "end": 185,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lance"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "selected-to-fight",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "choose-one-mode",
+              "alternatives": [
+                {
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "melee",
+                      "abilities": [
+                        "LETHAL HITS"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "condition": {
+                    "targetHas": "Character"
+                  },
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "melee",
+                      "abilities": [
+                        "LETHAL HITS",
+                        "LANCE"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "duration": {
+            "scope": "target-unit-attacks-in-trigger"
+          }
+        }
+      }
+    }
+  }
+}

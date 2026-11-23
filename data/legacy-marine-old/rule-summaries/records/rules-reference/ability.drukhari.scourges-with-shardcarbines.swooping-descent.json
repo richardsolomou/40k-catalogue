@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.scourges-with-shardcarbines.swooping-descent",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Scourges with Shardcarbines",
+    "summary": "You may pay 1 Pain token in your Movement phase to make this unit Empowered. A model from the Empowered unit arriving by Deep Strike may use this placement option if its horizontal gap from every enemy unit exceeds 6″. If this placement puts the unit within 8″ of any enemy unit, it cannot declare a charge that turn.",
+    "summarySpans": [
+      {
+        "start": 14,
+        "end": 24,
+        "bold": true
+      },
+      {
+        "start": 33,
+        "end": 47,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 66,
+        "end": 75,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      },
+      {
+        "start": 94,
+        "end": 103,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      },
+      {
+        "start": 121,
+        "end": 132,
+        "target": {
+          "kind": "core-ability",
+          "id": "deep-strike"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "source": "datasheet-unit",
+        "recipient": "datasheet-unit",
+        "trigger": {
+          "phase": "Movement",
+          "turnOwner": "self"
+        },
+        "optional": true,
+        "cost": {
+          "resource": "Pain token",
+          "amount": 1
+        },
+        "designation": "Empowered",
+        "effect": {
+          "requires": "Empowered",
+          "setup": {
+            "trigger": "each model using Deep Strike",
+            "destination": "battlefield",
+            "optional": true,
+            "distanceFromAllEnemyUnits": {
+              "comparison": "greater-than",
+              "inches": 6,
+              "axis": "horizontal"
+            }
+          },
+          "restriction": {
+            "trigger": "using that setup option",
+            "recipient": "this unit",
+            "distanceFromAnyEnemyUnit": {
+              "comparison": "within",
+              "inches": 8,
+              "axis": "unspecified"
+            },
+            "cannotDeclareCharge": true,
+            "expires": "turn end"
+          }
+        }
+      }
+    }
+  }
+}

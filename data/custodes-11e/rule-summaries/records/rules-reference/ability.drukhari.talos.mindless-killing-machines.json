@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.talos.mindless-killing-machines",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Talos",
+    "summary": "At the opening of either Fight phase, you may pay 1 Pain token to make this unit Empowered. While Empowered, roll one D6 whenever a melee attack destroys one of its models before that model has fought in the phase. A 2+ delays removal. The casualty may fight once the attacking unit finishes its attacks, then is removed.",
+    "summarySpans": [
+      {
+        "start": 25,
+        "end": 36,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 52,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 81,
+        "end": 90,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      },
+      {
+        "start": 98,
+        "end": 107,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "source": "datasheet-unit",
+        "recipient": "datasheet-unit",
+        "trigger": {
+          "phase": "Fight",
+          "turnOwner": "either",
+          "edge": "start"
+        },
+        "optional": true,
+        "cost": {
+          "resource": "Pain token",
+          "amount": 1
+        },
+        "designation": "Empowered",
+        "effect": {
+          "requires": "Empowered",
+          "trigger": "each model in recipient destroyed by melee attack",
+          "requiresModelHasFoughtThisPhase": false,
+          "check": {
+            "dice": 1,
+            "sides": 6,
+            "atLeast": 2
+          },
+          "success": {
+            "deferRemoval": true,
+            "actor": "destroyed-model",
+            "mayFight": true,
+            "timing": "after attacker unit finishes its attacks",
+            "removeAfterward": true
+          }
+        }
+      }
+    }
+  }
+}

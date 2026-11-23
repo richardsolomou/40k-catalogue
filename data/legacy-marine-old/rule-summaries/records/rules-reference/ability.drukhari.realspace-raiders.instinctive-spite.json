@@ -1,0 +1,159 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.realspace-raiders.instinctive-spite",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Realspace Raiders",
+    "cp": 1,
+    "summary": "As your Shooting phase or either Fight phase begins, choose up to two friendly DRUKHARI BATTLELINE units or a different friendly DRUKHARI unit. Their models gain +1 to Hit rolls against enemies Below Half-strength through phase end. You may spend 1 Pain token to give those same attacks +1 to Wound rolls as well.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 33,
+        "end": 44,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 79,
+        "end": 98,
+        "bold": true
+      },
+      {
+        "start": 168,
+        "end": 177,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 194,
+        "end": 213,
+        "bold": true
+      },
+      {
+        "start": 249,
+        "end": 259,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      },
+      {
+        "start": 293,
+        "end": 304,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "any": [
+              {
+                "owner": "your-army",
+                "entity": "unit",
+                "keywords": [
+                  "DRUKHARI",
+                  "BATTLELINE"
+                ],
+                "count": {
+                  "upTo": 2
+                }
+              },
+              {
+                "owner": "your-army",
+                "entity": "unit",
+                "keywords": [
+                  "DRUKHARI"
+                ],
+                "count": 1,
+                "exclude": [
+                  "BATTLELINE"
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "spend-resource",
+              "resource": "pain-token",
+              "quantity": 1,
+              "optional": true
+            },
+            {
+              "action": "modify-roll",
+              "roll": "hit",
+              "operation": "add",
+              "amount": 1,
+              "actor": "models-in-chosen-units",
+              "attackTargetState": "below-half-strength",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "modify-roll",
+              "roll": "wound",
+              "operation": "add",
+              "amount": 1,
+              "actor": "models-in-chosen-units",
+              "attackTargetState": "below-half-strength",
+              "condition": "spent-one-pain-token-for-this-use",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

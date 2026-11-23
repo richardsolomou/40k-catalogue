@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.shadowmark-talon.murderous-fusillade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Shadowmark Talon",
+    "cp": 1,
+    "summary": "In your Shooting phase, use this at the point you pick an Adeptus Astartes Infantry unit of yours to fire. It must have made an Ingress move earlier that turn. Apply a +1 Ballistic Skill modifier and a +1 Armour Penetration modifier to its ranged attacks.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 128,
+        "end": 140,
+        "target": {
+          "kind": "core-rule",
+          "id": "ingress-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Shadowmark Talon",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "selected-to-shoot",
+            "actor": "selected-unit",
+            "conditions": [
+              {
+                "move": "ingress",
+                "completed": true,
+                "window": "current-turn",
+                "actor": "selected-unit"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "controller": "friendly",
+            "allKeywords": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "identity": "triggering-unit"
+          },
+          "effects": [
+            {
+              "action": "modify-characteristic",
+              "actor": "selected-unit",
+              "characteristics": [
+                "ballistic-skill"
+              ],
+              "amount": 1,
+              "attackType": "ranged"
+            },
+            {
+              "action": "modify-characteristic",
+              "actor": "selected-unit",
+              "characteristics": [
+                "armour-penetration"
+              ],
+              "amount": 1,
+              "attackType": "ranged"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

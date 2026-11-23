@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.wolf-scouts.haywire-mine-once-per-battle-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Wolf Scouts",
+    "summary": "A Wolf Scouts unit with this mine can deploy it once per battle. In your Shooting phase, choose one enemy unit the unit can see up to 6″ away. Roll a D6. A 2+ inflicts D3 mortal wounds, or 2D3 against a VEHICLE.",
+    "summarySpans": [
+      {
+        "start": 73,
+        "end": 87,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 134,
+        "end": 136,
+        "bold": true
+      },
+      {
+        "start": 156,
+        "end": 158,
+        "bold": true
+      },
+      {
+        "start": 168,
+        "end": 170,
+        "bold": true
+      },
+      {
+        "start": 171,
+        "end": 184,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 189,
+        "end": 192,
+        "bold": true
+      },
+      {
+        "start": 203,
+        "end": 210,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "requiresEquipment": "Haywire Mine",
+        "limit": {
+          "period": "battle",
+          "scope": "unit",
+          "count": 1
+        },
+        "trigger": {
+          "event": "phase",
+          "phase": "shooting",
+          "timing": "during",
+          "turn": "controlling-player"
+        },
+        "selection": {
+          "count": 1,
+          "optional": true,
+          "side": "enemy",
+          "entity": "unit",
+          "visibleTo": "this-unit",
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 6,
+          "origin": "this-unit"
+        },
+        "effect": {
+          "operation": "deal-mortal-wounds",
+          "recipient": "selected-unit",
+          "test": {
+            "dice": {
+              "count": 1,
+              "sides": 6,
+              "additive": 0
+            },
+            "minimum": 2
+          },
+          "default": {
+            "count": 1,
+            "sides": 3,
+            "additive": 0
+          },
+          "override": {
+            "keyword": "VEHICLE",
+            "amount": {
+              "count": 2,
+              "sides": 3,
+              "additive": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

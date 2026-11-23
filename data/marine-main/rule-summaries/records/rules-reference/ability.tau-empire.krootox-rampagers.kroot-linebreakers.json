@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.krootox-rampagers.kroot-linebreakers",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Krootox Rampagers",
+    "summary": "When this unit completes its Charge move, pick a single enemy unit in Engagement Range. Of the models in your charging unit, each one within Engagement Range of the chosen enemy rolls a D6. A 4+ inflicts D3 mortal wounds on the chosen unit. If this ability kills one of its models, it must attempt a Battle-shock test.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 40,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 70,
+        "end": 86,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 141,
+        "end": 157,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 207,
+        "end": 220,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 300,
+        "end": 317,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "type": "charge-impact-and-battle-shock",
+        "trigger": "after-this-unit-charge-move",
+        "selection": {
+          "count": 1,
+          "side": "enemy",
+          "within": "engagement-range-of-this-unit"
+        },
+        "die": "D6",
+        "threshold": 4,
+        "rollPer": "each-model-in-this-unit-within-engagement-range-of-selected-unit",
+        "mortalWoundsPerSuccess": "D3",
+        "test": {
+          "target": "selected-unit",
+          "type": "battle-shock",
+          "condition": "a-model-in-selected-unit-is-destroyed-by-this-effect"
+        }
+      }
+    }
+  }
+}

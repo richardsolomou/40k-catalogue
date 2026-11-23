@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.heretic-astartes-daemon-prince.dark-blessing",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Heretic Astartes Daemon Prince",
+    "summary": "This model’s 6″ aura gives the Benefit of Cover to models in friendly units with HERETIC ASTARTES INFANTRY against ranged attacks allocated to them.",
+    "summarySpans": [
+      {
+        "start": 31,
+        "end": 47,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      },
+      {
+        "start": 81,
+        "end": 106,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-model",
+        "aura": {
+          "emitter": {
+            "entity": "model",
+            "selector": "this-model"
+          },
+          "recipient": {
+            "side": "friendly",
+            "entity": "unit",
+            "allKeywords": [
+              "HERETIC ASTARTES",
+              "INFANTRY"
+            ],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-model",
+            "to": "recipient-unit",
+            "kind": "within",
+            "distanceInches": 6
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "benefit-of-cover",
+            "recipient": "allocated-model-in-recipient-unit",
+            "trigger": "ranged-attack-allocated-to-model",
+            "attackType": "ranged",
+            "duration": "triggering-attack"
+          }
+        ]
+      }
+    }
+  }
+}

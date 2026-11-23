@@ -1,0 +1,125 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.shadow-legion.shade-path",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Chaos Daemons Faction Pack: Version 1.2",
+    "page": "12",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_chaos_daemons-e67vyzvv3x-mownb49uc3.pdf#page=12"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Shadow Legion",
+    "cp": 2,
+    "summary": "As the enemy Charge phase starts, pick one SHADOW LEGION unit. Choose an enemy unit visible to it and up to 12\" away. The enemy takes a −1 penalty to Charge rolls when declaring a charge. If your pick has Nurgle, the enemy must also take a Battle-shock test.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 43,
+        "end": 56,
+        "bold": true
+      },
+      {
+        "start": 205,
+        "end": 211,
+        "bold": true
+      },
+      {
+        "start": 240,
+        "end": 257,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Daemons Faction Pack: Version 1.2",
+        "page": "12",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_chaos_daemons-e67vyzvv3x-mownb49uc3.pdf#page=12"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "start-of-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "SHADOW LEGION"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "select-unit",
+              "id": "affected-enemy",
+              "owner": "enemy",
+              "count": 1,
+              "visibleFrom": "target-unit",
+              "distance": {
+                "unit": "inch",
+                "amount": 12,
+                "comparator": "at-most",
+                "from": "target-unit"
+              }
+            },
+            {
+              "kind": "roll-modifier",
+              "recipient": "affected-enemy",
+              "trigger": "that-unit-declares-a-charge",
+              "roll": "charge",
+              "operation": "subtract",
+              "amount": 1,
+              "duration": {
+                "until": "resolution-of-affected-charge-rolls"
+              }
+            },
+            {
+              "kind": "test",
+              "test": "battle-shock",
+              "recipient": "affected-enemy",
+              "condition": {
+                "targetKeywords": [
+                  "Nurgle"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

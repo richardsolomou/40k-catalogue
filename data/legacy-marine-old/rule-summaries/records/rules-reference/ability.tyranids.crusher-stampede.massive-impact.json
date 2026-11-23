@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.crusher-stampede.massive-impact",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Crusher Stampede",
+    "cp": 1,
+    "summary": "Epic Deed, 1 CP, in your Charge phase once a TYRANIDS MONSTER model of yours completes a Charge move; that model is the target. Pick one enemy unit in its Engagement Range and roll 6 D6, each 4+ inflicting 1 mortal wound on it.",
+    "summarySpans": [
+      {
+        "start": 25,
+        "end": 37,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 155,
+        "end": 171,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 208,
+        "end": 220,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Epic Deed",
+          "detachment": "Crusher Stampede",
+          "when": {
+            "phase": "charge",
+            "turn": "own",
+            "event": "friendly-model-ended-charge-move",
+            "modelKeywordsAll": [
+              "TYRANIDS",
+              "MONSTER"
+            ]
+          },
+          "target": {
+            "model": "that-model"
+          },
+          "effects": [
+            {
+              "select": {
+                "count": 1,
+                "side": "enemy",
+                "within": "engagement-range"
+              }
+            },
+            {
+              "roll": {
+                "dice": "D6",
+                "count": 6
+              },
+              "success": "4+",
+              "mortalWoundsPerSuccess": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.explorator-maniple.priority-reclamation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Explorator Maniple",
+    "cp": 1,
+    "summary": "In the Fight phase your ADEPTUS MECHANICUS unit may extend its upcoming Consolidation from 3 to 6 inches. The unit must end the move in range of your Acquisition marker. The Stratagem is unavailable to units within 3 inches of any enemy unit.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 24,
+        "end": 42,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight"
+            ],
+            "event": "before-selected-unit-consolidates"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "ADEPTUS MECHANICUS"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "replace-movement-cap",
+              "move": "consolidate",
+              "normalInches": 3,
+              "maximumInches": 6,
+              "optional": true,
+              "finish": {
+                "subject": "selected-unit",
+                "inRangeOf": "your-acquisition-objective-marker"
+              }
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": {
+            "ineligibleWithinInchesOfEnemyUnit": 3
+          }
+        }
+      }
+    }
+  }
+}

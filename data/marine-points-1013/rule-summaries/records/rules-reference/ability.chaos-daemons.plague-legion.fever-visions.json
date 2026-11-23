@@ -1,0 +1,82 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.plague-legion.fever-visions",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Plague Legion",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP. Use it in your Shooting phase or in either player's Fight phase. Choose one of your LEGIONES DAEMONICA NURGLE units that is yet to be picked to shoot or to fight this phase. For the rest of the phase, add 1 to its models' Hit rolls. Once the unit has resolved its attacks, pick one enemy unit that any of those attacks hit; that enemy unit takes a Battle-shock test.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Plague Legion",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "NURGLE"
+            ],
+            "notYetSelectedTo": [
+              "shoot",
+              "fight"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "roll": "hit",
+              "op": "add",
+              "value": 1,
+              "duration": "end-of-phase"
+            },
+            {
+              "kind": "battle-shock-test",
+              "when": "after the unit finishes its attacks",
+              "select": {
+                "count": 1,
+                "side": "enemy",
+                "condition": "hit by one or more of those attacks"
+              }
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.brood-brothers-auxilia.integrated-tactics",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Brood Brothers Auxilia",
+    "summary": "Whenever one of your ASTRA MILITARUM units is chosen to shoot, you may pick a single enemy unit that it can see and that lies within 18\". For the rest of that phase, the shooting unit's models may only attack that enemy, and only while it is a legal target, and the enemy counts as caught in overlapping fire. Ranged attacks by your GENESTEALER CULTS models against an enemy caught in overlapping fire get +1 on their Hit rolls.",
+    "summarySpans": [
+      {
+        "start": 21,
+        "end": 36,
+        "bold": true
+      },
+      {
+        "start": 333,
+        "end": 350,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Brood Brothers Auxilia",
+        "trigger": {
+          "event": "friendly-unit-selected-to-shoot",
+          "keywordsAll": [
+            "ASTRA MILITARUM"
+          ],
+          "optional": true
+        },
+        "select": {
+          "side": "enemy",
+          "count": 1,
+          "withinInches": 18,
+          "visibleToShooter": true
+        },
+        "duration": "phase",
+        "shooterRestriction": {
+          "mayOnlyTarget": "selected-unit",
+          "onlyIfEligible": true
+        },
+        "status": "caught-in-overlapping-fire",
+        "bonus": {
+          "attackerKeywordsAll": [
+            "GENESTEALER CULTS"
+          ],
+          "attackType": "ranged",
+          "condition": "target-caught-in-overlapping-fire",
+          "rollModifiers": [
+            {
+              "roll": "hit",
+              "delta": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

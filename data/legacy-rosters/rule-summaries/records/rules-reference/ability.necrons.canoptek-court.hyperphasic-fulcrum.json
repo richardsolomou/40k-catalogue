@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.canoptek-court.hyperphasic-fulcrum",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Canoptek Court",
+    "summary": "This enhancement requires CRYPTEK on the bearer. The bearer must lead the unit and the Power Matrix of your army must contain it fully. You may then re-roll results of 1 on a Wound roll for any of its models’ attacks.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 33,
+        "bold": true
+      },
+      {
+        "start": 87,
+        "end": 99,
+        "target": {
+          "kind": "ability",
+          "id": "necrons.canoptek-court.power-matrix"
+        }
+      },
+      {
+        "start": 175,
+        "end": 185,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Cryptek"
+          ],
+          "excludes": []
+        },
+        "condition": {
+          "bearerIsLeading": true,
+          "subject": "led-unit",
+          "region": "Power Matrix",
+          "owner": "own-army",
+          "wholly": true
+        },
+        "trigger": {
+          "event": "attack",
+          "actor": "each-model-in-led-unit"
+        },
+        "effect": {
+          "type": "optional-reroll",
+          "roll": "wound",
+          "results": [
+            1
+          ]
+        }
+      }
+    }
+  }
+}

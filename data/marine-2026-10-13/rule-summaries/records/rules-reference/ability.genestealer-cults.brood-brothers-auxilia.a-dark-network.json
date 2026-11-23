@@ -1,0 +1,118 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.brood-brothers-auxilia.a-dark-network",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Brood Brothers Auxilia",
+    "cp": 1,
+    "summary": "When enemy Reserves arrive in their Movement phase, pick a unit of yours within 12\" of the arrival. ASTRA MILITARUM and GENESTEALER CULTS qualify, apart from MONSTERS and VEHICLES. The unit may move up to 6\" using a Normal Move.",
+    "summarySpans": [
+      {
+        "start": 36,
+        "end": 50,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 100,
+        "end": 115,
+        "bold": true
+      },
+      {
+        "start": 120,
+        "end": 137,
+        "bold": true
+      },
+      {
+        "start": 158,
+        "end": 166,
+        "bold": true
+      },
+      {
+        "start": 171,
+        "end": 179,
+        "bold": true
+      },
+      {
+        "start": 216,
+        "end": 227,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-unit-set-up-from-reserves"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [],
+            "anyKeyword": [
+              "ASTRA MILITARUM",
+              "GENESTEALER CULTS"
+            ],
+            "excludingKeywords": [
+              "MONSTERS",
+              "VEHICLES"
+            ],
+            "distance": {
+              "unit": "inch",
+              "amount": 12,
+              "from": "trigger-enemy-unit",
+              "comparator": "at-most"
+            }
+          },
+          "effects": [
+            {
+              "action": "make-move",
+              "actor": "target-unit",
+              "moveType": "normal",
+              "optional": true,
+              "distanceCap": {
+                "unit": "inch",
+                "amount": 6,
+                "from": "move-start",
+                "comparator": "at-most"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

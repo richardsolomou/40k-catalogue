@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.shamblerot-vectorium.grip-of-the-walking-pox",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Shamblerot Vectorium",
+    "cp": 1,
+    "summary": "When an enemy picks Fight phase targets, choose one targeted POXWALKERS unit. Once the attacker has finished, roll D6 per model from that unit killed by its attacks. Each 6 causes the attacker 1 mortal wound. If the chosen unit survives, treat enemy models killed by these wounds as casualties from the chosen unit’s attacks when applying their Curse ability.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 31,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 61,
+        "end": 71,
+        "bold": true
+      },
+      {
+        "start": 195,
+        "end": 207,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 345,
+        "end": 358,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "death-guard.poxwalkers.curse-of-the-walking-pox"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight"
+            ],
+            "event": "enemy-unit-selected-fight-targets"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "POXWALKERS"
+            ],
+            "targetedBy": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds",
+              "subject": "triggering-enemy-unit",
+              "after": "triggering-unit-resolves-attacks",
+              "dicePer": "selected-unit-model-destroyed-by-triggering-attacks",
+              "roll": {
+                "dice": "D6",
+                "equals": 6
+              },
+              "amountPerSuccess": 1
+            },
+            {
+              "kind": "attribute-casualties",
+              "subject": "enemy-models-destroyed-by-these-mortal-wounds",
+              "attributedTo": "selected-unit-attacks",
+              "scope": "curse-of-the-walking-pox",
+              "condition": "selected-unit-survives"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

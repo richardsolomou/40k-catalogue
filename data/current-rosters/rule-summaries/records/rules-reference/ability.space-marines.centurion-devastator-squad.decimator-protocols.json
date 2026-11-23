@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.centurion-devastator-squad.decimator-protocols",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Centurion Devastator Squad",
+    "summary": "For ranged attacks from this unit, you may re-roll natural 1s to Hit. If an attack targets an enemy unit within an objective’s range, any Hit result can be re-rolled instead.",
+    "summarySpans": [
+      {
+        "start": 65,
+        "end": 68,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 115,
+        "end": 124,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 138,
+        "end": 141,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "trigger": "each-ranged-attack-by-this-unit",
+        "branchResolution": "first-match",
+        "branches": [
+          {
+            "target": {
+              "side": "enemy",
+              "entity": "unit",
+              "condition": "within-range-of-objective"
+            },
+            "effect": {
+              "roll": "hit",
+              "operation": "reroll",
+              "optional": true
+            }
+          },
+          {
+            "effect": {
+              "roll": "hit",
+              "operation": "reroll",
+              "unmodifiedResult": 1,
+              "optional": true
+            }
+          }
+        ]
+      }
+    }
+  }
+}

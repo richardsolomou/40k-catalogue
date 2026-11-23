@@ -1,0 +1,137 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.ironclad-champions.mercy-is-weakness",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ironclad Champions",
+    "cp": 1,
+    "summary": "During your Shooting phase or either Fight phase, use this as you pick a friendly Dreadnought unit to attack. Give its attacks your choice of Sustained Hits 1 or lethal hits.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 37,
+        "end": 48,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 82,
+        "end": 93,
+        "bold": true
+      },
+      {
+        "start": 142,
+        "end": 158,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 162,
+        "end": 173,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "selected-to-attack",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Dreadnought"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "choose-one-mode",
+              "alternatives": [
+                {
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "triggering",
+                      "abilities": [
+                        "lethal hits"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "triggering",
+                      "abilities": [
+                        {
+                          "ability": "Sustained Hits",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "duration": {
+            "scope": "target-unit-attacks-in-trigger"
+          }
+        }
+      }
+    }
+  }
+}

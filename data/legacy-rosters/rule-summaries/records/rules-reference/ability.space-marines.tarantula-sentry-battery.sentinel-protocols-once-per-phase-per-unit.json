@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.tarantula-sentry-battery.sentinel-protocols-once-per-phase-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Tarantula Sentry Battery",
+    "summary": "When you use Fire Overwatch on this unit, a natural 4+ scores a hit for its Snap Shooting attacks. Apply that threshold through resolution of this use, with a limit of one application per unit per phase.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 27,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fire-overwatch"
+        }
+      },
+      {
+        "start": 76,
+        "end": 89,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "snap-shooting"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "limit": {
+          "count": 1,
+          "period": "phase",
+          "counterOwner": "source-unit",
+          "resetsAt": "start-of-next-phase"
+        },
+        "trigger": {
+          "stratagem": "Fire Overwatch",
+          "target": "this-unit"
+        },
+        "duration": "through-triggering-stratagem-resolution",
+        "requiredEffect": {
+          "actor": "this-unit",
+          "attackType": "snap-shooting",
+          "roll": "hit",
+          "minimumUnmodified": 4
+        }
+      }
+    }
+  }
+}

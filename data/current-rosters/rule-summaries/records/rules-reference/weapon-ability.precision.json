@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "weapon-ability",
+  "id": "precision",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "summary": "When attacks from [PRECISION] weapons reach Allocation Order (05.03), and any CHARACTER model in the target unit can be seen by at least one attacker, the active player may pick an allocation group holding such a visible CHARACTER. That group then stays current until the attacks finish or the group is wiped out, whichever comes first. If it is wiped out first, any attacks still left are allocated in the usual order, beginning with the first group that still has models.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 29,
+        "bold": true
+      },
+      {
+        "start": 78,
+        "end": 87,
+        "bold": true
+      },
+      {
+        "start": 221,
+        "end": 230,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "interpretation": [
+      {
+        "question": "Where does allocation continue after the chosen CHARACTER group is destroyed?"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "weapon-keyword",
+        "appliesTo": "attacks made with one or more [PRECISION] weapons",
+        "timing": {
+          "step": "Allocation Order",
+          "ruleRef": "05.03",
+          "point": "start"
+        },
+        "condition": {
+          "targetUnitContains": "one or more CHARACTER models",
+          "visibleToAtLeastOneAttackingModel": true
+        },
+        "optional": true,
+        "chooser": "active player",
+        "effect": {
+          "select": "one allocation group containing one of those visible CHARACTER models",
+          "becomes": "current allocation group"
+        },
+        "duration": {
+          "until": [
+            "those attacks are resolved",
+            "that CHARACTER group is destroyed"
+          ],
+          "whicheverFirst": true
+        },
+        "afterSelectedGroupDestroyed": {
+          "remainingAttacks": "allocated in the normal allocation order",
+          "startFrom": "first group that still has models",
+          "basis": "owner-ruling"
+        },
+        "chooserRule": {
+          "ruleRef": "01.03",
+          "meaning": "controlling player of the unit selected to shoot or fight, until those attacks are resolved"
+        }
+      }
+    }
+  }
+}

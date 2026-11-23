@@ -1,0 +1,137 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.assault-brethren.gene-wrought-might",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Assault Brethren",
+    "cp": 1,
+    "summary": "Use in the Fight phase as you pick your unit with Adeptus Astartes to fight. Give its melee attacks Lance. If its assault doctrine is active, you may also give those attacks +1 AP.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 50,
+        "end": 66,
+        "bold": true
+      },
+      {
+        "start": 100,
+        "end": 105,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lance"
+        }
+      },
+      {
+        "start": 114,
+        "end": 130,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "space-marines.combat-doctrines"
+        }
+      },
+      {
+        "start": 177,
+        "end": 179,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "selected-to-fight",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Adeptus Astartes"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "choose-one-mode",
+              "alternatives": [
+                {
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "melee",
+                      "abilities": [
+                        "Lance"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "condition": {
+                    "targetDoctrine": "assault"
+                  },
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "melee",
+                      "abilities": [
+                        "Lance"
+                      ]
+                    },
+                    {
+                      "kind": "modify",
+                      "recipient": "target-unit-melee-attacks",
+                      "subject": "armour-penetration",
+                      "operation": "add",
+                      "amount": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "duration": {
+            "scope": "target-unit-attacks-in-trigger"
+          }
+        }
+      }
+    }
+  }
+}

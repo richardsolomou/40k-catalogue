@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-tau-empire.errata.kroot-trail-shaper",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "publication": "Codex: T’au Empire",
+    "amends": [
+      {
+        "kind": "unit",
+        "id": "tau-empire.kroot-trail-shaper"
+      }
+    ],
+    "summary": "Kroot Ambush lets you redeploy the Trail Shaper’s unit plus one friendly KROOT unit after both deployments finish. Either or both may enter Strategic Reserves regardless of their existing unit count. In the opposing Movement phase, Trail Finding triggers when an enemy finishes moving no farther than 8″ away. If unengaged, the Shaper’s unit may make a Normal Move with a D6″ maximum.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 12,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "tau-empire.kroot-trail-shaper.kroot-ambush"
+        }
+      },
+      {
+        "start": 232,
+        "end": 245,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "tau-empire.kroot-trail-shaper.trail-finding"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "1e7879a0-7da5-4c68-ae93-ada19f02a2de",
+          "typedMechanics": {
+            "operation": "replace-two-abilities",
+            "changes": [
+              {
+                "abilityQid": "ability:tau-empire.kroot-trail-shaper.kroot-ambush",
+                "trigger": "both-players-finish-deploying",
+                "optional": true,
+                "redeploy": [
+                  "this-models-unit",
+                  "one-other-friendly-kroot-unit"
+                ],
+                "strategicReserves": {
+                  "anySelectedUnit": true,
+                  "ignoreExistingUnitCount": true
+                }
+              },
+              {
+                "abilityQid": "ability:tau-empire.kroot-trail-shaper.trail-finding",
+                "trigger": {
+                  "event": "enemy-unit-ends-move",
+                  "phase": "movement",
+                  "side": "opponent",
+                  "rangeInches": 8
+                },
+                "requires": "this-unit-outside-all-enemy-engagement-ranges",
+                "reaction": {
+                  "optional": true,
+                  "moveType": "normal",
+                  "maximumDistanceInchesDice": "D6"
+                }
+              }
+            ],
+            "targetQids": []
+          },
+          "statedValues": [
+            {
+              "kind": "distance",
+              "value": 8,
+              "unit": "inch"
+            },
+            {
+              "kind": "dice",
+              "value": 6
+            }
+          ]
+        }
+      }
+    }
+  }
+}

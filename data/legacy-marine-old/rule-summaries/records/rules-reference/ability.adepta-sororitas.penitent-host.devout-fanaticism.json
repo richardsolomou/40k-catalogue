@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.penitent-host.devout-fanaticism",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Penitent Host",
+    "cp": 1,
+    "summary": "After an enemy finishes firing in their Shooting phase, immediately choose a PENITENT unit it targeted with at least one attack. The chosen unit has the option of a surge move. Its maximum distance is D6 inches.",
+    "summarySpans": [
+      {
+        "start": 40,
+        "end": 54,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 77,
+        "end": 85,
+        "bold": true
+      },
+      {
+        "start": 165,
+        "end": 175,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "shooting"
+            ],
+            "event": "enemy-unit-finished-shooting",
+            "proximity": "immediate"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "PENITENT"
+            ],
+            "targetedBy": "at-least-one-of-triggering-shooting-unit-attacks"
+          },
+          "effects": [
+            {
+              "kind": "move",
+              "move": "surge",
+              "optional": true,
+              "subject": "selected-unit",
+              "maximumInches": {
+                "dice": "D6"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

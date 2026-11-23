@@ -1,0 +1,48 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.abominant.the-chosen-one",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Abominant",
+    "summary": "While this model leads a unit, roll a D6 each time a melee attack kills one of that unit's models that has not yet fought this phase. If the result is 4+, the slain model stays on the battlefield for now: it may fight after the enemy unit has resolved all of its attacks, and is removed from play afterwards.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Abominant",
+        "condition": "leading-a-unit",
+        "trigger": {
+          "event": "model-in-led-unit-destroyed-by-melee-attack",
+          "condition": "model-has-not-fought-this-phase"
+        },
+        "roll": {
+          "dice": "D6",
+          "success": "4+"
+        },
+        "onSuccess": {
+          "delayRemoval": true,
+          "mayFight": "after-attacking-unit-finishes-attacks",
+          "thenRemoved": true
+        }
+      }
+    }
+  }
+}

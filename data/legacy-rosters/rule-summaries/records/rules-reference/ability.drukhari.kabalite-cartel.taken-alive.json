@@ -1,0 +1,129 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.kabalite-cartel.taken-alive",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Kabalite Cartel",
+    "cp": 1,
+    "summary": "In either Fight phase, choose a DRUKHARI unit of yours that you haven’t picked to fight this phase. Its models get +1 to Hit rolls through phase end. If those attacks kill your Contract unit, the opponent’s entire army takes Battle-shock tests. Failures from these tests can give you at most 3 Pain tokens total.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 32,
+        "end": 40,
+        "bold": true
+      },
+      {
+        "start": 121,
+        "end": 130,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 177,
+        "end": 185,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.kabalite-cartel.murderous-agenda"
+        }
+      },
+      {
+        "start": 225,
+        "end": 243,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 294,
+        "end": 305,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "keywords": [
+              "DRUKHARI"
+            ],
+            "count": 1,
+            "state": "not-selected-to-fight-this-phase"
+          },
+          "effects": [
+            {
+              "action": "modify-roll",
+              "roll": "hit",
+              "operation": "add",
+              "amount": 1,
+              "actor": "target-unit-models",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "require-test",
+              "test": "battle-shock",
+              "recipient": "all-enemy-army-units",
+              "condition": "contract-unit-destroyed-by-those-attacks",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "cap-resource-gain",
+              "resource": "pain-tokens",
+              "maximum": 3,
+              "source": "failed-battle-shock-tests-caused-by-this-stratagem"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.grimnyr.grimnyrs-regard",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Grimnyr",
+    "summary": "As any phase opens, this unit may clear Battle-shock on a friendly unit with LEAGUES OF VOTANN at a distance of up to 12″. This has one use per battle.",
+    "summarySpans": [
+      {
+        "start": 40,
+        "end": 52,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 77,
+        "end": 94,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 121,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "limit": {
+          "period": "battle",
+          "scope": "unit",
+          "count": 1
+        },
+        "trigger": {
+          "event": "phase",
+          "phase": "any",
+          "timing": "start",
+          "turn": "either-player"
+        },
+        "selection": {
+          "count": 1,
+          "optional": true,
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 12,
+          "origin": "this-unit",
+          "candidate": {
+            "entity": "unit",
+            "side": "friendly",
+            "requireAllKeywords": [
+              "LEAGUES OF VOTANN"
+            ],
+            "excludeAnyKeywords": []
+          },
+          "state": "battle-shocked"
+        },
+        "effect": {
+          "operation": "clear-state",
+          "recipient": "selected-unit",
+          "state": "battle-shocked"
+        }
+      }
+    }
+  }
+}

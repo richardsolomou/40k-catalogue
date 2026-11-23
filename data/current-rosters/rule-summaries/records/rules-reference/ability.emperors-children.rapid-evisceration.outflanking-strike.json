@@ -1,0 +1,103 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.rapid-evisceration.outflanking-strike",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Rapid Evisceration",
+    "cp": 1,
+    "summary": "Use this as the enemy Fight phase ends. From your army, select a single EMPEROR’S CHILDREN TRANSPORT or as many as two of the faction’s DEDICATED TRANSPORTS. Transfer each selection to Strategic Reserves if the entire unit is 9 inches or less from a battlefield edge.",
+    "summarySpans": [
+      {
+        "start": 22,
+        "end": 33,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 72,
+        "end": 100,
+        "bold": true
+      },
+      {
+        "start": 185,
+        "end": 203,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "turn": "opponent",
+                "phase": "fight"
+              }
+            ],
+            "event": "end-of-phase"
+          },
+          "target": {
+            "chooseOneOf": [
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "EMPEROR’S CHILDREN",
+                  "TRANSPORT"
+                ]
+              },
+              {
+                "owner": "your-army",
+                "count": {
+                  "max": 2
+                },
+                "keywords": [
+                  "EMPEROR’S CHILDREN",
+                  "DEDICATED TRANSPORTS"
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "kind": "relocate-to-reserves",
+              "subject": "each-selected-transport",
+              "origin": "battlefield",
+              "destination": "strategic-reserves",
+              "condition": {
+                "whollyWithinInches": 9,
+                "from": "battlefield-edge"
+              }
+            }
+          ],
+          "type": "strategic-ploy"
+        }
+      }
+    }
+  }
+}

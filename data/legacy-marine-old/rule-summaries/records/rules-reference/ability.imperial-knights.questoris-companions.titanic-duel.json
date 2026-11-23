@@ -1,0 +1,185 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.questoris-companions.titanic-duel",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Questoris Companions",
+    "cp": 1,
+    "summary": "Your Shooting Phase or either Fight Phase. Choose an IMPERIAL KNIGHTS TITANIC model of yours that has yet to be picked to shoot or fight in that phase. For the phase, add 1 to its Hit rolls and 1 to its Wound rolls when it attacks MONSTER, TITANIC or WALKER units.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 19,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 30,
+        "end": 41,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 53,
+        "end": 77,
+        "bold": true
+      },
+      {
+        "start": 231,
+        "end": 238,
+        "bold": true
+      },
+      {
+        "start": 240,
+        "end": 247,
+        "bold": true
+      },
+      {
+        "start": 251,
+        "end": 257,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "matches",
+              "parameters": {
+                "subject": "defender",
+                "filter": {
+                  "any_of": [
+                    "MONSTER",
+                    "TITANIC",
+                    "WALKER"
+                  ]
+                }
+              }
+            },
+            "effect": {
+              "type": "sequence",
+              "steps": [
+                {
+                  "type": "roll-modifier",
+                  "target": "this-model",
+                  "modifier": {
+                    "roll": "hit",
+                    "operation": "add",
+                    "value": 1
+                  }
+                },
+                {
+                  "type": "roll-modifier",
+                  "target": "this-model",
+                  "modifier": {
+                    "roll": "wound",
+                    "operation": "add",
+                    "value": 1
+                  }
+                }
+              ]
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "behavior": "activated"
+        },
+        "stratagem": {
+          "id": "titanic-duel-questoris-companions-imperial-knights",
+          "cp_cost": 1,
+          "phases": [
+            "fight",
+            "shooting"
+          ],
+          "player_turn": "either",
+          "timing": "once-per-phase",
+          "type": "epic-deed",
+          "target_restrictions": {
+            "required_keywords": [
+              "Imperial Knights",
+              "Titanic"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "model",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "owner": "friendly"
+                    }
+                  }
+                },
+                {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "operator": "or",
+                      "operands": [
+                        {
+                          "type": "happened",
+                          "parameters": {
+                            "event": "selected",
+                            "filter": {
+                              "to": "fight"
+                            },
+                            "window": "phase"
+                          }
+                        },
+                        {
+                          "type": "happened",
+                          "parameters": {
+                            "event": "selected",
+                            "filter": {
+                              "to": "shoot"
+                            },
+                            "window": "phase"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {
+          "1": [
+            "Hit-roll bonus",
+            "Wound-roll bonus"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.pantheon-of-woe.cosmic-distortion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Pantheon of Woe",
+    "summary": "Each friendly NECRONS MONSTER projects Distortion Fields, an Aura. Enemy units up to 6″ away are unravelling, improving the AP of attacks against them by 1. As any phase begins, each eligible monster can take 3 mortal wounds to extend its own field to 9″ for that phase. If you field multiple Transcendent C’tan units, all of them require Reletavistic Tether.\n\nSingularity Matrix (+55 points) • Deceiver only. The Lord of Deceit Aura adds 1 CP whenever an opponent uses a Stratagem to target one of their own units up to 12″ from this model.\nQuantum Goad (+45 points) • Nightbringer only. The model can declare a charge on a turn when it Advanced.\nAnimus Damper (+35 points) • Void Dragon only. Once a turn as the enemy Shooting phase opens, choose an enemy VEHICLE unit the bearer can see. It takes a Leadership test. Its attacks take −1 to hit through phase end, with −1 to wound as well if it fails.\nReletavistic Tether (+40 points) • Transcendent C’tan only. On your turn, the card lists Ingress and Advance, conditioned on using Transdimensional Displacement. That ability supplies an Advance trigger. With the Tether, the unit can finish that move beyond 6″ horizontally from every enemy unit, replacing 8″. A finish at most 8″ from any enemy unit bars the C’tan from declaring charges for the rest of the turn.",
+    "summarySpans": [
+      {
+        "start": 39,
+        "end": 56,
+        "bold": true
+      },
+      {
+        "start": 339,
+        "end": 358,
+        "bold": true
+      },
+      {
+        "start": 361,
+        "end": 379,
+        "bold": true
+      },
+      {
+        "start": 542,
+        "end": 554,
+        "bold": true
+      },
+      {
+        "start": 648,
+        "end": 661,
+        "bold": true
+      },
+      {
+        "start": 1034,
+        "end": 1063,
+        "target": {
+          "kind": "ability",
+          "id": "necrons.transcendent-ctan.transdimensional-displacement"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "appliesTo": {
+          "side": "own army",
+          "all_of": [
+            "NECRONS",
+            "MONSTER"
+          ]
+        },
+        "distortionFields": {
+          "aura": true,
+          "enemyRangeInches": 6,
+          "grantsState": "unravelling",
+          "affects": "each attack targeting an unravelling enemy unit",
+          "armourPenetrationImprovement": 1
+        },
+        "rangeBoost": {
+          "timing": "every phase start",
+          "selection": "each eligible own unit independently",
+          "optional": true,
+          "mortalWoundsToThatUnit": 3,
+          "newRangeInches": 9,
+          "expiry": "phase end"
+        },
+        "mandatoryTether": {
+          "unit": "Transcendent C’tan",
+          "requiresMoreThanCount": 1,
+          "appliesToEach": true
+        },
+        "bindings": [
+          {
+            "name": "Singularity Matrix",
+            "recipientModelOnly": "C’tan Shard of the Deceiver",
+            "points": 55,
+            "grants": "Lord of Deceit",
+            "aura": true,
+            "auraRangeInches": 12,
+            "trigger": "opponent targets an opposing unit within the aura with a Stratagem",
+            "frequency": "every qualifying use",
+            "cpCostIncrease": 1
+          },
+          {
+            "name": "Quantum Goad",
+            "recipientModelOnly": "C’tan Shard of the Nightbringer",
+            "points": 45,
+            "permitsChargeAfterAdvanceInSameTurn": true
+          },
+          {
+            "name": "Animus Damper",
+            "recipientModelOnly": "C’tan Shard of the Void Dragon",
+            "points": 35,
+            "maxUsesPerTurn": 1,
+            "timing": "opponent Shooting phase start",
+            "targetCount": 1,
+            "target": {
+              "side": "enemy",
+              "keywords": [
+                "VEHICLE"
+              ],
+              "visibleTo": "bearer"
+            },
+            "test": "Leadership",
+            "effects": {
+              "hitRollModifier": -1,
+              "woundRollModifierIfTestFailed": -1,
+              "expires": "phase end"
+            }
+          },
+          {
+            "name": "Reletavistic Tether",
+            "recipientModelOnly": "Transcendent C’tan",
+            "points": 40,
+            "timing": "own turn",
+            "cardMoveTypes": [
+              "Ingress",
+              "Advance"
+            ],
+            "effectiveMoveTypes": [
+              "Advance"
+            ],
+            "requiresUseOfAbilityQid": "ability:necrons.transcendent-ctan.transdimensional-displacement",
+            "replacesMinimumExclusiveInches": 8,
+            "newMinimumExclusiveHorizontalInches": 6,
+            "chargeBarAtOrWithinInches": 8,
+            "chargeBarExpiry": "own turn end"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.sacred-champions.unflinching-determination",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Sacred Champions",
+    "cp": 1,
+    "summary": "In your Movement phase, use this as you select your friendly unit of Celestian Sacresants for an Advance or Fall Back. Its ranged attacks have ASSAULT through turn end. That move preserves both shooting and charge eligibility.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 69,
+        "end": 89,
+        "bold": true
+      },
+      {
+        "start": 97,
+        "end": 104,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 108,
+        "end": 117,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 143,
+        "end": 150,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "assault"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ],
+            "event": "selected-to-move",
+            "actor": "target-unit",
+            "anyMove": [
+              "advance",
+              "fall-back"
+            ]
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Celestian Sacresants"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "weapon-ability-grant",
+              "recipient": "target-unit-attacks",
+              "attackType": "ranged",
+              "abilities": [
+                "ASSAULT"
+              ],
+              "duration": {
+                "until": "end-of-this-turn"
+              }
+            },
+            {
+              "kind": "movement-eligibility-exception",
+              "recipient": "target-unit",
+              "boundTo": "triggering-move",
+              "actions": [
+                "shoot",
+                "declare-charge"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

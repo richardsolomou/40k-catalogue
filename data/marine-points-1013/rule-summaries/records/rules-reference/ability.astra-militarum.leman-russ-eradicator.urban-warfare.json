@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.leman-russ-eradicator.urban-warfare",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Leman Russ Eradicator",
+    "summary": "When a ranged attack targets the Eradicator, reduce its Damage by 1 if the Eradicator receives the Benefit of Cover from that attack.",
+    "summarySpans": [
+      {
+        "start": 56,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 99,
+        "end": 115,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "trigger": {
+          "event": "attack",
+          "actor": "attacking-model",
+          "mode": "ranged",
+          "target": "this-model"
+        },
+        "condition": {
+          "recipient": "this-model",
+          "has": "benefit-of-cover",
+          "against": "triggering-attack"
+        },
+        "effect": {
+          "recipient": "triggering-attack",
+          "operation": "modify",
+          "characteristic": "damage",
+          "amount": -1
+        }
+      }
+    }
+  }
+}

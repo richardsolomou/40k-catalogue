@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.skitarii-hunter-cohort.programmed-withdrawal",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Skitarii Hunter Cohort",
+    "cp": 1,
+    "summary": "Spend 1 CP as the opposing player's Fight phase ends, choosing either as many as two SICARIAN units of yours, or a single unit of yours with one of these keyword sets: SKITARII INFANTRY; SKITARII MOUNTED. Each unit chosen must be over 3\" away from every enemy unit. Take those units off the battlefield and put them into Strategic Reserves.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Skitarii Hunter Cohort",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "opponent",
+                "step": "end-of-phase"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "alternatives": [
+              {
+                "count": 2,
+                "upTo": true,
+                "keywordsAll": [
+                  "SICARIAN"
+                ]
+              },
+              {
+                "count": 1,
+                "keywordsAnyOf": [
+                  [
+                    "SKITARII",
+                    "INFANTRY"
+                  ],
+                  [
+                    "SKITARII",
+                    "MOUNTED"
+                  ]
+                ]
+              }
+            ],
+            "side": "friendly"
+          },
+          "effects": [
+            {
+              "kind": "move-to-strategic-reserves"
+            }
+          ],
+          "restrictions": [
+            {
+              "eachTargetMoreThanInchesFromAllEnemies": 3
+            }
+          ]
+        }
+      }
+    }
+  }
+}

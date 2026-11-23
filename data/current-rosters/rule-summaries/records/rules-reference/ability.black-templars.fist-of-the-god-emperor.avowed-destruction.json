@@ -1,0 +1,125 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.fist-of-the-god-emperor.avowed-destruction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Fist of the God-Emperor",
+    "cp": 1,
+    "summary": "Use in the Fight phase as you pick a friendly CRUSADER SQUAD to fight. Its melee attacks gain your choice of LETHAL HITS or SUSTAINED HITS 1.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 46,
+        "end": 60,
+        "bold": true
+      },
+      {
+        "start": 109,
+        "end": 120,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 124,
+        "end": 140,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "selected-to-fight",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "CRUSADER SQUAD"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "choose-one-mode",
+              "alternatives": [
+                {
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "melee",
+                      "abilities": [
+                        "LETHAL HITS"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "effects": [
+                    {
+                      "kind": "weapon-ability-grant",
+                      "recipient": "target-unit-attacks",
+                      "attackType": "melee",
+                      "abilities": [
+                        {
+                          "ability": "SUSTAINED HITS",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "duration": {
+            "scope": "target-unit-attacks-in-trigger"
+          }
+        }
+      }
+    }
+  }
+}

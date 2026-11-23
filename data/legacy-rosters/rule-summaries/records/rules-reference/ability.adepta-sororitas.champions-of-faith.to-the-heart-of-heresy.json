@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.champions-of-faith.to-the-heart-of-heresy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Champions of Faith",
+    "cp": 1,
+    "summary": "Spend 1 CP in any Fight phase on one ADEPTA SORORITAS unit in your army that hasn't yet been picked to fight this phase. Its models' melee weapons get +1 Strength for the rest of the turn. If the unit is Righteous, those melee weapons also have their Armour Penetration improved by 1, but only for the rest of the phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Champions of Faith",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTA SORORITAS"
+            ],
+            "condition": "not-yet-selected-to-fight-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "weapon-modifier",
+              "weaponType": "melee",
+              "characteristic": "S",
+              "delta": 1,
+              "duration": "turn"
+            },
+            {
+              "kind": "weapon-modifier",
+              "weaponType": "melee",
+              "characteristic": "AP",
+              "improveBy": 1,
+              "duration": "phase",
+              "condition": "unit-is-righteous"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

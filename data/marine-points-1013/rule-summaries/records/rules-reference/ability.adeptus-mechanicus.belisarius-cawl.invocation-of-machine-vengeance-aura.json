@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.belisarius-cawl.invocation-of-machine-vengeance-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Belisarius Cawl",
+    "summary": "When your Command phase opens, pick one unit in the opposing army. Models from friendly Adeptus Mechanicus units may re-roll their Hit results against your pick. The effect ends as your next Command phase begins.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 23,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 88,
+        "end": 106,
+        "bold": true
+      },
+      {
+        "start": 131,
+        "end": 142,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 191,
+        "end": 204,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "timing": "start-of-own-command-phase",
+        "selection": {
+          "side": "opponent-army",
+          "entity": "unit",
+          "count": 1,
+          "optional": false
+        },
+        "duration": "until-start-of-next-own-command-phase",
+        "effect": {
+          "actor": "model-in-friendly-unit",
+          "unitKeyword": "Adeptus Mechanicus",
+          "trigger": "each-attack-targeting-selected-enemy-unit",
+          "roll": "hit",
+          "operation": "reroll",
+          "optional": true
+        }
+      }
+    }
+  }
+}

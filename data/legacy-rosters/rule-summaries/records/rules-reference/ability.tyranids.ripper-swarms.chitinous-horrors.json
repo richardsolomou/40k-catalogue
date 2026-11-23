@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.ripper-swarms.chitinous-horrors",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Ripper Swarms",
+    "summary": "Enemy models halve their Objective Control if their unit is within this unit’s Engagement Range.",
+    "summarySpans": [
+      {
+        "start": 79,
+        "end": 95,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-unit",
+        "aura": {
+          "emitter": {
+            "entity": "unit",
+            "selector": "this-unit"
+          },
+          "recipient": {
+            "side": "enemy",
+            "entity": "unit",
+            "allKeywords": [],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-unit",
+            "to": "recipient-unit",
+            "kind": "engagement-range"
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "characteristic-modifier",
+            "recipient": "models-in-recipient-unit",
+            "characteristic": "objective-control",
+            "operation": "halve"
+          }
+        ]
+      }
+    }
+  }
+}

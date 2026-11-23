@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "emergency-disembark-move",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "65",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=65"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "18. Transports",
+    "ruleNumber": "18.05",
+    "summary": "Use this move for passengers whose Transport model has just been destroyed. Roll Hazard once per passenger model before using Set Up. Place each model as near the wreck as possible, entirely within 6 inches, without engaging an enemy. Where an unengaged placement is impossible, keep the same distance and proximity requirements and place the model engaged. Destroy any model for which neither placement works. The unit becomes Battle-shocked and loses charge eligibility for that turn.",
+    "summarySpans": [
+      {
+        "start": 81,
+        "end": 87,
+        "target": {
+          "kind": "core-rule",
+          "id": "hazard-rolls"
+        }
+      },
+      {
+        "start": 126,
+        "end": 132,
+        "target": {
+          "kind": "core-rule",
+          "id": "set-up"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "65",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=65"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "move-type",
+        "trigger": {
+          "unitState": "embarked",
+          "transportModel": "just-destroyed"
+        },
+        "setUpRuleId": "8c6aa4e8-26ce-4a49-ba07-8275ea6deeea",
+        "beforeMove": {
+          "rollType": "hazard",
+          "frequency": "per-passenger-model",
+          "ruleId": "1152e46c-4e82-44f3-9c11-db4a421dda26"
+        },
+        "placement": {
+          "reference": "destroyed-transport-model",
+          "distanceInches": 6,
+          "wholeModel": true,
+          "proximity": "closest-possible",
+          "firstBranch": "unengaged",
+          "alternative": {
+            "predicate": "first-branch-impossible",
+            "place": "engaged",
+            "sameDistanceAndProximity": true
+          },
+          "cannotPlace": "destroy-only-the-unplaceable-model"
+        },
+        "afterMove": {
+          "unitBattleShocked": true,
+          "eligibleToCharge": false,
+          "chargeRestrictionEnds": "end-of-that-turn"
+        }
+      }
+    }
+  }
+}

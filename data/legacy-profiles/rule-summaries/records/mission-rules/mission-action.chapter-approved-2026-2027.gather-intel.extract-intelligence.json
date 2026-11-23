@@ -1,0 +1,135 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-action",
+  "id": "chapter-approved-2026-2027.gather-intel.extract-intelligence",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "summary": "Beginning in battle round 2, a friendly unit can start this action during your Shooting phase. Pick an objective in range other than your home objective. It must have none of your operation markers in range. Any number of units can start, each with a different objective that phase. If the unit controls its objective when your turn ends, choose from your operation markers and place one in its range.",
+    "summarySpans": [
+      {
+        "start": 60,
+        "end": 66,
+        "target": {
+          "kind": "core-rule",
+          "id": "performing-actions"
+        }
+      },
+      {
+        "start": 79,
+        "end": 93,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 103,
+        "end": 112,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 138,
+        "end": 152,
+        "bold": true
+      },
+      {
+        "start": 180,
+        "end": 197,
+        "bold": true
+      },
+      {
+        "start": 261,
+        "end": 270,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 308,
+        "end": 317,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 356,
+        "end": 373,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "starts": {
+          "player": "acting-player",
+          "phase": "shooting",
+          "battleRoundAtLeast": 2
+        },
+        "eligibleUnit": {
+          "side": "friendly",
+          "countPerStart": 1,
+          "position": {
+            "relation": "within-range",
+            "selector": "objective",
+            "exclude": "own-home-objective",
+            "excludesWithinRange": {
+              "selector": "operation-marker",
+              "owner": "acting-player"
+            }
+          }
+        },
+        "useLimit": {
+          "starts": "unlimited",
+          "distinctSelectorsAmongStarts": {
+            "window": "same-phase",
+            "selector": "objective"
+          }
+        },
+        "completes": {
+          "window": "end-of-own-turn",
+          "requires": {
+            "subject": "acting-unit",
+            "predicate": "controls",
+            "object": "selected-objective"
+          }
+        },
+        "effects": [
+          {
+            "kind": "place-operation-marker",
+            "count": 1,
+            "owner": "acting-player",
+            "position": {
+              "relation": "within-range",
+              "selector": "selected-objective"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

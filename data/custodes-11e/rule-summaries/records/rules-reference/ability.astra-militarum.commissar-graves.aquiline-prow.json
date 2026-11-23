@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.commissar-graves.aquiline-prow",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Commissar Graves",
+    "summary": "After this unit finishes charging, you may choose one enemy unit in its Engagement Range. Use a D6 for mortal wounds to that unit. A 2–3 deals 3, a 4–5 deals D3 and a 6 deals D3+3.",
+    "summarySpans": [
+      {
+        "start": 25,
+        "end": 33,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 72,
+        "end": 88,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 103,
+        "end": 116,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "source": "this-unit",
+        "trigger": "each-time-this-unit-ends-charge-move",
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "origin": "this-unit",
+          "measure": "within-engagement-range",
+          "count": 1,
+          "optional": true
+        },
+        "die": "D6",
+        "recipient": "selected-enemy-unit",
+        "branches": [
+          {
+            "result": 1,
+            "mortalWounds": 0
+          },
+          {
+            "min": 2,
+            "max": 3,
+            "mortalWounds": 3
+          },
+          {
+            "min": 4,
+            "max": 5,
+            "mortalWounds": "D3"
+          },
+          {
+            "result": 6,
+            "mortalWounds": "D3+3"
+          }
+        ]
+      }
+    }
+  }
+}

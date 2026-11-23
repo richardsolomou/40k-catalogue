@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.needgaard-oathband.reactive-reprisal",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Needgaârd Oathband",
+    "cp": 2,
+    "summary": "Once an enemy has shot during its Shooting phase, choose a LEAGUES OF VOTANN unit it targeted. If eligible, it may shoot as in your Shooting phase, directing all fire at that enemy.",
+    "summarySpans": [
+      {
+        "start": 34,
+        "end": 48,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 59,
+        "end": 76,
+        "bold": true
+      },
+      {
+        "start": 132,
+        "end": 146,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-unit-shoots"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "LEAGUES OF VOTANN"
+            ],
+            "eligibility": "selected-as-target-of-one-or-more-trigger-attacks"
+          },
+          "effects": [
+            {
+              "action": "shoot",
+              "actor": "target-unit",
+              "attackTarget": "trigger-enemy-unit-only",
+              "mode": "as-if-your-shooting-phase",
+              "optional": true,
+              "condition": "otherwise-eligible-to-shoot"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

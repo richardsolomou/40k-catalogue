@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.warhost.blitzing-firepower",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Warhost",
+    "cp": 1,
+    "summary": "In your Shooting phase, choose an ASURYANI unit you have yet to pick to shoot. Give its ranged weapons Sustained Hits 1 through phase end. While the unit targets an enemy within 12 inches, 5+ on the hit dice gives a critical hit before modifiers.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 34,
+        "end": 42,
+        "bold": true
+      },
+      {
+        "start": 103,
+        "end": 119,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "turn": "your",
+            "phases": [
+              "shooting"
+            ],
+            "event": "phase-window"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "ASURYANI"
+            ],
+            "notYetSelectedToShoot": true
+          },
+          "effects": [
+            {
+              "kind": "grant-ability",
+              "ability": "sustained-hits",
+              "weapons": "selected-unit-ranged-weapons",
+              "value": 1
+            },
+            {
+              "kind": "critical-hit-threshold",
+              "roll": "unmodified-hit",
+              "minimum": 5,
+              "if": {
+                "attackingEnemyWithinInches": 12
+              }
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

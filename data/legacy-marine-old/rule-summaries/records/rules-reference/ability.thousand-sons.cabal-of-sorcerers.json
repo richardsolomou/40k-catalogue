@@ -1,0 +1,180 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.cabal-of-sorcerers",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "A Thousand Sons army can attempt rituals when its Shooting phase opens. Pick an army model with this ability that hasn’t attempted one this turn. Pick a ritual the army hasn’t attempted this turn, then make a Psychic test. Start with 2D6. You may channel by adding a third D6. Check the final dice after re-rolls. A double or triple deals D3 mortal wounds to the caster’s unit. If the caster survives and the dice sum reaches the ritual’s Warp Charge, the ritual resolves. For Destiny’s Ruin (5), choose a visible enemy up to 24 inches away. Until phase end, your Thousand Sons and Scintillating Legions models can re-roll hit results of 1 against that unit. At 10+, allow any hit re-roll. Temporal Surge (6) picks a visible friendly unit from either faction in that range, outside enemy Engagement Range. Its Normal move has a D6-inch cap, raised to 6 at 10+. It loses the option to charge that turn. Doombolt (7) selects a visible enemy within 24 inches. An unattached Lone Operative must be within 12 inches. Deal D3 mortal wounds, or D3+3 at 11+. With Twist of Fate (9), pick a visible enemy in the same 24-inch range. Until phase end, the two friendly factions improve AP by 1 for attacks against it. Increase that improvement to 2 at 12+.",
+    "summarySpans": [
+      {
+        "start": 50,
+        "end": 64,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-shooting-phase"
+        }
+      },
+      {
+        "start": 810,
+        "end": 821,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 971,
+        "end": 985,
+        "target": {
+          "kind": "core-ability",
+          "id": "lone-operative"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "ritual-menu-with-ordered-test",
+        "armyFaction": "THOUSAND SONS",
+        "available": {
+          "owner": "self",
+          "phase": "shooting",
+          "at": "start",
+          "multipleModels": true
+        },
+        "caster": {
+          "owner": "self",
+          "level": "model",
+          "mustHaveAbility": true,
+          "maxAttemptsPerTurn": 1
+        },
+        "ritualLimit": {
+          "perRitualAttemptsPerTurn": 1
+        },
+        "test": [
+          {
+            "step": "base-roll",
+            "diceCount": 2,
+            "die": "D6"
+          },
+          {
+            "step": "channel",
+            "optional": true,
+            "additionalDiceCount": 1,
+            "die": "D6"
+          },
+          {
+            "step": "perils",
+            "at": "after-rerolls",
+            "when": "at-least-one-double-or-triple",
+            "recipient": "casters-unit",
+            "mortalWounds": "D3"
+          },
+          {
+            "step": "resolve",
+            "requiresCasterSurvived": true,
+            "diceComparator": "sum-at-least-warp-charge"
+          }
+        ],
+        "rituals": [
+          {
+            "id": "destinys-ruin",
+            "warpCharge": 5,
+            "target": {
+              "owner": "opponent",
+              "visible": true,
+              "withinInches": 24
+            },
+            "beneficiaryKeywordsAny": [
+              "THOUSAND SONS",
+              "SCINTILLATING LEGIONS"
+            ],
+            "scope": "models-attacking-target",
+            "duration": "phase",
+            "explicitReroll": "hit-ones",
+            "enhanced": {
+              "minDiceTotal": 10,
+              "reroll": "any-hit"
+            }
+          },
+          {
+            "id": "temporal-surge",
+            "warpCharge": 6,
+            "target": {
+              "owner": "self",
+              "visible": true,
+              "withinInches": 24,
+              "notEngaged": true,
+              "keywordsAny": [
+                "THOUSAND SONS",
+                "SCINTILLATING LEGIONS"
+              ]
+            },
+            "move": "normal",
+            "limitInches": "D6",
+            "enhanced": {
+              "minDiceTotal": 10,
+              "limitInches": 6
+            },
+            "cannotChargeUntil": "turn-end"
+          },
+          {
+            "id": "doombolt",
+            "warpCharge": 7,
+            "target": {
+              "owner": "opponent",
+              "visible": true,
+              "withinInches": 24,
+              "loneOperative": {
+                "allowedIfWithinInches": 12,
+                "allowedIfPartOfAttachedUnit": true
+              }
+            },
+            "mortalWounds": "D3",
+            "enhanced": {
+              "minDiceTotal": 11,
+              "mortalWounds": "D3+3"
+            }
+          },
+          {
+            "id": "twist-of-fate",
+            "warpCharge": 9,
+            "target": {
+              "owner": "opponent",
+              "visible": true,
+              "withinInches": 24
+            },
+            "beneficiaryKeywordsAny": [
+              "THOUSAND SONS",
+              "SCINTILLATING LEGIONS"
+            ],
+            "scope": "models-attacking-target",
+            "duration": "phase",
+            "apImprove": 1,
+            "enhanced": {
+              "minDiceTotal": 12,
+              "apImprove": 2
+            }
+          }
+        ]
+      }
+    }
+  }
+}

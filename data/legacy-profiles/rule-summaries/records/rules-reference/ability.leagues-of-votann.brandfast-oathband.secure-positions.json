@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.brandfast-oathband.secure-positions",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Brandfast Oathband",
+    "cp": 1,
+    "summary": "At the end of a phase on your turn, choose a LEAGUES OF VOTANN TRANSPORT. An embarked LEAGUES OF VOTANN unit may disembark and be placed wholly within 6 inches of that TRANSPORT. It is ineligible to declare charges for the remainder of that turn.",
+    "summarySpans": [
+      {
+        "start": 45,
+        "end": 72,
+        "bold": true
+      },
+      {
+        "start": 86,
+        "end": 103,
+        "bold": true
+      },
+      {
+        "start": 168,
+        "end": 177,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "your",
+            "phases": [
+              "charge",
+              "command",
+              "fight",
+              "movement",
+              "shooting"
+            ],
+            "event": "phase-end"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "LEAGUES OF VOTANN TRANSPORT"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "disembark",
+              "subject": "one-embarked-unit",
+              "keywords": [
+                "LEAGUES OF VOTANN"
+              ],
+              "optional": true,
+              "setup": {
+                "where": "battlefield",
+                "whollyWithinInches": 6,
+                "from": "selected-transport"
+              }
+            },
+            {
+              "kind": "prevent-charge-declaration",
+              "subject": "disembarked-unit",
+              "duration": "end-of-turn"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

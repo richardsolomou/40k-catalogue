@@ -1,0 +1,143 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.spearhead-at-arms.virtue-of-courage",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Spearhead-at-Arms",
+    "cp": 1,
+    "summary": "As either Fight phase opens, choose one friendly ARMIGER. Alternatively, pick an IMPERIAL KNIGHTS TITANIC model together with at least one friendly ARMIGER under its Bondsman effect. Mark one enemy unit. For this phase your ARMIGER models all get +1 to Hit rolls against that enemy.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 49,
+        "end": 56,
+        "bold": true
+      },
+      {
+        "start": 81,
+        "end": 105,
+        "bold": true
+      },
+      {
+        "start": 148,
+        "end": 155,
+        "bold": true
+      },
+      {
+        "start": 166,
+        "end": 174,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.bondsman"
+        }
+      },
+      {
+        "start": 224,
+        "end": 231,
+        "bold": true
+      },
+      {
+        "start": 253,
+        "end": 262,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "any": [
+              {
+                "owner": "your-army",
+                "entity": "model",
+                "count": 1,
+                "keywords": [
+                  "ARMIGER"
+                ]
+              },
+              {
+                "all": [
+                  {
+                    "owner": "your-army",
+                    "entity": "model",
+                    "count": 1,
+                    "keywords": [
+                      "IMPERIAL KNIGHTS",
+                      "TITANIC"
+                    ],
+                    "bind": "selected-titanic"
+                  },
+                  {
+                    "entity": "model",
+                    "keyword": "ARMIGER",
+                    "owner": "your-army",
+                    "minCount": 1,
+                    "affectedBy": "selected-titanics-bondsman"
+                  }
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "select-enemy-unit",
+              "count": 1,
+              "bind": "marked-enemy"
+            },
+            {
+              "action": "modify-roll",
+              "roll": "hit",
+              "operation": "add",
+              "amount": 1,
+              "actor": "each-friendly-armiger-model",
+              "attackTarget": "marked-enemy",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

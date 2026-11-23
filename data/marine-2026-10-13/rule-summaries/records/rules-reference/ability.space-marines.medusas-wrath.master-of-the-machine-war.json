@@ -1,0 +1,117 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.medusas-wrath.master-of-the-machine-war",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Medusa's Wrath",
+    "summary": "Your Movement phase lets you give a doctrine to an ADEPTUS ASTARTES VEHICLE unit you can see up to 6″ from the bearer. The unit must be friendly. Pick Tactical Doctrine or, alternatively, Devastator Doctrine. The choice lapses when your next Command phase begins.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 19,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 51,
+        "end": 75,
+        "bold": true
+      },
+      {
+        "start": 151,
+        "end": 168,
+        "target": {
+          "kind": "ability",
+          "id": "space-marines.combat-doctrines"
+        }
+      },
+      {
+        "start": 188,
+        "end": 207,
+        "target": {
+          "kind": "ability",
+          "id": "space-marines.combat-doctrines"
+        }
+      },
+      {
+        "start": 242,
+        "end": 255,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "in-phase",
+          "phase": "movement",
+          "owner": "self"
+        },
+        "selection": {
+          "side": "friendly",
+          "level": "unit",
+          "allKeywords": [
+            "ADEPTUS ASTARTES",
+            "VEHICLE"
+          ],
+          "count": 1,
+          "optional": true,
+          "distance": {
+            "type": "within",
+            "inches": 6,
+            "origin": "bearer-model"
+          },
+          "visibility": {
+            "observer": "bearer-model",
+            "subject": "selected-unit"
+          }
+        },
+        "effect": {
+          "type": "activate-ability-option",
+          "ability": "Combat Doctrines",
+          "options": [
+            "Tactical Doctrine",
+            "Devastator Doctrine"
+          ],
+          "choose": 1,
+          "recipient": "selected-vehicle-unit"
+        },
+        "expiry": {
+          "event": "next-phase-start",
+          "phase": "command",
+          "owner": "self"
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Adeptus Astartes"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

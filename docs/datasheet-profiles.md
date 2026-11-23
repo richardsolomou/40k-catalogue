@@ -74,7 +74,7 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds a `profiles`
 
 ## Earlier rules versions
 
-Each earlier 11th-edition input (`data/<version>/rule-summaries/`) holds the same `profiles` category, built from the app build in force at that update's cutoff, with Legends profiles from the documents dated before it.
+Each earlier 11th-edition input except the Custodes codex one (`data/<version>/rule-summaries/`) holds the same `profiles` category, built from the app build in force at that update's cutoff, with Legends profiles from the documents dated before it.
 
 ## Rehearsal
 

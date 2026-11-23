@@ -80,7 +80,7 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) includes the `rost
 
 ## Earlier rules versions
 
-Each earlier 11th-edition input (`data/<version>/rule-summaries/`) includes the same `rosters` category, built from the app build in force at that update's cutoff and the Legends documents dated before it. A unit keeps the ID it has in MFM 1.6, and lists the BSData entry IDs of the datasheets Praetorium compiled for that update among its aliases.
+Each earlier 11th-edition input except the Custodes codex one (`data/<version>/rule-summaries/`) includes the same `rosters` category, built from the app build in force at that update's cutoff and the Legends documents dated before it. A unit keeps the ID it has in MFM 1.6, and lists the BSData entry IDs of the datasheets Praetorium compiled for that update among its aliases.
 
 ## Saved rosters
 

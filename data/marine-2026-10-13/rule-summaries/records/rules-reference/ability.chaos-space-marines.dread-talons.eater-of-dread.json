@@ -39,31 +39,38 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "HERETIC ASTARTES"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "roll-for-resource",
-            "target": "own-player",
-            "dice": "D6",
-            "bonusPerBattleShockedEnemyUnit": 1,
-            "minimum": "5+",
-            "resource": "CP",
-            "amount": 1
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "HERETIC ASTARTES"
+                ]
+              }
+            ]
           }
-        ],
-        "trigger": {
-          "event": "start-of-own-command-phase",
-          "requires": "bearer-on-battlefield"
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "roll-for-resource",
+              "target": "own-player",
+              "dice": "D6",
+              "bonusPerBattleShockedEnemyUnit": 1,
+              "minimum": "5+",
+              "resource": "CP",
+              "amount": 1
+            }
+          ],
+          "trigger": {
+            "event": "start-of-own-command-phase",
+            "requires": "bearer-on-battlefield"
+          }
         }
       }
     }

@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Sanctic Spearhead",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement",
+        "charge"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in either your Movement phase or Charge phase, picking one of your GREY KNIGHTS VEHICLE units that has not yet been chosen to move or charge in this phase. Until the phase ends, each time it moves (Normal, Advance or Charge moves) it may travel horizontally through terrain features.",
     "citations": [
       {
@@ -25,10 +33,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GREY KNIGHTS",
+              "VEHICLE"
+            ],
+            "conditions": [
+              "not-selected-to-move-or-charge"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Sanctic Spearhead",
           "trigger": {
             "windows": [
@@ -68,8 +94,7 @@
               "expires": "end-of-phase"
             }
           ],
-          "restrictions": [],
-          "category": "Strategic Ploy"
+          "restrictions": []
         }
       }
     }

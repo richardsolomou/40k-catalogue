@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Haloscreed Battle Clade",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in your Shooting phase or in any Fight phase on one ADEPTUS MECHANICUS unit in your army that hasn't been picked yet this phase to shoot or to fight. For the rest of the phase, its models' attacks re-roll Wound rolls of 1; for a HALO OVERRIDE unit, they re-roll Hit rolls of 1 as well.",
     "citations": [
       {
@@ -25,12 +33,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS MECHANICUS"
+            ],
+            "conditions": [
+              "not-selected-to-shoot-or-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Haloscreed Battle Clade",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {
@@ -54,13 +78,13 @@
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "wound",
               "only": 1,
               "duration": "phase"
             },
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "hit",
               "only": 1,
               "duration": "phase",

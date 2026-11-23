@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Null Maiden Vigil",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In either player's Fight phase, spend 1 CP on one VIGILATORS unit of yours that has not been picked to fight yet this phase. While the phase lasts, its models may re-roll Hit rolls for their melee attacks, and may also re-roll Wound rolls when attacking a PSYKER or a unit that is Battle-shocked.",
     "summarySpans": [
       {
@@ -50,12 +57,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "VIGILATORS"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Null Maiden Vigil",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {
@@ -75,13 +98,13 @@
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "hit",
               "attacks": "melee",
               "expires": "end-of-phase"
             },
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "wound",
               "attacks": "melee",
               "condition": "target-battle-shocked-or-PSYKER",

@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Possessed Slaughterband",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 2 CP. Use it in the opposing player's Shooting phase, or in any Fight phase, as soon as an enemy unit has picked its targets, on one WORLD EATERS POSSESSED unit of yours that was chosen as a target for at least one of those attacks. For the rest of the phase, attacks aimed at your unit get -1 on their Wound rolls.",
     "citations": [
       {
@@ -25,11 +33,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "WORLD EATERS",
+              "POSSESSED"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Possessed Slaughterband",
           "trigger": {
             "windows": [

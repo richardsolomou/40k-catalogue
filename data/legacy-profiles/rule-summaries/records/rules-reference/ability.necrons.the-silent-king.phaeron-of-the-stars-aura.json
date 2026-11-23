@@ -62,42 +62,45 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "role": "aura-option",
-        "activation": {
-          "event": "parent-option-active",
-          "parentAbility": "Triarch Abilities"
-        },
-        "area": {
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 6,
-          "origin": "this-unit",
-          "candidate": {
-            "entity": "unit",
-            "side": "friendly",
-            "requireAllKeywords": [
-              "NECRONS"
+        "detail": {
+          "role": "aura-option",
+          "activation": {
+            "event": "parent-option-active",
+            "parentAbility": "Triarch Abilities"
+          },
+          "area": {
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 6,
+            "origin": "this-unit",
+            "candidate": {
+              "entity": "unit",
+              "side": "friendly",
+              "requireAllKeywords": [
+                "NECRONS"
+              ],
+              "excludeAnyKeywords": [
+                "MONSTER"
+              ]
+            }
+          },
+          "trigger": {
+            "event": "attack",
+            "actor": "model-in-eligible-unit",
+            "mode": "any"
+          },
+          "effect": {
+            "rolls": [
+              "hit",
+              "wound"
             ],
-            "excludeAnyKeywords": [
-              "MONSTER"
-            ]
+            "optional": false,
+            "unmodifiedFace": 1,
+            "kind": "re-roll"
           }
-        },
-        "trigger": {
-          "event": "attack",
-          "actor": "model-in-eligible-unit",
-          "mode": "any"
-        },
-        "effect": {
-          "operation": "re-roll",
-          "rolls": [
-            "hit",
-            "wound"
-          ],
-          "optional": false,
-          "unmodifiedFace": 1
         }
       }
     }

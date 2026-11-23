@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Mortarion’s Hammer",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP. Use it in your Shooting phase. Choose one of your DEATH GUARD units that is yet to be picked to shoot this phase. For the rest of the phase, its models' attacks against a visible enemy unit, other than AIRCRAFT, that is inside the opposing player's deployment zone may re-roll their Hit rolls.",
     "citations": [
       {
@@ -25,12 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DEATH GUARD"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Mortarion’s Hammer",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

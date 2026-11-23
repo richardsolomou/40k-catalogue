@@ -39,45 +39,60 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "unit-targeted",
-          "actor": "enemy-unit",
-          "target": {
-            "side": "friendly",
-            "allKeywords": [
-              "ADEPTUS ASTARTES",
-              "VEHICLE"
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "TECHMARINE"
+                ]
+              },
+              {
+                "unit": {
+                  "kind": "unit",
+                  "id": "space-marines.techmarine"
+                }
+              }
             ]
+          }
+        },
+        "detail": {
+          "trigger": {
+            "event": "unit-targeted",
+            "actor": "enemy-unit",
+            "target": {
+              "side": "friendly",
+              "allKeywords": [
+                "ADEPTUS ASTARTES",
+                "VEHICLE"
+              ]
+            },
+            "distance": {
+              "relation": "within",
+              "inches": 6,
+              "origin": "bearer-unit"
+            }
           },
-          "distance": {
-            "relation": "within",
-            "inches": 6,
-            "origin": "bearer-unit"
+          "limit": {
+            "count": 1,
+            "period": "battle-round"
+          },
+          "effect": {
+            "type": "grant-core-ability",
+            "ability": "feel-no-pain",
+            "threshold": 5,
+            "subject": "trigger-target",
+            "optional": true,
+            "expiry": {
+              "event": "attacks-completed",
+              "subject": "trigger-enemy-unit"
+            }
           }
-        },
-        "limit": {
-          "count": 1,
-          "period": "battle-round"
-        },
-        "effect": {
-          "type": "grant-core-ability",
-          "ability": "feel-no-pain",
-          "threshold": 5,
-          "subject": "trigger-target",
-          "optional": true,
-          "expiry": {
-            "event": "attacks-completed",
-            "subject": "trigger-enemy-unit"
-          }
-        },
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Techmarine"
-          ],
-          "excludedKeywords": []
         }
       }
     }

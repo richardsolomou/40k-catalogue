@@ -40,53 +40,56 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "usage": {
-          "maximum": 1,
-          "period": "battle-round",
-          "scope": "army",
-          "optional": true
-        },
-        "trigger": {
-          "turn": "own",
-          "phase": "movement",
-          "actor": "owning-unit",
-          "events": [
-            "move-start",
-            "move-end"
-          ]
-        },
-        "target": {
-          "selection": {
-            "count": 1,
-            "relationship": "friendly",
-            "keyword": "Speed Freeks",
-            "rangeInches": 6,
-            "measuredFrom": "owning-unit"
+        "detail": {
+          "usage": {
+            "maximum": 1,
+            "period": "battle-round",
+            "scope": "army",
+            "optional": true
           },
-          "alsoAffects": {
-            "unit": "every-embarked-unit",
-            "embarkedIn": "selected-unit",
-            "applySelectionFilters": false
-          }
-        },
-        "effect": {
-          "recipients": [
-            "selected-unit",
-            "every-embarked-unit"
-          ],
-          "clearStatus": {
-            "status": "battle-shocked",
-            "timing": "resolution",
-            "requiresPriorStatus": false
+          "trigger": {
+            "turn": "own",
+            "phase": "movement",
+            "actor": "owning-unit",
+            "events": [
+              "move-start",
+              "move-end"
+            ]
           },
-          "grantState": {
-            "state": "Riled Up",
-            "ruleQid": "ability:orks.waaagh",
-            "expiry": {
-              "event": "turn-start",
-              "turn": "controlling-player-next"
+          "target": {
+            "selection": {
+              "count": 1,
+              "relationship": "friendly",
+              "keyword": "Speed Freeks",
+              "rangeInches": 6,
+              "measuredFrom": "owning-unit"
+            },
+            "alsoAffects": {
+              "unit": "every-embarked-unit",
+              "embarkedIn": "selected-unit",
+              "applySelectionFilters": false
+            }
+          },
+          "effect": {
+            "recipients": [
+              "selected-unit",
+              "every-embarked-unit"
+            ],
+            "clearStatus": {
+              "status": "battle-shocked",
+              "timing": "resolution",
+              "requiresPriorStatus": false
+            },
+            "grantState": {
+              "state": "Riled Up",
+              "ruleQid": "ability:orks.waaagh",
+              "expiry": {
+                "event": "turn-start",
+                "turn": "controlling-player-next"
+              }
             }
           }
         }

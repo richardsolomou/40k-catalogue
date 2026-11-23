@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Tactical Brethren",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "In your Shooting phase, use this once your unit with Adeptus Astartes has fired. Pick an enemy unit it hit. That enemy is suppressed, taking -1 on its Hit rolls until your next turn starts.",
     "summarySpans": [
       {
@@ -54,10 +60,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Cohort Cybernetica",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "During the Command phase on your turn, pick an objective marker and nominate one friendly unit. The unit must be LEGIO CYBERNETICA or qualify as an ADEPTUS MECHANICUS VEHICLE. Set its ranged weapons to Ballistic Skill 3+ and grant them IGNORES COVER. Those weapons can aim only at units in reach of the nominated marker. All three changes expire when your next Command phase begins.",
     "summarySpans": [
       {
@@ -51,10 +58,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "LEGIO CYBERNETICA"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS MECHANICUS",
+                  "VEHICLE"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Cohort Cybernetica",
           "trigger": {
             "windows": [

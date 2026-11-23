@@ -45,28 +45,31 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "timing": "each-end-of-move",
-        "actor": "mission-player",
-        "triggerUnit": {
-          "side": "friendly"
-        },
-        "selector": {
-          "kind": "objective",
-          "withinRangeOf": "moving-unit",
-          "count": 1,
-          "requiresMarkers": {
+        "detail": {
+          "timing": "each-end-of-move",
+          "actor": "mission-player",
+          "triggerUnit": {
+            "side": "friendly"
+          },
+          "selector": {
+            "kind": "objective",
+            "withinRangeOf": "moving-unit",
+            "count": 1,
+            "requiresMarkers": {
+              "owner": "opponent",
+              "minimum": 1
+            }
+          },
+          "effect": {
+            "kind": "remove-operation-markers",
+            "source": "selected-objective",
             "owner": "opponent",
-            "minimum": 1
+            "count": "all-matching",
+            "destination": "off-battlefield"
           }
-        },
-        "effect": {
-          "kind": "remove-operation-markers",
-          "source": "selected-objective",
-          "owner": "opponent",
-          "count": "all-matching",
-          "destination": "off-battlefield"
         }
       }
     }

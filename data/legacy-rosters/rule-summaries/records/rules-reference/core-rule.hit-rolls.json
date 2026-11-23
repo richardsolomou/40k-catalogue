@@ -39,53 +39,56 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "attack-sequence-step",
-        "step": 1,
-        "of": "05.00",
-        "roll": {
-          "per": "attack-die",
-          "dice": "1D6"
-        },
-        "evaluation": "first-matching-row",
-        "rows": [
-          {
-            "order": 1,
-            "if": {
-              "unmodifiedRoll": 1
-            },
-            "result": "fail"
+        "detail": {
+          "kind": "attack-sequence-step",
+          "step": 1,
+          "of": "05.00",
+          "roll": {
+            "per": "attack-die",
+            "dice": "1D6"
           },
-          {
-            "order": 2,
-            "if": {
-              "unmodifiedRoll": 6
+          "evaluation": "first-matching-row",
+          "rows": [
+            {
+              "order": 1,
+              "if": {
+                "unmodifiedRoll": 1
+              },
+              "result": "fail"
             },
-            "result": "critical-hit"
-          },
-          {
-            "order": 3,
-            "if": {
-              "rollAtLeast": "BS-or-WS"
+            {
+              "order": 2,
+              "if": {
+                "unmodifiedRoll": 6
+              },
+              "result": "critical-hit"
             },
-            "result": "hit"
+            {
+              "order": 3,
+              "if": {
+                "rollAtLeast": "BS-or-WS"
+              },
+              "result": "hit"
+            },
+            {
+              "order": 4,
+              "if": "any-other-result",
+              "result": "fail"
+            }
+          ],
+          "diceValuesSource": {
+            "pdf": "dice glyph images (read from rendered crops, see glyphs)",
+            "gdc": "digits"
           },
-          {
-            "order": 4,
-            "if": "any-other-result",
-            "result": "fail"
+          "modifierCapPrinted": false,
+          "gdcOnly": {
+            "criticalPanelClause": true,
+            "abilitiesClause": true,
+            "adopted": "already summarised under 05.00 from the printed panel"
           }
-        ],
-        "diceValuesSource": {
-          "pdf": "dice glyph images (read from rendered crops, see glyphs)",
-          "gdc": "digits"
-        },
-        "modifierCapPrinted": false,
-        "gdcOnly": {
-          "criticalPanelClause": true,
-          "abilitiesClause": true,
-          "adopted": "already summarised under 05.00 from the printed panel"
         }
       }
     }

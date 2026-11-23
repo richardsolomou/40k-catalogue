@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Silent Hunters",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "In either player's Fight phase, when one of your VIGILATORS units is picked to fight, spend 1 CP on it. Its melee attacks gain [LANCE], and those aimed at a PSYKER unit also get +1 Attacks.",
     "summarySpans": [
       {
@@ -53,10 +59,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "VIGILATORS"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Silent Hunters",
           "trigger": {
             "windows": [

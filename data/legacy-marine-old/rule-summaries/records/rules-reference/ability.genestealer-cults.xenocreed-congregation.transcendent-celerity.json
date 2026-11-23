@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Xenocreed Congregation",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP, in your Shooting phase. Choose one NEOPHYTE HYBRIDS, ACOLYTE HYBRIDS or HYBRID METAMORPHS unit of yours that has not shot yet this phase. Until the phase ends, the ranged weapons of its models gain [ASSAULT].",
     "summarySpans": [
       {
@@ -43,11 +50,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ACOLYTE HYBRIDS"
+                ]
+              },
+              {
+                "keywords": [
+                  "HYBRID METAMORPHS"
+                ]
+              },
+              {
+                "keywords": [
+                  "NEOPHYTE HYBRIDS"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Xenocreed Congregation",
           "when": {
             "phase": "shooting",

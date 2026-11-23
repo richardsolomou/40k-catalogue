@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Twilight Flickers",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "In your Shooting phase, your HARLEQUINS may move again after firing. Use Normal Move rules and a D6″ maximum. The unit loses charge eligibility for the rest of the turn.",
     "summarySpans": [
       {
@@ -49,33 +55,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is you",
-          "event": "after friendly shooting"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": "HARLEQUINS"
-        },
-        "effect": {
-          "type": "optional move and charge bar",
-          "move": {
-            "kind": "Normal Move",
-            "maximumInches": "D6"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
           },
-          "chargeRestriction": {
-            "action": "declare charge",
-            "eligible": false,
-            "until": "turn ends"
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "HARLEQUINS",
+              "VEHICLE"
+            ]
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is you",
+            "event": "after friendly shooting"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": "HARLEQUINS"
+          },
+          "effect": {
+            "type": "optional move and charge bar",
+            "move": {
+              "kind": "Normal Move",
+              "maximumInches": "D6"
+            },
+            "chargeRestriction": {
+              "action": "declare charge",
+              "eligible": false,
+              "until": "turn ends"
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

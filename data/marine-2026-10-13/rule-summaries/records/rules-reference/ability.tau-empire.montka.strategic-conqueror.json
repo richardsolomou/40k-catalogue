@@ -44,40 +44,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "T’AU EMPIRE"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "select-objective-marker",
-            "target": "own-player",
-            "count": 1,
-            "location": "battlefield"
-          },
-          {
-            "type": "modify-characteristic",
-            "target": "friendly-models",
-            "keyword": "T’AU EMPIRE",
-            "characteristic": "Objective Control",
-            "delta": 1,
-            "requires": {
-              "bearer": "on-battlefield",
-              "position": "within-range-of-chosen-objective-marker"
-            }
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "T’AU EMPIRE"
+                ]
+              }
+            ]
           }
-        ],
-        "trigger": {
-          "event": "battle-round-start",
-          "round": 1,
-          "before": "first-turn"
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "select-objective-marker",
+              "target": "own-player",
+              "count": 1,
+              "location": "battlefield"
+            },
+            {
+              "type": "modify-characteristic",
+              "target": "friendly-models",
+              "keyword": "T’AU EMPIRE",
+              "characteristic": "Objective Control",
+              "delta": 1,
+              "requires": {
+                "bearer": "on-battlefield",
+                "position": "within-range-of-chosen-objective-marker"
+              }
+            }
+          ],
+          "trigger": {
+            "event": "battle-round-start",
+            "round": 1,
+            "before": "first-turn"
+          }
         }
       }
     }

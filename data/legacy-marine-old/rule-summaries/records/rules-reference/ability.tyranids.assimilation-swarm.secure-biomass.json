@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Assimilation Swarm",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP, in the Fight phase of either turn. Choose one TYRANIDS unit of yours not yet picked to fight in this phase. Until the phase ends, [LETHAL HITS] applies to its melee weapons; if it is a HARVESTER unit, its melee attacks also score a Critical Hit whenever a successful Hit roll is an unmodified 5+.",
     "summarySpans": [
       {
@@ -51,11 +58,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "TYRANIDS"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Assimilation Swarm",
           "when": {
             "phase": "fight",

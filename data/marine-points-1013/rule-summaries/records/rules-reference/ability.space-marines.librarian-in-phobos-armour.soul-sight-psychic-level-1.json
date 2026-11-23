@@ -53,53 +53,56 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "role": "psychic-spell",
-        "psychicLevel": 1,
-        "source": "this-unit",
-        "trigger": {
-          "event": "phase",
-          "phase": "shooting",
-          "turn": "your-turn",
-          "timing": "during"
-        },
-        "optional": true,
-        "effect": {
-          "operation": "roll-and-branch",
-          "dice": {
-            "count": 1,
-            "sides": 6,
-            "additive": 0
+        "detail": {
+          "role": "psychic-spell",
+          "psychicLevel": 1,
+          "source": "this-unit",
+          "trigger": {
+            "event": "phase",
+            "phase": "shooting",
+            "turn": "your-turn",
+            "timing": "during"
           },
-          "branches": [
-            {
-              "comparison": "at-least",
-              "value": 2,
-              "effect": {
-                "operation": "select-and-grant",
-                "target": {
-                  "side": "enemy",
-                  "count": 1,
-                  "visible": true
-                },
-                "gameplayGrant": {
-                  "operation": "grant-ability",
-                  "label": "IGNORES COVER",
-                  "recipient": "ranged-attacks-by-this-unit-targeting-selected-unit"
+          "optional": true,
+          "effect": {
+            "dice": {
+              "count": 1,
+              "sides": 6,
+              "additive": 0
+            },
+            "branches": [
+              {
+                "comparison": "at-least",
+                "value": 2,
+                "effect": {
+                  "target": {
+                    "side": "enemy",
+                    "count": 1,
+                    "visible": true
+                  },
+                  "gameplayGrant": {
+                    "label": "IGNORES COVER",
+                    "recipient": "ranged-attacks-by-this-unit-targeting-selected-unit",
+                    "kind": "grant-ability"
+                  },
+                  "kind": "select-and-grant"
+                }
+              },
+              {
+                "comparison": "less-than",
+                "value": 2,
+                "effect": {
+                  "condition": "battle-shocked",
+                  "recipient": "this-unit",
+                  "kind": "apply-condition"
                 }
               }
-            },
-            {
-              "comparison": "less-than",
-              "value": 2,
-              "effect": {
-                "operation": "apply-condition",
-                "condition": "battle-shocked",
-                "recipient": "this-unit"
-              }
-            }
-          ]
+            ],
+            "kind": "roll-and-branch"
+          }
         }
       }
     }

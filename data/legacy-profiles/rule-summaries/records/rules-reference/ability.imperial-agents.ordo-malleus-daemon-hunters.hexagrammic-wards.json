@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Ordo Malleus, Daemon Hunters",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "wargear"
+    },
     "summary": "Spend 1 CP in the Fight phase or the opponent's Shooting phase, right after an enemy unit picks its targets, on one ORDO MALLEUS unit of yours that it targeted with at least one attack. For the rest of that phase, every Psychic weapon that the attacking unit's models carry gains [HAZARDOUS].",
     "citations": [
       {
@@ -25,11 +33,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Wargear",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ORDO MALLEUS"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Ordo Malleus, Daemon Hunters",
           "when": {
             "turns": [

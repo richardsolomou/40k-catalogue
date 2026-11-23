@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Black Spear Task Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "wargear"
+    },
     "summary": "In your Shooting phase, use this as you pick a friendly KILL TEAM to shoot. Its ranged attacks get +6\" Range and +1 Strength.",
     "summarySpans": [
       {
@@ -40,10 +47,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "KILL TEAM"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

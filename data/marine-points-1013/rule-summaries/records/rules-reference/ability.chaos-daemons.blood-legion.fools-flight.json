@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Blood Legion",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 2 CP. Use it during the opposing player's Movement phase, once an enemy unit finishes a fall-back move. Choose one of your LEGIONES DAEMONICA KHORNE units that is not engaged and is within 6\" of it. Your unit declares a charge, and as charge targets it may only pick enemy units that performed a fall-back move during this phase and lie within its maximum distance.",
     "citations": [
       {
@@ -25,12 +32,31 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "KHORNE"
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Blood Legion",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {

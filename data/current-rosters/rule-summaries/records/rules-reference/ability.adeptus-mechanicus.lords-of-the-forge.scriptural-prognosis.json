@@ -14,6 +14,16 @@
     "ruleType": "stratagem",
     "group": "Lords of the Forge",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Spend 1 CP in the opposing player's Shooting phase or in any Fight phase at the moment an enemy unit picks as a target one of your TECH-PRIEST units that is within an objective's range, which becomes the Stratagem's target. Until the enemy unit has made its attacks, attacks aimed at your unit suffer -1 AP, so their Armour Penetration is worsened by 1.",
     "citations": [
       {
@@ -25,12 +35,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "TECH-PRIEST"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Lords of the Forge",
-          "category": null,
           "trigger": {
             "windows": [
               {

@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Grizzled Company",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "epic-deed"
+    },
     "summary": "As any phase opens, give one of your ASTRA MILITARUM OFFICER units the opportunity to issue one Order using its Command phase rules.",
     "summarySpans": [
       {
@@ -48,26 +59,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "any",
-          "turn": "either",
-          "event": "phase opens"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ASTRA MILITARUM",
+              "OFFICER"
+            ]
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "keywords": "ASTRA MILITARUM OFFICER"
-        },
-        "effect": {
-          "type": "optional order",
-          "count": 1,
-          "issuer": "selected OFFICER",
-          "treatAs": "your Command phase"
-        },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "any",
+            "turn": "either",
+            "event": "phase opens"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywords": "ASTRA MILITARUM OFFICER"
+          },
+          "effect": {
+            "type": "optional order",
+            "count": 1,
+            "issuer": "selected OFFICER",
+            "treatAs": "your Command phase"
+          },
+          "restrictions": []
+        }
       }
     }
   }

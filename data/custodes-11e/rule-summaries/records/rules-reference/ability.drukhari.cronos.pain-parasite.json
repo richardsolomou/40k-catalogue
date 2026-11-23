@@ -34,42 +34,45 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "pain-ability-healing-and-model-return",
-        "activation": {
-          "phases": [
-            {
-              "phase": "shooting",
-              "owner": "self",
-              "selectedFor": "shoot"
+        "detail": {
+          "kind": "pain-ability-healing-and-model-return",
+          "activation": {
+            "phases": [
+              {
+                "phase": "shooting",
+                "owner": "self",
+                "selectedFor": "shoot"
+              },
+              {
+                "phase": "fight",
+                "selectedFor": "fight"
+              }
+            ],
+            "spendPainTokens": 1,
+            "empower": "this-unit",
+            "optional": true
+          },
+          "resolution": {
+            "while": "empowered",
+            "after": "this-unit-resolves-its-attacks",
+            "requires": {
+              "enemyModelsDestroyedByThoseAttacksAtLeast": 1
             },
-            {
-              "phase": "fight",
-              "selectedFor": "fight"
+            "heal": {
+              "maxWounds": 3,
+              "maxModels": 1,
+              "recipient": "model-in-this-unit",
+              "onlyLostWounds": true
+            },
+            "return": {
+              "requiresEverySurvivingModelAtStartingWounds": true,
+              "requiresBelowStartingStrength": true,
+              "models": 1,
+              "woundsRemaining": 3
             }
-          ],
-          "spendPainTokens": 1,
-          "empower": "this-unit",
-          "optional": true
-        },
-        "resolution": {
-          "while": "empowered",
-          "after": "this-unit-resolves-its-attacks",
-          "requires": {
-            "enemyModelsDestroyedByThoseAttacksAtLeast": 1
-          },
-          "heal": {
-            "maxWounds": 3,
-            "maxModels": 1,
-            "recipient": "model-in-this-unit",
-            "onlyLostWounds": true
-          },
-          "return": {
-            "requiresEverySurvivingModelAtStartingWounds": true,
-            "requiresBelowStartingStrength": true,
-            "models": 1,
-            "woundsRemaining": 3
           }
         }
       }

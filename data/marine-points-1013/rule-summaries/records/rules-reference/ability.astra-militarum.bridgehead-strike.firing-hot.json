@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Bridgehead Strike",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "Spend 2 CP in your Shooting phase, as a MILITARUM TEMPESTUS or KASRKIN unit of yours is chosen to shoot, on that unit. Its hot-shot weapons (Hot-shot Lasguns, Hot-shot Lascarbines, Hot-shot Volley Guns, Sentry Hot-shot Volley Guns, Hot-shot Laspistols and Hot-shot Marksman Rifles) get +1 Strength and +1 AP when the target was an enemy unit no more than 12\" away.",
     "citations": [
       {
@@ -25,11 +31,33 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-shoot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "MILITARUM TEMPESTUS"
+                ]
+              },
+              {
+                "keywords": [
+                  "KASRKIN"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Bridgehead Strike",
           "when": {
             "turn": "own",

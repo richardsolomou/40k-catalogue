@@ -42,116 +42,119 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "attack-step",
-        "ruleNumber": "05.04",
-        "actor": "opposing-player",
-        "order": "lowest-save-result-first",
-        "stopWhen": [
-          "all-attacks-resolved",
-          "target-unit-destroyed"
-        ],
-        "excessAttacks": "lost",
-        "steps": [
-          {
-            "order": 1,
-            "name": "Select Model",
-            "from": "current-allocation-group",
-            "preferWounded": true
+        "detail": {
+          "kind": "attack-step",
+          "ruleNumber": "05.04",
+          "actor": "opposing-player",
+          "order": "lowest-save-result-first",
+          "stopWhen": [
+            "all-attacks-resolved",
+            "target-unit-destroyed"
+          ],
+          "excessAttacks": "lost",
+          "steps": [
+            {
+              "order": 1,
+              "name": "Select Model",
+              "from": "current-allocation-group",
+              "preferWounded": true
+            },
+            {
+              "order": 2,
+              "name": "Check Save Roll",
+              "firstMatch": [
+                {
+                  "if": "unmodified-roll",
+                  "value": 1,
+                  "result": "inflicts-damage"
+                },
+                {
+                  "if": "group-has-InSv-and-roll-at-least-InSv",
+                  "result": "fails"
+                },
+                {
+                  "if": "roll-modified-by-AP-at-least-Sv",
+                  "result": "fails"
+                },
+                {
+                  "if": "otherwise",
+                  "result": "inflicts-damage"
+                }
+              ]
+            },
+            {
+              "order": 3,
+              "name": "Resolve Damage",
+              "woundsLost": "attack-D",
+              "destroyedAtOrBelow": 0
+            }
+          ],
+          "currentGroup": {
+            "start": "first-in-allocation-order",
+            "advance": "next-group-when-all-destroyed"
           },
-          {
-            "order": 2,
-            "name": "Check Save Roll",
-            "firstMatch": [
-              {
-                "if": "unmodified-roll",
-                "value": 1,
-                "result": "inflicts-damage"
-              },
-              {
-                "if": "group-has-InSv-and-roll-at-least-InSv",
-                "result": "fails"
-              },
-              {
-                "if": "roll-modified-by-AP-at-least-Sv",
-                "result": "fails"
-              },
-              {
-                "if": "otherwise",
-                "result": "inflicts-damage"
-              }
+          "modifyingDamageRef": "02.02.01",
+          "suffersDamage": "attack-reaches-resolve-damage",
+          "destroyed": {
+            "unitWhen": "all-models-destroyed",
+            "order": [
+              "resolve-destroyed-triggers",
+              "remove"
+            ],
+            "attackTriggersDeferredUntilAttacksResolved": true,
+            "unlessOtherwiseStated": true,
+            "destroyedCannotUseOrBeTargeted": true,
+            "destroyedByYou": [
+              "attack-by-your-model",
+              "your-player-rule"
             ]
           },
-          {
-            "order": 3,
-            "name": "Resolve Damage",
-            "woundsLost": "attack-D",
-            "destroyedAtOrBelow": 0
-          }
-        ],
-        "currentGroup": {
-          "start": "first-in-allocation-order",
-          "advance": "next-group-when-all-destroyed"
-        },
-        "modifyingDamageRef": "02.02.01",
-        "suffersDamage": "attack-reaches-resolve-damage",
-        "destroyed": {
-          "unitWhen": "all-models-destroyed",
-          "order": [
-            "resolve-destroyed-triggers",
-            "remove"
-          ],
-          "attackTriggersDeferredUntilAttacksResolved": true,
-          "unlessOtherwiseStated": true,
-          "destroyedCannotUseOrBeTargeted": true,
-          "destroyedByYou": [
-            "attack-by-your-model",
-            "your-player-rule"
-          ]
-        },
-        "fightOnDeath": {
-          "staysUntil": [
-            "unit-selected-and-attacked",
-            "end-of-phase"
-          ],
-          "fightImmediatelyAfterVariant": {
+          "fightOnDeath": {
             "staysUntil": [
-              "unit-fought",
+              "unit-selected-and-attacked",
               "end-of-phase"
             ],
-            "stratagemsOnUnitAffectModel": true
-          }
-        },
-        "measureToDestroyed": {
-          "model": "any-point-of-former-base-or-hull",
-          "hullIf": [
-            "no-base",
-            "VEHICLE"
-          ],
-          "hullExcept": "WALKER-with-base",
-          "unit": "last-model-destroyed"
-        },
-        "examples": {
-          "apModifier": -1,
-          "apExample": {
-            "roll": 3,
-            "modified": 2,
-            "failsAgainstSv": "2+"
+            "fightImmediatelyAfterVariant": {
+              "staysUntil": [
+                "unit-fought",
+                "end-of-phase"
+              ],
+              "stratagemsOnUnitAffectModel": true
+            }
           },
-          "ballisticSkill": [
-            "3+",
-            "4+"
-          ],
-          "strength": [
-            4,
-            5
-          ],
-          "toughness": 3,
-          "woundOn": "3+",
-          "targetSv": "3+",
-          "targetInSv": "5+",
-          "attachedExample": "Saint Celestine"
+          "measureToDestroyed": {
+            "model": "any-point-of-former-base-or-hull",
+            "hullIf": [
+              "no-base",
+              "VEHICLE"
+            ],
+            "hullExcept": "WALKER-with-base",
+            "unit": "last-model-destroyed"
+          },
+          "examples": {
+            "apModifier": -1,
+            "apExample": {
+              "roll": 3,
+              "modified": 2,
+              "failsAgainstSv": "2+"
+            },
+            "ballisticSkill": [
+              "3+",
+              "4+"
+            ],
+            "strength": [
+              4,
+              5
+            ],
+            "toughness": 3,
+            "woundOn": "3+",
+            "targetSv": "3+",
+            "targetInSv": "5+",
+            "attachedExample": "Saint Celestine"
+          }
         }
       }
     }

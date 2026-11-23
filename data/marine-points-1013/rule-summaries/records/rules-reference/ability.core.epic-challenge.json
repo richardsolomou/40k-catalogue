@@ -15,6 +15,12 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Use it in the Fight phase as soon as a friendly CHARACTER unit is picked to fight, targeting that unit. Choose one CHARACTER model there; for the rest of the phase its melee weapons gain [PRECISION]. Like any Stratagem, it can be used only once in a phase.",
     "summarySpans": [
       {
@@ -69,50 +75,59 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "core-stratagem",
-        "category": "Core Stratagem",
-        "when": {
-          "turn": null,
-          "phase": "fight",
-          "point": "just-after-selected-to-fight",
-          "subjectKeywords": [
-            "CHARACTER"
-          ]
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "unresolved": "not typed yet; see the summary"
+          }
         },
-        "target": {
-          "count": 1,
-          "subject": "the-selected-unit",
-          "requiredKeywords": [
-            "CHARACTER"
-          ]
-        },
-        "effect": {
-          "select": {
-            "level": "model",
+        "detail": {
+          "kind": "core-stratagem",
+          "when": {
+            "turn": null,
+            "phase": "fight",
+            "point": "just-after-selected-to-fight",
+            "subjectKeywords": [
+              "CHARACTER"
+            ]
+          },
+          "target": {
             "count": 1,
+            "subject": "the-selected-unit",
             "requiredKeywords": [
               "CHARACTER"
             ]
           },
-          "grant": {
-            "weaponAbility": "PRECISION",
-            "rule": "24.28",
-            "weapons": "melee"
+          "effect": {
+            "select": {
+              "level": "model",
+              "count": 1,
+              "requiredKeywords": [
+                "CHARACTER"
+              ]
+            },
+            "grant": {
+              "weaponAbility": "PRECISION",
+              "rule": "24.28",
+              "weapons": "melee"
+            },
+            "duration": "end-of-phase"
           },
-          "duration": "end-of-phase"
-        },
-        "frequency": {
-          "printedOnRecord": null,
-          "general": {
-            "rule": "15.01",
-            "limit": "once-per-phase",
-            "scope": "same Stratagem"
+          "frequency": {
+            "printedOnRecord": null,
+            "general": {
+              "rule": "15.01",
+              "limit": "once-per-phase",
+              "scope": "same Stratagem"
+            }
           }
-        },
-        "cost": {
-          "cp": 1
         }
       }
     }

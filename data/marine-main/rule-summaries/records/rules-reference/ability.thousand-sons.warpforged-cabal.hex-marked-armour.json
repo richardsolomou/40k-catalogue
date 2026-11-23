@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Warpforged Cabal",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP, used in the opposing player's Shooting phase or in the Fight phase right after an enemy unit picks its targets. Choose one of your THOUSAND SONS VEHICLE units that at least one of those attacks is aimed at. While that enemy unit resolves its attacks, every attack against your unit has its Armour Penetration characteristic worsened by 1.",
     "citations": [
       {
@@ -25,12 +33,30 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "THOUSAND SONS",
+              "VEHICLE"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Warpforged Cabal",
-          "category": "Battle Tactic",
           "trigger": {
             "turn": "either",
             "phases": [

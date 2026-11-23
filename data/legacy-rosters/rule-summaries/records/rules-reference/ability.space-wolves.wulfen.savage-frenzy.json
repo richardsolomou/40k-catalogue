@@ -70,34 +70,37 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "owner": "Wulfen",
-        "clauses": [
-          {
-            "trigger": {
-              "event": "enemy unit makes a fall-back move",
-              "condition": "engaged with your unit"
+        "detail": {
+          "owner": "Wulfen",
+          "clauses": [
+            {
+              "trigger": {
+                "event": "enemy unit makes a fall-back move",
+                "condition": "engaged with your unit"
+              },
+              "excludesKeywords": [
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "effect": {
+                "requiredMode": "desperate escape"
+              }
             },
-            "excludesKeywords": [
-              "MONSTER",
-              "VEHICLE"
-            ],
-            "effect": {
-              "requiredMode": "desperate escape"
+            {
+              "condition": {
+                "enemyBattleShocked": true
+              },
+              "appliesTo": "hazard rolls for that fall-back move",
+              "modifier": {
+                "operation": "subtract",
+                "value": 1
+              }
             }
-          },
-          {
-            "condition": {
-              "enemyBattleShocked": true
-            },
-            "appliesTo": "hazard rolls for that fall-back move",
-            "modifier": {
-              "operation": "subtract",
-              "value": 1
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

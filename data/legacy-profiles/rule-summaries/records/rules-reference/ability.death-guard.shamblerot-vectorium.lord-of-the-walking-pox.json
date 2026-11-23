@@ -44,45 +44,52 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "characterOnly": true,
-          "match": "all",
-          "keywords": [
-            "DEATH GUARD"
-          ],
-          "excludes": []
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "DEATH GUARD"
+                ]
+              }
+            ]
+          }
         },
-        "trigger": {
-          "event": "set-up-on-battlefield",
-          "zoneBefore": "strategic-reserves",
-          "subject": "bearer-led-unit"
-        },
-        "conditions": [
-          {
-            "type": "leader-of-unit",
-            "actor": "bearer-model",
-            "unit": "bearer-led-unit",
-            "requiredUnitKeyword": "POXWALKER"
+        "detail": {
+          "trigger": {
+            "event": "set-up-on-battlefield",
+            "zoneBefore": "strategic-reserves",
+            "subject": "bearer-led-unit"
           },
-          {
-            "type": "unit-location",
-            "target": "bearer-led-unit",
-            "location": "strategic-reserves"
-          }
-        ],
-        "effects": [
-          {
-            "type": "substitute-battle-round",
-            "value": 3,
-            "target": "bearer-led-unit",
-            "scope": "setting-up-on-battlefield-from-strategic-reserves",
-            "normalRoundUnaffected": true,
-            "ruleQid": "core-rule:arriving-from-strategic-reserves"
-          }
-        ]
+          "conditions": [
+            {
+              "type": "leader-of-unit",
+              "actor": "bearer-model",
+              "unit": "bearer-led-unit",
+              "requiredUnitKeyword": "POXWALKER"
+            },
+            {
+              "type": "unit-location",
+              "target": "bearer-led-unit",
+              "location": "strategic-reserves"
+            }
+          ],
+          "effects": [
+            {
+              "type": "substitute-battle-round",
+              "value": 3,
+              "target": "bearer-led-unit",
+              "scope": "setting-up-on-battlefield-from-strategic-reserves",
+              "normalRoundUnaffected": true,
+              "ruleQid": "core-rule:arriving-from-strategic-reserves"
+            }
+          ]
+        }
       }
     }
   }

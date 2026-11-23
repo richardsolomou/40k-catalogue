@@ -51,33 +51,42 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "LEGIONES DAEMONICA",
-            "TZEENTCH"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "gain-resource",
-            "target": "own-player",
-            "resource": "Flux token",
-            "amount": 1,
-            "additional": true
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "TZEENTCH"
+                ],
+                "factionKeywords": [
+                  "LEGIONES DAEMONICA"
+                ]
+              }
+            ]
           }
-        ],
-        "trigger": {
-          "event": "own-command-phase",
-          "conditions": [
-            "bearer-on-battlefield",
-            "opponent-has-more-flux-tokens-than-own-player"
-          ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "gain-resource",
+              "target": "own-player",
+              "resource": "Flux token",
+              "amount": 1,
+              "additional": true
+            }
+          ],
+          "trigger": {
+            "event": "own-command-phase",
+            "conditions": [
+              "bearer-on-battlefield",
+              "opponent-has-more-flux-tokens-than-own-player"
+            ]
+          }
         }
       }
     }

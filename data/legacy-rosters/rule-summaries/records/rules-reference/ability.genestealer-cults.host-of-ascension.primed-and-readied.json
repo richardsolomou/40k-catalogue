@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Host of Ascension",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 2 CP, in your own Shooting phase or in either player's Fight phase. Choose one GENESTEALER CULTS unit of yours that has neither shot nor fought yet this phase. Until the phase ends, its models score Critical Hits on unmodified Hit rolls of 5+ rather than only on a 6.",
     "summarySpans": [
       {
@@ -51,11 +59,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GENESTEALER CULTS"
+            ],
+            "conditions": [
+              "not-selected-to-shoot-or-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Host of Ascension",
           "when": {
             "phases": [

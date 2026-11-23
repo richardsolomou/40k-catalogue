@@ -39,30 +39,33 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "trigger": {
-          "event": "attack",
-          "actor": "attacking-model",
-          "mode": "any",
-          "target": {
-            "entity": "unit",
-            "side": "friendly",
-            "requireAllKeywords": [
-              "ORKS"
-            ]
+        "detail": {
+          "source": "this-unit",
+          "trigger": {
+            "event": "attack",
+            "actor": "attacking-model",
+            "mode": "any",
+            "target": {
+              "entity": "unit",
+              "side": "friendly",
+              "requireAllKeywords": [
+                "ORKS"
+              ]
+            }
+          },
+          "condition": {
+            "visibilityBy": "attacking-model",
+            "fullyVisible": false,
+            "obstruction": "this-unit"
+          },
+          "effect": {
+            "recipient": "target-unit-versus-attack",
+            "label": "Benefit of Cover",
+            "kind": "grant-ability"
           }
-        },
-        "condition": {
-          "visibilityBy": "attacking-model",
-          "fullyVisible": false,
-          "obstruction": "this-unit"
-        },
-        "effect": {
-          "operation": "grant-ability",
-          "recipient": "target-unit-versus-attack",
-          "label": "Benefit of Cover"
         }
       }
     }

@@ -63,47 +63,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "phase-started",
-          "phase": "command",
-          "owner": "self"
-        },
-        "selection": {
-          "kind": "objective-marker",
-          "count": 1,
-          "designation": "acquisition"
-        },
-        "expires": {
-          "event": "next-phase-started",
-          "phase": "command",
-          "owner": "self"
-        },
-        "target": {
-          "level": "model",
-          "unit": {
-            "owner": "friendly",
-            "allOf": [
-              "ADEPTUS MECHANICUS"
-            ]
+        "detail": {
+          "trigger": {
+            "event": "phase-started",
+            "phase": "command",
+            "owner": "self"
+          },
+          "selection": {
+            "kind": "objective-marker",
+            "count": 1,
+            "designation": "acquisition"
+          },
+          "expires": {
+            "event": "next-phase-started",
+            "phase": "command",
+            "owner": "self"
+          },
+          "target": {
+            "level": "model",
+            "unit": {
+              "owner": "friendly",
+              "allOf": [
+                "ADEPTUS MECHANICUS"
+              ]
+            }
+          },
+          "when": {
+            "event": "attack-made",
+            "condition": {
+              "type": "within-objective-range",
+              "objective": "acquisition",
+              "anySubject": [
+                "attacking-unit",
+                "target-unit"
+              ]
+            }
+          },
+          "effect": {
+            "type": "re-roll",
+            "roll": "wound",
+            "naturalValue": 1
           }
-        },
-        "when": {
-          "event": "attack-made",
-          "condition": {
-            "type": "within-objective-range",
-            "objective": "acquisition",
-            "anySubject": [
-              "attacking-unit",
-              "target-unit"
-            ]
-          }
-        },
-        "effect": {
-          "type": "re-roll",
-          "roll": "wound",
-          "naturalValue": 1
         }
       }
     }

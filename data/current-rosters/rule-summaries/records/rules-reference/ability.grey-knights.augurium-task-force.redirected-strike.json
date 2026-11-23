@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Augurium Task Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own",
+      "type": "epic-deed"
+    },
     "summary": "Spend 1 CP as your Command phase ends, picking a GREY KNIGHTS PSYKER unit of yours that is outside Engagement Range of every enemy unit. Provided it has Deep Strike, you may move it into Strategic Reserves. A designer's note says the point is to let that unit react to your missions and objectives and to use abilities that keep objective markers under your control.",
     "citations": [
       {
@@ -25,10 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GREY KNIGHTS",
+              "PSYKER"
+            ],
+            "conditions": [
+              "not-in-engagement-range"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Augurium Task Force",
           "trigger": {
             "windows": [
@@ -57,7 +82,6 @@
             }
           ],
           "restrictions": [],
-          "category": "Epic Deed",
           "designerNote": "Intended to let the unit use abilities that keep control of objective markers and to react to missions and objectives."
         }
       }

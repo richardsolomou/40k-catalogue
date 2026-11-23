@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Wreckas",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent"
+    },
     "summary": "Once an enemy has shot in its Shooting phase, pick a Flash Gitz or Tankbustas unit hit by its attacks. Your unit may shoot back using normal shooting, with all fire directed at that attacker.",
     "summarySpans": [
       {
@@ -50,10 +56,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "FLASH GITZ"
+                ]
+              },
+              {
+                "keywords": [
+                  "TANKBUSTAS"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

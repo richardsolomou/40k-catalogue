@@ -53,67 +53,70 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "pledge": {
-          "trigger": "battle-round-start",
-          "requiredIf": {
-            "warlord": "on-battlefield"
+        "detail": {
+          "pledge": {
+            "trigger": "battle-round-start",
+            "requiredIf": {
+              "warlord": "on-battlefield"
+            },
+            "measure": "enemy-units-destroyed-during-round"
           },
-          "measure": "enemy-units-destroyed-during-round"
-        },
-        "settlement": {
-          "trigger": "battle-round-end",
-          "award": {
-            "ifActualVersusPledged": ">=",
-            "pactPoints": "pledged-count"
-          },
-          "penalty": {
-            "ifRoundPactPoints": 0,
-            "recipient": "warlord-model",
-            "mortalWounds": "D3"
-          }
-        },
-        "benefits": {
-          "recipient": "friendly-emperors-children-units",
-          "cumulative": true,
-          "thresholds": [
-            {
-              "pactPoints": 1,
-              "reroll": {
-                "roll": "hit",
-                "face": 1
-              }
+          "settlement": {
+            "trigger": "battle-round-end",
+            "award": {
+              "ifActualVersusPledged": ">=",
+              "pactPoints": "pledged-count"
             },
-            {
-              "pactPoints": 3,
-              "reroll": {
-                "roll": "wound",
-                "face": 1
-              }
-            },
-            {
-              "pactPoints": 5,
-              "weapons": "melee",
-              "grant": [
-                {
-                  "ability": "lethal-hits"
-                },
-                {
-                  "ability": "sustained-hits",
-                  "value": 1
-                }
-              ]
-            },
-            {
-              "pactPoints": 7,
-              "criticalHit": {
-                "roll": "hit",
-                "unmodified": true,
-                "atLeast": 5
-              }
+            "penalty": {
+              "ifRoundPactPoints": 0,
+              "recipient": "warlord-model",
+              "mortalWounds": "D3"
             }
-          ]
+          },
+          "benefits": {
+            "recipient": "friendly-emperors-children-units",
+            "cumulative": true,
+            "thresholds": [
+              {
+                "pactPoints": 1,
+                "reroll": {
+                  "roll": "hit",
+                  "face": 1
+                }
+              },
+              {
+                "pactPoints": 3,
+                "reroll": {
+                  "roll": "wound",
+                  "face": 1
+                }
+              },
+              {
+                "pactPoints": 5,
+                "weapons": "melee",
+                "grant": [
+                  {
+                    "ability": "lethal-hits"
+                  },
+                  {
+                    "ability": "sustained-hits",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "pactPoints": 7,
+                "criticalHit": {
+                  "roll": "hit",
+                  "unmodified": true,
+                  "atLeast": 5
+                }
+              }
+            ]
+          }
         }
       }
     }

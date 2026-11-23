@@ -66,83 +66,86 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "battle-round-start"
-        },
-        "chooseBranches": 1,
-        "duration": {
-          "through": "current-battle-round-end"
-        },
-        "targetCap": {
-          "byBattleSize": {
-            "incursion": 2,
-            "strike-force": 3,
-            "onslaught": 4
+        "detail": {
+          "trigger": {
+            "event": "battle-round-start"
           },
-          "appliesToEachBranch": true
-        },
-        "branches": [
-          {
-            "id": "creeping-barrage",
-            "eligible": {
-              "side": "enemy",
-              "unitDistance": {
-                "operator": ">",
-                "inches": 12,
-                "reference": "every friendly model on the battlefield"
-              }
+          "chooseBranches": 1,
+          "duration": {
+            "through": "current-battle-round-end"
+          },
+          "targetCap": {
+            "byBattleSize": {
+              "incursion": 2,
+              "strike-force": 3,
+              "onslaught": 4
             },
-            "resolution": {
-              "type": "roll-per-eligible-unit",
-              "die": "D6",
-              "threshold": 5,
-              "oneRollAtATime": true,
-              "stopWhenAffectedCountReachesCap": true
-            },
-            "effects": [
-              {
-                "stat": "move",
-                "scope": "models-in-affected-unit",
-                "modifier": -2,
-                "unit": "inch"
+            "appliesToEachBranch": true
+          },
+          "branches": [
+            {
+              "id": "creeping-barrage",
+              "eligible": {
+                "side": "enemy",
+                "unitDistance": {
+                  "operator": ">",
+                  "inches": 12,
+                  "reference": "every friendly model on the battlefield"
+                }
               },
-              {
-                "roll": "charge",
-                "scope": "affected-unit",
-                "modifier": -2
-              }
-            ]
-          },
-          {
-            "id": "incendiary-bombardment",
-            "select": {
-              "side": "enemy",
-              "unitDistance": {
-                "operator": ">",
-                "inches": 12,
-                "reference": "every friendly model on the battlefield"
-              }
+              "resolution": {
+                "type": "roll-per-eligible-unit",
+                "die": "D6",
+                "threshold": 5,
+                "oneRollAtATime": true,
+                "stopWhenAffectedCountReachesCap": true
+              },
+              "effects": [
+                {
+                  "stat": "move",
+                  "scope": "models-in-affected-unit",
+                  "modifier": -2,
+                  "unit": "inch"
+                },
+                {
+                  "roll": "charge",
+                  "scope": "affected-unit",
+                  "modifier": -2
+                }
+              ]
             },
-            "effects": [
-              {
-                "remove": "benefit-of-cover"
-              }
-            ]
-          },
-          {
-            "id": "smoke-shells",
-            "select": {
-              "side": "friendly"
+            {
+              "id": "incendiary-bombardment",
+              "select": {
+                "side": "enemy",
+                "unitDistance": {
+                  "operator": ">",
+                  "inches": 12,
+                  "reference": "every friendly model on the battlefield"
+                }
+              },
+              "effects": [
+                {
+                  "remove": "benefit-of-cover"
+                }
+              ]
             },
-            "effects": [
-              {
-                "grant": "stealth"
-              }
-            ]
-          }
-        ]
+            {
+              "id": "smoke-shells",
+              "select": {
+                "side": "friendly"
+              },
+              "effects": [
+                {
+                  "grant": "stealth"
+                }
+              ]
+            }
+          ]
+        }
       }
     }
   }

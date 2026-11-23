@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Devotees of Destruction",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "Stratagem, 1 CP. Use it in the opposing player's Movement phase once an enemy unit finishes a move 8\" or less away from a HAVOCS unit of yours that is not engaged; that HAVOCS unit is the target. It may make a Normal move of as much as D3+3\".",
     "citations": [
       {
@@ -25,11 +31,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "HAVOCS"
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Devotees of Destruction",
           "trigger": {
             "windows": [

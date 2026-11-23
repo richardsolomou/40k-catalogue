@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Designation Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "As your Shooting phase opens, pick one of your ASTRA MILITARUM INFANTRY units. Each visible enemy no more than 6″ from it has +3″ Detection Range while it satisfies both conditions.",
     "summarySpans": [
       {
@@ -52,30 +58,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is you",
-          "event": "phase opens"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "keywords": "ASTRA MILITARUM INFANTRY"
-        },
-        "effect": {
-          "type": "conditional Detection Range modifier",
-          "recipient": "enemy unit",
-          "amountInches": 3,
-          "while": {
-            "visible": true,
-            "withinInches": 6,
-            "of": "friendly selection"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
+            "unresolved": "not typed yet; see the summary"
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is you",
+            "event": "phase opens"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywords": "ASTRA MILITARUM INFANTRY"
+          },
+          "effect": {
+            "type": "conditional Detection Range modifier",
+            "recipient": "enemy unit",
+            "amountInches": 3,
+            "while": {
+              "visible": true,
+              "withinInches": 6,
+              "of": "friendly selection"
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

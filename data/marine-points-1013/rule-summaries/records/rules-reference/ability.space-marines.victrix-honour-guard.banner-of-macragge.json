@@ -53,51 +53,54 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "parts": [
-          {
-            "trigger": {
-              "turn": "own",
-              "phase": "movement",
-              "at": "end"
+        "detail": {
+          "parts": [
+            {
+              "trigger": {
+                "turn": "own",
+                "phase": "movement",
+                "at": "end"
+              },
+              "condition": {
+                "controlsObjective": true
+              },
+              "effect": {
+                "objectiveState": "secured",
+                "objective": "each-objective-this-unit-controls"
+              }
             },
-            "condition": {
-              "controlsObjective": true
-            },
-            "effect": {
-              "objectiveState": "secured",
-              "objective": "each-objective-this-unit-controls"
+            {
+              "usage": {
+                "count": 1,
+                "per": "battle",
+                "scope": "army"
+              },
+              "optional": true,
+              "trigger": {
+                "event": "selected-to-fight",
+                "actor": "this-unit"
+              },
+              "effect": {
+                "appliesTo": "melee attacks by this unit",
+                "modifiers": [
+                  {
+                    "characteristic": "A",
+                    "value": 1
+                  },
+                  {
+                    "characteristic": "S",
+                    "value": 1
+                  }
+                ],
+                "expires": "end-of-phase",
+                "expiryAuthority": "Core Rules 01.02.02"
+              }
             }
-          },
-          {
-            "usage": {
-              "count": 1,
-              "per": "battle",
-              "scope": "army"
-            },
-            "optional": true,
-            "trigger": {
-              "event": "selected-to-fight",
-              "actor": "this-unit"
-            },
-            "effect": {
-              "appliesTo": "melee attacks by this unit",
-              "modifiers": [
-                {
-                  "characteristic": "A",
-                  "value": 1
-                },
-                {
-                  "characteristic": "S",
-                  "value": 1
-                }
-              ],
-              "expires": "end-of-phase",
-              "expiryAuthority": "Core Rules 01.02.02"
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

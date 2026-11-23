@@ -34,28 +34,31 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "actor": "controlling-player",
-        "trigger": {
-          "event": "each source-unit model destroyed by melee attack",
-          "requiresModelHasFoughtThisPhase": false
-        },
-        "check": {
-          "dice": 1,
-          "sides": 6,
-          "modifiedResultAtLeast": 4,
-          "modifier": {
-            "amount": 1,
-            "if": "units from your army have Fortify Takeover"
+        "detail": {
+          "actor": "controlling-player",
+          "trigger": {
+            "event": "each source-unit model destroyed by melee attack",
+            "requiresModelHasFoughtThisPhase": false
+          },
+          "check": {
+            "dice": 1,
+            "sides": 6,
+            "modifiedResultAtLeast": 4,
+            "modifier": {
+              "amount": 1,
+              "if": "units from your army have Fortify Takeover"
+            }
+          },
+          "success": {
+            "deferRemoval": true,
+            "actor": "destroyed-model",
+            "mayFight": true,
+            "timing": "after attacker unit finishes its attacks",
+            "removeAfterward": true
           }
-        },
-        "success": {
-          "deferRemoval": true,
-          "actor": "destroyed-model",
-          "mayFight": true,
-          "timing": "after attacker unit finishes its attacks",
-          "removeAfterward": true
         }
       }
     }

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Mercenary Oathband",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "wargear"
+    },
     "summary": "Wargear, 1 CP. Use it in the Fight phase of either player's turn. Choose one of your LEAGUES OF VOTANN INFANTRY units that is yet to be picked to fight this phase; you may also spend 3YP. For the rest of the phase, its models re-roll every Hit roll of 1 when attacking, and also every Wound roll of 1. Spending YP on this use lets them re-roll any Wound roll instead of only 1s.",
     "citations": [
       {
@@ -25,12 +32,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEAGUES OF VOTANN",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Mercenary Oathband",
-          "category": "Wargear",
           "trigger": {
             "windows": [
               {

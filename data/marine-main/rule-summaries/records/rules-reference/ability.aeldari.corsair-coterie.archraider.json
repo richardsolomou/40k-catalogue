@@ -41,58 +41,65 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "unit",
-          "keywords": [
-            "ANHRATHE",
-            "CHARACTER"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": false,
-          "equipableByNonCharacter": true
-        },
-        "effects": [
-          {
-            "operation": "grant-ability",
-            "recipient": "chosen CHARACTER model in bearer unit",
-            "actor": "you",
-            "timing": "start of the battle",
-            "select": {
-              "count": 1,
-              "keyword": "CHARACTER",
-              "fromUnit": "bearer unit"
-            },
-            "ability": "Lord of Deceit (Aura)",
-            "grantedEffect": {
-              "operation": "modify-stratagem-cost",
-              "recipient": "that use of the opposing Stratagem",
-              "actor": "you",
-              "optional": true,
-              "trigger": {
-                "actor": "opponent",
-                "event": "targets with a Stratagem",
-                "target": "unit from opponent’s army",
-                "distanceInches": 12,
-                "measuredFrom": "chosen CHARACTER model",
-                "comparison": "within"
-              },
-              "limit": {
-                "count": 1,
-                "period": "turn",
-                "sharedBy": "chosen CHARACTER model"
-              },
-              "stat": "CP",
-              "adjustment": {
-                "operation": "add",
-                "amount": 1
+        "enhancement": {
+          "type": "model",
+          "points": 35,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "ANHRATHE",
+                  "CHARACTER"
+                ]
               }
-            }
+            ],
+            "epicHeroes": true,
+            "nonCharacters": true
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "chosen CHARACTER model in bearer unit",
+              "actor": "you",
+              "timing": "start of the battle",
+              "select": {
+                "count": 1,
+                "keyword": "CHARACTER",
+                "fromUnit": "bearer unit"
+              },
+              "ability": "Lord of Deceit (Aura)",
+              "grantedEffect": {
+                "recipient": "that use of the opposing Stratagem",
+                "actor": "you",
+                "optional": true,
+                "trigger": {
+                  "actor": "opponent",
+                  "event": "targets with a Stratagem",
+                  "target": "unit from opponent’s army",
+                  "distanceInches": 12,
+                  "measuredFrom": "chosen CHARACTER model",
+                  "comparison": "within"
+                },
+                "limit": {
+                  "count": 1,
+                  "period": "turn",
+                  "sharedBy": "chosen CHARACTER model"
+                },
+                "stat": "CP",
+                "adjustment": {
+                  "operation": "add",
+                  "amount": 1
+                },
+                "kind": "modify-stratagem-cost"
+              },
+              "kind": "grant-ability"
+            }
+          ]
+        }
       }
     }
   }

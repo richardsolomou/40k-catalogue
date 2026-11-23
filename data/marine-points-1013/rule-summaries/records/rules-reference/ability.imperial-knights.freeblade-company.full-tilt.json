@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Freeblade Company",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "wargear"
+    },
     "summary": "In your Movement phase, select one of your IMPERIAL KNIGHTS units. Each time it makes an Advance Move this phase, increase its Move by 6″ in place of rolling. Use 9″ for ARMIGER or DESTRIER units.",
     "summarySpans": [
       {
@@ -65,34 +72,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Movement",
-          "turn": "active player is you",
-          "event": "during phase"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "keywords": "IMPERIAL KNIGHTS"
-        },
-        "effect": {
-          "type": "replace Advance roll",
-          "trigger": "selected unit Advances",
-          "attribute": "Move",
-          "defaultAddInches": 6,
-          "replaceWith": {
-            "ifAnyKeyword": [
-              "ARMIGER",
-              "DESTRIER"
-            ],
-            "addInches": 9
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
           },
-          "until": "phase ends"
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "IMPERIAL KNIGHTS"
+            ]
+          }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Movement",
+            "turn": "active player is you",
+            "event": "during phase"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywords": "IMPERIAL KNIGHTS"
+          },
+          "effect": {
+            "type": "replace Advance roll",
+            "trigger": "selected unit Advances",
+            "attribute": "Move",
+            "defaultAddInches": 6,
+            "replaceWith": {
+              "ifAnyKeyword": [
+                "ARMIGER",
+                "DESTRIER"
+              ],
+              "addInches": 9
+            },
+            "until": "phase ends"
+          },
+          "restrictions": []
+        }
       }
     }
   }

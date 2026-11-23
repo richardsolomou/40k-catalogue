@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Serpent’s Brood",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in the opposing player's Movement phase, right after an enemy unit finishes an Advance, Fall Back or Normal move, on a HARLEQUINS INFANTRY unit of yours within 8\" of the enemy unit that moved. Your unit may then move up to 6\" as a Normal move.",
     "citations": [
       {
@@ -25,10 +32,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "HARLEQUINS",
+              "INFANTRY"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Serpent’s Brood",
           "type": "Strategic Ploy",
           "windows": [

@@ -124,70 +124,73 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "region-state-and-test-effects",
-        "armyFaction": "LEGIONES DAEMONICA",
-        "region": {
-          "basis": "friendly-deployment-zone",
-          "basisDuration": "battle",
-          "extensions": [
-            "no-mans-land",
-            "enemy-deployment-zone"
-          ],
-          "evaluated": "each-phase-start",
-          "separateTests": true,
-          "controlledObjectiveShareMin": 0.5,
-          "duration": "phase"
-        },
-        "manifestation": {
-          "recipient": {
-            "owner": "friendly",
-            "keyword": "LEGIONES DAEMONICA",
-            "inShadow": true
+        "detail": {
+          "kind": "region-state-and-test-effects",
+          "armyFaction": "LEGIONES DAEMONICA",
+          "region": {
+            "basis": "friendly-deployment-zone",
+            "basisDuration": "battle",
+            "extensions": [
+              "no-mans-land",
+              "enemy-deployment-zone"
+            ],
+            "evaluated": "each-phase-start",
+            "separateTests": true,
+            "controlledObjectiveShareMin": 0.5,
+            "duration": "phase"
           },
-          "event": "battle-shock-test",
-          "rollModifier": 1,
-          "onPass": {
-            "heal": {
-              "modelCount": 1,
-              "fromRecipientUnit": true,
-              "wounds": "D3"
+          "manifestation": {
+            "recipient": {
+              "owner": "friendly",
+              "keyword": "LEGIONES DAEMONICA",
+              "inShadow": true
             },
-            "alternative": {
-              "optional": true,
-              "keyword": "BATTLELINE",
-              "returnUpTo": "D3",
-              "excludeModelKeyword": "CHARACTER"
-            }
-          }
-        },
-        "terror": {
-          "recipient": "enemy-unit",
-          "event": "battle-shock-test",
-          "requireAny": [
-            "in-shadow",
-            {
-              "withinInches": 6,
-              "of": {
-                "owner": "friendly",
-                "keywordsAny": [
-                  "BLOODTHIRSTER",
-                  "GREAT UNCLEAN ONE",
-                  "KAIROS FATEWEAVER",
-                  "KEEPER OF SECRETS",
-                  "LORD OF CHANGE",
-                  "ROTIGUS",
-                  "SHALAXI HELBANE",
-                  "SKARBRAND"
-                ]
+            "event": "battle-shock-test",
+            "rollModifier": 1,
+            "onPass": {
+              "heal": {
+                "modelCount": 1,
+                "fromRecipientUnit": true,
+                "wounds": "D3"
+              },
+              "alternative": {
+                "optional": true,
+                "keyword": "BATTLELINE",
+                "returnUpTo": "D3",
+                "excludeModelKeyword": "CHARACTER"
               }
             }
-          ],
-          "rollModifier": -1,
-          "onFailure": {
-            "mortalWounds": "D3",
-            "recipient": "test-unit"
+          },
+          "terror": {
+            "recipient": "enemy-unit",
+            "event": "battle-shock-test",
+            "requireAny": [
+              "in-shadow",
+              {
+                "withinInches": 6,
+                "of": {
+                  "owner": "friendly",
+                  "keywordsAny": [
+                    "BLOODTHIRSTER",
+                    "GREAT UNCLEAN ONE",
+                    "KAIROS FATEWEAVER",
+                    "KEEPER OF SECRETS",
+                    "LORD OF CHANGE",
+                    "ROTIGUS",
+                    "SHALAXI HELBANE",
+                    "SKARBRAND"
+                  ]
+                }
+              }
+            ],
+            "rollModifier": -1,
+            "onFailure": {
+              "mortalWounds": "D3",
+              "recipient": "test-unit"
+            }
           }
         }
       }

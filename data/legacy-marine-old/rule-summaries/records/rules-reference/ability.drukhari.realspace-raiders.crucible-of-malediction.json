@@ -55,44 +55,53 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "activation": {
-          "actor": "bearer",
-          "optional": true,
-          "phase": "shooting",
-          "turn": "own",
-          "usesPerBattle": 1
-        },
-        "optionalExpenditure": {
-          "timing": "after-activation-before-tests",
-          "actor": "enhancement-owner",
-          "resource": "Pain token",
-          "amount": 1
-        },
-        "test": {
-          "kind": "battle-shock",
-          "required": true,
-          "quantifier": "each",
-          "target": "enemy-unit",
-          "maxDistanceInches": 12,
-          "distanceFrom": "bearer",
-          "modifierIfExpenditure": -1
-        },
-        "onFailedTest": {
-          "target": "that-tested-unit",
-          "requiresUnitKeyword": "PSYKER",
-          "damage": {
-            "kind": "mortal-wounds",
-            "amount": 3
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "HAEMONCULUS"
+                ]
+              }
+            ]
           }
         },
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Haemonculus"
-          ],
-          "excludedKeywords": []
+        "detail": {
+          "activation": {
+            "actor": "bearer",
+            "optional": true,
+            "phase": "shooting",
+            "turn": "own",
+            "usesPerBattle": 1
+          },
+          "optionalExpenditure": {
+            "timing": "after-activation-before-tests",
+            "actor": "enhancement-owner",
+            "resource": "Pain token",
+            "amount": 1
+          },
+          "test": {
+            "kind": "battle-shock",
+            "required": true,
+            "quantifier": "each",
+            "target": "enemy-unit",
+            "maxDistanceInches": 12,
+            "distanceFrom": "bearer",
+            "modifierIfExpenditure": -1
+          },
+          "onFailedTest": {
+            "target": "that-tested-unit",
+            "requiresUnitKeyword": "PSYKER",
+            "damage": {
+              "kind": "mortal-wounds",
+              "amount": 3
+            }
+          }
         }
       }
     }

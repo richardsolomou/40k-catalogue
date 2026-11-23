@@ -54,59 +54,62 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "trigger": {
-          "event": "phase",
-          "phase": "command",
-          "timing": "during",
-          "turn": "your-turn"
-        },
-        "condition": {
-          "model": "Garreon the Corpsemaster",
-          "owner": "this-unit",
-          "location": "battlefield"
-        },
-        "optional": false,
-        "effect": {
-          "operation": "choose-one",
-          "options": [
-            {
-              "optional": true,
-              "effect": {
-                "operation": "return-destroyed-models",
-                "recipient": "this-unit",
-                "quantity": 1,
-                "excludeAnyKeywords": [
-                  "CHARACTER"
-                ]
-              }
-            },
-            {
-              "condition": {
-                "exists": {
-                  "origin": "this-unit",
-                  "comparison": "within",
-                  "inclusive": true,
-                  "distanceInches": 3,
-                  "scope": "unit",
-                  "owner": "you",
-                  "minimum": 1,
-                  "requireAllKeywords": [
-                    "HERETIC ASTARTES",
-                    "INFANTRY"
+        "detail": {
+          "source": "this-unit",
+          "trigger": {
+            "event": "phase",
+            "phase": "command",
+            "timing": "during",
+            "turn": "your-turn"
+          },
+          "condition": {
+            "model": "Garreon the Corpsemaster",
+            "owner": "this-unit",
+            "location": "battlefield"
+          },
+          "optional": false,
+          "effect": {
+            "options": [
+              {
+                "optional": true,
+                "effect": {
+                  "recipient": "this-unit",
+                  "quantity": 1,
+                  "excludeAnyKeywords": [
+                    "CHARACTER"
                   ],
-                  "strength": "below-starting-strength"
+                  "kind": "return-destroyed-models"
                 }
               },
-              "effect": {
-                "operation": "gain-cp",
-                "recipient": "you",
-                "quantity": 1
+              {
+                "condition": {
+                  "exists": {
+                    "origin": "this-unit",
+                    "comparison": "within",
+                    "inclusive": true,
+                    "distanceInches": 3,
+                    "scope": "unit",
+                    "owner": "you",
+                    "minimum": 1,
+                    "requireAllKeywords": [
+                      "HERETIC ASTARTES",
+                      "INFANTRY"
+                    ],
+                    "strength": "below-starting-strength"
+                  }
+                },
+                "effect": {
+                  "recipient": "you",
+                  "quantity": 1,
+                  "kind": "gain-cp"
+                }
               }
-            }
-          ]
+            ],
+            "kind": "choose-one"
+          }
         }
       }
     }

@@ -77,83 +77,90 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Big Mek with Shokk Attack Gun"
-          ],
-          "anyOf": [],
-          "excludes": [],
-          "equipment": "Shokk Attack Gun",
-          "characterOnly": false,
-          "equipableByNonCharacter": true
-        },
-        "trigger": {
-          "phase": "your Shooting phase",
-          "event": "bearer unit selected to shoot"
-        },
-        "effects": [
-          {
-            "recipient": "bearer Shokk Attack Gun",
-            "operation": "roll-table",
-            "actor": "controlling player",
-            "optional": true,
-            "dice": 1,
-            "die": "D6",
-            "outcomes": [
+        "enhancement": {
+          "type": "upgrade",
+          "points": 20,
+          "perRoster": 3,
+          "eligibility": {
+            "anyOf": [
               {
-                "faces": [
-                  1
-                ],
-                "effects": [
-                  {
-                    "recipient": "bearer Shokk Attack Gun",
-                    "operation": "grant-ability",
-                    "ability": "Torrent"
-                  },
-                  {
-                    "recipient": "bearer",
-                    "operation": "destroy-model",
-                    "timing": "after bearer unit shoots"
-                  }
-                ]
-              },
-              {
-                "faces": [
-                  2,
-                  3,
-                  4,
-                  5
-                ],
-                "effects": [
-                  {
-                    "recipient": "bearer Shokk Attack Gun",
-                    "operation": "modify-characteristics",
-                    "modifiers": {
-                      "A": 1
-                    }
-                  }
-                ]
-              },
-              {
-                "faces": [
-                  6
-                ],
-                "effects": [
-                  {
-                    "recipient": "bearer Shokk Attack Gun",
-                    "operation": "grant-ability",
-                    "ability": "Sustained Hits",
-                    "count": 2
-                  }
-                ]
+                "unit": {
+                  "kind": "unit",
+                  "id": "orks.big-mek-with-shokk-attack-gun"
+                }
               }
-            ]
+            ],
+            "nonCharacters": true
           }
-        ]
+        },
+        "detail": {
+          "trigger": {
+            "phase": "your Shooting phase",
+            "event": "bearer unit selected to shoot"
+          },
+          "effects": [
+            {
+              "recipient": "bearer Shokk Attack Gun",
+              "actor": "controlling player",
+              "optional": true,
+              "dice": 1,
+              "die": "D6",
+              "outcomes": [
+                {
+                  "faces": [
+                    1
+                  ],
+                  "effects": [
+                    {
+                      "recipient": "bearer Shokk Attack Gun",
+                      "ability": "Torrent",
+                      "kind": "grant-ability"
+                    },
+                    {
+                      "recipient": "bearer",
+                      "timing": "after bearer unit shoots",
+                      "kind": "destroy-model"
+                    }
+                  ]
+                },
+                {
+                  "faces": [
+                    2,
+                    3,
+                    4,
+                    5
+                  ],
+                  "effects": [
+                    {
+                      "recipient": "bearer Shokk Attack Gun",
+                      "modifiers": {
+                        "A": 1
+                      },
+                      "kind": "modify-characteristics"
+                    }
+                  ]
+                },
+                {
+                  "faces": [
+                    6
+                  ],
+                  "effects": [
+                    {
+                      "recipient": "bearer Shokk Attack Gun",
+                      "ability": "Sustained Hits",
+                      "count": 2,
+                      "kind": "grant-ability"
+                    }
+                  ]
+                }
+              ],
+              "kind": "roll-table"
+            }
+          ]
+        }
       }
     }
   }

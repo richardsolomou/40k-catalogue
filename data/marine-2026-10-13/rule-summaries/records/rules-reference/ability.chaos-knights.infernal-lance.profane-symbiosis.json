@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Infernal Lance",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP, usable at the close of any phase in either player's turn. Pick one CHAOS KNIGHTS unit of yours that is not currently Empowered; it makes a Malefic Surge. Each unit can be picked for this Stratagem at most once per battle round.",
     "citations": [
       {
@@ -25,12 +36,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "perTarget": "battle-round",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "CHAOS KNIGHTS"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Infernal Lance",
-          "category": "Battle Tactic",
           "trigger": {
             "turn": "either",
             "phases": [

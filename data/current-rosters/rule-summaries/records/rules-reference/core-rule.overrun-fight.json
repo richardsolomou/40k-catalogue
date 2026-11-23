@@ -82,48 +82,51 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "fight-type",
-        "phase": "fight",
-        "chosenIn": "12.04",
-        "eligibility": {
-          "any": [
-            "unit-unengaged",
+        "detail": {
+          "kind": "fight-type",
+          "phase": "fight",
+          "chosenIn": "12.04",
+          "eligibility": {
+            "any": [
+              "unit-unengaged",
+              {
+                "all": [
+                  "unengaged-at-start-of-fight-step",
+                  "became-engaged-during-fight-phase"
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "sequence": [
+              {
+                "order": 1,
+                "action": "pile-in-move",
+                "count": 1,
+                "additional": true,
+                "optional": true,
+                "ruleNumber": "12.03"
+              },
+              {
+                "order": 2,
+                "action": "fight",
+                "procedure": "04.00"
+              }
+            ]
+          },
+          "faq": [
             {
-              "all": [
-                "unengaged-at-start-of-fight-step",
-                "became-engaged-during-fight-phase"
-              ]
+              "page": 88,
+              "inGdc": false,
+              "question": "may a unit eligible for Overrun Fight be selected for it when not also eligible to fight",
+              "answer": "no",
+              "note": "a unit that becomes engaged after the step starts and then unengaged again, and is no longer eligible to fight, cannot make an Overrun Fight"
             }
           ]
-        },
-        "effect": {
-          "sequence": [
-            {
-              "order": 1,
-              "action": "pile-in-move",
-              "count": 1,
-              "additional": true,
-              "optional": true,
-              "ruleNumber": "12.03"
-            },
-            {
-              "order": 2,
-              "action": "fight",
-              "procedure": "04.00"
-            }
-          ]
-        },
-        "faq": [
-          {
-            "page": 88,
-            "inGdc": false,
-            "question": "may a unit eligible for Overrun Fight be selected for it when not also eligible to fight",
-            "answer": "no",
-            "note": "a unit that becomes engaged after the step starts and then unengaged again, and is no longer eligible to fight, cannot make an Overrun Fight"
-          }
-        ]
+        }
       }
     }
   }

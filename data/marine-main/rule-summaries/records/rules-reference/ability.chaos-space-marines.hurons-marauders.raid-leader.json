@@ -72,28 +72,36 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "HERETIC ASTARTES"
-          ],
-          "excludes": [
-            "DAMNED"
-          ],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "retain-eligibility",
-            "target": "bearer-unit",
-            "action": "declare-charge",
-            "window": "disembarkation-turn"
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "HERETIC ASTARTES"
+                ]
+              }
+            ],
+            "excludedKeywords": [
+              "DAMNED"
+            ]
           }
-        ],
-        "trigger": "bearer-unit-setup-after-disembarking-from-transport-that-made-normal-move"
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "retain-eligibility",
+              "target": "bearer-unit",
+              "action": "declare-charge",
+              "window": "disembarkation-turn"
+            }
+          ],
+          "trigger": "bearer-unit-setup-after-disembarking-from-transport-that-made-normal-move"
+        }
       }
     }
   }

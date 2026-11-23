@@ -82,46 +82,49 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "starts": {
-          "player": "acting-player",
-          "phase": "shooting",
-          "point": "start"
-        },
-        "eligibleUnit": {
-          "side": "friendly",
-          "countPerStart": 1,
-          "position": {
-            "relation": "within-range",
-            "selector": "objective",
-            "excludeState": "sanctified"
+        "detail": {
+          "starts": {
+            "player": "acting-player",
+            "phase": "shooting",
+            "point": "start"
           },
-          "patrolKeyword": "Crowe's Sanctifiers"
-        },
-        "useLimit": {
-          "maxStartsPerOwnTurn": 1
-        },
-        "completes": {
-          "window": "earliest",
-          "alternatives": [
-            "end-of-next-own-command-phase",
-            "end-of-battle"
-          ]
-        },
-        "effects": [
-          {
-            "kind": "mark-objective",
-            "objective": "selected-objective",
-            "state": "sanctified",
-            "attributedTo": "acting-army",
-            "requires": {
-              "subject": "acting-unit",
-              "predicate": "is-not-battle-shocked",
-              "window": "on-completion"
+          "eligibleUnit": {
+            "side": "friendly",
+            "countPerStart": 1,
+            "position": {
+              "relation": "within-range",
+              "selector": "objective",
+              "excludeState": "sanctified"
+            },
+            "patrolKeyword": "Crowe's Sanctifiers"
+          },
+          "useLimit": {
+            "maxStartsPerOwnTurn": 1
+          },
+          "completes": {
+            "window": "earliest",
+            "alternatives": [
+              "end-of-next-own-command-phase",
+              "end-of-battle"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "mark-objective",
+              "objective": "selected-objective",
+              "state": "sanctified",
+              "attributedTo": "acting-army",
+              "requires": {
+                "subject": "acting-unit",
+                "predicate": "is-not-battle-shocked",
+                "window": "on-completion"
+              }
             }
-          }
-        ]
+          ]
+        }
       }
     }
   }

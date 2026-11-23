@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Rubricae Phalanx",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "opponent",
+      "type": "battle-tactic"
+    },
     "summary": "In the opponent’s Charge phase, immediately after an enemy’s Charge move ends, pick a RUBRIC MARINES unit within its Engagement Range. Through the rest of the turn, attacks targeting that unit take -1 to wound if their Strength exceeds its Toughness.",
     "summarySpans": [
       {
@@ -58,10 +65,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-charge"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "RUBRIC MARINES"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "turn": "opponent",

@@ -15,6 +15,17 @@
     "ruleType": "stratagem",
     "group": "Final Day",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "As a phase begins, choose one friendly TYRANIDS unit. Give its Catalyst ability 3\" of extra range. This expires when your next Command phase begins, and you can use Psi Surge again once that phase finishes.",
     "summarySpans": [
       {
@@ -47,26 +58,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "start of any phase"
-        ],
-        "target": {
-          "unit": "TYRANIDS",
-          "count": 1
-        },
-        "effect": {
-          "ability": "Catalyst",
-          "rangeIncreaseInches": 3,
-          "expiry": "start of your next Command phase"
-        },
-        "restrictions": [
-          {
-            "mayReuseAfter": "end of your next Command phase"
+        "stratagem": {
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "TYRANIDS"
+            ]
           }
-        ]
+        },
+        "detail": {
+          "window": [
+            "start of any phase"
+          ],
+          "target": {
+            "unit": "TYRANIDS",
+            "count": 1
+          },
+          "effect": {
+            "ability": "Catalyst",
+            "rangeIncreaseInches": 3,
+            "expiry": "start of your next Command phase"
+          },
+          "restrictions": [
+            {
+              "mayReuseAfter": "end of your next Command phase"
+            }
+          ]
+        }
       }
     }
   }

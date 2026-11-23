@@ -34,54 +34,63 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "characterOnly": true,
-          "keywords": [
-            "INQUISITOR"
-          ]
-        },
-        "trigger": {
-          "event": "use-rapid-ingress",
-          "bearerLocation": "battlefield",
-          "phase": "movement",
-          "owner": "opponent",
-          "timing": "end"
-        },
-        "limit": {
-          "count": 1,
-          "per": "battle"
-        },
-        "selection": {
-          "actor": "own-player",
-          "scope": "unit",
-          "keywords": [
-            "GREY KNIGHTS TERMINATORS"
-          ],
-          "otherCoreTargetRestrictionsApply": true,
-          "sourceZone": "strategic-reserves",
-          "roundOneExcluded": true,
-          "aircraftExcluded": true
-        },
-        "effects": [
-          {
-            "type": "replace-stratagem-cost",
-            "cp": 0,
-            "recipient": "this-rapid-ingress-use"
-          },
-          {
-            "type": "replace-setup-boundary",
-            "recipient": "selected-unit",
-            "area": "battlefield",
-            "rangeOrigin": "selected-unit",
-            "rangeTarget": "every-enemy-unit",
-            "minimumDistanceInches": 6,
-            "distanceComparison": "strictly-greater",
-            "expiry": "this-setup"
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INQUISITOR"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "trigger": {
+            "event": "use-rapid-ingress",
+            "bearerLocation": "battlefield",
+            "phase": "movement",
+            "owner": "opponent",
+            "timing": "end"
+          },
+          "limit": {
+            "count": 1,
+            "per": "battle"
+          },
+          "selection": {
+            "actor": "own-player",
+            "scope": "unit",
+            "keywords": [
+              "GREY KNIGHTS TERMINATORS"
+            ],
+            "otherCoreTargetRestrictionsApply": true,
+            "sourceZone": "strategic-reserves",
+            "roundOneExcluded": true,
+            "aircraftExcluded": true
+          },
+          "effects": [
+            {
+              "type": "replace-stratagem-cost",
+              "cp": 0,
+              "recipient": "this-rapid-ingress-use"
+            },
+            {
+              "type": "replace-setup-boundary",
+              "recipient": "selected-unit",
+              "area": "battlefield",
+              "rangeOrigin": "selected-unit",
+              "rangeTarget": "every-enemy-unit",
+              "minimumDistanceInches": 6,
+              "distanceComparison": "strictly-greater",
+              "expiry": "this-setup"
+            }
+          ]
+        }
       }
     }
   }

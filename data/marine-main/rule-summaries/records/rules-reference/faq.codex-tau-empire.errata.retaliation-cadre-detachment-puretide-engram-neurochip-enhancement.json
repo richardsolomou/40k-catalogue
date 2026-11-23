@@ -36,65 +36,68 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "faq": {
-          "entryType": "errata",
-          "publicationId": "1e7879a0-7da5-4c68-ae93-ada19f02a2de",
-          "typedMechanics": {
-            "operation": "replace-enhancement",
-            "effect": {
+        "detail": {
+          "faq": {
+            "entryType": "errata",
+            "publicationId": "1e7879a0-7da5-4c68-ae93-ada19f02a2de",
+            "typedMechanics": {
+              "effect": {
+                "eligibility": {
+                  "scope": "model",
+                  "match": "all",
+                  "keywords": [
+                    "Battlesuit",
+                    "T’au Empire"
+                  ],
+                  "excludes": []
+                },
+                "trigger": {
+                  "event": "target-with-stratagem",
+                  "actor": "own-player",
+                  "recipient": "bearers-unit",
+                  "frequency": "each-targeting"
+                },
+                "effect": {
+                  "dice": "D6",
+                  "comparison": "at-least",
+                  "threshold": 4,
+                  "success": {
+                    "type": "gain-resource",
+                    "recipient": "own-player",
+                    "pool": "CP",
+                    "amount": 1
+                  }
+                }
+              },
+              "detachmentId": "retaliation-cadre",
               "eligibility": {
                 "scope": "model",
-                "match": "all",
-                "keywords": [
+                "allOf": [
                   "Battlesuit",
                   "T’au Empire"
-                ],
-                "excludes": []
+                ]
               },
-              "trigger": {
-                "event": "target-with-stratagem",
-                "actor": "own-player",
-                "recipient": "bearers-unit",
-                "frequency": "each-targeting"
+              "targetQid": "ability:tau-empire.retaliation-cadre.puretide-engram-neurochip",
+              "kind": "replace-enhancement"
+            },
+            "statedValues": [
+              {
+                "kind": "die-sides",
+                "value": 6
               },
-              "effect": {
-                "dice": "D6",
-                "comparison": "at-least",
-                "threshold": 4,
-                "success": {
-                  "type": "gain-resource",
-                  "recipient": "own-player",
-                  "pool": "CP",
-                  "amount": 1
-                }
+              {
+                "kind": "roll-minimum",
+                "value": 4
+              },
+              {
+                "kind": "cp-gain",
+                "value": 1
               }
-            },
-            "detachmentId": "retaliation-cadre",
-            "eligibility": {
-              "scope": "model",
-              "allOf": [
-                "Battlesuit",
-                "T’au Empire"
-              ]
-            },
-            "targetQid": "ability:tau-empire.retaliation-cadre.puretide-engram-neurochip"
-          },
-          "statedValues": [
-            {
-              "kind": "die-sides",
-              "value": 6
-            },
-            {
-              "kind": "roll-minimum",
-              "value": 4
-            },
-            {
-              "kind": "cp-gain",
-              "value": 1
-            }
-          ]
+            ]
+          }
         }
       }
     }

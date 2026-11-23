@@ -55,50 +55,53 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "recipient": {
-          "side": "own-army",
-          "level": "unit",
-          "allKeywords": [
-            "SQUADRON"
+        "detail": {
+          "recipient": {
+            "side": "own-army",
+            "level": "unit",
+            "allKeywords": [
+              "SQUADRON"
+            ]
+          },
+          "trigger": {
+            "event": "unit-advances",
+            "subject": "eligible-unit",
+            "repeat": "each"
+          },
+          "effects": [
+            {
+              "type": "suppress-roll",
+              "roll": "advance",
+              "subject": "trigger-unit"
+            },
+            {
+              "type": "stat-modifier",
+              "stat": "move",
+              "operation": "add",
+              "value": 6,
+              "unit": "inches",
+              "subject": "models-in-trigger-unit",
+              "expiry": {
+                "event": "phase-end",
+                "phase": "trigger-phase"
+              }
+            },
+            {
+              "type": "permission",
+              "activity": "move-within-engagement-range",
+              "reference": "enemy-models",
+              "subject": "models-in-trigger-unit",
+              "duration": "trigger-advance-move",
+              "restriction": {
+                "type": "must-finish-outside-engagement-range",
+                "reference": "all-enemy-models"
+              }
+            }
           ]
-        },
-        "trigger": {
-          "event": "unit-advances",
-          "subject": "eligible-unit",
-          "repeat": "each"
-        },
-        "effects": [
-          {
-            "type": "suppress-roll",
-            "roll": "advance",
-            "subject": "trigger-unit"
-          },
-          {
-            "type": "stat-modifier",
-            "stat": "move",
-            "operation": "add",
-            "value": 6,
-            "unit": "inches",
-            "subject": "models-in-trigger-unit",
-            "expiry": {
-              "event": "phase-end",
-              "phase": "trigger-phase"
-            }
-          },
-          {
-            "type": "permission",
-            "activity": "move-within-engagement-range",
-            "reference": "enemy-models",
-            "subject": "models-in-trigger-unit",
-            "duration": "trigger-advance-move",
-            "restriction": {
-              "type": "must-finish-outside-engagement-range",
-              "reference": "all-enemy-models"
-            }
-          }
-        ]
+        }
       }
     }
   }

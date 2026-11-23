@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Hearthfyre Arsenal",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "wargear"
+    },
     "summary": "Wargear, 1 CP. Use it in your Shooting phase, right after one of your IRONKIN STEELJACKS, ARKANYST EVALUATOR or BRÔKHYR units has shot; that unit is the target. Pick one enemy unit that is neither a MONSTER nor a VEHICLE and that at least one of those attacks hit. Until your next Shooting phase begins, whenever it makes a Normal move, an Advance move or a Fall Back move, roll a D6 for every model in it; each roll of 1 inflicts 1 mortal wound on it, with at most 6 mortal wounds each time.",
     "citations": [
       {
@@ -25,12 +32,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "BRÔKHYR"
+                ]
+              },
+              {
+                "keywords": [
+                  "IRONKIN STEELJACKS"
+                ]
+              },
+              {
+                "keywords": [
+                  "ARKANYST EVALUATOR"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Hearthfyre Arsenal",
-          "category": "Wargear",
           "trigger": {
             "windows": [
               {

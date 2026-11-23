@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Berzerker Warband",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 2 CP. Use it in any Fight phase, as soon as an enemy unit has picked its targets, on one WORLD EATERS unit of yours that was chosen as a target for at least one of those attacks. For the rest of the phase, any attack allocated to one of your unit's models has its Damage characteristic reduced by 1.",
     "citations": [
       {
@@ -25,11 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "WORLD EATERS"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Berzerker Warband",
           "trigger": {
             "windows": [

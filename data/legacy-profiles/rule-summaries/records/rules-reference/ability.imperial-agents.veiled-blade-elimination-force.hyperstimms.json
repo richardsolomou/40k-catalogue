@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Veiled Blade Elimination Force",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 2 CP in the Fight phase or the opponent's Shooting phase, right after an enemy unit picks its targets, on an AGENTS OF THE IMPERIUM CHARACTER of yours that it targeted with at least one attack. For the rest of that phase, its models get +1 Toughness, and an EVERSOR ASSASSIN unit also gains Feel No Pain 4+ for the rest of that phase.",
     "citations": [
       {
@@ -25,11 +33,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "AGENTS OF THE IMPERIUM",
+              "CHARACTER"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Veiled Blade Elimination Force",
           "when": {
             "turns": [

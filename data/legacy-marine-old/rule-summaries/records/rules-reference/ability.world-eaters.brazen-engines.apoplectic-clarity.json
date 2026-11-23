@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Brazen Engines",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "In your Shooting phase or either Fight phase, use this as you pick a DAEMON VEHICLE to attack. For the phase you may ignore modifiers to its Ballistic and Weapon Skill as well as the rolls to hit and wound.",
     "summarySpans": [
       {
@@ -48,33 +55,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phases": [
-            "Shooting phase",
-            "Fight phase"
-          ],
-          "turn": "yours in Shooting; either in Fight",
-          "timing": "friendly unit is selected to attack"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-attack"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "DAEMON",
+              "VEHICLE"
+            ]
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "label": "DAEMON VEHICLE",
-          "bindTo": "triggering attacker"
-        },
-        "effect": {
-          "type": "ignore modifiers",
-          "expires": "end of phase",
-          "choices": "optional",
-          "modifiersToIgnore": [
-            "Ballistic Skill",
-            "Weapon Skill",
-            "Hit roll",
-            "Wound roll"
-          ]
+        "detail": {
+          "window": {
+            "phases": [
+              "Shooting phase",
+              "Fight phase"
+            ],
+            "turn": "yours in Shooting; either in Fight",
+            "timing": "friendly unit is selected to attack"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "label": "DAEMON VEHICLE",
+            "bindTo": "triggering attacker"
+          },
+          "effect": {
+            "type": "ignore modifiers",
+            "expires": "end of phase",
+            "choices": "optional",
+            "modifiersToIgnore": [
+              "Ballistic Skill",
+              "Weapon Skill",
+              "Hit roll",
+              "Wound roll"
+            ]
+          }
         }
       }
     }

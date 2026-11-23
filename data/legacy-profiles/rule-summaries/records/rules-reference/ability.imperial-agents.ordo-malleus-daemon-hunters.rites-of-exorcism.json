@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Ordo Malleus, Daemon Hunters",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "During your Shooting phase or either Fight phase, select one of your units using these keywords as alternatives: INQUISITOR, INQUISITORIAL AGENTS and ORDO MALLEUS. Find one enemy DAEMON no more than 12 inches away and visible to the selected unit. Test that enemy for Battle-shock. If it fails, attacks from your AGENTS OF THE IMPERIUM gain Devastating Wounds against it for this phase.",
     "summarySpans": [
       {
@@ -77,10 +85,38 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "INQUISITOR"
+                ]
+              },
+              {
+                "keywords": [
+                  "INQUISITORIAL AGENTS"
+                ]
+              },
+              {
+                "keywords": [
+                  "ORDO MALLEUS"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "turn": "either",

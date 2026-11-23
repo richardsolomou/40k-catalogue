@@ -47,62 +47,65 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "phase-step",
-        "ruleNumber": "12.04",
-        "phase": "fight",
-        "eligible": {
-          "notAlreadySelectedThisPhase": true,
-          "anyOf": [
-            "engaged",
-            "engaged-at-start-of-step",
-            "made-charge-move-this-turn"
-          ]
-        },
-        "steps": [
-          {
-            "order": 1,
-            "name": "Resolve Fights First Combats",
-            "firstSelector": "active-player",
-            "alternate": true,
-            "select": "friendly-eligible-Fights-First-unit",
-            "ifUnable": {
-              "noEligibleFightsFirst": "go-to-step-2-same-player-selects",
-              "otherwise": "other-player-selects"
-            }
+        "detail": {
+          "kind": "phase-step",
+          "ruleNumber": "12.04",
+          "phase": "fight",
+          "eligible": {
+            "notAlreadySelectedThisPhase": true,
+            "anyOf": [
+              "engaged",
+              "engaged-at-start-of-step",
+              "made-charge-move-this-turn"
+            ]
           },
-          {
-            "order": 2,
-            "name": "Resolve Remaining Combats",
-            "firstSelector": "player-who-moved-sequence-here",
-            "alternate": true,
-            "select": "friendly-eligible-unit",
-            "ifUnable": {
-              "noEligibleUnits": "fight-step-ends",
-              "otherwise": "other-player-selects"
+          "steps": [
+            {
+              "order": 1,
+              "name": "Resolve Fights First Combats",
+              "firstSelector": "active-player",
+              "alternate": true,
+              "select": "friendly-eligible-Fights-First-unit",
+              "ifUnable": {
+                "noEligibleFightsFirst": "go-to-step-2-same-player-selects",
+                "otherwise": "other-player-selects"
+              }
             },
-            "afterEachFight": {
-              "ifFightsFirstEligible": "return-to-step-1",
-              "returnFirstSelector": "non-active-player"
+            {
+              "order": 2,
+              "name": "Resolve Remaining Combats",
+              "firstSelector": "player-who-moved-sequence-here",
+              "alternate": true,
+              "select": "friendly-eligible-unit",
+              "ifUnable": {
+                "noEligibleUnits": "fight-step-ends",
+                "otherwise": "other-player-selects"
+              },
+              "afterEachFight": {
+                "ifFightsFirstEligible": "return-to-step-1",
+                "returnFirstSelector": "non-active-player"
+              }
             }
-          }
-        ],
-        "whenSelected": {
-          "chooseFightTypes": 1,
-          "listed": [
-            "Normal Fight",
-            "Overrun Fight"
           ],
-          "othersElsewhere": true
-        },
-        "pass": {
-          "ifAllEligibleUnitsFartherThanInches": 5,
-          "returnsSelectionToOpponent": true,
-          "endsStepIf": [
-            "both-pass-in-succession",
-            "pass-while-opponent-has-no-eligible-units"
-          ]
+          "whenSelected": {
+            "chooseFightTypes": 1,
+            "listed": [
+              "Normal Fight",
+              "Overrun Fight"
+            ],
+            "othersElsewhere": true
+          },
+          "pass": {
+            "ifAllEligibleUnitsFartherThanInches": 5,
+            "returnsSelectionToOpponent": true,
+            "endsStepIf": [
+              "both-pass-in-succession",
+              "pass-while-opponent-has-no-eligible-units"
+            ]
+          }
         }
       }
     }

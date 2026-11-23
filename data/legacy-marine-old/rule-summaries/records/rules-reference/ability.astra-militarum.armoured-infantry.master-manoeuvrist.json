@@ -47,46 +47,55 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "phase-end",
-          "phase": "fight",
-          "owner": "opponent"
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY",
+                  "OFFICER"
+                ]
+              }
+            ]
+          }
         },
-        "conditions": [
-          {
-            "subject": "bearer-unit",
-            "state": "outside-enemy-engagement-range"
+        "detail": {
+          "trigger": {
+            "event": "phase-end",
+            "phase": "fight",
+            "owner": "opponent"
           },
-          {
-            "subject": "every-model-in-bearer-unit",
-            "within": {
-              "inches": 3,
-              "of": {
-                "allKeywords": [
-                  "ASTRA MILITARUM",
-                  "TRANSPORT"
-                ],
-                "side": "own-army",
-                "sameUnitForAllModels": true
+          "conditions": [
+            {
+              "subject": "bearer-unit",
+              "state": "outside-enemy-engagement-range"
+            },
+            {
+              "subject": "every-model-in-bearer-unit",
+              "within": {
+                "inches": 3,
+                "of": {
+                  "allKeywords": [
+                    "ASTRA MILITARUM",
+                    "TRANSPORT"
+                  ],
+                  "side": "own-army",
+                  "sameUnitForAllModels": true
+                }
               }
             }
-          }
-        ],
-        "effect": {
-          "type": "embark",
-          "subject": "bearer-unit",
-          "into": "qualifying-transport",
-          "optional": true
-        },
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Officer",
-            "Infantry"
           ],
-          "excludedKeywords": []
+          "effect": {
+            "type": "embark",
+            "subject": "bearer-unit",
+            "into": "qualifying-transport",
+            "optional": true
+          }
         }
       }
     }

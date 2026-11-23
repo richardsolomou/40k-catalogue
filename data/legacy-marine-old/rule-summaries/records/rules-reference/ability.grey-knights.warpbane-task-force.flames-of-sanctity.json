@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Warpbane Task Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "At the close of the Fight phase, select a friendly PURIFIER SQUAD that could have fought this phase. Roll a D6 separately for enemies no farther than 6″ from the squad. Include a +1 bonus when CASTELLAN CROWE is part of the squad. On 4+, the corresponding enemy suffers D3 mortal wounds.",
     "summarySpans": [
       {
@@ -53,33 +60,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Fight",
-          "turn": "either",
-          "event": "phase ends"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "keywords": "PURIFIER SQUAD",
-          "wasEligibleToFightThisPhase": true
-        },
-        "effect": {
-          "type": "damage per enemy unit",
-          "withinInches": 6,
-          "relativeTo": "selected squad",
-          "roll": "D6",
-          "conditionalModifier": {
-            "amount": 1,
-            "ifIncludes": "CASTELLAN CROWE"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
           },
-          "threshold": 4,
-          "mortalWounds": "D3"
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "PURIFIER SQUAD"
+            ],
+            "more": true
+          }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Fight",
+            "turn": "either",
+            "event": "phase ends"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywords": "PURIFIER SQUAD",
+            "wasEligibleToFightThisPhase": true
+          },
+          "effect": {
+            "type": "damage per enemy unit",
+            "withinInches": 6,
+            "relativeTo": "selected squad",
+            "roll": "D6",
+            "conditionalModifier": {
+              "amount": 1,
+              "ifIncludes": "CASTELLAN CROWE"
+            },
+            "threshold": 4,
+            "mortalWounds": "D3"
+          },
+          "restrictions": []
+        }
       }
     }
   }

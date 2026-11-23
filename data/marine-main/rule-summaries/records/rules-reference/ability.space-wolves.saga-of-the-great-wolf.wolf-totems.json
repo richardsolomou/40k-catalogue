@@ -14,6 +14,16 @@
     "ruleType": "stratagem",
     "group": "Saga of the Great Wolf",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Spend 1 CP during any phase as one of your ADEPTUS ASTARTES INFANTRY or MOUNTED units takes a mortal wound. That unit is the target and gains Feel No Pain 5+ versus mortal wounds.",
     "citations": [
       {
@@ -25,10 +35,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-suffered-mortal-wound"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Saga of the Great Wolf",
           "trigger": {
             "windows": [

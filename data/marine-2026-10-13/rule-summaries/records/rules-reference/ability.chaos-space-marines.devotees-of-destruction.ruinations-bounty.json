@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Devotees of Destruction",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "Use when friendly HAVOCS or OBLITERATORS are picked to shoot in your Shooting phase. When that unit invokes Dark Pacts for this shooting, its ranged attacks get LETHAL HITS together with SUSTAINED HITS 1.",
     "summarySpans": [
       {
@@ -79,40 +85,65 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is you",
-          "event": "friendly unit selected to shoot"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-shoot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
             "anyOf": [
-              "HAVOCS",
-              "OBLITERATORS"
+              {
+                "keywords": [
+                  "HAVOCS"
+                ]
+              },
+              {
+                "keywords": [
+                  "OBLITERATORS"
+                ]
+              }
             ]
           }
         },
-        "effect": {
-          "type": "army rule override",
-          "condition": "triggering shooter uses Dark Pacts",
-          "scope": "ranged attacks",
-          "grantTogether": [
-            {
-              "ability": "LETHAL HITS"
-            },
-            {
-              "ability": "SUSTAINED HITS",
-              "value": 1
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is you",
+            "event": "friendly unit selected to shoot"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": {
+              "anyOf": [
+                "HAVOCS",
+                "OBLITERATORS"
+              ]
             }
-          ]
-        },
-        "restrictions": []
+          },
+          "effect": {
+            "type": "army rule override",
+            "condition": "triggering shooter uses Dark Pacts",
+            "scope": "ranged attacks",
+            "grantTogether": [
+              {
+                "ability": "LETHAL HITS"
+              },
+              {
+                "ability": "SUSTAINED HITS",
+                "value": 1
+              }
+            ]
+          },
+          "restrictions": []
+        }
       }
     }
   }

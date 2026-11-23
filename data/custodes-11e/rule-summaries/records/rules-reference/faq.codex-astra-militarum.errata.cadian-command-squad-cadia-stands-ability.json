@@ -52,65 +52,68 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "faq": {
-          "entryType": "errata",
-          "publicationId": "9d9e408a-a55e-453a-8f70-178801cef1a4",
-          "typedMechanics": {
-            "operation": "replace-ability",
-            "abilityQid": "ability:astra-militarum.cadian-command-squad.cadia-stands",
-            "effect": {
+        "detail": {
+          "faq": {
+            "entryType": "errata",
+            "publicationId": "9d9e408a-a55e-453a-8f70-178801cef1a4",
+            "typedMechanics": {
+              "abilityQid": "ability:astra-militarum.cadian-command-squad.cadia-stands",
               "effect": {
-                "type": "conditional",
-                "condition": {
-                  "operator": "and",
-                  "operands": [
-                    {
-                      "type": "model-count",
-                      "parameters": {
-                        "subject": "this-unit",
-                        "keyword": "OFFICER",
-                        "min": 1
-                      }
-                    },
-                    {
-                      "type": "matches",
-                      "parameters": {
-                        "filter": {
-                          "within": {
-                            "of": {
-                              "objective": {}
-                            },
-                            "range": "objective-control"
+                "effect": {
+                  "type": "conditional",
+                  "condition": {
+                    "operator": "and",
+                    "operands": [
+                      {
+                        "type": "model-count",
+                        "parameters": {
+                          "subject": "this-unit",
+                          "keyword": "OFFICER",
+                          "min": 1
+                        }
+                      },
+                      {
+                        "type": "matches",
+                        "parameters": {
+                          "filter": {
+                            "within": {
+                              "of": {
+                                "objective": {}
+                              },
+                              "range": "objective-control"
+                            }
                           }
                         }
                       }
+                    ]
+                  },
+                  "effect": {
+                    "type": "re-roll",
+                    "target": "this-unit",
+                    "modifier": {
+                      "roll": "battle-shock",
+                      "result_scope": "any-result"
                     }
-                  ]
-                },
-                "effect": {
-                  "type": "re-roll",
-                  "target": "this-unit",
-                  "modifier": {
-                    "roll": "battle-shock",
-                    "result_scope": "any-result"
                   }
-                }
+                },
+                "scope": {
+                  "duration": "permanent"
+                },
+                "optional": true,
+                "behavior": "activated"
               },
-              "scope": {
-                "duration": "permanent"
-              },
-              "optional": true,
-              "behavior": "activated"
-            }
-          },
-          "statedValues": [
-            {
-              "kind": "minimum-officer-models",
-              "value": 1
-            }
-          ]
+              "kind": "replace-ability"
+            },
+            "statedValues": [
+              {
+                "kind": "minimum-officer-models",
+                "value": 1
+              }
+            ]
+          }
         }
       }
     }

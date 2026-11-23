@@ -15,6 +15,17 @@
     "ruleType": "stratagem",
     "group": "Scintillating Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "During any phase, choose a unit of yours on the battlefield with LEGIONES DAEMONICA TZEENTCH MONSTER. For this phase only, expand your Shadow of Chaos into enemy deployment or No Man’s Land. You may use one Flux token to extend it into both instead.",
     "summarySpans": [
       {
@@ -55,31 +66,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "any phase"
-        ],
-        "target": {
-          "unit": "LEGIONES DAEMONICA TZEENTCH MONSTER",
-          "count": 1,
-          "location": "battlefield"
-        },
-        "effect": {
-          "choices": [
-            "No Man’s Land",
-            "opponent’s deployment zone"
-          ],
-          "normalChoiceCount": 1,
-          "optional": {
-            "fluxTokens": 1,
-            "choiceCount": 2
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
           },
-          "effect": "chosen regions count as within your Shadow of Chaos",
-          "expiry": "phase end"
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "TZEENTCH",
+              "MONSTER"
+            ],
+            "more": true
+          }
         },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "any phase"
+          ],
+          "target": {
+            "unit": "LEGIONES DAEMONICA TZEENTCH MONSTER",
+            "count": 1,
+            "location": "battlefield"
+          },
+          "effect": {
+            "choices": [
+              "No Man’s Land",
+              "opponent’s deployment zone"
+            ],
+            "normalChoiceCount": 1,
+            "optional": {
+              "fluxTokens": 1,
+              "choiceCount": 2
+            },
+            "effect": "chosen regions count as within your Shadow of Chaos",
+            "expiry": "phase end"
+          },
+          "restrictions": []
+        }
       }
     }
   }

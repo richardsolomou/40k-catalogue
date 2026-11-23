@@ -53,52 +53,55 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "LEAGUES",
-            "OF",
-            "VOTANN"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "grant-weapon-ability",
-            "recipient": "ranged weapons equipped by models in bearer unit",
-            "trigger": {
-              "phase": "Shooting",
-              "at": "bearer unit selected to shoot",
-              "side": "you"
-            },
-            "condition": {
-              "anyOf": [
-                {
-                  "event": "bearer unit disembarked",
-                  "fromKeyword": "TRANSPORT",
-                  "during": "same turn"
-                },
-                {
-                  "actor": "you",
-                  "optional": true,
-                  "spend": {
-                    "resource": "Yield Point",
-                    "amount": 2
-                  }
-                }
-              ]
-            },
-            "ability": "[SUSTAINED HITS 2]",
-            "value": 2,
-            "expires": "end of phase"
+        "enhancement": {
+          "type": "model",
+          "points": 40,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "LEAGUES OF VOTANN"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "ranged weapons equipped by models in bearer unit",
+              "trigger": {
+                "phase": "Shooting",
+                "at": "bearer unit selected to shoot",
+                "side": "you"
+              },
+              "condition": {
+                "anyOf": [
+                  {
+                    "event": "bearer unit disembarked",
+                    "fromKeyword": "TRANSPORT",
+                    "during": "same turn"
+                  },
+                  {
+                    "actor": "you",
+                    "optional": true,
+                    "spend": {
+                      "resource": "Yield Point",
+                      "amount": 2
+                    }
+                  }
+                ]
+              },
+              "ability": "[SUSTAINED HITS 2]",
+              "value": 2,
+              "expires": "end of phase",
+              "kind": "grant-weapon-ability"
+            }
+          ]
+        }
       }
     }
   }

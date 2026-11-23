@@ -63,48 +63,55 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "GREY KNIGHTS"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "roll-for-mortal-wounds",
-            "target": "triggering-enemy-unit",
-            "roll": {
-              "dice": "D6",
-              "count": 1
-            },
-            "outcomes": [
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
               {
-                "result": 1,
-                "kind": "no-listed-effect"
-              },
-              {
-                "minimum": 2,
-                "maximum": 5,
-                "mortalWounds": "D3"
-              },
-              {
-                "result": 6,
-                "mortalWounds": "D3+3"
+                "factionKeywords": [
+                  "GREY KNIGHTS"
+                ]
               }
-            ],
-            "attackType": "psychic",
-            "optional": true
+            ]
           }
-        ],
-        "trigger": {
-          "event": "enemy-unit-falls-back",
-          "requires": "enemy-within-engagement-range-of-bearer-unit",
-          "actor": "bearer"
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "roll-for-mortal-wounds",
+              "target": "triggering-enemy-unit",
+              "roll": {
+                "dice": "D6",
+                "count": 1
+              },
+              "outcomes": [
+                {
+                  "result": 1,
+                  "kind": "no-listed-effect"
+                },
+                {
+                  "minimum": 2,
+                  "maximum": 5,
+                  "mortalWounds": "D3"
+                },
+                {
+                  "result": 6,
+                  "mortalWounds": "D3+3"
+                }
+              ],
+              "attackType": "psychic",
+              "optional": true
+            }
+          ],
+          "trigger": {
+            "event": "enemy-unit-falls-back",
+            "requires": "enemy-within-engagement-range-of-bearer-unit",
+            "actor": "bearer"
+          }
         }
       }
     }

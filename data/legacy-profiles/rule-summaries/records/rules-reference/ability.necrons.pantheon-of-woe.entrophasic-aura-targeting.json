@@ -15,6 +15,14 @@
     "ruleType": "stratagem",
     "group": "Pantheon of Woe",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In your Shooting phase or either Fight phase, choose NECRONS awaiting selection to shoot or fight. MONSTERS are excluded. For this phase, their models can reroll Hit rolls of 1 against enemies. They can also reroll Wound rolls of 1 against an Unravelling target.",
     "summarySpans": [
       {
@@ -68,10 +76,31 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "NECRONS"
+            ],
+            "excludedKeywords": [
+              "MONSTER"
+            ],
+            "conditions": [
+              "not-selected-to-shoot-or-fight"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "windows": [

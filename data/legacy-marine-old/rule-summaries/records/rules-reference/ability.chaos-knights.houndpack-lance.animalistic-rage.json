@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Houndpack Lance",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "When an enemy attack destroys your WAR DOG, use this in the Fight phase or during the opposing Shooting phase. Before resolving Deadly Demise, the WAR DOG may shoot or fight. The destroyer is the sole possible target. An ineligible destroyer prevents the retaliation. Resolve Deadly Demise normally after the shooting or fighting and any Consolidation.",
     "citations": [
       {
@@ -25,10 +33,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "WAR DOG"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Houndpack Lance",
           "trigger": {
             "windows": [

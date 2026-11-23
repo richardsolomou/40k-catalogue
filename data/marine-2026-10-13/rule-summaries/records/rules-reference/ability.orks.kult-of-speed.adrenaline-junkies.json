@@ -77,54 +77,57 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "effects": [
-          {
-            "type": "keyword-grant",
-            "keyword": "Battleline",
-            "target": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Warbikers"
+        "detail": {
+          "effects": [
+            {
+              "type": "keyword-grant",
+              "keyword": "Battleline",
+              "target": {
+                "owner": "friendly",
+                "level": "unit",
+                "allOf": [
+                  "Warbikers"
+                ]
+              }
+            },
+            {
+              "type": "sequence",
+              "target": {
+                "owner": "friendly",
+                "level": "unit",
+                "allOf": [
+                  "Speed Freeks"
+                ]
+              },
+              "trigger": {
+                "event": "selected-to-move",
+                "moveTypes": [
+                  "advance",
+                  "fall-back"
+                ]
+              },
+              "steps": [
+                {
+                  "type": "weapon-ability-grant",
+                  "keyword": "assault",
+                  "attackType": "ranged",
+                  "expires": {
+                    "event": "turn-ended",
+                    "turn": "triggering"
+                  }
+                },
+                {
+                  "type": "eligibility-exception",
+                  "action": "declare-charge",
+                  "ignores": "triggering-move-only"
+                }
               ]
             }
-          },
-          {
-            "type": "sequence",
-            "target": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Speed Freeks"
-              ]
-            },
-            "trigger": {
-              "event": "selected-to-move",
-              "moveTypes": [
-                "advance",
-                "fall-back"
-              ]
-            },
-            "steps": [
-              {
-                "type": "weapon-ability-grant",
-                "keyword": "assault",
-                "attackType": "ranged",
-                "expires": {
-                  "event": "turn-ended",
-                  "turn": "triggering"
-                }
-              },
-              {
-                "type": "eligibility-exception",
-                "action": "declare-charge",
-                "ignores": "triggering-move-only"
-              }
-            ]
-          }
-        ]
+          ]
+        }
       }
     }
   }

@@ -55,36 +55,45 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "unit",
-          "match": "all",
-          "keywords": [
-            "Orks Aircraft"
-          ],
-          "anyOf": [],
-          "excludes": [],
-          "equipment": null,
-          "characterOnly": false,
-          "equipableByNonCharacter": true
-        },
-        "effects": [
-          {
-            "recipient": "upgrade unit",
-            "operation": "grant-keyword",
-            "keyword": "Character"
-          },
-          {
-            "recipient": "each friendly Orks Aircraft or Deffkoptas unit in range",
-            "operation": "apply-state",
-            "trigger": "upgrade unit ends ingress move",
-            "rangeInches": 6,
-            "rangeFrom": "upgrade unit",
-            "state": "riled up",
-            "expires": "start of your next turn"
+        "enhancement": {
+          "type": "upgrade",
+          "points": 20,
+          "perRoster": 3,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "AIRCRAFT"
+                ],
+                "factionKeywords": [
+                  "ORKS"
+                ]
+              }
+            ],
+            "nonCharacters": true
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "upgrade unit",
+              "keyword": "Character",
+              "kind": "grant-keyword"
+            },
+            {
+              "recipient": "each friendly Orks Aircraft or Deffkoptas unit in range",
+              "trigger": "upgrade unit ends ingress move",
+              "rangeInches": 6,
+              "rangeFrom": "upgrade unit",
+              "state": "riled up",
+              "expires": "start of your next turn",
+              "kind": "apply-state"
+            }
+          ]
+        }
       }
     }
   }

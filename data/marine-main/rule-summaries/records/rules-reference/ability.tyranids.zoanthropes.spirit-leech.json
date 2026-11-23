@@ -57,45 +57,48 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "role": "aura-psychic",
-        "source": "this-unit",
-        "area": {
-          "origin": "this-unit",
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 6,
-          "side": "enemy"
-        },
-        "trigger": {
-          "event": "failed-test",
-          "test": "battle-shock",
-          "actor": "eligible-enemy-unit"
-        },
-        "effects": [
-          {
-            "operation": "inflict-mortal-wounds",
-            "recipient": "enemy-that-failed",
-            "quantity": {
-              "count": 1,
-              "sides": 3,
-              "additive": 0
-            }
+        "detail": {
+          "role": "aura-psychic",
+          "source": "this-unit",
+          "area": {
+            "origin": "this-unit",
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 6,
+            "side": "enemy"
           },
-          {
-            "operation": "regain-lost-wounds",
-            "recipient": "one-model-in-this-unit",
-            "quantity": {
-              "comparison": "at-most",
-              "dice": {
+          "trigger": {
+            "event": "failed-test",
+            "test": "battle-shock",
+            "actor": "eligible-enemy-unit"
+          },
+          "effects": [
+            {
+              "recipient": "enemy-that-failed",
+              "quantity": {
                 "count": 1,
                 "sides": 3,
                 "additive": 0
-              }
+              },
+              "kind": "inflict-mortal-wounds"
+            },
+            {
+              "recipient": "one-model-in-this-unit",
+              "quantity": {
+                "comparison": "at-most",
+                "dice": {
+                  "count": 1,
+                  "sides": 3,
+                  "additive": 0
+                }
+              },
+              "kind": "regain-lost-wounds"
             }
-          }
-        ]
+          ]
+        }
       }
     }
   }

@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Cursed Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "In your Charge phase, choose an unselected NECRONS unit to charge, excluding MONSTERS and VEHICLES. Until the phase closes, add 2 to its Charge rolls if the charge would put it within Engagement Range of an enemy already engaged with a friendly unit.",
     "summarySpans": [
       {
@@ -65,10 +72,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "NECRONS"
+            ],
+            "excludedKeywords": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "windows": [

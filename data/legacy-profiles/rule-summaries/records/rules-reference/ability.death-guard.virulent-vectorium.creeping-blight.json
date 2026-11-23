@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Virulent Vectorium",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "wargear"
+    },
     "summary": "Wargear, 1 CP. Use it in your Shooting phase. Choose one of your DEATH GUARD INFANTRY units that is yet to be picked to shoot this phase. For the rest of the phase, its models' ranged attacks against an Afflicted unit may re-roll both Hit and Wound rolls.",
     "citations": [
       {
@@ -25,12 +32,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DEATH GUARD",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Virulent Vectorium",
-          "category": "Wargear",
           "trigger": {
             "windows": [
               {

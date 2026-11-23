@@ -14,6 +14,16 @@
     "ruleType": "stratagem",
     "group": "Medusa's Wrath",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Use in any phase as your unit with ADEPTUS ASTARTES takes a mortal wound. Give it Feel no pain 5+ for mortal wounds.",
     "summarySpans": [
       {
@@ -59,10 +69,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-suffered-mortal-wound"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ]
+          }
+        },
+        "detail": {
           "type": "",
           "trigger": {
             "turn": "either",

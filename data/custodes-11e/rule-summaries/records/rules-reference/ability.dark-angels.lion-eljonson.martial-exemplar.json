@@ -52,40 +52,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "role": "aura-option",
-        "activation": {
-          "event": "parent-option-active",
-          "parentAbility": "Primarch of the First Legion"
-        },
-        "area": {
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 6,
-          "origin": "this-unit",
-          "candidate": {
-            "entity": "unit",
-            "side": "friendly",
-            "requireAllKeywords": [
-              "DARK ANGELS"
+        "detail": {
+          "role": "aura-option",
+          "activation": {
+            "event": "parent-option-active",
+            "parentAbility": "Primarch of the First Legion"
+          },
+          "area": {
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 6,
+            "origin": "this-unit",
+            "candidate": {
+              "entity": "unit",
+              "side": "friendly",
+              "requireAllKeywords": [
+                "DARK ANGELS"
+              ],
+              "excludeAnyKeywords": []
+            }
+          },
+          "trigger": {
+            "event": "attack",
+            "actor": "model-in-eligible-unit",
+            "mode": "melee"
+          },
+          "effect": {
+            "rolls": [
+              "hit",
+              "wound"
             ],
-            "excludeAnyKeywords": []
+            "optional": true,
+            "unmodifiedFace": 1,
+            "kind": "re-roll"
           }
-        },
-        "trigger": {
-          "event": "attack",
-          "actor": "model-in-eligible-unit",
-          "mode": "melee"
-        },
-        "effect": {
-          "operation": "re-roll",
-          "rolls": [
-            "hit",
-            "wound"
-          ],
-          "optional": true,
-          "unmodifiedFace": 1
         }
       }
     }

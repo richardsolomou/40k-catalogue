@@ -48,35 +48,38 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "trigger": {
-          "event": "attack",
-          "actor": "models-in-this-unit",
-          "mode": "any",
-          "targetSide": "enemy",
-          "range": {
-            "origin": "this-unit",
-            "comparison": "within",
-            "inclusive": true,
-            "distanceInches": 6,
-            "side": "enemy"
-          }
-        },
-        "effects": [
-          {
-            "operation": "grant-ability",
-            "label": "SUSTAINED HITS 1",
-            "recipient": "attacks"
+        "detail": {
+          "source": "this-unit",
+          "trigger": {
+            "event": "attack",
+            "actor": "models-in-this-unit",
+            "mode": "any",
+            "targetSide": "enemy",
+            "range": {
+              "origin": "this-unit",
+              "comparison": "within",
+              "inclusive": true,
+              "distanceInches": 6,
+              "side": "enemy"
+            }
           },
-          {
-            "operation": "re-roll",
-            "roll": "hit",
-            "optional": true,
-            "unmodifiedFace": 1
-          }
-        ]
+          "effects": [
+            {
+              "label": "SUSTAINED HITS 1",
+              "recipient": "attacks",
+              "kind": "grant-ability"
+            },
+            {
+              "roll": "hit",
+              "optional": true,
+              "unmodifiedFace": 1,
+              "kind": "re-roll"
+            }
+          ]
+        }
       }
     }
   }

@@ -55,58 +55,61 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "actor": "controlling-player",
-        "trigger": {
-          "phase": "Fight",
-          "turnOwner": "opponent",
-          "edge": "end"
-        },
-        "choice": {
-          "optional": true,
-          "maximumOptions": 1,
-          "branches": [
-            {
-              "selection": {
-                "count": 1,
-                "side": "enemy",
-                "visible": true,
-                "withinSourceUnitInches": 24,
-                "exclude": "Lone Operative"
+        "detail": {
+          "actor": "controlling-player",
+          "trigger": {
+            "phase": "Fight",
+            "turnOwner": "opponent",
+            "edge": "end"
+          },
+          "choice": {
+            "optional": true,
+            "maximumOptions": 1,
+            "branches": [
+              {
+                "selection": {
+                  "count": 1,
+                  "side": "enemy",
+                  "visible": true,
+                  "withinSourceUnitInches": 24,
+                  "exclude": "Lone Operative"
+                },
+                "effect": {
+                  "diceCount": 6,
+                  "diceSides": 6,
+                  "atLeast": 3,
+                  "mortalWoundsPerSuccess": 1
+                }
               },
-              "effect": {
-                "diceCount": 6,
-                "diceSides": 6,
-                "atLeast": 3,
-                "mortalWoundsPerSuccess": 1
-              }
-            },
-            {
-              "limit": {
-                "period": "turn",
-                "maximumUsingModels": 1
-              },
-              "effect": {
-                "newUnits": 1,
-                "name": "SPORE MINES",
-                "modelsInNewUnit": "D3",
-                "addTo": "your army",
-                "setup": {
-                  "destination": "battlefield",
-                  "distanceFromSourceModel": {
-                    "comparison": "within",
-                    "inches": 6
-                  },
-                  "distanceFromAllEnemies": {
-                    "comparison": "greater-than",
-                    "axis": "horizontal",
-                    "inches": 8
+              {
+                "limit": {
+                  "period": "turn",
+                  "maximumUsingModels": 1
+                },
+                "effect": {
+                  "newUnits": 1,
+                  "name": "SPORE MINES",
+                  "modelsInNewUnit": "D3",
+                  "addTo": "your army",
+                  "setup": {
+                    "destination": "battlefield",
+                    "distanceFromSourceModel": {
+                      "comparison": "within",
+                      "inches": 6
+                    },
+                    "distanceFromAllEnemies": {
+                      "comparison": "greater-than",
+                      "axis": "horizontal",
+                      "inches": 8
+                    }
                   }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

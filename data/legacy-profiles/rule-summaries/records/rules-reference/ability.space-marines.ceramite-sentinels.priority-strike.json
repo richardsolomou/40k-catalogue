@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Ceramite Sentinels",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "As you select a unit to attack in your Shooting phase or either Fight phase, use this if it has the Adeptus Astartes Infantry/Mounted keyword. Its wound rolls get +1 against targets with Monster or Vehicle.",
     "summarySpans": [
       {
@@ -67,10 +74,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-attack"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "type": "",
           "trigger": {
             "turn": "either",

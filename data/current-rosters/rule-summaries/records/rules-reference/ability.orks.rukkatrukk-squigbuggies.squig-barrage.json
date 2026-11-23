@@ -42,40 +42,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "timing": {
-          "player": "own",
-          "phase": "Shooting",
-          "event": "after-owner-unit-shoots"
-        },
-        "selection": {
-          "side": "enemy",
-          "kind": "unit",
-          "count": 1,
-          "excludedKeywords": [
-            "MONSTER",
-            "VEHICLE"
-          ],
-          "requiredHit": {
-            "from": "owner-unit",
-            "weaponProfile": "Squig launcha"
-          }
-        },
-        "effect": {
-          "type": "apply-condition",
-          "subject": "selected-enemy-unit",
-          "condition": "Covered in Squigs",
-          "expires": {
-            "boundary": "start",
+        "detail": {
+          "timing": {
             "player": "own",
-            "turn": "next"
+            "phase": "Shooting",
+            "event": "after-owner-unit-shoots"
           },
-          "whileCondition": {
-            "type": "roll-modifier",
-            "roll": "Hit",
-            "delta": -1,
-            "appliesTo": "affected-unit-attacks"
+          "selection": {
+            "side": "enemy",
+            "kind": "unit",
+            "count": 1,
+            "excludedKeywords": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "requiredHit": {
+              "from": "owner-unit",
+              "weaponProfile": "Squig launcha"
+            }
+          },
+          "effect": {
+            "type": "apply-condition",
+            "subject": "selected-enemy-unit",
+            "condition": "Covered in Squigs",
+            "expires": {
+              "boundary": "start",
+              "player": "own",
+              "turn": "next"
+            },
+            "whileCondition": {
+              "type": "roll-modifier",
+              "roll": "Hit",
+              "delta": -1,
+              "appliesTo": "affected-unit-attacks"
+            }
           }
         }
       }

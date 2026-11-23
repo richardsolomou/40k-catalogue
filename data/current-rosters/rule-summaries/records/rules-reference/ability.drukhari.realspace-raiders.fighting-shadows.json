@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Realspace Raiders",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in the opposing player's Shooting phase or in the Fight phase of either turn, right after an enemy unit picks its targets, on a DRUKHARI unit of yours (not a HAEMONCULUS COVENS unit) that it targeted with at least one attack. Until the phase ends, attacks that target that unit subtract 1 from their Hit roll.",
     "citations": [
       {
@@ -25,10 +33,31 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DRUKHARI"
+            ],
+            "excludedKeywords": [
+              "HAEMONCULUS COVENS"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Realspace Raiders",
           "type": "Battle Tactic",
           "windows": [

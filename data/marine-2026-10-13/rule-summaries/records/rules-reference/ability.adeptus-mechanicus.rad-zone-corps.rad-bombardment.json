@@ -93,103 +93,106 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "scope": {
-          "factionId": "60ecf26b-0c2b-4ea3-8a29-5f06bd02f6d8",
-          "faction": "Adeptus Mechanicus",
-          "detachmentId": "e00b5962-4b5a-4857-bb5d-d1372e762d2f",
-          "detachment": "Rad-Zone Corps",
-          "uniqueTags": [],
-          "sourceId": "e00b5962-4b5a-4857-bb5d-d1372e762d2f:rad-bombardment",
-          "cardType": "detachmentRule",
-          "cardEdition": "40k-11e"
-        },
-        "phases": [
-          {
-            "name": "BOMBARDMENT",
-            "trigger": {
-              "event": "battle-round-started",
-              "round": 1
-            },
-            "forEach": {
-              "owner": "enemy",
-              "level": "unit",
-              "within": "opponent-deployment-zone"
-            },
-            "choice": {
-              "chosenBy": "opponent",
-              "count": 1,
-              "per": "eligible-unit",
-              "timing": "before-rolling",
-              "options": [
-                {
-                  "name": "Unit Standing Firm",
-                  "roll": {
-                    "dice": "D6",
-                    "count": 1,
-                    "threshold": 3
+        "detail": {
+          "scope": {
+            "factionId": "60ecf26b-0c2b-4ea3-8a29-5f06bd02f6d8",
+            "faction": "Adeptus Mechanicus",
+            "detachmentId": "e00b5962-4b5a-4857-bb5d-d1372e762d2f",
+            "detachment": "Rad-Zone Corps",
+            "uniqueTags": [],
+            "sourceId": "e00b5962-4b5a-4857-bb5d-d1372e762d2f:rad-bombardment",
+            "cardType": "detachmentRule",
+            "cardEdition": "40k-11e"
+          },
+          "phases": [
+            {
+              "name": "BOMBARDMENT",
+              "trigger": {
+                "event": "battle-round-started",
+                "round": 1
+              },
+              "forEach": {
+                "owner": "enemy",
+                "level": "unit",
+                "within": "opponent-deployment-zone"
+              },
+              "choice": {
+                "chosenBy": "opponent",
+                "count": 1,
+                "per": "eligible-unit",
+                "timing": "before-rolling",
+                "options": [
+                  {
+                    "name": "Unit Standing Firm",
+                    "roll": {
+                      "dice": "D6",
+                      "count": 1,
+                      "threshold": 3
+                    },
+                    "onSuccess": {
+                      "type": "mortal-wounds",
+                      "count": "D3"
+                    }
                   },
-                  "onSuccess": {
-                    "type": "mortal-wounds",
-                    "count": "D3"
+                  {
+                    "name": "Unit Taking Cover",
+                    "effect": {
+                      "type": "state-change",
+                      "state": "battle-shocked"
+                    },
+                    "roll": {
+                      "dice": "D6",
+                      "count": 1,
+                      "threshold": 5
+                    },
+                    "onSuccess": {
+                      "type": "mortal-wounds",
+                      "count": "D3"
+                    }
                   }
+                ]
+              },
+              "target": "each-eligible-unit"
+            },
+            {
+              "name": "FALLOUT",
+              "trigger": {
+                "event": "phase-started",
+                "phase": "command",
+                "owner": "self",
+                "battleRounds": {
+                  "minimum": 2,
+                  "maximum": 5
+                }
+              },
+              "forEach": {
+                "owner": "enemy",
+                "level": "unit",
+                "within": "opponent-deployment-zone"
+              },
+              "roll": {
+                "dice": "D6",
+                "count": 1,
+                "threshold": 3
+              },
+              "onSuccess": [
+                {
+                  "type": "mortal-wounds",
+                  "count": 1
                 },
                 {
-                  "name": "Unit Taking Cover",
-                  "effect": {
-                    "type": "state-change",
-                    "state": "battle-shocked"
-                  },
-                  "roll": {
-                    "dice": "D6",
-                    "count": 1,
-                    "threshold": 5
-                  },
-                  "onSuccess": {
-                    "type": "mortal-wounds",
-                    "count": "D3"
-                  }
+                  "type": "test",
+                  "test": "battle-shock",
+                  "required": true
                 }
-              ]
-            },
-            "target": "each-eligible-unit"
-          },
-          {
-            "name": "FALLOUT",
-            "trigger": {
-              "event": "phase-started",
-              "phase": "command",
-              "owner": "self",
-              "battleRounds": {
-                "minimum": 2,
-                "maximum": 5
-              }
-            },
-            "forEach": {
-              "owner": "enemy",
-              "level": "unit",
-              "within": "opponent-deployment-zone"
-            },
-            "roll": {
-              "dice": "D6",
-              "count": 1,
-              "threshold": 3
-            },
-            "onSuccess": [
-              {
-                "type": "mortal-wounds",
-                "count": 1
-              },
-              {
-                "type": "test",
-                "test": "battle-shock",
-                "required": true
-              }
-            ],
-            "target": "each-eligible-unit"
-          }
-        ]
+              ],
+              "target": "each-eligible-unit"
+            }
+          ]
+        }
       }
     }
   }

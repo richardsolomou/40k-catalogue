@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Crusher Stampede",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP, in your Shooting phase. Choose one TYRANIDS MONSTER unit of yours that has not yet fired this phase. Until the phase ends, its ranged weapons gain [IGNORES COVER], and when its models attack you may disregard some or all modifiers to their Ballistic Skill and to their Hit rolls.",
     "summarySpans": [
       {
@@ -51,11 +58,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "TYRANIDS",
+              "MONSTER"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Crusher Stampede",
           "when": {
             "phase": "shooting",

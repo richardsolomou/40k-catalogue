@@ -39,36 +39,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "ADEPTUS MECHANICUS"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "extend-rule-targets",
-            "target": "enemy-units",
-            "rule": "Rad-Bombardment",
-            "branch": "Fallout",
-            "distanceInches": 6,
-            "comparison": "within-inclusive",
-            "distanceOrigin": "opponent-deployment-zone",
-            "requires": "bearer-on-battlefield",
-            "minimumBattleRound": 2,
-            "applyExistingFalloutRoll": true,
-            "roll": {
-              "dice": "D6",
-              "count": 1,
-              "per": "eligible-enemy-unit"
-            }
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "ADEPTUS MECHANICUS"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "extend-rule-targets",
+              "target": "enemy-units",
+              "rule": "Rad-Bombardment",
+              "branch": "Fallout",
+              "distanceInches": 6,
+              "comparison": "within-inclusive",
+              "distanceOrigin": "opponent-deployment-zone",
+              "requires": "bearer-on-battlefield",
+              "minimumBattleRound": 2,
+              "applyExistingFalloutRoll": true,
+              "roll": {
+                "dice": "D6",
+                "count": 1,
+                "per": "eligible-enemy-unit"
+              }
+            }
+          ]
+        }
       }
     }
   }

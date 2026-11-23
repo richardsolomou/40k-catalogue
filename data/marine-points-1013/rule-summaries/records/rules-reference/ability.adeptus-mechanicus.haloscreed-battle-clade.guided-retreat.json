@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Haloscreed Battle Clade",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "In your Movement phase, right after one of your ADEPTUS MECHANICUS units completes a Fall Back move, spend 1 CP on it. For the rest of the turn it may still shoot and still declare a charge despite having Fallen Back. A HALO OVERRIDE unit can also have its Desperate Escape tests re-rolled.",
     "summarySpans": [
       {
@@ -58,12 +65,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS MECHANICUS"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Haloscreed Battle Clade",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {
@@ -93,7 +115,7 @@
               "expires": "end-of-turn"
             },
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "desperate-escape-test",
               "condition": "unit-has-HALO OVERRIDE"
             }

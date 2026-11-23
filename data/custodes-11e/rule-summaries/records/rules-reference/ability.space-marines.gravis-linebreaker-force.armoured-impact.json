@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Gravis Linebreaker Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own"
+    },
     "summary": "After your Gravis unit finishes its Charge Move, it can pick an enemy unit it engaged. Roll a D6 per charging model engaged with that enemy. Each 3+ deals it 1 mortal wound.",
     "summarySpans": [
       {
@@ -47,10 +53,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-ended-charge"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "GRAVIS"
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

@@ -14,6 +14,16 @@
     "ruleType": "stratagem",
     "group": "Lords of the Forge",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Spend 1 CP in your Movement phase when one of your TECH-PRIEST units is picked to Fall Back; that unit is the target. Falling Back this time does not stop it from being able to shoot or declare a charge.",
     "citations": [
       {
@@ -25,12 +35,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fall-back"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "TECH-PRIEST"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Lords of the Forge",
-          "category": null,
           "trigger": {
             "windows": [
               {

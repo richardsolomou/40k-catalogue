@@ -14,6 +14,12 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "opponent"
+    },
     "summary": "When the opponent finishes their Charge phase, pick one friendly, unengaged unit at most 12″ from an enemy unit. A VEHICLE must also have CHARACTER or WALKER. Choose a mode when paying CP, before the roll, and resolve the charge using Charge Step. Leap to Defend costs 1 CP before modifiers. Choose only enemies in reach that already completed a charge move during this phase. Into the Fray starts at 2 CP. After charge roll modifiers, reduce results above 6 to 6. You may choose any enemy unit that meets two tests: at most 6″ away, and no farther than the roll allows. Apply CP modifiers to the chosen mode’s full starting price.",
     "summarySpans": [
       {
@@ -60,54 +66,70 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "core-stratagem",
-        "name": "Heroic Intervention",
-        "ruleNumber": "15.11",
-        "when": {
-          "turn": "opponents",
-          "phase": "charge",
-          "point": "end"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          },
+          "extraCp": {
+            "cp": 1
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "unengaged": true,
-          "withinEnemyUnitInches": 12,
-          "vehicleRequiresAny": [
-            "CHARACTER",
-            "WALKER"
-          ]
-        },
-        "effect": {
-          "action": "resolve-charge",
-          "coreRulesRef": "11.02",
-          "chooseExactlyOneMode": true,
-          "commitModeAt": "cp-payment",
-          "modeChosenBefore": "charge-roll",
-          "modes": [
-            {
-              "name": "Leap to Defend",
-              "requiresEnemyChargeMoveThisPhase": true,
-              "withinChargeMaximum": true,
-              "originalCp": 1
-            },
-            {
-              "name": "Into the Fray",
-              "requiresEnemyChargeMoveThisPhase": false,
-              "withinChargeMaximum": true,
-              "withinTargetingInches": 6,
-              "capModifiedRoll": 6,
-              "additionalCp": 1,
-              "originalCp": 2
-            }
-          ]
-        },
-        "cost": {
-          "cp": 1,
-          "applyModifiersTo": "mode-original-cp",
-          "minimumCp": 0
+        "detail": {
+          "kind": "core-stratagem",
+          "name": "Heroic Intervention",
+          "ruleNumber": "15.11",
+          "when": {
+            "turn": "opponents",
+            "phase": "charge",
+            "point": "end"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "unengaged": true,
+            "withinEnemyUnitInches": 12,
+            "vehicleRequiresAny": [
+              "CHARACTER",
+              "WALKER"
+            ]
+          },
+          "effect": {
+            "action": "resolve-charge",
+            "coreRulesRef": "11.02",
+            "chooseExactlyOneMode": true,
+            "commitModeAt": "cp-payment",
+            "modeChosenBefore": "charge-roll",
+            "modes": [
+              {
+                "name": "Leap to Defend",
+                "requiresEnemyChargeMoveThisPhase": true,
+                "withinChargeMaximum": true,
+                "originalCp": 1
+              },
+              {
+                "name": "Into the Fray",
+                "requiresEnemyChargeMoveThisPhase": false,
+                "withinChargeMaximum": true,
+                "withinTargetingInches": 6,
+                "capModifiedRoll": 6,
+                "additionalCp": 1,
+                "originalCp": 2
+              }
+            ]
+          }
         }
       }
     }

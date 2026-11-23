@@ -39,73 +39,76 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "effect": {
-          "type": "conditional",
-          "condition": {
-            "operator": "and",
-            "operands": [
-              {
-                "type": "phase-is",
-                "parameters": {
-                  "phase": "shooting"
-                }
-              },
-              {
-                "type": "player-turn-is",
-                "parameters": {
-                  "turn": "your-turn"
-                }
-              }
-            ]
-          },
+        "detail": {
           "effect": {
-            "type": "select-units",
-            "selector": {
-              "filter": {
-                "owner": "enemy",
-                "all_of": [
-                  "INFANTRY"
-                ]
-              },
-              "count": {
-                "min": 1,
-                "max": 1
-              },
-              "eligibility": {
-                "type": "happened",
-                "parameters": {
-                  "event": "after-roll",
-                  "subject": "event-subject",
-                  "object": "this-unit",
-                  "filter": {
-                    "roll": "hit",
-                    "result": "success"
-                  },
-                  "window": "event"
+            "type": "conditional",
+            "condition": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "phase-is",
+                  "parameters": {
+                    "phase": "shooting"
+                  }
+                },
+                {
+                  "type": "player-turn-is",
+                  "parameters": {
+                    "turn": "your-turn"
+                  }
                 }
-              }
+              ]
             },
             "effect": {
-              "type": "test",
-              "target": "selected-unit",
-              "modifier": {
-                "test": "battle-shock"
+              "type": "select-units",
+              "selector": {
+                "filter": {
+                  "owner": "enemy",
+                  "all_of": [
+                    "INFANTRY"
+                  ]
+                },
+                "count": {
+                  "min": 1,
+                  "max": 1
+                },
+                "eligibility": {
+                  "type": "happened",
+                  "parameters": {
+                    "event": "after-roll",
+                    "subject": "event-subject",
+                    "object": "this-unit",
+                    "filter": {
+                      "roll": "hit",
+                      "result": "success"
+                    },
+                    "window": "event"
+                  }
+                }
+              },
+              "effect": {
+                "type": "test",
+                "target": "selected-unit",
+                "modifier": {
+                  "test": "battle-shock"
+                }
               }
             }
-          }
-        },
-        "scope": {
-          "duration": "permanent"
-        },
-        "trigger": {
-          "event": "attacks-resolved",
-          "filter": {
-            "kind": "shoot"
-          }
-        },
-        "behavior": "reactive"
+          },
+          "scope": {
+            "duration": "permanent"
+          },
+          "trigger": {
+            "event": "attacks-resolved",
+            "filter": {
+              "kind": "shoot"
+            }
+          },
+          "behavior": "reactive"
+        }
       }
     }
   }

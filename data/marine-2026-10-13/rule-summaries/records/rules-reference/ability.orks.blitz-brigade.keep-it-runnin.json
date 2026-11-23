@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Blitz Brigade",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "1 CP, as the Fight phase of either turn ends. Choose an ORKS INFANTRY unit of yours that could fight in this phase, is currently not engaged, and sits wholly inside 6″ of a TRANSPORT from your army that it would be allowed to embark within. The INFANTRY unit then embarks within that TRANSPORT.",
     "summarySpans": [
       {
@@ -35,11 +41,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ORKS",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Blitz Brigade",
           "when": {
             "phase": "fight",

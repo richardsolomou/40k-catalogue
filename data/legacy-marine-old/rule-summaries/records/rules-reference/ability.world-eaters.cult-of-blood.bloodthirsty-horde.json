@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Cult of Blood",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In the Fight phase of either turn, choose one of your Jakhals units or one of your Goremongers units. It must be engaged with an enemy and still awaiting selection to fight this phase. Whenever you select that unit to fight for the rest of the phase, any of its models with an enemy model within 3″ is eligible. When you resolve attacks from models qualified this way, each can pick one foe no more than 3″ from itself. The foe must also be in Engagement Range of the friendly unit.",
     "summarySpans": [
       {
@@ -43,10 +50,37 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "JAKHALS"
+                ]
+              },
+              {
+                "keywords": [
+                  "GOREMONGERS"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Cult of Blood",
           "trigger": {
             "windows": [

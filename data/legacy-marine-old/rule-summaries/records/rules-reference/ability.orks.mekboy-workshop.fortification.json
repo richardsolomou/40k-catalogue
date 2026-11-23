@@ -65,39 +65,42 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "owner": "Mekboy Workshop",
-        "clauses": [
-          {
-            "condition": {
-              "enemyUnitEngagedOnlyWithKeyword": "FORTIFICATION"
-            },
-            "effects": [
-              {
-                "allowRangedTargeting": true
+        "detail": {
+          "owner": "Mekboy Workshop",
+          "clauses": [
+            {
+              "condition": {
+                "enemyUnitEngagedOnlyWithKeyword": "FORTIFICATION"
               },
-              {
-                "appliesTo": "ranged attacks targeting that enemy unit",
-                "excludesWeaponAbility": "CLOSE-QUARTERS",
-                "modifier": {
-                  "roll": "hit",
-                  "operation": "subtract",
-                  "value": 1
-                }
-              },
-              {
-                "trigger": "qualified-enemy-unit-selected-to-make-fall-back-move",
-                "condition": {
-                  "enemyBattleShocked": false
+              "effects": [
+                {
+                  "allowRangedTargeting": true
                 },
-                "effect": {
-                  "hazardRolls": "automatically passed"
+                {
+                  "appliesTo": "ranged attacks targeting that enemy unit",
+                  "excludesWeaponAbility": "CLOSE-QUARTERS",
+                  "modifier": {
+                    "roll": "hit",
+                    "operation": "subtract",
+                    "value": 1
+                  }
+                },
+                {
+                  "trigger": "that enemy unit is picked to Fall Back",
+                  "condition": {
+                    "enemyBattleShocked": false
+                  },
+                  "effect": {
+                    "hazardRolls": "automatically passed"
+                  }
                 }
-              }
-            ]
-          }
-        ]
+              ]
+            }
+          ]
+        }
       }
     }
   }

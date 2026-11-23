@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Ordo Xenos, Alien Hunters",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "wargear"
+    },
     "summary": "In your Shooting phase, choose a DEATHWATCH INFANTRY unit you have yet to select to shoot. Through phase end, give Anti-Monster 5+ and Anti-Infantry 2+ to its ranged weapons, skipping any with Devastating Wounds. A unit already targeted this phase by either Dragonfire Rounds or Kraken Rounds is ineligible.",
     "summarySpans": [
       {
@@ -67,10 +74,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DEATHWATCH",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "type": "wargear",
           "trigger": {
             "turn": "your",

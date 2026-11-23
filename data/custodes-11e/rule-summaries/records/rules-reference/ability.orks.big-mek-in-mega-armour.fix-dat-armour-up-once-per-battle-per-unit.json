@@ -44,35 +44,38 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "limit": {
-          "count": 1,
-          "period": "battle",
-          "counterOwner": "source-unit",
-          "resetsAt": "new-battle"
-        },
-        "trigger": {
-          "phase": "command",
-          "turn": "own"
-        },
-        "effects": [
-          {
-            "recipient": "this-unit",
-            "operation": "heal-lost-wounds",
-            "amount": 3
+        "detail": {
+          "source": "this-unit",
+          "limit": {
+            "count": 1,
+            "period": "battle",
+            "counterOwner": "source-unit",
+            "resetsAt": "new-battle"
           },
-          {
-            "operation": "remove-reminder-token",
+          "trigger": {
+            "phase": "command",
+            "turn": "own"
+          },
+          "effects": [
+            {
+              "recipient": "this-unit",
+              "amount": 3,
+              "kind": "heal-lost-wounds"
+            },
+            {
+              "token": "Grot Oiler",
+              "owner": "this-unit",
+              "kind": "remove-reminder-token"
+            }
+          ],
+          "setup": {
             "token": "Grot Oiler",
-            "owner": "this-unit"
+            "count": 1,
+            "kind": "place-reminder-token-beside-unit"
           }
-        ],
-        "setup": {
-          "operation": "place-reminder-token-beside-unit",
-          "token": "Grot Oiler",
-          "count": 1
         }
       }
     }

@@ -44,32 +44,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-model",
-        "actor": "controlling-player",
-        "trigger": {
-          "phase": "shooting",
-          "turn": "own",
-          "event": "after-this-model-shot"
-        },
-        "selection": {
-          "side": "enemy",
-          "entity": "unit",
-          "count": 1,
-          "minHitsFromThisModel": 1,
-          "limit": {
+        "detail": {
+          "source": "this-model",
+          "actor": "controlling-player",
+          "trigger": {
+            "phase": "shooting",
+            "turn": "own",
+            "event": "after-this-model-shot"
+          },
+          "selection": {
+            "side": "enemy",
+            "entity": "unit",
             "count": 1,
-            "period": "turn",
-            "scope": "affected-enemy-unit"
+            "minHitsFromThisModel": 1,
+            "limit": {
+              "count": 1,
+              "period": "turn",
+              "scope": "affected-enemy-unit"
+            }
+          },
+          "duration": "through-end-of-turn",
+          "effect": {
+            "actor": "model-in-friendly-TYRANIDS-unit",
+            "trigger": "each-melee-attack-targeting-selection",
+            "characteristic": "armour-penetration",
+            "modifier": 1
           }
-        },
-        "duration": "through-end-of-turn",
-        "effect": {
-          "actor": "model-in-friendly-TYRANIDS-unit",
-          "trigger": "each-melee-attack-targeting-selection",
-          "characteristic": "armour-penetration",
-          "modifier": 1
         }
       }
     }

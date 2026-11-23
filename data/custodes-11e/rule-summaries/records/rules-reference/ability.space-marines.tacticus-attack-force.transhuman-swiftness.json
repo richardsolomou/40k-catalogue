@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Tacticus Attack Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Spend 1 CP in any Fight phase once an enemy unit has finished fighting, picking one of your TACTICUS units in range of an objective that can still fight. It gains Fights First, and you must pick it as the next unit to fight.",
     "citations": [
       {
@@ -25,10 +31,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-fought"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "TACTICUS"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Tacticus Attack Force",
           "trigger": {
             "windows": [

@@ -36,37 +36,40 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "owner": "Venerable Contemptor Dreadnought",
-        "clauses": [
-          {
-            "trigger": {
-              "event": "this-model-destroyed",
-              "occurrence": "first"
+        "detail": {
+          "owner": "Venerable Contemptor Dreadnought",
+          "clauses": [
+            {
+              "trigger": {
+                "event": "this-model-destroyed",
+                "occurrence": "first"
+              },
+              "effect": {
+                "removeFromPlay": true,
+                "resolveDeadlyDemise": false
+              }
             },
-            "effect": {
-              "removeFromPlay": true,
-              "resolveDeadlyDemise": false
+            {
+              "trigger": {
+                "at": "end-of-that-phase"
+              },
+              "roll": {
+                "dice": "D6",
+                "count": 1,
+                "successThreshold": "2+"
+              },
+              "onSuccess": {
+                "setBackUp": true,
+                "placement": "as-close-as-possible-to-destruction-point",
+                "notWithinEngagementRangeOf": "any-enemy-unit",
+                "woundsRemaining": "D6"
+              }
             }
-          },
-          {
-            "trigger": {
-              "at": "end-of-that-phase"
-            },
-            "roll": {
-              "dice": "D6",
-              "count": 1,
-              "successThreshold": "2+"
-            },
-            "onSuccess": {
-              "setBackUp": true,
-              "placement": "as-close-as-possible-to-destruction-point",
-              "notWithinEngagementRangeOf": "any-enemy-unit",
-              "woundsRemaining": "D6"
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

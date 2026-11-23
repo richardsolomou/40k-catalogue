@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Medusa's Wrath",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Spend 1 CP in your Shooting phase or in either player's Fight phase as one of your ADEPTUS ASTARTES units is picked to attack; that unit is the target. Its attacks gain [SUSTAINED HITS 1]. If that unit is itself a VEHICLE unit, its attacks also get +1 to Wound rolls, at no extra CP.",
     "summarySpans": [
       {
@@ -35,10 +42,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-attack"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Medusa's Wrath",
           "trigger": {
             "windows": [

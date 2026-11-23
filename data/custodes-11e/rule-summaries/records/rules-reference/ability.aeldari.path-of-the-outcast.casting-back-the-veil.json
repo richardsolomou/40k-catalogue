@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Path of the Outcast",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "Spend 1 CP in your Shooting phase once one of your RANGERS or SHROUD RUNNERS units has shot; that unit is the target. Choose one enemy unit those ranged attacks hit: its detection range is increased by 6\" for the rest of that phase.",
     "citations": [
       {
@@ -25,10 +31,33 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "RANGERS"
+                ]
+              },
+              {
+                "keywords": [
+                  "SHROUD RUNNERS"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Path of the Outcast",
           "windows": [
             {

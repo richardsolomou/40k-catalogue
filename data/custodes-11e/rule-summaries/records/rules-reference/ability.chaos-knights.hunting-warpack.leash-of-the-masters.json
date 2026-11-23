@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Hunting Warpack",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "1 CP, used during your Shooting phase once one of your WAR DOG units has finished shooting; that unit is the target. Those attacks leave it still able to start an action.",
     "citations": [
       {
@@ -25,12 +31,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "WAR DOG"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Hunting Warpack",
-          "category": null,
           "trigger": {
             "turn": "own",
             "phases": [

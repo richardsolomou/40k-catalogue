@@ -62,43 +62,48 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "Warpsmith"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "allow-rerolls",
-            "recipient": "bearer unit",
-            "trigger": "unit uses Dark Pacts",
-            "rolls": [
-              "Leadership rolls"
-            ],
-            "optional": true
-          },
-          {
-            "operation": "heal-wounds",
-            "recipient": "bearer unit",
-            "trigger": {
-              "phase": "Shooting",
-              "at": "after bearer unit shoots",
-              "side": "you",
-              "used": "Dark Pacts",
-              "minimumEnemyModelsDestroyed": 1,
-              "by": "those shooting attacks"
-            },
-            "wounds": 3
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "WARPSMITH"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer unit",
+              "trigger": "unit uses Dark Pacts",
+              "rolls": [
+                "Leadership rolls"
+              ],
+              "optional": true,
+              "kind": "allow-rerolls"
+            },
+            {
+              "recipient": "bearer unit",
+              "trigger": {
+                "phase": "Shooting",
+                "at": "after bearer unit shoots",
+                "side": "you",
+                "used": "Dark Pacts",
+                "minimumEnemyModelsDestroyed": 1,
+                "by": "those shooting attacks"
+              },
+              "wounds": 3,
+              "kind": "heal-wounds"
+            }
+          ]
+        }
       }
     }
   }

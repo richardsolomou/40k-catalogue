@@ -31,46 +31,49 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-model",
-        "actor": "controlling-player",
-        "trigger": {
-          "phase": "command",
-          "turn": "own"
-        },
-        "selection": {
-          "side": "friendly",
-          "entity": "unit",
-          "allKeywords": [
-            "WRAITH"
-          ],
-          "measure": "within",
-          "origin": "this-model",
-          "rangeInches": 6,
-          "count": 1,
-          "optional": false,
-          "limit": {
+        "detail": {
+          "source": "this-model",
+          "actor": "controlling-player",
+          "trigger": {
+            "phase": "command",
+            "turn": "own"
+          },
+          "selection": {
+            "side": "friendly",
+            "entity": "unit",
+            "allKeywords": [
+              "WRAITH"
+            ],
+            "measure": "within",
+            "origin": "this-model",
+            "rangeInches": 6,
             "count": 1,
-            "period": "turn",
-            "scope": "selected-unit"
-          }
-        },
-        "branches": [
-          {
-            "condition": "selected-unit-has-destroyed-model",
-            "effect": {
-              "returnDestroyedModels": 1
+            "optional": false,
+            "limit": {
+              "count": 1,
+              "period": "turn",
+              "scope": "selected-unit"
             }
           },
-          {
-            "condition": "otherwise",
-            "effect": {
-              "recipient": "one-model-in-selected-unit",
-              "healLostWoundsUpTo": "D3"
+          "branches": [
+            {
+              "condition": "selected-unit-has-destroyed-model",
+              "effect": {
+                "returnDestroyedModels": 1
+              }
+            },
+            {
+              "condition": "otherwise",
+              "effect": {
+                "recipient": "one-model-in-selected-unit",
+                "healLostWoundsUpTo": "D3"
+              }
             }
-          }
-        ]
+          ]
+        }
       }
     }
   }

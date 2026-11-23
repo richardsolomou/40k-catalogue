@@ -64,39 +64,42 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "wargear-bearer",
-        "trigger": {
-          "event": "target-with-stratagem",
-          "actor": "controlling-player",
-          "recipient": "bearers-unit",
-          "frequency": "each-occurrence"
-        },
-        "roll": {
-          "dice": {
-            "count": 1,
-            "sides": 6
+        "detail": {
+          "source": "wargear-bearer",
+          "trigger": {
+            "event": "target-with-stratagem",
+            "actor": "controlling-player",
+            "recipient": "bearers-unit",
+            "frequency": "each-occurrence"
           },
-          "modifier": {
-            "operation": "add",
+          "roll": {
+            "dice": {
+              "count": 1,
+              "sides": 6
+            },
+            "modifier": {
+              "operation": "add",
+              "amount": 1,
+              "condition": {
+                "minimumCount": 1,
+                "side": "friendly",
+                "entity": "model",
+                "keyword": "OFFICER",
+                "comparison": "within",
+                "distanceInches": 6,
+                "origin": "bearers-unit"
+              }
+            },
+            "successMinimum": 5
+          },
+          "effect": {
+            "recipient": "controlling-player",
             "amount": 1,
-            "condition": {
-              "minimumCount": 1,
-              "side": "friendly",
-              "entity": "model",
-              "keyword": "OFFICER",
-              "comparison": "within",
-              "distanceInches": 6,
-              "origin": "bearers-unit"
-            }
-          },
-          "successMinimum": 5
-        },
-        "effect": {
-          "recipient": "controlling-player",
-          "operation": "gain-command-points",
-          "amount": 1
+            "kind": "gain-command-points"
+          }
         }
       }
     }

@@ -11,7 +11,7 @@ The [example profiles](../fixtures/datasheet-profiles/README.md) show how these 
 | `unit-profile` | `unit`, optional `models`, the unit characteristics, optional `gaps` | One stat line. With neither `models` nor a model gap, it describes every model of the unit. |
 | `weapon-profile` | `unit`, `wargear`, the weapon characteristics, optional `keywords` and `gaps` | One stat line of a weapon as this unit's datasheet prints it. A weapon with several modes has one profile per mode, all naming the same `wargear`. |
 | `attachment` | `unit`, optional `leads`, `supports` and `gaps` | The units this unit may join as a Leader (`leads`) or as a support attachment (`supports`). |
-| `transport-profile` | `unit`, `capacity` or a capacity gap | The transport's alternative loads, passenger allowances, exceptions and equipment-dependent capacities. |
+| `transport-profile` | `unit`, `capacity` or a capacity gap, optional `firingDeck` | The transport's alternative loads, passenger allowances, exceptions and equipment-dependent capacities, and its Firing Deck. |
 
 A stat line's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two datasheets can print different stat lines for wargear with the same ID. An attachment or transport profile uses its unit's ID.
 
@@ -38,6 +38,8 @@ Unit profiles must state `movement`, `toughness`, `save`, `wounds`, `leadership`
 Each `loads` entry is one way to load the transport. Each consists of one or more pools, and eligible passengers may occupy those pools at the same time. A pool gives its `limit`, whether it `count`s models or units, its `selectors` and an optional `maxWounds`. A selector is a keyword or a phrase formed by consecutive keywords. A passenger can match any selector in the list.
 
 An `excluded` entry refuses a passenger matching its selectors unless an `except` selector also matches. `space` sets the number of places a matching model takes. Use the first matching entry and one place by default. The optional `moreWoundsThan` threshold is strict. If the transport carries a `whenEquipped` wargear item, that item's pool replaces the first pool of the first load. Multiple active replacements need a ruling before the capacity can be evaluated.
+
+`firingDeck` gives the number of embarked models that can shoot from the transport, where its datasheet has Firing Deck.
 
 Use a `capacity` gap when the complete transport capacity cannot be represented or an equipment condition cannot be joined. Deployment abilities such as splitting a unit before it embarks need separate mechanics records.
 
@@ -68,7 +70,7 @@ Profiles follow the [identity rules](catalogue-identity.md). A characteristic ch
 
 ## MFM 1.6
 
-The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds a `profiles` category built from the official app's data build: a unit profile for each distinct stat line of every datasheet outside Combat Patrol, and a weapon profile for each profile of every weapon a unit carries or may take. Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, and their weapon profiles name no wargear yet (a `wargear` `no-target` gap). The input's README gives the counts and every gap.
+The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds a `profiles` category built from the official app's data build: a unit profile for each distinct stat line of every datasheet outside Combat Patrol, a weapon profile for each profile of every weapon a unit carries or may take, attachments, and a transport profile for each transport, with its capacity typed from the app's Transport rule and its Firing Deck. Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs; a weapon profile names its wargear wherever the sheet's loadout is typed. The input's README gives the counts and every gap.
 
 ## Rehearsal
 

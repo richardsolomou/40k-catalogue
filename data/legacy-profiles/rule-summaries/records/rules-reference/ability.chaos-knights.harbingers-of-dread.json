@@ -1,0 +1,209 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.harbingers-of-dread",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "For a CHAOS KNIGHTS Army Faction, your units begin with Deathly Terror (Aura). At the start of rounds 1, 3 and 5, you may pick one Dread ability or roll two D6 for abilities 1–6. Unlock both rolled results. Duplicates give no extra effect and a choice cannot repeat a selected ability. Unlocked abilities stack and last the battle. Deathly Terror and 1 Despair (Aura) each worsen enemy Leadership by 1 in range of a bearer at 9″. Despair adds to Deathly Terror. 2 Doom gives the bearer +1 to wound Battle-shocked targets. 3 Darkness gives the bearer Stealth. 4 Dismay (Aura) applies in the opponent’s Command phase, during their Battle-shock step. Test for Battle-shock on each enemy below Starting Strength within 9″ of the bearer. Under 5 Delirium (Aura), a failed Battle-shock test costs an enemy D3 mortal wounds if that enemy is below Half-strength and within the bearer’s 9″ radius. 6 Dominion extends the bearer’s Auras by 3″.",
+    "summarySpans": [
+      {
+        "start": 6,
+        "end": 19,
+        "bold": true
+      },
+      {
+        "start": 56,
+        "end": 77,
+        "bold": true
+      },
+      {
+        "start": 353,
+        "end": 367,
+        "bold": true
+      },
+      {
+        "start": 464,
+        "end": 468,
+        "bold": true
+      },
+      {
+        "start": 498,
+        "end": 512,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 524,
+        "end": 532,
+        "bold": true
+      },
+      {
+        "start": 550,
+        "end": 557,
+        "target": {
+          "kind": "core-ability",
+          "id": "stealth"
+        }
+      },
+      {
+        "start": 561,
+        "end": 574,
+        "bold": true
+      },
+      {
+        "start": 601,
+        "end": 614,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 629,
+        "end": 646,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock-step"
+        }
+      },
+      {
+        "start": 741,
+        "end": 756,
+        "bold": true
+      },
+      {
+        "start": 767,
+        "end": 784,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 803,
+        "end": 816,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 891,
+        "end": 899,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "cumulative-ability-unlocks",
+        "armyFaction": "CHAOS KNIGHTS",
+        "recipients": "friendly-units",
+        "baseline": "Deathly Terror",
+        "at": "battle-start",
+        "unlock": {
+          "optional": true,
+          "at": "battle-round-start",
+          "rounds": [
+            1,
+            3,
+            5
+          ],
+          "choose": {
+            "count": 1,
+            "cannotRepeat": true
+          },
+          "orRoll": {
+            "dice": "D6",
+            "count": 2,
+            "retainBoth": true,
+            "duplicateAdditionalEffect": false
+          }
+        },
+        "duration": "battle",
+        "cumulative": true,
+        "options": [
+          {
+            "name": "Deathly Terror",
+            "face": null,
+            "emitter": "model",
+            "recipient": "enemy-unit",
+            "withinInches": 9,
+            "leadershipWorsen": 1
+          },
+          {
+            "name": "Despair",
+            "face": 1,
+            "emitter": "model",
+            "recipient": "enemy-unit",
+            "withinInches": 9,
+            "leadershipWorsen": 1,
+            "cumulativeWith": "Deathly Terror"
+          },
+          {
+            "name": "Doom",
+            "face": 2,
+            "subject": "model-attack",
+            "ifTargetBattleShocked": true,
+            "woundRollAdd": 1
+          },
+          {
+            "name": "Darkness",
+            "face": 3,
+            "subject": "model",
+            "grant": "stealth"
+          },
+          {
+            "name": "Dismay",
+            "face": 4,
+            "emitter": "model",
+            "recipient": "enemy-unit",
+            "withinInches": 9,
+            "belowStartingStrength": true,
+            "during": {
+              "owner": "opponent",
+              "phase": "command",
+              "step": "battle-shock"
+            },
+            "effect": "mandatory-battle-shock-test"
+          },
+          {
+            "name": "Delirium",
+            "face": 5,
+            "emitter": "model",
+            "recipient": "enemy-unit",
+            "withinInches": 9,
+            "belowHalfStrength": true,
+            "trigger": "failed-battle-shock-test",
+            "mortalWounds": "D3"
+          },
+          {
+            "name": "Dominion",
+            "face": 6,
+            "subject": "model",
+            "auraRangeAddInches": 3
+          }
+        ]
+      }
+    }
+  }
+}

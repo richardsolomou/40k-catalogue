@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.knight-tyrant.infernal-aegis",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Knight Tyrant",
+    "summary": "In this model’s 6″ aura, a friendly unit with WAR DOG receives the Benefit of Cover for each attack that targets it.",
+    "summarySpans": [
+      {
+        "start": 46,
+        "end": 53,
+        "bold": true
+      },
+      {
+        "start": 67,
+        "end": 83,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-model",
+        "aura": {
+          "emitter": {
+            "entity": "model",
+            "selector": "this-model"
+          },
+          "recipient": {
+            "side": "friendly",
+            "entity": "unit",
+            "allKeywords": [
+              "WAR DOG"
+            ],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-model",
+            "to": "recipient-unit",
+            "kind": "within",
+            "distanceInches": 6
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "benefit-of-cover",
+            "recipient": "recipient-unit",
+            "trigger": "attack-targets-recipient-unit",
+            "attackType": "any",
+            "duration": "triggering-attack"
+          }
+        ]
+      }
+    }
+  }
+}

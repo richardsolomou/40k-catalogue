@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.rukkatrukk-squigbuggies.squig-barrage",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Rukkatrukk Squigbuggies",
+    "summary": "After the Squigbuggies shoot in your Shooting phase, pick one enemy unit their Squig Launchas hit. Monsters and Vehicles are ineligible. The target becomes Covered in Squigs until your next turn starts. During that time, subtract 1 from Hit rolls for attacks made by the affected unit.",
+    "summarySpans": [
+      {
+        "start": 37,
+        "end": 51,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 237,
+        "end": 246,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "timing": {
+          "player": "own",
+          "phase": "Shooting",
+          "event": "after-owner-unit-shoots"
+        },
+        "selection": {
+          "side": "enemy",
+          "kind": "unit",
+          "count": 1,
+          "excludedKeywords": [
+            "MONSTER",
+            "VEHICLE"
+          ],
+          "requiredHit": {
+            "from": "owner-unit",
+            "weaponProfile": "Squig launcha"
+          }
+        },
+        "effect": {
+          "type": "apply-condition",
+          "subject": "selected-enemy-unit",
+          "condition": "Covered in Squigs",
+          "expires": {
+            "boundary": "start",
+            "player": "own",
+            "turn": "next"
+          },
+          "whileCondition": {
+            "type": "roll-modifier",
+            "roll": "Hit",
+            "delta": -1,
+            "appliesTo": "affected-unit-attacks"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.renegade-raiders.ruinous-raid",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Renegade Raiders",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP. Use it during your own Shooting phase or Fight phase on one of your HERETIC ASTARTES units that got out of a TRANSPORT earlier this turn and has neither shot nor fought yet this phase. For the rest of the phase, when its models attack a target that is in range of any objective marker, they may re-roll both the Hit roll and the Wound roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Renegade Raiders",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "own"
+              }
+            ],
+            "event": "phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "HERETIC ASTARTES"
+            ],
+            "disembarkedFromTransportThisTurn": true,
+            "notYetSelectedToShootOrFightThisPhase": true
+          },
+          "effects": [
+            {
+              "condition": "target-within-range-of-objective-marker",
+              "reroll": [
+                "hit",
+                "wound"
+              ]
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

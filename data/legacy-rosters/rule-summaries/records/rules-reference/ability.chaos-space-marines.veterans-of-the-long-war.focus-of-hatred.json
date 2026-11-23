@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.veterans-of-the-long-war.focus-of-hatred",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Veterans of the Long War",
+    "summary": "When your Command phase begins, pick one unit in your opponent's army as your focus of hatred. Until your next Command phase starts, attacks that your HERETIC ASTARTES models (other than DAMNED models) make against that unit may re-roll their Hit rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Veterans of the Long War",
+        "when": {
+          "phase": "command",
+          "turn": "own",
+          "timing": "start"
+        },
+        "select": {
+          "side": "enemy",
+          "count": 1,
+          "label": "focus of hatred"
+        },
+        "duration": "until-start-of-your-next-command-phase",
+        "effect": {
+          "attacker": {
+            "side": "friendly",
+            "scope": "model",
+            "keywordsAll": [
+              "HERETIC ASTARTES"
+            ],
+            "keywordsNone": [
+              "DAMNED"
+            ]
+          },
+          "condition": "target-is-focus-of-hatred",
+          "reroll": "hit"
+        }
+      }
+    }
+  }
+}

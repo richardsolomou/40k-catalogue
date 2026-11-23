@@ -1,0 +1,125 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.cohort-cybernetica.auto-divinatory-targeting",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Cohort Cybernetica",
+    "cp": 1,
+    "summary": "During the Command phase on your turn, pick an objective marker and nominate one friendly unit. The unit must be LEGIO CYBERNETICA or qualify as an ADEPTUS MECHANICUS VEHICLE. Set its ranged weapons to Ballistic Skill 3+ and grant them IGNORES COVER. Those weapons can aim only at units in reach of the nominated marker. All three changes expire when your next Command phase begins.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 24,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 236,
+        "end": 249,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "ignores-cover"
+        }
+      },
+      {
+        "start": 361,
+        "end": 374,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Cohort Cybernetica",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "selections": [
+              {
+                "bind": "chosen-unit",
+                "count": 1,
+                "controller": "friendly",
+                "entity": "unit",
+                "anyOf": [
+                  {
+                    "allKeywords": [
+                      "LEGIO CYBERNETICA"
+                    ]
+                  },
+                  {
+                    "allKeywords": [
+                      "ADEPTUS MECHANICUS",
+                      "VEHICLE"
+                    ]
+                  }
+                ]
+              },
+              {
+                "bind": "chosen-marker",
+                "count": 1,
+                "entity": "objective-marker"
+              }
+            ]
+          },
+          "duration": {
+            "until": "start-of-next-command-phase",
+            "player": "own"
+          },
+          "effects": [
+            {
+              "action": "set-characteristic",
+              "characteristic": "ballistic-skill",
+              "value": "3+",
+              "recipient": "ranged-weapons-of-models-in-chosen-unit"
+            },
+            {
+              "action": "grant-weapon-ability",
+              "ability": "ignores-cover",
+              "recipient": "ranged-weapons-of-models-in-chosen-unit"
+            },
+            {
+              "action": "restrict-weapon-targets",
+              "recipient": "ranged-weapons-of-models-in-chosen-unit",
+              "condition": {
+                "relation": "within-range-of",
+                "object": "chosen-marker",
+                "appliesTo": "target-unit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

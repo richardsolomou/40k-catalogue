@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.retaliation-cadre.grav-inhibitor-field",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Retaliation Cadre",
+    "cp": 1,
+    "summary": "1 CP, in the opposing player's Charge phase, right after an enemy unit declares a charge. Choose one of your T'AU EMPIRE BATTLESUIT units that the charge is targeting. The charging unit must test for Battle-shock at once, and you roll a D6 for each of its models; every 6 inflicts 1 mortal wound on it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Retaliation Cadre",
+          "when": [
+            {
+              "phase": "charge",
+              "turn": "opponent"
+            }
+          ],
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "T'AU EMPIRE",
+              "BATTLESUIT"
+            ],
+            "condition": "target-of-that-charge"
+          },
+          "effects": [
+            {
+              "kind": "force-battle-shock-test",
+              "on": "charging-unit",
+              "immediate": true
+            },
+            {
+              "kind": "roll-per-model",
+              "of": "charging-unit",
+              "roll": "D6",
+              "success": 6,
+              "perSuccess": {
+                "mortalWounds": 1
+              }
+            }
+          ],
+          "restrictions": [],
+          "trigger": "after-enemy-unit-declares-charge"
+        }
+      }
+    }
+  }
+}

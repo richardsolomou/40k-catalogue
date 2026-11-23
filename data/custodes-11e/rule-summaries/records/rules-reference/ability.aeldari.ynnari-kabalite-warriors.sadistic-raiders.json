@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.ynnari-kabalite-warriors.sadistic-raiders",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Ynnari Kabalite Warriors",
+    "summary": "As your Command Phase closes, check which markers you already control. Keep a marker in range of this unit, or one in range of the TRANSPORT this unit is riding in. Compare each player’s Level of Control at phase end. Retention ends for a marker when the opponent has the higher value there.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 131,
+        "end": 140,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "embarking"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "type": "sticky-objective",
+        "trigger": "end-of-your-command-phase",
+        "objective": "controlled-by-you",
+        "withinControlRange": {
+          "anyOf": [
+            "this-unit",
+            "transport-with-this-unit-embarked"
+          ]
+        },
+        "release": {
+          "timing": "end-of-a-phase",
+          "condition": "opponent-level-of-control-over-this-marker-greater-than-yours"
+        }
+      }
+    }
+  }
+}

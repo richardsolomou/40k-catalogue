@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.renegade-warband.undying-hatred",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Renegade Warband",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it in any Fight phase, as soon as an enemy unit has picked its targets, on one HERETIC ASTARTES unit of yours that was chosen as a target for at least one of those attacks. Until the phase ends, whenever one of your unit's models is destroyed while it has yet to fight this phase, roll a D6. On 4+, the model stays in play: it gets to fight once the enemy unit's attacks are all resolved, then is removed.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Renegade Warband",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-has-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "HERETIC ASTARTES"
+            ],
+            "wasSelectedAsTargetOfThatUnit": true
+          },
+          "effects": [
+            {
+              "when": "model-destroyed-before-fighting-this-phase",
+              "roll": "D6",
+              "success": "4+",
+              "onSuccess": "not-removed-fights-after-attacking-unit-then-removed"
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.legion-of-excess.sensory-excruciation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Legion of Excess",
+    "cp": 1,
+    "summary": "In your Command phase, spend 1 CP and select a LEGIONES DAEMONICA SLAANESH MONSTER from your force on the battlefield. Both players make Battle-shock tests for every unit of theirs on the battlefield inside your Shadow of Chaos. Units under Half-strength take a −1 on that roll. Normal Daemonic Manifestation can heal eligible friendly Daemons, who risk becoming Battle-shocked if they fail.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 47,
+        "end": 82,
+        "bold": true
+      },
+      {
+        "start": 137,
+        "end": 155,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 212,
+        "end": 227,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-daemons.the-shadow-of-chaos"
+        }
+      },
+      {
+        "start": 286,
+        "end": 308,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-daemons.the-shadow-of-chaos"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "phase": "command",
+            "turn": "your"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "onBattlefield": true,
+            "keywordsAllOf": [
+              "LEGIONES DAEMONICA",
+              "SLAANESH",
+              "MONSTER"
+            ]
+          },
+          "effects": [
+            {
+              "action": "take-test",
+              "test": "battle-shock",
+              "selector": {
+                "owner": "either",
+                "onBattlefield": true,
+                "region": "your-shadow-of-chaos"
+              },
+              "modifier": {
+                "value": -1,
+                "when": "tested-unit-below-half-strength"
+              }
+            }
+          ],
+          "designerNote": {
+            "applyNormalDaemonicManifestation": true,
+            "healingIsConditional": true,
+            "failureCanBattleShockFriendly": true,
+            "changesStartingStrength": false
+          }
+        }
+      }
+    }
+  }
+}

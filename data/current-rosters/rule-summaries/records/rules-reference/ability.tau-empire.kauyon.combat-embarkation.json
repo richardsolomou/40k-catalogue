@@ -1,0 +1,118 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.kauyon.combat-embarkation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Kauyon",
+    "cp": 1,
+    "summary": "In the opponent’s Charge phase, react right after an enemy declares a charge. Pick one of the targets with the T’AU EMPIRE INFANTRY keywords and choose a friendly TRANSPORT. The infantry embarks only if every model is within 3 inches of that transport and it has space for the whole unit.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 111,
+        "end": 131,
+        "bold": true
+      },
+      {
+        "start": 163,
+        "end": 172,
+        "bold": true
+      },
+      {
+        "start": 187,
+        "end": 194,
+        "target": {
+          "kind": "core-rule",
+          "id": "embarking"
+        }
+      },
+      {
+        "start": 242,
+        "end": 251,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-declares-charge",
+            "proximity": "immediate"
+          },
+          "target": {
+            "selections": [
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "T’AU EMPIRE INFANTRY"
+                ],
+                "selection": "one-of-trigger-charge-targets"
+              },
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "TRANSPORT"
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "kind": "embark",
+              "subject": "selected-infantry-unit",
+              "destination": "selected-transport"
+            }
+          ],
+          "type": "wargear",
+          "restrictions": {
+            "all": [
+              {
+                "eachModelWithinInches": 3,
+                "unit": "selected-infantry-unit",
+                "from": "selected-transport"
+              },
+              {
+                "requiresSufficientTransportCapacityFor": "whole-selected-infantry-unit"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

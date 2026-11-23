@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.lootas.dats-our-loot",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Lootas",
+    "summary": "You may re-roll natural 1s to hit with Lootas’ ranged attacks. Against a unit in range of an objective marker, any Hit result qualifies instead.",
+    "summarySpans": [
+      {
+        "start": 24,
+        "end": 26,
+        "bold": true
+      },
+      {
+        "start": 115,
+        "end": 125,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "attack",
+          "actor": "this-unit",
+          "mode": "ranged"
+        },
+        "effect": {
+          "operation": "re-roll",
+          "rolls": [
+            "hit"
+          ],
+          "optional": true,
+          "unmodifiedFace": 1
+        },
+        "override": {
+          "condition": {
+            "target": "enemy-unit-in-objective-marker-range"
+          },
+          "effect": {
+            "operation": "re-roll",
+            "rolls": [
+              "hit"
+            ],
+            "optional": true
+          }
+        }
+      }
+    }
+  }
+}

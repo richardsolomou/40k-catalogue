@@ -1,0 +1,120 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.bully-boyz.wimp-kickaz-upgrade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Bully Boyz",
+    "summary": "Unit eligibility — Nobz. An enemy unit chosen for a fall-back move must use desperate escape if it is engaged with the Nobz. If the Nobz are riled up, apply −1 to that enemy’s hazard rolls for the escape.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 23,
+        "bold": true
+      },
+      {
+        "start": 52,
+        "end": 66,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 76,
+        "end": 92,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "desperate-escape-2"
+        }
+      },
+      {
+        "start": 102,
+        "end": 109,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 119,
+        "end": 123,
+        "bold": true
+      },
+      {
+        "start": 132,
+        "end": 136,
+        "bold": true
+      },
+      {
+        "start": 141,
+        "end": 149,
+        "bold": true
+      },
+      {
+        "start": 176,
+        "end": 188,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hazard-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "unit",
+          "match": "all",
+          "keywords": [
+            "Nobz"
+          ],
+          "anyOf": [],
+          "excludes": [],
+          "equipment": null,
+          "characterOnly": false,
+          "equipableByNonCharacter": true
+        },
+        "trigger": "an enemy unit engaged with the upgrade unit is selected to make a fall-back move",
+        "effects": [
+          {
+            "recipient": "that enemy unit",
+            "operation": "force-move-mode",
+            "mode": "desperate escape"
+          },
+          {
+            "recipient": "that enemy unit",
+            "operation": "modify-roll",
+            "roll": "hazard rolls for that desperate escape",
+            "adjustment": {
+              "operation": "subtract",
+              "amount": 1
+            },
+            "condition": "upgrade unit riled up"
+          }
+        ]
+      }
+    }
+  }
+}

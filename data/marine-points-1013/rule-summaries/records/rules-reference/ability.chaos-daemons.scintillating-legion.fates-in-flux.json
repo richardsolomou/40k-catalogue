@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.scintillating-legion.fates-in-flux",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Scintillating Legion",
+    "summary": "Your initial pool holds three Flux tokens when battle begins. For your models and units with both the Legiones Daemonica and Tzeentch keywords, you may pay one token to reroll immediately after rolling an Advance, Hit, Wound, Damage, save or Hazardous test. Certain Stratagems also spend Flux tokens. Each spent token transfers from your pool to your opponent’s. The opponent can spend their tokens immediately after rolling an Advance, Hit, Wound or save for their own army, rerolling that result and returning a token to you. Ignore the opponent token procedure in a Fates In Flux mirror match. During your Command phase, gain one token if your opponent has any. When fast rolling, eligible individual rerolls are limited by the tokens available and how many you spend.",
+    "summarySpans": [
+      {
+        "start": 609,
+        "end": 622,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "start": {
+          "trigger": "battle-start",
+          "ownerTokens": 3
+        },
+        "ownerSpend": {
+          "timing": "immediately-after-roll",
+          "spend": 1,
+          "actor": "friendly-legiones-daemonica-tzeentch-model-or-unit",
+          "rolls": [
+            "advance",
+            "hit",
+            "wound",
+            "damage",
+            "saving-throw",
+            "hazardous-test"
+          ],
+          "effect": "reroll-result",
+          "otherUse": "enhance-supported-stratagems",
+          "giveOpponentPerTokenSpent": 1
+        },
+        "opponentSpend": {
+          "timing": "immediately-after-roll",
+          "spend": 1,
+          "actor": "opponent-model-or-unit",
+          "rolls": [
+            "advance",
+            "hit",
+            "wound",
+            "saving-throw"
+          ],
+          "effect": "reroll-result",
+          "giveOwnerPerTokenSpent": 1,
+          "ignoreIfOpponentUsesSameDetachmentRule": true
+        },
+        "income": {
+          "trigger": "own-command-phase",
+          "requiresOpponentTokensAtLeast": 1,
+          "gain": 1
+        },
+        "fastRoll": {
+          "spendAtMost": "available-tokens",
+          "rerollAtMost": "tokens-spent",
+          "timing": "after-batch-roll-or-saves"
+        }
+      }
+    }
+  }
+}

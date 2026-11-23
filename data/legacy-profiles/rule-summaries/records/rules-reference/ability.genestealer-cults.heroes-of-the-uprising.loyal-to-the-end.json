@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.heroes-of-the-uprising.loyal-to-the-end",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Genestealer Cults Faction Pack: Version 1.1",
+    "page": "2",
+    "url": "https://assets.warhammer-community.com/eng_22-07_warhammer_40,000_faction_pack_genestealer_cults-vmkwgeydbr-sh7picbeqo.pdf#page=2"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Heroes of the Uprising",
+    "cp": 1,
+    "summary": "When an enemy picks one of your Killer units as a Fight phase target, choose that unit. For each model it loses before it is selected to fight, roll a D6. On 1, remove the model and deal the attacker 1 mortal wound. On 2+, keep the model in play. Remove the model as soon as its unit finishes fighting. If it never does so, lift it when the phase closes.",
+    "summarySpans": [
+      {
+        "start": 32,
+        "end": 38,
+        "target": {
+          "kind": "ability",
+          "id": "genestealer-cults.heroes-of-the-uprising.killer-reputation"
+        }
+      },
+      {
+        "start": 50,
+        "end": 61,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 202,
+        "end": 214,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Genestealer Cults Faction Pack: Version 1.1",
+        "page": "2",
+        "url": "https://assets.warhammer-community.com/eng_22-07_warhammer_40,000_faction_pack_genestealer_cults-vmkwgeydbr-sh7picbeqo.pdf#page=2"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-friendly-attack-target"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Killer"
+            ],
+            "binding": "friendly-unit-chosen-for-trigger-attacks"
+          },
+          "effects": [
+            {
+              "action": "resolve-destroyed-model",
+              "actor": "destroyed-target-model",
+              "trigger": "model-destroyed-before-target-unit-selected-to-fight",
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1
+              },
+              "branches": [
+                {
+                  "result": 1,
+                  "removeModel": true,
+                  "recipient": "attacking-enemy-unit",
+                  "mortalWounds": 1
+                },
+                {
+                  "minimumRoll": 2,
+                  "delayRemoval": true,
+                  "removeWhen": "after-target-unit-fights-or-end-of-phase"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

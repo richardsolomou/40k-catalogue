@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.virulent-vectorium.putrid-detonation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Virulent Vectorium",
+    "cp": 1,
+    "summary": "In any phase, choose a friendly DEATH GUARD VEHICLE or MONSTER model with Deadly Demise immediately after it is destroyed. Its Deadly Demise inflicts Mortal Wounds automatically, with no D6 activation roll. Enemy units that take Mortal Wounds this way become Afflicted until your next turn begins.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Virulent Vectorium",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "after": "friendly-model-destroyed"
+          },
+          "target": {
+            "entity": "model",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "DEATH GUARD"
+            ],
+            "anyKeywords": [
+              "VEHICLE",
+              "MONSTER"
+            ],
+            "requiresAbility": "deadly-demise",
+            "eligibleImmediatelyAfterDestruction": true
+          },
+          "effects": [
+            {
+              "action": "resolve-deadly-demise-automatically",
+              "recipient": "destroyed-model",
+              "skipActivationDie": "D6"
+            },
+            {
+              "action": "mark-afflicted",
+              "recipient": "enemy-units-suffering-mortal-wounds-from-this-deadly-demise",
+              "until": "start-of-own-next-turn"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

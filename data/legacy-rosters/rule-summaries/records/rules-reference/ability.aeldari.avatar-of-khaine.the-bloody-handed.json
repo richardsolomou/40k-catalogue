@@ -1,0 +1,98 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.avatar-of-khaine.the-bloody-handed",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Avatar of Khaine",
+    "summary": "This model gives friendly AELDARI units in its 6″ aura +1 to each Advance or Charge roll.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 33,
+        "bold": true
+      },
+      {
+        "start": 66,
+        "end": 73,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 77,
+        "end": 83,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-model",
+        "aura": {
+          "emitter": {
+            "entity": "model",
+            "selector": "this-model"
+          },
+          "recipient": {
+            "side": "friendly",
+            "entity": "unit",
+            "allKeywords": [
+              "AELDARI"
+            ],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-model",
+            "to": "recipient-unit",
+            "kind": "within",
+            "distanceInches": 6
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "roll-modifier",
+            "recipient": "recipient-unit",
+            "roll": "advance",
+            "modifier": 1
+          },
+          {
+            "kind": "roll-modifier",
+            "recipient": "recipient-unit",
+            "roll": "charge",
+            "modifier": 1
+          }
+        ]
+      }
+    }
+  }
+}

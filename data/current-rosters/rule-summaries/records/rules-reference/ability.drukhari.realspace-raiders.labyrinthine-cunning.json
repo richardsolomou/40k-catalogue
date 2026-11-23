@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.realspace-raiders.labyrinthine-cunning",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Realspace Raiders",
+    "summary": "Eligible model — ARCHON. When your Command phase opens, a bearer on the battlefield gives you a choice. Pay one Pain token for 1CP or try for 1CP with a D6 result of 4+.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 23,
+        "bold": true
+      },
+      {
+        "start": 35,
+        "end": 48,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 112,
+        "end": 122,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "keywords": [
+            "ARCHON"
+          ],
+          "anyOf": [],
+          "equipment": null,
+          "excludes": [],
+          "characterOnly": true,
+          "equipableByNonCharacter": false
+        },
+        "effects": [
+          {
+            "operation": "choose-resource-option",
+            "recipient": "your CP pool",
+            "actor": "you",
+            "optional": true,
+            "timing": {
+              "phase": "Command",
+              "at": "start",
+              "side": "you"
+            },
+            "condition": "bearer on battlefield",
+            "selectCount": 1,
+            "options": [
+              {
+                "spend": {
+                  "amount": 1,
+                  "resource": "Pain token"
+                },
+                "gainCP": 1
+              },
+              {
+                "roll": {
+                  "count": 1,
+                  "sides": 6,
+                  "minimum": 4
+                },
+                "onSuccess": {
+                  "gainCP": 1
+                },
+                "onFailure": "no gain"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

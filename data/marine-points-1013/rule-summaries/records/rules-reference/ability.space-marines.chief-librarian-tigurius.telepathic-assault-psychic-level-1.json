@@ -1,0 +1,138 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.chief-librarian-tigurius.telepathic-assault-psychic-level-1",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Chief Librarian Tigurius",
+    "summary": "In your Shooting phase, Tigurius’s unit may make a psychic roll if it is free of battle-shock. Roll a D6. A 1 leaves his unit battle-shocked. Choose a visible enemy unit no farther than 24″ from it. That enemy takes 2D3 mortal wounds.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 51,
+        "end": 63,
+        "bold": true
+      },
+      {
+        "start": 102,
+        "end": 104,
+        "bold": true
+      },
+      {
+        "start": 108,
+        "end": 109,
+        "bold": true
+      },
+      {
+        "start": 126,
+        "end": 140,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 151,
+        "end": 158,
+        "bold": true
+      },
+      {
+        "start": 186,
+        "end": 189,
+        "bold": true
+      },
+      {
+        "start": 216,
+        "end": 219,
+        "bold": true
+      },
+      {
+        "start": 220,
+        "end": 233,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "role": "psychic-spell",
+        "psychicLevel": 1,
+        "trigger": {
+          "event": "phase",
+          "phase": "shooting",
+          "timing": "during",
+          "turn": "your-turn"
+        },
+        "condition": {
+          "recipient": "this-unit",
+          "not": "battle-shocked"
+        },
+        "optional": true,
+        "effect": {
+          "operation": "psychic-roll",
+          "dice": {
+            "count": 1,
+            "sides": 6,
+            "additive": 0
+          },
+          "sequence": [
+            {
+              "operation": "apply-condition",
+              "condition": "battle-shocked",
+              "recipient": "this-unit",
+              "onResult": 1
+            },
+            {
+              "operation": "select-and-inflict-mortal-wounds",
+              "target": {
+                "origin": "this-unit",
+                "comparison": "within",
+                "inclusive": true,
+                "distanceInches": 24,
+                "side": "enemy",
+                "scope": "unit",
+                "visibleTo": "this-unit",
+                "count": 1
+              },
+              "quantity": {
+                "count": 2,
+                "sides": 3,
+                "additive": 0
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

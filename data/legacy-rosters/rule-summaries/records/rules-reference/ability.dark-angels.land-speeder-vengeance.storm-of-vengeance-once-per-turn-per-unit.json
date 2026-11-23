@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.land-speeder-vengeance.storm-of-vengeance-once-per-turn-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Land Speeder Vengeance",
+    "summary": "When a Dark Angels ally is destroyed within a 6″ radius by an enemy unit, this unit may retaliate with Normal Shooting. The only eligible target is that enemy. This works once each turn during the opponent’s Shooting phase.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "bold": true
+      },
+      {
+        "start": 103,
+        "end": 118,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-shooting"
+        }
+      },
+      {
+        "start": 208,
+        "end": 222,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "opponent",
+          "event": "enemy-unit-destroys-friendly-unit",
+          "destroyedUnit": {
+            "allKeywords": [
+              "DARK ANGELS"
+            ],
+            "measure": "within",
+            "origin": "this-unit",
+            "rangeInches": 6
+          }
+        },
+        "limit": {
+          "count": 1,
+          "period": "turn",
+          "scope": "unit"
+        },
+        "effect": {
+          "action": "normal-shooting",
+          "optional": true,
+          "recipient": "this-unit",
+          "onlyTarget": "destroying-enemy-unit"
+        }
+      }
+    }
+  }
+}

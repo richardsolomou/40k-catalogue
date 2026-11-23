@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.wolf-guard-battle-leader.tempered-ferocity",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Wolf Guard Battle Leader",
+    "summary": "When the Wolf Guard Battle Leader’s unit attacks a foe up to 6″ away from it, those attacks gain [SUSTAINED HITS 1]. You may also re-roll their Hit results of 1.",
+    "summarySpans": [
+      {
+        "start": 61,
+        "end": 63,
+        "bold": true
+      },
+      {
+        "start": 97,
+        "end": 115,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 144,
+        "end": 147,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "trigger": {
+          "event": "attack",
+          "actor": "models-in-this-unit",
+          "mode": "any",
+          "targetSide": "enemy",
+          "range": {
+            "origin": "this-unit",
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 6,
+            "side": "enemy"
+          }
+        },
+        "effects": [
+          {
+            "operation": "grant-ability",
+            "label": "SUSTAINED HITS 1",
+            "recipient": "attacks"
+          },
+          {
+            "operation": "re-roll",
+            "roll": "hit",
+            "optional": true,
+            "unmodifiedFace": 1
+          }
+        ]
+      }
+    }
+  }
+}

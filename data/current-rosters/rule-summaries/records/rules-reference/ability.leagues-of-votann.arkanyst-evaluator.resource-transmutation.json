@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.arkanyst-evaluator.resource-transmutation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Arkanyst Evaluator",
+    "summary": "Once a turn when the Evaluator is selected to shoot in your Shooting phase, it can spend 1 Yield point. Its equipped ranged weapons gain Sustained Hits 1 through phase end. After the Evaluator shoots, if those attacks destroyed at least one enemy unit, you may gain up to 2 Yield points.",
+    "summarySpans": [
+      {
+        "start": 60,
+        "end": 74,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 137,
+        "end": 153,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "usage": {
+          "count": 1,
+          "period": "turn",
+          "optional": true
+        },
+        "trigger": {
+          "phase": "Shooting",
+          "side": "own",
+          "event": "owner model selected to shoot"
+        },
+        "cost": {
+          "YieldPoints": 1
+        },
+        "effects": [
+          {
+            "weapons": "owner equipped ranged",
+            "grant": {
+              "keyword": "Sustained Hits",
+              "value": 1
+            },
+            "duration": "end of phase"
+          },
+          {
+            "trigger": "owner finished shooting",
+            "condition": "one or more enemy units destroyed by those attacks",
+            "mayGainYieldPointsUpTo": 2
+          }
+        ]
+      }
+    }
+  }
+}

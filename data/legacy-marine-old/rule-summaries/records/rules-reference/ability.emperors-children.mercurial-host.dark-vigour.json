@@ -1,0 +1,142 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.mercurial-host.dark-vigour",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Mercurial Host",
+    "cp": 1,
+    "summary": "In the enemy Movement phase, react when an enemy unit completes a move of one of these types: Fall Back, Advance or Normal Move. Pick a friendly EMPEROR’S CHILDREN unit up to 8\" from it at move end. BEASTS and VEHICLES are ineligible. Your pick may make a Normal Move capped at 6\".",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 27,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 94,
+        "end": 103,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 105,
+        "end": 112,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 116,
+        "end": 127,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 145,
+        "end": 163,
+        "bold": true
+      },
+      {
+        "start": 199,
+        "end": 205,
+        "bold": true
+      },
+      {
+        "start": 210,
+        "end": 218,
+        "bold": true
+      },
+      {
+        "start": 256,
+        "end": 267,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-finishes-move",
+            "actor": "enemy-moving-unit",
+            "anyMove": [
+              "normal",
+              "advance",
+              "fall-back"
+            ]
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "EMPEROR’S CHILDREN"
+            ],
+            "excludingKeywords": [
+              "BEASTS",
+              "VEHICLES"
+            ],
+            "distance": {
+              "unit": "inch",
+              "amount": 8,
+              "comparator": "at-most",
+              "from": "triggering-enemy-after-move"
+            }
+          },
+          "effects": [
+            {
+              "kind": "optional-move",
+              "recipient": "target-unit",
+              "moveType": "normal",
+              "distanceCap": {
+                "unit": "inch",
+                "amount": 6,
+                "comparator": "at-most"
+              },
+              "duration": {
+                "until": "resolution"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.armoured-infantry.burst-of-speed",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Armoured Infantry",
+    "cp": 1,
+    "summary": "At Movement phase end on your turn, choose a friendly ASTRA MILITARUM unit. Exclude Reserves arrivals from that phase. The pick may make a Normal Move capped at D6 inches.",
+    "summarySpans": [
+      {
+        "start": 3,
+        "end": 17,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 54,
+        "end": 69,
+        "bold": true
+      },
+      {
+        "start": 139,
+        "end": 150,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ],
+            "event": "end-of-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ASTRA MILITARUM"
+            ],
+            "didNotArriveFromReserves": "this-phase"
+          },
+          "effects": [
+            {
+              "kind": "optional-move",
+              "recipient": "target-unit",
+              "moveType": "normal",
+              "distanceCap": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1,
+                "unit": "inch"
+              },
+              "duration": {
+                "until": "resolution"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

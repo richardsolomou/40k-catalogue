@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-chaos-knights.errata.knight-abominant-warp-storms-ability",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "publication": "Codex: Chaos Knights",
+    "amends": [
+      {
+        "kind": "unit",
+        "id": "chaos-knights.knight-abominant"
+      }
+    ],
+    "summary": "Warp Storms checks all enemies within 9″ of the Knight Abominant as your Movement phase ends. Give each such unit its own D6 roll. A result of 3+ deals D3 mortal wounds to that enemy.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 11,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-knights.knight-abominant.warp-storms"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "47cc2382-dce6-450a-9267-dd4160948007",
+          "typedMechanics": {
+            "operation": "replace-current-field",
+            "field": "description",
+            "componentQid": "ability:chaos-knights.knight-abominant.warp-storms",
+            "change": {
+              "trigger": {
+                "turn": "own",
+                "phase": "movement",
+                "window": "end"
+              },
+              "recipients": {
+                "entity": "unit",
+                "side": "enemy",
+                "maxDistanceInches": 9,
+                "rangeOrigin": "Knight Abominant"
+              },
+              "test": {
+                "per": "eligible-enemy-unit",
+                "dice": "D6",
+                "minimum": 3
+              },
+              "onPass": {
+                "mortalWounds": "D3",
+                "recipient": "tested-unit"
+              }
+            }
+          },
+          "statedValues": [
+            {
+              "role": "maximum-range-inches",
+              "value": 9
+            },
+            {
+              "role": "test-die-sides",
+              "value": 6
+            },
+            {
+              "role": "success-minimum",
+              "value": 3
+            },
+            {
+              "role": "mortal-wounds-die-sides",
+              "value": 3
+            }
+          ]
+        }
+      }
+    }
+  }
+}

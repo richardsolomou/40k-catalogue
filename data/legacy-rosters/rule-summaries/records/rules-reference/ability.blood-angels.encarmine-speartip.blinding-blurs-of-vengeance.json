@@ -1,0 +1,103 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.encarmine-speartip.blinding-blurs-of-vengeance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Encarmine Speartip",
+    "cp": 1,
+    "summary": "In the enemy Shooting phase, use this when your Sanguinary Guard unit is picked as a target. The Guard gains Stealth and its detection range decreases by 3\".",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 27,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 48,
+        "end": 64,
+        "bold": true
+      },
+      {
+        "start": 109,
+        "end": 116,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "stealth"
+        }
+      },
+      {
+        "start": 125,
+        "end": 140,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-targets-friendly-unit",
+            "actor": "enemy-unit",
+            "recipient": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Sanguinary Guard"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "unit-ability-grant",
+              "recipient": "target-unit",
+              "ability": "Stealth"
+            },
+            {
+              "kind": "modify",
+              "recipient": "target-unit",
+              "subject": "detection-range",
+              "operation": "subtract",
+              "amount": 3,
+              "unit": "inches"
+            }
+          ],
+          "duration": {
+            "explicit": false
+          }
+        }
+      }
+    }
+  }
+}

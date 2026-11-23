@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.rubricae-phalanx.unwavering-phalanx",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Rubricae Phalanx",
+    "cp": 1,
+    "summary": "In the opponent’s Charge phase, immediately after an enemy’s Charge move ends, pick a RUBRIC MARINES unit within its Engagement Range. Through the rest of the turn, attacks targeting that unit take -1 to wound if their Strength exceeds its Toughness.",
+    "summarySpans": [
+      {
+        "start": 16,
+        "end": 17,
+        "bold": true
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 59,
+        "end": 60,
+        "bold": true
+      },
+      {
+        "start": 86,
+        "end": 100,
+        "bold": true
+      },
+      {
+        "start": 117,
+        "end": 133,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "charge"
+            ],
+            "event": "enemy-unit-ends-charge-move",
+            "proximity": "immediate",
+            "window": {
+              "charge": "opponent"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "RUBRIC MARINES"
+            ],
+            "withinEngagementRangeOf": "triggering-enemy"
+          },
+          "effects": [
+            {
+              "kind": "modifier",
+              "subject": "attacks",
+              "characteristic": "wound-roll",
+              "delta": -1,
+              "conditions": {
+                "attacks": "against-selected-unit",
+                "comparison": {
+                  "left": "attack-strength",
+                  "operator": "greater-than",
+                  "right": "target-toughness"
+                }
+              }
+            }
+          ],
+          "duration": {
+            "until": "end-of-turn"
+          }
+        }
+      }
+    }
+  }
+}

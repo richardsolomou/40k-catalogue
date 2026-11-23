@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "deathwatch.black-spear-task-force.hellfire-rounds",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Black Spear Task Force",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Shooting phase as a KILL TEAM unit of yours is chosen to shoot; that unit is the target. Its ranged attacks gain [ANTI-non-VEHICLE 4+], except attacks that have [DEVASTATING WOUNDS].",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Black Spear Task Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-unit-selected-to-shoot"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "KILL TEAM"
+            ],
+            "sameAs": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "grant-weapon-ability",
+              "attackType": "ranged",
+              "ability": "ANTI",
+              "targetKeywordNot": "VEHICLE",
+              "value": "4+",
+              "excludesAttacksWith": "DEVASTATING WOUNDS"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

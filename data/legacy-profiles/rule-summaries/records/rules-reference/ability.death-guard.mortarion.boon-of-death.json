@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.mortarion.boon-of-death",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Mortarion",
+    "summary": "When he has Boon of Death, Mortarion can activate it in the Fight phase. The option triggers when an attack targets a friendly unit with the DEATH GUARD keyword up to 6″ from him. Until the phase ends, check each melee casualty in that unit that had yet to fight. Roll 1D6 per casualty. On 2+, keep the model in place. It may fight after the enemy resolves its attacks. Then remove the model.",
+    "summarySpans": [
+      {
+        "start": 60,
+        "end": 71,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 141,
+        "end": 152,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "Mortarion",
+        "requires": "Boon of Death active",
+        "trigger": {
+          "phase": "Fight phase",
+          "event": "attack targets friendly DEATH GUARD unit",
+          "withinInchesOfMortarion": 6
+        },
+        "optional": true,
+        "duration": "until end of that phase",
+        "effect": {
+          "eachRecipient": "model in targeted friendly DEATH GUARD unit",
+          "trigger": "destroyed by melee attack before fighting",
+          "roll": "one D6",
+          "success": "2+",
+          "successEffect": [
+            "delay removal",
+            "fight after attacking unit finishes its attacks",
+            "remove after fighting"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.covenite-coterie.poisoners-art",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Covenite Coterie",
+    "cp": 1,
+    "summary": "Spend 1 CP in the Fight phase of either turn right after one of your HAEMONCULUS COVENS units has fought; that unit is the target. Pick one enemy unit, other than a VEHICLE, that your unit hit with at least one attack this phase; it stays poisoned until the battle ends. As each Command phase begins, roll a D6 for every unit on the battlefield that is poisoned; each 4+ inflicts D3 mortal wounds on that unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Covenite Coterie",
+          "type": "Epic Deed",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "timing": "after-friendly-unit-has-fought",
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "sameAs": "triggering-unit",
+            "keywordsAll": [
+              "HAEMONCULUS COVENS"
+            ]
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsNone": [
+                  "VEHICLE"
+                ],
+                "hitByUnitThisPhase": {
+                  "minimum": 1
+                }
+              },
+              "state": "poisoned",
+              "duration": "end-of-battle"
+            }
+          ],
+          "poisoned": {
+            "when": {
+              "turn": "either",
+              "phase": "command",
+              "timing": "start-of-phase"
+            },
+            "roll": "D6",
+            "threshold": "4+",
+            "mortalWounds": "D3"
+          }
+        }
+      }
+    }
+  }
+}

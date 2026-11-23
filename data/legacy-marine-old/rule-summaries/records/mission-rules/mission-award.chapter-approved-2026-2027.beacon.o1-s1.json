@@ -1,0 +1,127 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-award",
+  "id": "chapter-approved-2026-2027.beacon.o1-s1",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "card": "secondary",
+    "vp": 3,
+    "summary": "Score at the earlier checkpoint, when your opponent’s turn ends or when round 5 ends. Collect 3 VP if your designated beacon unit is outside your deployment zone and is still on the battlefield. Use the highest qualifying award for this card.",
+    "summarySpans": [
+      {
+        "start": 72,
+        "end": 84,
+        "target": {
+          "kind": "core-rule",
+          "id": "end-of-battle-round"
+        }
+      },
+      {
+        "start": 94,
+        "end": 98,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 124,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "mission-player",
+        "windows": [
+          {
+            "at": "turn-end",
+            "turn": "opponent"
+          },
+          {
+            "at": "battle-round-end",
+            "rounds": {
+              "from": 5,
+              "to": 5
+            }
+          }
+        ],
+        "mode": "standard",
+        "vp": 3,
+        "awardCap": null,
+        "count": "once",
+        "cumulative": false,
+        "cardModes": [
+          "tactical"
+        ],
+        "exclusiveGroup": "50d30c48-79c2-400d-bcfa-ba9758ac39a3:standard",
+        "exclusivePolicy": "highest-qualifying-award-once",
+        "packScoringLimits": {
+          "perRound": 15,
+          "perBattle": 45,
+          "perFixedCard": 20
+        },
+        "windowPolicy": "first-occurring-window",
+        "criterion": {
+          "predicate": "designated-unit-position",
+          "designation": {
+            "timing": "when-drawn",
+            "actor": "drawing-player",
+            "mode": "required",
+            "selector": {
+              "kind": "unit",
+              "side": "friendly",
+              "count": 1,
+              "embarkedIn": {
+                "keyword": "TRANSPORT",
+                "position": "on-battlefield"
+              }
+            },
+            "effect": {
+              "kind": "designate-unit",
+              "status": "beacon",
+              "recipient": "drawing-player"
+            }
+          },
+          "requiredPosition": {
+            "onBattlefield": true,
+            "outside": {
+              "side": "mission-player",
+              "area": "deployment zone"
+            }
+          }
+        },
+        "exclusiveAwards": [
+          {
+            "qid": "mission-award:chapter-approved-2026-2027.beacon.o1-s1",
+            "vp": 3
+          },
+          {
+            "qid": "mission-award:chapter-approved-2026-2027.beacon.o1-s2",
+            "vp": 5
+          }
+        ],
+        "scoring": {
+          "type": "standard",
+          "cumulative": false,
+          "mutuallyExclusive": false
+        }
+      }
+    }
+  }
+}

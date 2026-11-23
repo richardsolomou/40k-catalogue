@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.realspace-raiders.crucible-of-malediction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Realspace Raiders",
+    "summary": "The bearer may invoke the enhancement once per battle. Use it in your Shooting phase. You may then pay 1 Pain token. Test for Battle-shock separately for each enemy unit no farther than 12″ from the bearer. Subtract 1 from those rolls if you paid. A PSYKER unit failing one of these tests suffers 3 mortal wounds.",
+    "summarySpans": [
+      {
+        "start": 70,
+        "end": 84,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 126,
+        "end": 138,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 250,
+        "end": 256,
+        "bold": true
+      },
+      {
+        "start": 299,
+        "end": 312,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "activation": {
+          "actor": "bearer",
+          "optional": true,
+          "phase": "shooting",
+          "turn": "own",
+          "usesPerBattle": 1
+        },
+        "optionalExpenditure": {
+          "timing": "after-activation-before-tests",
+          "actor": "enhancement-owner",
+          "resource": "Pain token",
+          "amount": 1
+        },
+        "test": {
+          "kind": "battle-shock",
+          "required": true,
+          "quantifier": "each",
+          "target": "enemy-unit",
+          "maxDistanceInches": 12,
+          "distanceFrom": "bearer",
+          "modifierIfExpenditure": -1
+        },
+        "onFailedTest": {
+          "target": "that-tested-unit",
+          "requiresUnitKeyword": "PSYKER",
+          "damage": {
+            "kind": "mortal-wounds",
+            "amount": 3
+          }
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Haemonculus"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

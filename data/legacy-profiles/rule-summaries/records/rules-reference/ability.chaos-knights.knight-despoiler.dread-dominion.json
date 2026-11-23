@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.knight-despoiler.dread-dominion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Knight Despoiler",
+    "summary": "Improve both Leadership and Objective Control by 1 for each friendly WAR DOG model in this model’s 9″ aura.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 23,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      },
+      {
+        "start": 69,
+        "end": 76,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-model",
+        "aura": {
+          "emitter": {
+            "entity": "model",
+            "selector": "this-model"
+          },
+          "recipient": {
+            "side": "friendly",
+            "entity": "model",
+            "allKeywords": [
+              "WAR DOG"
+            ],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-model",
+            "to": "recipient-model",
+            "kind": "within",
+            "distanceInches": 9
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "characteristic-modifier",
+            "recipient": "recipient-model",
+            "characteristic": "leadership",
+            "operation": "improve",
+            "amount": 1
+          },
+          {
+            "kind": "characteristic-modifier",
+            "recipient": "recipient-model",
+            "characteristic": "objective-control",
+            "operation": "improve",
+            "amount": 1
+          }
+        ]
+      }
+    }
+  }
+}

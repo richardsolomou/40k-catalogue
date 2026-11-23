@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "core.crushing-impact",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "core-stratagem",
+    "group": "Core",
+    "cp": 1,
+    "summary": "In your Charge phase, spend 1 CP right after a friendly MONSTER or VEHICLE finishes a Charge Move. Use that unit. First pick an enemy unit it engages, then choose one of your charging unit’s models that is engaged with that enemy. Roll D6s equal to the chosen model’s Toughness. Every 1 deals one Mortal Wound to your unit, and every 5+ deals one to the enemy. Cap the damage separately at six Mortal Wounds for each of the two units.",
+    "summarySpans": [
+      {
+        "start": 56,
+        "end": 63,
+        "bold": true
+      },
+      {
+        "start": 67,
+        "end": 74,
+        "bold": true
+      },
+      {
+        "start": 86,
+        "end": 97,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 297,
+        "end": 309,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "core-stratagem",
+        "name": "Crushing Impact",
+        "ruleNumber": "15.05",
+        "cost": {
+          "cp": 1
+        },
+        "when": {
+          "turn": "your",
+          "phase": "charge",
+          "point": "immediately-after-friendly-target-charge-move"
+        },
+        "target": {
+          "side": "friendly",
+          "count": 1,
+          "requiresAny": [
+            "MONSTER",
+            "VEHICLE"
+          ]
+        },
+        "effect": {
+          "enemyTarget": {
+            "count": 1,
+            "engagedWithStratagemTarget": true
+          },
+          "sourceModel": {
+            "inStratagemTarget": true,
+            "engagedWithSelectedEnemy": true,
+            "count": 1
+          },
+          "dice": {
+            "count": "source-model-toughness",
+            "sides": 6,
+            "friendlyMortalWoundPerExactRoll": 1,
+            "enemyMortalWoundPerRollAtLeast": 5,
+            "mortalWoundsPerQualifyingRoll": 1
+          },
+          "mortalWoundCap": {
+            "value": 6,
+            "appliesSeparatelyTo": [
+              "friendly",
+              "enemy"
+            ],
+            "includesRecoil": true
+          }
+        },
+        "secondaryEffect": null
+      }
+    }
+  }
+}

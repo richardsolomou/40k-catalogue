@@ -1,0 +1,95 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.painboss.push-dat-bit-back-in-once-per-battle-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Painboss",
+    "summary": "During your Command phase, choose a friendly Beast Snagga unit no farther than 6″ from this unit. The chosen unit heals 3 lost wounds. Put a Grot Orderly token beside this unit as a reminder, then take it away after the unit spends its one use for the battle.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 45,
+        "end": 57,
+        "bold": true
+      },
+      {
+        "start": 114,
+        "end": 119,
+        "bold": true
+      },
+      {
+        "start": 141,
+        "end": 153,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "limit": {
+          "count": 1,
+          "period": "battle",
+          "counterOwner": "source-unit",
+          "resetsAt": "new-battle"
+        },
+        "trigger": {
+          "phase": "command",
+          "turn": "own"
+        },
+        "selection": {
+          "side": "friendly",
+          "entity": "unit",
+          "keyword": "BEAST SNAGGA",
+          "count": 1,
+          "optional": false,
+          "measure": "within",
+          "rangeInches": 6,
+          "origin": "this-unit"
+        },
+        "effects": [
+          {
+            "recipient": "selected-unit",
+            "operation": "heal-lost-wounds",
+            "amount": 3
+          },
+          {
+            "operation": "remove-reminder-token",
+            "token": "Grot Orderly",
+            "owner": "this-unit"
+          }
+        ],
+        "setup": {
+          "operation": "place-reminder-token-beside-unit",
+          "token": "Grot Orderly",
+          "count": 1
+        }
+      }
+    }
+  }
+}

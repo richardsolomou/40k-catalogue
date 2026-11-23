@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.solar-spearhead.relentless-persecution",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Solar Spearhead",
+    "cp": 1,
+    "summary": "In your Movement phase, right after one of your ADEPTUS CUSTODES VEHICLE units Advances, spend 1 CP on it. For the rest of the turn it can shoot despite having Advanced; if it has the WALKER keyword, it can instead shoot and also declare a charge despite having Advanced.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 48,
+        "end": 72,
+        "bold": true
+      },
+      {
+        "start": 184,
+        "end": 190,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Solar Spearhead",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-unit-advanced"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES",
+              "VEHICLE"
+            ],
+            "sameAs": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "permission",
+              "actions": [
+                "shoot"
+              ],
+              "despite": "advanced",
+              "expires": "end-of-turn"
+            },
+            {
+              "kind": "permission",
+              "actions": [
+                "shoot",
+                "declare-charge"
+              ],
+              "despite": "advanced",
+              "replacesPrevious": true,
+              "condition": "unit-has-WALKER",
+              "expires": "end-of-turn"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.fellhammer-siege-host.point-blank-destruction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Fellhammer Siege-host",
+    "cp": 1,
+    "summary": "During your Shooting phase, choose a HERETIC ASTARTES unit that you’ve yet to select to shoot and that has at least one enemy in Engagement Range. It gains PISTOL on its ranged weapons until that phase ends.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 37,
+        "end": 53,
+        "bold": true
+      },
+      {
+        "start": 129,
+        "end": 145,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 156,
+        "end": 162,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "pistol"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "turn": "your",
+            "phases": [
+              "shooting"
+            ],
+            "event": "phase",
+            "window": {
+              "shooting": "your"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "HERETIC ASTARTES"
+            ],
+            "notSelectedToShoot": "this-phase",
+            "enemyUnits": {
+              "relation": "within-engagement-range",
+              "minimum": 1
+            }
+          },
+          "effects": [
+            {
+              "kind": "grant-ability",
+              "subject": "selected-unit-ranged-weapons",
+              "ability": "pistol"
+            }
+          ],
+          "duration": {
+            "until": "end-of-phase"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.kill-rig.warpath-psychic-level-1",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Kill Rig",
+    "summary": "In the Fight phase, you may roll a D6 for the Kill Rig’s Warpath once the Kill Rig’s unit has been selected to fight and is free of battle-shock. A result of 1 leaves the unit battle-shocked. Give its melee attacks LETHAL HITS and PSYCHIC.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 99,
+        "end": 116,
+        "bold": true
+      },
+      {
+        "start": 132,
+        "end": 144,
+        "bold": true
+      },
+      {
+        "start": 176,
+        "end": 190,
+        "bold": true
+      },
+      {
+        "start": 215,
+        "end": 226,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 231,
+        "end": 238,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "psychic"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "psychicLevel": 1,
+        "trigger": {
+          "phase": "fight",
+          "event": "owning-unit-selected-to-fight"
+        },
+        "actor": "owning-unit",
+        "optional": true,
+        "requires": {
+          "battleShocked": false
+        },
+        "psychicRoll": {
+          "dice": "D6",
+          "onNatural": {
+            "value": 1,
+            "effect": "owning-unit-becomes-battle-shocked"
+          }
+        },
+        "effect": {
+          "operation": "grant-weapon-abilities",
+          "attackType": "melee",
+          "actor": "owning-unit",
+          "abilityIds": [
+            "lethal-hits",
+            "psychic"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.lords-of-the-forge.scriptural-prognosis",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Lords of the Forge",
+    "cp": 1,
+    "summary": "Spend 1 CP in the opposing player's Shooting phase or in any Fight phase at the moment an enemy unit picks as a target one of your TECH-PRIEST units that is within an objective's range, which becomes the Stratagem's target. Until the enemy unit has made its attacks, attacks aimed at your unit suffer -1 AP, so their Armour Penetration is worsened by 1.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Lords of the Forge",
+          "category": null,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-targets-friendly-tech-priest-unit-within-range-of-objective"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "TECH-PRIEST"
+            ],
+            "condition": "within-range-of-objective",
+            "is": "that-unit"
+          },
+          "effects": [
+            {
+              "kind": "incoming-attack-modifier",
+              "characteristic": "AP",
+              "delta": -1,
+              "magnitude": 1,
+              "duration": "until-that-enemy-unit-has-attacked"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

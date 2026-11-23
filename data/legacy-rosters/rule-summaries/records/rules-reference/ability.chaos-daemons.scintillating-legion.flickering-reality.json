@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.scintillating-legion.flickering-reality",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Chaos Daemons Faction Pack: Version 1.0",
+    "page": "126",
+    "url": "https://assets.warhammer-community.com/eng_10-06_warhammer40000_faction_pack_chaos_daemons-kisvudjypt-uzk9pla0dk.pdf#page=126"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Scintillating Legion",
+    "cp": 1,
+    "summary": "Once an enemy has picked its targets in either Fight phase, select a friendly LEGIONES DAEMONICA TZEENTCH unit assigned at least one of those attacks. Roll a D6. You may spend 1 Flux to roll it again and take the new result. Through the rest of the phase, attacks directed at your unit fail if their final unmodified Hit roll, after rerolls, equals that number. This applies to hits that would be Critical Hits as well. For example, if the first D6 shows 2 and the Flux reroll gives 6, it is the 6 that defeats matching attacks.",
+    "summarySpans": [
+      {
+        "start": 47,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 78,
+        "end": 105,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Daemons Faction Pack: Version 1.0",
+        "page": "126",
+        "url": "https://assets.warhammer-community.com/eng_10-06_warhammer40000_faction_pack_chaos_daemons-kisvudjypt-uzk9pla0dk.pdf#page=126"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "cp": 1,
+        "window": {
+          "phase": "Fight",
+          "turn": "either",
+          "trigger": "after enemy chooses targets"
+        },
+        "target": {
+          "ownership": "friendly",
+          "count": 1,
+          "keyword": "LEGIONES DAEMONICA TZEENTCH",
+          "selectedByTriggeringEnemyAttack": true
+        },
+        "effect": {
+          "roll": "D6",
+          "optionalReroll": {
+            "resource": "Flux",
+            "cost": 1,
+            "useNewResult": true
+          },
+          "expiry": "phase end",
+          "attackScope": "every attack against the selected friendly unit",
+          "failurePredicate": {
+            "compare": "unmodified Hit roll after any attack rerolls",
+            "match": "final stratagem D6 face",
+            "overridesCriticalHits": true
+          },
+          "example": {
+            "firstRoll": 2,
+            "reroll": 6,
+            "effectiveFailingFace": 6
+          }
+        },
+        "restrictions": []
+      }
+    }
+  }
+}

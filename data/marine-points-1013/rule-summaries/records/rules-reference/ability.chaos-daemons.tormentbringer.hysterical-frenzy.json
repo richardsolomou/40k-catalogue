@@ -1,0 +1,49 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.tormentbringer.hysterical-frenzy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Tormentbringer",
+    "summary": "If a model in the Tormentbringer’s unit is destroyed before it has fought this phase, leave it on the battlefield. When the unit that attacked it is done with its attacks, that model may fight; afterwards, take it off the battlefield.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "model-destroyed",
+          "subject": "any model in this model’s unit"
+        },
+        "condition": {
+          "hasFoughtThisPhase": false
+        },
+        "effect": {
+          "delayRemoval": true,
+          "mayFight": {
+            "after": "attacking-unit-finishes-its-attacks"
+          },
+          "thenRemove": true
+        },
+        "authorityBoundary": {
+          "destructionWithoutAttackingUnit": "unspecified"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.pteraxii-skystalkers.ride-the-thermals",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Pteraxii Skystalkers",
+    "summary": "In your Shooting phase, once this unit has shot, and provided it is outside Engagement Range of every enemy unit, it may either move up to 6\" as a Normal move, or move up to 12\" as a Normal move if every one of its models finishes wholly inside 6\" of one of your ADEPTUS MECHANICUS BATTLELINE units. If it makes either move, it cannot declare a charge for the rest of the turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Pteraxii Skystalkers",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "after-unit-has-shot"
+        },
+        "condition": {
+          "notWithinEngagementRange": true
+        },
+        "optional": true,
+        "chooseOne": [
+          {
+            "kind": "normal-move",
+            "maxInches": 6
+          },
+          {
+            "kind": "normal-move",
+            "maxInches": 12,
+            "requires": {
+              "allModelsEndWhollyWithinInches": 6,
+              "of": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "ADEPTUS MECHANICUS",
+                  "BATTLELINE"
+                ]
+              }
+            }
+          }
+        ],
+        "afterwards": {
+          "cannotCharge": true,
+          "duration": "turn"
+        }
+      }
+    }
+  }
+}

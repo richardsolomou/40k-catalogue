@@ -1,0 +1,132 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.spearhead-at-arms.squires-of-the-hunt",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Spearhead-at-Arms",
+    "cp": 1,
+    "summary": "When the opponent’s Fight phase ends, choose a single Armiger of yours, or pick one of your Titanic Imperial Knights models together with at least one friendly Armiger currently under its Bondsman ability. Check the chosen Armigers individually. Transfer each to Strategic Reserves if its distance from a battlefield edge is 9″ or less and no enemy unit is within its Engagement Range.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 31,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 188,
+        "end": 196,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.bondsman"
+        }
+      },
+      {
+        "start": 263,
+        "end": 281,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 368,
+        "end": 384,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Spearhead-at-Arms",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "opponents"
+              }
+            ],
+            "event": "phase-end"
+          },
+          "target": {
+            "choice": "exclusive",
+            "branches": [
+              {
+                "entity": "model",
+                "controller": "friendly",
+                "count": 1,
+                "allKeywords": [
+                  "ARMIGER"
+                ]
+              },
+              {
+                "patron": {
+                  "entity": "model",
+                  "controller": "friendly",
+                  "count": 1,
+                  "allKeywords": [
+                    "IMPERIAL KNIGHTS",
+                    "TITANIC"
+                  ]
+                },
+                "dependants": {
+                  "entity": "model",
+                  "controller": "friendly",
+                  "minimumCount": 1,
+                  "allKeywords": [
+                    "ARMIGER"
+                  ],
+                  "condition": "affected-by-selected-patrons-bondsman-ability"
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "remove-from-battlefield-and-place-in-strategic-reserves",
+              "recipient": "each-selected-armiger-model",
+              "independentPerModel": true,
+              "conditions": [
+                {
+                  "distanceInches": 9,
+                  "from": "at-least-one-battlefield-edge",
+                  "boundary": "at-most"
+                },
+                {
+                  "condition": "outside-engagement-range",
+                  "against": "every-enemy-unit"
+                }
+              ]
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

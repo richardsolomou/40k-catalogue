@@ -1,0 +1,125 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.ceramite-sentinels.stand-to-the-end",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ceramite Sentinels",
+    "cp": 1,
+    "summary": "When an enemy targets your ADEPTUS ASTARTES unit in its Shooting phase or either Fight phase, incoming wound rolls take a -1 penalty if the attack’s Strength exceeds the defender’s Toughness or if the defender is entrenched.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 43,
+        "bold": true
+      },
+      {
+        "start": 56,
+        "end": 70,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 81,
+        "end": 92,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 103,
+        "end": 114,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 147,
+        "end": 148,
+        "bold": true
+      },
+      {
+        "start": 179,
+        "end": 180,
+        "bold": true
+      },
+      {
+        "start": 213,
+        "end": 223,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight",
+              "shooting"
+            ],
+            "event": "enemy-targets-selected",
+            "window": {
+              "shooting": "opponent",
+              "fight": "either"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "referencedByTrigger": true,
+            "sourceKeywordLabel": "ADEPTUS ASTARTES"
+          },
+          "effects": [
+            {
+              "kind": "modifier",
+              "subject": "attacks",
+              "characteristic": "wound-roll",
+              "delta": -1,
+              "conditions": {
+                "attacks": "against-selected-unit",
+                "anyOf": [
+                  {
+                    "comparison": {
+                      "left": "attack-strength",
+                      "operator": "greater-than",
+                      "right": "target-toughness"
+                    }
+                  },
+                  {
+                    "selectedUnitState": "entrenched"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

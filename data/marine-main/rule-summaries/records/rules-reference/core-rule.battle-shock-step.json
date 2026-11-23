@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "battle-shock-step",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "08. Command Phase",
+    "ruleNumber": "08.03",
+    "summary": "The active player checks each of their units that is already Battle-shocked or at half strength or lower. A successful step roll clears Battle-shock that was present when the step began. The default is one roll per unit during the step. An earlier compulsory roll replaces the ordinary check. An explicit exception can permit another roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "battle-shock-step",
+        "actor": "active-player",
+        "scope": "each-unit-in-actor-army",
+        "ordinaryRollIfAny": [
+          "currently-battle-shocked",
+          "at-or-below-half-strength"
+        ],
+        "successClears": {
+          "condition": "battle-shocked",
+          "ifPresentAt": "step-start"
+        },
+        "repeatRule": {
+          "period": "battle-shock-step",
+          "defaultMaximumPerUnit": 1,
+          "earlierCompulsoryRollSuppresses": "ordinary-strength-or-existing-battle-shock-roll",
+          "override": "explicit-rule"
+        },
+        "illustrations": [
+          {
+            "startingModels": 3,
+            "qualification": "already-battle-shocked",
+            "clearOnSuccess": true
+          },
+          {
+            "startingModels": 10,
+            "remainingModels": 5,
+            "qualification": "at-half-strength"
+          },
+          {
+            "startingModels": 5,
+            "remainingModels": 2,
+            "qualification": "below-half-strength"
+          },
+          {
+            "startingModels": 1,
+            "woundCharacteristic": 11,
+            "remainingWounds": 3,
+            "qualification": "below-half-strength"
+          }
+        ]
+      }
+    }
+  }
+}

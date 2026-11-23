@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.chaos-cult.desperate-devotion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Chaos Cult",
+    "summary": "Your Damned unit needs Dark Pacts to use a Desperate Pact. Offer the pact when you pick the unit to move normally, Advance or declare its charge. A unit is ineligible on the turn it comes out of Reserves. Take a Leadership test first. Failure makes the unit suffer D3 mortal wounds before resolving the pact. Through the rest of the phase, the unit’s models gain 2 inches of Move and the unit gets +2 on Charge rolls.",
+    "summarySpans": [
+      {
+        "start": 115,
+        "end": 122,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 268,
+        "end": 281,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "friendly-damned-unit-with-dark-pacts",
+        "trigger": [
+          "selected-for-normal-move",
+          "selected-for-advance-move",
+          "selected-to-declare-charge"
+        ],
+        "optional": true,
+        "exclude": "arrived-from-reserves-this-turn",
+        "test": {
+          "type": "leadership",
+          "when": "before-pact-effects",
+          "failure": {
+            "unit": "activating-unit",
+            "mortalWounds": "D3",
+            "when": "before-pact-effects"
+          }
+        },
+        "buff": {
+          "expires": "current-phase-end",
+          "modelMoveInches": 2,
+          "unitChargeRollModifier": 2
+        }
+      }
+    }
+  }
+}

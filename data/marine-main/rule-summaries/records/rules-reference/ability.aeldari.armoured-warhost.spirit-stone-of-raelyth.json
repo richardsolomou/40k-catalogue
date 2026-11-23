@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.armoured-warhost.spirit-stone-of-raelyth",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Armoured Warhost",
+    "summary": "Model eligibility — Aeldari Psyker. The bearer gains Lone Operative if a friendly unit with Aeldari Vehicle is within 3\". At either endpoint of the bearer’s unit move in your Movement phase, you may pick a friendly model with Aeldari Vehicle to heal D3 wounds. Measure the 3\" healing range from the bearer to that model.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 34,
+        "bold": true
+      },
+      {
+        "start": 53,
+        "end": 67,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "lone-operative"
+        }
+      },
+      {
+        "start": 92,
+        "end": 107,
+        "bold": true
+      },
+      {
+        "start": 175,
+        "end": 189,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 226,
+        "end": 241,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Aeldari Psyker"
+          ],
+          "anyOf": [],
+          "excludes": [],
+          "equipment": null,
+          "characterOnly": true,
+          "equipableByNonCharacter": false
+        },
+        "effects": [
+          {
+            "recipient": "bearer",
+            "operation": "grant-ability",
+            "ability": "Lone Operative",
+            "whileWithin": {
+              "inches": 3,
+              "of": "friendly Aeldari Vehicle unit"
+            }
+          },
+          {
+            "recipient": "chosen friendly Aeldari Vehicle model",
+            "operation": "heal",
+            "optional": true,
+            "actor": "controlling player",
+            "wounds": "D3",
+            "select": 1,
+            "rangeInches": 3,
+            "rangeFrom": "bearer",
+            "timing": {
+              "phase": "your Movement phase",
+              "event": "bearer unit moves",
+              "at": [
+                "start",
+                "end"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.warpforged-cabal.warpflame-gargoyles",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Warpforged Cabal",
+    "cp": 1,
+    "summary": "Wargear, 1 CP, used in the opposing player's Charge phase as soon as an enemy unit finishes a Charge move. Choose one of your THOUSAND SONS VEHICLE units that is in Engagement Range of the charging unit and roll six D6; every 5+ inflicts 1 mortal wound on the enemy unit, which then has to test for Battle-shock.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Warpforged Cabal",
+          "category": "Wargear",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "charge"
+            ],
+            "timing": "after-enemy-unit-ends-charge-move"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "THOUSAND SONS",
+              "VEHICLE"
+            ],
+            "inEngagementRangeOfThatEnemy": true
+          },
+          "effects": [
+            {
+              "kind": "roll-dice",
+              "dice": 6,
+              "die": "D6",
+              "success": "5+",
+              "perSuccess": {
+                "enemyMortalWounds": 1
+              },
+              "then": "enemy-battle-shock-test"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

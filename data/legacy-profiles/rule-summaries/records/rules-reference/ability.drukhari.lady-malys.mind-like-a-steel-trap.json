@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.lady-malys.mind-like-a-steel-trap",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Lady Malys",
+    "summary": "Each turn, you may add 1 CP to one use of an opposing Stratagem. It must target a unit from the opponent’s army no farther than 12″ from this model.",
+    "summarySpans": [
+      {
+        "start": 23,
+        "end": 27,
+        "bold": true
+      },
+      {
+        "start": 54,
+        "end": 63,
+        "target": {
+          "kind": "core-rule",
+          "id": "using-stratagems"
+        }
+      },
+      {
+        "start": 128,
+        "end": 131,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "limit": {
+          "count": 1,
+          "period": "turn",
+          "counterOwner": "source-ability"
+        },
+        "trigger": {
+          "actor": "opponent",
+          "event": "use-stratagem",
+          "target": {
+            "entity": "unit",
+            "army": "opponents-army",
+            "comparison": "within",
+            "distanceInches": 12,
+            "origin": "this-model"
+          }
+        },
+        "activation": {
+          "actor": "controlling-player",
+          "optional": true
+        },
+        "effect": {
+          "operation": "add",
+          "amount": 1,
+          "stat": "command-point-cost",
+          "recipient": "opponent",
+          "duration": "triggering-stratagem-use-only"
+        }
+      }
+    }
+  }
+}

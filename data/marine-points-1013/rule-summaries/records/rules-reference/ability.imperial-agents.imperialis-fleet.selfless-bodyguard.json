@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.imperialis-fleet.selfless-bodyguard",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Imperialis Fleet",
+    "cp": 1,
+    "summary": "When an enemy picks shooting or melee targets, choose an Attached unit among them with the AGENTS OF THE IMPERIUM keyword. Through phase end, roll D6 to intervene whenever Precision would assign an attack to its CHARACTER. On 2+, pick one of its Bodyguards to take the attack.",
+    "summarySpans": [
+      {
+        "start": 91,
+        "end": 113,
+        "bold": true
+      },
+      {
+        "start": 172,
+        "end": 181,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "precision"
+        }
+      },
+      {
+        "start": 212,
+        "end": 221,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "fight",
+              "shooting"
+            ],
+            "event": "enemy-unit-selected-attack-targets"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "AGENTS OF THE IMPERIUM"
+            ],
+            "attached": true,
+            "targetedBy": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "redirect-attack-allocation",
+              "condition": {
+                "attackAbility": "precision",
+                "allocatedTo": "character-in-selected-unit"
+              },
+              "roll": {
+                "dice": "D6",
+                "minimum": 2,
+                "comparison": "at-least"
+              },
+              "newRecipient": "chosen-bodyguard-model-in-selected-unit"
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

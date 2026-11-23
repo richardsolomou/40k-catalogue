@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.coronus-grav-carrier.fire-support",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Coronus Grav-carrier",
+    "summary": "During your Shooting phase, once this model has finished firing, choose an enemy unit that at least one of those attacks hit. For the rest of that phase, friendly models that got out of this TRANSPORT by disembarking earlier in the turn may re-roll their Wound rolls for attacks against the chosen unit.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 191,
+        "end": 200,
+        "bold": true
+      },
+      {
+        "start": 204,
+        "end": 216,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "disembarking"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Coronus Grav-carrier",
+        "clauses": [
+          {
+            "trigger": {
+              "turn": "own",
+              "phase": "shooting",
+              "event": "after-this-model-has-shot"
+            },
+            "selection": {
+              "relationship": "enemy",
+              "count": 1,
+              "condition": "hit by at least one of those attacks"
+            },
+            "effect": {
+              "appliesTo": "attacks by friendly models that disembarked from this TRANSPORT this turn, targeting the selected unit",
+              "reroll": {
+                "roll": "wound"
+              },
+              "optional": true,
+              "expires": "end-of-phase"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

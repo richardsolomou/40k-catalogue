@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.auric-champions.the-emperors-auspice",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Auric Champions",
+    "cp": 1,
+    "summary": "Spend 1 CP in the opposing Shooting phase or in either player's Fight phase, once an enemy unit picks its targets. Choose a single ADEPTUS CUSTODES CHARACTER unit of yours that the enemy aimed at least one attack at. While the phase lasts, the CHARACTER models in that unit gain Feel No Pain 4+.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 41,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 64,
+        "end": 75,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 131,
+        "end": 157,
+        "bold": true
+      },
+      {
+        "start": 244,
+        "end": 253,
+        "bold": true
+      },
+      {
+        "start": 279,
+        "end": 294,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Auric Champions",
+          "category": "Epic Deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES",
+              "CHARACTER"
+            ],
+            "condition": "selected-as-target-of-triggering-enemy-attack"
+          },
+          "effects": [
+            {
+              "kind": "grant-ability",
+              "ability": "FEEL NO PAIN",
+              "threshold": "4+",
+              "recipients": "CHARACTER models in target unit",
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

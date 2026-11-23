@@ -1,0 +1,185 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "pile-in-move",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "38",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=38"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "12. Fight Phase",
+    "ruleNumber": "12.03",
+    "summary": "A unit may make this move in the Fight Phase (12.00) when at least one of these holds:\n- it is engaged (Engagement (03.04));\n- it has completed a charge move during this turn (Charge Move (11.04));\n- it was chosen for an Overrun fight in this phase (Overrun Fight (12.06)).\nIt moves up to 3\", following Moving (03.00).\nFirst pick its pile-in targets. An engaged unit takes all enemy units engaged with it; any other unit takes at least one enemy unit that is within 5\" of it.\nDuring the move, any model touching an enemy model's base stays where it is. Each model that does move has to finish nearer to whichever pile-in target is nearest to it, ending engaged with that target where it can.\nOnce it finishes, the unit has to be engaged, and a model that was engaged with an enemy unit when the move began has to stay engaged with that same unit. Units are chosen for this move in the Pile In Step (12.02).",
+    "summarySpans": [
+      {
+        "start": 33,
+        "end": 52,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 104,
+        "end": 122,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 176,
+        "end": 195,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 250,
+        "end": 271,
+        "target": {
+          "kind": "core-rule",
+          "id": "overrun-fight"
+        }
+      },
+      {
+        "start": 303,
+        "end": 317,
+        "target": {
+          "kind": "core-rule",
+          "id": "moving"
+        }
+      },
+      {
+        "start": 885,
+        "end": 905,
+        "target": {
+          "kind": "core-rule",
+          "id": "pile-in-step"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "38",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=38"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "move-type",
+        "phase": "fight",
+        "chosenIn": "12.02",
+        "maximumDistanceInches": 3,
+        "eligibility": {
+          "context": "fight-phase",
+          "anyOf": [
+            {
+              "state": "engaged",
+              "rule": "03.04"
+            },
+            {
+              "state": "made-charge-move",
+              "window": "this-turn",
+              "rule": "11.04"
+            },
+            {
+              "state": "selected-for-overrun-fight",
+              "window": "this-phase",
+              "rule": "12.06"
+            }
+          ],
+          "notYetFoughtBar": null
+        },
+        "effect": {
+          "action": "move",
+          "procedure": "03.00"
+        },
+        "beforeMoving": {
+          "select": "pile-in-targets",
+          "cases": [
+            {
+              "order": 1,
+              "if": "unit-engaged",
+              "targets": "all-enemy-units-engaged-with-it"
+            },
+            {
+              "order": 2,
+              "otherwise": true,
+              "targets": {
+                "count": {
+                  "min": 1
+                },
+                "of": "enemy-units",
+                "within": {
+                  "inches": 5,
+                  "of": "your-unit"
+                }
+              }
+            }
+          ],
+          "ifNoEligibleTargets": null
+        },
+        "whileMoving": [
+          {
+            "order": 1,
+            "each": "model",
+            "if": "in-base-contact-with-enemy-model",
+            "cannotMove": true
+          },
+          {
+            "order": 2,
+            "each": "moved-model",
+            "must": "nearer-to-nearest-pile-in-target",
+            "ifAble": false
+          },
+          {
+            "order": 3,
+            "each": "moved-model",
+            "must": "engaged-with-nearest-pile-in-target",
+            "ifAble": true
+          }
+        ],
+        "afterMoving": [
+          {
+            "order": 1,
+            "unit": "must-be-engaged"
+          },
+          {
+            "order": 2,
+            "each": "model-engaged-at-move-start",
+            "keeps": "engagement-with-same-enemy-unit"
+          }
+        ],
+        "failureOutcomeStatedHere": false,
+        "selectionOrderStatedHere": false,
+        "printedFields": [
+          "maximumDistance",
+          "eligibleIf",
+          "effect",
+          "beforeMoving",
+          "whileMoving",
+          "afterMoving"
+        ],
+        "faq": "the p87 pass answer names a pile-in move; no FAQ entry changes 12.03"
+      }
+    }
+  }
+}

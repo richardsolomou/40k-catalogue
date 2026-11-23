@@ -1,0 +1,138 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.ordo-hereticus-purgation-force.execution-order",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ordo Hereticus, Purgation Force",
+    "cp": 2,
+    "summary": "In your Command phase, choose a friendly unit with ADEPTUS ARBITES, ORDO HERETICUS INFANTRY or INQUISITORIAL AGENTS. Mark a single enemy unit with CHARACTER. The friendly unit’s weapons gain [PRECISION] on attacks directed at that mark, which expires when your next Command phase begins.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 51,
+        "end": 66,
+        "bold": true
+      },
+      {
+        "start": 68,
+        "end": 91,
+        "bold": true
+      },
+      {
+        "start": 95,
+        "end": 115,
+        "bold": true
+      },
+      {
+        "start": 147,
+        "end": 156,
+        "bold": true
+      },
+      {
+        "start": 191,
+        "end": 202,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "precision"
+        }
+      },
+      {
+        "start": 266,
+        "end": 279,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "trigger": {
+            "windows": [
+              {
+                "turn": "your",
+                "phase": "command"
+              }
+            ]
+          },
+          "target": {
+            "chooseOneOf": [
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "ADEPTUS ARBITES"
+                ]
+              },
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "INQUISITORIAL AGENTS"
+                ]
+              },
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "ORDO HERETICUS INFANTRY"
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "kind": "select-unit",
+              "entity": "unit",
+              "result": "marked-enemy",
+              "count": 1,
+              "owner": "opponent",
+              "keywords": [
+                "CHARACTER"
+              ]
+            },
+            {
+              "kind": "grant-weapon-ability",
+              "subject": "weapons-of-models-in-selected-friendly-unit",
+              "ability": "precision",
+              "condition": {
+                "attackTarget": "marked-enemy"
+              },
+              "until": "start-of-your-next-command-phase"
+            }
+          ],
+          "type": "epic-deed"
+        }
+      }
+    }
+  }
+}

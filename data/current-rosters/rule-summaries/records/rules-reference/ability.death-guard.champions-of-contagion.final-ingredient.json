@@ -1,0 +1,82 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.champions-of-contagion.final-ingredient",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Champions of Contagion",
+    "summary": "The bearer’s unit gets one opportunity during the battle, after it fights. If its attacks killed any CHARACTER models, pick a Plague from Manifold Maladies. For the rest of the battle, any Afflicted enemy unit suffers the picked Plague alongside its other active Plagues.",
+    "summarySpans": [
+      {
+        "start": 126,
+        "end": 132,
+        "target": {
+          "kind": "ability",
+          "id": "death-guard.champions-of-contagion.manifold-maladies"
+        }
+      },
+      {
+        "start": 229,
+        "end": 235,
+        "target": {
+          "kind": "ability",
+          "id": "death-guard.champions-of-contagion.manifold-maladies"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "limit": {
+          "count": 1,
+          "period": "battle"
+        },
+        "trigger": {
+          "timing": "after",
+          "action": "fight",
+          "actor": "bearers-unit",
+          "gate": {
+            "event": "model-destroyed",
+            "modelKeyword": "CHARACTER",
+            "minimum": 1,
+            "cause": "attacks-made-in-that-fight"
+          }
+        },
+        "choice": {
+          "count": 1,
+          "from": "Manifold Maladies"
+        },
+        "effect": {
+          "recipient": "each-enemy-unit-while-Afflicted",
+          "plague": "selected",
+          "cumulativeWithOtherPlagues": true,
+          "ends": "battle-end"
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Biologus Putrifier"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.traitoris-lance.conquerors-without-mercy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Traitoris Lance",
+    "cp": 1,
+    "summary": "In the Fight phase, pick a CHAOS KNIGHTS model that charged this turn and is still waiting to be selected to fight. Improve its melee weapons’ AP by 1 through phase end. After it finishes attacking, if the model’s attacks destroyed any enemy units, test all enemies no farther than 6 inches from it for Battle-shock.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 27,
+        "end": 40,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight"
+            ],
+            "event": "phase-window"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "CHAOS KNIGHTS"
+            ],
+            "subject": "model",
+            "chargedThisTurn": true,
+            "notYetSelectedToFight": true
+          },
+          "effects": [
+            {
+              "kind": "improve-characteristic",
+              "characteristic": "armour-penetration",
+              "subject": "selected-model-melee-weapons",
+              "steps": 1
+            },
+            {
+              "kind": "require-battle-shock-test",
+              "subject": "each-enemy-unit-in-range",
+              "rangeInches": 6,
+              "from": "selected-model",
+              "condition": "selected-model-destroyed-one-or-more-enemy-units-with-its-attacks",
+              "after": "selected-model-finishes-attacks"
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.explorator-maniple.infoslave-skull",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Explorator Maniple",
+    "cp": 1,
+    "summary": "In your Command phase, pair a TECH-PRIEST model of yours with a marker up to 24″ away. Exclude your current Acquisition objective. Treat the new marker as a second Acquisition objective until your next Command phase begins.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 30,
+        "end": 41,
+        "bold": true
+      },
+      {
+        "start": 108,
+        "end": 129,
+        "target": {
+          "kind": "ability",
+          "id": "adeptus-mechanicus.explorator-maniple.acquisition-at-any-cost"
+        }
+      },
+      {
+        "start": 164,
+        "end": 185,
+        "target": {
+          "kind": "ability",
+          "id": "adeptus-mechanicus.explorator-maniple.acquisition-at-any-cost"
+        }
+      },
+      {
+        "start": 202,
+        "end": 215,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "wargear",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "all": [
+              {
+                "owner": "your-army",
+                "entity": "model",
+                "count": 1,
+                "keywords": [
+                  "TECH-PRIEST"
+                ],
+                "bind": "priest-model"
+              },
+              {
+                "owner": "battlefield",
+                "entity": "objective-marker",
+                "count": 1,
+                "bind": "additional-marker",
+                "distance": {
+                  "unit": "inch",
+                  "amount": 24,
+                  "fromEntity": "priest-model",
+                  "comparator": "at-most"
+                },
+                "excludedState": "current-acquisition-objective"
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "designate-extra-acquisition-objective",
+              "recipient": "additional-marker",
+              "owner": "your-army",
+              "preserveExisting": true,
+              "duration": {
+                "until": "start-of-your-next-command-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

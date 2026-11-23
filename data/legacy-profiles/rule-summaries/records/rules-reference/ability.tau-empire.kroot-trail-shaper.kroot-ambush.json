@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.kroot-trail-shaper.kroot-ambush",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Kroot Trail Shaper",
+    "summary": "When deployment is complete for both players, you may redeploy the unit containing this model together with one more friendly KROOT unit. Any participating unit may go into Strategic Reserves, even if you have already reached their unit limit.",
+    "summarySpans": [
+      {
+        "start": 126,
+        "end": 131,
+        "bold": true
+      },
+      {
+        "start": 173,
+        "end": 191,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "actor": "controlling-player",
+        "trigger": {
+          "event": "deployment-completed",
+          "by": "both-players"
+        },
+        "optional": true,
+        "effect": {
+          "action": "redeploy",
+          "selection": [
+            {
+              "entity": "unit",
+              "relation": "this-models-unit",
+              "count": 1
+            },
+            {
+              "entity": "unit",
+              "relation": "other",
+              "side": "friendly",
+              "keyword": "KROOT",
+              "count": 1
+            }
+          ],
+          "alternative": {
+            "action": "place-in-strategic-reserves",
+            "selection": "any-of-the-redeploying-units",
+            "optional": true,
+            "ignore": "number-of-units-already-in-strategic-reserves"
+          }
+        }
+      }
+    }
+  }
+}

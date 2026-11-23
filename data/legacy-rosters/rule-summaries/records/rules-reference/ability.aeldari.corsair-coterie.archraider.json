@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.corsair-coterie.archraider",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Corsair Coterie",
+    "summary": "Eligible unit — ANHRATHE CHARACTER. At battle start, give Lord of Deceit (Aura) to one CHARACTER model you choose from this unit. Once a turn you may charge your opponent 1 extra CP for a Stratagem use on one of their units no farther than 12\" from the chosen model.",
+    "summarySpans": [
+      {
+        "start": 16,
+        "end": 34,
+        "bold": true
+      },
+      {
+        "start": 58,
+        "end": 79,
+        "bold": true
+      },
+      {
+        "start": 87,
+        "end": 96,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "unit",
+          "keywords": [
+            "ANHRATHE",
+            "CHARACTER"
+          ],
+          "anyOf": [],
+          "equipment": null,
+          "excludes": [],
+          "characterOnly": false,
+          "equipableByNonCharacter": true
+        },
+        "effects": [
+          {
+            "operation": "grant-ability",
+            "recipient": "chosen CHARACTER model in bearer unit",
+            "actor": "you",
+            "timing": "start of the battle",
+            "select": {
+              "count": 1,
+              "keyword": "CHARACTER",
+              "fromUnit": "bearer unit"
+            },
+            "ability": "Lord of Deceit (Aura)",
+            "grantedEffect": {
+              "operation": "modify-stratagem-cost",
+              "recipient": "that use of the opposing Stratagem",
+              "actor": "you",
+              "optional": true,
+              "trigger": {
+                "actor": "opponent",
+                "event": "targets with a Stratagem",
+                "target": "unit from opponent’s army",
+                "distanceInches": 12,
+                "measuredFrom": "chosen CHARACTER model",
+                "comparison": "within"
+              },
+              "limit": {
+                "count": 1,
+                "period": "turn",
+                "sharedBy": "chosen CHARACTER model"
+              },
+              "stat": "CP",
+              "adjustment": {
+                "operation": "add",
+                "amount": 1
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.weirdboy.da-jump-psychic-level-1-once-per-army-per-battle-round",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Weirdboy",
+    "summary": "A psychic level 1 ability, usable once per battle round across your army. During your Movement phase, a Weirdboy unit that is not battle-shocked may make a psychic roll of one D6. If it does, a roll of 1 battle-shocks the unit, and regardless of the result the unit is placed into Strategic Reserves and gains Deep Strike.",
+    "summarySpans": [
+      {
+        "start": 86,
+        "end": 100,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 130,
+        "end": 144,
+        "bold": true
+      },
+      {
+        "start": 156,
+        "end": 168,
+        "bold": true
+      },
+      {
+        "start": 281,
+        "end": 299,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 310,
+        "end": 321,
+        "target": {
+          "kind": "core-ability",
+          "id": "deep-strike"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Weirdboy",
+        "clauses": [
+          {
+            "psychicLevel": 1,
+            "usage": {
+              "count": 1,
+              "per": "battle round",
+              "scope": "army"
+            },
+            "trigger": {
+              "turn": "own",
+              "phase": "movement"
+            },
+            "condition": {
+              "thisUnitBattleShocked": false
+            },
+            "optional": true,
+            "psychicRoll": {
+              "dice": "D6",
+              "count": 1
+            },
+            "outcomes": [
+              {
+                "onRoll": 1,
+                "effect": "this unit becomes battle-shocked"
+              }
+            ],
+            "effects": [
+              "place this unit in strategic reserves",
+              "this unit gains Deep Strike"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

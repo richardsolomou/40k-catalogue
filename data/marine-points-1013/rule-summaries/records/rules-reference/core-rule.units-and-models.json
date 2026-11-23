@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "units-and-models",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "01. Core Concepts",
+    "ruleNumber": "01.02",
+    "summary": "A unit acts together. Its opening model count sets Starting Strength, including attached models. Compare remaining wounds to W for a unit that started with one model. Otherwise compare the number of survivors with the opening count. Exactly half qualifies as Half-Strength. Splitting before battle resets each resulting unit’s count. A qualifying model can satisfy a unit descriptor. An effect that gives the unit a rule applies across its models.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "units-and-models",
+        "unit": {
+          "minimumModels": 1,
+          "actsTogether": [
+            "move",
+            "fight"
+          ],
+          "baseIsPartOfModel": true
+        },
+        "allegiance": {
+          "friendly": "own-army",
+          "enemy": "opponent-army",
+          "unqualified": "either-army"
+        },
+        "startingStrength": {
+          "value": "model-count",
+          "measuredAt": "opening-of-first-battle-round",
+          "includesAttachedModels": true,
+          "addedUnitMeasuredAt": "addition-to-army",
+          "splitBeforeBattleMeasuredPerResult": true
+        },
+        "strengthChecks": {
+          "startedWithOne": {
+            "current": "remaining-wounds",
+            "reference": "W"
+          },
+          "startedWithMoreThanOne": {
+            "current": "surviving-model-count",
+            "reference": "starting-strength"
+          },
+          "belowStarting": "< reference",
+          "atHalf": "= reference / 2",
+          "belowHalf": "< reference / 2"
+        },
+        "persistingEffects": {
+          "preservedThrough": [
+            "embarkation",
+            "strategic-reserves"
+          ],
+          "until": "stated-duration-ends",
+          "fallback": [
+            "during-specified-trigger-period",
+            "during-phase-of-application"
+          ]
+        },
+        "addingModels": {
+          "maximum": "starting-strength",
+          "reviveSource": "destroyed-model-of-unit",
+          "defaultEquipment": "battle-start-wargear-and-enhancements",
+          "defaultWounds": "full",
+          "coherencyWith": "unit-models-on-battlefield-at-phase-start",
+          "engagementLimitedTo": "enemy-units-already-engaging-this-unit",
+          "attachedLeaderOrSupport": "return-to-attached-unit-if-possible",
+          "embarkedUnit": {
+            "capacityFree": "return-embarked",
+            "capacityFull": "destroyed-without-destruction-triggers"
+          }
+        },
+        "offBattlefield": {
+          "when": [
+            "embarked",
+            "in-strategic-reserves"
+          ],
+          "measureToOtherUnits": false,
+          "visibilityBetweenUnits": false,
+          "rangeException": "own-abilities",
+          "army'sRulesStillApplyWhenEligible": true,
+          "commandPhaseBattleShockIf": [
+            "already-battle-shocked",
+            "at-or-below-half-strength"
+          ]
+        },
+        "identity": {
+          "other": "distinct-instance-even-if-same-datasheet",
+          "unquantifiedSingular": "one-or-more",
+          "allTypes": "either-army-any-keywords"
+        },
+        "splitting": {
+          "maySubdivideSameModelsOnce": true,
+          "tryEqualHalvesForTwo": true,
+          "recordComposition": true,
+          "impossibleSpecifiedSizes": "use-general-split-instruction"
+        },
+        "descriptor": {
+          "qualifiesIf": "at-least-one-qualifying-model",
+          "inheritsAcrossModelsOnlyWhen": "rule-confers-it-on-unit"
+        },
+        "tokens": {
+          "countAsModels": false,
+          "canRepositionToPermitMovement": true
+        }
+      }
+    }
+  }
+}

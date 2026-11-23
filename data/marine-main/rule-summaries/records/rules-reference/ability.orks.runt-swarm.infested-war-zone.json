@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.runt-swarm.infested-war-zone",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Runt Swarm",
+    "cp": 2,
+    "summary": "After an enemy unit attacks in any phase of either turn, choose one of your GRETCHIN units that just got wiped out. It remains eligible despite its destruction. Put a new copy into Strategic Reserves for your army, restoring its Starting Strength and all its wounds.",
+    "summarySpans": [
+      {
+        "start": 76,
+        "end": 84,
+        "bold": true
+      },
+      {
+        "start": 181,
+        "end": 199,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "after-unit-attacks",
+            "actingUnitOwner": "enemy"
+          },
+          "target": {
+            "owner": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "GRETCHIN"
+            ],
+            "state": "just-destroyed",
+            "allowDestroyedTarget": true
+          },
+          "effects": [
+            {
+              "action": "add-new-unit",
+              "owner": "your-army",
+              "copyOf": "destroyed-target-unit",
+              "location": "strategic-reserves",
+              "unitStrength": "starting-strength",
+              "remainingWounds": "full"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

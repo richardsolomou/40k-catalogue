@@ -1,0 +1,60 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.windrider-host.ride-the-wind",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Windrider Host",
+    "summary": "At Declare Battle Formations, your Mounted Asuryani and Vypers can begin in reserve. Set them up using Strategic Reserves arrival rules. For those arrivals, use the actual round plus one. When your opponent finishes their turn, you may pull units of those same two types from the board into Strategic Reserves. Exclude units engaged with an enemy. The pickup cap is one at Incursion, two at Strike Force or three at Onslaught. Your Windriders gain Battleline.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "start": {
+          "step": "declare-battle-formations",
+          "eligible": [
+            "friendly-asuryani-mounted",
+            "friendly-vyper"
+          ],
+          "placement": "reserves",
+          "arrivalMethod": "strategic-reserves",
+          "arrivalRoundAdjustment": 1
+        },
+        "return": {
+          "trigger": "opponent-turn-end",
+          "eligible": [
+            "friendly-asuryani-mounted",
+            "friendly-vyper"
+          ],
+          "exclude": "in-enemy-engagement-range",
+          "destination": "strategic-reserves",
+          "maxBySize": {
+            "incursion": 1,
+            "strike-force": 2,
+            "onslaught": 3
+          }
+        },
+        "keywordGrant": {
+          "unit": "friendly-windriders",
+          "keyword": "battleline"
+        }
+      }
+    }
+  }
+}

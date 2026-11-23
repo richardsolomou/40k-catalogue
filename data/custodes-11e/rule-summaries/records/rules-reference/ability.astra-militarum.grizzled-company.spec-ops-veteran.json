@@ -1,0 +1,89 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.grizzled-company.spec-ops-veteran",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Astra Militarum Faction Pack: Version 1.3",
+    "page": "9",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_astra_militarum-1hevkhdpmv-stfkch2tsz.pdf#page=9"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Grizzled Company",
+    "summary": "An ASTRA MILITARUM INFANTRY OFFICER may choose Move to the Shadows whenever issuing an Order. During each ranged attack targeting the ordered unit, its models gain Stealth through that attack’s resolution.",
+    "summarySpans": [
+      {
+        "start": 87,
+        "end": 92,
+        "target": {
+          "kind": "ability",
+          "id": "astra-militarum.voice-of-command"
+        }
+      },
+      {
+        "start": 164,
+        "end": 171,
+        "target": {
+          "kind": "core-rule",
+          "id": "stealth"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Astra Militarum Faction Pack: Version 1.3",
+        "page": "9",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_astra_militarum-1hevkhdpmv-stfkch2tsz.pdf#page=9"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "ASTRA MILITARUM",
+            "INFANTRY",
+            "OFFICER"
+          ]
+        },
+        "order": {
+          "name": "Move to the Shadows",
+          "sourceQid": "ability:astra-militarum.grizzled-company.spec-ops-veteran",
+          "category": "Order",
+          "availableTo": "bearer",
+          "availableWhen": "choosing-an-order-for-bearer-to-issue",
+          "optional": true,
+          "baseRuleQid": "ability:astra-militarum.voice-of-command"
+        },
+        "effect": {
+          "trigger": {
+            "event": "target-selected",
+            "attackType": "ranged",
+            "target": "unit-under-this-order",
+            "repeat": "each"
+          },
+          "grant": {
+            "ability": "stealth",
+            "recipient": "models-in-targeted-unit"
+          },
+          "expires": {
+            "event": "triggering-attack-resolved"
+          }
+        }
+      }
+    }
+  }
+}

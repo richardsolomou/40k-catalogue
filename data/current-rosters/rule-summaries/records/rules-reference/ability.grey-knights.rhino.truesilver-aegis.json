@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.rhino.truesilver-aegis",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Rhino",
+    "summary": "Friendly GREY KNIGHTS units wholly inside this unit’s 6″ aura give their models Feel No Pain 6+ against mortal wounds.",
+    "summarySpans": [
+      {
+        "start": 9,
+        "end": 21,
+        "bold": true
+      },
+      {
+        "start": 80,
+        "end": 92,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      },
+      {
+        "start": 104,
+        "end": 117,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-unit",
+        "aura": {
+          "emitter": {
+            "entity": "unit",
+            "selector": "this-unit"
+          },
+          "recipient": {
+            "side": "friendly",
+            "entity": "unit",
+            "allKeywords": [
+              "GREY KNIGHTS"
+            ],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-unit",
+            "to": "recipient-unit",
+            "kind": "wholly-within",
+            "distanceInches": 6
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "ability-grant",
+            "recipient": "models-in-recipient-unit",
+            "ability": "feel-no-pain",
+            "threshold": "6+",
+            "damageScope": "mortal-wounds-only"
+          }
+        ]
+      }
+    }
+  }
+}

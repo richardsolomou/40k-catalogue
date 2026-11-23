@@ -1,0 +1,127 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.crusher-stampede.corrosive-viscera",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Crusher Stampede",
+    "cp": 1,
+    "summary": "Use during the enemy Shooting phase or either Fight phase just after your TYRANIDS MONSTER model with Deadly Demise is destroyed, provided it cannot Fly. Target the destroyed model. Its Deadly Demise inflicts mortal wounds automatically, skipping the D6 check.",
+    "summarySpans": [
+      {
+        "start": 21,
+        "end": 35,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 46,
+        "end": 57,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 74,
+        "end": 90,
+        "bold": true
+      },
+      {
+        "start": 102,
+        "end": 115,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "deadly-demise"
+        }
+      },
+      {
+        "start": 186,
+        "end": 199,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "deadly-demise"
+        }
+      },
+      {
+        "start": 209,
+        "end": 222,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-destruction",
+            "actor": "target-model"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "model",
+            "count": 1,
+            "mode": "trigger-model",
+            "keywords": [
+              "TYRANIDS MONSTER"
+            ],
+            "ability": "Deadly Demise",
+            "cannotFly": true,
+            "destroyedTargetAllowed": true
+          },
+          "effects": [
+            {
+              "kind": "skip-roll",
+              "recipient": "destroyed-target-model",
+              "ability": "Deadly Demise",
+              "roll": {
+                "die": "D6",
+                "sides": 6
+              },
+              "result": "automatically-inflict-mortal-wounds"
+            }
+          ],
+          "type": "strategic-ploy",
+          "duration": {
+            "scope": "triggering-deadly-demise-roll"
+          }
+        }
+      }
+    }
+  }
+}

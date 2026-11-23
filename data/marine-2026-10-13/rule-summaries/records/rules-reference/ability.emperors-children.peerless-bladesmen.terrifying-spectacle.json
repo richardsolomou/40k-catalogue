@@ -1,0 +1,126 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.peerless-bladesmen.terrifying-spectacle",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Peerless Bladesmen",
+    "cp": 1,
+    "summary": "In the enemy Command phase, pick your EMPEROR’S CHILDREN unit that charged last turn and destroyed an enemy in the preceding Fight phase. Force a Battle-shock test on every enemy up to 6″ from it. Apply −1 if the testing unit is Below Half-strength. Those enemies may skip any other such tests in this phase.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 38,
+        "end": 56,
+        "bold": true
+      },
+      {
+        "start": 125,
+        "end": 136,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 146,
+        "end": 163,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 229,
+        "end": 248,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "opponent"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "keywords": [
+              "EMPEROR’S CHILDREN"
+            ],
+            "count": 1,
+            "allStates": [
+              "made-charge-move-in-previous-turn",
+              "destroyed-at-least-one-enemy-unit-in-previous-fight-phase"
+            ]
+          },
+          "effects": [
+            {
+              "action": "require-test",
+              "test": "battle-shock",
+              "recipient": {
+                "owner": "opponent",
+                "entity": "unit",
+                "each": true,
+                "distance": {
+                  "unit": "inch",
+                  "amount": 6,
+                  "fromEntity": "target-unit",
+                  "comparator": "at-most"
+                }
+              }
+            },
+            {
+              "action": "modify-test",
+              "test": "battle-shock-from-this-use",
+              "recipient": "those-enemies-below-half-strength",
+              "operation": "subtract",
+              "amount": 1
+            },
+            {
+              "action": "waive-other-tests",
+              "test": "battle-shock",
+              "recipient": "affected-enemy-units",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

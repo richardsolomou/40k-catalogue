@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.daemon-prince-of-tzeentch.spirit-snare",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Daemon Prince of Tzeentch",
+    "summary": "A friendly model can fuel Spirit Snare when it dies. It needs Cabal of Sorcerers and both the Psyker and Thousand Sons keywords. Choose an eligible Spirit Snare model no more than 9″ from the destroyed caster. Through battle end, that selection adds +1 to the chosen model’s Psychic test whenever it tries a ritual. The total bonus cannot exceed +2.",
+    "summarySpans": [
+      {
+        "start": 62,
+        "end": 80,
+        "target": {
+          "kind": "ability",
+          "id": "thousand-sons.cabal-of-sorcerers"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "ritual-test-bonus-from-destroyed-psyker",
+        "trigger": {
+          "when": "model-destroyed",
+          "side": "friendly",
+          "modelKeywordsAll": [
+            "THOUSAND SONS",
+            "PSYKER"
+          ],
+          "requiresAbility": "Cabal of Sorcerers"
+        },
+        "selection": {
+          "models": 1,
+          "requiresAbility": "Spirit Snare",
+          "maxInchesFromDestroyedModel": 9,
+          "requiresEligibleModel": true
+        },
+        "resolution": {
+          "duration": "until-battle-end",
+          "when": "selected-model-attempts-ritual",
+          "appliesTo": "psychic-test-result",
+          "addPerSelection": 1,
+          "maxCumulativeBonus": 2
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.shield-host.archeotech-munitions",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Shield Host",
+    "cp": 1,
+    "summary": "In your Shooting phase, spend 1 CP on one ADEPTUS CUSTODES unit of yours, not an ANATHEMA PSYKANA unit, that has not shot yet this phase. Choose one of two abilities, [LETHAL HITS] and [SUSTAINED HITS 1]; while the phase lasts, its models' ranged weapons have the chosen one.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 42,
+        "end": 58,
+        "bold": true
+      },
+      {
+        "start": 81,
+        "end": 97,
+        "bold": true
+      },
+      {
+        "start": 167,
+        "end": 180,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 185,
+        "end": 203,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Shield Host",
+          "category": "Wargear",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES"
+            ],
+            "keywordsNone": [
+              "ANATHEMA PSYKANA"
+            ],
+            "condition": "not-selected-to-shoot-this-phase"
+          },
+          "effects": {
+            "selection": "choose-one",
+            "weapons": "ranged",
+            "expires": "end-of-phase",
+            "alternatives": [
+              {
+                "kind": "grant-weapon-ability",
+                "ability": "LETHAL HITS"
+              },
+              {
+                "kind": "grant-weapon-ability",
+                "ability": "SUSTAINED HITS",
+                "value": 1
+              }
+            ]
+          },
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

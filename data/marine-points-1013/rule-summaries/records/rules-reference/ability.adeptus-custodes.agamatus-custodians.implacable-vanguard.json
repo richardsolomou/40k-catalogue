@@ -1,0 +1,82 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.agamatus-custodians.implacable-vanguard",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Agamatus Custodians",
+    "summary": "Once per battle, during your Shooting phase, once this unit has finished shooting, it may move up to 6″ with a Normal move, provided it is outside Engagement Range of all enemy units. If it moves, it cannot declare a charge for the rest of the turn.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 43,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 111,
+        "end": 122,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 147,
+        "end": 163,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Agamatus Custodians",
+        "clauses": [
+          {
+            "usage": {
+              "count": 1,
+              "per": "battle"
+            },
+            "optional": true,
+            "trigger": {
+              "turn": "own",
+              "phase": "shooting",
+              "event": "after-this-unit-has-shot"
+            },
+            "condition": {
+              "withinEngagementRangeOfEnemy": false
+            },
+            "effect": {
+              "normalMoveUpToInches": 6
+            },
+            "ifUsed": {
+              "ineligibleToDeclareCharge": true,
+              "expires": "end-of-turn"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

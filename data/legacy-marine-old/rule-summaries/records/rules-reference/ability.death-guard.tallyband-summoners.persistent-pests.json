@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.tallyband-summoners.persistent-pests",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Tallyband Summoners",
+    "cp": 1,
+    "summary": "In any phase, use this on a NURGLINGS unit of yours just destroyed. Add an identical unit to your army in Strategic Reserves at full starting strength and with all wounds. The destroyed unit is eligible for this Stratagem.",
+    "summarySpans": [
+      {
+        "start": 28,
+        "end": 37,
+        "bold": true
+      },
+      {
+        "start": 106,
+        "end": 124,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "target-unit-just-destroyed"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "NURGLINGS"
+            ],
+            "mode": "destroyed-trigger-unit",
+            "allowDestroyed": true
+          },
+          "effects": [
+            {
+              "kind": "add-identical-replacement-unit",
+              "recipient": "your-army",
+              "count": 1,
+              "copy": "target-unit",
+              "startingStrength": "full",
+              "wounds": "full",
+              "destination": "strategic-reserves",
+              "duration": {
+                "until": "resolution"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

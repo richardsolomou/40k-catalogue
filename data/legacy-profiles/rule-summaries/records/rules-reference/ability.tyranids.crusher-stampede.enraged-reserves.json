@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.crusher-stampede.enraged-reserves",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Crusher Stampede",
+    "summary": "Eligible model — TYRANIDS MONSTER. If a melee attack kills the bearer before it fights this phase, roll a D6. On 3+, keep it in play until the unit that attacked has resolved all its attacks. The bearer can then fight before being removed.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 33,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "keywords": [
+            "TYRANIDS",
+            "MONSTER"
+          ],
+          "anyOf": [],
+          "equipment": null,
+          "excludes": [],
+          "characterOnly": true,
+          "equipableByNonCharacter": false
+        },
+        "effects": [
+          {
+            "operation": "fight-on-destruction",
+            "recipient": "bearer",
+            "trigger": {
+              "event": "bearer destroyed",
+              "cause": "melee attack",
+              "condition": "bearer has not fought this phase"
+            },
+            "roll": {
+              "count": 1,
+              "sides": 6,
+              "minimum": 3
+            },
+            "onSuccess": {
+              "deferRemoval": true,
+              "fightAfter": "attacking model’s unit finishes its attacks",
+              "canFight": true,
+              "removeAfter": "bearer fights"
+            },
+            "onFailure": "normal removal"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.battle-focus",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "An Asuryani army gets a fresh pool at round start (Incursion 2, Strike Force 4, Onslaught 6). Discard what remains at round end. Spend one token when the relevant trigger occurs, using a unit that has Battle Focus. Each unit gets one manoeuvre per phase. Each manoeuvre also has a once-per-phase limit unless it grants an exception.\n\nSwift as the Wind • Pick when choosing the unit for a Normal move, Advance or Fall Back. Its models gain +2″ Move for that phase. Other eligible units may use this option in the same phase.\nFlitting Shadows • Pick at movement selection (Normal move, Advance or Fall Back), battlefield setup or charge declaration. The unit is protected from enemy Fire Overwatch for the rest of that turn.\nStar Engines • Pick a Vehicle as it is chosen to Advance. Its ranged weapons gain Assault for the rest of that turn.\nOpportunity Seized • After an enemy finishes Falling Back, pick an eligible non-Titanic unit that began the phase in Engagement Range with that foe. It may make a Normal move, capped at D6+1″.\nFade Back • After an enemy shoots in its Shooting phase, pick an eligible non-Titanic unit hit by at least one of its attacks. It may make a Normal move, capped at D6+1″.\nSudden Strike • Pick when choosing the unit to fight. For that phase, its models may travel up to 6″ per Pile-in or Consolidation instead of 3″.",
+    "summarySpans": [
+      {
+        "start": 388,
+        "end": 399,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 571,
+        "end": 582,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 681,
+        "end": 695,
+        "target": {
+          "kind": "core-rule",
+          "id": "fire-overwatch"
+        }
+      },
+      {
+        "start": 805,
+        "end": 812,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "assault"
+        }
+      },
+      {
+        "start": 1003,
+        "end": 1014,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 1174,
+        "end": 1185,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "armyFaction": "Asuryani",
+        "tokens": {
+          "grant": "battle-round-start",
+          "expire": "battle-round-end",
+          "Incursion": 2,
+          "Strike Force": 4,
+          "Onslaught": 6,
+          "costPerUse": 1,
+          "costUnit": "token"
+        },
+        "eligibility": {
+          "requires": "Battle Focus",
+          "usesPerUnitPerPhase": 1,
+          "usesPerManoeuvrePerPhase": 1,
+          "exceptions": "as stated"
+        },
+        "manoeuvres": {
+          "Swift as the Wind": {
+            "trigger": "unit selected for Normal move, Advance or Fall Back",
+            "moveModifierInches": "+2",
+            "expires": "phase-end",
+            "repeatWithDifferentUnit": true
+          },
+          "Flitting Shadows": {
+            "trigger": "movement selection (Normal move, Advance or Fall Back), battlefield setup or charge declaration",
+            "protection": "enemy Fire Overwatch cannot shoot at this unit",
+            "expires": "turn-end"
+          },
+          "Star Engines": {
+            "trigger": "friendly Vehicle selected to Advance",
+            "weapons": "all ranged weapons of unit",
+            "grants": "Assault",
+            "expires": "turn-end"
+          },
+          "Opportunity Seized": {
+            "trigger": "enemy finishes a Fall Back move",
+            "targetCount": 1,
+            "eligibleUnit": "non-Titanic, started phase within Engagement Range with that foe",
+            "move": "Normal move",
+            "maxDistanceInches": "D6+1"
+          },
+          "Fade Back": {
+            "trigger": "just after enemy shoots in opposing Shooting phase",
+            "targetCount": 1,
+            "eligibleUnit": "non-Titanic and hit at least once by those attacks",
+            "move": "Normal move",
+            "maxDistanceInches": "D6+1"
+          },
+          "Sudden Strike": {
+            "trigger": "selected to fight",
+            "expires": "phase-end",
+            "moves": [
+              "Pile-in",
+              "Consolidation"
+            ],
+            "maxInches": 6,
+            "replacesMaxInches": 3
+          }
+        }
+      }
+    }
+  }
+}

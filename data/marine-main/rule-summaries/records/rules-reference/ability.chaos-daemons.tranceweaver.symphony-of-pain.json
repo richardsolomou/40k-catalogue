@@ -1,0 +1,103 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.tranceweaver.symphony-of-pain",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Tranceweaver",
+    "summary": "As your Movement phase closes, you can mark a Battle-shocked enemy unit no more than 12″ from the Tranceweaver. For the rest of the turn, Slaanesh Legiones Daemonica models in your army may re-roll their Hit and Wound rolls individually against that unit.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 46,
+        "end": 60,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 85,
+        "end": 88,
+        "bold": true
+      },
+      {
+        "start": 138,
+        "end": 165,
+        "bold": true
+      },
+      {
+        "start": 204,
+        "end": 207,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 212,
+        "end": 223,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "timing": "end-of-own-movement-phase",
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "count": 1,
+          "rangeInches": 12,
+          "origin": "this-model",
+          "state": "battle-shocked",
+          "optional": true
+        },
+        "duration": "through-end-of-turn",
+        "effect": {
+          "actor": "own-army-model",
+          "allKeywords": [
+            "Slaanesh",
+            "Legiones Daemonica"
+          ],
+          "trigger": "each-attack-against-selected-unit",
+          "rolls": [
+            "hit",
+            "wound"
+          ],
+          "operation": "reroll",
+          "optional": true,
+          "independentChoices": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "formatVersion": 1,
+  "kind": "core-ability",
+  "id": "deadly-demise",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "parameterized": true,
+    "summary": "Deadly Demise uses X to specify damage. After the bearer dies and any passengers finish their emergency moves, throw a D6. A 6 deals X mortal wounds to every unit up to 6 inches away from the bearer, with a fresh result per unit for variable X.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "deadly-demise",
+        "trigger": {
+          "event": "model-destroyed",
+          "subject": "ability-bearer"
+        },
+        "sequence": {
+          "rollAfter": "emergency-disembark-moves",
+          "when": "if-bearer-had-embarked-units"
+        },
+        "check": {
+          "diceCount": 1,
+          "diceSides": 6,
+          "successFace": 6
+        },
+        "effect": {
+          "kind": "mortal-wounds",
+          "targets": "all-units",
+          "center": "destroyed-bearer",
+          "rangeInches": 6,
+          "rangeInclusive": true,
+          "amount": {
+            "parameter": "X",
+            "source": "ability-rating"
+          },
+          "independentRollPerUnitWhenRandom": true
+        }
+      }
+    }
+  }
+}

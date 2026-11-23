@@ -1,0 +1,128 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.canoptek-court.countertemporal-shift",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Canoptek Court",
+    "cp": 1,
+    "summary": "Opponent’s Shooting Phase. React once an enemy unit has picked its shooting targets. Choose one of the CANOPTEK units it picked from your army. Through this phase, enemy models more than 18″ away cannot choose your unit for ranged attacks.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 103,
+        "end": 111,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "matches",
+              "parameters": {
+                "subject": "attacker",
+                "filter": {
+                  "within": {
+                    "of": "this-unit",
+                    "range": {
+                      "inches": 18
+                    }
+                  }
+                }
+              }
+            },
+            "effect": {
+              "type": "targeting",
+              "target": {
+                "owner": "enemy"
+              },
+              "modifier": {
+                "by": {
+                  "owner": "enemy"
+                },
+                "may": "target",
+                "kind": "attack",
+                "weapons": {
+                  "type": "ranged"
+                },
+                "target": "this-unit"
+              }
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "trigger": {
+            "event": "targets-selected",
+            "filter": {
+              "kind": "attack"
+            },
+            "subject": {
+              "owner": "enemy"
+            },
+            "object": "this-unit"
+          },
+          "behavior": "reactive"
+        },
+        "stratagem": {
+          "id": "countertemporal-shift-canoptek-court-necrons",
+          "cp_cost": 1,
+          "phases": [
+            "shooting"
+          ],
+          "player_turn": "opponent-turn",
+          "timing": "once-per-phase",
+          "type": "strategic-ploy",
+          "target_restrictions": {
+            "required_keywords": [
+              "Canoptek"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "bound_to": "attacked-unit",
+            "eligibility": {
+              "type": "matches",
+              "parameters": {
+                "filter": {
+                  "owner": "friendly"
+                }
+              }
+            }
+          }
+        },
+        "valueRoles": {
+          "18": "maximum range of enemy attacking model"
+        }
+      }
+    }
+  }
+}

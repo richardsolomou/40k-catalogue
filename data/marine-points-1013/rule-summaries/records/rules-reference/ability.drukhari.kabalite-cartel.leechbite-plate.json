@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.kabalite-cartel.leechbite-plate",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Kabalite Cartel",
+    "summary": "Model eligibility — ARCHON. Use a Save of 3+ for the bearer. As a Command phase begins, you may pay 1 Pain token to restore the bearer to full wounds if it has lost any.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 26,
+        "bold": true
+      },
+      {
+        "start": 34,
+        "end": 38,
+        "target": {
+          "kind": "core-rule",
+          "id": "save-rolls"
+        }
+      },
+      {
+        "start": 66,
+        "end": 79,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "ARCHON"
+          ],
+          "excludes": [],
+          "characterOnly": true
+        },
+        "effects": [
+          {
+            "type": "set-characteristic",
+            "target": "bearer",
+            "characteristic": "Save",
+            "value": "3+"
+          },
+          {
+            "type": "recover-wounds",
+            "target": "bearer",
+            "amount": "all-lost",
+            "trigger": {
+              "event": "start-of-command-phase",
+              "requires": "bearer-has-lost-wounds"
+            },
+            "cost": {
+              "resource": "Pain token",
+              "count": 1
+            },
+            "optional": true
+          }
+        ]
+      }
+    }
+  }
+}

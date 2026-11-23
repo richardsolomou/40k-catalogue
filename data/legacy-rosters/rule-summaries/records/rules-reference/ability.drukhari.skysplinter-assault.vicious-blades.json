@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.skysplinter-assault.vicious-blades",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Skysplinter Assault",
+    "cp": 1,
+    "summary": "When your DRUKHARI TRANSPORT picks Fight phase targets, select that TRANSPORT. Once it resolves its attacks, choose one enemy it attacked and roll D6 per embarked model. Add 1 to a die if its model is one of your WRACKS. Each result of 5+ deals that enemy 1 mortal wound, with 6 as the upper limit.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 28,
+        "bold": true
+      },
+      {
+        "start": 35,
+        "end": 46,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 68,
+        "end": 77,
+        "bold": true
+      },
+      {
+        "start": 213,
+        "end": 219,
+        "bold": true
+      },
+      {
+        "start": 258,
+        "end": 270,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight"
+            ],
+            "event": "friendly-transport-selected-fight-targets",
+            "keywords": [
+              "DRUKHARI TRANSPORT"
+            ]
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "TRANSPORT"
+            ],
+            "sameAs": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds",
+              "after": "selected-transport-finishes-attacks",
+              "recipient": {
+                "choose": 1,
+                "from": "enemy-units-targeted-by-selected-transport-attacks"
+              },
+              "roll": {
+                "dice": "D6",
+                "minimum": 5,
+                "comparison": "at-least",
+                "dicePer": "embarked-model",
+                "modifier": {
+                  "amount": 1,
+                  "whenModelHasKeyword": "WRACKS"
+                }
+              },
+              "amountPerSuccess": 1,
+              "maximum": 6
+            }
+          ]
+        }
+      }
+    }
+  }
+}

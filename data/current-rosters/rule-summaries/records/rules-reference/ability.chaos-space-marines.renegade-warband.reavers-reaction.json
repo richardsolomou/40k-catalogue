@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.renegade-warband.reavers-reaction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Chaos Space Marines Faction Pack: Version 1.3",
+    "page": "16",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_chaos_space_marines-xlmrglqa2b-zd2fzntrqu.pdf#page=16"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Renegade Warband",
+    "cp": 1,
+    "summary": "React to an enemy unit finishing its shooting during its Shooting phase. Choose one friendly HERETIC ASTARTES unit that took a hit from that volley, excluding MONSTERS and VEHICLES. The pick may make a Normal Move capped at D6 inches.",
+    "summarySpans": [
+      {
+        "start": 57,
+        "end": 71,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 93,
+        "end": 109,
+        "bold": true
+      },
+      {
+        "start": 159,
+        "end": 167,
+        "bold": true
+      },
+      {
+        "start": 172,
+        "end": 180,
+        "bold": true
+      },
+      {
+        "start": 202,
+        "end": 213,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Space Marines Faction Pack: Version 1.3",
+        "page": "16",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_chaos_space_marines-xlmrglqa2b-zd2fzntrqu.pdf#page=16"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-unit-shoots",
+            "actor": "enemy-shooting-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "HERETIC ASTARTES"
+            ],
+            "excludingKeywords": [
+              "MONSTERS",
+              "VEHICLES"
+            ],
+            "triggerRelation": {
+              "event": "hit-by-triggering-attacks",
+              "minimum": 1
+            }
+          },
+          "effects": [
+            {
+              "kind": "optional-move",
+              "recipient": "target-unit",
+              "moveType": "normal",
+              "distanceCap": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1,
+                "unit": "inch"
+              },
+              "duration": {
+                "until": "resolution"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

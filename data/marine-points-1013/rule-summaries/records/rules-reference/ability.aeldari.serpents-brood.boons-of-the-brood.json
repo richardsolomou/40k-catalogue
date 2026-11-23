@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.serpents-brood.boons-of-the-brood",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Serpent’s Brood",
+    "summary": "HARLEQUINS VEHICLE and HARLEQUINS MOUNTED models in your army have [SUSTAINED HITS 1] on their weapons. Also, when a HARLEQUINS unit of yours disembarks from a TRANSPORT, its weapons have [SUSTAINED HITS 1] until the turn ends.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Serpent’s Brood",
+        "effects": [
+          {
+            "applies": {
+              "side": "friendly",
+              "scope": "model",
+              "keywordsAny": [
+                "HARLEQUINS MOUNTED",
+                "HARLEQUINS VEHICLE"
+              ]
+            },
+            "weapons": "all-equipped",
+            "grantWeaponAbility": {
+              "ability": "SUSTAINED HITS",
+              "value": 1
+            }
+          },
+          {
+            "trigger": {
+              "event": "friendly-unit-disembarks",
+              "unitKeywordsAll": [
+                "HARLEQUINS"
+              ],
+              "from": {
+                "keywordsAll": [
+                  "TRANSPORT"
+                ]
+              }
+            },
+            "weapons": "that-unit",
+            "grantWeaponAbility": {
+              "ability": "SUSTAINED HITS",
+              "value": 1
+            },
+            "duration": "end-of-turn"
+          }
+        ]
+      }
+    }
+  }
+}

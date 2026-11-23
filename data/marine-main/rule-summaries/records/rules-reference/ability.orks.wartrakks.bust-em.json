@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.wartrakks.bust-em",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Wartrakks",
+    "summary": "Friendly Speed Freeks attacks gain Lethal Hits against the marked enemy through the current turn. Once this unit shoots in your Shooting phase, choose an enemy unit it hit to mark.",
+    "summarySpans": [
+      {
+        "start": 9,
+        "end": 21,
+        "bold": true
+      },
+      {
+        "start": 35,
+        "end": 46,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 128,
+        "end": 142,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "source": "datasheet-unit",
+        "trigger": {
+          "afterShooting": true,
+          "phase": "Shooting",
+          "turnOwner": "self"
+        },
+        "selection": {
+          "count": 1,
+          "side": "enemy",
+          "mustHaveBeenHitBy": "source-unit"
+        },
+        "duration": "end-of-current-turn",
+        "effect": {
+          "kind": "attack-ability",
+          "recipient": "friendly-attacks",
+          "requiredKeyword": "Speed Freeks",
+          "against": "selected-unit",
+          "grant": "Lethal Hits"
+        }
+      }
+    }
+  }
+}

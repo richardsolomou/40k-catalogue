@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.stormlance-task-force.wind-swift-evasion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Stormlance Task Force",
+    "cp": 1,
+    "summary": "When a Fight phase closes, choose a unit that took part in the fighting. It must be Adeptus Astartes Mounted. It may make a Normal Move if unengaged, or Fall Back if engaged.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 84,
+        "end": 108,
+        "bold": true
+      },
+      {
+        "start": 124,
+        "end": 135,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 139,
+        "end": 148,
+        "bold": true
+      },
+      {
+        "start": 153,
+        "end": 162,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 166,
+        "end": 173,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "phase-end"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Adeptus Astartes Mounted"
+            ],
+            "eligibility": "fought-this-phase"
+          },
+          "effects": [
+            {
+              "action": "make-move",
+              "actor": "target-unit",
+              "moveType": "normal",
+              "optional": true,
+              "condition": "target-unit-unengaged"
+            },
+            {
+              "action": "make-move",
+              "actor": "target-unit",
+              "moveType": "fall-back",
+              "optional": true,
+              "condition": "target-unit-engaged"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

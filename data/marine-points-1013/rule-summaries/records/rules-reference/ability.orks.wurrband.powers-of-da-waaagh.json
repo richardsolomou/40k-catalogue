@@ -1,0 +1,282 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.wurrband.powers-of-da-waaagh",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Wurrband",
+    "summary": "Give each friendly Orks Psyker model’s [Psychic] attacks +1 S. Add a further +1 S for each group of 5 models in the bearer’s unit or embarked in the bearer. The model has two psychic abilities. Visions of Violence is available as the Fight phase opens. Roar of Mork is available in your Movement phase. To use either, the bearer’s unit must be free of battle-shocked status. Spend 1 Psychic Level and make the psychic roll on a D6. A result of 1 leaves the bearer’s unit battle-shocked. With Roar of Mork, pick one enemy unit at most 12\" from the bearer’s unit. Exclude Monster and Vehicle. The foe takes a battle-shock roll, penalised by 1 for each group of 10 models in the bearer’s unit. With Visions of Violence, the bearer’s unit gains Fights First.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 30,
+        "bold": true
+      },
+      {
+        "start": 39,
+        "end": 48,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "psychic"
+        }
+      },
+      {
+        "start": 60,
+        "end": 61,
+        "bold": true
+      },
+      {
+        "start": 80,
+        "end": 81,
+        "bold": true
+      },
+      {
+        "start": 175,
+        "end": 192,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "psychic-abilities"
+        }
+      },
+      {
+        "start": 194,
+        "end": 213,
+        "bold": true
+      },
+      {
+        "start": 234,
+        "end": 245,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 253,
+        "end": 265,
+        "bold": true
+      },
+      {
+        "start": 287,
+        "end": 301,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 352,
+        "end": 366,
+        "bold": true
+      },
+      {
+        "start": 410,
+        "end": 422,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "psychic-abilities"
+        }
+      },
+      {
+        "start": 471,
+        "end": 485,
+        "bold": true
+      },
+      {
+        "start": 492,
+        "end": 504,
+        "bold": true
+      },
+      {
+        "start": 570,
+        "end": 577,
+        "bold": true
+      },
+      {
+        "start": 582,
+        "end": 589,
+        "bold": true
+      },
+      {
+        "start": 607,
+        "end": 624,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 696,
+        "end": 715,
+        "bold": true
+      },
+      {
+        "start": 741,
+        "end": 753,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "fights-first"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "0b30f1e3-1e5c-4823-afa1-07951433a270",
+          "faction": "Orks",
+          "detachmentId": "89c022fe-0f5b-4ff4-9b10-a17665571fdb",
+          "detachment": "Wurrband",
+          "uniqueTags": [],
+          "sourceId": "89c022fe-0f5b-4ff4-9b10-a17665571fdb:powers-of-da-waaagh",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "bearer": {
+          "owner": "friendly",
+          "level": "model",
+          "allOf": [
+            "Orks",
+            "Psyker"
+          ]
+        },
+        "effect": {
+          "type": "stat-modifier",
+          "stat": "strength",
+          "operation": "add",
+          "value": 1,
+          "weaponKeyword": "psychic",
+          "scaling": {
+            "additional": 1,
+            "per": 5,
+            "countModels": {
+              "anyOf": [
+                "in-bearer-unit",
+                "embarked-within-bearer-model"
+              ]
+            },
+            "subject": "bearer-model"
+          }
+        },
+        "abilities": [
+          {
+            "name": "Roar of Mork",
+            "timing": {
+              "event": "during-phase",
+              "phase": "movement",
+              "owner": "self"
+            },
+            "optional": true,
+            "condition": {
+              "subject": "bearer-unit",
+              "state": "battle-shocked",
+              "required": false
+            },
+            "cost": {
+              "resource": "psychic-level",
+              "value": 1,
+              "payer": "bearer-model"
+            },
+            "roll": {
+              "dice": "D6",
+              "count": 1,
+              "onNatural": {
+                "value": 1,
+                "effect": {
+                  "type": "state-change",
+                  "state": "battle-shocked",
+                  "subject": "bearer-unit"
+                }
+              }
+            },
+            "selection": {
+              "count": 1,
+              "target": {
+                "owner": "enemy",
+                "level": "unit",
+                "noneOf": [
+                  "Monster",
+                  "Vehicle"
+                ],
+                "range": {
+                  "maximum": 12,
+                  "unit": "inches",
+                  "from": "bearer-unit"
+                }
+              }
+            },
+            "effect": {
+              "type": "test",
+              "test": "battle-shock",
+              "subject": "selected-unit",
+              "scaling": {
+                "modifier": -1,
+                "per": 10,
+                "countModels": "in-bearer-unit"
+              }
+            }
+          },
+          {
+            "name": "Visions of Violence",
+            "trigger": {
+              "event": "phase-started",
+              "phase": "fight",
+              "owner": "either"
+            },
+            "optional": true,
+            "condition": {
+              "subject": "bearer-unit",
+              "state": "battle-shocked",
+              "required": false
+            },
+            "cost": {
+              "resource": "psychic-level",
+              "value": 1,
+              "payer": "bearer-model"
+            },
+            "roll": {
+              "dice": "D6",
+              "count": 1,
+              "onNatural": {
+                "value": 1,
+                "effect": {
+                  "type": "state-change",
+                  "state": "battle-shocked",
+                  "subject": "bearer-unit"
+                }
+              }
+            },
+            "effect": {
+              "type": "ability-grant",
+              "ability": "fights-first",
+              "recipient": "bearer-unit",
+              "printedExpiry": null
+            }
+          }
+        ]
+      }
+    }
+  }
+}

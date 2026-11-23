@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.slaaneshs-chosen.vengeful-surge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Slaanesh’s Chosen",
+    "cp": 1,
+    "summary": "Pick one of your EMPEROR’S CHILDREN CHARACTER units outside combat once an enemy that targeted it finishes firing in its Shooting phase. The chosen unit may Surge move up to D6″. If you chose your Favoured Champions, you may reroll the distance die.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 45,
+        "bold": true
+      },
+      {
+        "start": 121,
+        "end": 135,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 157,
+        "end": 167,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-move"
+        }
+      },
+      {
+        "start": 197,
+        "end": 215,
+        "target": {
+          "kind": "ability",
+          "id": "emperors-children.slaaneshs-chosen.internal-rivalries"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "after-enemy-unit-shoots"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "EMPEROR’S CHILDREN",
+              "CHARACTER"
+            ],
+            "binding": "friendly-unengaged-unit-targeted-by-that-enemy",
+            "state": "unengaged"
+          },
+          "effects": [
+            {
+              "action": "permit-move",
+              "move": "surge",
+              "recipient": "target-unit",
+              "optional": true,
+              "distance": {
+                "unit": "inch",
+                "maximum": {
+                  "dice": "D6"
+                }
+              }
+            },
+            {
+              "action": "reroll",
+              "roll": "surge-distance",
+              "recipient": "target-unit",
+              "condition": "target-unit-is-your-armys-favoured-champions",
+              "optional": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

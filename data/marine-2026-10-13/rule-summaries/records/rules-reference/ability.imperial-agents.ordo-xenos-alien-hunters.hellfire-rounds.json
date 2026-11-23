@@ -1,0 +1,122 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.ordo-xenos-alien-hunters.hellfire-rounds",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ordo Xenos, Alien Hunters",
+    "cp": 1,
+    "summary": "In your Shooting phase, choose a DEATHWATCH INFANTRY unit you have yet to select to shoot. Through phase end, give Anti-Monster 5+ and Anti-Infantry 2+ to its ranged weapons, skipping any with Devastating Wounds. A unit already targeted this phase by either Dragonfire Rounds or Kraken Rounds is ineligible.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 33,
+        "end": 52,
+        "bold": true
+      },
+      {
+        "start": 115,
+        "end": 130,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "anti"
+        }
+      },
+      {
+        "start": 135,
+        "end": 151,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "anti"
+        }
+      },
+      {
+        "start": 193,
+        "end": 211,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "devastating-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "wargear",
+          "trigger": {
+            "turn": "your",
+            "phases": [
+              "shooting"
+            ],
+            "event": "phase-window"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "DEATHWATCH INFANTRY"
+            ],
+            "notYetSelectedToShoot": true
+          },
+          "effects": [
+            {
+              "kind": "grant-ability",
+              "ability": "anti",
+              "weapons": "selected-unit-ranged-weapons",
+              "targets": "INFANTRY",
+              "minimum": 2,
+              "unmodified": true,
+              "excludingAbility": "devastating-wounds"
+            },
+            {
+              "kind": "grant-ability",
+              "ability": "anti",
+              "weapons": "selected-unit-ranged-weapons",
+              "targets": "MONSTER",
+              "minimum": 5,
+              "unmodified": true,
+              "excludingAbility": "devastating-wounds"
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": {
+            "cannotTargetAfter": [
+              "kraken-rounds",
+              "dragonfire-rounds"
+            ],
+            "duration": "end-of-phase"
+          }
+        }
+      }
+    }
+  }
+}

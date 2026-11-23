@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.skitarii-hunter-cohort.binharic-offence",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Skitarii Hunter Cohort",
+    "cp": 2,
+    "summary": "As your Shooting phase or either Fight phase begins, choose two friendly SKITARII units that have yet to be selected for that phase’s attacks. Pick one enemy unit. Improve the AP of the friendly pair’s weapons by 1 through phase end. During that time, their models must target the chosen enemy with each attack for which it is eligible.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 33,
+        "end": 44,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 73,
+        "end": 81,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "start-of-phase"
+          },
+          "target": {
+            "entity": "unit",
+            "all": [
+              {
+                "id": "friendly-pair",
+                "owner": "your-army",
+                "count": 2,
+                "keywords": [
+                  "SKITARII"
+                ],
+                "stateByPhase": {
+                  "shooting": "not-yet-selected-to-shoot",
+                  "fight": "not-yet-selected-to-fight"
+                }
+              },
+              {
+                "id": "marked-enemy",
+                "owner": "enemy",
+                "count": 1
+              }
+            ]
+          },
+          "effects": [
+            {
+              "kind": "weapon-characteristic-modifier",
+              "recipient": "weapons-of-models-in-friendly-pair",
+              "characteristic": "armour-penetration",
+              "operation": "improve",
+              "amount": 1,
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ],
+          "restrictions": [
+            {
+              "kind": "required-attack-target-if-eligible",
+              "actors": "friendly-pair-models",
+              "recipient": "marked-enemy",
+              "checksEligibility": "per-attack",
+              "fallback": "normal-target-selection",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

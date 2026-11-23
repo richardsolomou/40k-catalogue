@@ -1,0 +1,120 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.cursed-legion.unnatural-aggression",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Cursed Legion",
+    "cp": 2,
+    "summary": "As the opponent’s Charge phase closes, choose your NECRONS unit. MONSTERS and VEHICLES are excluded. Check the enemies within 6\" of the unit. Work out which ones it could have charged in your phase. If at least one qualifies, it may now charge only enemies within that nearby group.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 51,
+        "end": 58,
+        "bold": true
+      },
+      {
+        "start": 65,
+        "end": 73,
+        "bold": true
+      },
+      {
+        "start": 78,
+        "end": 86,
+        "bold": true
+      },
+      {
+        "start": 237,
+        "end": 248,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "phase-end"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "NECRONS"
+            ],
+            "excludingKeywords": [
+              "MONSTERS",
+              "VEHICLES"
+            ],
+            "state": "eligible-to-charge-if-your-charge-phase",
+            "nearEnemy": {
+              "minCount": 1,
+              "distance": {
+                "unit": "inch",
+                "amount": 6,
+                "from": "target-unit",
+                "comparator": "at-most"
+              },
+              "state": "within-range-of-friendly-target"
+            }
+          },
+          "effects": [
+            {
+              "action": "declare-charge",
+              "actor": "target-unit",
+              "allowedTargets": {
+                "owner": "opponent",
+                "minCount": 1,
+                "distance": {
+                  "unit": "inch",
+                  "amount": 6,
+                  "from": "target-unit",
+                  "comparator": "at-most"
+                },
+                "state": "within-range-of-friendly-target"
+              },
+              "optional": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

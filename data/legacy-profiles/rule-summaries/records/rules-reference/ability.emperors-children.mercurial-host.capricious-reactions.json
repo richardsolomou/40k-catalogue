@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.mercurial-host.capricious-reactions",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Mercurial Host",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP, used in the opposing player's Shooting phase once an enemy unit has picked its targets. Choose one of your EMPEROR'S CHILDREN units that at least one of those attacks is aimed at; for the rest of the phase, attacks aimed at it take -1 to their Hit rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Mercurial Host",
+          "category": "Battle Tactic",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "shooting"
+            ],
+            "timing": "after-enemy-unit-selects-targets"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "EMPEROR'S CHILDREN"
+            ],
+            "condition": "targeted-by-that-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "roll": "hit",
+              "operation": "subtract",
+              "value": 1,
+              "appliesTo": "attacks-targeting-unit",
+              "duration": "end-of-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

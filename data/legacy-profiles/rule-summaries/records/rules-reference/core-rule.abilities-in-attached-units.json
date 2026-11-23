@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "abilities-in-attached-units",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "67",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=67"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "19. Attached Units",
+    "ruleNumber": "19.04",
+    "summary": "An individual model keeps rules granted specifically to it, including its own Enhancement or wargear. An ability granted to the unit instead affects its full Attached unit while the source survives. For a LEADER, SUPPORT or BODYGUARD unit source, use the last surviving model of that particular source unit. For a source that is one model, use that model. If the source falls to an attack, keep the effect through the attacking unit’s remaining attacks in that Attack Sequence. A LEADER or SUPPORT unit that started the battle attached keeps its while-leading abilities after its BODYGUARD is wiped out. The side panel also covers revival. When source models return to the Attached unit, it gains their benefits again.",
+    "summarySpans": [
+      {
+        "start": 461,
+        "end": 476,
+        "target": {
+          "kind": "core-rule",
+          "id": "attack-sequence"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "67",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=67"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "core-rule",
+        "individualRule": {
+          "affectedModels": "recipient-model-only",
+          "examples": [
+            "Enhancement",
+            "wargear"
+          ]
+        },
+        "unitRule": {
+          "affectedModels": "entire-attached-unit",
+          "duration": "while-source-survives"
+        },
+        "sourceDuration": [
+          {
+            "sourceUnitKeywords": [
+              "LEADER",
+              "SUPPORT"
+            ],
+            "keywordMatch": "any",
+            "endsWhen": "last-model-of-source-unit-destroyed"
+          },
+          {
+            "sourceUnitKeywords": [
+              "BODYGUARD"
+            ],
+            "endsWhen": "last-model-of-source-unit-destroyed"
+          },
+          {
+            "source": "individual-model",
+            "endsWhen": "that-model-destroyed",
+            "examples": [
+              "Enhancement",
+              "wargear"
+            ]
+          }
+        ],
+        "attackException": {
+          "trigger": "last-source-model-destroyed-by-an-attack",
+          "endsAfter": "attacking-unit-finishes-its-attacks",
+          "sequenceRuleId": "572e8b5e-8c4d-49a4-9cd6-3ed4d2b28ad6"
+        },
+        "whileLeadingAfterBodyguardLoss": {
+          "sourceUnitKeywords": [
+            "LEADER",
+            "SUPPORT"
+          ],
+          "keywordMatch": "any",
+          "startedBattleAttached": true,
+          "keepWhileLeadingAbilities": true
+        },
+        "revivalPanel": {
+          "destroyedSourceStopsGrantingBenefit": true,
+          "restoresBenefitWhenSourceReturnsToAttachedUnit": true
+        }
+      }
+    }
+  }
+}

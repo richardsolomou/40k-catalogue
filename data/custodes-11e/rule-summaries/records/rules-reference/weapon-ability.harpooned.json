@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "kind": "weapon-ability",
+  "id": "harpooned",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "summary": "On a charge declaration by the bearer’s unit, you can invoke Harpooned. An enemy MONSTER/VEHICLE must be within 12\" of the charger and have taken a hit from this weapon earlier in the turn. Give the charger +2 on its charge rolls for the remainder of the phase. It must finish its move engaged with that enemy.",
+    "summarySpans": [
+      {
+        "start": 81,
+        "end": 96,
+        "bold": true
+      },
+      {
+        "start": 217,
+        "end": 229,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "weapon-specific-ability",
+        "trigger": {
+          "event": "charge-declared",
+          "unit": "weapon-bearer-unit",
+          "target": {
+            "side": "enemy",
+            "keywordNotation": "MONSTER/VEHICLE",
+            "anyKeywords": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "hitBy": "attack-with-this-weapon",
+            "hitWindow": "same-turn",
+            "distanceAtDeclaration": {
+              "reference": "weapon-bearer-unit",
+              "maxInches": 12
+            }
+          }
+        },
+        "optional": true,
+        "chargeRoll": {
+          "modifier": 2,
+          "duration": "end-of-phase",
+          "recipient": "charging-unit"
+        },
+        "chargeMove": {
+          "endEngagedWith": "qualifying-hit-enemy-unit",
+          "required": true
+        }
+      }
+    }
+  }
+}

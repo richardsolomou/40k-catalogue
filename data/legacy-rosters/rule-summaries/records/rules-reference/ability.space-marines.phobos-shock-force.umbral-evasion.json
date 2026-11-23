@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.phobos-shock-force.umbral-evasion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Phobos Shock Force",
+    "cp": 1,
+    "summary": "Spend 1 CP during the opposing player's Shooting phase as an enemy unit picks one of your PHOBOS units as a target; that unit is the target. Ranged attacks aimed at it suffer -1 on their Hit rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Phobos Shock Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-targets-friendly-unit"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "PHOBOS"
+            ],
+            "sameAs": "targeted-unit"
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "roll": "hit",
+              "delta": -1,
+              "magnitude": 1,
+              "attackType": "ranged",
+              "appliesTo": "attacks-against-target"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

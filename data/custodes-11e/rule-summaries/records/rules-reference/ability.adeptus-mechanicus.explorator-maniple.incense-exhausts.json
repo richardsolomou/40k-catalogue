@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.explorator-maniple.incense-exhausts",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Explorator Maniple",
+    "cp": 1,
+    "summary": "Use this the moment an enemy picks attack targets in its Shooting phase. Choose a unit with ADEPTUS MECHANICUS INFANTRY from among those targets and a friendly unit with ADEPTUS MECHANICUS SMOKE no more than 6 inches from the infantry. The Benefit of Cover applies to both choices through phase end.",
+    "summarySpans": [
+      {
+        "start": 57,
+        "end": 71,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 92,
+        "end": 119,
+        "bold": true
+      },
+      {
+        "start": 170,
+        "end": 194,
+        "bold": true
+      },
+      {
+        "start": 240,
+        "end": 256,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "turn": "opponent",
+                "phase": "shooting"
+              }
+            ],
+            "event": "enemy-unit-selects-attack-targets",
+            "proximity": "immediate"
+          },
+          "target": {
+            "selections": [
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "ADEPTUS MECHANICUS INFANTRY"
+                ],
+                "selection": "target-of-one-or-more-triggering-enemy-attacks"
+              },
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "ADEPTUS MECHANICUS SMOKE"
+                ],
+                "distance": {
+                  "maximumInches": 6,
+                  "from": "selected-infantry"
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "kind": "grant-cover",
+              "subject": "both-selected-units",
+              "until": "end-of-phase"
+            }
+          ],
+          "type": "wargear"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.maugan-ra.harvester-of-souls",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Maugan Ra",
+    "summary": "In your Shooting phase, if the unit this model leads has picked its targets and every one of its attacks targets the same enemy unit, roll a D6 for that unit and a D6 for each other enemy unit 3\" or closer to it. Each unit that rolls a 5+ gets struck by explosive debris and, once all of the led unit's attacks on the target have been resolved, suffers D3 mortal wounds.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "condition": "this-model-leading-a-unit",
+          "when": {
+            "turn": "own",
+            "phase": "shooting"
+          },
+          "trigger": "after-led-unit-selects-targets",
+          "requires": "all-attacks-target-one-unit",
+          "effects": [
+            {
+              "roll": "D6",
+              "for": [
+                "target-unit",
+                {
+                  "otherEnemyUnitsWithinInchesOfTarget": 3
+                }
+              ],
+              "threshold": "5+",
+              "onSuccess": "struck-by-explosive-debris"
+            },
+            {
+              "after": "led-unit-resolves-all-attacks-against-target",
+              "each": "struck-unit",
+              "mortalWounds": "D3"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.heldrake.airborne-predator",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Heldrake",
+    "summary": "When the Heldrake finishes a Normal move, you may pick one enemy unit it passed over during that move. Roll 2D6, raising each die by 1 if that enemy has FLY; every result of 4+ inflicts D3 mortal wounds on that unit.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 40,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 189,
+        "end": 202,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "this-model-ends-normal-move"
+        },
+        "optional": true,
+        "selection": {
+          "relationship": "enemy",
+          "count": 1,
+          "condition": "moved over during that move"
+        },
+        "roll": {
+          "dice": "D6",
+          "count": 2,
+          "perDieModifier": {
+            "value": 1,
+            "if": {
+              "keyword": "FLY",
+              "has": true
+            }
+          }
+        },
+        "effect": {
+          "perDieAtLeast": 4,
+          "mortalWounds": "D3",
+          "target": "selected-unit"
+        }
+      }
+    }
+  }
+}

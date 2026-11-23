@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.talons-of-the-emperor.hunt-as-one",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Talons of the Emperor",
+    "cp": 1,
+    "summary": "As your Movement phase begins, spend 1 CP on as many as two ADEPTUS CUSTODES units of yours. For the rest of the turn they may shoot, declare a charge, or do both, even after Falling Back. Two units are allowed only if exactly one of the pair has the ANATHEMA PSYKANA keyword and they are no more than 6\" apart.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 60,
+        "end": 76,
+        "bold": true
+      },
+      {
+        "start": 251,
+        "end": 267,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Talons of the Emperor",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "event": "start-of-phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": {
+              "max": 2
+            },
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "permission",
+              "actions": [
+                "shoot",
+                "declare-charge"
+              ],
+              "despite": "fell-back",
+              "expires": "end-of-turn"
+            }
+          ],
+          "restrictions": [
+            {
+              "kind": "two-unit-limit",
+              "maxUnits": 2,
+              "twoUnitsRequireExactlyOneKeyword": "ANATHEMA PSYKANA",
+              "pairWithinInches": 6
+            }
+          ]
+        }
+      }
+    }
+  }
+}

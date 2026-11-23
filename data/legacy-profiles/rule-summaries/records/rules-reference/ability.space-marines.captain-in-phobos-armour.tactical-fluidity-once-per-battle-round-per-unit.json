@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.captain-in-phobos-armour.tactical-fluidity-once-per-battle-round-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Captain in Phobos Armour",
+    "summary": "Each battle round, the Phobos Captain’s unit can make one of these moves. If it shoots in your Shooting phase and is Unengaged, it can move up to D6″ with a Normal Move. If Engaged when the opposing Fight phase closes, it can use a Fall-Back Move to travel up to 6″.",
+    "summarySpans": [
+      {
+        "start": 95,
+        "end": 109,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 117,
+        "end": 126,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 157,
+        "end": 168,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 173,
+        "end": 180,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 199,
+        "end": 210,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 232,
+        "end": 246,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "owner unit",
+        "limit": {
+          "count": 1,
+          "period": "battle round",
+          "scope": "unit",
+          "sharedAcrossBranches": true
+        },
+        "options": [
+          {
+            "trigger": {
+              "phase": "Shooting",
+              "side": "own",
+              "event": "unit has shot"
+            },
+            "condition": "Unengaged",
+            "optional": true,
+            "effect": {
+              "move": "Normal Move",
+              "maximumInches": "D6"
+            }
+          },
+          {
+            "trigger": {
+              "phase": "Fight",
+              "side": "opponent",
+              "step": "end"
+            },
+            "condition": "Engaged",
+            "optional": true,
+            "effect": {
+              "move": "Fall-Back Move",
+              "maximumInches": 6
+            }
+          }
+        ]
+      }
+    }
+  }
+}

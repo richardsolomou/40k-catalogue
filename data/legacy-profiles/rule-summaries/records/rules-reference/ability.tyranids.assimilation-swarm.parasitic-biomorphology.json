@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.assimilation-swarm.parasitic-biomorphology",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Assimilation Swarm",
+    "summary": "For a TYRANIDS model only. Melee weapons carried by the bearer's unit get +1 Strength. Once that unit first wipes out an enemy unit during a Fight phase, provided the bearer was no more than 6″ from at least one friendly HARVESTER unit at the time, those melee weapons also get +1 Attacks until the battle ends.",
+    "summarySpans": [
+      {
+        "start": 141,
+        "end": 152,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "enhancement",
+        "detachment": "Assimilation Swarm",
+        "pointsCost": 25,
+        "eligibility": {
+          "scope": "model",
+          "keywordsAll": [
+            "TYRANIDS"
+          ]
+        },
+        "effects": [
+          {
+            "weapons": "bearer-unit-melee",
+            "characteristic": "S",
+            "modifier": 1
+          },
+          {
+            "trigger": {
+              "first": true,
+              "event": "bearer-unit-destroys-enemy-unit",
+              "phase": "fight",
+              "condition": {
+                "bearerWithinInchesOfFriendly": 6,
+                "friendlyKeywordsAll": [
+                  "HARVESTER"
+                ]
+              }
+            },
+            "weapons": "bearer-unit-melee",
+            "characteristic": "A",
+            "modifier": 1,
+            "duration": "end-of-battle"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.luminen-auto-choir.cyber-static-canticles",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Luminen Auto-Choir",
+    "summary": "Lethal Hits applies to friendly CORPUSCARII ranged attacks. A friendly FULGURITE unit can heal itself for D3 wounds once it finishes fighting. Taking this DATA-PSALM detachment prevents taking any other with that keyword.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 11,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "effects": [
+          {
+            "type": "grant-weapon-ability",
+            "recipient": {
+              "side": "friendly",
+              "scope": "unit",
+              "allKeywords": [
+                "CORPUSCARII"
+              ]
+            },
+            "attackType": "ranged",
+            "ability": "Lethal Hits"
+          },
+          {
+            "type": "restore-wounds",
+            "trigger": {
+              "event": "unit-finished-fighting",
+              "unit": {
+                "side": "friendly",
+                "allKeywords": [
+                  "FULGURITE"
+                ]
+              }
+            },
+            "recipient": "trigger-unit",
+            "optional": true,
+            "amount": {
+              "dice": "D3"
+            }
+          }
+        ],
+        "composition": {
+          "detachmentGrantsKeyword": "DATA-PSALM",
+          "excludesOtherDetachmentsWithKeyword": "DATA-PSALM"
+        }
+      }
+    }
+  }
+}

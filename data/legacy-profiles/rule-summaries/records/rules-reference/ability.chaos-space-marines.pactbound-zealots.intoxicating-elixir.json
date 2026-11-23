@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.pactbound-zealots.intoxicating-elixir",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Pactbound Zealots",
+    "summary": "Enhancement, 15 points; only a HERETIC ASTARTES SLAANESH model can take it. The bearer has Feel No Pain 5+. Each time this model shoots or fights, if its unit made a Dark Pact that phase without failing the Leadership test, then after it has resolved those attacks, pick an enemy unit hit by at least one of them; that unit has to take a Battle-shock test.",
+    "summarySpans": [
+      {
+        "start": 91,
+        "end": 106,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "enhancement",
+        "detachment": "Pactbound Zealots",
+        "pointsCost": 15,
+        "eligibility": {
+          "scope": "model",
+          "keywordsAll": [
+            "HERETIC ASTARTES",
+            "SLAANESH"
+          ]
+        },
+        "effects": [
+          {
+            "grantAbility": "Feel No Pain",
+            "value": "5+"
+          },
+          {
+            "when": "bearer-shoots-or-fights",
+            "condition": "bearer-unit-made-dark-pact-this-phase-and-passed-test",
+            "after": "bearer-resolved-attacks",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitByThoseAttacks": true
+            },
+            "forcedTest": "Battle-shock"
+          }
+        ]
+      }
+    }
+  }
+}

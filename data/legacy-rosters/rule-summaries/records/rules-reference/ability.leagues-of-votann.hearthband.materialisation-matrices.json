@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.hearthband.materialisation-matrices",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hearthband",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it in your Movement phase's Reinforcements step. Choose one of your LEAGUES OF VOTANN units that has Deep Strike and is in Reserves. For the rest of the phase, when it arrives by Deep Strike you may place it anywhere on the battlefield as long as it is over 6\" horizontally from every enemy unit. It cannot declare a charge this turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Hearthband",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "moment": "reinforcements-step"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "LEAGUES OF VOTANN"
+            ],
+            "inReserves": true,
+            "hasAbility": "Deep Strike"
+          },
+          "effects": [
+            {
+              "kind": "set-up-restriction",
+              "minHorizontalInchesFromEnemyUnits": 6,
+              "exclusive": "more than",
+              "when": "set up using Deep Strike"
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": [
+            "cannot declare a charge for the rest of the turn"
+          ]
+        }
+      }
+    }
+  }
+}

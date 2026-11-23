@@ -1,0 +1,57 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.vyper.harassment-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Vyper",
+    "summary": "In your Shooting phase, once this unit has shot, pick one enemy unit that at least one of those attacks hit; it is suppressed until your next turn starts. Attacks made by models in a suppressed unit take a -1 penalty to the Hit roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "when": {
+            "turn": "own",
+            "phase": "shooting"
+          },
+          "trigger": "after-this-unit-has-shot",
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "hitByThoseAttacks": {
+              "minimum": 1
+            }
+          },
+          "effects": [
+            {
+              "state": "suppressed",
+              "duration": "start-of-your-next-turn"
+            }
+          ],
+          "suppressed": {
+            "attacksByUnitModels": true,
+            "roll": "hit",
+            "penalty": 1
+          }
+        }
+      }
+    }
+  }
+}

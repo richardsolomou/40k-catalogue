@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.dread-talons.screaming-descent",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Dread Talons",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it during your Movement phase's Reinforcements step in battle round 2 or later, on one HERETIC ASTARTES JUMP PACK unit of yours that is in Reserves. Place it on the battlefield wherever you like, more than 6\" horizontally from every enemy unit; it cannot declare a charge for the rest of the turn. Next, choose an enemy unit that is INFANTRY or MOUNTED, visible to your unit and within 9\" of it; that enemy unit has to make a Battle-shock roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Dread Talons",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "event": "reinforcements-step-from-battle-round-2"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "HERETIC ASTARTES",
+              "JUMP PACK"
+            ],
+            "inReserves": true
+          },
+          "effects": [
+            {
+              "setUp": {
+                "anywhere": true,
+                "moreThanInchesHorizontallyFromEnemy": 6
+              },
+              "cannotChargeThisTurn": true
+            },
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsAny": [
+                  "INFANTRY",
+                  "MOUNTED"
+                ],
+                "withinInches": 9,
+                "visibleToTarget": true
+              },
+              "forcedRoll": "Battle-shock"
+            }
+          ],
+          "duration": "instant",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

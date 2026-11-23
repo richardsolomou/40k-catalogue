@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.solar-spearhead.flawless-construction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Solar Spearhead",
+    "cp": 1,
+    "summary": "Spend 1 CP in the opposing Shooting phase or in either player's Fight phase, once an enemy unit picks its targets. Choose a single ADEPTUS CUSTODES VEHICLE unit of yours that it aimed at least one attack at. While the phase lasts, an attack against a model in that unit takes −1 to the Wound roll whenever the attack's Strength is higher than the unit's Toughness.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 41,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 64,
+        "end": 75,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 131,
+        "end": 155,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Solar Spearhead",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES",
+              "VEHICLE"
+            ],
+            "condition": "selected-as-target-of-triggering-enemy-attack"
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "roll": "wound",
+              "delta": -1,
+              "condition": "attack-strength-greater-than-unit-toughness",
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.final-day.psionic-parasitism",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Final Day",
+    "summary": "As your Movement phase ends, each of your TYRANIDS SYNAPSE units may pick one of your GENESTEALER CULTS units, other than a PURESTRAIN GENESTEALER or PATRIARCH unit, plus a TYRANIDS unit of yours, both visible to it and within 9\". The cult unit then takes D3+1 mortal wounds; one model in the chosen TYRANIDS unit recovers lost wounds up to the number inflicted, and until your next Movement phase starts that unit's models get +1 to Hit on their attacks. Your TYRANIDS units also have Catalyst (Aura): friendly GENESTEALER CULTS units get +1 to Hit when attacking an enemy unit within 6\" of that TYRANIDS unit.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 42,
+        "end": 50,
+        "bold": true
+      },
+      {
+        "start": 51,
+        "end": 58,
+        "bold": true
+      },
+      {
+        "start": 86,
+        "end": 103,
+        "bold": true
+      },
+      {
+        "start": 124,
+        "end": 146,
+        "bold": true
+      },
+      {
+        "start": 150,
+        "end": 159,
+        "bold": true
+      },
+      {
+        "start": 261,
+        "end": 274,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 486,
+        "end": 501,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Final Day",
+        "step": "end-of-own-movement-phase",
+        "perUnit": {
+          "keywordsAll": [
+            "TYRANIDS",
+            "SYNAPSE"
+          ]
+        },
+        "select": [
+          {
+            "side": "friendly",
+            "keywordsAll": [
+              "GENESTEALER CULTS"
+            ],
+            "excludedKeywords": [
+              "PURESTRAIN GENESTEALER",
+              "PATRIARCH"
+            ],
+            "count": 1,
+            "withinInches": 9,
+            "visibleToSynapseUnit": true
+          },
+          {
+            "side": "friendly",
+            "keywordsAll": [
+              "TYRANIDS"
+            ],
+            "count": 1,
+            "withinInches": 9,
+            "visibleToSynapseUnit": true
+          }
+        ],
+        "optional": true,
+        "effect": {
+          "cultUnitMortalWounds": "D3+1",
+          "tyranidModelRegainsWoundsUpTo": "mortal-wounds-suffered",
+          "tyranidUnitBonus": {
+            "duration": "until-start-of-your-next-movement-phase",
+            "rollModifiers": [
+              {
+                "roll": "hit",
+                "delta": 1
+              }
+            ]
+          }
+        },
+        "abilities": {
+          "Catalyst": {
+            "aura": true,
+            "holderKeywordsAll": [
+              "TYRANIDS"
+            ],
+            "enemyWithinInches": 6,
+            "attackerKeywordsAll": [
+              "GENESTEALER CULTS"
+            ],
+            "rollModifiers": [
+              {
+                "roll": "hit",
+                "delta": 1
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.berzerker-warband.skulls-for-the-skull-throne",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Berzerker Warband",
+    "cp": 1,
+    "summary": "When a WORLD EATERS unit of yours kills a model with CHARACTER or MONSTER during the Fight phase, select the unit responsible immediately. Roll for Blessings of Khorne. Use the result for one extra Blessing, which runs alongside active ones until this battle round ends.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 19,
+        "bold": true
+      },
+      {
+        "start": 53,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 66,
+        "end": 73,
+        "bold": true
+      },
+      {
+        "start": 85,
+        "end": 96,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 148,
+        "end": 167,
+        "target": {
+          "kind": "ability",
+          "id": "world-eaters.blessings-of-khorne"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-friendly-unit-destroys-model",
+            "destroyedModelKeywordsAny": [
+              "CHARACTER",
+              "MONSTER"
+            ]
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "WORLD EATERS"
+            ],
+            "binding": "destroying-unit"
+          },
+          "effects": [
+            {
+              "action": "roll-blessings-of-khorne",
+              "recipient": "your-army"
+            },
+            {
+              "action": "activate-blessing-from-roll",
+              "recipient": "your-army",
+              "maximum": 1,
+              "additiveWithCurrentBlessings": true,
+              "duration": {
+                "until": "end-of-this-battle-round"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

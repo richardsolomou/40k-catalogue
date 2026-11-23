@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.gauntlet-task-force.aggressive-disembarkation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Gauntlet Task Force",
+    "cp": 1,
+    "summary": "In any phase, use this as one of your units with Adeptus Astartes is picked to move while aboard a Transport. For that move, each model may be placed within the Transport’s set-up distance, replacing the usual wholly-within requirement.",
+    "summarySpans": [
+      {
+        "start": 49,
+        "end": 65,
+        "bold": true
+      },
+      {
+        "start": 99,
+        "end": 108,
+        "bold": true
+      },
+      {
+        "start": 161,
+        "end": 170,
+        "bold": true
+      },
+      {
+        "start": 173,
+        "end": 188,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "selected-to-move",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Adeptus Astartes"
+            ],
+            "embarkedWithin": {
+              "owner": "your-army",
+              "keywords": [
+                "Transport"
+              ]
+            }
+          },
+          "effects": [
+            {
+              "kind": "replace-setup-containment",
+              "recipient": "each-target-unit-model",
+              "anchor": "transport-unit-embarked-within",
+              "distance": "transport-set-up-distance",
+              "optional": true,
+              "previous": "wholly-within",
+              "replacement": "within"
+            }
+          ],
+          "duration": {
+            "scope": "triggering-move"
+          }
+        }
+      }
+    }
+  }
+}

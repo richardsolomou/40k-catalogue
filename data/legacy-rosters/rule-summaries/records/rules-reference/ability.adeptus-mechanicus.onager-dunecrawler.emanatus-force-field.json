@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.onager-dunecrawler.emanatus-force-field",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Onager Dunecrawler",
+    "summary": "This model’s 6″ aura grants a 4+ invulnerable save versus ranged attacks to friendly models with ADEPTUS MECHANICUS BATTLELINE that are entirely inside it.",
+    "summarySpans": [
+      {
+        "start": 33,
+        "end": 50,
+        "target": {
+          "kind": "core-rule",
+          "id": "save-rolls"
+        }
+      },
+      {
+        "start": 97,
+        "end": 126,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-model",
+        "aura": {
+          "emitter": {
+            "entity": "model",
+            "selector": "this-model"
+          },
+          "recipient": {
+            "side": "friendly",
+            "entity": "model",
+            "allKeywords": [
+              "ADEPTUS MECHANICUS",
+              "BATTLELINE"
+            ],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-model",
+            "to": "recipient-model",
+            "kind": "wholly-within",
+            "distanceInches": 6
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "invulnerable-save",
+            "recipient": "recipient-model",
+            "threshold": "4+",
+            "attackType": "ranged"
+          }
+        ]
+      }
+    }
+  }
+}

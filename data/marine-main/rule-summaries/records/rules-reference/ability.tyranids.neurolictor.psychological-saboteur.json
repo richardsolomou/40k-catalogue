@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.neurolictor.psychological-saboteur",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Neurolictor",
+    "summary": "This model projects a 12″ aura against Battle-shocked enemy units. Each such unit’s models get −1 to Hit when they attack. Allied Tyranids models get +1 to Wound when they attack those enemies.",
+    "summarySpans": [
+      {
+        "start": 39,
+        "end": 53,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 101,
+        "end": 104,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 130,
+        "end": 138,
+        "bold": true
+      },
+      {
+        "start": 156,
+        "end": 161,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-model",
+        "area": {
+          "side": "enemy",
+          "entity": "unit",
+          "condition": "battle-shocked",
+          "measure": "within",
+          "origin": "this-model",
+          "rangeInches": 12
+        },
+        "effects": [
+          {
+            "actor": "model-in-enemy-unit-in-range",
+            "trigger": "each-attack",
+            "roll": "hit",
+            "modifier": -1
+          },
+          {
+            "actor": "friendly-TYRANIDS-model",
+            "trigger": "each-attack-targeting-enemy-unit-in-range",
+            "roll": "wound",
+            "modifier": 1
+          }
+        ]
+      }
+    }
+  }
+}

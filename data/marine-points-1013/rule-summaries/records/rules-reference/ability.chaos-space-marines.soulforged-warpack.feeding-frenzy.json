@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.soulforged-warpack.feeding-frenzy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Soulforged Warpack",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it in the opposing player's Movement phase at the moment an enemy unit other than a MONSTER or VEHICLE is picked to Fall Back. Pick a HERETIC ASTARTES DAEMON VEHICLE or VASHTORR THE ARKIFANE unit of yours that the enemy unit is engaged with (within Engagement Range). For the rest of the phase, any non-MONSTER, non-VEHICLE enemy unit that Falls Back while within your unit's Engagement Range must have each of its models take a Desperate Escape test, each test taking -1 if the fleeing unit is Battle-shocked.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Soulforged Warpack",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-selected-to-fall-back"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAny": [
+              [
+                "HERETIC ASTARTES",
+                "DAEMON",
+                "VEHICLE"
+              ],
+              [
+                "VASHTORR THE ARKIFANE"
+              ]
+            ],
+            "withinEngagementRangeOf": "triggering-enemy-unit",
+            "triggerExcludes": [
+              "MONSTER",
+              "VEHICLE"
+            ]
+          },
+          "effects": [
+            {
+              "when": "enemy-unit-within-engagement-range-falls-back",
+              "enemyKeywordsNone": [
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "forcedTest": "Desperate Escape",
+              "allModels": true
+            },
+            {
+              "condition": "that-enemy-unit-battle-shocked",
+              "testModifier": -1
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

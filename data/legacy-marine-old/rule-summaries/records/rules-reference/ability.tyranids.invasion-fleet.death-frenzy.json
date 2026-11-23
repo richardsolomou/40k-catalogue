@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.invasion-fleet.death-frenzy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Invasion Fleet",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP, in the Fight phase of either turn, right after an enemy unit picks its targets, aimed at a TYRANIDS unit of yours. Until the phase ends, roll a D6 each time a model of your unit that has not yet fought this phase is destroyed. If the result is 4+, the slain model stays on the battlefield for now: it may fight after the enemy unit has resolved all of its attacks, and is removed from play afterwards.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 40,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Invasion Fleet",
+          "when": {
+            "phase": "fight",
+            "turn": "either",
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "TYRANIDS"
+            ],
+            "condition": "targeted-by-that-enemy-unit"
+          },
+          "effects": [
+            {
+              "onModelDestroyed": {
+                "condition": "model-has-not-fought-this-phase",
+                "roll": "D6",
+                "success": "4+",
+                "delayRemoval": true,
+                "mayFight": "after-attacking-unit-finishes-attacks",
+                "thenRemoved": true
+              },
+              "duration": "end-of-phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.spirit-conclave.crushing-strides",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Spirit Conclave",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Charge phase once one of your WRAITHBLADES, WRAITHLORD or WRAITHKNIGHT units finishes a Charge move; that unit is the target. Choose an enemy unit in Engagement Range of it and roll dice: one D6 per WRAITHBLADES model it contains, four D6 for a WRAITHLORD, or six D6 for a WRAITHKNIGHT. Each result of 3+ inflicts 1 mortal wound on the chosen enemy unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Spirit Conclave",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "charge"
+            }
+          ],
+          "timing": "after-friendly-unit-ends-charge-move",
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "sameAs": "triggering-unit",
+            "keywordsAny": [
+              "WRAITHBLADES",
+              "WRAITHLORD",
+              "WRAITHKNIGHT"
+            ]
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "withinEngagementRange": true
+              },
+              "dice": "D6",
+              "count": {
+                "WRAITHBLADES": "1-per-WRAITHBLADES-model",
+                "WRAITHLORD": 4,
+                "WRAITHKNIGHT": 6
+              },
+              "perSuccess": {
+                "threshold": "3+",
+                "mortalWounds": 1
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

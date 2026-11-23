@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-necrons.errata.chronomancer-timesplinter-mantle-ability",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "publication": "Codex: Necrons",
+    "amends": [
+      {
+        "kind": "unit",
+        "id": "necrons.chronomancer"
+      }
+    ],
+    "summary": "Timesplinter Mantle grants Stealth to the Chronomancer’s unit. Its attackers also take a −1 hit modifier on each melee attack.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 19,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "necrons.chronomancer.timesplinter-mantle"
+        }
+      },
+      {
+        "start": 27,
+        "end": 34,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "stealth"
+        }
+      },
+      {
+        "start": 42,
+        "end": 54,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "87f1c81a-f2a3-41d6-b010-d8cb53c23816",
+          "typedMechanics": {
+            "operation": "replace-ability",
+            "abilityQid": "ability:necrons.chronomancer.timesplinter-mantle",
+            "effect": {
+              "effect": {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "ability-grant",
+                    "target": "this-unit",
+                    "modifier": {
+                      "ability": "stealth"
+                    }
+                  },
+                  {
+                    "type": "conditional",
+                    "condition": {
+                      "type": "attack-is",
+                      "parameters": {
+                        "attack_type": "melee"
+                      }
+                    },
+                    "effect": {
+                      "type": "roll-modifier",
+                      "target": "attacker",
+                      "modifier": {
+                        "roll": "hit",
+                        "operation": "subtract",
+                        "value": 1
+                      }
+                    }
+                  }
+                ]
+              },
+              "scope": {
+                "duration": "permanent"
+              },
+              "behavior": "passive"
+            }
+          },
+          "statedValues": [
+            {
+              "kind": "hit-penalty-magnitude",
+              "value": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

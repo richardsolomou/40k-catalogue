@@ -1,0 +1,89 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.chaos-rhino.assault-vehicle",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Chaos Rhino",
+    "summary": "Passengers can disembark after this TRANSPORT’s Advance. Treat the disembarking unit’s movement as a Normal move. It cannot declare charges that turn.",
+    "summarySpans": [
+      {
+        "start": 15,
+        "end": 24,
+        "target": {
+          "kind": "core-rule",
+          "id": "disembarking"
+        }
+      },
+      {
+        "start": 36,
+        "end": 45,
+        "bold": true
+      },
+      {
+        "start": 48,
+        "end": 55,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 101,
+        "end": 112,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 124,
+        "end": 139,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-transport",
+        "trigger": "source-transport-has-advanced",
+        "permission": {
+          "recipient": "embarked-units",
+          "operation": "disembark",
+          "optional": true
+        },
+        "requiredOnUse": [
+          {
+            "recipient": "disembarking-unit",
+            "countsAsMove": "normal"
+          },
+          {
+            "recipient": "disembarking-unit",
+            "prohibit": "declare-charge",
+            "duration": "remainder-of-turn"
+          }
+        ]
+      }
+    }
+  }
+}

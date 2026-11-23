@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.guardian-battlehost.cost-of-victory",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Guardian Battlehost",
+    "cp": 1,
+    "summary": "Spend 1 CP as the opposing player's Fight phase ends, on a GUARDIANS unit of yours. If it is outside Engagement Range of all enemy units, lift it off the battlefield and add it to your Strategic Reserves, and bring all of its destroyed GUARDIANS models back into the unit as you do so.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Guardian Battlehost",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "fight",
+              "timing": "end-of-phase"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "GUARDIANS"
+            ]
+          },
+          "effects": [
+            {
+              "condition": "not-within-engagement-range",
+              "removeFromBattlefield": true,
+              "placeInto": "strategic-reserves",
+              "returnDestroyedModels": {
+                "keywordsAll": [
+                  "GUARDIANS"
+                ],
+                "all": true
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

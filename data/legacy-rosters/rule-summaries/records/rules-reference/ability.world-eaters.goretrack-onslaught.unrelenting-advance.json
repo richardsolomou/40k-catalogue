@@ -1,0 +1,103 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.goretrack-onslaught.unrelenting-advance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Goretrack Onslaught",
+    "cp": 1,
+    "summary": "Immediately after an enemy shoots in its Shooting phase, select a WORLD EATERS VEHICLE unit hit by at least one shot from it. The vehicle may make a Normal Move up to 6\". This and Fury Unleashed can’t both target the same unit in one phase.",
+    "summarySpans": [
+      {
+        "start": 41,
+        "end": 55,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 66,
+        "end": 86,
+        "bold": true
+      },
+      {
+        "start": 149,
+        "end": 160,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 180,
+        "end": 194,
+        "target": {
+          "kind": "ability",
+          "id": "world-eaters.goretrack-onslaught.fury-unleashed"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-unit-shoots"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "WORLD EATERS VEHICLE"
+            ],
+            "triggerAttackResult": "hit-at-least-once-by-that-unit"
+          },
+          "effects": [
+            {
+              "action": "make-move",
+              "actor": "target-unit",
+              "moveType": "normal",
+              "optional": true,
+              "distanceCap": {
+                "unit": "inch",
+                "amount": 6,
+                "from": "move-start",
+                "comparator": "at-most"
+              }
+            }
+          ],
+          "restrictions": {
+            "excludesSameUnitInSamePhaseWith": "ability:world-eaters.goretrack-onslaught.fury-unleashed"
+          }
+        }
+      }
+    }
+  }
+}

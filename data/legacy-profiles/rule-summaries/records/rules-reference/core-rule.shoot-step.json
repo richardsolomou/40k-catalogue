@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "shoot-step",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "34",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=34"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "10. Shooting Phase",
+    "ruleNumber": "10.02",
+    "summary": "The active player resolves shooting unit by unit, for whichever eligible units they want to use. A unit already on the battlefield qualifies unless it has been picked to shoot in this phase. Pick one such friendly unit, then pick a shooting type it is eligible for and resolve it: Normal, Assault, Close-Quarters, Indirect, or one found elsewhere.",
+    "summarySpans": [
+      {
+        "start": 281,
+        "end": 287,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-shooting"
+        }
+      },
+      {
+        "start": 289,
+        "end": 296,
+        "target": {
+          "kind": "core-rule",
+          "id": "assault-shooting"
+        }
+      },
+      {
+        "start": 298,
+        "end": 312,
+        "target": {
+          "kind": "core-rule",
+          "id": "close-quarters-shooting"
+        }
+      },
+      {
+        "start": 314,
+        "end": 322,
+        "target": {
+          "kind": "core-rule",
+          "id": "indirect-shooting"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "34",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=34"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "phase-step",
+        "phase": "shooting",
+        "actor": "active-player",
+        "loop": {
+          "unitsAtATime": 1,
+          "until": "all-chosen-units-selected-and-attacks-resolved",
+          "optionalPerUnit": true
+        },
+        "eligibility": {
+          "all": [
+            "on-battlefield",
+            "not-already-selected-to-shoot-this-phase"
+          ]
+        },
+        "subSteps": [
+          {
+            "order": 1,
+            "name": "Select Unit",
+            "select": {
+              "count": 1,
+              "side": "friendly",
+              "constraint": "eligible-to-shoot"
+            },
+            "setsState": "selected-to-shoot"
+          },
+          {
+            "order": 2,
+            "name": "Select Shooting Type",
+            "choose": {
+              "count": 1,
+              "constraint": "unit-eligible"
+            },
+            "then": "resolve"
+          }
+        ],
+        "shootingTypes": {
+          "listed": [
+            "10.04",
+            "10.05",
+            "10.06",
+            "10.07"
+          ],
+          "exhaustive": false
+        },
+        "noSkip": {
+          "allUnitsSelected": false
+        }
+      }
+    }
+  }
+}

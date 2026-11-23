@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.auric-champions.shoulder-the-mantle",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Auric Champions",
+    "cp": 1,
+    "summary": "In your Movement phase, ahead of the Reinforcements step, spend 1 CP on a single ADEPTUS CUSTODES CHARACTER model of yours that is not currently leading any unit. Pick a friendly unit, neither Battle-shocked nor an Attached unit, no more than 2\" away horizontally and 5\" away vertically, that the model's datasheet Leader rules allow it to lead. The model joins it as its Leader, and the Starting Strength of the unit is adjusted to match.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 37,
+        "end": 56,
+        "bold": true
+      },
+      {
+        "start": 81,
+        "end": 107,
+        "bold": true
+      },
+      {
+        "start": 193,
+        "end": 207,
+        "bold": true
+      },
+      {
+        "start": 215,
+        "end": 228,
+        "bold": true
+      },
+      {
+        "start": 315,
+        "end": 321,
+        "bold": true
+      },
+      {
+        "start": 372,
+        "end": 378,
+        "bold": true
+      },
+      {
+        "start": 388,
+        "end": 405,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Auric Champions",
+          "category": "Epic Deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "event": "before-reinforcements-step"
+          },
+          "target": {
+            "entity": "model",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES",
+              "CHARACTER"
+            ],
+            "condition": "not-leading-a-unit"
+          },
+          "effects": [
+            {
+              "kind": "attach-as-leader",
+              "select": {
+                "entity": "unit",
+                "side": "friendly",
+                "count": 1,
+                "excluded": [
+                  "battle-shocked",
+                  "attached"
+                ],
+                "withinHorizontalInches": 2,
+                "withinVerticalInches": 5,
+                "mustBeLeadableBy": "model-per-datasheet-leader-section"
+              },
+              "adjustStartingStrength": true
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

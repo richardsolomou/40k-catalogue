@@ -1,0 +1,113 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.kabalite-cartel.murderous-agenda",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Kabalite Cartel",
+    "summary": "Pick a listed contract in round 1 as the round opens, then designate one matching enemy unit. The corresponding attack benefit goes to Blades for Hire and Kabal units until their contract closes. At the opening of your Command phase, take 3 Pain tokens if the target’s destruction has completed the contract. Trophy Hunters grants Precision to eligible models attacking the designated Character unit. For Sow Fear and Terror, the target needs at least one non-Character model and either the Infantry or the Mounted keyword. At that same checkpoint, the contract can close as soon as none of the target’s non-Characters survive. Its Sustained Hits 1 applies against any Infantry or Mounted target. Show Strength designates a Monster or Vehicle and grants Lethal Hits against either target type. Both the attacking model and its unit must qualify via Blades for Hire or Kabal.",
+    "summarySpans": [
+      {
+        "start": 331,
+        "end": 340,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "precision"
+        }
+      },
+      {
+        "start": 632,
+        "end": 648,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 754,
+        "end": 765,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "timing": {
+          "chooseAt": "start of first battle round",
+          "contractCount": 1,
+          "targetsPerContract": 1
+        },
+        "grant": {
+          "unitsAnyOf": [
+            "Kabal",
+            "Blades for Hire"
+          ],
+          "modelsAnyOf": [
+            "Kabal",
+            "Blades for Hire"
+          ],
+          "expires": "on contract completion"
+        },
+        "completion": {
+          "at": "start of your Command phase",
+          "default": "contract unit destroyed",
+          "rewardPainTokens": 3
+        },
+        "contracts": {
+          "trophyHunters": {
+            "designateAnyOf": [
+              "Character"
+            ],
+            "attackTarget": "designated unit",
+            "ability": "precision"
+          },
+          "sowFearAndTerror": {
+            "designateAnyOf": [
+              "Infantry",
+              "Mounted"
+            ],
+            "requireNonCharacterModel": true,
+            "alternateCompletion": "all non-Character models in designated unit destroyed",
+            "attackTargetAnyOf": [
+              "Infantry",
+              "Mounted"
+            ],
+            "ability": "sustained-hits",
+            "value": 1
+          },
+          "showStrength": {
+            "designateAnyOf": [
+              "Monster",
+              "Vehicle"
+            ],
+            "attackTargetAnyOf": [
+              "Monster",
+              "Vehicle"
+            ],
+            "ability": "lethal-hits"
+          }
+        }
+      }
+    }
+  }
+}

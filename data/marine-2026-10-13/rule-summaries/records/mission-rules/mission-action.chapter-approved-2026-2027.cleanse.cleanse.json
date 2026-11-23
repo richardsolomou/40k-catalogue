@@ -1,0 +1,123 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-action",
+  "id": "chapter-approved-2026-2027.cleanse.cleanse",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "summary": "During your Shooting phase, a friendly unit can start this action by picking an objective in range, excluding your home objective. Any number of units may start, each with a different objective that phase. If the unit controls the chosen objective as your turn ends, your army counts it as cleansed.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 59,
+        "end": 65,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "performing-actions"
+        }
+      },
+      {
+        "start": 80,
+        "end": 89,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 115,
+        "end": 129,
+        "bold": true
+      },
+      {
+        "start": 184,
+        "end": 193,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 238,
+        "end": 247,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 290,
+        "end": 298,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "starts": {
+          "player": "acting-player",
+          "phase": "shooting"
+        },
+        "eligibleUnit": {
+          "side": "friendly",
+          "countPerStart": 1,
+          "position": {
+            "relation": "within-range",
+            "selector": "objective",
+            "exclude": "own-home-objective"
+          }
+        },
+        "useLimit": {
+          "starts": "unlimited",
+          "distinctSelectorsAmongStarts": {
+            "window": "same-phase",
+            "selector": "objective"
+          }
+        },
+        "completes": {
+          "window": "end-of-own-turn",
+          "requires": {
+            "subject": "acting-unit",
+            "predicate": "controls",
+            "object": "selected-objective"
+          }
+        },
+        "effects": [
+          {
+            "kind": "mark-objective",
+            "objective": "selected-objective",
+            "state": "cleansed",
+            "attributedTo": "acting-army"
+          }
+        ]
+      }
+    }
+  }
+}

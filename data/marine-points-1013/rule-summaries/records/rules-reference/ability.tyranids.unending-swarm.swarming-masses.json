@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.unending-swarm.swarming-masses",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Unending Swarm",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP, in your own Shooting phase or in either player's Fight phase. Choose one ENDLESS MULTITUDE unit of yours that has neither shot nor fought yet this phase. Until the phase ends, [SUSTAINED HITS 1] applies to its weapons, and if it has 15 or more models, its attacks also score Critical Hits on unmodified Hit rolls of 5+.",
+    "summarySpans": [
+      {
+        "start": 33,
+        "end": 47,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 70,
+        "end": 81,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 197,
+        "end": 215,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 324,
+        "end": 333,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Unending Swarm",
+          "when": {
+            "phases": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ENDLESS MULTITUDE"
+            ],
+            "notYet": "selected-to-shoot-or-fight"
+          },
+          "effects": [
+            {
+              "weapons": "all",
+              "grantAbility": "SUSTAINED HITS 1",
+              "sustainedHits": 1,
+              "duration": "end-of-phase"
+            },
+            {
+              "ifUnitModelsAtLeast": 15,
+              "criticalHitOn": "5+",
+              "duration": "end-of-phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

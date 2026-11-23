@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.pactbound-zealots.orbs-of-unlife",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Pactbound Zealots",
+    "summary": "As the Fight phase ends, roll a D6 separately for every enemy unit 3″ or closer to the bearer. Apply a +1 to these rolls only after a same-phase Dark Pact by the unit carrying this enhancement, with no failed Leadership test for that Pact. Each enemy unit whose result is 4+ takes D3 mortal wounds.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 145,
+        "end": 154,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-space-marines.dark-pacts"
+        }
+      },
+      {
+        "start": 209,
+        "end": 224,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      },
+      {
+        "start": 284,
+        "end": 297,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "phase-end",
+          "phase": "fight",
+          "owner": "either"
+        },
+        "target": {
+          "side": "enemy",
+          "quantifier": "each",
+          "distance": {
+            "relation": "within",
+            "inches": 3,
+            "origin": "bearer"
+          }
+        },
+        "roll": {
+          "dice": "D6",
+          "perTarget": true,
+          "modifier": {
+            "value": 1,
+            "condition": {
+              "subject": "bearer-unit",
+              "madeDarkPactIn": "trigger-phase",
+              "associatedLeadershipTest": "did-not-fail"
+            }
+          }
+        },
+        "effect": {
+          "type": "deal-mortal-wounds",
+          "amount": {
+            "dice": "D3"
+          },
+          "subject": "unit-bound-to-roll",
+          "condition": {
+            "roll": "roll-for-unit",
+            "modifiedThreshold": 4
+          }
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Nurgle",
+            "Heretic Astartes"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

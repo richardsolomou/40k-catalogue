@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.solar-spearhead.emperors-vengeance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Solar Spearhead",
+    "cp": 1,
+    "summary": "In either player's Fight phase, once an enemy unit chooses its targets, spend 1 CP on one ADEPTUS CUSTODES unit of yours that it aimed one or more attacks at. While the phase lasts, each time a model of that unit is destroyed without having fought this phase, roll a D6, with +1 to the roll for a WALKER unit. If the result is 4+, the model stays in play, fights once the attacking unit is done attacking, counting as having 1 wound remaining, and only then is removed.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 90,
+        "end": 106,
+        "bold": true
+      },
+      {
+        "start": 297,
+        "end": 303,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Solar Spearhead",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES"
+            ],
+            "condition": "selected-as-target-of-triggering-enemy-attack"
+          },
+          "effects": [
+            {
+              "kind": "fight-on-death",
+              "trigger": "model-destroyed-before-fighting-this-phase",
+              "roll": "D6",
+              "rollBonus": {
+                "delta": 1,
+                "condition": "unit-has-WALKER"
+              },
+              "succeedsOn": "4+",
+              "fightsAfter": "attacking-unit-finishes",
+              "woundsRemainingWhileFighting": 1,
+              "thenRemoved": true,
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

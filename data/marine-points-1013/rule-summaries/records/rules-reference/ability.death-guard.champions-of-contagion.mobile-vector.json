@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.champions-of-contagion.mobile-vector",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Champions of Contagion",
+    "cp": 1,
+    "summary": "At the point before Reinforcements on your Movement phase, select a friendly CHARACTER from DEATH GUARD currently leading no unit. Choose an eligible friendly DEATH GUARD bodyguard within both distance limits, 2″ on the horizontal and 5″ on the vertical. Its eligibility comes from the CHARACTER’s Leader rules. Battle-shock or two attached Leaders disqualify the bodyguard. Attach the CHARACTER as a Leader and update the resulting unit’s Starting Strength.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Champions of Contagion",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "before": "reinforcements-step"
+          },
+          "target": {
+            "selections": [
+              {
+                "entity": "unit",
+                "controller": "friendly",
+                "count": 1,
+                "allKeywords": [
+                  "DEATH GUARD",
+                  "CHARACTER"
+                ],
+                "bind": "new-leader",
+                "condition": "not-leading-a-unit"
+              },
+              {
+                "entity": "unit",
+                "controller": "friendly",
+                "count": 1,
+                "allKeywords": [
+                  "DEATH GUARD"
+                ],
+                "bind": "bodyguard",
+                "within": {
+                  "of": "new-leader",
+                  "horizontalInches": 2,
+                  "verticalInches": 5
+                },
+                "condition": {
+                  "leadableBy": "new-leader-under-its-datasheet",
+                  "excludeBattleShocked": true,
+                  "excludeAttachedLeaderCount": 2
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "attach-leader",
+              "leader": "new-leader",
+              "bodyguard": "bodyguard"
+            },
+            {
+              "action": "update-starting-strength",
+              "recipient": "resulting-attached-unit"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

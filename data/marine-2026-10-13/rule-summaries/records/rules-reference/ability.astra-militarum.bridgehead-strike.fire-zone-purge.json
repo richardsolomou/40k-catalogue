@@ -1,0 +1,151 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.bridgehead-strike.fire-zone-purge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Bridgehead Strike",
+    "summary": "When your Warlord is a Militarum Tempestus Officer model, friendly Tempestus Scions gain Battleline and +1 OC. A unit of yours with Militarum Tempestus gets +1 to hit rolls on its ranged attacks if it entered play this turn and is selected to shoot.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 17,
+        "bold": true
+      },
+      {
+        "start": 23,
+        "end": 50,
+        "bold": true
+      },
+      {
+        "start": 67,
+        "end": 83,
+        "bold": true
+      },
+      {
+        "start": 89,
+        "end": 99,
+        "bold": true
+      },
+      {
+        "start": 107,
+        "end": 109,
+        "bold": true
+      },
+      {
+        "start": 132,
+        "end": 151,
+        "bold": true
+      },
+      {
+        "start": 163,
+        "end": 172,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 231,
+        "end": 248,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "9b847488-9663-48dc-b819-08ab93ac4382",
+          "faction": "Astra Militarum",
+          "detachmentId": "aae77907-0898-4c11-8a9e-a866a3e67456",
+          "detachment": "Bridgehead Strike",
+          "uniqueTags": [],
+          "sourceId": "aae77907-0898-4c11-8a9e-a866a3e67456:fire-zone-purge",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "effects": [
+          {
+            "condition": {
+              "type": "army-warlord-matches",
+              "target": {
+                "owner": "friendly",
+                "level": "model",
+                "allOf": [
+                  "Militarum Tempestus",
+                  "Officer"
+                ]
+              }
+            },
+            "target": {
+              "owner": "friendly",
+              "level": "unit",
+              "allOf": [
+                "Tempestus Scions"
+              ]
+            },
+            "effects": [
+              {
+                "type": "keyword-grant",
+                "keyword": "Battleline"
+              },
+              {
+                "type": "stat-modifier",
+                "stat": "objective-control",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "trigger": {
+              "event": "selected-to-shoot",
+              "actor": {
+                "owner": "friendly",
+                "level": "unit",
+                "allOf": [
+                  "Militarum Tempestus"
+                ]
+              }
+            },
+            "condition": {
+              "type": "unit-set-up",
+              "turn": "triggering",
+              "subject": "selected-unit"
+            },
+            "effect": {
+              "type": "roll-modifier",
+              "roll": "hit",
+              "operation": "add",
+              "value": 1,
+              "attackType": "ranged",
+              "target": "selected-unit"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

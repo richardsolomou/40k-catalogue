@@ -1,0 +1,117 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.auric-champions.slayer-of-champions",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Auric Champions",
+    "cp": 1,
+    "summary": "In any phase, spend 1 CP on a single ADEPTUS CUSTODES CHARACTER unit of yours that has just wiped out the enemy unit you chose as your Assemblage of Might target when your Command phase began. Choose any enemy unit that is on the battlefield; until your next Command phase begins, attacks by your ADEPTUS CUSTODES CHARACTER models against it gain +1 on Wound rolls. If the unit that was destroyed was a CHARACTER unit, you also gain 1 CP.",
+    "summarySpans": [
+      {
+        "start": 37,
+        "end": 63,
+        "bold": true
+      },
+      {
+        "start": 135,
+        "end": 154,
+        "bold": true
+      },
+      {
+        "start": 172,
+        "end": 185,
+        "bold": true
+      },
+      {
+        "start": 259,
+        "end": 272,
+        "bold": true
+      },
+      {
+        "start": 297,
+        "end": 323,
+        "bold": true
+      },
+      {
+        "start": 403,
+        "end": 412,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Auric Champions",
+          "category": "Epic Deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "friendly-unit-destroyed-assemblage-target"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES",
+              "CHARACTER"
+            ],
+            "condition": "just-destroyed-assemblage-of-might-target"
+          },
+          "effects": [
+            {
+              "kind": "select-enemy-unit",
+              "count": 1,
+              "onBattlefield": true
+            },
+            {
+              "kind": "roll-modifier",
+              "roll": "wound",
+              "delta": 1,
+              "attackers": {
+                "side": "friendly",
+                "entity": "model",
+                "keywordsAll": [
+                  "ADEPTUS CUSTODES",
+                  "CHARACTER"
+                ]
+              },
+              "against": "selected-enemy-unit",
+              "expires": "start-of-your-next-command-phase"
+            },
+            {
+              "kind": "gain-cp",
+              "amount": 1,
+              "condition": "destroyed-unit-was-CHARACTER"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.foul-blightspawn.blinding-spray",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Foul Blightspawn",
+    "summary": "A unit of yours with Blinding Spray can use it in either Fight phase. You may pick one such unit. It gains Fights First through phase end and cannot be picked again in that battle.",
+    "summarySpans": [
+      {
+        "start": 57,
+        "end": 68,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 107,
+        "end": 119,
+        "target": {
+          "kind": "core-ability",
+          "id": "fights-first"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": "fight-phase",
+        "optional": true,
+        "selection": {
+          "count": 1,
+          "side": "friendly",
+          "requiresAbility": "Blinding Spray"
+        },
+        "effect": {
+          "operation": "grant-core-ability",
+          "abilityId": "fights-first",
+          "recipient": "selected-unit",
+          "durationEnd": "end-of-phase"
+        },
+        "limit": {
+          "count": 1,
+          "period": "battle",
+          "scope": "selected-unit"
+        }
+      }
+    }
+  }
+}

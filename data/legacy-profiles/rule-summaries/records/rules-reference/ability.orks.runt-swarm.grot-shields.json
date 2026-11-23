@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.runt-swarm.grot-shields",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Runt Swarm",
+    "cp": 1,
+    "summary": "When ranged attacks in the opponent’s Shooting phase target your Orks Infantry, excluding Gretchin, choose Gretchin within 3\" of that unit. For each hit roll that hits the protected infantry, end that attack and give your Gretchin 1 mortal wound while they remain on the battlefield.",
+    "summarySpans": [
+      {
+        "start": 38,
+        "end": 52,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 149,
+        "end": 157,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 233,
+        "end": 245,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-selected-ranged-attack-targets"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Gretchin"
+            ],
+            "distance": {
+              "unit": "inch",
+              "amount": 3,
+              "from": "friendly-orks-infantry-unit-chosen-for-trigger-attacks",
+              "comparator": "at-most"
+            },
+            "protectedUnit": {
+              "keywords": [
+                "Orks Infantry"
+              ],
+              "excludingKeywords": [
+                "Gretchin"
+              ]
+            }
+          },
+          "effects": [
+            {
+              "action": "end-attack-sequence",
+              "actor": "triggering-enemy-unit",
+              "attackTarget": "protected-orks-infantry-unit",
+              "attackType": "ranged",
+              "event": "hit-roll-scores-hit",
+              "condition": "selected-gretchin-unit-still-on-battlefield",
+              "exclude": "automatic-hit-without-roll"
+            },
+            {
+              "action": "inflict-mortal-wounds",
+              "recipient": "selected-gretchin-unit",
+              "amount": 1,
+              "timing": "after-ending-that-attack-sequence"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

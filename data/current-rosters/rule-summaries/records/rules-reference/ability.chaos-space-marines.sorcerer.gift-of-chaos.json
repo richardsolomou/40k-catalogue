@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.sorcerer.gift-of-chaos",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Sorcerer",
+    "summary": "Whenever the Sorcerer is chosen to shoot or fight, finish resolving the attacks, then choose one enemy unit it hit with a [PSYCHIC] attack. The chosen unit takes a Leadership test and suffers D3 mortal wounds on a failure.",
+    "summarySpans": [
+      {
+        "start": 123,
+        "end": 130,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "psychic"
+        }
+      },
+      {
+        "start": 164,
+        "end": 179,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      },
+      {
+        "start": 192,
+        "end": 194,
+        "bold": true
+      },
+      {
+        "start": 195,
+        "end": 208,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "trigger": "each-time-selected-to-shoot-or-fight",
+        "timing": "after-resolving-attacks",
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "count": 1,
+          "minimumHitsFromThisModel": 1,
+          "requiredAttackAbility": "psychic",
+          "optional": false
+        },
+        "effect": {
+          "recipient": "selected-unit",
+          "test": "leadership",
+          "required": true,
+          "uponFailure": {
+            "mortalWoundsDiceSides": 3
+          }
+        }
+      }
+    }
+  }
+}

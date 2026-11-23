@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.houndpack-lance.marked-prey",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Houndpack Lance",
+    "summary": "Choose one opposing unit as your Command phase opens. The designation lasts until your next Command phase begins. Each WAR DOG model’s attack against the chosen unit gains [SUSTAINED HITS 1] if the attacker can see that unit.",
+    "summarySpans": [
+      {
+        "start": 33,
+        "end": 46,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 92,
+        "end": 105,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 119,
+        "end": 126,
+        "bold": true
+      },
+      {
+        "start": 172,
+        "end": 190,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "2e79f9cd-94dc-48ca-bddf-6d5e877609c5",
+          "faction": "Chaos Knights",
+          "detachmentId": "a634e475-384b-40cd-957d-cd99201ab3e4",
+          "detachment": "Houndpack Lance",
+          "uniqueTags": [],
+          "sourceId": "a634e475-384b-40cd-957d-cd99201ab3e4:marked-prey",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "trigger": {
+          "event": "phase-started",
+          "phase": "command",
+          "owner": "self"
+        },
+        "selection": {
+          "count": 1,
+          "optional": false,
+          "target": {
+            "owner": "enemy",
+            "level": "unit"
+          }
+        },
+        "expires": {
+          "event": "next-phase-started",
+          "phase": "command",
+          "owner": "self"
+        },
+        "effect": {
+          "type": "weapon-ability-grant",
+          "keyword": "sustained-hits",
+          "attackType": "any",
+          "value": 1,
+          "actor": {
+            "owner": "friendly",
+            "level": "model",
+            "allOf": [
+              "WAR DOG"
+            ]
+          },
+          "condition": {
+            "attackTarget": "selected-unit",
+            "visibleTo": "attacking-model",
+            "timing": "attack"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.rad-zone-corps.rad-bombardment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Rad-Zone Corps",
+    "summary": "BOMBARDMENT applies as battle round one opens. For each opposing unit within the opponent’s deployment zone, the opponent chooses whether it stands firm or takes cover. Roll a D6 per unit. Unit Standing Firm: That unit takes D3 mortal wounds if the result reaches 3+. Unit Taking Cover: The unit is battle-shocked. A 5+ also deals D3 mortal wounds. Under FALLOUT, roll a D6 for every opposing unit in that deployment zone as your Command phase opens in battle rounds two through five. A 3+ deals 1 mortal wound and obliges the damaged unit to attempt a Battle-shock test.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 11,
+        "bold": true
+      },
+      {
+        "start": 23,
+        "end": 35,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-battle-round"
+        }
+      },
+      {
+        "start": 189,
+        "end": 208,
+        "bold": true
+      },
+      {
+        "start": 228,
+        "end": 241,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 268,
+        "end": 286,
+        "bold": true
+      },
+      {
+        "start": 299,
+        "end": 313,
+        "bold": true
+      },
+      {
+        "start": 334,
+        "end": 347,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 355,
+        "end": 362,
+        "bold": true
+      },
+      {
+        "start": 430,
+        "end": 443,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 553,
+        "end": 570,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "60ecf26b-0c2b-4ea3-8a29-5f06bd02f6d8",
+          "faction": "Adeptus Mechanicus",
+          "detachmentId": "e00b5962-4b5a-4857-bb5d-d1372e762d2f",
+          "detachment": "Rad-Zone Corps",
+          "uniqueTags": [],
+          "sourceId": "e00b5962-4b5a-4857-bb5d-d1372e762d2f:rad-bombardment",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "phases": [
+          {
+            "name": "BOMBARDMENT",
+            "trigger": {
+              "event": "battle-round-started",
+              "round": 1
+            },
+            "forEach": {
+              "owner": "enemy",
+              "level": "unit",
+              "within": "opponent-deployment-zone"
+            },
+            "choice": {
+              "chosenBy": "opponent",
+              "count": 1,
+              "per": "eligible-unit",
+              "timing": "before-rolling",
+              "options": [
+                {
+                  "name": "Unit Standing Firm",
+                  "roll": {
+                    "dice": "D6",
+                    "count": 1,
+                    "threshold": 3
+                  },
+                  "onSuccess": {
+                    "type": "mortal-wounds",
+                    "count": "D3"
+                  }
+                },
+                {
+                  "name": "Unit Taking Cover",
+                  "effect": {
+                    "type": "state-change",
+                    "state": "battle-shocked"
+                  },
+                  "roll": {
+                    "dice": "D6",
+                    "count": 1,
+                    "threshold": 5
+                  },
+                  "onSuccess": {
+                    "type": "mortal-wounds",
+                    "count": "D3"
+                  }
+                }
+              ]
+            },
+            "target": "each-eligible-unit"
+          },
+          {
+            "name": "FALLOUT",
+            "trigger": {
+              "event": "phase-started",
+              "phase": "command",
+              "owner": "self",
+              "battleRounds": {
+                "minimum": 2,
+                "maximum": 5
+              }
+            },
+            "forEach": {
+              "owner": "enemy",
+              "level": "unit",
+              "within": "opponent-deployment-zone"
+            },
+            "roll": {
+              "dice": "D6",
+              "count": 1,
+              "threshold": 3
+            },
+            "onSuccess": [
+              {
+                "type": "mortal-wounds",
+                "count": 1
+              },
+              {
+                "type": "test",
+                "test": "battle-shock",
+                "required": true
+              }
+            ],
+            "target": "each-eligible-unit"
+          }
+        ]
+      }
+    }
+  }
+}

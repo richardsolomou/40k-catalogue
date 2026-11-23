@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "deadly-demise",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "24. Core Abilities",
+    "ruleNumber": "24.08",
+    "summary": "Destruction of the bearer calls for a D6 check once any passengers finish disembarking by emergency move. A 6 inflicts X mortal wounds on all units up to 6 inches from that model. Determine a variable X independently for every affected unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "deadly-demise",
+        "trigger": {
+          "event": "model-destroyed",
+          "subject": "ability-bearer"
+        },
+        "sequence": {
+          "rollAfter": "emergency-disembark-moves",
+          "when": "if-bearer-had-embarked-units"
+        },
+        "check": {
+          "diceCount": 1,
+          "diceSides": 6,
+          "successFace": 6
+        },
+        "effect": {
+          "kind": "mortal-wounds",
+          "targets": "all-units",
+          "center": "destroyed-bearer",
+          "rangeInches": 6,
+          "rangeInclusive": true,
+          "amount": {
+            "parameter": "X",
+            "source": "ability-rating"
+          },
+          "independentRollPerUnitWhenRandom": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.vow-sworn-crusaders.pious-enmity",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Vow-sworn Crusaders",
+    "cp": 1,
+    "summary": "When you pick one of your CHAPLAIN or JUDICIAR units to fight, you may spend 1 CP in either player’s Fight phase. Pick one melee benefit for the same unit. Reroll Hit rolls showing 1 against any defender, or reroll both Hit and Wound rolls showing 1 against targets with MONSTER or VEHICLE.",
+    "summarySpans": [
+      {
+        "start": 101,
+        "end": 112,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 163,
+        "end": 172,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 228,
+        "end": 239,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Vow-sworn Crusaders",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "unit-selected-to-fight",
+            "side": "friendly",
+            "anyOf": [
+              "CHAPLAIN",
+              "JUDICIAR"
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "sameAs": "triggering-unit",
+            "anyOf": [
+              "CHAPLAIN",
+              "JUDICIAR"
+            ]
+          },
+          "effects": {
+            "selection": "choose-one",
+            "alternatives": [
+              {
+                "attacker": "triggering-unit",
+                "attackType": "melee",
+                "rerolls": [
+                  {
+                    "roll": "hit",
+                    "value": 1,
+                    "optional": true
+                  }
+                ]
+              },
+              {
+                "attacker": "triggering-unit",
+                "attackType": "melee",
+                "defenderAnyOf": [
+                  "MONSTER",
+                  "VEHICLE"
+                ],
+                "rerolls": [
+                  {
+                    "roll": "hit",
+                    "value": 1,
+                    "optional": true
+                  },
+                  {
+                    "roll": "wound",
+                    "value": 1,
+                    "optional": true
+                  }
+                ]
+              }
+            ]
+          },
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

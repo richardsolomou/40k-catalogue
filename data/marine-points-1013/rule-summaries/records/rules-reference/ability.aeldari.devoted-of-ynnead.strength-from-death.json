@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.devoted-of-ynnead.strength-from-death",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Devoted of Ynnead",
+    "summary": "When the opponent’s Shooting phase ends, check whether it cost you any Ynnari units. If so, choose one of your Ynnari Infantry or Mounted units within 6 inches of a Ynnari unit lost during that phase. The response is optional and uses a Normal move with a D6+1 inch limit. You can modify one Ynnari Fade Back Agile Manoeuvre per turn. Swap its Normal move for a Surge move capped at D6+1 inches. As the Fight phase opens, choose a Ynnari unit that is below Starting Strength and lacks the Titanic keyword. It gets Fights First for that phase.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 34,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 362,
+        "end": 372,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-move"
+        }
+      },
+      {
+        "start": 403,
+        "end": 414,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 514,
+        "end": 526,
+        "target": {
+          "kind": "core-ability",
+          "id": "fights-first"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "lethalIntent": {
+          "trigger": "opponent-shooting-phase-end",
+          "requires": "friendly-ynnari-destroyed-during-phase",
+          "selection": {
+            "count": 1,
+            "unit": "friendly-ynnari-infantry-or-mounted",
+            "distanceInches": 6,
+            "from": "friendly-ynnari-destroyed-that-phase"
+          },
+          "optionalMove": {
+            "type": "normal",
+            "maxInches": "D6+1"
+          }
+        },
+        "lethalSurge": {
+          "cap": {
+            "count": 1,
+            "per": "turn"
+          },
+          "unit": "friendly-ynnari",
+          "when": "performing-fade-back-agile-manoeuvre",
+          "replace": "normal-move",
+          "with": "surge-move",
+          "maxInches": "D6+1"
+        },
+        "lethalReprisal": {
+          "trigger": "fight-phase-start",
+          "choose": 1,
+          "unit": "friendly-ynnari-below-starting-strength",
+          "exclude": "titanic",
+          "grant": "fights-first",
+          "expires": "fight-phase-end"
+        }
+      }
+    }
+  }
+}

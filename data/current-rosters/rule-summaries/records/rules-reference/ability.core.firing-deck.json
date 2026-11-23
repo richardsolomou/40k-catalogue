@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "core.firing-deck",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "core-ability",
+    "group": "Core",
+    "summary": "Firing Deck. When you pick the occupied TRANSPORT to fire in your Shooting phase, the printed value caps the number of passengers you can pick. Exclude models from units already chosen to shoot this phase. Add one ranged weapon per chosen model to the TRANSPORT’s own weapons, except weapons with [ONE SHOT]. The borrowed weapons last until the TRANSPORT finishes its attacks. All units aboard sit out shooting for the rest of that turn.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 11,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "firing-deck"
+        }
+      },
+      {
+        "start": 40,
+        "end": 49,
+        "bold": true
+      },
+      {
+        "start": 252,
+        "end": 261,
+        "bold": true
+      },
+      {
+        "start": 297,
+        "end": 307,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "one-shot"
+        }
+      },
+      {
+        "start": 345,
+        "end": 354,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "datasheet-ability",
+        "parameter": "X",
+        "holderKeywords": [
+          "TRANSPORT"
+        ],
+        "trigger": {
+          "turn": "yours",
+          "phase": "shooting",
+          "event": "holderSelectedToShoot",
+          "condition": "holderHasEmbarkedUnits",
+          "rule": "10.02"
+        },
+        "steps": [
+          {
+            "step": 1,
+            "select": {
+              "level": "model",
+              "upTo": "X",
+              "pool": "embarkedModels",
+              "excludeIfUnitAlreadySelectedToShootThisPhase": true
+            }
+          },
+          {
+            "step": 2,
+            "select": {
+              "perSelectedModel": 1,
+              "weapons": "ranged",
+              "excludingWeaponAbilities": [
+                "ONE SHOT"
+              ],
+              "rule": "24.26"
+            }
+          },
+          {
+            "step": 3,
+            "grant": {
+              "to": "holder",
+              "weapons": "step2Selections",
+              "inAdditionToOwn": true,
+              "until": "holderAttacksResolved"
+            }
+          },
+          {
+            "step": 4,
+            "restrict": {
+              "units": "allEmbarkedUnits",
+              "eligibleToShoot": false,
+              "until": "endOfTurn"
+            }
+          }
+        ],
+        "attachment": {
+          "kind": "core-ability",
+          "role": "abilities",
+          "sourceId": "core-ability:firing-deck",
+          "referenceQid": "core-rule:firing-deck"
+        }
+      }
+    }
+  }
+}

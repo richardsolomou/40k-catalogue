@@ -1,0 +1,63 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "event-companion.determine-mission.dominatus",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Event Companion",
+    "section": "Dominatus Event Companion",
+    "summary": "Read your Location card’s war zone rules to the table and apply them to this battle. If both players take Agendas, reveal the Force Dispositions and consult the matrix on each Alliance Briefing card. Cross-reference the player’s own disposition against their opponent’s. Play the resulting Agenda as your primary, with the mission deck’s primary cards set aside. If either player declines, compare both disposition cards. Find the opponent’s symbol on your card. A player skipping Agendas scores primary VP through the mission below that symbol. A player taking an Agenda uses its mission instead and cannot score VP from the card’s listed mission. The disposition pairing still sets the layout in either case.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "mode": "dominatus",
+        "warZone": {
+          "source": "Location card",
+          "readAloud": true,
+          "appliesTo": "upcoming battle"
+        },
+        "bothAttempt": {
+          "reveal": "Force Disposition cards",
+          "lookup": "each Alliance Briefing card matrix",
+          "inputs": [
+            "own disposition",
+            "opponent disposition"
+          ],
+          "primary": "resulting Agenda card",
+          "useMissionDeckPrimary": false
+        },
+        "anyDeclines": {
+          "lookup": "opponent symbol on own Force Disposition card",
+          "decliningPlayer": {
+            "primary": "mission below the symbol",
+            "scoresThatPrimaryVp": true
+          },
+          "agendaPlayer": {
+            "primary": "Agenda card",
+            "scoresDispositionPrimaryVp": false
+          }
+        },
+        "layout": {
+          "inputs": "both Force Dispositions",
+          "regardlessOfAgendas": true
+        }
+      }
+    }
+  }
+}

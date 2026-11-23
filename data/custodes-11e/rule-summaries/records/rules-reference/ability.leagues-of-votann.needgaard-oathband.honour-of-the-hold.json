@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.needgaard-oathband.honour-of-the-hold",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Needgaârd Oathband",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP. Use it in the Fight phase of either player's turn. Choose one of your LEAGUES OF VOTANN units that is yet to be picked to fight this phase; you may also spend 3YP. Pick one enemy unit in Engagement Range of it. For the rest of the phase, its models' melee attacks against that enemy unit have their Armour Penetration improved by 1, or by 2 if you spent YP on this use.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Needgaârd Oathband",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "LEAGUES OF VOTANN"
+            ],
+            "notYetSelectedTo": [
+              "fight"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "optional-cost",
+              "spendYP": 3
+            },
+            {
+              "kind": "improve-characteristic",
+              "characteristic": "AP",
+              "attacks": "melee attacks targeting the selected enemy unit",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "within": "engagement-range"
+              },
+              "value": 1,
+              "ifYPSpent": 2
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

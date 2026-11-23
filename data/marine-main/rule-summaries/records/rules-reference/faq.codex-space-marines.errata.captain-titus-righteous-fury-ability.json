@@ -1,0 +1,82 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-space-marines.errata.captain-titus-righteous-fury-ability",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "publication": "Codex: Space Marines",
+    "amends": [
+      {
+        "kind": "unit",
+        "id": "space-marines.captain-titus"
+      }
+    ],
+    "summary": "In the Fight phase, Captain Titus may use Righteous Fury to give his unit’s melee attacks +1 Strength. After that unit fights, Titus heals D3 wounds. Use 2D3 instead if Titus personally destroyed an enemy model in that phase.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 33,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "8d0e0c3c-8758-4d38-ac8e-34545f6b3ead",
+          "typedMechanics": {
+            "operation": "replace-ability-body",
+            "ability": "Righteous Fury",
+            "phase": "fight",
+            "optional": true,
+            "existingUseLimit": {
+              "count": 1,
+              "per": "battle-per-army"
+            },
+            "effects": [
+              {
+                "recipient": "bearer-unit",
+                "scope": "melee",
+                "characteristic": "Strength",
+                "modifier": 1
+              },
+              {
+                "trigger": "bearer-unit-has-fought",
+                "recipient": "bearer",
+                "replaceDefaultIf": {
+                  "bearerDestroyedEnemyModelInSamePhase": true
+                },
+                "defaultHealing": {
+                  "dice": 1,
+                  "sides": 3
+                },
+                "conditionalHealing": {
+                  "dice": 2,
+                  "sides": 3
+                }
+              }
+            ]
+          },
+          "signedValueMagnitudes": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.brandfast-oathband.tactical-alchemy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Brandfast Oathband",
+    "summary": "Model eligibility. KÂHL. Your Command phase gives you an option to pay 1 Yield Point. The bearer’s unit must be within objective range of a marker you hold beyond your deployment zone. After payment, a D6 result of 4+ earns you 1 CP.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 23,
+        "bold": true
+      },
+      {
+        "start": 30,
+        "end": 43,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 73,
+        "end": 84,
+        "target": {
+          "kind": "ability",
+          "id": "leagues-of-votann.prioritised-efficiency"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "characterOnly": true,
+          "match": "all",
+          "keywords": [
+            "KÂHL"
+          ],
+          "excludes": []
+        },
+        "trigger": {
+          "phase": "command",
+          "owner": "own-player",
+          "timing": "during"
+        },
+        "conditions": [
+          {
+            "type": "in-range-of-objective-marker",
+            "subject": "bearer-unit",
+            "objective": {
+              "controlledBy": "own-player",
+              "position": "not-within-own-deployment-zone"
+            }
+          }
+        ],
+        "effects": [
+          {
+            "type": "spend-resource",
+            "actor": "own-player",
+            "resource": "yield-point",
+            "amount": 1,
+            "optional": true,
+            "ruleQid": "ability:leagues-of-votann.prioritised-efficiency"
+          },
+          {
+            "type": "roll-for-resource",
+            "requires": "paid-yield-point",
+            "target": "own-player",
+            "roll": {
+              "dice": "D6",
+              "count": 1
+            },
+            "minimum": 4,
+            "resource": "command-point",
+            "amount": 1,
+            "operation": "gain"
+          }
+        ]
+      }
+    }
+  }
+}

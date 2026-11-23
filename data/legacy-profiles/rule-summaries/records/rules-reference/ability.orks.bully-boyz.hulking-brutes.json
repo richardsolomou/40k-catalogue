@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.bully-boyz.hulking-brutes",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Bully Boyz",
+    "cp": 1,
+    "summary": "React when an enemy picks one of your MEGANOBZ or NOBZ units as a target during the opposing Shooting phase. For 1 CP, impose −1 on wound rolls for ranged attacks into that unit when the attack’s Strength is higher than the unit’s Toughness. Choose the 2 CP option for the same penalty on every ranged attack targeting the unit.",
+    "summarySpans": [
+      {
+        "start": 38,
+        "end": 46,
+        "bold": true
+      },
+      {
+        "start": 50,
+        "end": 54,
+        "bold": true
+      },
+      {
+        "start": 93,
+        "end": 107,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 132,
+        "end": 143,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "phase": "shooting",
+            "turn": "opponents",
+            "event": "enemy-selects-shooting-targets",
+            "object": {
+              "owner": "friendly",
+              "keywordsAnyOf": [
+                "MEGANOBZ",
+                "NOBZ"
+              ]
+            }
+          },
+          "target": {
+            "bind": "triggering-target-unit"
+          },
+          "effects": [
+            {
+              "action": "choose-one-cost-and-effect",
+              "attackType": "ranged",
+              "defender": "triggering-target-unit",
+              "modifier": {
+                "roll": "wound",
+                "value": -1
+              },
+              "options": [
+                {
+                  "totalCp": 1,
+                  "when": "attack-strength-greater-than-defender-toughness"
+                },
+                {
+                  "totalCp": 2,
+                  "additionalCp": 1,
+                  "when": "any-matching-ranged-attack"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

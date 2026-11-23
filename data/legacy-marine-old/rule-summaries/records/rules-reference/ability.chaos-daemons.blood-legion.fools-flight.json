@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.blood-legion.fools-flight",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Blood Legion",
+    "cp": 2,
+    "summary": "Strategic Ploy, 2 CP. Use it during the opposing player's Movement phase, once an enemy unit finishes a fall-back move. Choose one of your LEGIONES DAEMONICA KHORNE units that is not engaged and is within 6\" of it. Your unit declares a charge, and as charge targets it may only pick enemy units that performed a fall-back move during this phase and lie within its maximum distance.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "detachment": "Blood Legion",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "moment": "enemy-unit-ends-fall-back-move"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "KHORNE"
+            ],
+            "unengaged": true,
+            "withinInchesOfTriggeringUnit": 6
+          },
+          "effects": [
+            {
+              "kind": "declare-charge",
+              "chargeTargetsLimitedTo": "only enemy units within maximum distance that Fell Back earlier this phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

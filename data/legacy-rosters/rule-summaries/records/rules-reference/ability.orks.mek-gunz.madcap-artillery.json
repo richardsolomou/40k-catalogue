@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.mek-gunz.madcap-artillery",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Mek Gunz",
+    "summary": "Once the Mek Gunz finish firing in your Shooting phase, check their loadout. If every Mek Gunz model carries the same ranged weapon, choose one enemy that took a hit from those attacks. Remove the status when your next turn starts. Bubblechukka makes it Wobbled, so targets of its ranged fire get the Benefit of Cover. Kustom Mega-kannon leaves it Zapped and gives it −1 Leadership. Smasha Gun leaves it Smashed and lowers its Move by 2. Traktor Kannon leaves it Grounded, blocking the decision to take to the skies. Start each Mek Gunz model with five Grot Crew tokens beside it. Take one away whenever that model loses a wound. The gun model represents the last wound.",
+    "summarySpans": [
+      {
+        "start": 40,
+        "end": 54,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 301,
+        "end": 317,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      },
+      {
+        "start": 498,
+        "end": 515,
+        "target": {
+          "kind": "core-rule",
+          "id": "flying-models"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "type": "post-shooting-weapon-dependent-effect",
+        "actor": "owning-unit",
+        "trigger": {
+          "event": "owning-unit-finished-shooting",
+          "during": "your-shooting-phase",
+          "requires": {
+            "models": "each-Mek-Gunz-model-in-owning-unit",
+            "loadout": "same-ranged-weapon"
+          }
+        },
+        "choose": {
+          "count": 1,
+          "subject": "enemy-unit",
+          "requires": "hit-by-at-least-one-attack-in-that-shooting"
+        },
+        "duration": "until-start-of-your-next-turn",
+        "weaponEffects": {
+          "Bubblechukka": {
+            "status": "Wobbled",
+            "givesBenefitOfCoverTo": "targets-of-marked-unit-ranged-attacks"
+          },
+          "Kustom Mega-kannon": {
+            "status": "Zapped",
+            "stat": "Ld",
+            "subtract": 1
+          },
+          "Smasha Gun": {
+            "status": "Smashed",
+            "stat": "M",
+            "subtractInches": 2
+          },
+          "Traktor Kannon": {
+            "status": "Grounded",
+            "prevents": "take-to-the-skies-declaration"
+          }
+        },
+        "tracking": {
+          "per": "Mek-Gunz-model",
+          "token": "Grot Crew",
+          "initial": 5,
+          "removePerWoundLost": 1,
+          "finalWoundRepresentedBy": "Mek-Gunz-model-itself"
+        }
+      }
+    }
+  }
+}

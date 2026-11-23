@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.khorne-daemonkin.daemonic-fury",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Khorne Daemonkin",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP. Use it as your Fight phase begins, on one BLOOD LEGIONS unit of yours. Pick a WORLD EATERS unit of yours no more than 6\" from it: until the turn ends, the melee weapons of that WORLD EATERS unit's models have [LANCE], and if your army's Daemonic Rage ability is active when this Stratagem is used, they also have [TWIN-LINKED] until the phase ends.",
+    "summarySpans": [
+      {
+        "start": 230,
+        "end": 237,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lance"
+        }
+      },
+      {
+        "start": 334,
+        "end": 347,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "twin-linked"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Khorne Daemonkin",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "own"
+              }
+            ],
+            "event": "start-of-phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "BLOOD LEGIONS"
+            ]
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "friendly",
+                "count": 1,
+                "keywordsAll": [
+                  "WORLD EATERS"
+                ],
+                "withinInches": 6
+              },
+              "weapons": "melee",
+              "grantWeaponAbility": "LANCE",
+              "duration": "end-of-turn"
+            },
+            {
+              "condition": "daemonic-rage-active",
+              "checked": "once-on-resolution",
+              "weapons": "melee",
+              "grantWeaponAbility": "TWIN-LINKED",
+              "duration": "end-of-phase"
+            }
+          ],
+          "duration": "per-effect",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

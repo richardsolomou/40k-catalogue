@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.flyblown-host.droning-horror",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Flyblown Host",
+    "cp": 1,
+    "summary": "When you pick your Plague Marines to shoot in your Shooting phase, they may reroll Hit results of 1 for their ranged attacks. Against targets in half range, they may reroll Wound results of 1 for those attacks too.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 33,
+        "bold": true
+      },
+      {
+        "start": 51,
+        "end": 65,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 83,
+        "end": 94,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 173,
+        "end": 186,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "select-friendly-unit-to-shoot",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Plague Marines"
+            ],
+            "mode": "trigger-unit"
+          },
+          "effects": [
+            {
+              "kind": "optional-reroll",
+              "recipient": "target-unit-ranged-attacks",
+              "roll": "hit",
+              "face": 1,
+              "duration": {
+                "until": "triggering-shooting-ends"
+              }
+            },
+            {
+              "kind": "optional-reroll",
+              "recipient": "target-unit-ranged-attacks",
+              "roll": "wound",
+              "face": 1,
+              "condition": {
+                "attackTargetRange": "within-half-range"
+              },
+              "duration": {
+                "until": "triggering-shooting-ends"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.spiritseer.tears-of-isha",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Spiritseer",
+    "summary": "In your Command phase, choose one friendly Wraith unit no farther than 6″ from this model. Restore one destroyed model to it if possible. Otherwise a model there heals D3 lost wounds at most. Apply the selection limit of one per turn to each unit.",
+    "summarySpans": [
+      {
+        "start": 43,
+        "end": 49,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "actor": "controlling-player",
+        "trigger": {
+          "phase": "command",
+          "turn": "own"
+        },
+        "selection": {
+          "side": "friendly",
+          "entity": "unit",
+          "allKeywords": [
+            "WRAITH"
+          ],
+          "measure": "within",
+          "origin": "this-model",
+          "rangeInches": 6,
+          "count": 1,
+          "optional": false,
+          "limit": {
+            "count": 1,
+            "period": "turn",
+            "scope": "selected-unit"
+          }
+        },
+        "branches": [
+          {
+            "condition": "selected-unit-has-destroyed-model",
+            "effect": {
+              "returnDestroyedModels": 1
+            }
+          },
+          {
+            "condition": "otherwise",
+            "effect": {
+              "recipient": "one-model-in-selected-unit",
+              "healLostWoundsUpTo": "D3"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

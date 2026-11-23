@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.hearthfyre-arsenal.graviton-vault",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Hearthfyre Arsenal",
+    "summary": "5 points. Bearer must be an IRON-MASTER model. After the bearer shoots in your Shooting phase, and after it fights in the Fight phase, pick one enemy unit that is a MONSTER or VEHICLE and that at least one of those attacks hit. It is suppressed until your next turn begins; a suppressed unit's models get -1 to the Hit roll for every attack they make.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "enhancement": {
+          "detachment": "Hearthfyre Arsenal",
+          "points": 5,
+          "eligibility": {
+            "keywordsAll": [
+              "IRON-MASTER"
+            ]
+          },
+          "effects": [
+            {
+              "trigger": [
+                "your Shooting phase, after the bearer has shot",
+                "the Fight phase, after the bearer has fought"
+              ],
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsAny": [
+                  "MONSTER",
+                  "VEHICLE"
+                ],
+                "condition": "hit by one or more of those attacks"
+              },
+              "kind": "suppressed",
+              "until": "start-of-your-next-turn",
+              "while": {
+                "roll": "hit",
+                "op": "subtract",
+                "value": 1,
+                "appliesTo": "attacks by models in the suppressed unit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

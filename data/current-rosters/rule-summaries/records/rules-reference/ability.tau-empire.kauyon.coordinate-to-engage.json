@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.kauyon.coordinate-to-engage",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Kauyon",
+    "cp": 1,
+    "summary": "1 CP, in your Shooting phase. Choose one of your T'AU EMPIRE units that has just been picked as an Observer unit (under For the Greater Good). For the rest of this phase, attacks by its models against their Spotted unit improve their Ballistic Skill by 1, and a MARKERLIGHT unit's attacks against that Spotted unit also have [IGNORES COVER].",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Kauyon",
+          "when": [
+            {
+              "phase": "shooting",
+              "turn": "own"
+            }
+          ],
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "T'AU EMPIRE"
+            ],
+            "condition": "just-selected-as-observer-unit"
+          },
+          "effects": [
+            {
+              "kind": "ballistic-skill-improvement",
+              "value": 1,
+              "condition": "target-is-spotted-unit"
+            },
+            {
+              "kind": "weapon-ability",
+              "ability": "IGNORES COVER",
+              "condition": [
+                "target-is-spotted-unit",
+                {
+                  "unitKeywords": [
+                    "MARKERLIGHT"
+                  ]
+                }
+              ]
+            }
+          ],
+          "restrictions": [],
+          "duration": "end-of-phase",
+          "ruleReference": "For the Greater Good"
+        }
+      }
+    }
+  }
+}

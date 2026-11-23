@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.persecution-prospect.nomad-strategist",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Persecution Prospect",
+    "summary": "The bearer must be on the table when the opposing Fight phase ends. That is your window to use this once per battle. You may spend up to four Yield Points. Choose one friendly HERNKYN unit and up to one more per two points spent. When checking Engagement Range for each choice, ignore enemies marked Assailed by Assailed From Every Angle. You may move the chosen units off the table into Strategic Reserves.",
+    "summarySpans": [
+      {
+        "start": 50,
+        "end": 61,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 142,
+        "end": 154,
+        "target": {
+          "kind": "ability",
+          "id": "leagues-of-votann.prioritised-efficiency"
+        }
+      },
+      {
+        "start": 244,
+        "end": 260,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 312,
+        "end": 337,
+        "target": {
+          "kind": "ability",
+          "id": "leagues-of-votann.persecution-prospect.assailed-from-every-angle"
+        }
+      },
+      {
+        "start": 388,
+        "end": 406,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "limit": {
+          "count": 1,
+          "period": "battle"
+        },
+        "trigger": {
+          "phase": "fight",
+          "timing": "end",
+          "player": "opponent",
+          "bearerPosition": "battlefield"
+        },
+        "spend": {
+          "optional": true,
+          "resource": "YP",
+          "maximum": 4
+        },
+        "selector": {
+          "side": "friendly",
+          "requiredUnitKeyword": "HERNKYN",
+          "initialCount": 1,
+          "maxAdditionalPerIncrement": 1,
+          "resourceIncrement": 2,
+          "excludedCandidate": "unit-in-engagement-range-of-one-or-more-non-Assailed-enemy-units",
+          "engagedEnemyExemption": "Assailed"
+        },
+        "effect": {
+          "optional": true,
+          "recipient": "selected-units",
+          "from": "battlefield",
+          "destination": "strategic-reserves"
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Leagues of Votann"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

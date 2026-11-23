@@ -1,0 +1,113 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.burna-bommer.burna-bomb",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Burna‑bommer",
+    "summary": "As the opponent’s Fight phase ends, choose one visible enemy within 36″ of the Burna-bommer. Exclude MONSTER and VEHICLE units and Lone Operatives. Roll one D6. On a 2+, the chosen unit takes D3 mortal wounds. It also loses access to Hidden until your next turn ends. Ranged attacks against it get [IGNORES COVER] for that same period.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 29,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 101,
+        "end": 108,
+        "bold": true
+      },
+      {
+        "start": 113,
+        "end": 120,
+        "bold": true
+      },
+      {
+        "start": 131,
+        "end": 146,
+        "target": {
+          "kind": "core-ability",
+          "id": "lone-operative"
+        }
+      },
+      {
+        "start": 195,
+        "end": 208,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 298,
+        "end": 313,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "ignores-cover"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "Fight",
+          "side": "opponent",
+          "step": "end"
+        },
+        "target": {
+          "count": 1,
+          "side": "enemy",
+          "visible": true,
+          "withinInches": 36,
+          "origin": "owner unit",
+          "excludedKeywords": [
+            "MONSTER",
+            "VEHICLE"
+          ],
+          "excludedAbilities": [
+            "Lone Operative"
+          ]
+        },
+        "roll": {
+          "count": 1,
+          "sides": 6,
+          "threshold": 2
+        },
+        "onSuccess": {
+          "mortalWounds": "D3",
+          "until": {
+            "step": "end",
+            "turn": "next own turn"
+          },
+          "targetCannotBeHidden": true,
+          "weaponAbilityGrant": {
+            "ability": "IGNORES COVER",
+            "appliesTo": "ranged attacks targeting selected enemy"
+          }
+        }
+      }
+    }
+  }
+}

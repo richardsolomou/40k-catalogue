@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.spearhead-at-arms.exemplars-wisdom",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Spearhead-at-Arms",
+    "cp": 1,
+    "summary": "In your Shooting phase, react as soon as your TITANIC Knight finishes firing. Choose the IMPERIAL KNIGHTS TITANIC model plus at least one friendly ARMIGER under its Bondsman effect. Mark one enemy hit by that shooting. Through phase end, your ARMIGER models improve AP by 1 when attacking that enemy.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 89,
+        "end": 113,
+        "bold": true
+      },
+      {
+        "start": 147,
+        "end": 154,
+        "bold": true
+      },
+      {
+        "start": 165,
+        "end": 173,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.bondsman"
+        }
+      },
+      {
+        "start": 243,
+        "end": 250,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "immediately-after-friendly-titanic-knight-model-shoots"
+          },
+          "target": {
+            "all": [
+              {
+                "owner": "your-army",
+                "entity": "model",
+                "count": 1,
+                "keywords": [
+                  "IMPERIAL KNIGHTS",
+                  "TITANIC"
+                ],
+                "binding": "model-that-just-shot"
+              },
+              {
+                "entity": "model",
+                "keyword": "ARMIGER",
+                "owner": "your-army",
+                "minCount": 1,
+                "affectedBy": "triggering-models-bondsman"
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "select-enemy-unit",
+              "count": 1,
+              "hitBy": "at-least-one-attack-from-target-model-in-triggering-shooting",
+              "bind": "marked-enemy"
+            },
+            {
+              "action": "modify-weapon-characteristic",
+              "characteristic": "armour-penetration",
+              "operation": "improve",
+              "amount": 1,
+              "actor": "each-friendly-armiger-model",
+              "attackTarget": "marked-enemy",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

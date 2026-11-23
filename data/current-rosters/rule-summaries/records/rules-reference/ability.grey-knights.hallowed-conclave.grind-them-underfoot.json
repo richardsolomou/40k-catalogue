@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.hallowed-conclave.grind-them-underfoot",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hallowed Conclave",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Charge phase right after one of your GREY KNIGHTS TERMINATOR units completes a Charge move; that unit is the target. Choose one enemy unit in Engagement Range of it, then roll one D6 per model of yours that is in Engagement Range of the chosen unit. Each 4+ inflicts 1 mortal wound on that enemy unit, up to 6 mortal wounds in total.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Hallowed Conclave",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-unit-ends-charge-move"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "GREY KNIGHTS"
+            ],
+            "triggerKeywordsAll": [
+              "GREY KNIGHTS",
+              "TERMINATOR"
+            ],
+            "sameAs": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "mortal-wound-roll",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "withinEngagementRange": true
+              },
+              "dice": "D6",
+              "per": "model in your unit within Engagement Range of that enemy unit",
+              "success": "4+",
+              "mortalWoundsPerSuccess": 1,
+              "maxMortalWounds": 6
+            }
+          ],
+          "restrictions": [],
+          "category": "Strategic Ploy"
+        }
+      }
+    }
+  }
+}

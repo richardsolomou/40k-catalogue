@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.kauyon.photon-grenades",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Kauyon",
+    "cp": 1,
+    "summary": "1 CP, in the opposing player's Charge phase, right after an enemy unit picks its charge targets. Choose one of your T'AU EMPIRE GRENADES units that is one of those targets and is not in Engagement Range of any enemy unit. The charging unit must test for Battle-shock at once, and until the phase ends its Charge rolls get -2.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Kauyon",
+          "when": [
+            {
+              "phase": "charge",
+              "turn": "opponent"
+            }
+          ],
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "T'AU EMPIRE",
+              "GRENADES"
+            ],
+            "condition": "target-of-that-charge"
+          },
+          "effects": [
+            {
+              "kind": "force-battle-shock-test",
+              "on": "charging-unit",
+              "immediate": true
+            },
+            {
+              "kind": "charge-roll-modifier",
+              "value": -2,
+              "on": "charging-unit",
+              "duration": "end-of-phase",
+              "magnitude": 2
+            }
+          ],
+          "restrictions": [
+            "target-not-within-engagement-range"
+          ],
+          "trigger": "after-enemy-unit-selects-charge-targets"
+        }
+      }
+    }
+  }
+}

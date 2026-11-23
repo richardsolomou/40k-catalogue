@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.pantheon-of-woe.reletavistic-tether",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Pantheon of Woe",
+    "summary": "TRANSCENDENT C'TAN models only. During your turn, whenever the bearer's unit makes an Ingress or Advance move through its Transdimensional Displacement ability, it may finish the move over 6 inches horizontally away from every enemy unit, rather than over 8 inches. If it finishes the move within 8 inches of an enemy unit, it cannot declare a charge for the rest of the turn. Only the Advance branch currently applies, because Transdimensional Displacement grants only an Advance.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "interpretation": [
+      {
+        "question": "Can the Ingress branch trigger?"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "enhancement",
+        "detachment": "Pantheon of Woe",
+        "pointsCost": 40,
+        "eligibility": {
+          "scope": "model",
+          "keywordsAll": [
+            "TRANSCENDENT C’TAN"
+          ]
+        },
+        "trigger": {
+          "turn": "own",
+          "event": "bearer-unit-moves-using-ability",
+          "ability": "Transdimensional Displacement",
+          "moveTypes": [
+            "ingress",
+            "advance"
+          ],
+          "operativeMoveTypesAtPresent": [
+            "advance"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "end-move-clearance",
+            "horizontalFromAllEnemyUnitsMoreThanInches": 6,
+            "replacesInches": 8
+          },
+          {
+            "kind": "charge-lock",
+            "condition": {
+              "endsWithinInchesOfEnemyUnit": 8
+            },
+            "declareCharge": false,
+            "until": "end-of-turn"
+          }
+        ]
+      }
+    }
+  }
+}

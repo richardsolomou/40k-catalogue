@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.deceptors.falsehood",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Deceptors",
+    "summary": "CHAOS LORD only, not TERMINATOR or JUMP PACK models. When battle formations are declared, the bearer may start in Reserves instead of on the battlefield. Later, in a single Movement phase of your choosing, pick a model from one of your CHOSEN or LEGIONARIES units that is on the battlefield, is not an Attached unit and still has at least two models. That model is destroyed without triggering destroyed-model rules, and the bearer is placed as near as possible to where it fell; it may end within Engagement Range of an enemy unit only if the removed model was in Engagement Range of that unit. The bearer then becomes that unit's Leader, attached to it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "enhancement",
+        "detachment": "Deceptors",
+        "pointsCost": 10,
+        "eligibility": {
+          "keywordsAll": [
+            "CHAOS LORD"
+          ],
+          "excludedKeywords": [
+            "TERMINATOR",
+            "JUMP PACK"
+          ]
+        },
+        "deployment": {
+          "step": "declare-battle-formations",
+          "option": "reserves"
+        },
+        "arrival": {
+          "phase": "own-movement",
+          "times": 1,
+          "host": {
+            "side": "friendly",
+            "keywordsAny": [
+              "LEGIONARIES",
+              "CHOSEN"
+            ],
+            "minimumModels": 2,
+            "onBattlefield": true,
+            "attached": false
+          },
+          "sacrifice": {
+            "count": 1,
+            "destroyedTriggers": "ignored"
+          },
+          "setUp": "as-close-as-possible-to-sacrificed-model",
+          "engagement": "only-with-units-the-sacrificed-model-was-engaged-with",
+          "then": "attach-as-leader"
+        }
+      }
+    }
+  }
+}

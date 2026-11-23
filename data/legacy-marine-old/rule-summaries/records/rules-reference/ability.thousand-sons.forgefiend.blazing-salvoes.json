@@ -1,0 +1,56 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.forgefiend.blazing-salvoes",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Forgefiend",
+    "summary": "During your Shooting phase, once this model has shot, pick an enemy unit that took at least one hit from its attacks. That unit counts as suppressed until your next turn begins; attacks made by models in a suppressed unit take -1 to their Hit rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "datasheet-ability",
+        "datasheet": "Forgefiend",
+        "holder": "model",
+        "effects": [
+          {
+            "kind": "apply-state",
+            "state": "suppressed",
+            "turn": "own",
+            "phase": "shooting",
+            "trigger": "after-model-has-shot",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "condition": "hit-by-those-attacks"
+            },
+            "until": "start-of-your-next-turn",
+            "stateEffect": {
+              "roll": "hit",
+              "operation": "subtract",
+              "value": 1,
+              "appliesTo": "attacks-by-models-in-suppressed-unit"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

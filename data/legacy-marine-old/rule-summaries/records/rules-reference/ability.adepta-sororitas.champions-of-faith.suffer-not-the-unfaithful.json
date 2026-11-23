@@ -1,0 +1,123 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.champions-of-faith.suffer-not-the-unfaithful",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Champions of Faith",
+    "cp": 1,
+    "summary": "Pick a Righteous ADEPTA SORORITAS unit of yours in either Fight phase or your Shooting phase. It must still be awaiting selection to fight or shoot, respectively. Give its models’ weapons SUSTAINED HITS 1 or LETHAL HITS through phase end.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 33,
+        "bold": true
+      },
+      {
+        "start": 58,
+        "end": 69,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 78,
+        "end": 92,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 188,
+        "end": 204,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 208,
+        "end": 219,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "in-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ADEPTA SORORITAS"
+            ],
+            "ruleState": "Righteous",
+            "stateByPhase": {
+              "shooting": "not-yet-selected-to-shoot",
+              "fight": "not-yet-selected-to-fight"
+            }
+          },
+          "effects": [
+            {
+              "kind": "weapon-ability-choice",
+              "recipient": "all-weapons-of-target-unit-models",
+              "count": 1,
+              "options": [
+                {
+                  "ability": "LETHAL HITS"
+                },
+                {
+                  "ability": "SUSTAINED HITS",
+                  "value": 1
+                }
+              ],
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

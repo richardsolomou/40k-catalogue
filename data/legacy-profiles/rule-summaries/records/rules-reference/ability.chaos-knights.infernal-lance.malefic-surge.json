@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.infernal-lance.malefic-surge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Infernal Lance",
+    "summary": "In your Command phase, any number of CHAOS KNIGHTS units in your army may each attempt a Malefic Surge. Each unit doing so first takes a Leadership test, suffering D3 mortal wounds if it fails; either way it then becomes Empowered until your next Command phase begins. An Empowered unit may use one Malefic Surge ability, and stops being Empowered once it has. Unholy Hunger: when one of its models makes a Normal move, an Advance move or a Fall Back move, its Move characteristic gains 3\" for that phase. Diabolic Power: as it is picked to shoot or to fight, pick one ability, either [LETHAL HITS] or else [SUSTAINED HITS 1], and the weapons its models carry have it for the rest of the phase. Unnatural Fortitude: as it is picked as an attack's target, choose for the rest of the phase either a 5+ invulnerable save or Feel No Pain 6+ for its models. Marking Empowered units with tokens, and clearing unused ones as your Command phase starts, is suggested.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Infernal Lance",
+        "activation": {
+          "turn": "own",
+          "phase": "command",
+          "units": {
+            "side": "friendly",
+            "keywordsAll": [
+              "CHAOS KNIGHTS"
+            ],
+            "count": "any"
+          }
+        },
+        "test": {
+          "kind": "leadership",
+          "onFail": {
+            "mortalWounds": "D3"
+          }
+        },
+        "state": {
+          "name": "Empowered",
+          "until": "start-of-your-next-command-phase",
+          "abilityUsesWhileEmpowered": 1,
+          "endsWhenAbilityUsed": true
+        },
+        "abilities": {
+          "Unholy Hunger": {
+            "trigger": "model-makes-normal-advance-or-fall-back-move",
+            "moveBonusInches": 3,
+            "duration": "end-of-phase"
+          },
+          "Diabolic Power": {
+            "trigger": "unit-selected-to-shoot-or-fight",
+            "chooseOne": [
+              {
+                "ability": "LETHAL HITS"
+              },
+              {
+                "ability": "SUSTAINED HITS",
+                "value": 1
+              }
+            ],
+            "appliesTo": "weapons-equipped-by-unit-models",
+            "duration": "end-of-phase"
+          },
+          "Unnatural Fortitude": {
+            "trigger": "unit-selected-as-attack-target",
+            "chooseOne": [
+              {
+                "invulnerableSave": "5+"
+              },
+              {
+                "feelNoPain": "6+"
+              }
+            ],
+            "duration": "end-of-phase"
+          }
+        },
+        "designerNote": "track Empowered units with tokens; remove unused tokens at the start of your Command phase"
+      }
+    }
+  }
+}

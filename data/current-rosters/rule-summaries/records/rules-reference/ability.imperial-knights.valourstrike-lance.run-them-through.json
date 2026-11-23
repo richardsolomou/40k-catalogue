@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.valourstrike-lance.run-them-through",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "attribution": {
+    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
+    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
+    "credit": "Alpaca Software and the 40kdc community contributors",
+    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Valourstrike Lance",
+    "cp": 1,
+    "summary": "During either player's Fight phase, you can use this to select one friendly Imperial Knights unit that has not been selected to fight this phase, then grant [LANCE] to melee weapons equipped by models in the selected unit until the end of the phase. Use once per phase.",
+    "summarySpans": [
+      {
+        "start": 76,
+        "end": 92,
+        "bold": true
+      },
+      {
+        "start": 158,
+        "end": 163,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lance"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-mechanic",
+      "version": "1",
+      "fields": {
+        "trigger": {
+          "kind": "use"
+        },
+        "target": {
+          "select": {
+            "side": "friendly",
+            "keywords": [
+              "Imperial Knights"
+            ]
+          }
+        },
+        "conditions": [
+          {
+            "kind": "not-selected",
+            "unit": "target",
+            "to": [
+              "fight"
+            ]
+          }
+        ],
+        "effect": {
+          "kind": "grant-weapon-abilities",
+          "abilities": [
+            {
+              "ability": "lance"
+            }
+          ],
+          "weapons": "melee"
+        },
+        "duration": {
+          "until": "end-of-phase"
+        },
+        "usage": {
+          "cp": 1,
+          "windows": [
+            {
+              "phase": "fight",
+              "turn": "any"
+            }
+          ],
+          "oncePerPhase": true
+        }
+      }
+    }
+  }
+}

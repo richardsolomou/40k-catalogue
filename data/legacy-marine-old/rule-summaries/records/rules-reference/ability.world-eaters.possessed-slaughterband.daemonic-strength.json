@@ -1,0 +1,137 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.possessed-slaughterband.daemonic-strength",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Possessed Slaughterband",
+    "cp": 1,
+    "summary": "Choose WORLD EATERS POSSESSED awaiting selection in either Fight phase. For that phase, each EIGHTBOUND model adds 1 Damage against enemy models without MONSTER or VEHICLE. EXALTED EIGHTBOUND get the +1 against enemy models with MONSTER or VEHICLE instead.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 29,
+        "bold": true
+      },
+      {
+        "start": 59,
+        "end": 70,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 93,
+        "end": 103,
+        "bold": true
+      },
+      {
+        "start": 153,
+        "end": 160,
+        "bold": true
+      },
+      {
+        "start": 164,
+        "end": 171,
+        "bold": true
+      },
+      {
+        "start": 173,
+        "end": 191,
+        "bold": true
+      },
+      {
+        "start": 229,
+        "end": 236,
+        "bold": true
+      },
+      {
+        "start": 240,
+        "end": 247,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "WORLD EATERS POSSESSED"
+            ],
+            "eligibility": "not-yet-selected-to-fight"
+          },
+          "effects": [
+            {
+              "action": "modify-weapon-characteristic",
+              "characteristic": "damage",
+              "operation": "add",
+              "amount": 1,
+              "actor": "target-unit-model",
+              "condition": {
+                "actorKeyword": "EIGHTBOUND",
+                "attackTargetExcludes": [
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "modify-weapon-characteristic",
+              "characteristic": "damage",
+              "operation": "add",
+              "amount": 1,
+              "actor": "target-unit-model",
+              "condition": {
+                "actorKeyword": "EXALTED EIGHTBOUND",
+                "attackTargetAny": [
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              },
+              "exclusiveWith": "eightbound-ordinary-target-branch"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

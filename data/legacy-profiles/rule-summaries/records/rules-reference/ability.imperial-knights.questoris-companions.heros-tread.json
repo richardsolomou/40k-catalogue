@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.questoris-companions.heros-tread",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Questoris Companions",
+    "cp": 1,
+    "summary": "In your Command phase, choose a model with the IMPERIAL KNIGHTS and TITANIC keywords in range of a marker you control. Keep the marker and count your Level of Control there as at least 5. This ends at the close of a phase in which the opponent has the higher value.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 47,
+        "end": 63,
+        "bold": true
+      },
+      {
+        "start": 68,
+        "end": 75,
+        "bold": true
+      },
+      {
+        "start": 150,
+        "end": 166,
+        "target": {
+          "kind": "core-rule",
+          "id": "level-of-control"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "model",
+            "count": 1,
+            "keywords": [
+              "IMPERIAL KNIGHTS",
+              "TITANIC"
+            ],
+            "withinRangeOf": {
+              "entity": "objective-marker",
+              "controlledBy": "your-army",
+              "bind": "affected-marker"
+            }
+          },
+          "effects": [
+            {
+              "action": "retain-objective-control",
+              "recipient": "affected-marker",
+              "owner": "your-army",
+              "duration": {
+                "until": "end-of-phase-when-opposing-level-of-control-exceeds-yours"
+              }
+            },
+            {
+              "action": "set-minimum-level-of-control",
+              "recipient": "your-side-at-affected-marker",
+              "minimum": 5,
+              "duration": {
+                "until": "objective-retention-ends"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

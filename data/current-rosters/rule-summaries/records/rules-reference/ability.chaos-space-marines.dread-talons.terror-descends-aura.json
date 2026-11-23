@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.dread-talons.terror-descends-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Dread Talons",
+    "summary": "Aura. In the Battle-shock step of the opposing player's Command phase, each enemy unit that is under its Starting Strength and within 12\" of any HERETIC ASTARTES unit of yours has to take a Battle-shock test. Any Battle-shock test taken by an enemy unit while it is within 12\" of any of your HERETIC ASTARTES units has 1 subtracted from its result. An enemy unit this rule has affected need not take further Battle-shock tests in that phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Dread Talons",
+        "aura": true,
+        "rangeInches": 12,
+        "source": {
+          "side": "friendly",
+          "keywordsAll": [
+            "HERETIC ASTARTES"
+          ]
+        },
+        "effects": [
+          {
+            "when": {
+              "phase": "command",
+              "turn": "opponent",
+              "step": "battle-shock"
+            },
+            "target": "enemy-unit-below-starting-strength-in-range",
+            "forcedTest": "Battle-shock"
+          },
+          {
+            "when": "enemy-unit-in-range-takes-battle-shock-test",
+            "testModifier": -1
+          }
+        ],
+        "limit": "affected-enemy-units-take-no-other-battle-shock-tests-that-phase"
+      }
+    }
+  }
+}

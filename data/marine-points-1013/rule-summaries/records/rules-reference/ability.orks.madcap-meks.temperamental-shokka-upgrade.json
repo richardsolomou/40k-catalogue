@@ -1,0 +1,160 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.madcap-meks.temperamental-shokka-upgrade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Madcap Meks",
+    "summary": "Model eligibility — Big Mek equipped with the Shokk Attack Gun. In your Shooting phase, selecting the bearer’s unit to shoot lets you roll one D6 if you wish. On 1, the bearer’s Shokk Attack Gun gains [Torrent] and the bearer is destroyed after the unit shoots. On 2–5 the gun gains +1 A. On 6 it gains [Sustained Hits 2].",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 27,
+        "bold": true
+      },
+      {
+        "start": 46,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 72,
+        "end": 86,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 178,
+        "end": 194,
+        "bold": true
+      },
+      {
+        "start": 201,
+        "end": 210,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "torrent"
+        }
+      },
+      {
+        "start": 229,
+        "end": 238,
+        "bold": true
+      },
+      {
+        "start": 286,
+        "end": 287,
+        "bold": true
+      },
+      {
+        "start": 303,
+        "end": 321,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Big Mek with Shokk Attack Gun"
+          ],
+          "anyOf": [],
+          "excludes": [],
+          "equipment": "Shokk Attack Gun",
+          "characterOnly": false,
+          "equipableByNonCharacter": true
+        },
+        "trigger": {
+          "phase": "your Shooting phase",
+          "event": "bearer unit selected to shoot"
+        },
+        "effects": [
+          {
+            "recipient": "bearer Shokk Attack Gun",
+            "operation": "roll-table",
+            "actor": "controlling player",
+            "optional": true,
+            "dice": 1,
+            "die": "D6",
+            "outcomes": [
+              {
+                "faces": [
+                  1
+                ],
+                "effects": [
+                  {
+                    "recipient": "bearer Shokk Attack Gun",
+                    "operation": "grant-ability",
+                    "ability": "Torrent"
+                  },
+                  {
+                    "recipient": "bearer",
+                    "operation": "destroy-model",
+                    "timing": "after bearer unit shoots"
+                  }
+                ]
+              },
+              {
+                "faces": [
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "effects": [
+                  {
+                    "recipient": "bearer Shokk Attack Gun",
+                    "operation": "modify-characteristics",
+                    "modifiers": {
+                      "A": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "faces": [
+                  6
+                ],
+                "effects": [
+                  {
+                    "recipient": "bearer Shokk Attack Gun",
+                    "operation": "grant-ability",
+                    "ability": "Sustained Hits",
+                    "count": 2
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

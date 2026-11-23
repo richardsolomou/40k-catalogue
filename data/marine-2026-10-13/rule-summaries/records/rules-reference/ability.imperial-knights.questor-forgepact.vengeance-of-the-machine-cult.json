@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.questor-forgepact.vengeance-of-the-machine-cult",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Imperial Knights Faction Pack: Version 1.2",
+    "page": "3",
+    "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_imperial_knights-n1irjnjygs-w8jfnk8kdn.pdf#page=3"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Questor Forgepact",
+    "cp": 1,
+    "summary": "When an enemy unit destroys your Imperial Knights Titanic, mark that enemy. Pick an Adeptus Mechanicus unit. For the rest of the battle it may reroll Wound rolls against the marked unit.",
+    "summarySpans": [
+      {
+        "start": 33,
+        "end": 57,
+        "bold": true
+      },
+      {
+        "start": 84,
+        "end": 102,
+        "bold": true
+      },
+      {
+        "start": 150,
+        "end": 161,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 174,
+        "end": 180,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Imperial Knights Faction Pack: Version 1.2",
+        "page": "3",
+        "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_imperial_knights-n1irjnjygs-w8jfnk8kdn.pdf#page=3"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "friendly-unit-destroyed-by-enemy",
+            "destroyed": {
+              "keywords": [
+                "Imperial Knights Titanic"
+              ]
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Adeptus Mechanicus"
+            ]
+          },
+          "effects": [
+            {
+              "action": "mark",
+              "recipient": "destroying-enemy-unit",
+              "duration": {
+                "until": "battle-end"
+              }
+            },
+            {
+              "action": "reroll",
+              "roll": "wound",
+              "actor": "model-in-target-unit",
+              "attackTarget": "marked-enemy-unit",
+              "optional": true,
+              "duration": {
+                "until": "battle-end"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

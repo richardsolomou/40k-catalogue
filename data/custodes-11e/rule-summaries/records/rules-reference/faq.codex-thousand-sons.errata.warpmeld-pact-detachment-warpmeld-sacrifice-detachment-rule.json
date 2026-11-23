@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-thousand-sons.errata.warpmeld-pact-detachment-warpmeld-sacrifice-detachment-rule",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "publication": "Codex: Thousand Sons",
+    "amends": [
+      {
+        "kind": "detachment",
+        "id": "thousand-sons.warpmeld-pact"
+      }
+    ],
+    "summary": "Warpmeld Sacrifice is for INFANTRY and MOUNTED units of yours with both MUTANT and TZEENTCH. Each such target can use it when an enemy picks shooting or fighting targets. Units that use it impose −1 on incoming Wound rolls for the phase. Eligible units can also use it after picking their own shooting or fighting targets for +1 on their attacks’ Wound rolls that phase. Each use inflicts D3 mortal wounds on the unit at phase end.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 18,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "thousand-sons.warpmeld-pact.warpmeld-sacrifice"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "18d17032-1494-4e4f-b525-9dbf66974bbe",
+          "typedMechanics": {
+            "operation": "replace-current-field",
+            "field": "rule-part-1",
+            "componentQid": "ability:thousand-sons.warpmeld-pact.warpmeld-sacrifice",
+            "change": {
+              "eligibleUnits": {
+                "side": "own-army",
+                "allKeywords": [
+                  "MUTANT",
+                  "TZEENTCH"
+                ],
+                "anyKeyword": [
+                  "INFANTRY",
+                  "MOUNTED"
+                ]
+              },
+              "choices": [
+                {
+                  "trigger": "enemy-selects-targets-for-shooting-or-fighting",
+                  "selection": "each-eligible-targeted-unit-may-use",
+                  "woundRollDelta": -1,
+                  "appliesTo": "incoming-attacks"
+                },
+                {
+                  "trigger": [
+                    "eligible-unit-selects-shooting-targets",
+                    "eligible-unit-selects-fighting-targets"
+                  ],
+                  "window": "after-target-selection",
+                  "woundRollDelta": 1,
+                  "appliesTo": "attacks-by-eligible-unit"
+                }
+              ],
+              "duration": "phase",
+              "optional": true,
+              "afterEachUse": {
+                "event": "phase-end",
+                "mortalWounds": {
+                  "dice": "D3"
+                },
+                "recipient": "eligible-unit"
+              }
+            }
+          },
+          "statedValues": [
+            {
+              "role": "wound-modifier-magnitude",
+              "value": 1
+            },
+            {
+              "role": "mortal-wounds-die-sides",
+              "value": 3
+            }
+          ]
+        }
+      }
+    }
+  }
+}

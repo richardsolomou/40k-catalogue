@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.covenite-coterie.master-repugnomancer-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Covenite Coterie",
+    "summary": "Eligible model — HAEMONCULUS. Extend Fear Incarnate on the bearer by 3\". For each lost friendly DRUKHARI unit or failed Battle-shock test by one, check whether that unit was no farther than 9\" from the bearer. If so, a D6 result of 4+ earns one Pain token.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 28,
+        "bold": true
+      },
+      {
+        "start": 37,
+        "end": 51,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.haemonculus.fear-incarnate"
+        }
+      },
+      {
+        "start": 96,
+        "end": 104,
+        "bold": true
+      },
+      {
+        "start": 245,
+        "end": 255,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "keywords": [
+            "HAEMONCULUS"
+          ],
+          "anyOf": [],
+          "equipment": null,
+          "excludes": [],
+          "characterOnly": true,
+          "equipableByNonCharacter": false
+        },
+        "effects": [
+          {
+            "operation": "modify-ability-range",
+            "recipient": "bearer’s Fear Incarnate",
+            "adjustmentInches": {
+              "operation": "add",
+              "amount": 3
+            }
+          },
+          {
+            "operation": "gain-resource-on-roll",
+            "recipient": "your Pain token pool",
+            "actor": "you",
+            "amount": 1,
+            "roll": {
+              "count": 1,
+              "sides": 6,
+              "minimum": 4
+            },
+            "trigger": {
+              "anyEvents": [
+                "failed Battle-shock test",
+                "destroyed"
+              ],
+              "subject": "friendly DRUKHARI unit",
+              "withinInches": 9,
+              "measuredFrom": "bearer"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

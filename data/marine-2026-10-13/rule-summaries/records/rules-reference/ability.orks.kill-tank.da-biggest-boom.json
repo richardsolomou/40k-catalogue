@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.kill-tank.da-biggest-boom",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Kill Tank",
+    "summary": "After the Kill Tank has fired in your Shooting phase, you may pick an enemy unit it hit. Every other enemy unit up to 3″ from the chosen unit makes a battle-shock roll.",
+    "summarySpans": [
+      {
+        "start": 38,
+        "end": 52,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 150,
+        "end": 167,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "own-shooting",
+          "event": "owning-unit-has-shot"
+        },
+        "optional": true,
+        "selection": {
+          "count": 1,
+          "side": "enemy",
+          "hitBy": "owning-unit"
+        },
+        "effect": {
+          "operation": "require-roll",
+          "roll": "battle-shock",
+          "recipient": {
+            "side": "enemy",
+            "excludeSelectedUnit": true,
+            "withinInches": 3,
+            "origin": "selected-unit",
+            "all": true
+          }
+        }
+      }
+    }
+  }
+}

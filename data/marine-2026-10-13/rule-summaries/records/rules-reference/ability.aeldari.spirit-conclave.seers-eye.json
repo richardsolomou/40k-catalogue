@@ -1,0 +1,125 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.spirit-conclave.seers-eye",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Spirit Conclave",
+    "cp": 1,
+    "summary": "Pair one of your AELDARI PSYKER models with a WRAITH CONSTRUCT unit up to 12″ away. You can do this when it’s your Shooting phase or during a Fight phase. The construct must be awaiting selection to shoot or fight. Mark an enemy the psyker can see. Through phase end, the construct’s models can disregard any AP or Damage modifiers when attacking that enemy.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 31,
+        "bold": true
+      },
+      {
+        "start": 46,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 115,
+        "end": 129,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 142,
+        "end": 153,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              },
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": [
+            {
+              "owner": "your-army",
+              "entity": "model",
+              "count": 1,
+              "keywords": [
+                "AELDARI PSYKER"
+              ],
+              "bind": "seer"
+            },
+            {
+              "owner": "your-army",
+              "entity": "unit",
+              "count": 1,
+              "keywords": [
+                "WRAITH CONSTRUCT"
+              ],
+              "bind": "wraiths",
+              "distance": {
+                "unit": "inch",
+                "amount": 12,
+                "comparator": "at-most",
+                "fromEntity": "seer"
+              },
+              "state": "not-yet-selected-to-shoot-or-fight-this-phase"
+            }
+          ],
+          "effects": [
+            {
+              "action": "select-enemy-unit",
+              "count": 1,
+              "visibleTo": "seer",
+              "bind": "marked-enemy"
+            },
+            {
+              "action": "optionally-ignore-characteristic-modifiers",
+              "characteristics": [
+                "armour-penetration",
+                "damage"
+              ],
+              "selection": "any-or-all-modifiers",
+              "attacks": "made-by-wraiths-models-against-marked-enemy",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

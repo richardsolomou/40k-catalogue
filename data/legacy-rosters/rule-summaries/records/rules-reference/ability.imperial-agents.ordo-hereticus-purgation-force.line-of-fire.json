@@ -1,0 +1,115 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.ordo-hereticus-purgation-force.line-of-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ordo Hereticus, Purgation Force",
+    "cp": 1,
+    "summary": "Choose one of your units during your Shooting phase before you select it to fire. It needs at least one of these keywords: ADEPTUS ARBITES, INQUISITORIAL AGENTS, ORDO HERETICUS. For the rest of the phase, its models can shoot an enemy engaged with your army from 12″ or closer, using ranged weapons without Blast.",
+    "summarySpans": [
+      {
+        "start": 37,
+        "end": 51,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 123,
+        "end": 138,
+        "bold": true
+      },
+      {
+        "start": 140,
+        "end": 160,
+        "bold": true
+      },
+      {
+        "start": 162,
+        "end": 176,
+        "bold": true
+      },
+      {
+        "start": 307,
+        "end": 312,
+        "target": {
+          "kind": "core-rule",
+          "id": "blast"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ADEPTUS ARBITES",
+              "INQUISITORIAL AGENTS",
+              "ORDO HERETICUS"
+            ],
+            "keywordMatch": "any",
+            "state": "not-yet-selected-to-shoot-this-phase"
+          },
+          "effects": [
+            {
+              "action": "allow-ranged-attacks-against-engaged-enemy",
+              "recipient": "models-of-target-unit",
+              "weapons": {
+                "type": "ranged",
+                "exclude": [
+                  "blast"
+                ]
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              },
+              "enemy": {
+                "engagedWith": "at-least-one-friendly-unit",
+                "distance": {
+                  "unit": "inch",
+                  "amount": 12,
+                  "comparator": "at-most",
+                  "fromEntity": "attacking-model"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

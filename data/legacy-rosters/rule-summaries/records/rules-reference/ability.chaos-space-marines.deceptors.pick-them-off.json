@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.deceptors.pick-them-off",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Deceptors",
+    "cp": 1,
+    "summary": "Battle Tactic, 1 CP. Use it in your Shooting phase on one HERETIC ASTARTES unit of yours that has not yet shot in this phase. For the rest of the phase, its models may re-roll Hit rolls for attacks against a unit under its Starting Strength, and against a Below Half-strength unit they may re-roll Wound rolls too.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Battle Tactic",
+          "detachment": "Deceptors",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "event": "phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "HERETIC ASTARTES"
+            ],
+            "notYetSelectedToShootThisPhase": true
+          },
+          "effects": [
+            {
+              "condition": "target-below-starting-strength",
+              "reroll": [
+                "hit"
+              ]
+            },
+            {
+              "condition": "target-below-half-strength",
+              "reroll": [
+                "wound"
+              ]
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

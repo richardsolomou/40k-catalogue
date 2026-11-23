@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.vertus-praetors.quicksilver-execution",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Vertus Praetors",
+    "summary": "Once per battle, when this unit finishes a Normal move or an Advance move, you may pick one enemy unit (not a MONSTER or VEHICLE) that it moved across in that move. Roll one D6 per model in this unit; each 2+ inflicts 2 mortal wounds on the picked unit.",
+    "summarySpans": [
+      {
+        "start": 43,
+        "end": 54,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 61,
+        "end": 73,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 110,
+        "end": 117,
+        "bold": true
+      },
+      {
+        "start": 121,
+        "end": 128,
+        "bold": true
+      },
+      {
+        "start": 220,
+        "end": 233,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Vertus Praetors",
+        "clauses": [
+          {
+            "usage": {
+              "count": 1,
+              "per": "battle"
+            },
+            "optional": true,
+            "trigger": {
+              "eventAlternatives": [
+                "this-unit-ends-normal-move",
+                "this-unit-ends-advance-move"
+              ]
+            },
+            "selection": {
+              "relationship": "enemy",
+              "count": 1,
+              "condition": "moved over during that move",
+              "excludedKeywords": [
+                "Monster",
+                "Vehicle"
+              ]
+            },
+            "roll": {
+              "dice": "D6",
+              "per": "model in this unit"
+            },
+            "onRoll": {
+              "threshold": "2+",
+              "mortalWoundsPerSuccess": 2,
+              "recipient": "selected-unit"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

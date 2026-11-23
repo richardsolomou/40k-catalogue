@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.hearthfyre-arsenal.mantle-of-elders",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Hearthfyre Arsenal",
+    "summary": "This enhancement requires MEMNYR STRATEGIST on the bearer. You may roll a D6 when you spend YP using Optimal Application as the bearer’s unit prepares to shoot. Check on each such shooting selection. On 2+, take 1 YP.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 43,
+        "bold": true
+      },
+      {
+        "start": 101,
+        "end": 120,
+        "target": {
+          "kind": "ability",
+          "id": "leagues-of-votann.hearthfyre-arsenal.optimal-application"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Memnyr Strategist"
+          ],
+          "excludes": []
+        },
+        "trigger": {
+          "event": "selected-to-shoot",
+          "actor": "bearers-unit",
+          "frequency": "each-selection",
+          "condition": {
+            "event": "spend-YP",
+            "purpose": "Optimal Application",
+            "recipient": "bearers-unit"
+          }
+        },
+        "optional": true,
+        "effect": {
+          "dice": "D6",
+          "comparison": "at-least",
+          "threshold": 2,
+          "success": {
+            "type": "gain-resource",
+            "recipient": "own-player",
+            "pool": "YP",
+            "amount": 1
+          }
+        }
+      }
+    }
+  }
+}

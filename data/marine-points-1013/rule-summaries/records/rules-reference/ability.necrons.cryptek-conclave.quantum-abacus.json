@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.cryptek-conclave.quantum-abacus",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Cryptek Conclave",
+    "summary": "This enhancement requires NECRONS on the bearer. Roll a D6 each time you pick a Stratagem target that is the unit containing the bearer. Add 1 if that unit is in range of at least one objective. A final result of 4+ gives you 1 CP.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 33,
+        "bold": true
+      },
+      {
+        "start": 80,
+        "end": 89,
+        "target": {
+          "kind": "core-rule",
+          "id": "stratagems"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Necrons"
+          ],
+          "excludes": []
+        },
+        "trigger": {
+          "event": "select-as-stratagem-target",
+          "actor": "own-player",
+          "recipient": "bearers-unit",
+          "frequency": "each-selection"
+        },
+        "effect": {
+          "dice": "D6",
+          "bonus": {
+            "amount": 1,
+            "condition": {
+              "subject": "stratagem-target",
+              "withinRangeOf": "one-or-more-objectives"
+            }
+          },
+          "comparison": "at-least",
+          "threshold": 4,
+          "success": {
+            "type": "gain-resource",
+            "recipient": "own-player",
+            "pool": "CP",
+            "amount": 1
+          }
+        }
+      }
+    }
+  }
+}

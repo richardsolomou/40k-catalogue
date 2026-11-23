@@ -1,0 +1,144 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.siege-regiment.furious-fusillade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Siege Regiment",
+    "cp": 1,
+    "summary": "Your Shooting Phase. Pick one of your PLATOON units that has yet to be picked to shoot. Through this phase, its models’ ranged weapons get 1 extra attack when their target is within half the firing weapon’s range.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 19,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 38,
+        "end": 45,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "subject": "defender",
+                    "filter": {
+                      "owner": "enemy"
+                    }
+                  }
+                },
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "subject": "defender",
+                    "filter": {
+                      "within": {
+                        "of": "attacker",
+                        "range": "half-weapon"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "effect": {
+              "type": "stat-modifier",
+              "target": "this-unit",
+              "modifier": {
+                "stat": "A",
+                "operation": "improve",
+                "value": 1,
+                "weapons": {
+                  "type": "ranged"
+                }
+              }
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "behavior": "activated"
+        },
+        "stratagem": {
+          "id": "furious-fusillade-siege-regiment-astra-militarum",
+          "cp_cost": 1,
+          "phases": [
+            "shooting"
+          ],
+          "player_turn": "your-turn",
+          "timing": "once-per-phase",
+          "type": "strategic-ploy",
+          "target_restrictions": {
+            "required_keywords": [
+              "Platoon"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "owner": "friendly"
+                    }
+                  }
+                },
+                {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "type": "happened",
+                      "parameters": {
+                        "event": "selected",
+                        "filter": {
+                          "to": "shoot"
+                        },
+                        "window": "phase"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {
+          "1": "Attacks characteristic increase"
+        }
+      }
+    }
+  }
+}

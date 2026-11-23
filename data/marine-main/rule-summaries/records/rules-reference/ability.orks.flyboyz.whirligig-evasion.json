@@ -1,0 +1,144 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.flyboyz.whirligig-evasion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Flyboyz",
+    "cp": 1,
+    "summary": "When an enemy finishes moving in their Movement phase, pick an unengaged friendly unit of Deffkoptas no farther than 8\" from it. The Deffkoptas may make a Normal Move capped at D6\", or choose a 6\" cap if riled up.",
+    "summarySpans": [
+      {
+        "start": 39,
+        "end": 53,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 63,
+        "end": 72,
+        "bold": true
+      },
+      {
+        "start": 90,
+        "end": 100,
+        "bold": true
+      },
+      {
+        "start": 133,
+        "end": 143,
+        "bold": true
+      },
+      {
+        "start": 155,
+        "end": 166,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 204,
+        "end": 212,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-ends-move",
+            "actor": "enemy-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "choose",
+            "keywords": [
+              "Deffkoptas"
+            ],
+            "state": "unengaged",
+            "distance": {
+              "amount": 8,
+              "unit": "inches",
+              "comparison": "at-most"
+            },
+            "relation": "to-triggering-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "choose-one-mode",
+              "alternatives": [
+                {
+                  "effects": [
+                    {
+                      "kind": "move",
+                      "recipient": "target-unit",
+                      "move": "normal",
+                      "maximum": {
+                        "amount": {
+                          "die": "D6",
+                          "sides": 6
+                        },
+                        "unit": "inches",
+                        "comparison": "at-most"
+                      },
+                      "optional": true
+                    }
+                  ]
+                },
+                {
+                  "condition": {
+                    "targetState": "riled up"
+                  },
+                  "effects": [
+                    {
+                      "kind": "move",
+                      "recipient": "target-unit",
+                      "move": "normal",
+                      "maximum": {
+                        "amount": 6,
+                        "unit": "inches",
+                        "comparison": "at-most"
+                      },
+                      "optional": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

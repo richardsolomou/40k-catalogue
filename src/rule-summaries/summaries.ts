@@ -22,7 +22,7 @@ export type SummaryData = {
 type Phase = "command" | "movement" | "shooting" | "charge" | "fight";
 type Card = "primary" | "secondary";
 export type AbilityData = SummaryData & {
-  ruleType: "army-rule" | "detachment-rule" | "stratagem" | "core-stratagem" | "enhancement" | "unit-ability";
+  ruleType: "army-rule" | "detachment-rule" | "stratagem" | "core-stratagem" | "enhancement" | "unit-ability" | "core-ability" | "weapon-ability";
   group?: string;
   /** Required for Stratagems and absent otherwise, like `stratagem`. */
   cp?: number;

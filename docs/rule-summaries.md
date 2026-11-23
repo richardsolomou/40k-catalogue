@@ -18,7 +18,7 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 | `mission-rules` | `mission-award` | `pack`, `card`, `vp` and optional `max`. |
 | `mission-rules` | `mission-action`, `mission-twist` | `pack`. |
 
-`ruleType` is `army-rule`, `detachment-rule`, `stratagem`, `core-stratagem`, `enhancement` or `unit-ability`. `group` is the display heading the rule is printed under, such as its detachment. A Stratagem states its `cp` cost, and only a Stratagem has one. Its `stratagem` timing gives the `phases` it can be used in, the `turn` (`own`, `opponent`, `any`), its `type` (`battle-tactic`, `strategic-ploy`, `epic-deed`, `wargear`) and `oncePerPhase`.
+`ruleType` is `army-rule`, `detachment-rule`, `stratagem`, `core-stratagem`, `enhancement`, `unit-ability`, `core-ability` or `weapon-ability`. A `core-ability` or `weapon-ability` is a core ability or weapon ability as a faction's rules list it, such as Deep Strike or Deadly Demise D6; its entry references the `core-ability` or `weapon-ability` record that defines the keyword. `group` is the display heading the rule is printed under, such as its detachment. A Stratagem states its `cp` cost, and only a Stratagem has one. Its `stratagem` timing gives the `phases` it can be used in, the `turn` (`own`, `opponent`, `any`), its `type` (`battle-tactic`, `strategic-ploy`, `epic-deed`, `wargear`) and `oncePerPhase`.
 
 `pack` and `publication` are display names. `card` is `primary` or `secondary`. An award scores `vp` victory points, up to `max` where the card caps it.
 
@@ -49,7 +49,7 @@ The record's `source` locates the printed rule, so it is the publisher document 
 
 ## FAQs
 
-Each FAQ is its own record. `amends` lists the rules it changes or answers, by `{ kind, id }`, and needs at least one. `amendsUnlisted` names targets the catalogue has no entry for yet, by the `kind` they will have, such as `unit` or `detachment`, and their printed `name`. `summaries.amendedBy(rule)` lists the FAQs that amend a rule, so an app can show them beside it.
+Each FAQ is its own record. `amends` lists the rules it changes or answers, by `{ kind, id }`, and needs at least one. A unit, detachment or publication it amends can be an entry of a retained category, such as `rosters`, before that category publishes records. `amendsUnlisted` names targets the catalogue has no entry for yet, by the `kind` they will have, such as `unit` or `detachment`, and their printed `name`. `summaries.amendedBy(rule)` lists the FAQs that amend a rule, so an app can show them beside it.
 
 An FAQ that a newer publication replaces is retired in the identity release with `retired.sources` naming that publication. Its record leaves the release, and the [change report](catalogue-releases.md#changes-from-the-previous-release) lists the sources with the retirement.
 

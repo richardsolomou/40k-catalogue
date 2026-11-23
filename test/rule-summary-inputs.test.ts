@@ -4,7 +4,10 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { test } from "node:test";
 import { buildCatalogueRelease, type CatalogueRecord } from "../src/catalogue-releases/catalogue.ts";
+import { KINDS as PROFILE_KINDS, validateProfiles } from "../src/datasheet-profiles/profiles.ts";
 import { validatePack } from "../src/mission-packs/validate.ts";
+import { validateSnapshot } from "../src/points/validate.ts";
+import { KINDS as DEFINITION_KINDS, validateDefinitions } from "../src/roster-definitions/definitions.ts";
 import { buildRelease } from "../src/releases/release.ts";
 import { validateSummaries } from "../src/rule-summaries/summaries.ts";
 
@@ -12,6 +15,7 @@ const data = fileURLToPath(new URL("../data/", import.meta.url));
 const json = (path: string): any => JSON.parse(readFileSync(path, "utf8"));
 const options = { release: "0.0.0", commit: "0".repeat(40) };
 // Inputs build without a previous release, as the first release of a rules version's line does.
+const SUMMARY_KINDS = new Set(["ability", "core-rule", "core-ability", "weapon-ability", "faq", "mission-award", "mission-card", "mission-action", "mission-twist"]);
 const versions = readdirSync(data).filter((v) => existsSync(join(data, v, "rule-summaries", "identity.json")));
 
 test("every rules version with rule summaries is found", () => {
@@ -28,7 +32,7 @@ for (const version of versions) {
   test(`every ${version} rule summary validates against its identity release`, () => {
     const result = validateSummaries(
       json(join(summaries, "identity.json")),
-      records().filter((r) => r.kind !== "mission-pack"),
+      records().filter((r) => SUMMARY_KINDS.has(r.kind)),
     );
     if (!result.ok) assert.fail(result.errors.slice(0, 20).join("\n"));
   });
@@ -39,6 +43,19 @@ for (const version of versions) {
       if (!result.ok) assert.fail(result.errors.slice(0, 20).join("\n"));
       assert.equal((record.data as { id: string }).id, record.id);
     }
+  });
+
+  test(`every ${version} datasheet profile, roster definition and points snapshot validates`, () => {
+    const all = records();
+    const identity = json(join(summaries, "identity.json"));
+    const profiles = all.filter((r) => (PROFILE_KINDS as string[]).includes(r.kind));
+    const definitions = all.filter((r) => (DEFINITION_KINDS as string[]).includes(r.kind));
+    const results = [
+      ...(profiles.length ? [validateProfiles(identity, profiles)] : []),
+      ...(definitions.length ? [validateDefinitions(identity, definitions)] : []),
+      ...all.filter((r) => r.kind === "points-snapshot").map((r) => validateSnapshot(r.data)),
+    ];
+    for (const result of results) if (!result.ok) assert.fail(result.errors.slice(0, 20).join("\n"));
   });
 
   test(`the ${version} rule summaries build as a catalogue release`, () => {

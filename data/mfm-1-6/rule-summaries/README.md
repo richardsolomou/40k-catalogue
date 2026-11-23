@@ -7,15 +7,17 @@ Every summary is original wording, checked against the official sources it cites
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
 | `rules-reference` | 5,941 | 5,940 | 1 |
-| `mission-rules` | 240 | 240 | 0 |
+| `mission-rules` | 291 | 240 | 51 |
 
 6,179 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 1 record that no app row carries cites only the dated Games Workshop page that prints it. 1,235 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`.
 
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,059 units with roster definitions (1,085 wargear options), 1,121 stat lines and 5,177 weapon profiles, and the `mfm-1-6` points snapshot of 1,060 units, 256 Detachments and 817 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 252 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `mfm-1-6-legends` snapshot, the costs of 243 of them from the Munitorum Field Manual's Legends section.
+
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
-FAQs, links and Enhancement eligibility also name 483 units, 45 detachments, 1 piece of wargear and 1 publication. They are identity entries of the `rosters` and `publications` categories, which are retained: their records still come from the app build.
+FAQs also name 1 publication, an identity entry of the retained `publications` category.
 
 ## Retired
 
@@ -38,3 +40,484 @@ Active entries without a record, by reason. An entry with several reasons is lis
 ### Neither a datasheet or rule of the app build in force nor a dated publisher page carries the rule, so it has no official citation yet (1)
 
 - `ability` `adeptus-custodes.aleya.daughter-of-the-abyss`
+
+### A Warhammer Legends datasheet from a Games Workshop PDF, whose loadout and options are not typed yet (252)
+
+- `unit` `adepta-sororitas.battle-sanctum`
+- `unit` `adepta-sororitas.celestian-sacresant-aveline`
+- `unit` `adepta-sororitas.crusaders`
+- `unit` `adepta-sororitas.death-cult-assassins`
+- `unit` `adepta-sororitas.repressor`
+- `unit` `adeptus-mechanicus.secutarii-hoplites`
+- `unit` `adeptus-mechanicus.secutarii-peltasts`
+- `unit` `aeldari-2.amallyn-shadowguide`
+- `unit` `aeldari-2.autarch-skyrunner`
+- `unit` `aeldari-2.bonesinger`
+- `unit` `aeldari-2.cobra`
+- `unit` `aeldari-2.corsair-cloud-dancer-band`
+- `unit` `aeldari-2.corsair-reaver-band`
+- `unit` `aeldari-2.firestorm`
+- `unit` `aeldari-2.hornet`
+- `unit` `aeldari-2.illic-nightspear`
+- `unit` `aeldari-2.irillyth`
+- `unit` `aeldari-2.karandras`
+- `unit` `aeldari-2.lynx`
+- `unit` `aeldari-2.nightwing`
+- `unit` `aeldari-2.phoenix`
+- `unit` `aeldari-2.scorpion`
+- `unit` `aeldari-2.shadow-spectres`
+- `unit` `aeldari-2.skathach-wraithknight`
+- `unit` `aeldari-2.vampire-hunter`
+- `unit` `aeldari-2.vampire-raider`
+- `unit` `aeldari-2.warp-hunter`
+- `unit` `aeldari-2.wasp-assault-walker`
+- `unit` `aeldari-2.webway-gate`
+- `unit` `aeldari-2.wraithseer`
+- `unit` `astra-militarum.aquila-lander`
+- `unit` `astra-militarum.arkurian-stormhammer`
+- `unit` `astra-militarum.armageddon-pattern-medusa`
+- `unit` `astra-militarum.arvus-lighter`
+- `unit` `astra-militarum.atlas-recovery-vehicle`
+- `unit` `astra-militarum.carnodon`
+- `unit` `astra-militarum.centaur-light-carrier`
+- `unit` `astra-militarum.ciaphas-cain`
+- `unit` `astra-militarum.colossus`
+- `unit` `astra-militarum.crassus`
+- `unit` `astra-militarum.death-korps-grenadier-squad`
+- `unit` `astra-militarum.death-rider-commissar`
+- `unit` `astra-militarum.dominus-armoured-siege-bombard`
+- `unit` `astra-militarum.earthshaker-carriage-battery`
+- `unit` `astra-militarum.earthshaker-platform`
+- `unit` `astra-militarum.elysian-drop-sentinel`
+- `unit` `astra-militarum.elysian-sniper-squad`
+- `unit` `astra-militarum.gorgon-heavy-transport`
+- `unit` `astra-militarum.griffon-mortar-carrier`
+- `unit` `astra-militarum.hades-breaching-drill`
+- `unit` `astra-militarum.heavy-mortar-team`
+- `unit` `astra-militarum.heavy-quad-launcher-team`
+- `unit` `astra-militarum.hells-last`
+- `unit` `astra-militarum.hydra-platform`
+- `unit` `astra-militarum.iron-hand-straken`
+- `unit` `astra-militarum.macharius-omega`
+- `unit` `astra-militarum.macharius-vanquisher`
+- `unit` `astra-militarum.macharius-vulcan`
+- `unit` `astra-militarum.macharius`
+- `unit` `astra-militarum.malcador-annihilator`
+- `unit` `astra-militarum.malcador-defender`
+- `unit` `astra-militarum.malcador-infernus`
+- `unit` `astra-militarum.malcador`
+- `unit` `astra-militarum.manticore-platform`
+- `unit` `astra-militarum.marauder-bomber`
+- `unit` `astra-militarum.marauder-destroyer`
+- `unit` `astra-militarum.medusa-carriage-battery`
+- `unit` `astra-militarum.minotaur`
+- `unit` `astra-militarum.mukaali-riders`
+- `unit` `astra-militarum.munitorum-servitors`
+- `unit` `astra-militarum.praetor`
+- `unit` `astra-militarum.provisionally-prepared`
+- `unit` `astra-militarum.quartermaster-cadre-squad`
+- `unit` `astra-militarum.rapier-laser-destroyer-battery`
+- `unit` `astra-militarum.regimental-attaches`
+- `unit` `astra-militarum.rein-and-raus`
+- `unit` `astra-militarum.sabre-weapons-battery`
+- `unit` `astra-militarum.salamander-command-vehicle`
+- `unit` `astra-militarum.salamander-scout-vehicle`
+- `unit` `astra-militarum.sentinel-powerlifter`
+- `unit` `astra-militarum.sergeant-harker`
+- `unit` `astra-militarum.storm-chimera`
+- `unit` `astra-militarum.stormblade`
+- `unit` `astra-militarum.stygies-destroyer-tank-hunter`
+- `unit` `astra-militarum.tarantula-battery`
+- `unit` `astra-militarum.tauros-assault-vehicle`
+- `unit` `astra-militarum.tauros-venator`
+- `unit` `astra-militarum.trojan-support-vehicle`
+- `unit` `astra-militarum.valdor`
+- `unit` `astra-militarum.valkyrie-sky-talon`
+- `unit` `astra-militarum.vendetta-gunship`
+- `unit` `astra-militarum.voss-pattern-lightning`
+- `unit` `astra-militarum.vulture-gunship`
+- `unit` `blood-angels.brother-corbulo`
+- `unit` `blood-angels.captain-tycho`
+- `unit` `blood-angels.death-company-dreadnought-with-magna-grapple`
+- `unit` `blood-angels.death-company-marines-with-boltguns-and-jump-packs`
+- `unit` `blood-angels.death-company-marines-with-boltguns`
+- `unit` `blood-angels.furioso-dreadnought`
+- `unit` `blood-angels.gabriel-seth`
+- `unit` `blood-angels.librarian-dreadnought`
+- `unit` `blood-angels.sanguinary-priest-with-jump-pack`
+- `unit` `blood-angels.tycho-the-lost`
+- `unit` `chaos-daemons.aetaosraukeres`
+- `unit` `chaos-daemons.anggrath-the-unbound`
+- `unit` `chaos-daemons.furies`
+- `unit` `chaos-daemons.giant-chaos-spawn`
+- `unit` `chaos-daemons.herald-of-slaanesh-on-steed-of-slaanesh`
+- `unit` `chaos-daemons.plague-toads`
+- `unit` `chaos-daemons.pox-riders`
+- `unit` `chaos-daemons.scabeiathrax-the-bloated`
+- `unit` `chaos-daemons.seeker-chariot`
+- `unit` `chaos-daemons.spined-chaos-beast`
+- `unit` `chaos-daemons.zarakynel`
+- `unit` `chaos-space-marines.blood-slaughterer`
+- `unit` `chaos-space-marines.chaos-deimos-predator`
+- `unit` `chaos-space-marines.chaos-lord-on-bike`
+- `unit` `chaos-space-marines.chaos-lord-on-disc-of-tzeentch`
+- `unit` `chaos-space-marines.chaos-lord-on-juggernaut`
+- `unit` `chaos-space-marines.chaos-lord-on-palanquin-of-nurgle`
+- `unit` `chaos-space-marines.chaos-lord-on-steed-of-slaanesh`
+- `unit` `chaos-space-marines.chaos-thunderhawk`
+- `unit` `chaos-space-marines.cultist-mob-with-firearms`
+- `unit` `chaos-space-marines.decimator`
+- `unit` `chaos-space-marines.dreadclaw-drop-pod`
+- `unit` `chaos-space-marines.exalted-champion`
+- `unit` `chaos-space-marines.gellerpox-infected`
+- `unit` `chaos-space-marines.greater-blight-drone`
+- `unit` `chaos-space-marines.greater-brass-scorpion`
+- `unit` `chaos-space-marines.hell-blade`
+- `unit` `chaos-space-marines.hell-talon`
+- `unit` `chaos-space-marines.kharybdis-assault-claw`
+- `unit` `chaos-space-marines.kytan-ravager`
+- `unit` `chaos-space-marines.mutoid-vermin`
+- `unit` `chaos-space-marines.negavolt-cultists`
+- `unit` `chaos-space-marines.renegade-enforcer`
+- `unit` `chaos-space-marines.renegade-heavy-weapons-squad`
+- `unit` `chaos-space-marines.renegade-ogryn-beast-handler`
+- `unit` `chaos-space-marines.renegade-ogryn-brutes`
+- `unit` `chaos-space-marines.renegade-plague-ogryns`
+- `unit` `chaos-space-marines.rogue-psyker`
+- `unit` `chaos-space-marines.sorcerer-on-bike`
+- `unit` `chaos-space-marines.sorcerer-on-disc-of-tzeentch`
+- `unit` `chaos-space-marines.sorcerer-on-palanquin-of-nurgle`
+- `unit` `chaos-space-marines.sorcerer-on-steed-of-slaanesh`
+- `unit` `death-guard.death-guard-chaos-lord-in-terminator-armour`
+- `unit` `death-guard.death-guard-chaos-lord`
+- `unit` `death-guard.death-guard-cultists`
+- `unit` `death-guard.death-guard-possessed`
+- `unit` `death-guard.death-guard-sorcerer-in-terminator-armour`
+- `unit` `drukhari.beastmaster`
+- `unit` `drukhari.court-of-the-archon`
+- `unit` `drukhari.grotesques`
+- `unit` `drukhari.raven-strike-fighter`
+- `unit` `drukhari.reaper`
+- `unit` `drukhari.tantalus`
+- `unit` `drukhari.urien-rakarth`
+- `unit` `genestealer-cults.tectonic-fragdrill`
+- `unit` `grey-knights.brother-captain-stern`
+- `unit` `grey-knights.grey-knights-dreadnought`
+- `unit` `grey-knights.grey-knights-relic-razorback`
+- `unit` `grey-knights.kaldor-draigo`
+- `unit` `grey-knights.servitors`
+- `unit` `imperial-agents.daemonhost`
+- `unit` `imperial-agents.damned-legionnaires`
+- `unit` `imperial-agents.inquisitor-eisenhorn`
+- `unit` `imperial-agents.inquisitor-in-terminator-armour`
+- `unit` `imperial-agents.inquisitor-karamazov`
+- `unit` `imperial-agents.inquisitor-ostromandeus`
+- `unit` `imperial-agents.janus-draik`
+- `unit` `imperial-agents.jokaero-weaponsmith`
+- `unit` `imperial-agents.kill-team-cassius`
+- `unit` `imperial-agents.neyam-shai-murad`
+- `unit` `imperial-agents.proteus-kill-team`
+- `unit` `imperial-agents.ur-025`
+- `unit` `imperial-agents.veteran-bike-squad`
+- `unit` `necrons.anrakyr-the-traveller`
+- `unit` `necrons.canoptek-acanthrites`
+- `unit` `necrons.canoptek-tomb-sentinel`
+- `unit` `necrons.canoptek-tomb-stalker`
+- `unit` `necrons.gauss-pylon`
+- `unit` `necrons.lord`
+- `unit` `necrons.nemesor-zahndrekh`
+- `unit` `necrons.night-shroud`
+- `unit` `necrons.sentry-pylon`
+- `unit` `necrons.tesseract-ark`
+- `unit` `necrons.tomb-citadel-walls`
+- `unit` `necrons.vargard-obyron`
+- `unit` `space-marines.sicaran-battle-tank`
+- `unit` `space-wolves.canis-wolfborn`
+- `unit` `space-wolves.cyberwolf`
+- `unit` `space-wolves.harald-deathwolf`
+- `unit` `space-wolves.hounds-of-morkai`
+- `unit` `space-wolves.krom-dragongaze`
+- `unit` `space-wolves.logan-grimnar-on-stormrider`
+- `unit` `space-wolves.long-fangs`
+- `unit` `space-wolves.lukas-the-trickster`
+- `unit` `space-wolves.skyclaws`
+- `unit` `space-wolves.stormfang-gunship`
+- `unit` `space-wolves.stormwolf`
+- `unit` `space-wolves.wolf-guard-battle-leader-in-terminator-armour`
+- `unit` `space-wolves.wolf-guard-battle-leader-on-thunderwolf`
+- `unit` `space-wolves.wolf-guard-pack-leader-in-terminator-armour`
+- `unit` `space-wolves.wolf-guard-pack-leader-with-jump-pack`
+- `unit` `space-wolves.wolf-guard-pack-leader`
+- `unit` `space-wolves.wolf-guard`
+- `unit` `space-wolves.wolf-lord-on-thunderwolf`
+- `unit` `tau-empire.aunshi`
+- `unit` `tau-empire.aunva`
+- `unit` `tau-empire.barracuda`
+- `unit` `tau-empire.commander-in-crisis-battlesuit`
+- `unit` `tau-empire.crisis-battlesuits`
+- `unit` `tau-empire.drone-sentry-turret`
+- `unit` `tau-empire.great-knarloc`
+- `unit` `tau-empire.heavy-gun-drones`
+- `unit` `tau-empire.knarloc-riders`
+- `unit` `tau-empire.longstrike`
+- `unit` `tau-empire.orca-dropship`
+- `unit` `tau-empire.remora-stealth-drones`
+- `unit` `tau-empire.remote-sensor-tower`
+- `unit` `tau-empire.rvarna-battlesuit`
+- `unit` `tau-empire.shaso-ralai`
+- `unit` `tau-empire.tactical-drones`
+- `unit` `tau-empire.tetras`
+- `unit` `tau-empire.tx42-piranha`
+- `unit` `tau-empire.xv9-hazard-battlesuits`
+- `unit` `tau-empire.yvahra-battlesuit`
+- `unit` `tyranids.barbed-hierodule`
+- `unit` `tyranids.dimachaeron`
+- `unit` `tyranids.malanthrope`
+- `unit` `tyranids.scythed-hierodule`
+- `unit` `tyranids.sky-slasher-swarms`
+- `unit` `unaligned-forces.aegis-defence-line-with-weapon-emplacement`
+- `unit` `unaligned-forces.ambull`
+- `unit` `unaligned-forces.bastion`
+- `unit` `unaligned-forces.castellum-stronghold`
+- `unit` `unaligned-forces.firestorm-redoubt`
+- `unit` `unaligned-forces.fortress-of-redemption`
+- `unit` `unaligned-forces.guardian-drone`
+- `unit` `unaligned-forces.imperial-fortress-walls`
+- `unit` `unaligned-forces.macro-cannon-aquila-strongpoint`
+- `unit` `unaligned-forces.plasma-obliterator`
+- `unit` `unaligned-forces.primaris-redoubt`
+- `unit` `unaligned-forces.skyshield-landing-pad`
+- `unit` `unaligned-forces.spindle-drones`
+- `unit` `unaligned-forces.the-archivist`
+- `unit` `unaligned-forces.vengeance-weapon-battery`
+- `unit` `unaligned-forces.void-shield-generator`
+- `unit` `unaligned-forces.vortex-missile-strongpoint`
+- `unit` `unaligned-forces.wall-of-martyrs-bunker`
+- `unit` `unaligned-forces.wall-of-martyrs-defence-emplacement`
+- `unit` `unaligned-forces.wall-of-martyrs-defence-line`
+
+### The card prints no rules beyond its awards, which have their own records (27)
+
+- `mission-card` `chapter-approved-2026-2027.assassination`
+- `mission-card` `chapter-approved-2026-2027.battlefield-dominance`
+- `mission-card` `chapter-approved-2026-2027.centre-ground`
+- `mission-card` `chapter-approved-2026-2027.death-trap`
+- `mission-card` `chapter-approved-2026-2027.delaying-action`
+- `mission-card` `chapter-approved-2026-2027.destroyers-wrath`
+- `mission-card` `chapter-approved-2026-2027.determined-acquisition`
+- `mission-card` `chapter-approved-2026-2027.display-of-might`
+- `mission-card` `chapter-approved-2026-2027.extract-relic`
+- `mission-card` `chapter-approved-2026-2027.gather-intel`
+- `mission-card` `chapter-approved-2026-2027.immovable-object`
+- `mission-card` `chapter-approved-2026-2027.inescapable-dominion`
+- `mission-card` `chapter-approved-2026-2027.meatgrinder`
+- `mission-card` `chapter-approved-2026-2027.no-prisoners`
+- `mission-card` `chapter-approved-2026-2027.outmanoeuvre`
+- `mission-card` `chapter-approved-2026-2027.overwhelming-force`
+- `mission-card` `chapter-approved-2026-2027.purge-and-secure`
+- `mission-card` `chapter-approved-2026-2027.reconnaissance-sweep`
+- `mission-card` `chapter-approved-2026-2027.sabotage`
+- `mission-card` `chapter-approved-2026-2027.search-and-scour`
+- `mission-card` `chapter-approved-2026-2027.secure-asset`
+- `mission-card` `chapter-approved-2026-2027.secure-no-mans-land`
+- `mission-card` `chapter-approved-2026-2027.smoke-and-mirrors`
+- `mission-card` `chapter-approved-2026-2027.triangulation`
+- `mission-card` `chapter-approved-2026-2027.unstoppable-force`
+- `mission-card` `chapter-approved-2026-2027.vanguard-operation`
+- `mission-card` `chapter-approved-2026-2027.vital-link`
+
+### A Combat Patrol mission card, whose summary is not drafted yet (24)
+
+- `mission-card` `combat-patrol.architects-of-agony`
+- `mission-card` `combat-patrol.cult-ritual`
+- `mission-card` `combat-patrol.defenders-of-the-golden-throne-2`
+- `mission-card` `combat-patrol.defenders-of-the-golden-throne`
+- `mission-card` `combat-patrol.duff-em-up`
+- `mission-card` `combat-patrol.encircle-and-destroy`
+- `mission-card` `combat-patrol.expansionary-campaign`
+- `mission-card` `combat-patrol.for-cadia`
+- `mission-card` `combat-patrol.for-the-kindred`
+- `mission-card` `combat-patrol.grandiose-slaughter`
+- `mission-card` `combat-patrol.honour-the-chapter`
+- `mission-card` `combat-patrol.indescriminate-butchery`
+- `mission-card` `combat-patrol.inexorable-conquest`
+- `mission-card` `combat-patrol.inquisitorial-sanction`
+- `mission-card` `combat-patrol.on-holy-ground`
+- `mission-card` `combat-patrol.open-the-way`
+- `mission-card` `combat-patrol.outflank-and-encircle`
+- `mission-card` `combat-patrol.prepare-the-way`
+- `mission-card` `combat-patrol.purification`
+- `mission-card` `combat-patrol.seize-their-strongholds`
+- `mission-card` `combat-patrol.shatter-the-veil`
+- `mission-card` `combat-patrol.slay-the-oppressors`
+- `mission-card` `combat-patrol.strike-from-on-high`
+- `mission-card` `combat-patrol.uphold-your-vows`
+
+### A wargear named by other records that has no record of its own (17)
+
+- `wargear` `astra-militarum.leman-russ-battle-tank.multi-melta`
+- `wargear` `astra-militarum.leman-russ-battle-tank.plasma-cannon`
+- `wargear` `astra-militarum.leman-russ-commander.multi-melta`
+- `wargear` `astra-militarum.leman-russ-commander.plasma-cannon`
+- `wargear` `astra-militarum.leman-russ-demolisher.multi-melta`
+- `wargear` `astra-militarum.leman-russ-demolisher.plasma-cannon`
+- `wargear` `astra-militarum.leman-russ-eradicator.multi-melta`
+- `wargear` `astra-militarum.leman-russ-eradicator.plasma-cannon`
+- `wargear` `astra-militarum.leman-russ-executioner.multi-melta`
+- `wargear` `astra-militarum.leman-russ-executioner.plasma-cannon`
+- `wargear` `astra-militarum.leman-russ-exterminator.multi-melta`
+- `wargear` `astra-militarum.leman-russ-exterminator.plasma-cannon`
+- `wargear` `astra-militarum.leman-russ-punisher.multi-melta`
+- `wargear` `astra-militarum.leman-russ-punisher.plasma-cannon`
+- `wargear` `astra-militarum.leman-russ-vanquisher.multi-melta`
+- `wargear` `astra-militarum.leman-russ-vanquisher.plasma-cannon`
+- `wargear` `imperial-agents.neural-shredder`
+
+### The app build gives the unit a structure the roster format cannot express, so it has no roster definition yet (2)
+
+- `unit` `imperial-knights.sir-hekhtur`
+- `unit` `space-wolves.wolf-guard-headtakers`
+
+## Wargear options left out
+
+Options the app gives that the roster format cannot express exactly. `checkRoster` refuses them rather than accept a choice the app forbids.
+
+- `adepta-sororitas.mortifiers`: Mortifier: a swap offers different numbers of its alternatives
+- `adepta-sororitas.sanctifiers`: Missionary: several loadout choices match the default wargear
+- `adepta-sororitas.seraphim-squad`: Seraphim: a swap gives several of one item on a varying number of models
+- `adeptus-custodes.allarus-custodians`: Allarus Custodians: every model takes the same choice, alongside other swaps of that wargear
+- `adeptus-custodes.prosecutor-squad`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `adeptus-mechanicus.onager-dunecrawler`: Onager Dunecrawler: a swap gives several of one item alongside others
+- `adeptus-mechanicus.servitor-battleclade`: Gun Servitor: no loadout choice matches the default wargear
+- `aeldari.death-jester`: a roster limit on DEATH JESTER units that depends on the army or detachment
+- `aeldari.dire-avengers`: Dire Avenger Exarch: a swap gives several of one item alongside others
+- `aeldari.phantom-titan`: Phantom Titan: a swap gives several of one item alongside others
+- `aeldari.shadowseer`: a roster limit on SHADOWSEER units that depends on the army or detachment
+- `aeldari.the-visarch`: a roster limit on EPIC HERO THE VISARCH units that depends on the army or detachment
+- `aeldari.the-yncarne`: a roster limit on EPIC HERO THE YNCARNE units that depends on the army or detachment
+- `aeldari.troupe-master`: a roster limit on TROUPE MASTER units that depends on the army or detachment
+- `aeldari.troupe`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `aeldari.troupe`: Lead Player: a wargear limit that changes with unit size, shared by several swaps
+- `aeldari.troupe`: Player: a wargear limit that changes with unit size, shared by several swaps
+- `aeldari.windriders`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `aeldari.wraithblades`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `aeldari.wraithblades`: Wraithblade: every model takes the same choice, alongside other swaps of that wargear
+- `aeldari.wraithguard`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `aeldari.wraithguard`: Wraithguard: every model takes the same choice, alongside other swaps of that wargear
+- `aeldari.ynnari-reavers`: Arena Champion: a wargear limit that changes with unit size, shared by several swaps
+- `aeldari.ynnari-reavers`: Reaver: a wargear limit that changes with unit size, shared by several swaps
+- `aeldari.yvraine`: a roster limit on EPIC HERO YVRAINE units that depends on the army or detachment
+- `astra-militarum.attilan-rough-riders`: Rough Rider Sergeant: a wargear limit that changes with unit size, shared by several swaps
+- `astra-militarum.attilan-rough-riders`: Rough Rider: a wargear limit that changes with unit size, shared by several swaps
+- `astra-militarum.baneblade`: Baneblade: a swap gives several of one item alongside others
+- `astra-militarum.banehammer`: Banehammer: a swap gives several of one item alongside others
+- `astra-militarum.banesword`: Banesword: a swap gives several of one item alongside others
+- `astra-militarum.doomhammer`: Doomhammer: a swap gives several of one item alongside others
+- `astra-militarum.hellhammer`: Hellhammer: a swap gives several of one item alongside others
+- `astra-militarum.leman-russ-battle-tank`: Leman Russ Battle Tank: a swap gives several of one item alongside others
+- `astra-militarum.leman-russ-commander`: Leman Russ Commander: a swap gives several of one item alongside others
+- `astra-militarum.leman-russ-demolisher`: Leman Russ Demolisher: a swap gives several of one item alongside others
+- `astra-militarum.leman-russ-eradicator`: Leman Russ Eradicator: a swap gives several of one item alongside others
+- `astra-militarum.leman-russ-executioner`: Leman Russ Executioner: a swap gives several of one item alongside others
+- `astra-militarum.leman-russ-exterminator`: Leman Russ Exterminator: a swap gives several of one item alongside others
+- `astra-militarum.leman-russ-punisher`: Leman Russ Punisher: a swap gives several of one item alongside others
+- `astra-militarum.leman-russ-vanquisher`: Leman Russ Vanquisher: a swap gives several of one item alongside others
+- `astra-militarum.shadowsword`: Shadowsword: a swap gives several of one item alongside others
+- `astra-militarum.stormlord`: Stormlord: a swap gives several of one item alongside others
+- `astra-militarum.stormsword`: Stormsword: a swap gives several of one item alongside others
+- `astra-militarum.tempestus-aquilons`: Tempestor Aquilon: a swap offers different numbers of its alternatives
+- `astra-militarum.tempestus-scions`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `chaos-daemons.soul-grinder`: Soul Grinder: no loadout choice matches the default wargear
+- `chaos-knights.chaos-acastus-knight-porphyrion`: Chaos Acastus Knight Porphyrion: a swap offers different numbers of its alternatives
+- `chaos-knights.war-dog-brigand`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `chaos-knights.war-dog-brigand`: a roster limit on WAR DOG units that depends on the army or detachment
+- `chaos-knights.war-dog-executioner`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `chaos-knights.war-dog-executioner`: a roster limit on WAR DOG units that depends on the army or detachment
+- `chaos-knights.war-dog-huntsman`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `chaos-knights.war-dog-huntsman`: a roster limit on WAR DOG units that depends on the army or detachment
+- `chaos-knights.war-dog-karnivore`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `chaos-knights.war-dog-karnivore`: a roster limit on WAR DOG units that depends on the army or detachment
+- `chaos-knights.war-dog-moirax`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `chaos-knights.war-dog-moirax`: War Dog Moirax: a multi-pick loadout slot offers combinations of wargear
+- `chaos-knights.war-dog-moirax`: a roster limit on WAR DOG units that depends on the army or detachment
+- `chaos-knights.war-dog-stalker`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `chaos-knights.war-dog-stalker`: a roster limit on WAR DOG units that depends on the army or detachment
+- `chaos-space-marines.chaos-terminator-squad`: Chaos Terminator: swaps that exclude each other on a varying number of models
+- `chaos-space-marines.chaos-terminator-squad`: Terminator Champion: shares a limit with a swap that is not represented
+- `chaos-space-marines.chaos-terminator-squad`: Terminator Champion: shares a wargear limit with a swap that is not represented
+- `chaos-space-marines.chosen`: Chosen Champion: a wargear limit that changes with unit size, shared by several swaps
+- `chaos-space-marines.chosen`: Chosen: a wargear limit that changes with unit size, shared by several swaps
+- `chaos-space-marines.traitor-guardsmen-squad`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `chaos-titan-legions.chaos-warbringer-nemesis-titan`: Chaos Warbringer Nemesis Titan: a multi-pick loadout slot holds different default items
+- `chaos-titan-legions.chaos-warhound-titan`: Chaos Warhound Titan: a multi-pick loadout slot holds different default items
+- `chaos-titan-legions.chaos-warlord-titan`: Chaos Warlord Titan: a multi-pick loadout slot holds different default items
+- `dark-angels.ravenwing-black-knights`: Ravenwing Black Knight: a wargear limit that changes with unit size, shared by several swaps
+- `dark-angels.ravenwing-black-knights`: Ravenwing Huntmaster: a wargear limit that changes with unit size, shared by several swaps
+- `death-guard.helbrute`: Death Guard Helbrute: a swap gives several of one item alongside others
+- `death-guard.poxwalkers`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `deathwatch.fortis-kill-team`: Kill Team Intercessor with Deathwatch Bolt Rifle, Bolt Pistol and Knives and Fists: shares a wargear limit with a swap that is not represented
+- `deathwatch.fortis-kill-team`: Kill Team Sergeant: a swap gives several of one item alongside others
+- `drukhari.incubi`: Incubi: a swap offers different numbers of its alternatives
+- `drukhari.reavers`: Arena Champion: a wargear limit that changes with unit size, shared by several swaps
+- `drukhari.reavers`: Reaver: a wargear limit that changes with unit size, shared by several swaps
+- `drukhari.wracks`: Acothyst: a wargear limit that changes with unit size, shared by several swaps
+- `drukhari.wracks`: Wrack: a wargear limit that changes with unit size, shared by several swaps
+- `grey-knights.rhino`: Rhino: a loadout choice removes wargear without replacing it
+- `imperial-agents.imperial-navy-breachers`: Navis Armsman: default wargear does not divide evenly between models
+- `imperial-agents.imperial-navy-breachers`: Navis Armsman: no loadout choice matches the default wargear
+- `imperial-agents.inquisitorial-chimera`: Inquisitorial Chimera: a swap gives several of one item alongside others
+- `imperial-agents.sanctifiers`: Missionary: several loadout choices match the default wargear
+- `imperial-knights.acastus-knight-porphyrion`: Acastus Knight Porphyrion: a swap offers different numbers of its alternatives
+- `imperial-knights.armiger-helverin`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `imperial-knights.armiger-moirax`: Armiger Moirax: a multi-pick loadout slot offers combinations of wargear
+- `imperial-knights.armiger-moirax`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `imperial-knights.armiger-warglaive`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `imperial-knights.sir-hekhtur`: unit left out: no unit composition, so no unit size
+- `leagues-of-votann.cthonian-beserks`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `leagues-of-votann.cthonian-beserks`: Cthonian Beserk: every model takes the same weapon, except models taking a limited substitute
+- `leagues-of-votann.hekaton-land-fortress`: Hekaton Land Fortress: a swap offers different numbers of its alternatives
+- `necrons.canoptek-macrocytes`: Canoptek Macrocytes: every model takes the same weapon, except models taking a limited substitute
+- `necrons.canoptek-spyders`: Canoptek Spyder: a swap gives several of one item on a varying number of models
+- `necrons.lychguard`: Lychguard: every model takes the same choice, alongside other swaps of that wargear
+- `necrons.seraptek-heavy-construct`: Seraptek Heavy Construct: a swap gives several of one item alongside others
+- `necrons.triarch-praetorians`: Triarch Praetorian: every model takes the same choice, alongside other swaps of that wargear
+- `orks.biged-bossbunka`: Big 'Ed Bossbunka: a swap offers different numbers of its alternatives
+- `orks.breaka-boyz`: Nob: several loadout choices match the default wargear
+- `orks.deff-dread`: Deff Dread: several loadout choices match the default wargear
+- `orks.gretchin`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `orks.grot-tanks`: Grot Tank: a swap offers different numbers of its alternatives
+- `orks.kill-tank`: Kill Tank: a swap gives several of one item alongside others
+- `orks.lifta-wagon`: Lifta Wagon: a swap offers different numbers of its alternatives
+- `orks.stormboyz`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `orks.warbikers`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `space-marines.kratos`: Kratos: a loadout choice removes wargear without replacing it
+- `space-marines.kratos`: Kratos: a swap gives several of one item alongside others
+- `space-marines.lieutenant`: Lieutenant: a swap gives several of one item alongside others
+- `space-marines.outrider-squad`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `space-marines.outrider-squad`: Outrider Sergeant: a wargear limit that changes with unit size, shared by several swaps
+- `space-marines.outrider-squad`: Outrider: a wargear limit that changes with unit size, shared by several swaps
+- `space-marines.stormraven-gunship`: Stormraven Gunship: a swap offers different numbers of its alternatives
+- `space-marines.venerable-dreadnought`: Venerable Dreadnought: a swap offers different numbers of its alternatives
+- `space-wolves.thunderwolf-cavalry`: Thunderwolf Cavalry Pack Leader: a wargear limit that changes with unit size, shared by several swaps
+- `space-wolves.thunderwolf-cavalry`: Thunderwolf Cavalry: a wargear limit that changes with unit size, shared by several swaps
+- `space-wolves.wolf-guard-headtakers`: unit left out: model counts allowed together differ between unit sizes' compositions
+- `tau-empire.commander-in-enforcer-battlesuit`: Commander in Enforcer Battlesuit: a multi-pick loadout slot is only partly filled by default
+- `tau-empire.kroot-carnivores`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `tau-empire.stealth-battlesuits`: Stealth Shas’vre: a multi-pick loadout slot offers combinations of wargear
+- `tau-empire.taunar-supremacy-armour`: Ta’unar Supremacy Armour: a multi-pick loadout slot holds different default items
+- `tau-empire.taunar-supremacy-armour`: Ta’unar Supremacy Armour: a swap offers different numbers of its alternatives
+- `thousand-sons.tzaangors`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `titan-legions.warbringer-nemesis-titan`: Warbringer Nemesis Titan: a multi-pick loadout slot holds different default items
+- `titan-legions.warhound-titan`: Warhound Titan: a multi-pick loadout slot holds different default items
+- `titan-legions.warlord-titan`: Warlord Titan: a multi-pick loadout slot holds different default items
+- `tyranids.hive-tyrant`: Hive Tyrant: a swap offers different numbers of its alternatives
+- `tyranids.ripper-swarms`: Ripper Swarm: every model takes the same choice, alongside other swaps of that wargear
+- `tyranids.termagants`: Termagant: every model takes the same weapon, except models taking a limited substitute
+- `tyranids.tyranid-warriors-with-melee-bio-weapons`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `tyranids.tyranid-warriors-with-ranged-bio-weapons`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `tyranids.tyranid-warriors-with-ranged-bio-weapons`: Tyranid Prime: a wargear limit that changes with unit size, shared by several swaps
+- `tyranids.tyranid-warriors-with-ranged-bio-weapons`: Tyranid Warrior: a wargear limit that changes with unit size, shared by several swaps
+- `world-eaters.chaos-terminators`: World Eaters Terminator Champion: a wargear limit that changes with unit size, shared by several swaps
+- `world-eaters.chaos-terminators`: World Eaters Terminator: a wargear limit that changes with unit size, shared by several swaps
+- `world-eaters.goremongers`: BATTLELINE in some armies or detachments only, which changes its roster limit
+- `world-eaters.jakhals`: BATTLELINE in some armies or detachments only, which changes its roster limit

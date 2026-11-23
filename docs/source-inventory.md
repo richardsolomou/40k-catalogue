@@ -30,7 +30,9 @@ The [MFM 1.6 rule summaries](../data/mfm-1-6/rule-summaries/README.md) cite offi
 
 Each Stratagem's CP cost, phases, turn and type, typed [rule facts](rule-facts.md), and the [mission pack](mission-packs.md) come from the same build's structured rows: Stratagem limits, timing and targets, each Enhancement's eligibility, points and limits, each mission award's scoring, and the pack's caps, pairings, battlefields and cards. VS Data publishes the game's numbers and structure from the signed app as facts in its own structure, never its rules wording.
 
-The units, detachments, wargear and publications that FAQs amend and Enhancements name are identity entries of the retained `rosters` and `publications` categories, which still come from the app build.
+The datasheets, roster definitions and points come from the same build: stat lines, weapon profiles, unit sizes and models, default wargear and wargear options, Detachment points and the costs of units, priced wargear and Enhancements. Warhammer Legends datasheets the build does not carry come from Games Workshop's PDFs current at the cutoff, each record citing its document and page: the faction packs that now print them, the remaining Warhammer Legends documents, and, for their costs, the Legends Field Manual section of the Munitorum Field Manual. Units list the BSData entry IDs of the datasheets they stand for as aliases, from the BSData catalogue Praetorium compiled at its pinned snapshot; BSData and the MFM points dataset were compared with the release but supply no value.
+
+The publication FAQs amend is an identity entry of the retained `publications` category.
 
 Drafting also used Game Datacards' community data as private evidence, checked against the app build. It is not a cited source, and none of its text is published.
 
@@ -46,6 +48,6 @@ Where a source leaves a point open and the project chooses a reading, the record
 
 ## Where mappings live
 
-Catalogue records use [catalogue IDs and rules versions](catalogue-identity.md). Where an entry's ID in another data source can be derived, the catalogue publishes it as an alias: Game Datacards IDs for rules, Stratagems, Enhancements, FAQs and mission records, and mission pack members' IDs in the pack. Keep any other mapping to a consumer's stored IDs in that consumer.
+Catalogue records use [catalogue IDs and rules versions](catalogue-identity.md). Where an entry's ID in another data source can be derived, the catalogue publishes it as an alias: Game Datacards IDs for rules, Stratagems, Enhancements, FAQs and mission records, mission pack members' IDs in the pack, and BSData entry IDs for units. Keep any other mapping to a consumer's stored IDs in that consumer.
 
 [Source and migration issues](https://github.com/richardsolomou/vs-data/issues/13) · [Archived source inventory](https://github.com/richardsolomou/vs-data/blob/80733c1fb93dd338b3078408c7f46c30c4ec422d/docs/source-inventory.md)

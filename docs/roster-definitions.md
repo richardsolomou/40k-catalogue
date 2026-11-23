@@ -54,6 +54,10 @@ A model loadout that a source writes as separate model entries, one per weapon, 
 - A unit sets at most one limit per battle size. Each list of `bySize` bounds has at most one row per size and uses the unit's declared sizes.
 - A wargear bundle does not include itself, directly or through another bundle.
 
+## MFM 1.6
+
+The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) includes the `rosters` category, built from the official app's data build: factions, battle sizes, Detachments, and every datasheet outside Combat Patrol as one unit, modelled once rather than once per Space Marine chapter. A unit's `aliases` are the BSData entry IDs of the datasheets it stands for (`bsdata.<entry ID with dots>`), so lists saved against BSData IDs resolve. Wargear options the format cannot express exactly are left out and listed in the README: `checkRoster` refuses those choices rather than accept one the app forbids. Enhancement eligibility is in each Enhancement's [rule facts](rule-facts.md).
+
 ## Saved rosters
 
 A saved roster names a `faction`, a `detachment`, an optional `battleSize`, and its `units`. Each unit gives its `unit` ID, its model counts by model ID, its taken wargear as `{ <option ID>: { <wargear ID>: count } }`, and an optional `enhancement`. An omitted model count uses its base `min`. The checker then applies the bounds for the sum of those counts. Wargear a unit keeps by default is not listed.

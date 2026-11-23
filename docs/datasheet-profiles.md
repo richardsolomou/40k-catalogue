@@ -66,6 +66,10 @@ A profile's `unit` bounds what else it may name. Its `models` must belong to tha
 
 Profiles follow the [identity rules](catalogue-identity.md). A characteristic change keeps the profile's ID. A weapon that splits into modes retires its old profile with the new ones as `replacedBy`, so a saved reference to it resolves to them. A profile ID is never reused for a different stat line.
 
+## MFM 1.6
+
+The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds a `profiles` category built from the official app's data build: a unit profile for each distinct stat line of every datasheet outside Combat Patrol, and a weapon profile for each profile of every weapon a unit carries or may take. Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, and their weapon profiles name no wargear yet (a `wargear` `no-target` gap). The input's README gives the counts and every gap.
+
 ## Rehearsal
 
 [Tracking issue](https://github.com/richardsolomou/vs-data/issues/39) · [Archived evidence](https://github.com/richardsolomou/vs-data/blob/80733c1fb93dd338b3078408c7f46c30c4ec422d/docs/datasheet-profiles.md#rehearsal)

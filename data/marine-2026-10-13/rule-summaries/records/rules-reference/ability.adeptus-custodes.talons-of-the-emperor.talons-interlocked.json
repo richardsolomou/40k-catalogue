@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.talons-of-the-emperor.talons-interlocked",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Talons of the Emperor",
+    "cp": 1,
+    "summary": "In your Shooting phase, spend 1 CP on a pair of your ADEPTUS CUSTODES INFANTRY units, or just one of them, and on one enemy unit that every chosen unit of yours could target. While the phase lasts, your chosen units can shoot only at the chosen enemy, but every ranged attack their models make has its Strength and Armour Penetration each improved by 1. A pair is allowed only if exactly one of them has the ANATHEMA PSYKANA keyword and they are no more than 6\" apart.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 53,
+        "end": 78,
+        "bold": true
+      },
+      {
+        "start": 408,
+        "end": 424,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Talons of the Emperor",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "friendly": {
+              "entity": "unit",
+              "count": {
+                "max": 2
+              },
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS CUSTODES",
+                "INFANTRY"
+              ]
+            },
+            "enemy": {
+              "entity": "unit",
+              "count": 1,
+              "side": "enemy",
+              "condition": "eligible-target-for-all-selected-units"
+            }
+          },
+          "effects": [
+            {
+              "kind": "target-restriction",
+              "onlyTarget": "selected-enemy-unit",
+              "expires": "end-of-phase"
+            },
+            {
+              "kind": "improve-characteristics",
+              "characteristics": [
+                "S",
+                "AP"
+              ],
+              "by": 1,
+              "attacks": "ranged",
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": [
+            {
+              "kind": "two-unit-limit",
+              "maxUnits": 2,
+              "twoUnitsRequireExactlyOneKeyword": "ANATHEMA PSYKANA",
+              "pairWithinInches": 6
+            }
+          ]
+        }
+      }
+    }
+  }
+}

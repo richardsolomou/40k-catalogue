@@ -1,0 +1,102 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.lords-of-dread.spiteful-demise",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Lords of Dread",
+    "cp": 1,
+    "summary": "Use in any phase immediately after your CHAOS KNIGHTS CHARACTER unit is destroyed, targeting that unit despite its destruction. For the model’s Deadly Demise, the D6 inflicts mortal wounds at 4+ in place of the usual 6.",
+    "summarySpans": [
+      {
+        "start": 40,
+        "end": 63,
+        "bold": true
+      },
+      {
+        "start": 144,
+        "end": 157,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "deadly-demise"
+        }
+      },
+      {
+        "start": 175,
+        "end": 188,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-destruction",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "CHAOS KNIGHTS CHARACTER"
+            ],
+            "destroyedTargetAllowed": true
+          },
+          "effects": [
+            {
+              "kind": "replace-roll-threshold",
+              "recipient": "destroyed-model",
+              "ability": "Deadly Demise",
+              "consequence": "inflict-mortal-wounds",
+              "roll": {
+                "die": "D6",
+                "sides": 6
+              },
+              "previous": {
+                "exact": 6
+              },
+              "replacement": {
+                "atLeast": 4
+              }
+            }
+          ],
+          "type": "epic-deed",
+          "duration": {
+            "scope": "triggering-deadly-demise-roll"
+          }
+        }
+      }
+    }
+  }
+}

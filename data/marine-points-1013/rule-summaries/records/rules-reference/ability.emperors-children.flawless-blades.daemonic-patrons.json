@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.flawless-blades.daemonic-patrons",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Flawless Blades",
+    "summary": "Each time you pick this unit to fight, it may invoke its patrons. An unmodified 3+ on an attacking model’s Wound roll then scores a Critical Wound until the phase ends. If the unit invoked its patrons and none of its attacks destroyed an enemy model that phase, it loses one model as the Fight phase closes.",
+    "summarySpans": [
+      {
+        "start": 107,
+        "end": 117,
+        "bold": true
+      },
+      {
+        "start": 132,
+        "end": 146,
+        "bold": true
+      },
+      {
+        "start": 288,
+        "end": 299,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "datasheet-unit",
+        "trigger": {
+          "phase": "Fight",
+          "turnOwner": "either",
+          "event": "selected to fight",
+          "perSelection": true
+        },
+        "activation": {
+          "optional": true,
+          "kind": "invoke-daemonic-patrons"
+        },
+        "effect": {
+          "while": "activated this phase",
+          "actor": "models-in-unit",
+          "attackKind": "all",
+          "unmodifiedWoundAtLeast": 3,
+          "result": "Critical Wound",
+          "expires": "phase end"
+        },
+        "penalty": {
+          "trigger": {
+            "phase": "Fight",
+            "turnOwner": "either",
+            "edge": "end"
+          },
+          "requiresActivationThisPhase": true,
+          "ifEnemyModelsDestroyedBySourceUnitAttacksThisPhase": 0,
+          "destroy": {
+            "count": 1,
+            "recipient": "source-unit-model"
+          }
+        }
+      }
+    }
+  }
+}

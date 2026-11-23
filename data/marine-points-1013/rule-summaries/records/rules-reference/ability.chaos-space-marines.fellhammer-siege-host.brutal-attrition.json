@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.fellhammer-siege-host.brutal-attrition",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Fellhammer Siege-host",
+    "cp": 1,
+    "summary": "When an enemy chooses Fight phase targets, select a targeted HERETIC ASTARTES INFANTRY unit without the DAMNED keyword. Through phase end, after an enemy resolves its melee attacks, roll D6 per attack allocated to your chosen unit, capped at six dice. Each 4+ deals 1 mortal wound to the attacker.",
+    "summarySpans": [
+      {
+        "start": 22,
+        "end": 33,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 61,
+        "end": 86,
+        "bold": true
+      },
+      {
+        "start": 104,
+        "end": 110,
+        "bold": true
+      },
+      {
+        "start": 268,
+        "end": 280,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight"
+            ],
+            "event": "enemy-unit-selected-fight-targets"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "HERETIC ASTARTES INFANTRY"
+            ],
+            "excludingKeywords": [
+              "DAMNED"
+            ],
+            "targetedBy": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "retaliatory-mortal-wounds",
+              "condition": {
+                "after": "enemy-unit-resolves-melee-attacks"
+              },
+              "roll": {
+                "dice": "D6",
+                "minimum": 4,
+                "comparison": "at-least"
+              },
+              "dicePer": "melee-attack-allocated-to-selected-unit",
+              "maximumDice": 6,
+              "amountPerSuccess": 1,
+              "recipient": "attacking-unit"
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

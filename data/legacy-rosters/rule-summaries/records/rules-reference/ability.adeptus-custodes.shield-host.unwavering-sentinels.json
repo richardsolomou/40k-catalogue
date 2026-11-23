@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.shield-host.unwavering-sentinels",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Shield Host",
+    "cp": 1,
+    "summary": "In either player's Fight phase, once an enemy unit picks its targets, spend 1 CP on a single ADEPTUS CUSTODES INFANTRY unit of yours, not an ANATHEMA PSYKANA unit, that sits within range of one of your controlled objective markers and that the enemy aimed at least one attack at. While the phase lasts, melee attacks against that unit take −1 to the Hit roll.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 93,
+        "end": 118,
+        "bold": true
+      },
+      {
+        "start": 141,
+        "end": 157,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Shield Host",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS CUSTODES",
+              "INFANTRY"
+            ],
+            "keywordsNone": [
+              "ANATHEMA PSYKANA"
+            ],
+            "conditions": [
+              "within-range-of-objective-marker-you-control",
+              "selected-as-target-of-triggering-enemy-attack"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "roll": "hit",
+              "delta": -1,
+              "attacks": "melee-attacks-targeting-unit",
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.armoured-trailblazers.built-to-last",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Armoured Trailblazers",
+    "cp": 1,
+    "summary": "1 CP. Use it in the opposing player's Shooting phase, as soon as one of your SAGITAUR units becomes the target of an enemy unit. For the rest of that phase, ranged attacks against that unit whose Strength exceeds its Toughness get -1 to their wound rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Armoured Trailblazers",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "moment": "enemy-unit-targets-friendly-unit"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "SAGITAUR"
+            ],
+            "targetedByEnemyUnit": true
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "roll": "wound",
+              "op": "subtract",
+              "value": 1,
+              "appliesTo": "ranged attacks targeting the unit with Strength greater than the unit's Toughness"
+            }
+          ],
+          "restrictions": [],
+          "duration": "end-of-phase",
+          "durationBasis": {
+            "coreRule": "01.02.02",
+            "name": "Persisting Rules Effects",
+            "reason": "the card prints no duration, so the effect lasts only for the phase in which it was applied"
+          }
+        }
+      }
+    }
+  }
+}

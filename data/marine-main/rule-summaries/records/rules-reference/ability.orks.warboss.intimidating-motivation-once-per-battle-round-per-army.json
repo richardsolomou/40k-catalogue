@@ -1,0 +1,89 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.warboss.intimidating-motivation-once-per-battle-round-per-army",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Warboss",
+    "summary": "Once per battle round across your army, you may pick a friendly Orks unit no farther than 6\" away as this unit begins or finishes a move in your Movement phase. Clear the chosen unit’s battle-shocked status and make it riled up. That status ends when your next turn starts.",
+    "summarySpans": [
+      {
+        "start": 64,
+        "end": 68,
+        "bold": true
+      },
+      {
+        "start": 145,
+        "end": 159,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 185,
+        "end": 199,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 219,
+        "end": 227,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "orks.da-boss"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "usage": {
+          "maximum": 1,
+          "reset": "battle round",
+          "scope": "army"
+        },
+        "trigger": {
+          "phase": "own Movement phase",
+          "actor": "owning unit",
+          "event": [
+            "start of its move",
+            "end of its move"
+          ]
+        },
+        "recipient": {
+          "count": 1,
+          "relation": "friendly Orks unit",
+          "withinInchesOfOwningUnit": 6
+        },
+        "effect": {
+          "removeStatus": "battle-shocked",
+          "assignStatus": "riled up",
+          "expiry": "start of your next turn"
+        },
+        "optional": true
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.terminator-storm-force.tactical-dreadnought-fortitude",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Terminator Storm Force",
+    "cp": 2,
+    "summary": "Spend 2 CP when an enemy unit picks one of your ADEPTUS ASTARTES TERMINATOR units as a target, either in the opposing player's Shooting phase or in any Fight phase; that unit is the target. Until the attacking enemy unit has completed its attacks, attacks aimed at your unit get -1 Damage.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "detachment": "Terminator Storm Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-targets-friendly-unit"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "TERMINATOR"
+            ],
+            "sameAs": "targeted-unit"
+          },
+          "effects": [
+            {
+              "kind": "characteristic-modifier",
+              "characteristic": "D",
+              "delta": -1,
+              "magnitude": 1,
+              "appliesTo": "attacks-against-target",
+              "expires": "when the triggering enemy unit has attacked"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

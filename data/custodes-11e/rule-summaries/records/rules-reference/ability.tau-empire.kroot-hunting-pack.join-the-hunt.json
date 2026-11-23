@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.kroot-hunting-pack.join-the-hunt",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Kroot Hunting Pack",
+    "cp": 2,
+    "summary": "Select a recently destroyed unit from your army in any phase. Eligible units carry KROOT INFANTRY. KROOT HOUNDS units also qualify. Add a copy at Starting Strength to Strategic Reserves. The Stratagem can be used once in the battle and never returns a destroyed CHARACTER unit to an Attached unit.",
+    "summarySpans": [
+      {
+        "start": 83,
+        "end": 97,
+        "bold": true
+      },
+      {
+        "start": 99,
+        "end": 111,
+        "bold": true
+      },
+      {
+        "start": 167,
+        "end": 185,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 262,
+        "end": 271,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "battle-tactic",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "any"
+            ],
+            "event": "friendly-unit-destroyed"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "anyKeyword": [
+              "KROOT INFANTRY",
+              "KROOT HOUNDS"
+            ],
+            "destroyed": true
+          },
+          "effects": [
+            {
+              "kind": "add-identical-unit-to-army",
+              "from": "selected-destroyed-unit",
+              "where": "strategic-reserves",
+              "startingStrength": true
+            }
+          ],
+          "restrictions": {
+            "usesPerBattle": 1,
+            "excludeDestroyedAttachedCharacterUnits": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.elegant-brutes.delight-in-agony",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Elegant Brutes",
+    "cp": 1,
+    "summary": "1 CP, used in the opposing player's Shooting phase or in the Fight phase as an enemy unit targets one of your EMPEROR'S CHILDREN TERMINATOR units; that unit is the target. Attacks aimed at it whose Strength (S) is higher than its Toughness (T) take -1 to wound rolls. This lasts for the rest of that phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Elegant Brutes",
+          "category": null,
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "shooting",
+              "fight"
+            ],
+            "timing": "when-enemy-unit-targets-unit"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "EMPEROR'S CHILDREN",
+              "TERMINATOR"
+            ],
+            "is_unit": "targeted-unit"
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "roll": "wound",
+              "operation": "subtract",
+              "value": 1,
+              "condition": "attack-strength-greater-than-unit-toughness",
+              "duration": "end-of-phase",
+              "durationBasis": "core rule 01.02.02 Persisting Rules Effects (core/core_rules.json /sections/0/containers/2/components/2): no stated duration, so it lasts only for the phase in which it was applied"
+            }
+          ],
+          "restrictions": [],
+          "shootingPhaseTurn": "opponent"
+        }
+      }
+    }
+  }
+}

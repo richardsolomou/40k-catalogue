@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.coterie-of-the-conceited.unbound-arrogance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Coterie of the Conceited",
+    "cp": 1,
+    "summary": "When your EMPEROR’S CHILDREN destroy an enemy unit during your Shooting phase or either Fight phase, pick the unit responsible immediately. Raise your Pledge by 1, even from 0. Limit this to 1 use each battle round.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 28,
+        "bold": true
+      },
+      {
+        "start": 63,
+        "end": 77,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 88,
+        "end": 99,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 151,
+        "end": 157,
+        "target": {
+          "kind": "ability",
+          "id": "emperors-children.coterie-of-the-conceited.pledges-to-the-dark-prince"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-friendly-unit-destroys-enemy-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "EMPEROR’S CHILDREN"
+            ],
+            "binding": "destroying-unit"
+          },
+          "effects": [
+            {
+              "action": "modify-resource",
+              "pool": "pledge",
+              "owner": "your-army",
+              "operation": "add",
+              "amount": 1,
+              "eligibleAtZero": true
+            }
+          ],
+          "restrictions": [
+            {
+              "action": "limit-stratagem-use",
+              "uses": 1,
+              "per": "battle-round"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

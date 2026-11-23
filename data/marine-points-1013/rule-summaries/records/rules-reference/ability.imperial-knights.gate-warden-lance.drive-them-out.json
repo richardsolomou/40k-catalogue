@@ -1,0 +1,158 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.gate-warden-lance.drive-them-out",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Gate Warden Lance",
+    "cp": 1,
+    "summary": "Your Shooting Phase or either Fight Phase. Choose an IMPERIAL KNIGHTS unit of yours that has yet to be picked to shoot or fight in that phase. For the phase, its models score Critical Hits on unmodified Hit rolls of 5+ against targets in your Defensive Line.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 19,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 30,
+        "end": 41,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 53,
+        "end": 69,
+        "bold": true
+      },
+      {
+        "start": 243,
+        "end": 257,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.gate-warden-lance.dauntless-defenders"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "in-region",
+              "parameters": {
+                "subject": "defender",
+                "region": {
+                  "rule_region": {
+                    "region_id": "defensive-line",
+                    "owner_faction": "imperial-knights"
+                  }
+                }
+              }
+            },
+            "effect": {
+              "type": "roll-result",
+              "target": "this-unit",
+              "modifier": {
+                "roll": "hit",
+                "critical_on": 5
+              }
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "behavior": "activated"
+        },
+        "stratagem": {
+          "id": "drive-them-out-gate-warden-lance-imperial-knights",
+          "cp_cost": 1,
+          "phases": [
+            "fight",
+            "shooting"
+          ],
+          "player_turn": "either",
+          "timing": "once-per-phase",
+          "type": "battle-tactic",
+          "target_restrictions": {
+            "required_keywords": [
+              "Imperial Knights"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "owner": "friendly"
+                    }
+                  }
+                },
+                {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "operator": "or",
+                      "operands": [
+                        {
+                          "type": "happened",
+                          "parameters": {
+                            "event": "selected",
+                            "filter": {
+                              "to": "fight"
+                            },
+                            "window": "phase"
+                          }
+                        },
+                        {
+                          "type": "happened",
+                          "parameters": {
+                            "event": "selected",
+                            "filter": {
+                              "to": "shoot"
+                            },
+                            "window": "phase"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {
+          "5+": "unmodified Hit-roll critical threshold"
+        }
+      }
+    }
+  }
+}

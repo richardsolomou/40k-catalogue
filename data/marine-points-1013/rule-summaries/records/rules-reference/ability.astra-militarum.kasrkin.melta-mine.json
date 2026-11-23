@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.kasrkin.melta-mine",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Kasrkin",
+    "summary": "The bearer can use the Melta Mine once per battle as any phase begins. Pick an enemy unit no farther than 3″ from the bearer and roll a D6. On 2+, deal D3 mortal wounds, increasing that to 2D3 against VEHICLE.",
+    "summarySpans": [
+      {
+        "start": 106,
+        "end": 108,
+        "bold": true
+      },
+      {
+        "start": 136,
+        "end": 138,
+        "bold": true
+      },
+      {
+        "start": 143,
+        "end": 145,
+        "bold": true
+      },
+      {
+        "start": 152,
+        "end": 154,
+        "bold": true
+      },
+      {
+        "start": 155,
+        "end": 168,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 189,
+        "end": 192,
+        "bold": true
+      },
+      {
+        "start": 201,
+        "end": 208,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "wargear-bearer",
+        "limit": {
+          "period": "battle",
+          "scope": "bearer",
+          "count": 1
+        },
+        "trigger": {
+          "event": "phase",
+          "phase": "any",
+          "timing": "start",
+          "turn": "either-player"
+        },
+        "selection": {
+          "count": 1,
+          "optional": true,
+          "side": "enemy",
+          "entity": "unit",
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 3,
+          "origin": "bearer"
+        },
+        "effect": {
+          "operation": "deal-mortal-wounds",
+          "recipient": "selected-unit",
+          "test": {
+            "dice": {
+              "count": 1,
+              "sides": 6,
+              "additive": 0
+            },
+            "minimum": 2
+          },
+          "default": {
+            "count": 1,
+            "sides": 3,
+            "additive": 0
+          },
+          "override": {
+            "keyword": "VEHICLE",
+            "amount": {
+              "count": 2,
+              "sides": 3,
+              "additive": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

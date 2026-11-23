@@ -1,0 +1,98 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.thunderhawk-gunship.thunderhawk-cluster-bombs",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Thunderhawk Gunship",
+    "summary": "When this unit completes a Normal or Advance Move in your Movement Phase, you may pick one enemy unit it passed over on that move. Roll six D6. A die showing 3+ inflicts one Mortal Wound on the chosen unit.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 33,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 37,
+        "end": 49,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 58,
+        "end": 72,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 174,
+        "end": 186,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "type": "flyover-mortal-wounds",
+        "trigger": {
+          "event": "move-completed",
+          "phase": "your-movement",
+          "moves": [
+            "normal",
+            "advance"
+          ]
+        },
+        "actor": "this-unit",
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "max": 1,
+          "optional": true,
+          "passedOverByActorDuringTriggeringMove": true
+        },
+        "dice": {
+          "count": 6,
+          "sides": 6
+        },
+        "threshold": {
+          "comparison": "at-least",
+          "value": 3
+        },
+        "damage": {
+          "recipient": "selected-unit",
+          "mortalWoundsPerSuccess": 1
+        }
+      }
+    }
+  }
+}

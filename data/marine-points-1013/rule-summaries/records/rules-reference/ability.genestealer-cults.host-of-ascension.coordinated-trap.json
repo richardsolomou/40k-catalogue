@@ -1,0 +1,137 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.host-of-ascension.coordinated-trap",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Host of Ascension",
+    "cp": 2,
+    "summary": "As your Shooting phase or either Fight phase starts, choose a pair of your GENESTEALER CULTS units you haven’t picked for shooting or fighting this phase. Mark one enemy. If you use this in the Fight phase, both chosen units must have the enemy within Engagement Range. For the phase their models can attack only the marked unit and only with attacks that can legally target it. Those attacks get +1 to Wound rolls.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 33,
+        "end": 44,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 75,
+        "end": 92,
+        "bold": true
+      },
+      {
+        "start": 194,
+        "end": 205,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 252,
+        "end": 268,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 403,
+        "end": 414,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "keywords": [
+              "GENESTEALER CULTS"
+            ],
+            "count": 2,
+            "state": "not-selected-to-shoot-or-fight-this-phase"
+          },
+          "effects": [
+            {
+              "action": "select-enemy-unit",
+              "count": 1,
+              "bind": "marked-enemy",
+              "conditionalRequirement": {
+                "phase": "fight",
+                "withinEngagementRangeOf": "both-target-units"
+              }
+            },
+            {
+              "action": "restrict-attack-targets",
+              "recipient": "models-in-both-target-units",
+              "onlyTarget": "marked-enemy",
+              "requires": "marked-enemy-eligible-for-each-attack",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "modify-roll",
+              "roll": "wound",
+              "operation": "add",
+              "amount": 1,
+              "actor": "models-in-both-target-units",
+              "attackTarget": "marked-enemy",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

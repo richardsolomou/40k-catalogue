@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.corsair-coterie.lethal-ruse",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Corsair Coterie",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Movement phase right after one of your AELDARI units Falls Back; that unit is the target. Until the turn ends, it may still charge even though it Fell Back. For an ANHRATHE unit, also pick one enemy unit it was in Engagement Range of when the phase began and roll six D6: each 4+ inflicts 1 mortal wound on that enemy unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Corsair Coterie",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            }
+          ],
+          "timing": "after-friendly-unit-falls-back",
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "sameAs": "triggering-unit",
+            "keywordsAll": [
+              "AELDARI"
+            ]
+          },
+          "effects": [
+            {
+              "chargeAfterFallBack": true,
+              "duration": "end-of-turn"
+            },
+            {
+              "condition": {
+                "unitKeywordsAll": [
+                  "ANHRATHE"
+                ]
+              },
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "wasWithinEngagementRangeAtStartOfPhase": true
+              },
+              "roll": {
+                "dice": "D6",
+                "count": 6
+              },
+              "perSuccess": {
+                "threshold": "4+",
+                "mortalWounds": 1
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

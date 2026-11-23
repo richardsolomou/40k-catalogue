@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.aleya.tenacious-spirit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Aleya",
+    "summary": "As long as Aleya leads a unit, attacks by models in it get +1 on Hit rolls when the unit is under its Starting Strength, and in addition +1 on Wound rolls when it is Below Half-strength.",
+    "summarySpans": [
+      {
+        "start": 65,
+        "end": 74,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 102,
+        "end": 119,
+        "bold": true
+      },
+      {
+        "start": 143,
+        "end": 154,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 166,
+        "end": 185,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Aleya",
+        "clauses": [
+          {
+            "condition": {
+              "thisModelLeadingAUnit": true,
+              "ledUnitBelowStartingStrength": true
+            },
+            "appliesTo": "attacks by models in the led unit",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "condition": {
+              "thisModelLeadingAUnit": true,
+              "ledUnitBelowHalfStrength": true
+            },
+            "appliesTo": "attacks by models in the led unit",
+            "modifier": {
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            },
+            "stacksWith": "clause-1"
+          }
+        ]
+      }
+    }
+  }
+}

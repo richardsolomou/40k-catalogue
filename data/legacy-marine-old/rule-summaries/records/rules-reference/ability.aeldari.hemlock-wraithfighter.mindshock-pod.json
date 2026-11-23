@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.hemlock-wraithfighter.mindshock-pod",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Hemlock Wraithfighter",
+    "summary": "An enemy unit in this model’s 9″ aura takes −1 whenever it tests for Battle-shock or Leadership.",
+    "summarySpans": [
+      {
+        "start": 69,
+        "end": 81,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 85,
+        "end": 95,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-model",
+        "aura": {
+          "emitter": {
+            "entity": "model",
+            "selector": "this-model"
+          },
+          "recipient": {
+            "side": "enemy",
+            "entity": "unit",
+            "allKeywords": [],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-model",
+            "to": "recipient-unit",
+            "kind": "within",
+            "distanceInches": 9
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "roll-modifier",
+            "recipient": "recipient-unit",
+            "roll": "battle-shock-test",
+            "modifier": -1
+          },
+          {
+            "kind": "roll-modifier",
+            "recipient": "recipient-unit",
+            "roll": "leadership-test",
+            "modifier": -1
+          }
+        ]
+      }
+    }
+  }
+}

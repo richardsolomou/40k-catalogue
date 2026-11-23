@@ -1,0 +1,98 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.brood-brothers-auxilia.martial-espionage",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Brood Brothers Auxilia",
+    "summary": "This enhancement requires GENESTEALER CULTS INFANTRY on the bearer. A friendly unit picked to shoot can get this benefit once each turn if it is no farther than 9″ from the bearer. It must be ASTRA MILITARUM MOUNTED or ASTRA MILITARUM INFANTRY. You may improve its models’ ranged weapon Armour Penetration by 1 through phase end.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 52,
+        "bold": true
+      },
+      {
+        "start": 192,
+        "end": 215,
+        "bold": true
+      },
+      {
+        "start": 219,
+        "end": 243,
+        "bold": true
+      },
+      {
+        "start": 287,
+        "end": 305,
+        "target": {
+          "kind": "core-rule",
+          "id": "profiles"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Infantry",
+            "Genestealer Cults"
+          ],
+          "excludes": []
+        },
+        "trigger": {
+          "event": "selected-to-shoot",
+          "subject": {
+            "owner": "own-player",
+            "allOf": [
+              "ASTRA MILITARUM"
+            ],
+            "anyOf": [
+              "INFANTRY",
+              "MOUNTED"
+            ],
+            "within": {
+              "inches": 9,
+              "of": "bearer"
+            }
+          }
+        },
+        "usage": {
+          "limit": 1,
+          "per": "turn",
+          "scope": "bearer"
+        },
+        "optional": true,
+        "effect": {
+          "type": "modify-weapon-characteristic",
+          "recipient": "every-model-in-triggering-unit",
+          "weapons": "equipped-ranged",
+          "characteristic": "AP",
+          "operation": "improve",
+          "amount": 1,
+          "duration": "through-end-of-phase"
+        }
+      }
+    }
+  }
+}

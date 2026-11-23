@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.iron-father-feirros.master-of-the-forge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Iron Father Feirros",
+    "summary": "As your Movement phase finishes, Feirros can pick one ADEPTUS ASTARTES VEHICLE model from your army within 3″ of him. It heals 3 wounds. The same model may ignore modifiers to Movement and Ballistic Skill. It can also disregard modifiers on Hit rolls or Wound rolls. Both permissions end when your next Movement phase begins.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 54,
+        "end": 78,
+        "bold": true
+      },
+      {
+        "start": 241,
+        "end": 250,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 254,
+        "end": 265,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 303,
+        "end": 317,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "Movement",
+          "side": "own",
+          "step": "end"
+        },
+        "optional": true,
+        "target": {
+          "count": 1,
+          "kind": "model",
+          "side": "friendly",
+          "requiresKeywords": [
+            "ADEPTUS ASTARTES",
+            "VEHICLE"
+          ],
+          "withinInches": 3,
+          "origin": "owner model"
+        },
+        "effects": [
+          {
+            "healWounds": 3
+          },
+          {
+            "ignoreModifiersTo": [
+              "Movement",
+              "Ballistic Skill",
+              "Hit rolls",
+              "Wound rolls"
+            ],
+            "optional": true,
+            "until": {
+              "phase": "Movement",
+              "side": "own",
+              "occurrence": "next",
+              "step": "start"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

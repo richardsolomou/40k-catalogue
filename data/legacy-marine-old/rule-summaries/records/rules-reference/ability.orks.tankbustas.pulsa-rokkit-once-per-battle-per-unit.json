@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.tankbustas.pulsa-rokkit-once-per-battle-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Tankbustas",
+    "summary": "Usable once per battle by each unit. During your Shooting phase, as this unit gets selected to shoot, you may pick one enemy MONSTER or VEHICLE unit up to 24″ away from it; if you do, attacks by this unit against that target gain +1 AP and [LETHAL HITS]. The card does not say how long these bonuses last.",
+    "summarySpans": [
+      {
+        "start": 49,
+        "end": 63,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 83,
+        "end": 100,
+        "bold": true
+      },
+      {
+        "start": 125,
+        "end": 132,
+        "bold": true
+      },
+      {
+        "start": 136,
+        "end": 143,
+        "bold": true
+      },
+      {
+        "start": 233,
+        "end": 235,
+        "bold": true
+      },
+      {
+        "start": 240,
+        "end": 253,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Tankbustas",
+        "clauses": [
+          {
+            "usage": {
+              "count": 1,
+              "per": "battle",
+              "scope": "unit"
+            },
+            "trigger": {
+              "turn": "own",
+              "phase": "shooting",
+              "event": "this unit is selected to shoot"
+            },
+            "optional": true,
+            "selection": {
+              "side": "enemy",
+              "count": 1,
+              "anyKeyword": [
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "withinInches": 24,
+              "origin": "this unit"
+            },
+            "effect": {
+              "appliesTo": "this unit's attacks targeting the selected unit",
+              "armourPenetration": {
+                "operation": "improve",
+                "value": 1
+              },
+              "grants": [
+                "LETHAL HITS"
+              ],
+              "duration": "not stated"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.bringers-of-flame.blazing-ire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Bringers of Flame",
+    "cp": 2,
+    "summary": "After an enemy finishes shooting in its Shooting phase, select a targeted ADEPTA SORORITAS TRANSPORT. A passenger unit may get out using your Movement phase disembark rules. If eligible, those passengers can then fire back at the attacker alone, using your Shooting phase rules.",
+    "summarySpans": [
+      {
+        "start": 40,
+        "end": 54,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 74,
+        "end": 100,
+        "bold": true
+      },
+      {
+        "start": 142,
+        "end": 156,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 257,
+        "end": 271,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "battle-tactic",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "shooting"
+            ],
+            "event": "enemy-unit-finished-shooting"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "ADEPTA SORORITAS TRANSPORT"
+            ],
+            "targetedBy": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "disembark",
+              "subject": "one-unit-embarked-in-target",
+              "optional": true,
+              "asIf": "your-movement-phase"
+            },
+            {
+              "kind": "shoot",
+              "subject": "unit-disembarked-by-this-effect",
+              "optional": true,
+              "requiresEligibility": true,
+              "asIf": "your-shooting-phase",
+              "onlyTarget": "triggering-unit"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

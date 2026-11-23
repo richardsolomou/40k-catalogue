@@ -1,0 +1,149 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.siege-regiment.artillery-support",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Codex: Astra Militarum, Version 1.4",
+    "page": "2",
+    "url": "https://assets.warhammer-community.com/eng_17-09_warhammer40000_codex_faqs_and_errata_astra_militarum-zuq9wcs7bg-rovb1pewqp.pdf#page=2"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Siege Regiment",
+    "summary": "Pick one support option as the round opens. All three have the same target quota: 2 for Incursion, 3 for Strike Force and 4 for Onslaught. The effects expire with the round.\nCreeping Barrage — Test enemy units one by one with a D6, stopping at the quota. Eligible enemies are over 12 inches from every friendly model on the board. A 5+ cuts that unit’s Move by 2 inches and its charge rolls by 2.\nIncendiary Bombardment — Use the same enemy range restriction. Select units directly to strip their Cover.\nSmoke Shells — Give Stealth to the friendly units you pick.",
+    "summarySpans": [
+      {
+        "start": 174,
+        "end": 190,
+        "bold": true
+      },
+      {
+        "start": 397,
+        "end": 419,
+        "bold": true
+      },
+      {
+        "start": 497,
+        "end": 502,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      },
+      {
+        "start": 504,
+        "end": 516,
+        "bold": true
+      },
+      {
+        "start": 524,
+        "end": 531,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "stealth"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Codex: Astra Militarum, Version 1.4",
+        "page": "2",
+        "url": "https://assets.warhammer-community.com/eng_17-09_warhammer40000_codex_faqs_and_errata_astra_militarum-zuq9wcs7bg-rovb1pewqp.pdf#page=2"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "battle-round-start"
+        },
+        "chooseBranches": 1,
+        "duration": {
+          "through": "current-battle-round-end"
+        },
+        "targetCap": {
+          "byBattleSize": {
+            "incursion": 2,
+            "strike-force": 3,
+            "onslaught": 4
+          },
+          "appliesToEachBranch": true
+        },
+        "branches": [
+          {
+            "id": "creeping-barrage",
+            "eligible": {
+              "side": "enemy",
+              "unitDistance": {
+                "operator": ">",
+                "inches": 12,
+                "reference": "every friendly model on the battlefield"
+              }
+            },
+            "resolution": {
+              "type": "roll-per-eligible-unit",
+              "die": "D6",
+              "threshold": 5,
+              "oneRollAtATime": true,
+              "stopWhenAffectedCountReachesCap": true
+            },
+            "effects": [
+              {
+                "stat": "move",
+                "scope": "models-in-affected-unit",
+                "modifier": -2,
+                "unit": "inch"
+              },
+              {
+                "roll": "charge",
+                "scope": "affected-unit",
+                "modifier": -2
+              }
+            ]
+          },
+          {
+            "id": "incendiary-bombardment",
+            "select": {
+              "side": "enemy",
+              "unitDistance": {
+                "operator": ">",
+                "inches": 12,
+                "reference": "every friendly model on the battlefield"
+              }
+            },
+            "effects": [
+              {
+                "remove": "benefit-of-cover"
+              }
+            ]
+          },
+          {
+            "id": "smoke-shells",
+            "select": {
+              "side": "friendly"
+            },
+            "effects": [
+              {
+                "grant": "stealth"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

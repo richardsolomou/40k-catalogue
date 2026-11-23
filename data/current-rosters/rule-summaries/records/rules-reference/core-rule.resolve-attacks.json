@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "resolve-attacks",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "04. Making Attacks",
+    "ruleNumber": "04.03",
+    "summary": "Choose a targeted unit and a weapon with pending attacks against it. Gather that weapon’s dice along with matching pending attacks from other weapons against the same target. Resolve the gathered dice before selecting another group. Finish the chosen target before moving on. Declare melee splits during target selection and assign a minimum of one attack to each selected target. A target that loses eligibility can be replaced.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "resolve-attacks",
+        "sequence": [
+          "choose-targeted-enemy-unit",
+          "choose-weapon-with-pending-attacks-against-target",
+          "gather-attack-dice",
+          "resolve-gathered-attacks",
+          "repeat-for-same-target-until-complete",
+          "repeat-for-other-targets-until-complete"
+        ],
+        "dice": {
+          "sides": 6,
+          "countPerWeapon": "attacks-assigned-to-target",
+          "oneDieRepresents": "one-attack"
+        },
+        "combinePendingAttacks": {
+          "sameTargetRequired": true,
+          "matchingCharacteristics": [
+            "BS-or-WS",
+            "S",
+            "AP",
+            "D"
+          ],
+          "sameApplicableRulesAndAbilitiesRequired": true,
+          "gatherTogether": true
+        },
+        "meleeSplit": {
+          "declareAt": "select-targets",
+          "minimumAssignedPerChosenTarget": 1,
+          "gatherOnlyAttacksAssignedToCurrentTarget": true
+        },
+        "reselection": {
+          "when": "original-target-becomes-ineligible",
+          "mayChoose": true,
+          "chooser": "controlling-player"
+        },
+        "completion": {
+          "rangedWeapon": "all-its-attacks-resolved",
+          "meleeWeapon": "all-its-attacks-resolved",
+          "modelShot": "all-its-ranged-weapons-shot",
+          "modelFought": "all-its-selected-melee-weapons-fought",
+          "unitShotOrFought": "its-attacking-models-resolved-all-their-attacks",
+          "unitCountsAsShotOrFoughtWithNoAttacks": false,
+          "unitFinishedMakingAttacks": "its-attacks-resolved"
+        }
+      }
+    }
+  }
+}

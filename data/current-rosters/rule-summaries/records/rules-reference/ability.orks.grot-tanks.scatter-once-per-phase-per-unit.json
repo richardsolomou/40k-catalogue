@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.grot-tanks.scatter-once-per-phase-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Grot Tanks",
+    "summary": "When an enemy unit finishes moving 8″ or less from this unengaged unit in the opponent’s Movement phase, this unit may respond with a normal move of no more than 6″. Limit once per phase per unit.",
+    "summarySpans": [
+      {
+        "start": 56,
+        "end": 65,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 89,
+        "end": 103,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 134,
+        "end": 145,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "limit": {
+          "uses": 1,
+          "period": "phase",
+          "scope": "unit"
+        },
+        "trigger": {
+          "phase": "opponent’s Movement phase",
+          "event": "enemy unit ends a move",
+          "withinInches": 8,
+          "measuredFrom": "this unit"
+        },
+        "condition": {
+          "actor": "this unit",
+          "engaged": false
+        },
+        "effect": {
+          "actor": "this unit",
+          "optional": true,
+          "move": "Normal Move",
+          "maximumInches": 6
+        }
+      }
+    }
+  }
+}

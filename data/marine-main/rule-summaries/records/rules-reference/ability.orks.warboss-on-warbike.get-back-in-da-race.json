@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.warboss-on-warbike.get-back-in-da-race",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Warboss on Warbike",
+    "summary": "As the Warboss’s unit starts or completes movement during your Movement phase, choose up to one Speed Freeks unit of your army within 6″. That unit and every embarked unit aboard it immediately drop Battle-shock. Each becomes Riled Up. This state expires as your following turn opens.",
+    "summarySpans": [
+      {
+        "start": 96,
+        "end": 108,
+        "bold": true
+      },
+      {
+        "start": 226,
+        "end": 234,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "orks.waaagh"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "turn": "own",
+          "phase": "movement",
+          "actor": "owning-unit",
+          "eventAlternatives": [
+            "move-start",
+            "move-end"
+          ]
+        },
+        "selection": {
+          "optional": true,
+          "count": 1,
+          "relationship": "friendly",
+          "keyword": "Speed Freeks",
+          "rangeInches": 6,
+          "measuredFrom": "owning-unit"
+        },
+        "effect": {
+          "recipients": [
+            "selected-unit",
+            "all-units-embarked-in-selected-unit"
+          ],
+          "clearBattleShock": "at-resolution",
+          "grantState": {
+            "state": "Riled Up",
+            "ruleQid": "ability:orks.waaagh",
+            "expires": "start-of-your-next-turn"
+          }
+        },
+        "authorityBoundary": {
+          "explicitUseCap": null,
+          "repeatActivationRuling": "unspecified"
+        }
+      }
+    }
+  }
+}

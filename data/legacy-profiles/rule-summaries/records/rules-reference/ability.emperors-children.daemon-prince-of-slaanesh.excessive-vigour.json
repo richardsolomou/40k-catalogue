@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.daemon-prince-of-slaanesh.excessive-vigour",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Daemon Prince of Slaanesh",
+    "summary": "If a friendly SLAANESH unit completed a Charge move in the current turn, its models’ melee weapons improve Armour Penetration by 1 while the unit is in this model’s 6″ aura.",
+    "summarySpans": [
+      {
+        "start": 14,
+        "end": 22,
+        "bold": true
+      },
+      {
+        "start": 40,
+        "end": 51,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "origin": "this-model",
+        "aura": {
+          "emitter": {
+            "entity": "model",
+            "selector": "this-model"
+          },
+          "recipient": {
+            "side": "friendly",
+            "entity": "unit",
+            "allKeywords": [
+              "SLAANESH"
+            ],
+            "excludedKeywords": []
+          },
+          "measurement": {
+            "from": "this-model",
+            "to": "recipient-unit",
+            "kind": "within",
+            "distanceInches": 6
+          },
+          "duration": "while-recipient-meets-range-and-filter",
+          "stacking": {
+            "sameAuraOnSameUnit": "single-application",
+            "basis": {
+              "kind": "core-rule",
+              "id": "75f704c6-b00a-4461-a01c-f1f2264eb2b0"
+            }
+          }
+        },
+        "effects": [
+          {
+            "kind": "characteristic-modifier",
+            "recipient": "melee-weapons-of-models-in-recipient-unit",
+            "characteristic": "armour-penetration",
+            "operation": "improve",
+            "amount": 1,
+            "condition": {
+              "event": "completed-charge-move",
+              "actor": "recipient-unit",
+              "time": "this-turn"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.penitent-host.passion-of-the-penitent",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Penitent Host",
+    "cp": 1,
+    "summary": "Spend 1 CP in any Fight phase on one PENITENT unit in your army that hasn't yet been picked to fight this phase. For the rest of the phase, whenever a PENITENT model in that unit attacks in melee, an unmodified 5+ on its Hit roll counts as a Critical Hit if it succeeds.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Penitent Host",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "PENITENT"
+            ],
+            "condition": "not-yet-selected-to-fight-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "critical-hit-threshold",
+              "attackType": "melee",
+              "models": "PENITENT",
+              "unmodifiedHitRoll": "5+",
+              "duration": "phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

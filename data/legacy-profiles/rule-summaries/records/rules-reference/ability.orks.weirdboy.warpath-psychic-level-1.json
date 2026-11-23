@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.weirdboy.warpath-psychic-level-1",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Weirdboy",
+    "summary": "When you pick this unit to fight in the Fight phase, you may roll one D6 as a psychic roll if it is free of battle-shock. A 1 battle-shocks the unit. Taking the roll also lets the unit reroll melee wound rolls of 1 and gives its melee attacks [Psychic]. This psychic ability can be used once each phase.",
+    "summarySpans": [
+      {
+        "start": 40,
+        "end": 51,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 78,
+        "end": 90,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "psychic-abilities"
+        }
+      },
+      {
+        "start": 108,
+        "end": 120,
+        "bold": true
+      },
+      {
+        "start": 126,
+        "end": 139,
+        "bold": true
+      },
+      {
+        "start": 198,
+        "end": 209,
+        "bold": true
+      },
+      {
+        "start": 243,
+        "end": 252,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "psychic"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "trigger": {
+          "phase": "Fight",
+          "turnOwner": "either",
+          "event": "select source unit to fight"
+        },
+        "condition": {
+          "sourceUnitBattleShocked": false
+        },
+        "inheritedLimit": {
+          "uses": 1,
+          "period": "phase",
+          "scope": "same psychic ability for PSYKER unit"
+        },
+        "selection": {
+          "optional": true,
+          "type": "psychic roll",
+          "dice": 1,
+          "sides": 6,
+          "level": 1
+        },
+        "effect": {
+          "trigger": "make psychic roll",
+          "recipient": "datasheet-unit",
+          "onNaturalOne": "unit becomes battle-shocked",
+          "expiryStatedOnCard": null,
+          "separateEffects": [
+            {
+              "attackKind": "melee",
+              "roll": "wound",
+              "optionalRerollOn": 1
+            },
+            {
+              "attackKind": "melee",
+              "grant": "[Psychic]"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

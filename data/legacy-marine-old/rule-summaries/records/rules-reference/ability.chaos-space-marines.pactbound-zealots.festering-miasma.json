@@ -1,0 +1,168 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.pactbound-zealots.festering-miasma",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Pactbound Zealots",
+    "cp": 1,
+    "summary": "Opponent’s Shooting Phase. As an enemy unit picks its shooting targets, choose one HERETIC ASTARTES unit of yours it picked. Your unit gains Stealth for this phase. If it has the NURGLE keyword, enemy models more than 18″ from it cannot pick it as a ranged attack target for the phase.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 83,
+        "end": 99,
+        "bold": true
+      },
+      {
+        "start": 141,
+        "end": 148,
+        "target": {
+          "kind": "core-ability",
+          "id": "stealth"
+        }
+      },
+      {
+        "start": 179,
+        "end": 185,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "ability-grant",
+                "target": "this-unit",
+                "modifier": {
+                  "ability": "stealth"
+                }
+              },
+              {
+                "type": "conditional",
+                "condition": {
+                  "operator": "and",
+                  "operands": [
+                    {
+                      "type": "matches",
+                      "parameters": {
+                        "filter": {
+                          "all_of": [
+                            "NURGLE"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "type": "matches",
+                      "parameters": {
+                        "subject": "attacker",
+                        "filter": {
+                          "within": {
+                            "of": "this-unit",
+                            "range": {
+                              "inches": 18
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "targeting",
+                  "target": {
+                    "owner": "enemy"
+                  },
+                  "modifier": {
+                    "by": {
+                      "owner": "enemy"
+                    },
+                    "may": "target",
+                    "kind": "attack",
+                    "weapons": {
+                      "type": "ranged"
+                    },
+                    "target": "this-unit"
+                  }
+                }
+              }
+            ]
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "trigger": {
+            "event": "targets-selected",
+            "filter": {
+              "kind": "attack"
+            },
+            "subject": {
+              "owner": "enemy"
+            },
+            "object": "this-unit"
+          },
+          "behavior": "reactive"
+        },
+        "stratagem": {
+          "id": "festering-miasma-pactbound-zealots-chaos-space-marines",
+          "cp_cost": 1,
+          "phases": [
+            "shooting"
+          ],
+          "player_turn": "opponent-turn",
+          "timing": "once-per-phase",
+          "type": "strategic-ploy",
+          "target_restrictions": {
+            "required_keywords": [
+              "Heretic Astartes"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "bound_to": "attacked-unit",
+            "eligibility": {
+              "type": "matches",
+              "parameters": {
+                "filter": {
+                  "owner": "friendly"
+                }
+              }
+            }
+          }
+        },
+        "valueRoles": {
+          "18": "enemy attacking-model range limit for NURGLE target"
+        }
+      }
+    }
+  }
+}

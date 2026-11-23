@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.techmarine.blessings-of-the-omnissiah",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Techmarine",
+    "summary": "As your Movement phase finishes, the Techmarine can pick one ADEPTUS ASTARTES VEHICLE model from your army 3″ away or closer. It heals D3 wounds. The same model can disregard any modifiers on Hit rolls or Wound rolls. This ends when your next Movement phase begins.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 61,
+        "end": 85,
+        "bold": true
+      },
+      {
+        "start": 192,
+        "end": 201,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 205,
+        "end": 216,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 243,
+        "end": 257,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "Movement",
+          "step": "end",
+          "side": "own"
+        },
+        "optional": true,
+        "target": {
+          "count": 1,
+          "kind": "model",
+          "side": "friendly",
+          "requiresKeywords": [
+            "ADEPTUS ASTARTES",
+            "VEHICLE"
+          ],
+          "withinInches": 3,
+          "origin": "owner model"
+        },
+        "effects": [
+          {
+            "healWounds": "D3"
+          },
+          {
+            "ignoreModifiersTo": [
+              "Hit rolls",
+              "Wound rolls"
+            ],
+            "optional": true,
+            "until": {
+              "phase": "Movement",
+              "side": "own",
+              "occurrence": "next",
+              "step": "start"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

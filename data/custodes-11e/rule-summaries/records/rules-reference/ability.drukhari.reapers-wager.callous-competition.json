@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.reapers-wager.callous-competition",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Reaper’s Wager",
+    "summary": "As the battle starts, your DRUKHARI units are on the winning side of the wager. Whenever a DRUKHARI unit of yours destroys an enemy unit, your DRUKHARI units become the winners; whenever a HARLEQUINS unit of yours destroys an enemy unit, your HARLEQUINS units become the winners. Whichever of those two groups is winning, the other is losing. Attacks by your DRUKHARI or HARLEQUINS models re-roll Hit rolls of 1 while the attacker's unit is on the winning side of the wager; while it is on the losing side, they re-roll both Hit rolls of 1 and Wound rolls of 1 instead.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Reaper’s Wager",
+        "wager": {
+          "sides": [
+            "DRUKHARI",
+            "HARLEQUINS"
+          ],
+          "startOfBattleWinner": "DRUKHARI",
+          "onEnemyUnitDestroyed": "destroying-unit-side-becomes-winner",
+          "otherSideLoses": true
+        },
+        "effects": [
+          {
+            "appliesTo": {
+              "side": "friendly",
+              "scope": "model",
+              "keywordsAny": [
+                "DRUKHARI",
+                "HARLEQUINS"
+              ]
+            },
+            "condition": "unit-side-winning",
+            "reroll": "hit",
+            "onlyValue": 1
+          },
+          {
+            "appliesTo": {
+              "side": "friendly",
+              "scope": "model",
+              "keywordsAny": [
+                "DRUKHARI",
+                "HARLEQUINS"
+              ]
+            },
+            "condition": "unit-side-losing",
+            "rerolls": [
+              {
+                "reroll": "hit",
+                "onlyValue": 1
+              },
+              {
+                "reroll": "wound",
+                "onlyValue": 1
+              }
+            ],
+            "replacesPrevious": true
+          }
+        ]
+      }
+    }
+  }
+}

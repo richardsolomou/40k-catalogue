@@ -1,0 +1,137 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.gravis-linebreaker-force.purgation-push",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Gravis Linebreaker Force",
+    "cp": 1,
+    "summary": "In your Shooting phase, use this after a friendly Gravis unit fires. If unengaged, it may make a Normal Move capped at 5\" and finish in range of an objective. For the rest of this turn, it can neither embark in a Transport nor declare a charge.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 50,
+        "end": 56,
+        "bold": true
+      },
+      {
+        "start": 72,
+        "end": 81,
+        "bold": true
+      },
+      {
+        "start": 97,
+        "end": 108,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 148,
+        "end": 157,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 213,
+        "end": 222,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "after-unit-shoots",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Gravis"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "conditional",
+              "condition": {
+                "targetState": "unengaged"
+              },
+              "effects": [
+                {
+                  "kind": "move",
+                  "recipient": "target-unit",
+                  "move": "normal",
+                  "maximum": {
+                    "amount": 5,
+                    "unit": "inches",
+                    "comparison": "at-most"
+                  },
+                  "optional": true,
+                  "endPosition": "within-range-of-an-objective"
+                }
+              ]
+            },
+            {
+              "kind": "prohibit",
+              "recipient": "target-unit",
+              "action": "declare-charge",
+              "duration": {
+                "until": "end-of-this-turn"
+              }
+            },
+            {
+              "kind": "prohibit",
+              "recipient": "target-unit",
+              "action": "embark",
+              "transportKeyword": "Transport",
+              "duration": {
+                "until": "end-of-this-turn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

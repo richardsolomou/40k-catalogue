@@ -1,0 +1,97 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.venom.rapid-deployment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Venom",
+    "summary": "While choosing this model to Advance in your Movement phase, you may pay 1 Pain token to make it Empowered. Once it Advances, embarked units may disembark. Their movement counts as a Normal move for the phase. They may otherwise act as usual, with charge declarations barred that turn.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 36,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 45,
+        "end": 59,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 75,
+        "end": 85,
+        "bold": true
+      },
+      {
+        "start": 97,
+        "end": 106,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      },
+      {
+        "start": 183,
+        "end": 194,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "source": "datasheet-model",
+        "recipient": "datasheet-model",
+        "trigger": {
+          "phase": "Movement",
+          "turnOwner": "self",
+          "event": "select recipient to Advance"
+        },
+        "optional": true,
+        "cost": {
+          "resource": "Pain token",
+          "amount": 1
+        },
+        "designation": "Empowered",
+        "effect": {
+          "requires": "Empowered",
+          "trigger": "after source model Advances",
+          "recipient": "embarked units",
+          "mayDisembark": true,
+          "movementAccounting": {
+            "countsAs": "Normal move",
+            "scope": "that phase"
+          },
+          "cannotDeclareCharge": "same turn",
+          "otherActions": "otherwise normal for rest of turn"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.war-horde.breakin-heads",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "War Horde",
+    "cp": 1,
+    "summary": "When your attached Orks Infantry becomes Battle-shocked, you can target it despite that condition. It takes D3 mortal wounds, then stops being Battle-shocked.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 18,
+        "bold": true
+      },
+      {
+        "start": 19,
+        "end": 32,
+        "bold": true
+      },
+      {
+        "start": 111,
+        "end": 124,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "attached-friendly-unit-becomes-battle-shocked",
+            "actor": {
+              "keywords": [
+                "Orks Infantry"
+              ]
+            }
+          },
+          "target": {
+            "fromTrigger": "newly-battle-shocked-attached-unit",
+            "keywords": [
+              "Orks Infantry"
+            ],
+            "canTargetDespiteBattleShock": true
+          },
+          "effects": [
+            {
+              "action": "inflict-mortal-wounds",
+              "recipient": "target-unit",
+              "amount": {
+                "kind": "die",
+                "sides": 3,
+                "count": 1
+              }
+            },
+            {
+              "action": "clear-battle-shock",
+              "recipient": "target-unit",
+              "after": "inflict-mortal-wounds"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

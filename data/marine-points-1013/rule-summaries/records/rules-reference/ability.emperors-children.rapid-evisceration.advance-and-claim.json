@@ -1,0 +1,113 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.rapid-evisceration.advance-and-claim",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Rapid Evisceration",
+    "cp": 1,
+    "summary": "In your Command phase choose a friendly EMPEROR’S CHILDREN TRANSPORT carrying at least one TORMENTORS unit that is free of Battle-shock. Pick an objective you control in the TRANSPORT’s range. Keep control unless a phase ends with the opponent ahead of you in Level of Control.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 40,
+        "end": 68,
+        "bold": true
+      },
+      {
+        "start": 91,
+        "end": 101,
+        "bold": true
+      },
+      {
+        "start": 145,
+        "end": 154,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 174,
+        "end": 183,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "your"
+              }
+            ],
+            "event": "in-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "EMPEROR’S CHILDREN TRANSPORT"
+            ],
+            "embarked": {
+              "count": {
+                "min": 1
+              },
+              "entity": "unit",
+              "keywords": [
+                "TORMENTORS"
+              ],
+              "state": "not-battle-shocked"
+            }
+          },
+          "effects": [
+            {
+              "kind": "select-objective",
+              "id": "held-objective",
+              "count": 1,
+              "controlledBy": "your-army",
+              "withinRangeOf": "target-transport"
+            },
+            {
+              "kind": "retain-objective-control",
+              "recipient": "held-objective",
+              "duration": {
+                "until": "opponent-has-greater-level-of-control-at-end-of-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

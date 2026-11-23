@@ -1,0 +1,135 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.gauntlet-task-force.combined-deployment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Gauntlet Task Force",
+    "summary": "In your Shooting phase, after your Transport with Adeptus Astartes finishes shooting, you may mark one enemy it hit as assailed through turn end. Attacks into that enemy gain [Sustained Hits 1] if the attacker is an Adeptus Astartes unit and disembarked during the same turn.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 35,
+        "end": 44,
+        "bold": true
+      },
+      {
+        "start": 50,
+        "end": 66,
+        "bold": true
+      },
+      {
+        "start": 67,
+        "end": 84,
+        "bold": true
+      },
+      {
+        "start": 119,
+        "end": 127,
+        "bold": true
+      },
+      {
+        "start": 175,
+        "end": 193,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 216,
+        "end": 232,
+        "bold": true
+      },
+      {
+        "start": 242,
+        "end": 253,
+        "target": {
+          "kind": "core-rule",
+          "id": "disembarking"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "unit-finished-shooting",
+          "phase": "shooting",
+          "owner": "self",
+          "subject": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "Adeptus Astartes",
+              "Transport"
+            ]
+          }
+        },
+        "selection": {
+          "count": 1,
+          "optional": true,
+          "target": {
+            "owner": "enemy",
+            "level": "unit",
+            "condition": {
+              "type": "hit-by-triggering-attacks"
+            }
+          }
+        },
+        "designation": {
+          "state": "assailed",
+          "subject": "selected-enemy",
+          "expires": {
+            "event": "turn-ended",
+            "turn": "triggering"
+          }
+        },
+        "effect": {
+          "type": "weapon-ability-grant",
+          "keyword": "sustained-hits",
+          "extraHits": 1,
+          "attacker": {
+            "level": "unit",
+            "allOf": [
+              "Adeptus Astartes"
+            ],
+            "condition": {
+              "type": "disembarked",
+              "turn": "triggering"
+            }
+          },
+          "condition": {
+            "type": "attack-target-state",
+            "state": "assailed"
+          }
+        }
+      }
+    }
+  }
+}

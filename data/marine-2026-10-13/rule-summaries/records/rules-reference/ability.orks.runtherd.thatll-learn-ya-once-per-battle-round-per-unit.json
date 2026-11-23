@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.runtherd.thatll-learn-ya-once-per-battle-round-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Runtherd",
+    "summary": "As soon as it becomes Battle-shocked, this unit may roll 1D3 if at least 4 of its models are Gretchin. Destroy that many of its Gretchin and clear the unit’s Battle-shock. Each unit can do this once per battle round.",
+    "summarySpans": [
+      {
+        "start": 22,
+        "end": 36,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 93,
+        "end": 101,
+        "bold": true
+      },
+      {
+        "start": 128,
+        "end": 136,
+        "bold": true
+      },
+      {
+        "start": 158,
+        "end": 170,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "limit": {
+          "count": 1,
+          "period": "battle-round",
+          "counterOwner": "source-unit",
+          "resetsAt": "start-of-next-battle-round"
+        },
+        "trigger": "this-unit-becomes-battle-shocked",
+        "condition": {
+          "modelsInThisUnitOfType": "Gretchin",
+          "minimum": 4
+        },
+        "optional": true,
+        "roll": {
+          "dice": 1,
+          "sides": 3
+        },
+        "requiredEffects": [
+          {
+            "operation": "destroy-models",
+            "recipient": "Gretchin-models-in-this-unit",
+            "countFrom": "D3-result"
+          },
+          {
+            "operation": "clear-battle-shock",
+            "recipient": "this-unit"
+          }
+        ]
+      }
+    }
+  }
+}

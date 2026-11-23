@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.watch-master.watch-that-new",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Watch Master",
+    "summary": "When the first battle round begins, you may name one enemy unit as this unit’s hunted. Attacks this unit makes against its hunted may re-roll a Wound roll of 1. Whenever the hunted is destroyed, you may name up to one further enemy unit as the new hunted.",
+    "summarySpans": [
+      {
+        "start": 79,
+        "end": 85,
+        "bold": true
+      },
+      {
+        "start": 123,
+        "end": 129,
+        "bold": true
+      },
+      {
+        "start": 144,
+        "end": 154,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 174,
+        "end": 180,
+        "bold": true
+      },
+      {
+        "start": 184,
+        "end": 193,
+        "bold": true
+      },
+      {
+        "start": 248,
+        "end": 254,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Watch Master",
+        "clauses": [
+          {
+            "trigger": {
+              "event": "battle-round-start",
+              "battleRound": 1
+            },
+            "selection": {
+              "relationship": "enemy",
+              "maxCount": 1,
+              "optional": true,
+              "designation": "hunted"
+            }
+          },
+          {
+            "appliesTo": "attacks by this unit that target its hunted",
+            "reroll": {
+              "roll": "wound",
+              "values": [
+                1
+              ],
+              "optional": true
+            }
+          },
+          {
+            "trigger": {
+              "event": "hunted-destroyed"
+            },
+            "selection": {
+              "relationship": "enemy",
+              "maxCount": 1,
+              "optional": true,
+              "designation": "hunted"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

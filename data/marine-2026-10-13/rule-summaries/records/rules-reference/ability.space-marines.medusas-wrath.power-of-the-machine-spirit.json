@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.medusas-wrath.power-of-the-machine-spirit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Medusa's Wrath",
+    "cp": 1,
+    "summary": "In the opposing Shooting phase, use this once an enemy unit finishes shooting. Pick the unengaged Adeptus Astartes Vehicle that it targeted. The Vehicle shoots back with Snap Shooting. Normal shooting is available instead when the Vehicle has half its strength left or less. In either case, its only permitted target is the enemy unit that triggered the Stratagem.",
+    "summarySpans": [
+      {
+        "start": 16,
+        "end": 30,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 170,
+        "end": 183,
+        "target": {
+          "kind": "core-rule",
+          "id": "snap-shooting"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Medusa's Wrath",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponents"
+              }
+            ],
+            "event": "enemy-unit-finishes-shooting",
+            "actor": "triggering-enemy",
+            "condition": "targeted-chosen-friendly-vehicle"
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "allKeywords": [
+              "ADEPTUS ASTARTES",
+              "VEHICLE"
+            ],
+            "conditions": [
+              "unengaged",
+              "targeted-by-triggering-enemy"
+            ]
+          },
+          "effects": [
+            {
+              "action": "shoot",
+              "actor": "chosen-unit",
+              "defaultMode": "snap-shooting",
+              "alternative": {
+                "mode": "normal-shooting",
+                "condition": "at-or-below-half-strength"
+              },
+              "onlyTarget": "triggering-enemy"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

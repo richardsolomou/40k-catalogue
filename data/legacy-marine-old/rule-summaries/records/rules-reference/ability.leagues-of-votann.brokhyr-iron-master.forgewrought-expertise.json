@@ -1,0 +1,82 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.brokhyr-iron-master.forgewrought-expertise",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Brôkhyr Iron-master",
+    "summary": "As your Movement phase ends, the Iron-master’s unit can select a single friendly unit at most 3″ away. Its eligible targets are EXOFRAME, IRONKIN STEELJACKS, and LEAGUES OF VOTANN VEHICLE units. One of its models can recover as many as D3 wounds it lost. The cap becomes 3 with an Ironkin Assistant in the Iron-master’s unit. A unit can receive this selection just once that turn.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 128,
+        "end": 136,
+        "bold": true
+      },
+      {
+        "start": 138,
+        "end": 156,
+        "bold": true
+      },
+      {
+        "start": 162,
+        "end": 187,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": "end-of-own-movement-phase",
+        "optional": true,
+        "selection": {
+          "side": "friendly",
+          "count": 1,
+          "maximumInches": 3,
+          "origin": "owning-unit",
+          "eligibleLabelAlternatives": [
+            "LEAGUES OF VOTANN VEHICLE",
+            "EXOFRAME",
+            "IRONKIN STEELJACKS"
+          ]
+        },
+        "effect": {
+          "operation": "restore-lost-wounds",
+          "recipient": "one-model-in-selected-unit",
+          "upTo": "D3",
+          "ifOwningUnitContains": "Ironkin Assistant",
+          "alternateMaximum": 3
+        },
+        "limit": {
+          "count": 1,
+          "period": "turn",
+          "scope": "selected-unit"
+        }
+      }
+    }
+  }
+}

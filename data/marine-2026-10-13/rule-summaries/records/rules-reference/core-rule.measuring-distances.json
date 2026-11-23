@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "measuring-distances",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "01. Core Concepts",
+    "ruleNumber": "01.04",
+    "summary": "Distances can be checked freely and default to the closest point on a model’s base. A range limit includes its boundary. Any qualifying part can put a model within range. Wholly within requires its entire base, or the entire model for FRAME. A unit qualifies for the ordinary test with one model and for the wholly-within test only if every model qualifies. The rule user’s controller breaks ties for nearest.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "distance-measurement",
+        "units": "inches",
+        "measurementTiming": "any-time",
+        "defaultMeasureFrom": "closest-part-of-base",
+        "within": {
+          "inclusive": true,
+          "model": "any-part-of-base",
+          "unit": "at-least-one-model"
+        },
+        "whollyWithin": {
+          "inclusive": true,
+          "model": "entire-base",
+          "frame": "entire-model",
+          "unit": "all-models"
+        },
+        "nearestTieChosenBy": "controller-of-rule-user",
+        "asCloseAsPossible": {
+          "toModelOrUnit": {
+            "goal": "base-contact-if-legal-and-reachable",
+            "fallback": "nearest-legal-position",
+            "alreadyClosest": "stay-but-count-as-moving"
+          },
+          "toObjective": {
+            "goal": "in-objective-range-if-legal-and-reachable",
+            "fallback": "nearest-legal-position",
+            "alreadyInRange": "may-move-within-allowance-and-end-in-range"
+          }
+        },
+        "baseContact": {
+          "default": "bases-touch",
+          "enemyOverhangException": {
+            "until": "turn-end",
+            "mustReachWithoutOverhang": true,
+            "endAsCloseAsPossible": true,
+            "modelPartsAtMostInchesApart": 1
+          }
+        },
+        "tableQuarters": {
+          "shape": "four-equal-rectangles",
+          "dividerThicknessMm": 1,
+          "axes": [
+            "lengthwise-through-centre",
+            "widthwise-through-centre"
+          ]
+        }
+      }
+    }
+  }
+}

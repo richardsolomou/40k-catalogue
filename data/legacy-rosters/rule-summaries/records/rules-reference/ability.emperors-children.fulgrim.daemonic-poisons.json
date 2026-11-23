@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.fulgrim.daemonic-poisons",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Fulgrim",
+    "summary": "During your Shooting phase and during the Fight phase, once this model has finished attacking, choose an enemy unit that took at least one hit from those attacks; that unit stays poisoned until the battle ends. When any Command phase begins, whoever's it is, roll a D6 for every poisoned enemy unit still on the battlefield; each roll of 4+ inflicts D3 mortal wounds on that unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "datasheet-ability",
+        "datasheet": "Fulgrim",
+        "holder": "model",
+        "effects": [
+          {
+            "kind": "apply-state",
+            "state": "poisoned",
+            "phases": [
+              "own-shooting",
+              "fight"
+            ],
+            "trigger": "after-model-finishes-attacks",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "condition": "hit-by-those-attacks"
+            },
+            "duration": "end-of-battle",
+            "stateEffect": {
+              "timing": "start-of-each-command-phase",
+              "roll": "D6",
+              "success": "4+",
+              "mortalWounds": "D3",
+              "perPoisonedUnitOnBattlefield": true
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.memnyr-strategist.computational-mastermind",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Memnyr Strategist",
+    "summary": "Check the objective markers you hold as your Command phase ends. A marker qualifies if a unit with Computational Mastermind is in range of that marker. Per qualifying marker, you may earn 1 YP or pay 1 YP. Apply these choices before Prioritised Efficiency decides whether your units use Fortify Takeover or Hostile Acquisition.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 27,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 233,
+        "end": 255,
+        "target": {
+          "kind": "ability",
+          "id": "leagues-of-votann.prioritised-efficiency"
+        }
+      },
+      {
+        "start": 287,
+        "end": 303,
+        "bold": true
+      },
+      {
+        "start": 307,
+        "end": 326,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "own-command",
+          "at": "end",
+          "before": "prioritised-efficiency-stance-check"
+        },
+        "repeatForEach": {
+          "kind": "objective-marker",
+          "controlledBy": "owning-player",
+          "qualifyingUnitsMinimum": 1,
+          "qualifyingUnitHasAbility": "Computational Mastermind",
+          "qualifyingUnitWithinMarkerRange": true
+        },
+        "optional": true,
+        "choice": {
+          "resource": "YP",
+          "amount": 1,
+          "operations": [
+            "gain",
+            "spend"
+          ]
+        },
+        "stanceCheckLabels": [
+          "Hostile Acquisition",
+          "Fortify Takeover"
+        ]
+      }
+    }
+  }
+}

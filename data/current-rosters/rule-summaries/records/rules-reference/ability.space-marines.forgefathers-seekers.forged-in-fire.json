@@ -1,0 +1,132 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.forgefathers-seekers.forged-in-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Forgefather's Seekers",
+    "cp": 1,
+    "summary": "Choose an engaged Adeptus Astartes unit as you pick it to shoot in your Shooting phase. Its Torrent weapons lose BLAST, gain CLOSE-QUARTERS and get +1 to Attacks for that shooting.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 17,
+        "bold": true
+      },
+      {
+        "start": 18,
+        "end": 34,
+        "bold": true
+      },
+      {
+        "start": 58,
+        "end": 63,
+        "bold": true
+      },
+      {
+        "start": 72,
+        "end": 86,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 92,
+        "end": 99,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "torrent"
+        }
+      },
+      {
+        "start": 113,
+        "end": 118,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "blast"
+        }
+      },
+      {
+        "start": 125,
+        "end": 139,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "close-quarters"
+        }
+      },
+      {
+        "start": 148,
+        "end": 161,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "engaged-friendly-unit-selected-to-shoot"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "Adeptus Astartes"
+            ],
+            "state": "engaged",
+            "selection": "unit-from-trigger"
+          },
+          "effects": [
+            {
+              "kind": "remove-weapon-ability",
+              "weaponsWith": "torrent",
+              "ability": "blast",
+              "resolution": "triggering-shooting"
+            },
+            {
+              "kind": "grant-weapon-ability",
+              "weaponsWith": "torrent",
+              "ability": "close-quarters",
+              "resolution": "triggering-shooting"
+            },
+            {
+              "kind": "modify-weapon-characteristic",
+              "weaponsWith": "torrent",
+              "characteristic": "attacks",
+              "add": 1,
+              "resolution": "triggering-shooting"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

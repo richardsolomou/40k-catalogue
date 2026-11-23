@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.mechanised-assault.hasty-extraction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Mechanised Assault",
+    "cp": 1,
+    "summary": "During the enemy Charge phase, use this on your ASTRA MILITARUM INFANTRY once a charger picks it and before the charger moves. The infantry can embark in one friendly ASTRA MILITARUM TRANSPORT if the infantry is outside enemy Engagement Range and every infantry model is within 3″ of that transport.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 29,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 48,
+        "end": 72,
+        "bold": true
+      },
+      {
+        "start": 167,
+        "end": 192,
+        "bold": true
+      },
+      {
+        "start": 226,
+        "end": 242,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "after-enemy-selects-charge-targets-before-charge-move"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ASTRA MILITARUM INFANTRY"
+            ],
+            "state": "chosen-target-of-the-charge"
+          },
+          "effects": [
+            {
+              "action": "optional-embark",
+              "recipient": "target-unit",
+              "requires": [
+                {
+                  "unit": "target-unit",
+                  "state": "outside-enemy-engagement-range"
+                },
+                {
+                  "unit": "single-friendly-astra-militarum-transport",
+                  "distance": {
+                    "unit": "inch",
+                    "amount": 3,
+                    "comparator": "at-most",
+                    "fromEntity": "each-model-in-target-unit"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

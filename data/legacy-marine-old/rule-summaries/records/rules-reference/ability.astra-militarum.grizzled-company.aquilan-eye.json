@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.grizzled-company.aquilan-eye",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Grizzled Company",
+    "summary": "Eligible model — ASTRA MILITARUM OFFICER. For any Order the bearer is about to give, you may choose Target Weak Spot (Order). The ordered unit’s models get +1 Armour Penetration on ranged attacks against enemy units no farther than 12\" away.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 40,
+        "bold": true
+      },
+      {
+        "start": 50,
+        "end": 55,
+        "target": {
+          "kind": "ability",
+          "id": "astra-militarum.voice-of-command"
+        }
+      },
+      {
+        "start": 100,
+        "end": 124,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "keywords": [
+            "ASTRA MILITARUM",
+            "OFFICER"
+          ],
+          "anyOf": [],
+          "equipment": null,
+          "excludes": [],
+          "characterOnly": true,
+          "equipableByNonCharacter": false
+        },
+        "effects": [
+          {
+            "operation": "add-order-option",
+            "recipient": "Order selection for bearer",
+            "actor": "you",
+            "optional": true,
+            "trigger": "choose an Order for bearer to issue",
+            "order": "Target Weak Spot (Order)",
+            "orderedEffect": {
+              "operation": "modify-characteristic",
+              "recipient": "ranged attack by a model in the ordered unit",
+              "condition": {
+                "target": "enemy unit",
+                "distanceInches": 12,
+                "comparison": "within"
+              },
+              "stat": "Armour Penetration",
+              "adjustment": {
+                "operation": "add",
+                "amount": 1
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

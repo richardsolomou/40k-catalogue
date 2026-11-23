@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.lord-of-virulence.blight-bombardment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Lord of Virulence",
+    "summary": "As your Shooting phase begins, pick one enemy unit that this model can see and that is no more than 30\" away from it. For the rest of the phase, ranged attacks by friendly DEATH GUARD models against that unit re-roll Hit rolls of 1, or may re-roll any Hit roll if the attack uses a Blast weapon.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "datasheet": "Lord of Virulence",
+        "trigger": {
+          "when": "start-of-own-shooting-phase"
+        },
+        "effect": {
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "withinInches": 30,
+            "visible": true
+          },
+          "duration": "end-of-phase",
+          "attacks": "ranged attacks by friendly DEATH GUARD models targeting that unit",
+          "reRolls": [
+            {
+              "roll": "hit",
+              "which": "value",
+              "value": 1
+            },
+            {
+              "roll": "hit",
+              "which": "any",
+              "condition": "Blast weapon",
+              "replaces": "previous"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

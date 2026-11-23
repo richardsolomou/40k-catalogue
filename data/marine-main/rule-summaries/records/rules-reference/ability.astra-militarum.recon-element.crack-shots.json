@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.recon-element.crack-shots",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "attribution": {
+    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
+    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
+    "credit": "Alpaca Software and the 40kdc community contributors",
+    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Recon Element",
+    "cp": 1,
+    "summary": "During your Shooting phase, you can use this to select one friendly Platoon unit that has not been selected to shoot this phase, then grant [PRECISION] to ranged weapons equipped by models in the selected unit until the end of the phase. Use once per phase.",
+    "summarySpans": [
+      {
+        "start": 68,
+        "end": 75,
+        "bold": true
+      },
+      {
+        "start": 141,
+        "end": 150,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "precision"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-mechanic",
+      "version": "1",
+      "fields": {
+        "trigger": {
+          "kind": "use"
+        },
+        "target": {
+          "select": {
+            "side": "friendly",
+            "keywords": [
+              "Platoon"
+            ]
+          }
+        },
+        "conditions": [
+          {
+            "kind": "not-selected",
+            "unit": "target",
+            "to": [
+              "shoot"
+            ]
+          }
+        ],
+        "effect": {
+          "kind": "grant-weapon-abilities",
+          "abilities": [
+            {
+              "ability": "precision"
+            }
+          ],
+          "weapons": "ranged"
+        },
+        "duration": {
+          "until": "end-of-phase"
+        },
+        "usage": {
+          "cp": 1,
+          "windows": [
+            {
+              "phase": "shooting",
+              "turn": "own"
+            }
+          ],
+          "oncePerPhase": true
+        }
+      }
+    }
+  }
+}

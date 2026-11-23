@@ -1,0 +1,113 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.shadowmark-talon.raptorial-vigilance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Shadowmark Talon",
+    "cp": 1,
+    "summary": "During the enemy Movement phase, use this once an enemy ends its move no more than 8 inches from your ADEPTUS ASTARTES INFANTRY unit. The friendly unit must be unengaged. That friendly unit may make a Normal move with a D6-inch cap. A PHOBOS unit or a Scout Squad uses a fixed cap of 6 inches instead.",
+    "summarySpans": [
+      {
+        "start": 17,
+        "end": 31,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 102,
+        "end": 127,
+        "bold": true
+      },
+      {
+        "start": 160,
+        "end": 169,
+        "bold": true
+      },
+      {
+        "start": 201,
+        "end": 212,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 235,
+        "end": 241,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "movement"
+            ],
+            "event": "enemy-finishes-move",
+            "withinInches": {
+              "value": 8,
+              "of": "selected-unit"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "ADEPTUS ASTARTES INFANTRY"
+            ],
+            "unengaged": true
+          },
+          "effects": [
+            {
+              "kind": "move",
+              "subject": "selected-unit",
+              "move": "normal",
+              "optional": true,
+              "maximumInches": {
+                "dice": "D6"
+              },
+              "alternateMaximum": {
+                "inches": 6,
+                "if": {
+                  "anyOf": [
+                    {
+                      "keyword": "PHOBOS"
+                    },
+                    {
+                      "unitName": "Scout Squad"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

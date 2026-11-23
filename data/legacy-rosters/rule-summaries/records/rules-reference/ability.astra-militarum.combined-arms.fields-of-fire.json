@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.combined-arms.fields-of-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Combined Arms",
+    "cp": 1,
+    "summary": "In your Shooting phase, choose one friendly REGIMENT and one friendly SQUADRON unit, both awaiting selection to shoot. Mark an enemy unit. Through phase end, improve the AP of attacks from the chosen pair by 1 against that enemy.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 44,
+        "end": 52,
+        "bold": true
+      },
+      {
+        "start": 70,
+        "end": 78,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "in-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 2,
+            "all": [
+              {
+                "keywords": [
+                  "REGIMENT"
+                ],
+                "count": 1
+              },
+              {
+                "keywords": [
+                  "SQUADRON"
+                ],
+                "count": 1
+              }
+            ],
+            "state": "not-yet-selected-to-shoot"
+          },
+          "effects": [
+            {
+              "kind": "select-unit",
+              "id": "marked-enemy",
+              "owner": "enemy",
+              "count": 1
+            },
+            {
+              "kind": "attack-characteristic-modifier",
+              "actor": "either-friendly-target-unit",
+              "recipient": "attacks-against-marked-enemy",
+              "characteristic": "armour-penetration",
+              "operation": "improve",
+              "amount": 1,
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

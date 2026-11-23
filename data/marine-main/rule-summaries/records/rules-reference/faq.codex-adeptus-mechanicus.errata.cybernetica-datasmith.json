@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-adeptus-mechanicus.errata.cybernetica-datasmith",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "publication": "Codex: Adeptus Mechanicus",
+    "amends": [
+      {
+        "kind": "unit",
+        "id": "adeptus-mechanicus.cybernetica-datasmith"
+      }
+    ],
+    "summary": "Data-severed is an added ability for the Cybernetica Datasmith. With zero KASTELAN ROBOT models in its unit, that unit loses VEHICLE and gains INFANTRY.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 12,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "adeptus-mechanicus.cybernetica-datasmith.data-severed"
+        }
+      },
+      {
+        "start": 41,
+        "end": 62,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "31cf0b5f-c858-4b3c-bcfb-a2721b043eec",
+          "typedMechanics": {
+            "operation": "add-ability",
+            "abilityQid": "ability:adeptus-mechanicus.cybernetica-datasmith.data-severed",
+            "effect": {
+              "effect": {
+                "type": "conditional",
+                "condition": {
+                  "type": "model-count",
+                  "parameters": {
+                    "subject": "this-unit",
+                    "keyword": "KASTELAN ROBOT",
+                    "max": 0
+                  }
+                },
+                "effect": {
+                  "type": "sequence",
+                  "steps": [
+                    {
+                      "type": "rule-state",
+                      "target": "this-unit",
+                      "modifier": {
+                        "direction": "suppressed",
+                        "rule_kind": "keyword",
+                        "rule": "VEHICLE"
+                      }
+                    },
+                    {
+                      "type": "keyword-grant",
+                      "target": "this-unit",
+                      "modifier": {
+                        "keywords": [
+                          "INFANTRY"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              "scope": {
+                "duration": "permanent"
+              },
+              "behavior": "passive"
+            }
+          },
+          "statedValues": [
+            {
+              "kind": "qualifying-robots-maximum",
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}

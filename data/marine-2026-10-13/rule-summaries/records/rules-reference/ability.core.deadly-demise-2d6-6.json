@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "core.deadly-demise-2d6-6",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Adeptus Titanicus Faction Pack: Version 1.0",
+    "page": "9",
+    "url": "https://assets.warhammer-community.com/eng_11-06_warhammer40000_faction_pack_adeptus_titanicus-w2uqxtzclf-9hqf20r3dc.pdf#page=9"
+  },
+  "data": {
+    "ruleType": "core-ability",
+    "group": "Core",
+    "summary": "After the bearer dies, finish any passenger emergency moves before throwing a D6. A 6 deals 2D6+6 mortal wounds to every unit up to 6 inches from the bearer. Use a new damage roll for each unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Adeptus Titanicus Faction Pack: Version 1.0",
+        "page": "9",
+        "url": "https://assets.warhammer-community.com/eng_11-06_warhammer40000_faction_pack_adeptus_titanicus-w2uqxtzclf-9hqf20r3dc.pdf#page=9"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "deadly-demise",
+        "trigger": {
+          "event": "model-destroyed",
+          "subject": "ability-bearer"
+        },
+        "sequence": {
+          "rollAfter": "emergency-disembark-moves",
+          "when": "if-bearer-had-embarked-units"
+        },
+        "check": {
+          "diceCount": 1,
+          "diceSides": 6,
+          "successFace": 6
+        },
+        "effect": {
+          "kind": "mortal-wounds",
+          "targets": "all-units",
+          "center": "destroyed-bearer",
+          "rangeInches": 6,
+          "rangeInclusive": true,
+          "amount": {
+            "rating": "2D6+6",
+            "diceCount": 2,
+            "diceSides": 6,
+            "add": 6
+          },
+          "independentRollPerUnitWhenRandom": true
+        }
+      }
+    }
+  }
+}

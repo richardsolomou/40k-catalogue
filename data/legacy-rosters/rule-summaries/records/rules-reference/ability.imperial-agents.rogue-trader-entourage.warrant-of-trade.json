@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.rogue-trader-entourage.warrant-of-trade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Rogue Trader Entourage",
+    "summary": "Once both sides finish deploying, you may redeploy up to D3 of your Imperium Battleline units if your army contains any unit with Warrant of Trade. You may put any of the redeploying units in Strategic Reserves, with no limit from the number already there.",
+    "summarySpans": [
+      {
+        "start": 57,
+        "end": 59,
+        "bold": true
+      },
+      {
+        "start": 68,
+        "end": 87,
+        "bold": true
+      },
+      {
+        "start": 192,
+        "end": 210,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "activation": "after-both-players-deploy",
+        "condition": "army-includes-at-least-one-unit-with-this-ability",
+        "optional": true,
+        "selection": {
+          "side": "own-army",
+          "entity": "unit",
+          "allKeywords": [
+            "Imperium",
+            "Battleline"
+          ],
+          "maximumCountDice": {
+            "count": 1,
+            "sides": 3
+          }
+        },
+        "effect": {
+          "operation": "redeploy-selected-units",
+          "optionalAlternative": "strategic-reserves-for-any-chosen-unit",
+          "ignoresNumberAlreadyInStrategicReserves": true
+        }
+      }
+    }
+  }
+}

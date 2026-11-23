@@ -1,0 +1,140 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.biosanctic-broodsurge.hyper-metabolic-vigour",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Biosanctic Broodsurge",
+    "cp": 1,
+    "summary": "In the Fight phase, pick a friendly unit with PURESTRAIN GENESTEALERS, ABERRANTS or BIOPHAGUS that still awaits selection to fight. For this phase, its models can Pile In or Consolidate with a 6\" cap in place of 3\". They may skip closing on the nearest enemy model if they finish as near as possible to the nearest enemy unit.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 46,
+        "end": 69,
+        "bold": true
+      },
+      {
+        "start": 71,
+        "end": 80,
+        "bold": true
+      },
+      {
+        "start": 84,
+        "end": 93,
+        "bold": true
+      },
+      {
+        "start": 163,
+        "end": 170,
+        "target": {
+          "kind": "core-rule",
+          "id": "pile-in-move"
+        }
+      },
+      {
+        "start": 174,
+        "end": 185,
+        "target": {
+          "kind": "core-rule",
+          "id": "consolidation-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "choose",
+            "anyKeyword": [
+              "ABERRANTS",
+              "BIOPHAGUS",
+              "PURESTRAIN GENESTEALERS"
+            ],
+            "fightSelection": "not-selected-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "replace-move-cap",
+              "recipient": "each-target-unit-model",
+              "moves": [
+                "pile-in",
+                "consolidate"
+              ],
+              "previousMaximum": {
+                "amount": 3,
+                "unit": "inches",
+                "comparison": "at-most"
+              },
+              "maximum": {
+                "amount": 6,
+                "unit": "inches",
+                "comparison": "at-most"
+              },
+              "duration": {
+                "until": "end-of-this-fight-phase"
+              }
+            },
+            {
+              "kind": "replace-move-end-condition",
+              "recipient": "each-target-unit-model",
+              "moves": [
+                "pile-in",
+                "consolidate"
+              ],
+              "optional": true,
+              "original": {
+                "closerTo": "closest-enemy-model"
+              },
+              "replacement": {
+                "asCloseAsPossibleTo": "closest-enemy-unit"
+              },
+              "duration": {
+                "until": "end-of-this-fight-phase"
+              }
+            }
+          ],
+          "type": "battle-tactic"
+        }
+      }
+    }
+  }
+}

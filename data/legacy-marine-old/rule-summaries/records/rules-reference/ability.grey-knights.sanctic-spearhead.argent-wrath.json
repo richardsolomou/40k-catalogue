@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.sanctic-spearhead.argent-wrath",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Sanctic Spearhead",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Charge phase right after one of your GREY KNIGHTS VEHICLE units completes a Charge move; that unit is the target. Each enemy unit no more than 3″ away from it must test for Battle-shock, subtracting 1 from the roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Sanctic Spearhead",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-unit-ends-charge-move"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "GREY KNIGHTS",
+              "VEHICLE"
+            ],
+            "sameAs": "triggering-unit"
+          },
+          "effects": [
+            {
+              "kind": "force-battle-shock-test",
+              "subjects": {
+                "side": "enemy",
+                "withinInches": 3,
+                "measuredFrom": "target-unit"
+              },
+              "modifier": -1,
+              "magnitude": 1
+            }
+          ],
+          "restrictions": [],
+          "category": "Strategic Ploy"
+        }
+      }
+    }
+  }
+}

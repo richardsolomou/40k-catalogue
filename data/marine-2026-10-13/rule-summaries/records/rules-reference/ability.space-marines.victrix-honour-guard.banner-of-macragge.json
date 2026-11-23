@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.victrix-honour-guard.banner-of-macragge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Victrix Honour Guard",
+    "summary": "When your Movement phase ends, any objective this unit controls becomes secured. Separately, your army may use the banner once per battle: once this unit is chosen to fight, its melee attacks gain +1 A and +1 S for the rest of that phase.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 24,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 72,
+        "end": 79,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "secured-objectives"
+        }
+      },
+      {
+        "start": 157,
+        "end": 172,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "parts": [
+          {
+            "trigger": {
+              "turn": "own",
+              "phase": "movement",
+              "at": "end"
+            },
+            "condition": {
+              "controlsObjective": true
+            },
+            "effect": {
+              "objectiveState": "secured",
+              "objective": "each-objective-this-unit-controls"
+            }
+          },
+          {
+            "usage": {
+              "count": 1,
+              "per": "battle",
+              "scope": "army"
+            },
+            "optional": true,
+            "trigger": {
+              "event": "selected-to-fight",
+              "actor": "this-unit"
+            },
+            "effect": {
+              "appliesTo": "melee attacks by this unit",
+              "modifiers": [
+                {
+                  "characteristic": "A",
+                  "value": 1
+                },
+                {
+                  "characteristic": "S",
+                  "value": 1
+                }
+              ],
+              "expires": "end-of-phase",
+              "expiryAuthority": "Core Rules 01.02.02"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

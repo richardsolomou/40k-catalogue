@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.outlander-claw.along-shadowed-trails",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Outlander Claw",
+    "cp": 1,
+    "summary": "After an enemy moves, check the distance to each Cult Ambush marker you own. You may relocate one that’s within 8\" of the enemy. Set it down on the battlefield more than 8\" from every enemy unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-enemy-finishes-move-near-friendly-marker",
+            "distance": {
+              "unit": "inch",
+              "amount": 8,
+              "from": "friendly-cult-ambush-marker",
+              "comparator": "at-most"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "cult-ambush-marker",
+            "count": 1,
+            "eligibility": "within-trigger-distance"
+          },
+          "effects": [
+            {
+              "action": "reposition-marker",
+              "actor": "you",
+              "recipient": "selected-cult-ambush-marker",
+              "optional": true,
+              "setup": {
+                "area": "battlefield",
+                "distance": {
+                  "unit": "inch",
+                  "amount": 8,
+                  "from": "every-enemy-unit",
+                  "comparator": "more-than"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

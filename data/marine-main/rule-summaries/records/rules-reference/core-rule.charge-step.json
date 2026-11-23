@@ -1,0 +1,145 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "charge-step",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "36",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=36"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "11. Charge Phase",
+    "ruleNumber": "11.02",
+    "summary": "The active player declares and resolves charges one unit at a time, with whichever eligible units they choose. Choose a friendly unit that is eligible and has yet to declare a charge in this phase; it then declares one. Units on the battlefield qualify unless another rule says otherwise, but a unit is barred if it is more than 12\" from every enemy unit, if it is engaged, or if it made an Advance or a Fall-Back move earlier in the turn. Next roll 2D6; the total is the furthest its charge move can go. If a charge move is possible and the player still wants it, the unit makes it, otherwise it does not; either way the charge is then resolved.",
+    "summarySpans": [
+      {
+        "start": 365,
+        "end": 372,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 391,
+        "end": 398,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 404,
+        "end": 413,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 485,
+        "end": 496,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 510,
+        "end": 521,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "36",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=36"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "phase-step",
+        "phase": "charge",
+        "actor": "active-player",
+        "loop": {
+          "unitsAtATime": 1,
+          "until": "all-chosen-units-declared-and-resolved",
+          "optionalPerUnit": true
+        },
+        "subSteps": [
+          {
+            "order": 1,
+            "name": "Declare Charge",
+            "select": {
+              "count": 1,
+              "side": "friendly",
+              "notAlready": "declared-charge-this-phase",
+              "constraint": "eligible-to-declare-charge"
+            },
+            "setsState": "declared-charge"
+          },
+          {
+            "order": 2,
+            "name": "Make Charge Roll",
+            "roll": "2D6",
+            "result": "maximum-charge-move-distance"
+          },
+          {
+            "order": 3,
+            "name": "Charge Move",
+            "move": {
+              "if": [
+                "charge-move-possible",
+                "player-still-wants"
+              ],
+              "otherwise": "no-charge-move"
+            },
+            "then": "charge-resolved"
+          }
+        ],
+        "eligibility": {
+          "requires": [
+            "on-battlefield"
+          ],
+          "unlessOtherwiseStated": true,
+          "ineligibleIf": [
+            {
+              "notWithinInches": 12,
+              "of": "one-or-more-enemy-units"
+            },
+            {
+              "state": "engaged"
+            },
+            {
+              "madeThisTurn": [
+                "advance-move",
+                "fall-back-move"
+              ]
+            }
+          ]
+        },
+        "noSkip": {
+          "allUnitsSelected": false
+        }
+      }
+    }
+  }
+}

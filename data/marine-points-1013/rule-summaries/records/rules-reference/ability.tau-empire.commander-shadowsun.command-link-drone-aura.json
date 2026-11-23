@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.commander-shadowsun.command-link-drone-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Commander Shadowsun",
+    "summary": "When you pick a unit on your side with T’AU EMPIRE for a Stratagem, check whether it is up to 6″ from the bearer. A D6 showing 5+ then gives you 1 CP.",
+    "summarySpans": [
+      {
+        "start": 39,
+        "end": 50,
+        "bold": true
+      },
+      {
+        "start": 57,
+        "end": 66,
+        "target": {
+          "kind": "core-rule",
+          "id": "using-stratagems"
+        }
+      },
+      {
+        "start": 94,
+        "end": 96,
+        "bold": true
+      },
+      {
+        "start": 116,
+        "end": 118,
+        "bold": true
+      },
+      {
+        "start": 127,
+        "end": 129,
+        "bold": true
+      },
+      {
+        "start": 145,
+        "end": 149,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "named-aura",
+        "source": "wargear-bearer",
+        "area": {
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 6,
+          "origin": "bearer",
+          "candidate": {
+            "entity": "unit",
+            "side": "friendly",
+            "requireAllKeywords": [
+              "T’AU EMPIRE"
+            ],
+            "excludeAnyKeywords": []
+          }
+        },
+        "trigger": {
+          "event": "stratagem-target-selected",
+          "actor": "controlling-player",
+          "target": "eligible-unit"
+        },
+        "effect": {
+          "operation": "gain-command-points",
+          "amount": 1,
+          "recipient": "controlling-player",
+          "test": {
+            "dice": {
+              "count": 1,
+              "sides": 6,
+              "additive": 0
+            },
+            "minimum": 5
+          }
+        }
+      }
+    }
+  }
+}

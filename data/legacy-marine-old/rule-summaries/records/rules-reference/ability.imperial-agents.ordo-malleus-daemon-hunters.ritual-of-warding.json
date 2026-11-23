@@ -1,0 +1,134 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.ordo-malleus-daemon-hunters.ritual-of-warding",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ordo Malleus, Daemon Hunters",
+    "cp": 1,
+    "summary": "At either player’s Command phase opening, choose a friendly unit with ORDO MALLEUS, INQUISITOR or INQUISITORIAL AGENTS. Ward a marker you control if the chosen unit is in its objective range. The ward keeps the marker yours without any models nearby. It expires when the opponent holds the marker at turn end. Opposing units with DAEMON are barred from setting up 6 inches or closer to the warded marker.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 32,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 70,
+        "end": 82,
+        "bold": true
+      },
+      {
+        "start": 84,
+        "end": 94,
+        "bold": true
+      },
+      {
+        "start": 98,
+        "end": 118,
+        "bold": true
+      },
+      {
+        "start": 175,
+        "end": 184,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 330,
+        "end": 336,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "turn": "either",
+                "phase": "command"
+              }
+            ],
+            "event": "start-of-phase"
+          },
+          "target": {
+            "chooseOneOf": [
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "INQUISITOR"
+                ],
+                "withinRangeOf": "controlled-objective-marker"
+              },
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "INQUISITORIAL AGENTS"
+                ],
+                "withinRangeOf": "controlled-objective-marker"
+              },
+              {
+                "owner": "your-army",
+                "count": 1,
+                "keywords": [
+                  "ORDO MALLEUS"
+                ],
+                "withinRangeOf": "controlled-objective-marker"
+              }
+            ]
+          },
+          "effects": [
+            {
+              "kind": "ward-objective",
+              "subject": "selected-objective-marker",
+              "requiresStartingControl": "your-army",
+              "retainControlWithoutFriendlyModelsInRange": true,
+              "endsWhen": {
+                "owner": "opponent",
+                "event": "controls-marker-at-end-of-any-turn"
+              }
+            },
+            {
+              "kind": "deny-setup",
+              "subject": "enemy-units",
+              "requiredKeyword": "DAEMON",
+              "distance": {
+                "withinInches": 6,
+                "from": "selected-objective-marker"
+              },
+              "until": "selected-marker-ceases-to-be-warded"
+            }
+          ],
+          "type": "strategic-ploy"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.armoured-warhost.soulsight",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Armoured Warhost",
+    "cp": 1,
+    "summary": "In your Shooting phase, use this as you pick an Aeldari Vehicle to shoot. During its shooting, you may reroll one roll of each kind: Hit, Wound and Damage.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 48,
+        "end": 63,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "select-friendly-unit-to-shoot",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Aeldari Vehicle"
+            ],
+            "mode": "trigger-unit"
+          },
+          "effects": [
+            {
+              "kind": "optional-rerolls",
+              "recipient": "target-unit-attacks",
+              "when": "target-unit-shoots",
+              "limits": [
+                {
+                  "roll": "hit",
+                  "count": 1
+                },
+                {
+                  "roll": "wound",
+                  "count": 1
+                },
+                {
+                  "roll": "damage",
+                  "count": 1
+                }
+              ],
+              "duration": {
+                "until": "triggering-shooting-ends"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

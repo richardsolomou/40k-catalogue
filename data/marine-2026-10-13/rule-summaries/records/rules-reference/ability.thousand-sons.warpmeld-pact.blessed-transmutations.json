@@ -1,0 +1,117 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.warpmeld-pact.blessed-transmutations",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Warpmeld Pact",
+    "cp": 1,
+    "summary": "In your Command phase, select a THOUSAND SONS PSYKER model and one of your TZAANGORS units below Starting Strength within 12\" of it. Roll D3+1 as the cap on returns. Add back up to that many destroyed TZAANGORS models, leaving out CHARACTERS.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 32,
+        "end": 52,
+        "bold": true
+      },
+      {
+        "start": 75,
+        "end": 84,
+        "bold": true
+      },
+      {
+        "start": 201,
+        "end": 210,
+        "bold": true
+      },
+      {
+        "start": 231,
+        "end": 241,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "your"
+              }
+            ]
+          },
+          "target": {
+            "selection": [
+              {
+                "owner": "your-army",
+                "entity": "model",
+                "count": 1,
+                "keywords": [
+                  "THOUSAND SONS PSYKER"
+                ]
+              },
+              {
+                "owner": "your-army",
+                "entity": "unit",
+                "count": 1,
+                "keywords": [
+                  "TZAANGORS"
+                ],
+                "eligibility": "below-starting-strength",
+                "distance": {
+                  "unit": "inch",
+                  "amount": 12,
+                  "from": "selected-psyker-model",
+                  "comparator": "at-most"
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "return-destroyed-models",
+              "recipient": "selected-tzaangors-unit",
+              "maximum": {
+                "kind": "die",
+                "sides": 3,
+                "count": 1,
+                "bonus": 1
+              },
+              "excludedReturnedKeywords": [
+                "CHARACTERS"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.librarian.force-dome-psychic-level-1",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Librarian",
+    "summary": "During your Movement phase, the Librarian’s unit may attempt Force Dome by rolling a D6. On 1, it becomes Battle-shocked. Success gives its models a 4+ invulnerable save until your next turn begins.",
+    "summarySpans": [
+      {
+        "start": 85,
+        "end": 87,
+        "bold": true
+      },
+      {
+        "start": 92,
+        "end": 93,
+        "bold": true
+      },
+      {
+        "start": 106,
+        "end": 120,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 149,
+        "end": 151,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "psychic-spell",
+        "psychicLevel": 1,
+        "source": "this-unit",
+        "trigger": {
+          "event": "phase",
+          "phase": "movement",
+          "turn": "your-turn",
+          "timing": "during"
+        },
+        "optional": true,
+        "effect": {
+          "operation": "roll-and-branch",
+          "dice": {
+            "count": 1,
+            "sides": 6,
+            "additive": 0
+          },
+          "branches": [
+            {
+              "comparison": "at-least",
+              "value": 2,
+              "effect": {
+                "operation": "grant-invulnerable-save",
+                "minimum": 4,
+                "recipient": "models-in-this-unit",
+                "duration": "until-start-of-your-next-turn"
+              }
+            },
+            {
+              "comparison": "less-than",
+              "value": 2,
+              "effect": {
+                "operation": "apply-condition",
+                "condition": "battle-shocked",
+                "recipient": "this-unit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

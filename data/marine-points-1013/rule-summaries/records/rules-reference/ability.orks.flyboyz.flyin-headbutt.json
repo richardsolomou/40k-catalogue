@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.flyboyz.flyin-headbutt",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Flyboyz",
+    "cp": 1,
+    "summary": "When your Orks Aircraft is destroyed, use this before rolling for Deadly Demise. Skip that ability and roll separately for nearby enemies. For each enemy unit no farther than 12\", deal 1 mortal wound to that enemy on a D6 result of 4+. Remove the aircraft afterwards.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 23,
+        "bold": true
+      },
+      {
+        "start": 27,
+        "end": 36,
+        "bold": true
+      },
+      {
+        "start": 66,
+        "end": 79,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "deadly-demise"
+        }
+      },
+      {
+        "start": 187,
+        "end": 199,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "after-friendly-aircraft-unit-destroyed-before-deadly-demise-roll",
+            "destroyed": {
+              "keywords": [
+                "Orks Aircraft"
+              ]
+            }
+          },
+          "target": {
+            "fromTrigger": "destroyed-aircraft-unit",
+            "keywords": [
+              "Orks Aircraft"
+            ]
+          },
+          "effects": [
+            {
+              "action": "skip-deadly-demise",
+              "recipient": "target-unit"
+            },
+            {
+              "action": "inflict-mortal-wounds",
+              "actor": "destroyed-aircraft-unit",
+              "recipient": "every-enemy-unit-in-range",
+              "distance": {
+                "unit": "inch",
+                "amount": 12,
+                "from": "destroyed-aircraft-unit",
+                "comparator": "at-most"
+              },
+              "roll": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1
+              },
+              "rollPer": "enemy-unit-in-range",
+              "minimumRoll": 4,
+              "mortalWoundsPerSuccess": 1,
+              "timing": "before-removing-target-unit"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

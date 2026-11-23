@@ -1,0 +1,244 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "close-quarters-shooting",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "35",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=35"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "10. Shooting Phase",
+    "ruleNumber": "10.06",
+    "summary": "An engaged unit that has not Advanced this turn can shoot this way if it has at least one [CLOSE-QUARTERS] weapon or is itself a MONSTER/VEHICLE unit. Its models are allowed to target enemy units their unit is engaged with. For each attack by a MONSTER/VEHICLE model, the Hit roll takes -1 unless the attack uses a [CLOSE-QUARTERS] weapon against a unit engaged with the firer's unit, and a [BLAST] weapon still may not target any unit engaged with the firer's unit. Every other model is limited to [CLOSE-QUARTERS] weapons and to targets engaged with its unit. Attacks follow Making Attacks (04), and for the rest of the phase the unit may not begin an Action.",
+    "summarySpans": [
+      {
+        "start": 3,
+        "end": 10,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 29,
+        "end": 37,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 90,
+        "end": 106,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "close-quarters"
+        }
+      },
+      {
+        "start": 129,
+        "end": 144,
+        "bold": true
+      },
+      {
+        "start": 210,
+        "end": 217,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 245,
+        "end": 260,
+        "bold": true
+      },
+      {
+        "start": 315,
+        "end": 331,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "close-quarters"
+        }
+      },
+      {
+        "start": 354,
+        "end": 361,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 391,
+        "end": 398,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "blast"
+        }
+      },
+      {
+        "start": 436,
+        "end": 443,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 499,
+        "end": 515,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "close-quarters"
+        }
+      },
+      {
+        "start": 539,
+        "end": 546,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 577,
+        "end": 591,
+        "target": {
+          "kind": "core-rule",
+          "id": "making-attacks"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "35",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=35"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "shooting-type",
+        "phase": "shooting",
+        "chosenIn": "10.02",
+        "eligibility": {
+          "all": [
+            "unit-engaged",
+            "no-advance-move-this-turn",
+            {
+              "any": [
+                {
+                  "hasWeaponWithAbility": "CLOSE-QUARTERS",
+                  "min": 1
+                },
+                {
+                  "unitKeyword": "MONSTER/VEHICLE"
+                }
+              ]
+            }
+          ]
+        },
+        "targeting": {
+          "allModels": {
+            "mayTarget": "enemy-units-your-unit-is-engaged-with"
+          }
+        },
+        "modelGroups": [
+          {
+            "models": {
+              "keyword": "MONSTER/VEHICLE"
+            },
+            "printedStructure": "black bullet with a lead clause 'each attack by such a model', then two white sub-bullets",
+            "perAttack": [
+              {
+                "subItem": 1,
+                "hitRollModifier": -1,
+                "unless": {
+                  "all": [
+                    {
+                      "weaponAbility": "CLOSE-QUARTERS"
+                    },
+                    {
+                      "target": "unit-your-unit-is-engaged-with"
+                    }
+                  ]
+                }
+              },
+              {
+                "subItem": 2,
+                "if": {
+                  "weaponAbility": "BLAST"
+                },
+                "cannotTarget": "unit-your-unit-is-engaged-with",
+                "dependsOnSubItem1": false
+              }
+            ],
+            "weaponRestriction": null,
+            "targetRestriction": null
+          },
+          {
+            "models": {
+              "keyword": "non-MONSTER/non-VEHICLE"
+            },
+            "weaponRestriction": {
+              "onlyWeaponsWithAbility": "CLOSE-QUARTERS"
+            },
+            "targetRestriction": "enemy-units-engaged-with-your-unit",
+            "blastRuleStatedHere": false
+          }
+        ],
+        "effect": {
+          "action": "shoot",
+          "procedure": "04.00"
+        },
+        "after": {
+          "until": "end-of-phase",
+          "cannot": "start-an-action"
+        },
+        "faq": [
+          {
+            "page": 88,
+            "inGdc": false,
+            "question": "in Close-Quarters Shooting, may MONSTER/VEHICLE models target an engaged unit with Blast weapons",
+            "answer": "no"
+          },
+          {
+            "page": 88,
+            "inGdc": false,
+            "question": "when shooting at an engaged MONSTER/VEHICLE unit, may models target it with Blast weapons",
+            "answer": "no",
+            "scope": "not limited to 10.06"
+          }
+        ],
+        "gdcDifferences": [
+          {
+            "field": "whileShooting",
+            "kind": "missing-space",
+            "where": "non-MONSTER/non-VEHICLE item label",
+            "tokensOtherwiseIdentical": true
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.harpy.spore-mine-cysts",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Harpy",
+    "summary": "At the close of the opposing Fight phase, you may choose one effect. For damage, pick 1 enemy unit this unit can see at 24″ or less. Lone Operative units are ineligible. Roll six D6. Each 3+ deals 1 mortal wound to the target. For placement, create one SPORE MINES unit for your army with D3 models. To set it up on the battlefield, place it no farther than 6″ from this model and over 8″ from every enemy unit, measured horizontally for the enemy gap. Only one model per turn may choose placement.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 40,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 133,
+        "end": 147,
+        "target": {
+          "kind": "core-ability",
+          "id": "lone-operative"
+        }
+      },
+      {
+        "start": 199,
+        "end": 211,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 253,
+        "end": 264,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "trigger": {
+          "phase": "Fight",
+          "turnOwner": "opponent",
+          "edge": "end"
+        },
+        "choice": {
+          "optional": true,
+          "maximumOptions": 1,
+          "branches": [
+            {
+              "selection": {
+                "count": 1,
+                "side": "enemy",
+                "visible": true,
+                "withinSourceUnitInches": 24,
+                "exclude": "Lone Operative"
+              },
+              "effect": {
+                "diceCount": 6,
+                "diceSides": 6,
+                "atLeast": 3,
+                "mortalWoundsPerSuccess": 1
+              }
+            },
+            {
+              "limit": {
+                "period": "turn",
+                "maximumUsingModels": 1
+              },
+              "effect": {
+                "newUnits": 1,
+                "name": "SPORE MINES",
+                "modelsInNewUnit": "D3",
+                "addTo": "your army",
+                "setup": {
+                  "destination": "battlefield",
+                  "distanceFromSourceModel": {
+                    "comparison": "within",
+                    "inches": 6
+                  },
+                  "distanceFromAllEnemies": {
+                    "comparison": "greater-than",
+                    "axis": "horizontal",
+                    "inches": 8
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

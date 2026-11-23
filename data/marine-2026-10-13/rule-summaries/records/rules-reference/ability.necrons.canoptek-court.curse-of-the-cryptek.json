@@ -1,0 +1,202 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.canoptek-court.curse-of-the-cryptek",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Canoptek Court",
+    "cp": 1,
+    "summary": "Either Fight Phase, or the Shooting Phase on your opponent’s turn. After an enemy unit finishes attacking, choose a CRYPTEK model of yours destroyed by those attacks. The model is still a valid target despite its destruction. For the rest of the battle, your CANOPTEK models get +1 to Hit rolls and +1 to Wound rolls against that enemy unit.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 27,
+        "end": 41,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 116,
+        "end": 123,
+        "bold": true
+      },
+      {
+        "start": 259,
+        "end": 267,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "permission",
+                "target": "this-model",
+                "modifier": {
+                  "activity": "use-stratagem",
+                  "allow": true,
+                  "despite": [
+                    "destroyed"
+                  ]
+                }
+              },
+              {
+                "type": "conditional",
+                "condition": {
+                  "operator": "and",
+                  "operands": [
+                    {
+                      "type": "matches",
+                      "parameters": {
+                        "subject": "attacker",
+                        "filter": {
+                          "all_of": [
+                            "CANOPTEK"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "type": "same-unit",
+                      "parameters": {
+                        "subject": "defender",
+                        "as": "event-subject"
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "roll-modifier",
+                  "target": {
+                    "owner": "friendly"
+                  },
+                  "modifier": {
+                    "roll": "hit",
+                    "operation": "add",
+                    "value": 1
+                  }
+                }
+              },
+              {
+                "type": "conditional",
+                "condition": {
+                  "operator": "and",
+                  "operands": [
+                    {
+                      "type": "matches",
+                      "parameters": {
+                        "subject": "attacker",
+                        "filter": {
+                          "all_of": [
+                            "CANOPTEK"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "type": "same-unit",
+                      "parameters": {
+                        "subject": "defender",
+                        "as": "event-subject"
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "roll-modifier",
+                  "target": {
+                    "owner": "friendly"
+                  },
+                  "modifier": {
+                    "roll": "wound",
+                    "operation": "add",
+                    "value": 1
+                  }
+                }
+              }
+            ]
+          },
+          "scope": {
+            "duration": "battle"
+          },
+          "trigger": {
+            "event": "attacks-resolved",
+            "subject": {
+              "owner": "enemy"
+            }
+          },
+          "behavior": "reactive"
+        },
+        "stratagem": {
+          "id": "curse-of-the-cryptek-canoptek-court-necrons",
+          "cp_cost": 1,
+          "phases": [
+            "fight",
+            "shooting"
+          ],
+          "player_turn": "either",
+          "timing": "once-per-phase",
+          "type": "battle-tactic",
+          "target_restrictions": {
+            "required_keywords": [
+              "Cryptek"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "model",
+            "eligibility": {
+              "type": "happened",
+              "parameters": {
+                "event": "model-destroyed",
+                "object": {
+                  "level": "model",
+                  "member_of": "this-model"
+                },
+                "filter": {
+                  "by": "event-subject"
+                },
+                "window": "event"
+              }
+            }
+          }
+        },
+        "valueRoles": {
+          "1": [
+            "Hit-roll bonus",
+            "Wound-roll bonus"
+          ]
+        }
+      }
+    }
+  }
+}

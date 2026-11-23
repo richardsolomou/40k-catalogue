@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.epidemius.tally-of-pestilence",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Epidemius",
+    "summary": "Keep a battle-long count of enemy models eliminated by the army’s NURGLE LEGIONES DAEMONICA models. When your Command phase begins with a tally of 7 or higher, gain 1CP and clear the tally back to 0.",
+    "summarySpans": [
+      {
+        "start": 66,
+        "end": 72,
+        "bold": true
+      },
+      {
+        "start": 73,
+        "end": 91,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "tracking": {
+          "event": "enemy-model-destroyed",
+          "sourceKeywordsAllOf": [
+            "NURGLE",
+            "LEGIONES DAEMONICA"
+          ],
+          "sourceAllegiance": "own-army",
+          "window": "battle",
+          "initial": 0
+        },
+        "trigger": {
+          "phase": "own-command",
+          "window": "start",
+          "countAtLeast": 7
+        },
+        "effects": [
+          {
+            "grantCP": 1
+          },
+          {
+            "resetTallyTo": 0
+          }
+        ]
+      }
+    }
+  }
+}

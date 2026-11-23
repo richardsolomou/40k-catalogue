@@ -1,0 +1,142 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.warpbane-task-force.hallowed-beacon",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Warpbane Task Force",
+    "cp": 1,
+    "summary": "Your Movement Phase, during Reinforcements. Choose a GREY KNIGHTS INFANTRY unit arriving on your side via Deep Strike, excluding TERMINATOR units. You may place it wholly in your Hallowed Ground, more than 6″ from every enemy model.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 19,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 53,
+        "end": 74,
+        "bold": true
+      },
+      {
+        "start": 106,
+        "end": 117,
+        "target": {
+          "kind": "core-ability",
+          "id": "deep-strike"
+        }
+      },
+      {
+        "start": 129,
+        "end": 139,
+        "bold": true
+      },
+      {
+        "start": 179,
+        "end": 194,
+        "target": {
+          "kind": "ability",
+          "id": "grey-knights.warpbane-task-force.hallowed-ground"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "set-up",
+            "target": "this-unit",
+            "modifier": {
+              "to": "battlefield",
+              "min_enemy_distance": {
+                "inches": 6
+              },
+              "in_region": {
+                "region": {
+                  "rule_region": {
+                    "region_id": "hallowed-ground",
+                    "owner_faction": "grey-knights"
+                  }
+                },
+                "wholly": true
+              }
+            }
+          },
+          "scope": {
+            "duration": "permanent"
+          },
+          "behavior": "activated"
+        },
+        "stratagem": {
+          "id": "hallowed-beacon-warpbane-task-force-grey-knights",
+          "cp_cost": 1,
+          "phases": [
+            "movement"
+          ],
+          "player_turn": "your-turn",
+          "timing": "once-per-phase",
+          "type": "battle-tactic",
+          "target_restrictions": {
+            "required_keywords": [
+              "Grey Knights",
+              "Infantry"
+            ],
+            "excluded_keywords": [
+              "Terminator"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "happened",
+                  "parameters": {
+                    "event": "set-up",
+                    "window": "phase"
+                  }
+                },
+                {
+                  "type": "happened",
+                  "parameters": {
+                    "event": "used",
+                    "filter": {
+                      "kind": "ability",
+                      "id": "deep-strike"
+                    },
+                    "window": "phase"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {
+          "6": "exclusive minimum distance from all enemy models"
+        }
+      }
+    }
+  }
+}

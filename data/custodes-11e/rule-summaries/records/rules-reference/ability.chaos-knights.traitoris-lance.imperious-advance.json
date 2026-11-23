@@ -1,0 +1,102 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.traitoris-lance.imperious-advance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Traitoris Lance",
+    "cp": 1,
+    "summary": "In your Movement or Charge phase, choose one friendly TITANIC CHAOS KNIGHTS unit, a single friendly WAR DOG unit, or a pair of friendly WAR DOG units. This phase, their models may cross models and terrain on Normal, Advance, Fall Back and Charge moves. They may enter enemy Engagement Range along the way. Only a Charge move can finish there. Any required Desperate Escape test automatically succeeds. SUPER-HEAVY WALKER does not apply when using this Stratagem.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Traitoris Lance",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              },
+              {
+                "phase": "charge",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "options": [
+              {
+                "entity": "unit",
+                "controller": "friendly",
+                "count": 1,
+                "allKeywords": [
+                  "CHAOS KNIGHTS",
+                  "TITANIC"
+                ]
+              },
+              {
+                "entity": "unit",
+                "controller": "friendly",
+                "minCount": 1,
+                "maxCount": 2,
+                "allKeywords": [
+                  "WAR DOG"
+                ]
+              }
+            ]
+          },
+          "effects": [
+            {
+              "action": "allow-move-through",
+              "recipient": "models-in-chosen-units",
+              "obstacles": [
+                "models",
+                "terrain-features"
+              ],
+              "moveTypes": [
+                "normal",
+                "advance",
+                "fall-back",
+                "charge"
+              ],
+              "duration": "through-phase-end"
+            },
+            {
+              "action": "allow-travel-within-engagement-range",
+              "recipient": "models-in-chosen-units",
+              "mayEndWithinOnlyOn": "charge"
+            },
+            {
+              "action": "automatically-pass-desperate-escape-test",
+              "recipient": "models-in-chosen-units",
+              "ifRequired": true
+            },
+            {
+              "action": "suspend-ability-for-stratagem-use",
+              "ability": "super-heavy-walker"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

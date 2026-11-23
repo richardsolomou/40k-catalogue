@@ -1,0 +1,95 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.war-horde.close-range-dakka",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "War Horde",
+    "cp": 1,
+    "summary": "Choose the Orks unit as you select it to shoot in your Shooting phase. Its ranged attacks get Rapid Fire 1. If an attack already carries that ability, raise its value by 1, for example from 1 to 2.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 15,
+        "bold": true
+      },
+      {
+        "start": 55,
+        "end": 69,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 94,
+        "end": 106,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "rapid-fire"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "friendly-unit-selected-to-shoot"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "Orks"
+            ],
+            "selection": "unit-from-trigger"
+          },
+          "effects": [
+            {
+              "kind": "grant-or-increase-weapon-ability",
+              "subject": "ranged-attacks-by-selected-unit",
+              "ability": "rapid-fire",
+              "withoutExistingValue": {
+                "set": 1
+              },
+              "withExistingValue": {
+                "add": 1
+              },
+              "example": {
+                "before": 1,
+                "after": 2
+              },
+              "duration": "shooting-for-triggering-selection"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

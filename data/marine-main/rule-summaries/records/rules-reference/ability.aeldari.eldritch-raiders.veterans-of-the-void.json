@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.eldritch-raiders.veterans-of-the-void",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Aeldari Faction Pack: Version 1.0",
+    "page": "8",
+    "url": "https://assets.warhammer-community.com/eng_09-06_warhammer40000_faction_pack_aeldari-glkjirbhiw-9udkry7xbr.pdf#page=8"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Eldritch Raiders",
+    "summary": "When adding ANHRATHE units, you can assign each a single Corsair Enhancement, using any given option only once across the army. Charge its Munitorum Field Manual price to the recipient’s unit cost. Omit the upgraded unit if that expense would take the roster above the battle budget.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 20,
+        "bold": true
+      },
+      {
+        "start": 269,
+        "end": 282,
+        "target": {
+          "kind": "core-rule",
+          "id": "fill-your-army-roster"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Aeldari Faction Pack: Version 1.0",
+        "page": "8",
+        "url": "https://assets.warhammer-community.com/eng_09-06_warhammer40000_faction_pack_aeldari-glkjirbhiw-9udkry7xbr.pdf#page=8"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "add-unit-to-army-roster",
+          "eligibleUnit": {
+            "allKeywords": [
+              "ANHRATHE"
+            ]
+          },
+          "detachment": "Eldritch Raiders"
+        },
+        "permission": {
+          "type": "assign-enhancement",
+          "category": "Corsair Enhancement",
+          "optional": true,
+          "maxPerUnit": 1
+        },
+        "restriction": {
+          "type": "unique-option",
+          "scope": "entire-army",
+          "maxCopiesPerOption": 1
+        },
+        "cost": {
+          "type": "add-points",
+          "recipient": "enhanced-unit",
+          "amount": "listed-enhancement-surcharge",
+          "basis": "munitorum-field-manual"
+        },
+        "inclusionGate": {
+          "type": "army-points-ceiling",
+          "check": "after-surcharge",
+          "operator": "<=",
+          "limit": "battle-points-limit",
+          "onFailure": "exclude-enhanced-unit"
+        }
+      }
+    }
+  }
+}

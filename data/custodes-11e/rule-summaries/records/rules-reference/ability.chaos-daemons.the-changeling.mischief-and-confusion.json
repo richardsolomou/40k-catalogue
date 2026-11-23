@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.the-changeling.mischief-and-confusion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "The Changeling",
+    "summary": "As the opposing player's Shooting phase begins, pick one enemy unit that this model can see and that is within 12\" of it, and roll a D6: if it is 2-5, attacks by models in that enemy unit get -1 to their Hit rolls for the rest of the phase; if it is a 6, the enemy unit cannot shoot this phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "datasheet": "The Changeling",
+        "trigger": {
+          "when": "start-of-opponent-shooting-phase"
+        },
+        "effect": {
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "withinInches": 12,
+            "visible": true
+          },
+          "roll": "D6",
+          "results": [
+            {
+              "range": [
+                2,
+                5
+              ],
+              "effect": {
+                "kind": "roll-modifier",
+                "roll": "hit",
+                "op": "subtract",
+                "value": 1,
+                "duration": "end-of-phase"
+              }
+            },
+            {
+              "value": 6,
+              "effect": "not eligible to shoot this phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

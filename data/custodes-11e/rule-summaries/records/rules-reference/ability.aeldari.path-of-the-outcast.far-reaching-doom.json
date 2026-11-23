@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.path-of-the-outcast.far-reaching-doom",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Aeldari Faction Pack: Version 1.0",
+    "page": "4",
+    "url": "https://assets.warhammer-community.com/eng_09-06_warhammer40000_faction_pack_aeldari-glkjirbhiw-9udkry7xbr.pdf#page=4"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Path of the Outcast",
+    "summary": "Picking a friendly Rangers or Shroud Runners unit to shoot temporarily raises enemy units’ Detection Range by 6\". The bonus ends once the selected unit finishes shooting.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 26,
+        "bold": true
+      },
+      {
+        "start": 30,
+        "end": 44,
+        "bold": true
+      },
+      {
+        "start": 91,
+        "end": 106,
+        "target": {
+          "kind": "core-rule",
+          "id": "hidden"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Aeldari Faction Pack: Version 1.0",
+        "page": "4",
+        "url": "https://assets.warhammer-community.com/eng_09-06_warhammer40000_faction_pack_aeldari-glkjirbhiw-9udkry7xbr.pdf#page=4"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "select-unit-to-shoot",
+          "unit": {
+            "side": "friendly",
+            "anyOf": [
+              "Rangers",
+              "Shroud Runners"
+            ]
+          }
+        },
+        "effect": {
+          "type": "distance-modifier",
+          "stat": "detection-range",
+          "recipient": {
+            "side": "enemy",
+            "type": "unit"
+          },
+          "operation": "add",
+          "distanceInches": 6,
+          "value": "+6\""
+        },
+        "expiry": {
+          "event": "finish-shooting",
+          "unit": "trigger-unit"
+        }
+      }
+    }
+  }
+}

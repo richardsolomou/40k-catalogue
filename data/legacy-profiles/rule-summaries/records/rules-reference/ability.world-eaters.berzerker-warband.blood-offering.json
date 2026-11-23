@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.berzerker-warband.blood-offering",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Berzerker Warband",
+    "cp": 1,
+    "summary": "After a WORLD EATERS unit of yours is destroyed in any phase, pick an objective marker that it was in range of when it died. You must have held that marker as the preceding phase closed. It stays yours until the opponent beats your level of control there at a phase end.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 20,
+        "bold": true
+      },
+      {
+        "start": 70,
+        "end": 86,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "after-friendly-unit-is-destroyed"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "WORLD EATERS"
+            ],
+            "allowDestroyed": true,
+            "state": "just-destroyed",
+            "requiredMarker": "within-range-when-destroyed-and-controlled-by-you-at-end-of-previous-phase"
+          },
+          "effects": [
+            {
+              "action": "select-objective-marker",
+              "count": 1,
+              "criteria": "a-marker-that-met-the-target-requirement",
+              "bind": "marked-objective"
+            },
+            {
+              "action": "retain-objective-control",
+              "recipient": "marked-objective",
+              "duration": {
+                "until": "opponent-level-of-control-is-greater-than-yours-at-phase-end"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

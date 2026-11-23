@@ -1,0 +1,118 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.bully-boyz.armed-to-da-teef",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Bully Boyz",
+    "cp": 1,
+    "summary": "As your Meganobz or Nobz are selected to attack in your Shooting phase or either Fight phase, they get Hit rerolls on 1s. If the unit is riled up, it rerolls any Hit roll for that attack sequence.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 16,
+        "bold": true
+      },
+      {
+        "start": 20,
+        "end": 24,
+        "bold": true
+      },
+      {
+        "start": 29,
+        "end": 47,
+        "bold": true
+      },
+      {
+        "start": 56,
+        "end": 70,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 81,
+        "end": 92,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 137,
+        "end": 145,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "unit-selected-to-attack",
+            "actor": {
+              "owner": "your-army",
+              "anyUnitName": [
+                "Meganobz",
+                "Nobz"
+              ]
+            }
+          },
+          "target": {
+            "fromTrigger": "attacking-unit",
+            "anyUnitName": [
+              "Meganobz",
+              "Nobz"
+            ]
+          },
+          "effects": [
+            {
+              "action": "reroll",
+              "roll": "hit",
+              "actor": "target-unit",
+              "eligibleResults": [
+                1
+              ],
+              "duration": {
+                "until": "end-of-triggered-attack-sequence"
+              },
+              "replacement": {
+                "condition": "target-unit-riled-up",
+                "eligibleResults": "all"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

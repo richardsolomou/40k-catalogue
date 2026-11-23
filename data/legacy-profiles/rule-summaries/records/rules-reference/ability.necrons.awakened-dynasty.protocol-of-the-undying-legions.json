@@ -1,0 +1,117 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.awakened-dynasty.protocol-of-the-undying-legions",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Awakened Dynasty",
+    "cp": 1,
+    "summary": "Once an enemy finishes attacking in its Shooting phase or either Fight phase, choose a NECRONS unit that lost a model to those attacks. It activates Reanimation Protocols for D3 wounds, increased to D3+1 if a NECRONS CHARACTER leads it.",
+    "summarySpans": [
+      {
+        "start": 40,
+        "end": 54,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 65,
+        "end": 76,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 87,
+        "end": 94,
+        "bold": true
+      },
+      {
+        "start": 149,
+        "end": 170,
+        "target": {
+          "kind": "ability",
+          "id": "necrons.reanimation-protocols"
+        }
+      },
+      {
+        "start": 209,
+        "end": 226,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-enemy-unit-finishes-attacks"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "NECRONS"
+            ],
+            "eligibility": "lost-at-least-one-model-to-trigger-attacks"
+          },
+          "effects": [
+            {
+              "action": "activate-reanimation-protocols",
+              "recipient": "target-unit",
+              "wounds": {
+                "kind": "die",
+                "sides": 3,
+                "count": 1
+              },
+              "replacement": {
+                "condition": {
+                  "ledBy": "NECRONS CHARACTER"
+                },
+                "wounds": {
+                  "kind": "die",
+                  "sides": 3,
+                  "count": 1,
+                  "bonus": 1
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

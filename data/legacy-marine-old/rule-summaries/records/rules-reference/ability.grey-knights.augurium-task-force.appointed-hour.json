@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.augurium-task-force.appointed-hour",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Augurium Task Force",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Shooting phase or in any Fight phase, picking a GREY KNIGHTS PSYKER unit of yours that has not yet been chosen to shoot or fight in this phase. For the rest of the phase, attacks by its models score a Critical Hit whenever the unmodified Hit roll is 5+.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Augurium Task Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "phase-step"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "GREY KNIGHTS",
+              "PSYKER"
+            ],
+            "notYetSelectedThisPhase": [
+              "shoot",
+              "fight"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "critical-hit-threshold",
+              "value": "5+",
+              "expires": "end-of-phase"
+            }
+          ],
+          "restrictions": [],
+          "category": "Battle Tactic"
+        }
+      }
+    }
+  }
+}

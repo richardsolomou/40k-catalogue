@@ -1,0 +1,139 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.bringers-of-flame.rites-of-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Bringers of Flame",
+    "cp": 1,
+    "summary": "During your Shooting phase choose an ADEPTA SORORITAS unit of yours before selecting it to shoot. It must have left a TRANSPORT earlier this turn. Through phase end, add 1 to its ranged Wound rolls against enemies up to 6\" from any objective marker. If those attacks kill any enemy models, choose one enemy unit that lost a model this way. It takes a Battle-shock test.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 37,
+        "end": 53,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 127,
+        "bold": true
+      },
+      {
+        "start": 186,
+        "end": 197,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      },
+      {
+        "start": 232,
+        "end": 248,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 351,
+        "end": 368,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "in-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ADEPTA SORORITAS"
+            ],
+            "state": "not-yet-selected-to-shoot",
+            "disembarkedFrom": {
+              "keywords": [
+                "TRANSPORT"
+              ],
+              "window": "this-turn"
+            }
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "actor": "target-unit-model",
+              "recipient": "qualifying-ranged-attacks",
+              "roll": "wound",
+              "operation": "add",
+              "amount": 1,
+              "attackTarget": {
+                "owner": "enemy",
+                "entity": "unit",
+                "distance": {
+                  "unit": "inch",
+                  "amount": 6,
+                  "comparator": "at-most",
+                  "from": "objective-marker"
+                }
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "kind": "test",
+              "test": "battle-shock",
+              "owner": "enemy",
+              "recipient": "one-chosen-enemy-unit-that-lost-models",
+              "condition": {
+                "event": "enemy-model-destroyed-by-qualifying-attacks",
+                "minModels": 1
+              },
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

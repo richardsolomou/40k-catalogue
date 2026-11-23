@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.data-psalm-conclave.tribute-of-emphatic-veneration",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Data-psalm Conclave",
+    "cp": 1,
+    "summary": "Spend 1 CP as your Movement phase starts, choosing one CULT MECHANICUS unit of yours plus an enemy unit no more than 18\" away from it. That second unit then has to test for Battle-shock; on a failure, then until your following Command phase begins, attacks made by that enemy unit's models get -1 to the Hit roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Data-psalm Conclave",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own",
+                "step": "start-of-phase"
+              }
+            ]
+          },
+          "target": {
+            "entities": [
+              {
+                "entity": "unit",
+                "count": 1,
+                "side": "friendly",
+                "keywordsAll": [
+                  "CULT MECHANICUS"
+                ]
+              },
+              {
+                "entity": "unit",
+                "count": 1,
+                "side": "enemy",
+                "withinInches": 18,
+                "of": "that-cult-mechanicus-unit"
+              }
+            ]
+          },
+          "effects": [
+            {
+              "kind": "battle-shock-test",
+              "who": "enemy-target"
+            },
+            {
+              "kind": "outgoing-hit-modifier",
+              "who": "enemy-target",
+              "subtract": 1,
+              "condition": "test-failed",
+              "duration": "until-start-of-next-own-command-phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

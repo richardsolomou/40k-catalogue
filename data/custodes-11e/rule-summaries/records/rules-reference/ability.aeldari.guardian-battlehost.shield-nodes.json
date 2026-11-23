@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.guardian-battlehost.shield-nodes",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Guardian Battlehost",
+    "cp": 1,
+    "summary": "Spend 1 CP in the opposing player's Shooting phase or in the Fight phase of either turn, right after an enemy unit picks its targets, on a GUARDIANS or DIRE AVENGERS unit of yours that it targeted with at least one attack. Provided that unit stands within range of at least one objective marker, attacks that target it subtract 1 from their Wound roll until the phase ends.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Guardian Battlehost",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "timing": "after-enemy-unit-selects-targets",
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              "DIRE AVENGERS",
+              "GUARDIANS"
+            ],
+            "targetedByThatEnemyUnit": true
+          },
+          "condition": {
+            "targetWithinRangeOfObjective": true,
+            "minimumObjectives": 1
+          },
+          "effects": [
+            {
+              "attacksTargetingUnit": true,
+              "roll": "wound",
+              "delta": -1
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.cthonian-beserks.cyberstimms",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Cthonian Beserks",
+    "summary": "When a melee attack destroys a model here before it has fought in the phase, roll one D6 for that casualty. Add 1 if Fortify Takeover applies to units from your army. A 4+ keeps the casualty in play. It may fight once the attacking unit finishes its attacks, then is removed.",
+    "summarySpans": [
+      {
+        "start": 117,
+        "end": 133,
+        "target": {
+          "kind": "ability",
+          "id": "leagues-of-votann.prioritised-efficiency"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "controlling-player",
+        "trigger": {
+          "event": "each source-unit model destroyed by melee attack",
+          "requiresModelHasFoughtThisPhase": false
+        },
+        "check": {
+          "dice": 1,
+          "sides": 6,
+          "modifiedResultAtLeast": 4,
+          "modifier": {
+            "amount": 1,
+            "if": "units from your army have Fortify Takeover"
+          }
+        },
+        "success": {
+          "deferRemoval": true,
+          "actor": "destroyed-model",
+          "mayFight": true,
+          "timing": "after attacker unit finishes its attacks",
+          "removeAfterward": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.blade-of-ultramar.practical-tactics",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Blade of Ultramar",
+    "cp": 1,
+    "summary": "In the opposing player’s Movement phase, use this when an enemy finishes moving 8 inches or less from one of your units. That unit needs the Adeptus Astartes Infantry/Mounted keyword and must be unengaged. It may make a normal move, with D3+3 inches setting the limit.",
+    "summarySpans": [
+      {
+        "start": 25,
+        "end": 39,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 141,
+        "end": 174,
+        "bold": true
+      },
+      {
+        "start": 195,
+        "end": 204,
+        "bold": true
+      },
+      {
+        "start": 220,
+        "end": 231,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "movement"
+            ],
+            "event": "enemy-unit-finishes-move",
+            "distance": {
+              "atMostInches": 8
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "referencedByTrigger": true,
+            "unengaged": true,
+            "sourceKeywordLabel": "Adeptus Astartes Infantry/Mounted"
+          },
+          "effects": [
+            {
+              "kind": "move",
+              "subject": "selected-unit",
+              "move": "normal",
+              "optional": true,
+              "maximumInches": {
+                "dice": "D3",
+                "add": 3
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

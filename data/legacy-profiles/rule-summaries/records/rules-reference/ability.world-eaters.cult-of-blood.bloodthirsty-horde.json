@@ -1,0 +1,95 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.cult-of-blood.bloodthirsty-horde",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Cult of Blood",
+    "cp": 1,
+    "summary": "In the Fight phase of either turn, choose one of your Jakhals units or one of your Goremongers units. It must be engaged with an enemy and still awaiting selection to fight this phase. Whenever you select that unit to fight for the rest of the phase, any of its models with an enemy model within 3″ is eligible. When you resolve attacks from models qualified this way, each can pick one foe no more than 3″ from itself. The foe must also be in Engagement Range of the friendly unit.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 444,
+        "end": 460,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Cult of Blood",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ]
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "anyKeywords": [
+              "JAKHALS",
+              "GOREMONGERS"
+            ],
+            "conditions": [
+              "not-selected-to-fight-this-phase",
+              "within-engagement-range-of-enemy"
+            ]
+          },
+          "effects": [
+            {
+              "action": "expand-fight-eligibility",
+              "actor": "models-in-chosen-unit",
+              "duration": "end-of-phase",
+              "event": "chosen-unit-selected-to-fight",
+              "distanceInches": 3,
+              "relativeTo": "at-least-one-enemy-model"
+            },
+            {
+              "action": "limit-melee-targets",
+              "actor": "models-fighting-via-this-effect",
+              "count": 1,
+              "distanceInches": 3,
+              "distanceFrom": "attacking-model",
+              "requiresEngagementRangeWith": "chosen-unit"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

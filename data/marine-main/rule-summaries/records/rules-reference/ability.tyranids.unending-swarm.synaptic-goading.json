@@ -1,0 +1,118 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.unending-swarm.synaptic-goading",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Unending Swarm",
+    "cp": 1,
+    "summary": "In any phase, use this just before your ENDLESS MULTITUDE unit begins a Surge move, provided it is within your army’s Synapse Range. You may reroll its D6 distance and may finish as near as possible to the nearest objective marker in place of the nearest enemy unit. Keep every other Surge rule.",
+    "summarySpans": [
+      {
+        "start": 40,
+        "end": 57,
+        "bold": true
+      },
+      {
+        "start": 72,
+        "end": 82,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-move"
+        }
+      },
+      {
+        "start": 118,
+        "end": 131,
+        "target": {
+          "kind": "ability",
+          "id": "tyranids.synapse"
+        }
+      },
+      {
+        "start": 214,
+        "end": 230,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-before-move",
+            "actor": "target-unit",
+            "move": "surge"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "ENDLESS MULTITUDE"
+            ],
+            "within": "your-army-synapse-range"
+          },
+          "effects": [
+            {
+              "kind": "reroll",
+              "recipient": "target-unit",
+              "role": "surge-distance",
+              "roll": {
+                "die": "D6",
+                "sides": 6
+              },
+              "optional": true
+            },
+            {
+              "kind": "replace-move-end-condition",
+              "recipient": "target-unit",
+              "optional": true,
+              "move": "surge",
+              "original": {
+                "asCloseAsPossibleTo": "closest-enemy-unit"
+              },
+              "replacement": {
+                "asCloseAsPossibleTo": "closest-objective-marker"
+              },
+              "retainOtherMoveRules": true
+            }
+          ],
+          "type": "strategic-ploy",
+          "duration": {
+            "scope": "triggering-surge-move"
+          }
+        }
+      }
+    }
+  }
+}

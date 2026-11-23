@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.brotherhood-strike.combat-manifestation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Brotherhood Strike",
+    "cp": 1,
+    "summary": "Spend 1 CP in your Movement phase, picking a GREY KNIGHTS unit of yours that is arriving through the Deep Strike ability in this phase. You may place it at any spot further than 6″ (measured horizontally) from every enemy unit, but it cannot declare a charge for the rest of the turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Brotherhood Strike",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "event": "phase-step"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "GREY KNIGHTS"
+            ],
+            "arrivingThisPhaseUsing": "Deep Strike"
+          },
+          "effects": [
+            {
+              "kind": "set-up-distance",
+              "minDistanceInches": 6,
+              "measured": "horizontally",
+              "from": "all-enemy-units"
+            },
+            {
+              "kind": "forbid-charge",
+              "expires": "end-of-turn"
+            }
+          ],
+          "restrictions": [],
+          "category": "Epic Deed"
+        }
+      }
+    }
+  }
+}

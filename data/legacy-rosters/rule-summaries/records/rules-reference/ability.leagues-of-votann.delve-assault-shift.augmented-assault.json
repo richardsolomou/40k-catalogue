@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.delve-assault-shift.augmented-assault",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Dêlve Assault Shift",
+    "cp": 1,
+    "summary": "In your Movement phase, choose a CTHONIAN BESERKS unit yet to be picked to move. You may commit at most 2 YP. Increase each model’s Move by the amount of YP spent until this turn ends. The unit remains eligible to charge in its Charge phase after Advancing this turn.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 33,
+        "end": 49,
+        "bold": true
+      },
+      {
+        "start": 228,
+        "end": 240,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "your",
+            "phases": [
+              "movement"
+            ],
+            "event": "phase-window"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "CTHONIAN BESERKS"
+            ],
+            "notYetSelectedToMoveThisPhase": true
+          },
+          "effects": [
+            {
+              "kind": "spend-yp",
+              "optional": true,
+              "maximum": 2
+            },
+            {
+              "kind": "modify-characteristic",
+              "characteristic": "move",
+              "subject": "selected-unit-models",
+              "amount": {
+                "equalTo": "yp-spent"
+              },
+              "duration": "end-of-turn"
+            },
+            {
+              "kind": "allow-charge-after-advance",
+              "subject": "selected-unit",
+              "duration": "end-of-turn"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

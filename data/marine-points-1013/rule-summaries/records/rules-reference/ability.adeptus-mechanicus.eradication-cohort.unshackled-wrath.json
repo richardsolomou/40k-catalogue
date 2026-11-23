@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.eradication-cohort.unshackled-wrath",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Eradication Cohort",
+    "cp": 1,
+    "summary": "In your Shooting phase, choose a friendly SKITARII unit you have yet to pick for shooting. Pick LETHAL HITS or SUSTAINED HITS 1 for its ranged weapons. You can give those weapons both abilities by adding HAZARDOUS as well. These changes last through this phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Eradication Cohort",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "SKITARII"
+            ],
+            "condition": "not-already-selected-to-shoot-this-phase"
+          },
+          "effects": [
+            {
+              "action": "choose-weapon-ability-package",
+              "recipient": "ranged-weapons-of-chosen-unit",
+              "duration": "through-phase-end",
+              "choices": [
+                [
+                  "lethal-hits"
+                ],
+                [
+                  "sustained-hits-1"
+                ],
+                [
+                  "lethal-hits",
+                  "sustained-hits-1",
+                  "hazardous"
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.beast-snagga-boyz.mobbed",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Beast Snagga Boyz",
+    "summary": "After the Beast Snagga Boyz complete a Charge Move, subtract 1 from the resulting Battle-shock roll for an enemy MONSTER or VEHICLE Engaged with them. Subtract 2 instead if the Boyz still number at least 13 models.",
+    "summarySpans": [
+      {
+        "start": 39,
+        "end": 50,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 82,
+        "end": 99,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 113,
+        "end": 120,
+        "bold": true
+      },
+      {
+        "start": 124,
+        "end": 131,
+        "bold": true
+      },
+      {
+        "start": 132,
+        "end": 139,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "actor": "owner unit",
+          "event": "ends Charge Move"
+        },
+        "target": {
+          "side": "enemy",
+          "kind": "unit",
+          "anyKeyword": [
+            "MONSTER",
+            "VEHICLE"
+          ],
+          "relation": "Engaged with owner unit"
+        },
+        "effect": {
+          "roll": "resulting Battle-shock roll",
+          "modifier": {
+            "operation": "subtract",
+            "amount": 1
+          },
+          "replaceModifier": {
+            "minimumOwnerUnitModels": 13,
+            "modifier": {
+              "operation": "subtract",
+              "amount": 2
+            }
+          }
+        }
+      }
+    }
+  }
+}

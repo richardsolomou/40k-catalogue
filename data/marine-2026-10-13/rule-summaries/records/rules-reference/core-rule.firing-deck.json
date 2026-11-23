@@ -1,0 +1,139 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "firing-deck",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "81",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=81"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "24. Core Abilities",
+    "ruleNumber": "24.14",
+    "summary": "When this TRANSPORT is picked to shoot in your Shooting phase with units aboard, select up to X embarked models. Skip models from units already chosen to shoot that phase. For each picked model, select one ranged weapon it carries, excluding [ONE SHOT] weapons. Treat the TRANSPORT as equipped with all selected weapons as well as its own until it finishes attacking. The units aboard cannot shoot for the rest of the turn.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 19,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "transports"
+        }
+      },
+      {
+        "start": 23,
+        "end": 38,
+        "target": {
+          "kind": "core-rule",
+          "id": "shoot-step"
+        }
+      },
+      {
+        "start": 47,
+        "end": 61,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 96,
+        "end": 111,
+        "target": {
+          "kind": "core-rule",
+          "id": "embarking"
+        }
+      },
+      {
+        "start": 242,
+        "end": 252,
+        "target": {
+          "kind": "core-rule",
+          "id": "one-shot"
+        }
+      },
+      {
+        "start": 272,
+        "end": 281,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "81",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=81"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "datasheet-ability",
+        "parameter": "X",
+        "holderKeywords": [
+          "TRANSPORT"
+        ],
+        "trigger": {
+          "turn": "yours",
+          "phase": "shooting",
+          "event": "holderSelectedToShoot",
+          "condition": "holderHasEmbarkedUnits",
+          "rule": "10.02"
+        },
+        "steps": [
+          {
+            "step": 1,
+            "select": {
+              "level": "model",
+              "upTo": "X",
+              "pool": "embarkedModels",
+              "excludeIfUnitAlreadySelectedToShootThisPhase": true
+            }
+          },
+          {
+            "step": 2,
+            "select": {
+              "perSelectedModel": 1,
+              "weapons": "ranged",
+              "excludingWeaponAbilities": [
+                "ONE SHOT"
+              ],
+              "rule": "24.26"
+            }
+          },
+          {
+            "step": 3,
+            "grant": {
+              "to": "holder",
+              "weapons": "step2Selections",
+              "inAdditionToOwn": true,
+              "until": "holderAttacksResolved"
+            }
+          },
+          {
+            "step": 4,
+            "restrict": {
+              "units": "allEmbarkedUnits",
+              "eligibleToShoot": false,
+              "until": "endOfTurn"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

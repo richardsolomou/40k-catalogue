@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.siege-regiment.minefield",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Siege Regiment",
+    "cp": 1,
+    "summary": "Spend 1 CP as the opponent's Charge phase begins, on one of your PLATOON units. Until the phase is over, whenever an enemy unit finishes a Charge move inside your unit's Engagement Range, roll one D6 for every model the enemy unit contains; every 5+ deals 1 mortal wound to it, with no more than 6 mortal wounds inflicted this way.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Wargear",
+          "detachment": "Siege Regiment",
+          "when": {
+            "turn": "opponent",
+            "phase": "charge",
+            "point": "start"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "PLATOON"
+            ]
+          },
+          "effects": [
+            {
+              "duration": "end-of-phase",
+              "trigger": "enemy-unit-ends-charge-move-within-engagement-range-of-your-unit",
+              "roll": {
+                "dice": "D6",
+                "perModelInEnemyUnit": true,
+                "successOn": "5+"
+              },
+              "perSuccess": {
+                "mortalWounds": 1
+              },
+              "maxMortalWounds": 6
+            }
+          ]
+        }
+      }
+    }
+  }
+}

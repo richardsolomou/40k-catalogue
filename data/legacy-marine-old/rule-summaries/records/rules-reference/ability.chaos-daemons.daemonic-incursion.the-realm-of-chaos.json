@@ -1,0 +1,137 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.daemonic-incursion.the-realm-of-chaos",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Daemonic Incursion",
+    "cp": 1,
+    "summary": "When the opposing turn ends, pick one friendly LEGIONES DAEMONICA unit, or as many as two if they are inside the Shadow of Chaos cast by your army. Exclude units in enemy Engagement Range. Put the picks into Strategic Reserves. On your next Movement phase, an Ingress move is mandatory for each pick.",
+    "summarySpans": [
+      {
+        "start": 47,
+        "end": 65,
+        "bold": true
+      },
+      {
+        "start": 171,
+        "end": 187,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 208,
+        "end": 226,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 241,
+        "end": 255,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 260,
+        "end": 272,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "ingress-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "opponent"
+              }
+            ],
+            "event": "end-of-opponent-turn"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "alternatives": [
+              {
+                "count": 1,
+                "keywords": [
+                  "LEGIONES DAEMONICA"
+                ]
+              },
+              {
+                "count": {
+                  "min": 1,
+                  "max": 2
+                },
+                "keywords": [
+                  "LEGIONES DAEMONICA"
+                ],
+                "region": {
+                  "id": "shadow-of-chaos",
+                  "owner": "your-army",
+                  "relation": "within"
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "kind": "transfer-to-strategic-reserves",
+              "recipient": "all-target-units",
+              "duration": {
+                "until": "resolution"
+              }
+            },
+            {
+              "kind": "required-move",
+              "recipient": "all-target-units",
+              "moveType": "ingress",
+              "duration": {
+                "during": "your-next-movement-phase"
+              }
+            }
+          ],
+          "restrictions": [
+            {
+              "kind": "exclude-units-within-engagement-range",
+              "owner": "opponent",
+              "recipient": "all-target-units"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.persecution-prospect.adaptable-avarice",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Persecution Prospect",
+    "cp": 1,
+    "summary": "You can use this as any phase opens in either turn while Fortify Takeover is active for your army. Pick one of your Character units with the Leagues of Votann keyword. This use lets you put any amount of Yield Points toward the effect. If you spend them and the balance is no more than 6, switch your army to Hostile Acquisition. The switch ends when your next turn begins.",
+    "summarySpans": [
+      {
+        "start": 204,
+        "end": 216,
+        "target": {
+          "kind": "ability",
+          "id": "leagues-of-votann.prioritised-efficiency"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Persecution Prospect",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "phase-start",
+            "requiredArmyMode": "fortify-takeover"
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "allKeywords": [
+              "LEAGUES OF VOTANN",
+              "CHARACTER"
+            ]
+          },
+          "effects": [
+            {
+              "action": "spend-yield-points",
+              "optional": true,
+              "amount": "any"
+            },
+            {
+              "action": "replace-army-mode",
+              "actor": "friendly-army",
+              "previous": "fortify-takeover",
+              "mode": "hostile-acquisition",
+              "condition": {
+                "event": "yield-points-spent-by-this-stratagem",
+                "remainingYieldPointsMaximum": 6
+              },
+              "expires": "start-of-next-friendly-turn"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-action",
+  "id": "chapter-approved-2026-2027.death-trap.booby-trap",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "summary": "Start BOOBY TRAP in your Shooting phase with a friendly unit in range of a non-home objective. A unit can also begin within a terrain area outside your deployment zone if you haven’t trapped it yet. Units starting the action must occupy separate terrain areas. It completes immediately. Mark that area as trapped and set a marker from your operation markers there. There is no overall use limit.",
+    "summarySpans": [
+      {
+        "start": 6,
+        "end": 16,
+        "bold": true
+      },
+      {
+        "start": 25,
+        "end": 39,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 84,
+        "end": 93,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 126,
+        "end": 138,
+        "bold": true
+      },
+      {
+        "start": 183,
+        "end": 190,
+        "bold": true
+      },
+      {
+        "start": 218,
+        "end": 224,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "actions"
+        }
+      },
+      {
+        "start": 305,
+        "end": 312,
+        "bold": true
+      },
+      {
+        "start": 340,
+        "end": 357,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "items": [
+          {
+            "kind": "action-window",
+            "start": {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            "complete": {
+              "at": "immediately"
+            }
+          },
+          {
+            "kind": "selection",
+            "owner": "friendly",
+            "countPerUse": 1,
+            "anyOf": [
+              {
+                "kind": "within-range",
+                "of": "objective",
+                "exclude": "own-home-objective"
+              },
+              {
+                "kind": "within",
+                "of": "terrain-area",
+                "outside": "own-deployment-zone",
+                "status": "not-yet-trapped-by-player"
+              }
+            ]
+          },
+          {
+            "kind": "use-limit",
+            "maximum": null,
+            "targetConstraint": "starting-units-must-be-within-different-terrain-areas"
+          },
+          {
+            "kind": "designate",
+            "target": "associated-terrain-area",
+            "designation": "trapped"
+          },
+          {
+            "kind": "place-marker",
+            "owner": "friendly",
+            "marker": "operation",
+            "count": 1,
+            "within": "associated-terrain-area"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.seer-council.unshrouded-truth",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Seer Council",
+    "cp": 1,
+    "summary": "In your Movement phase, spend 1 CP on an ASURYANI INFANTRY unit of yours, other than a WRAITH CONSTRUCT unit, that has neither been picked to move nor been placed on the battlefield during this phase, and that has at least one friendly ASURYANI PSYKER model within 9\". Put it into Strategic Reserves; it gains Deep Strike and is required to make an ingress move before the phase ends. For the rest of the phase it cannot be picked to move. The card does not say whether this works in your first turn.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 41,
+        "end": 58,
+        "bold": true
+      },
+      {
+        "start": 87,
+        "end": 103,
+        "bold": true
+      },
+      {
+        "start": 236,
+        "end": 251,
+        "bold": true
+      },
+      {
+        "start": 281,
+        "end": 299,
+        "bold": true
+      },
+      {
+        "start": 310,
+        "end": 321,
+        "target": {
+          "kind": "core-ability",
+          "id": "deep-strike"
+        }
+      },
+      {
+        "start": 349,
+        "end": 361,
+        "target": {
+          "kind": "core-rule",
+          "id": "ingress-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Seer Council",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "unstated": [
+              "whether it can be used in your first turn"
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ASURYANI",
+              "INFANTRY"
+            ],
+            "keywordsNone": [
+              "WRAITH CONSTRUCT"
+            ],
+            "conditions": [
+              "not-selected-to-move-this-phase",
+              "not-set-up-this-phase"
+            ],
+            "withinInchesOfFriendlyModel": {
+              "inches": 9,
+              "keywordsAll": [
+                "ASURYANI",
+                "PSYKER"
+              ]
+            }
+          },
+          "effects": [
+            {
+              "kind": "place-in-strategic-reserves"
+            },
+            {
+              "kind": "grant-ability",
+              "ability": "DEEP STRIKE"
+            },
+            {
+              "kind": "must-make-ingress-move",
+              "when": "this-phase"
+            }
+          ],
+          "restrictions": [
+            {
+              "kind": "not-eligible-to-be-selected-to-move",
+              "expires": "end-of-phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

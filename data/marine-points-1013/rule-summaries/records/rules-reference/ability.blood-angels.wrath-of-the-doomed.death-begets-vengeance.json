@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.wrath-of-the-doomed.death-begets-vengeance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Wrath of the Doomed",
+    "cp": 1,
+    "summary": "In any phase, mark an enemy unit when it wipes out your Death Company unit. The enemy is hated for the rest of the battle, giving friendly Death Company attacks against it +1 to Wound rolls.",
+    "summarySpans": [
+      {
+        "start": 56,
+        "end": 69,
+        "bold": true
+      },
+      {
+        "start": 89,
+        "end": 94,
+        "bold": true
+      },
+      {
+        "start": 139,
+        "end": 152,
+        "bold": true
+      },
+      {
+        "start": 178,
+        "end": 189,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-destroys-friendly-unit",
+            "actor": "target-enemy-unit",
+            "recipient": {
+              "owner": "your-army",
+              "keywords": [
+                "Death Company"
+              ]
+            }
+          },
+          "target": {
+            "owner": "opponent",
+            "entity": "unit",
+            "count": 1,
+            "mode": "triggering-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "mark",
+              "recipient": "target-enemy-unit",
+              "marker": "hated",
+              "duration": {
+                "until": "battle-ends"
+              }
+            },
+            {
+              "kind": "modify",
+              "recipient": "friendly-death-company-attacks-against-marked-enemy",
+              "subject": "wound-roll",
+              "operation": "add",
+              "amount": 1,
+              "duration": {
+                "while": "enemy-is-hated"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

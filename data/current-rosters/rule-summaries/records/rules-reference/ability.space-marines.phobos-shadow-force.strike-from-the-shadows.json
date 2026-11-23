@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.phobos-shadow-force.strike-from-the-shadows",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Phobos Shadow Force",
+    "cp": 1,
+    "summary": "During your Shooting phase or either Fight phase, use this as a you select a hidden friendly Phobos unit for attacks. Give its attacks +1 Strength and Lethal Hits.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 37,
+        "end": 48,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 77,
+        "end": 83,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hidden"
+        }
+      },
+      {
+        "start": 93,
+        "end": 99,
+        "bold": true
+      },
+      {
+        "start": 151,
+        "end": 162,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "selected-to-attack",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "trigger-unit",
+            "keywords": [
+              "Phobos"
+            ],
+            "state": "hidden"
+          },
+          "effects": [
+            {
+              "kind": "modify",
+              "recipient": "target-unit-attacks",
+              "subject": "strength",
+              "operation": "add",
+              "amount": 1
+            },
+            {
+              "kind": "weapon-ability-grant",
+              "recipient": "target-unit-attacks",
+              "attackType": "triggering",
+              "abilities": [
+                "Lethal Hits"
+              ]
+            }
+          ],
+          "duration": {
+            "scope": "target-unit-attacks-in-trigger"
+          }
+        }
+      }
+    }
+  }
+}

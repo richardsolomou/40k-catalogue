@@ -1,0 +1,126 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.khorne-daemonkin.a-worthy-skull",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Khorne Daemonkin",
+    "cp": 1,
+    "summary": "Check the casualties just after your unit fights. Qualifying units have the BLOOD LEGIONS or the WORLD EATERS keyword and must have killed an enemy model with CHARACTER or MONSTER. Gain D3 BTP, then optionally spend at least one BTP to activate a Blood Tithe ability.",
+    "summarySpans": [
+      {
+        "start": 76,
+        "end": 89,
+        "bold": true
+      },
+      {
+        "start": 97,
+        "end": 109,
+        "bold": true
+      },
+      {
+        "start": 159,
+        "end": 168,
+        "bold": true
+      },
+      {
+        "start": 172,
+        "end": 179,
+        "bold": true
+      },
+      {
+        "start": 247,
+        "end": 258,
+        "target": {
+          "kind": "ability",
+          "id": "world-eaters.khorne-daemonkin.blood-tithe"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "immediately-after-friendly-unit-fights",
+            "actor": {
+              "owner": "your-army",
+              "anyKeyword": [
+                "BLOOD LEGIONS",
+                "WORLD EATERS"
+              ]
+            },
+            "enemyCasualties": {
+              "minCount": 1,
+              "anyKeyword": [
+                "CHARACTER",
+                "MONSTER"
+              ],
+              "causedBy": "trigger-unit-attacks"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [],
+            "anyKeyword": [
+              "BLOOD LEGIONS",
+              "WORLD EATERS"
+            ],
+            "binding": "friendly-unit-that-fought"
+          },
+          "effects": [
+            {
+              "action": "gain-resource",
+              "recipient": "your-army",
+              "pool": "blood-tithe-points",
+              "amount": {
+                "kind": "die",
+                "sides": 3,
+                "count": 1
+              }
+            },
+            {
+              "action": "spend-resource",
+              "recipient": "your-army",
+              "pool": "blood-tithe-points",
+              "minimumAmount": 1,
+              "optional": true,
+              "timing": "immediately-after-gain",
+              "onSpend": {
+                "action": "activate-blood-tithe-ability",
+                "count": 1
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.augurium-task-force.prescient-redeployment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Augurium Task Force",
+    "summary": "From battle round 2, check your Gate of Infinity picks on the preceding opponent turn. If you used fewer than the maximum, you may, as your Movement phase opens, choose one Grey Knights unit on the field that could have been picked. Remove it into Strategic Reserves. It remains on the field during Command and can return elsewhere during that Movement phase’s Reinforcements step.",
+    "summarySpans": [
+      {
+        "start": 32,
+        "end": 48,
+        "target": {
+          "kind": "ability",
+          "id": "grey-knights.gate-of-infinity"
+        }
+      },
+      {
+        "start": 140,
+        "end": 154,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 248,
+        "end": 266,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 299,
+        "end": 306,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 344,
+        "end": 358,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "earliestBattleRound": 2,
+          "at": "start of your Movement phase",
+          "requires": "selected fewer than the Gate of Infinity maximum at end of previous opponent turn"
+        },
+        "pick": {
+          "optional": true,
+          "max": 1,
+          "keyword": "Grey Knights",
+          "location": "battlefield",
+          "mustHaveBeenEligibleUnder": "Gate of Infinity"
+        },
+        "effect": {
+          "procedure": "remove then place in Strategic Reserves",
+          "keepsOriginalPositionThrough": "end of your Command phase",
+          "maySetUpElsewhereDuring": "your Reinforcements step"
+        }
+      }
+    }
+  }
+}

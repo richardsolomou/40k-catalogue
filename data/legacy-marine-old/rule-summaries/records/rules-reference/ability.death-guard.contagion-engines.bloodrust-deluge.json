@@ -1,0 +1,98 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.contagion-engines.bloodrust-deluge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Contagion Engines",
+    "cp": 1,
+    "summary": "In your Shooting phase, use this on a Contagion Engine as you choose it to shoot. Pick one enemy visible to it. That enemy counts as Afflicted until the engine has attacked.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 38,
+        "end": 54,
+        "bold": true
+      },
+      {
+        "start": 97,
+        "end": 104,
+        "bold": true
+      },
+      {
+        "start": 133,
+        "end": 142,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "select-friendly-unit-to-shoot",
+            "actor": "target-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "Contagion Engine"
+            ],
+            "mode": "trigger-unit"
+          },
+          "effects": [
+            {
+              "kind": "select-unit",
+              "id": "affected-enemy",
+              "owner": "enemy",
+              "count": 1,
+              "visibleFrom": "target-unit"
+            },
+            {
+              "kind": "apply-status",
+              "recipient": "affected-enemy",
+              "status": "Afflicted",
+              "duration": {
+                "until": "target-unit-has-attacked"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

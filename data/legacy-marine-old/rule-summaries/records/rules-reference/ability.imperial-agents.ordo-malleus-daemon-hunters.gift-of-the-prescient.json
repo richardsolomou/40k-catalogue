@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.ordo-malleus-daemon-hunters.gift-of-the-prescient",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Ordo Malleus, Daemon Hunters",
+    "summary": "Once per battle, an Inquisitor on the battlefield lets you spend 0 CP on Rapid Ingress for a Grey Knights Terminators unit. Use the Stratagem’s usual timing and target restrictions. Set up the squad anywhere on the battlefield with over 6 inches of separation from every enemy unit.",
+    "summarySpans": [
+      {
+        "start": 73,
+        "end": 86,
+        "target": {
+          "kind": "core-rule",
+          "id": "rapid-ingress"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "characterOnly": true,
+          "keywords": [
+            "INQUISITOR"
+          ]
+        },
+        "trigger": {
+          "event": "use-rapid-ingress",
+          "bearerLocation": "battlefield",
+          "phase": "movement",
+          "owner": "opponent",
+          "timing": "end"
+        },
+        "limit": {
+          "count": 1,
+          "per": "battle"
+        },
+        "selection": {
+          "actor": "own-player",
+          "scope": "unit",
+          "keywords": [
+            "GREY KNIGHTS TERMINATORS"
+          ],
+          "otherCoreTargetRestrictionsApply": true,
+          "sourceZone": "strategic-reserves",
+          "roundOneExcluded": true,
+          "aircraftExcluded": true
+        },
+        "effects": [
+          {
+            "type": "replace-stratagem-cost",
+            "cp": 0,
+            "recipient": "this-rapid-ingress-use"
+          },
+          {
+            "type": "replace-setup-boundary",
+            "recipient": "selected-unit",
+            "area": "battlefield",
+            "rangeOrigin": "selected-unit",
+            "rangeTarget": "every-enemy-unit",
+            "minimumDistanceInches": 6,
+            "distanceComparison": "strictly-greater",
+            "expiry": "this-setup"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.pantheon-of-woe.entrophasic-aura-targeting",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Necrons Faction Pack: Version 1.3",
+    "page": "12",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_necrons-1urphgbmpy-wbhocjbaba.pdf#page=12"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Pantheon of Woe",
+    "cp": 1,
+    "summary": "In your Shooting phase or either Fight phase, choose NECRONS awaiting selection to shoot or fight. MONSTERS are excluded. For this phase, their models can reroll Hit rolls of 1 against enemies. They can also reroll Wound rolls of 1 against an Unravelling target.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 33,
+        "end": 44,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 53,
+        "end": 60,
+        "bold": true
+      },
+      {
+        "start": 99,
+        "end": 107,
+        "bold": true
+      },
+      {
+        "start": 243,
+        "end": 254,
+        "target": {
+          "kind": "ability",
+          "id": "necrons.pantheon-of-woe.cosmic-distortion"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Necrons Faction Pack: Version 1.3",
+        "page": "12",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_necrons-1urphgbmpy-wbhocjbaba.pdf#page=12"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "NECRONS"
+            ],
+            "excludingKeywords": [
+              "MONSTERS"
+            ],
+            "stateByPhase": {
+              "shooting": "not-yet-selected-to-shoot",
+              "fight": "not-yet-selected-to-fight"
+            }
+          },
+          "effects": [
+            {
+              "action": "reroll",
+              "roll": "hit",
+              "eligibleResults": [
+                1
+              ],
+              "actor": "target-unit-model",
+              "duration": {
+                "until": "end-of-this-phase"
+              },
+              "optional": true
+            },
+            {
+              "action": "reroll",
+              "roll": "wound",
+              "eligibleResults": [
+                1
+              ],
+              "actor": "target-unit-model",
+              "attackTarget": "unravelling-enemy-unit",
+              "duration": {
+                "until": "end-of-this-phase"
+              },
+              "optional": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.ceramite-sentinels.establish-supremacy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ceramite Sentinels",
+    "cp": 1,
+    "summary": "In either Fight phase, use this on your Entrenched Adeptus Astartes Infantry when you select it to consolidate. The unit can choose Objective Consolidation without meeting the restrictions that normally apply before that move. It may leave enemy Engagement Range, provided it satisfies the remaining conditions for consolidating toward an objective.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 40,
+        "end": 50,
+        "target": {
+          "kind": "ability",
+          "id": "space-marines.ceramite-sentinels.adaptive-defence"
+        }
+      },
+      {
+        "start": 132,
+        "end": 155,
+        "target": {
+          "kind": "core-rule",
+          "id": "consolidation-move"
+        }
+      },
+      {
+        "start": 246,
+        "end": 262,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Ceramite Sentinels",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "unit-selected-to-consolidate",
+            "actor": "chosen-unit"
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "allKeywords": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "entrenched",
+              "triggering-unit"
+            ]
+          },
+          "effects": [
+            {
+              "action": "allow-consolidation-mode",
+              "actor": "chosen-unit",
+              "mode": "objective",
+              "optional": true,
+              "override": [
+                "before-moving-restrictions"
+              ]
+            },
+            {
+              "action": "allow-exit-engagement-range",
+              "actor": "chosen-unit",
+              "against": "enemy-units",
+              "condition": "objective-consolidation-remaining-conditions-met"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

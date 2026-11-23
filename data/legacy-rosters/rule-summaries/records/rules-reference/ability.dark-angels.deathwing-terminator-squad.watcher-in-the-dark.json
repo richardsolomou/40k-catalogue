@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.deathwing-terminator-squad.watcher-in-the-dark",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Deathwing Terminator Squad",
+    "summary": "Once per battle, after one of its ADEPTUS ASTARTES models is allocated a mortal wound, this unit may summon its Watcher in the Dark. Through phase end, all its models gain Feel No Pain 4+ for mortal wounds only.",
+    "summarySpans": [
+      {
+        "start": 34,
+        "end": 50,
+        "bold": true
+      },
+      {
+        "start": 73,
+        "end": 85,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 172,
+        "end": 184,
+        "target": {
+          "kind": "core-ability",
+          "id": "feel-no-pain"
+        }
+      },
+      {
+        "start": 192,
+        "end": 205,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "limit": {
+          "uses": 1,
+          "period": "battle"
+        },
+        "trigger": {
+          "event": "after-mortal-wound-allocation",
+          "recipient": "model in this unit",
+          "requiredKeyword": "ADEPTUS ASTARTES"
+        },
+        "effect": {
+          "actor": "this unit",
+          "optional": true,
+          "summons": "Watcher in the Dark",
+          "grant": {
+            "recipient": "models in this unit",
+            "ability": "Feel No Pain",
+            "threshold": "4+",
+            "onlyAgainst": "mortal wounds",
+            "until": "phase end"
+          }
+        }
+      }
+    }
+  }
+}

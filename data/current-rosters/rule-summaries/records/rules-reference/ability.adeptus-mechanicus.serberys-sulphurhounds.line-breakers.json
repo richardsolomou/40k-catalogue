@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.serberys-sulphurhounds.line-breakers",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Serberys Sulphurhounds",
+    "summary": "Whenever this unit finishes a Charge move, choose one enemy unit that sits in its Engagement Range, then roll a D6 for each of this unit's models inside that enemy unit's Engagement Range, adding 2 to each roll if, when it began its Charge move, this unit stood within 6\" of one of your ADEPTUS MECHANICUS BATTLELINE units. Every 4+ causes that enemy unit to suffer 1 mortal wound.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Serberys Sulphurhounds",
+        "trigger": {
+          "event": "ends-charge-move"
+        },
+        "selection": {
+          "count": 1,
+          "side": "enemy",
+          "withinEngagementRange": true
+        },
+        "roll": {
+          "dice": "D6",
+          "diceSides": 6,
+          "perModelInEngagementRange": true,
+          "bonus": {
+            "add": 2,
+            "condition": {
+              "chargeStartedWithinInches": 6,
+              "of": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "ADEPTUS MECHANICUS",
+                  "BATTLELINE"
+                ]
+              }
+            }
+          },
+          "success": "4+",
+          "mortalWoundsPerSuccess": 1
+        }
+      }
+    }
+  }
+}

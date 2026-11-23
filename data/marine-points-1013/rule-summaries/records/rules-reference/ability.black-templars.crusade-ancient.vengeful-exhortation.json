@@ -1,0 +1,60 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.crusade-ancient.vengeful-exhortation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Crusade Ancient",
+    "summary": "In the Fight phase, the Crusade Ancient can activate this ability. Roll a D6 if a model in the Crusade Ancient’s unit is destroyed and the Crusade Ancient’s unit still awaits its fight activation. A 4+ keeps the destroyed model in play to fight on the same activation as the Crusade Ancient’s unit. If they have yet to fight when the phase closes, fight then. Remove the destroyed model once it has fought.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "activation": {
+          "phase": "Fight",
+          "optional": true
+        },
+        "trigger": {
+          "event": "model destroyed",
+          "model": "member of owner unit",
+          "modelUnitHasNotBeenSelectedToFight": true
+        },
+        "roll": {
+          "die": "D6",
+          "minimumSuccess": 4
+        },
+        "effect": {
+          "delayRemoval": true,
+          "fightWithItsUnitOrAtPhaseEnd": true,
+          "removeAfterFighting": true
+        }
+      }
+    }
+  }
+}

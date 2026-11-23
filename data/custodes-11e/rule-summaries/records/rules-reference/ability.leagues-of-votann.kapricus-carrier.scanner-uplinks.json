@@ -1,0 +1,56 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.kapricus-carrier.scanner-uplinks",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Kapricus Carrier",
+    "summary": "In your Shooting phase, once this model has shot, pick one enemy unit that is neither a MONSTER nor a VEHICLE and that at least one of those attacks hit. It is suppressed until your next turn begins; a suppressed unit's models get -1 to the Hit roll for every attack they make.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "datasheet": "Kapricus Carrier",
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "after-this-model-has-shot"
+        },
+        "effect": {
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "keywordsNone": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "condition": "hit by one or more of those attacks"
+          },
+          "kind": "suppressed",
+          "until": "start-of-your-next-turn",
+          "while": {
+            "roll": "hit",
+            "op": "subtract",
+            "value": 1
+          }
+        }
+      }
+    }
+  }
+}

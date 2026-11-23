@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.chaos-terminators.lethal-obsession",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Chaos Terminators",
+    "summary": "In your own Shooting phase, once this unit finishes shooting, it can use this ability: pick an enemy unit that its ranged attacks hit. For the rest of the turn, each time a charge is declared by this unit it may re-roll its charge roll, but it has to finish the charge move engaged with the chosen enemy unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "datasheet-ability",
+        "datasheet": "Chaos Terminators",
+        "holder": "unit",
+        "effects": [
+          {
+            "kind": "marked-charge",
+            "turn": "own",
+            "phase": "shooting",
+            "trigger": "after-unit-has-shot",
+            "optional": true,
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "condition": "hit-by-those-ranged-attacks"
+            },
+            "duration": "end-of-turn",
+            "onDeclareCharge": {
+              "reroll": "charge-roll",
+              "mustEndChargeMoveEngagedWith": "selected-enemy-unit"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.eldritch-raiders.adrenal-infusions",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Eldritch Raiders",
+    "summary": "Unit eligibility — ANHRATHE / INFANTRY. This unit’s Fade Back Agile Manoeuvre costs no Battle Focus token. It may use Fade Back in a phase where another unit has used it. This unit cannot combine Fade Back with a different Agile Manoeuvre in that phase.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 27,
+        "bold": true
+      },
+      {
+        "start": 30,
+        "end": 38,
+        "bold": true
+      },
+      {
+        "start": 87,
+        "end": 99,
+        "target": {
+          "kind": "ability",
+          "id": "aeldari.battle-focus"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "unit",
+          "match": "all",
+          "keywords": [
+            "ANHRATHE",
+            "INFANTRY"
+          ],
+          "excludes": [],
+          "characterOnly": false
+        },
+        "effects": [
+          {
+            "type": "waive-resource-cost",
+            "target": "this-unit",
+            "action": "Fade Back",
+            "resource": "Battle Focus token"
+          },
+          {
+            "type": "allow-repeat-across-units",
+            "target": "this-unit",
+            "action": "Fade Back",
+            "otherUnitUsedManoeuvre": "Fade Back",
+            "window": "same-phase"
+          },
+          {
+            "type": "restrict-manoeuvre",
+            "target": "this-unit",
+            "prohibits": "other-Agile-Manoeuvre",
+            "window": "phase-using-Fade-Back"
+          }
+        ]
+      }
+    }
+  }
+}

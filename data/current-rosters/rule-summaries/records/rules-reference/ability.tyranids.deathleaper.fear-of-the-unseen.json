@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.deathleaper.fear-of-the-unseen",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Deathleaper",
+    "summary": "Subtract 1 from the Leadership characteristic of each model in an enemy unit no more than 6″ away from this model. At the opponent’s Battle-Shock step, those enemy units must test for Battle-shock if their numbers are Below Starting Strength.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 30,
+        "bold": true
+      },
+      {
+        "start": 90,
+        "end": 92,
+        "bold": true
+      },
+      {
+        "start": 133,
+        "end": 150,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock-step"
+        }
+      },
+      {
+        "start": 175,
+        "end": 196,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 218,
+        "end": 241,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "this-model",
+        "area": {
+          "side": "enemy",
+          "entity": "unit",
+          "rangeInches": 6
+        },
+        "effects": [
+          {
+            "recipient": "models-in-affected-unit",
+            "characteristic": "leadership",
+            "modifier": -1
+          },
+          {
+            "recipient": "affected-unit",
+            "condition": "below-starting-strength",
+            "timing": "battle-shock-step-of-opponent-command-phase",
+            "test": "battle-shock",
+            "required": true
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.shadow-weaver-platform.monofilament-snare",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Shadow Weaver Platform",
+    "summary": "In your Shooting phase, once this model has shot, pick an enemy unit hit by at least one attack from the shadow weaver; that unit is snared until your next turn starts. Whenever a snared unit makes an Advance, Fall Back or Normal move, roll one D6 per model in that unit; each roll of 1 inflicts 1 mortal wound on it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "when": {
+            "turn": "own",
+            "phase": "shooting"
+          },
+          "trigger": "after-this-model-has-shot",
+          "weapon": "shadow weaver",
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "hitByThoseAttacks": {
+              "minimum": 1
+            }
+          },
+          "effects": [
+            {
+              "state": "snared",
+              "duration": "start-of-your-next-turn"
+            }
+          ],
+          "snared": {
+            "trigger": [
+              "normal-move",
+              "advance-move",
+              "fall-back-move"
+            ],
+            "roll": {
+              "dice": "D6",
+              "count": "per-model"
+            },
+            "perResultOf": 1,
+            "mortalWounds": 1
+          }
+        }
+      }
+    }
+  }
+}

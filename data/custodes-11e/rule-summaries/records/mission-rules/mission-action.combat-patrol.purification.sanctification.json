@@ -1,0 +1,128 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-action",
+  "id": "combat-patrol.purification.sanctification",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Combat Patrol",
+    "summary": "As your Shooting phase begins, one of your Crowe's Sanctifiers units may start this action at an unsanctified objective in range. It can be started once per turn. It finishes when your next Command phase ends, or when the battle ends if sooner. Unless the unit is battle-shocked then, your army marks that objective as sanctified.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 43,
+        "end": 62,
+        "bold": true
+      },
+      {
+        "start": 84,
+        "end": 90,
+        "target": {
+          "kind": "core-rule",
+          "id": "performing-actions"
+        }
+      },
+      {
+        "start": 110,
+        "end": 119,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 190,
+        "end": 203,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 264,
+        "end": 278,
+        "bold": true
+      },
+      {
+        "start": 306,
+        "end": 315,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 319,
+        "end": 329,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "starts": {
+          "player": "acting-player",
+          "phase": "shooting",
+          "point": "start"
+        },
+        "eligibleUnit": {
+          "side": "friendly",
+          "countPerStart": 1,
+          "position": {
+            "relation": "within-range",
+            "selector": "objective",
+            "excludeState": "sanctified"
+          },
+          "patrolKeyword": "Crowe's Sanctifiers"
+        },
+        "useLimit": {
+          "maxStartsPerOwnTurn": 1
+        },
+        "completes": {
+          "window": "earliest",
+          "alternatives": [
+            "end-of-next-own-command-phase",
+            "end-of-battle"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "mark-objective",
+            "objective": "selected-objective",
+            "state": "sanctified",
+            "attributedTo": "acting-army",
+            "requires": {
+              "subject": "acting-unit",
+              "predicate": "is-not-battle-shocked",
+              "window": "on-completion"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

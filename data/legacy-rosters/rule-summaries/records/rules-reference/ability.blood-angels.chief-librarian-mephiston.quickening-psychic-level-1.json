@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.chief-librarian-mephiston.quickening-psychic-level-1",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Chief Librarian Mephiston",
+    "summary": "In your Command phase, this unit may attempt Quickening once while free of Battle-shock. Roll a D6 for the Psychic ability. A 1 Battle-shocks the unit. If you chose to roll, the unit also gains Assault Doctrine up to the beginning of your following Command phase, alongside any doctrines already active.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 107,
+        "end": 122,
+        "target": {
+          "kind": "core-rule",
+          "id": "psychic-abilities"
+        }
+      },
+      {
+        "start": 194,
+        "end": 210,
+        "target": {
+          "kind": "ability",
+          "id": "space-marines.combat-doctrines"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "psychic-self-doctrine-grant",
+        "psychicLevel": 1,
+        "activation": {
+          "phase": "command",
+          "phaseOwner": "self",
+          "optional": true,
+          "ownUnitBattleShocked": false,
+          "usesPerPhaseForThisAbility": 1,
+          "die": "D6"
+        },
+        "onRoll": {
+          "ifDieEquals": 1,
+          "applyBattleShockTo": "own-unit"
+        },
+        "doctrine": {
+          "when": "psychic-roll-made",
+          "recipient": "own-unit",
+          "setActive": "assault",
+          "keepOtherActiveDoctrines": true,
+          "expires": "start-of-next-own-command-phase"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.virulent-vectorium.overwhelming-generosity",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Virulent Vectorium",
+    "cp": 1,
+    "summary": "Wargear, 1 CP. Use it as your Shooting phase begins. Choose one of your DEATH GUARD CHARACTER units and pick one enemy unit it can see. For the rest of the phase, whenever one of your DEATH GUARD units chooses that enemy unit as a target for ranged attacks, you may re-roll the dice that set how many attacks its models' weapons make.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Virulent Vectorium",
+          "category": "Wargear",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "moment": "start-of-phase"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "DEATH GUARD",
+              "CHARACTER"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "re-roll",
+              "roll": "random-attacks-characteristic",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "visible": true
+              },
+              "appliesTo": "friendly DEATH GUARD units selecting that enemy unit for ranged attacks"
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

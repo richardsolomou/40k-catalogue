@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.recon-element.scramble-field",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Recon Element",
+    "cp": 1,
+    "summary": "At the start of the enemy Reinforcements step, choose an ASTRA MILITARUM INFANTRY unit of yours. Through that Movement phase, enemy Reinforcements must set up farther than 12\" from it.",
+    "summarySpans": [
+      {
+        "start": 57,
+        "end": 81,
+        "bold": true
+      },
+      {
+        "start": 110,
+        "end": 124,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "wargear",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "start-of-reinforcements-step"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ASTRA MILITARUM INFANTRY"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "prohibit-reinforcements-setup",
+              "recipient": "enemy-units-being-set-up-as-reinforcements",
+              "distance": {
+                "unit": "inch",
+                "amount": 12,
+                "comparator": "at-most",
+                "from": "target-unit"
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

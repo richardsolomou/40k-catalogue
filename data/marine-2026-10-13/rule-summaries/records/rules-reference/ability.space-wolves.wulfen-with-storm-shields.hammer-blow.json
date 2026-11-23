@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.wulfen-with-storm-shields.hammer-blow",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Wulfen with Storm Shields",
+    "summary": "After this unit fights, choose up to one Monster or Vehicle unit it hit. That unit is Suppressed and takes −1 on Hit rolls until your next turn begins.",
+    "summarySpans": [
+      {
+        "start": 41,
+        "end": 48,
+        "bold": true
+      },
+      {
+        "start": 52,
+        "end": 59,
+        "bold": true
+      },
+      {
+        "start": 86,
+        "end": 96,
+        "bold": true
+      },
+      {
+        "start": 113,
+        "end": 122,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "actor": "controlling-player",
+        "trigger": {
+          "phase": "fight",
+          "turn": "either",
+          "event": "after-this-unit-fought"
+        },
+        "selection": {
+          "side": "enemy",
+          "entity": "unit",
+          "maximum": 1,
+          "minHitsFromThisUnit": 1,
+          "anyKeyword": [
+            "MONSTER",
+            "VEHICLE"
+          ]
+        },
+        "status": "suppressed",
+        "duration": "until-start-of-owners-next-turn",
+        "effect": {
+          "recipient": "suppressed-unit-attacks",
+          "roll": "hit",
+          "modifier": -1
+        }
+      }
+    }
+  }
+}

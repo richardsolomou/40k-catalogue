@@ -1,0 +1,145 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.gate-warden-lance.lancebreaker",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Gate Warden Lance",
+    "cp": 1,
+    "summary": "Either Fight Phase. React once an enemy unit has picked its attack targets. Pick one IMPERIAL KNIGHTS unit of yours it targeted that is inside your Defensive Line. For the phase, its attackers take a −1 penalty to Wound rolls whenever their attack’s Strength exceeds the target’s Toughness.",
+    "summarySpans": [
+      {
+        "start": 7,
+        "end": 18,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 85,
+        "end": 101,
+        "bold": true
+      },
+      {
+        "start": 148,
+        "end": 162,
+        "target": {
+          "kind": "ability",
+          "id": "imperial-knights.gate-warden-lance.dauntless-defenders"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "ability": {
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "attack-compare",
+              "parameters": {
+                "left": {
+                  "of": "attacker",
+                  "stat": "S"
+                },
+                "comparison": "gt",
+                "right": {
+                  "of": "defender",
+                  "stat": "T"
+                }
+              }
+            },
+            "effect": {
+              "type": "roll-modifier",
+              "target": "attacker",
+              "modifier": {
+                "roll": "wound",
+                "operation": "subtract",
+                "value": 1
+              }
+            }
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "trigger": {
+            "event": "targets-selected",
+            "filter": {
+              "kind": "attack"
+            },
+            "subject": {
+              "owner": "enemy"
+            },
+            "object": "this-unit"
+          },
+          "behavior": "reactive"
+        },
+        "stratagem": {
+          "id": "lancebreaker-gate-warden-lance-imperial-knights",
+          "cp_cost": 1,
+          "phases": [
+            "fight"
+          ],
+          "player_turn": "either",
+          "timing": "once-per-phase",
+          "type": "strategic-ploy",
+          "target_restrictions": {
+            "required_keywords": [
+              "Imperial Knights"
+            ],
+            "count": "one",
+            "side": "your-army",
+            "selects": "unit",
+            "bound_to": "attacked-unit",
+            "eligibility": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "matches",
+                  "parameters": {
+                    "filter": {
+                      "owner": "friendly"
+                    }
+                  }
+                },
+                {
+                  "type": "in-region",
+                  "parameters": {
+                    "subject": "this-unit",
+                    "region": {
+                      "rule_region": {
+                        "region_id": "defensive-line",
+                        "owner_faction": "imperial-knights"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "valueRoles": {
+          "1": "penalty to attacker Wound roll"
+        }
+      }
+    }
+  }
+}

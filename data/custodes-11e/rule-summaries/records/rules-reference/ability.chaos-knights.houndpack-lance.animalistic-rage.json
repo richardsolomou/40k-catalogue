@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.houndpack-lance.animalistic-rage",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Houndpack Lance",
+    "cp": 1,
+    "summary": "When an enemy attack destroys your WAR DOG, use this in the Fight phase or during the opposing Shooting phase. Before resolving Deadly Demise, the WAR DOG may shoot or fight. The destroyer is the sole possible target. An ineligible destroyer prevents the retaliation. Resolve Deadly Demise normally after the shooting or fighting and any Consolidation.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Houndpack Lance",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "after": "enemy-attack-destroys-friendly-war-dog"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "WAR DOG"
+            ],
+            "condition": "unit-destroyed-by-triggering-attack",
+            "eligibleImmediatelyAfterDestruction": true
+          },
+          "effects": [
+            {
+              "action": "optional-out-of-sequence-activation",
+              "recipient": "chosen-unit",
+              "choices": [
+                "shoot",
+                "fight"
+              ],
+              "before": "deadly-demise",
+              "onlyTarget": "destroying-enemy-unit",
+              "condition": "destroyer-eligible-for-chosen-activation"
+            },
+            {
+              "action": "resolve-deadly-demise-normally",
+              "recipient": "chosen-unit",
+              "after": [
+                "retaliation",
+                "any-consolidation-moves"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

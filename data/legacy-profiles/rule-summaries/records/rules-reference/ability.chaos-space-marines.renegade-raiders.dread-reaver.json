@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.renegade-raiders.dread-reaver",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Renegade Raiders",
+    "summary": "This enhancement requires HERETIC ASTARTES on the bearer. For each melee attack the bearer makes, you may re-roll its Hit roll and its Wound roll. The bearer must be wholly within 12″ of the opponent’s deployment zone.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 42,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 126,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 135,
+        "end": 145,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Heretic Astartes"
+          ],
+          "excludes": []
+        },
+        "trigger": {
+          "event": "attack",
+          "actor": "bearer",
+          "attack": "melee",
+          "frequency": "each"
+        },
+        "condition": {
+          "subject": "bearer",
+          "whollyWithin": {
+            "inches": 12,
+            "of": "opponent-deployment-zone"
+          }
+        },
+        "effect": {
+          "type": "optional-reroll",
+          "rolls": [
+            "hit",
+            "wound"
+          ],
+          "results": "any"
+        }
+      }
+    }
+  }
+}

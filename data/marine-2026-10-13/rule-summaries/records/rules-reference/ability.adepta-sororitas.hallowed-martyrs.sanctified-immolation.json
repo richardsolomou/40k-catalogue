@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adepta-sororitas.hallowed-martyrs.sanctified-immolation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hallowed Martyrs",
+    "cp": 1,
+    "summary": "In any phase, pick a just-destroyed ADEPTA SORORITAS VEHICLE model of yours that has Deadly Demise. Skip the D6 activation check and inflict the ability’s mortal wounds automatically. The destroyed model is eligible for this Stratagem.",
+    "summarySpans": [
+      {
+        "start": 36,
+        "end": 60,
+        "bold": true
+      },
+      {
+        "start": 85,
+        "end": 98,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "deadly-demise"
+        }
+      },
+      {
+        "start": 155,
+        "end": 168,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "target-model-just-destroyed"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "model",
+            "count": 1,
+            "mode": "destroyed-trigger-model",
+            "keywords": [
+              "ADEPTA SORORITAS VEHICLE"
+            ],
+            "requiresAbility": "Deadly Demise",
+            "allowDestroyed": true
+          },
+          "effects": [
+            {
+              "kind": "automatic-deadly-demise",
+              "recipient": "target-model",
+              "replace": {
+                "kind": "deadly-demise-activation-test",
+                "roll": {
+                  "kind": "die",
+                  "sides": 6,
+                  "count": 1
+                }
+              },
+              "resolve": "normal-mortal-wound-effect"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

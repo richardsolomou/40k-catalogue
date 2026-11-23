@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.raider.masters-of-the-shadowed-sky",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Raider",
+    "summary": "Station the Raider in range of an objective under your control with at least one Kabalite Warriors unit aboard. At your Command phase’s close, that makes the objective stay yours. The opponent retakes it by ending a phase with a higher Level of Control there.",
+    "summarySpans": [
+      {
+        "start": 34,
+        "end": 43,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 81,
+        "end": 98,
+        "bold": true
+      },
+      {
+        "start": 158,
+        "end": 167,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 236,
+        "end": 252,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "actor": "controlling-player",
+        "trigger": {
+          "phase": "command",
+          "turn": "own",
+          "timing": "end"
+        },
+        "condition": {
+          "embarkedUnits": {
+            "minCount": 1,
+            "requiredKeyword": "KABALITE WARRIORS"
+          }
+        },
+        "subject": {
+          "entity": "objective-marker",
+          "proximity": "model-within-objective-range",
+          "controller": "actor"
+        },
+        "effect": {
+          "operation": "retain-objective-control",
+          "endsWhen": {
+            "timing": "end-of-phase",
+            "otherPlayerControl": "strictly-greater"
+          }
+        }
+      }
+    }
+  }
+}

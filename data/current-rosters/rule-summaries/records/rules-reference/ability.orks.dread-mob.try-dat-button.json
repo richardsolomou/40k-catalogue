@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.dread-mob.try-dat-button",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Dread Mob",
+    "summary": "In the Fight phase, or in your own Shooting phase, when you choose one of your ORKS WALKER units (not a TITANIC one) to attack, you may use this. Roll either a single D6 or a pair of D6, re-rolling duplicate results until none remain; that unit's attacks gain the matching entry for each die: 1-2 gives +1 Attacks, 3-4 gives +2 Strength, 5-6 gives +1 AP. Rolling a pair also means the unit takes one hazard roll once its attacks are done. A duplicate means two dice landing in the same result band (1-2, 3-4 or 5-6).",
+    "summarySpans": [
+      {
+        "start": 400,
+        "end": 411,
+        "target": {
+          "kind": "core-rule",
+          "id": "hazard-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "interpretation": [
+      {
+        "question": "What counts as a duplicate result?"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Dread Mob",
+        "trigger": {
+          "windows": [
+            {
+              "phase": "shooting",
+              "turn": "own"
+            },
+            {
+              "phase": "fight",
+              "turn": "either"
+            }
+          ],
+          "event": "friendly-unit-selected-to-attack",
+          "keywordsAll": [
+            "ORKS",
+            "WALKER"
+          ],
+          "excludedKeywords": [
+            "TITANIC"
+          ],
+          "optional": true
+        },
+        "roll": {
+          "dice": "D6",
+          "countOptions": [
+            1,
+            2
+          ],
+          "duplicates": "re-roll-until-none",
+          "duplicateDefinition": "same-result-band"
+        },
+        "table": [
+          {
+            "min": 1,
+            "max": 2,
+            "effect": {
+              "characteristic": "A",
+              "delta": 1
+            }
+          },
+          {
+            "min": 3,
+            "max": 4,
+            "effect": {
+              "characteristic": "S",
+              "delta": 2
+            }
+          },
+          {
+            "min": 5,
+            "max": 6,
+            "effect": {
+              "characteristic": "AP",
+              "delta": 1
+            }
+          }
+        ],
+        "drawback": {
+          "condition": "rolled-two-dice",
+          "hazardRolls": 1,
+          "when": "after-unit-has-attacked"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "shooting-at-engaged-monsters-and-vehicles",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Core Rules",
+    "page": "62",
+    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=62"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "17. Monsters And Vehicles",
+    "ruleNumber": "17.03",
+    "summary": "In your Shooting phase, ranged fire can target an enemy MONSTER or VEHICLE even if it is Engaged. Leave [BLAST] out of those attacks. Reduce the attack's Hit roll by 1, with one exception. A weapon marked [CLOSE-QUARTERS] avoids the reduction when the firer's unit is itself Engaged with that enemy. If the firing unit cannot shoot and is Engaged with that enemy, it needs Close-Quarters Shooting to attack it. Apply the limits of that shooting type. The example shows an unengaged INFANTRY unit firing at a VEHICLE with normal shooting at −1. The Engaged INFANTRY unit in the example can return fire at that VEHICLE using only its [CLOSE-QUARTERS] weapons. The VEHICLE uses Close-Quarters Shooting against both INFANTRY units. It excludes [BLAST] against the engaged unit, and can aim [BLAST] at other unengaged units.",
+    "summarySpans": [
+      {
+        "start": 104,
+        "end": 111,
+        "target": {
+          "kind": "core-rule",
+          "id": "blast"
+        }
+      },
+      {
+        "start": 205,
+        "end": 221,
+        "target": {
+          "kind": "core-rule",
+          "id": "close-quarters"
+        }
+      },
+      {
+        "start": 373,
+        "end": 396,
+        "target": {
+          "kind": "core-rule",
+          "id": "close-quarters-shooting"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Core Rules",
+        "page": "62",
+        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=62"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "ranged-target-exception",
+        "window": "own-shooting-phase",
+        "target": {
+          "armies": "enemy",
+          "engaged": true,
+          "keywordsAnyOf": [
+            "MONSTER",
+            "VEHICLE"
+          ]
+        },
+        "permission": {
+          "attackType": "ranged",
+          "excludedWeaponAbilities": [
+            "BLAST"
+          ]
+        },
+        "targetBasedHitModifier": {
+          "amount": -1,
+          "recipient": "each attacking model making a qualifying ranged attack",
+          "excludedIfAllOf": [
+            {
+              "weaponAbility": "CLOSE-QUARTERS"
+            },
+            {
+              "attackingModelsUnitEngagedWithSelectedTarget": true
+            }
+          ]
+        },
+        "accordion": {
+          "ifFiringUnitIsEngagedWithTargetAndIneligibleToShoot": "ranged attacks against this target prohibited",
+          "permissionNeeded": "eligible for Close-Quarters Shooting while Engaged",
+          "cancelOtherShootingRestrictions": false
+        },
+        "example": {
+          "vehicleVsUnengagedInfantry": {
+            "procedure": "close-quarters-shooting",
+            "hitModifier": -1,
+            "hitModifierExceptionWeaponAbility": "CLOSE-QUARTERS"
+          },
+          "unengagedInfantryVsEngagedVehicle": {
+            "procedure": "normal-shooting",
+            "hitModifier": -1
+          },
+          "blastVsEngagedVehicle": "prohibited; may aim at other unengaged units",
+          "vehicleVsEngagedInfantry": {
+            "procedure": "close-quarters-shooting",
+            "illustratedHitModifier": -1,
+            "blastVsEngagedInfantry": false,
+            "blastVsOtherUnengagedUnits": true
+          },
+          "engagedInfantryVsVehicle": {
+            "procedure": "close-quarters-shooting",
+            "weaponsRequireAbility": "CLOSE-QUARTERS",
+            "shownTarget": "the engaged vehicle",
+            "targetMustBeEngagedWithFiringUnit": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.primaris-psyker.psychic-barrier",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Primaris Psyker",
+    "summary": "At the start of the opponent’s Shooting phase, the Primaris Psyker can roll a D6. On 1, its unit takes D3 mortal wounds. On 2+, give the unit’s models a 4+ invulnerable save through that phase.",
+    "summarySpans": [
+      {
+        "start": 78,
+        "end": 80,
+        "bold": true
+      },
+      {
+        "start": 103,
+        "end": 105,
+        "bold": true
+      },
+      {
+        "start": 106,
+        "end": 119,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 124,
+        "end": 126,
+        "bold": true
+      },
+      {
+        "start": 153,
+        "end": 155,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "psychic",
+        "source": "this-model",
+        "trigger": {
+          "event": "phase",
+          "phase": "shooting",
+          "turn": "opponent-turn",
+          "timing": "start"
+        },
+        "optional": true,
+        "effect": {
+          "operation": "roll-and-branch",
+          "dice": {
+            "count": 1,
+            "sides": 6,
+            "additive": 0
+          },
+          "branches": [
+            {
+              "comparison": "at-least",
+              "value": 2,
+              "effect": {
+                "operation": "grant-invulnerable-save",
+                "minimum": 4,
+                "recipient": "models-in-this-models-unit",
+                "duration": "until-end-of-triggering-phase"
+              }
+            },
+            {
+              "comparison": "less-than",
+              "value": 2,
+              "effect": {
+                "operation": "inflict-mortal-wounds",
+                "recipient": "this-models-unit",
+                "quantity": {
+                  "count": 1,
+                  "sides": 3,
+                  "additive": 0
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

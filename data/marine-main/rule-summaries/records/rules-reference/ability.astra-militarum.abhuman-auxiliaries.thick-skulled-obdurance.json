@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.abhuman-auxiliaries.thick-skulled-obdurance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Astra Militarum Faction Pack: Version 1.3",
+    "page": "2",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_astra_militarum-1hevkhdpmv-stfkch2tsz.pdf#page=2"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Abhuman Auxiliaries",
+    "cp": 1,
+    "summary": "In either Fight phase or the enemy Shooting phase, react when an enemy targets a friendly Ogryn Squad or Bullgryn Squad that is in range of an objective. Use this on that squad. Its incoming enemy attacks have AP worsened by 1 until the triggering enemy unit has attacked.",
+    "summarySpans": [
+      {
+        "start": 10,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 35,
+        "end": 49,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 90,
+        "end": 101,
+        "bold": true
+      },
+      {
+        "start": 105,
+        "end": 119,
+        "bold": true
+      },
+      {
+        "start": 143,
+        "end": 152,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 210,
+        "end": 212,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Astra Militarum Faction Pack: Version 1.3",
+        "page": "2",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_astra_militarum-1hevkhdpmv-stfkch2tsz.pdf#page=2"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-selects-friendly-attack-target",
+            "actor": "enemy-attacking-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "mode": "triggering-friendly-attack-target",
+            "anyUnitName": [
+              "Bullgryn Squad",
+              "Ogryn Squad"
+            ],
+            "withinRangeOf": "objective"
+          },
+          "effects": [
+            {
+              "kind": "attack-characteristic-modifier",
+              "actor": "enemy-attacking-models",
+              "recipient": "enemy-attacks-against-target-unit",
+              "characteristic": "armour-penetration",
+              "operation": "worsen",
+              "amount": 1,
+              "duration": {
+                "until": "triggering-enemy-unit-has-attacked"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

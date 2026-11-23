@@ -1,0 +1,133 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.tactical-brethren.masterful-tactics",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Tactical Brethren",
+    "cp": 1,
+    "summary": "When an enemy finishes a move in the opponent’s Movement phase within 8\" of your unengaged Adeptus Astartes Infantry or Mounted unit, that friendly unit may make a Normal Move up to D6\". Use a 6\" cap instead if Tactical Doctrine applies to it.",
+    "summarySpans": [
+      {
+        "start": 48,
+        "end": 62,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 81,
+        "end": 90,
+        "bold": true
+      },
+      {
+        "start": 91,
+        "end": 107,
+        "bold": true
+      },
+      {
+        "start": 108,
+        "end": 116,
+        "bold": true
+      },
+      {
+        "start": 120,
+        "end": 127,
+        "bold": true
+      },
+      {
+        "start": 164,
+        "end": 175,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 211,
+        "end": 228,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "space-marines.combat-doctrines"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-finishes-move",
+            "distance": {
+              "unit": "inch",
+              "amount": 8,
+              "from": "unengaged-friendly-unit",
+              "comparator": "at-most"
+            }
+          },
+          "target": {
+            "fromTrigger": "nearby-friendly-unit",
+            "keywords": [
+              "Adeptus Astartes"
+            ],
+            "anyKeyword": [
+              "Infantry",
+              "Mounted"
+            ],
+            "eligibility": "unengaged"
+          },
+          "effects": [
+            {
+              "action": "make-move",
+              "actor": "target-unit",
+              "moveType": "normal",
+              "optional": true,
+              "distanceCap": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1,
+                "unit": "inch"
+              },
+              "replacement": {
+                "condition": "tactical-doctrine-active-for-target",
+                "distanceCap": {
+                  "unit": "inch",
+                  "amount": 6,
+                  "from": "move-start",
+                  "comparator": "at-most"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.armoured-infantry.master-manoeuvrist",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Armoured Infantry",
+    "summary": "The bearer’s unit can board a friendly ASTRA MILITARUM TRANSPORT when the opposing Fight phase ends. It must be clear of enemy Engagement Range, and every model in the unit must be 3″ or closer to the same transport.",
+    "summarySpans": [
+      {
+        "start": 39,
+        "end": 64,
+        "bold": true
+      },
+      {
+        "start": 83,
+        "end": 94,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 127,
+        "end": 143,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "phase-end",
+          "phase": "fight",
+          "owner": "opponent"
+        },
+        "conditions": [
+          {
+            "subject": "bearer-unit",
+            "state": "outside-enemy-engagement-range"
+          },
+          {
+            "subject": "every-model-in-bearer-unit",
+            "within": {
+              "inches": 3,
+              "of": {
+                "allKeywords": [
+                  "ASTRA MILITARUM",
+                  "TRANSPORT"
+                ],
+                "side": "own-army",
+                "sameUnitForAllModels": true
+              }
+            }
+          }
+        ],
+        "effect": {
+          "type": "embark",
+          "subject": "bearer-unit",
+          "into": "qualifying-transport",
+          "optional": true
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Officer",
+            "Infantry"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

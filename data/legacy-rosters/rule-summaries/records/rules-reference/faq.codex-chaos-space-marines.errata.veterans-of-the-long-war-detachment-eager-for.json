@@ -1,0 +1,177 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-chaos-space-marines.errata.veterans-of-the-long-war-detachment-eager-for",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Chaos Space Marines Faction Pack: Version 1.0",
+    "page": "37",
+    "url": "https://assets.warhammer-community.com/eng_10-06_warhammer40000_faction_pack_chaos_space_marines-h16lkqvvnq-bcejav0qap.pdf#page=37"
+  },
+  "data": {
+    "publication": "Codex: Chaos Space Marines",
+    "amends": [
+      {
+        "kind": "ability",
+        "id": "chaos-space-marines.veterans-of-the-long-war.eager-for-vengeance"
+      }
+    ],
+    "summary": "A HERETIC ASTARTES model can take Eager for Vengeance, excluding DAMNED. Its unit remains eligible for shooting and charge declarations after Falling Back that turn. A unit that is also the Focus of Hatred gets a +1 bonus to each attack’s hit roll and to its Charge roll.",
+    "summarySpans": [
+      {
+        "start": 34,
+        "end": 53,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Space Marines Faction Pack: Version 1.0",
+        "page": "37",
+        "url": "https://assets.warhammer-community.com/eng_10-06_warhammer40000_faction_pack_chaos_space_marines-h16lkqvvnq-bcejav0qap.pdf#page=37"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "1b005241-163d-4acc-a924-247912c8f99b",
+          "typedMechanics": {
+            "operation": "replace-enhancement",
+            "effect": {
+              "effect": {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "sequence",
+                    "steps": [
+                      {
+                        "type": "permission",
+                        "target": "this-unit",
+                        "modifier": {
+                          "activity": "shoot",
+                          "allow": true,
+                          "after": [
+                            "fall-back"
+                          ]
+                        }
+                      },
+                      {
+                        "type": "permission",
+                        "target": "this-unit",
+                        "modifier": {
+                          "activity": "declare-charge",
+                          "allow": true,
+                          "after": [
+                            "fall-back"
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "conditional",
+                    "condition": {
+                      "operator": "and",
+                      "operands": [
+                        {
+                          "type": "matches",
+                          "parameters": {
+                            "filter": {
+                              "designated": "focus-of-hatred"
+                            }
+                          }
+                        },
+                        {
+                          "type": "happened",
+                          "parameters": {
+                            "event": "move-ended",
+                            "filter": {
+                              "move_types": [
+                                "fall-back"
+                              ]
+                            },
+                            "window": "turn"
+                          }
+                        }
+                      ]
+                    },
+                    "effect": {
+                      "type": "sequence",
+                      "steps": [
+                        {
+                          "type": "roll-modifier",
+                          "target": "this-unit",
+                          "modifier": {
+                            "roll": "hit",
+                            "operation": "add",
+                            "value": 1
+                          }
+                        },
+                        {
+                          "type": "ability-part",
+                          "trigger": {
+                            "event": "targets-selected",
+                            "filter": {
+                              "kind": "charge"
+                            }
+                          },
+                          "effect": {
+                            "type": "roll-modifier",
+                            "target": "this-unit",
+                            "modifier": {
+                              "roll": "charge",
+                              "operation": "add",
+                              "value": 1
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "scope": {
+                "duration": "permanent"
+              },
+              "behavior": "reactive"
+            },
+            "detachmentId": "veterans-of-the-long-war",
+            "eligibility": {
+              "scope": "model",
+              "allOf": [
+                "Heretic Astartes"
+              ],
+              "excludes": [
+                "Damned"
+              ]
+            },
+            "targetQid": "ability:chaos-space-marines.veterans-of-the-long-war.eager-for-vengeance"
+          },
+          "statedValues": [
+            {
+              "kind": "hit-bonus",
+              "value": 1
+            },
+            {
+              "kind": "charge-bonus",
+              "value": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

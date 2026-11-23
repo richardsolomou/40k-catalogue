@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tyranids.tyranid-warriors-with-melee-bio-weapons.adaptive-instincts-once-per-turn-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Tyranid Warriors with Melee Bio-weapons",
+    "summary": "Each unit gets one use per turn. In a Fight phase, these Warriors can choose a boost if picked to fight or chosen as a target by an enemy unit. For the rest of that phase, raise either the Strength of their melee attacks or the Toughness of the unit by 1.",
+    "summarySpans": [
+      {
+        "start": 38,
+        "end": 49,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "limit": {
+          "count": 1,
+          "period": "turn",
+          "scope": "unit"
+        },
+        "trigger": {
+          "phase": "fight",
+          "optional": true,
+          "alternatives": [
+            "owning-unit-selected-to-fight",
+            "enemy-unit-targets-owning-unit"
+          ]
+        },
+        "choice": {
+          "count": 1,
+          "alternatives": [
+            {
+              "recipient": "melee-attacks-of-owning-unit",
+              "characteristic": "strength",
+              "modifier": 1
+            },
+            {
+              "recipient": "owning-unit",
+              "characteristic": "toughness",
+              "modifier": 1
+            }
+          ]
+        },
+        "expiry": "end-of-triggering-fight-phase"
+      }
+    }
+  }
+}

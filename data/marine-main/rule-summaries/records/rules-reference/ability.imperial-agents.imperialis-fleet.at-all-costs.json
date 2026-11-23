@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.imperialis-fleet.at-all-costs",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Imperialis Fleet",
+    "summary": "As your Command phase begins, choose one policy until your next Command phase starts. Eliminate At All Costs marks a single enemy on the board. Your Agents of the Imperium models get +1 to hit it. For Acquire At All Costs, designate one of the board’s objective markers. Your Agents of the Imperium models gain a 5+ invulnerable save and improve Leadership and Objective Control by 1 while their unit is in range of that marker.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 64,
+        "end": 77,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": "own-command-phase-start",
+        "choose": 1,
+        "expires": "next-own-command-phase-start",
+        "eliminate": {
+          "select": "one-enemy-unit-on-battlefield",
+          "attacker": "friendly-agents-of-the-imperium-model",
+          "attackMustTargetSelectedUnit": true,
+          "hitRollModifier": 1
+        },
+        "acquire": {
+          "select": "one-objective-marker-on-battlefield",
+          "whileUnitInRange": true,
+          "recipient": "models-in-friendly-agents-of-the-imperium-unit",
+          "leadershipImprovement": 1,
+          "objectiveControlImprovement": 1,
+          "invulnerableSave": 5
+        }
+      }
+    }
+  }
+}

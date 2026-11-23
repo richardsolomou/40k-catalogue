@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.angelic-inheritors.ordained-sacrifice",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Angelic Inheritors",
+    "summary": "Model eligibility — Adeptus Astartes. The army can use this once in a battle. If the bearer was destroyed this phase, roll a D6 at phase end. On 2+, return the bearer to the closest possible spot on the battlefield to where it fell. It returns unengaged and on 3 wounds.",
+    "summarySpans": [
+      {
+        "start": 20,
+        "end": 36,
+        "bold": true
+      },
+      {
+        "start": 96,
+        "end": 105,
+        "bold": true
+      },
+      {
+        "start": 244,
+        "end": 253,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "Adeptus Astartes"
+          ],
+          "anyOf": [],
+          "excludes": [],
+          "equipment": null,
+          "characterOnly": true,
+          "equipableByNonCharacter": false
+        },
+        "trigger": {
+          "event": "bearer destroyed",
+          "timing": "end of that phase"
+        },
+        "limit": {
+          "uses": 1,
+          "per": "battle",
+          "sharedBy": "army"
+        },
+        "effects": [
+          {
+            "recipient": "destroyed bearer",
+            "operation": "return-model",
+            "actor": "controlling player",
+            "roll": "D6",
+            "dice": 1,
+            "minimum": 2,
+            "woundsRemaining": 3,
+            "destination": "battlefield, as close as possible to destruction location",
+            "mustBeUnengaged": true
+          }
+        ]
+      }
+    }
+  }
+}

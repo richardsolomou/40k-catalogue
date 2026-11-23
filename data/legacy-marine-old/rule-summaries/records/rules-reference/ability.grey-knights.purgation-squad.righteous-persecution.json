@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.purgation-squad.righteous-persecution",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Purgation Squad",
+    "summary": "In your Shooting phase, once this unit has finished shooting, choose one enemy unit that at least one of those attacks hit, other than a MONSTER or VEHICLE. That unit is pinned until your next turn starts. A pinned unit has its Move characteristic reduced by 2 and subtracts 2 from its Charge rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Purgation Squad",
+        "trigger": {
+          "event": "this-unit-has-shot",
+          "window": {
+            "phase": "shooting",
+            "turn": "own"
+          }
+        },
+        "select": {
+          "side": "enemy",
+          "count": 1,
+          "hitByThoseAttacks": true,
+          "excludeKeywords": [
+            "MONSTER",
+            "VEHICLE"
+          ]
+        },
+        "effects": [
+          {
+            "kind": "apply-state",
+            "state": "pinned",
+            "expires": "start-of-your-next-turn",
+            "stateEffects": [
+              {
+                "characteristic": "M",
+                "delta": -2,
+                "magnitude": 2
+              },
+              {
+                "roll": "charge",
+                "delta": -2,
+                "magnitude": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.medusas-wrath.target-augury-web",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Medusa's Wrath",
+    "summary": "Model eligibility. TECHMARINE. You can choose a friendly model with both ADEPTUS ASTARTES and VEHICLE up to 3″ from the bearer’s unit as that unit begins or finishes its move in your Movement Phase. Give its attacks [LETHAL HITS]. This benefit expires when you open another Command phase.",
+    "summarySpans": [
+      {
+        "start": 183,
+        "end": 197,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 216,
+        "end": 229,
+        "target": {
+          "kind": "core-rule",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 274,
+        "end": 287,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "TECHMARINE"
+          ],
+          "excludes": [],
+          "characterOnly": true
+        },
+        "effects": [
+          {
+            "type": "grant-attack-ability",
+            "target": "selected-friendly-model-attacks",
+            "ability": "[LETHAL HITS]",
+            "duration": "until-start-of-next-own-command-phase"
+          }
+        ],
+        "trigger": {
+          "phase": "movement",
+          "owner": "own-player",
+          "timing": [
+            "start-of-bearer-unit-move",
+            "end-of-bearer-unit-move"
+          ]
+        },
+        "selection": {
+          "actor": "own-player",
+          "optional": true,
+          "count": 1,
+          "target": "friendly-model",
+          "keywords": [
+            "ADEPTUS ASTARTES",
+            "VEHICLE"
+          ],
+          "distanceInches": 3,
+          "comparison": "within-inclusive",
+          "origin": "bearer-unit"
+        }
+      }
+    }
+  }
+}

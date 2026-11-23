@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.null-maiden-vigil.purgation-sweep",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Null Maiden Vigil",
+    "cp": 1,
+    "summary": "In your Shooting phase, spend 1 CP on one WITCHSEEKERS unit of yours that has not shot yet this phase. While the phase lasts, its models' Torrent weapons get +1 Attacks; when such a weapon aims at a unit that is PSYKER or Battle-shocked during this phase, it gets +2 Attacks instead.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 42,
+        "end": 54,
+        "bold": true
+      },
+      {
+        "start": 138,
+        "end": 145,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "torrent"
+        }
+      },
+      {
+        "start": 212,
+        "end": 218,
+        "bold": true
+      },
+      {
+        "start": 222,
+        "end": 236,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Null Maiden Vigil",
+          "category": "Battle Tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "WITCHSEEKERS"
+            ],
+            "condition": "not-selected-to-shoot-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "characteristic-modifier",
+              "characteristic": "A",
+              "weapons": "TORRENT",
+              "delta": 1,
+              "expires": "end-of-phase"
+            },
+            {
+              "kind": "characteristic-modifier",
+              "characteristic": "A",
+              "weapons": "TORRENT",
+              "delta": 2,
+              "replacesPrevious": true,
+              "condition": "weapon-targets-psyker-or-battle-shocked-unit"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

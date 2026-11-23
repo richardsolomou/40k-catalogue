@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "select-targets",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "04. Making Attacks",
+    "ruleNumber": "04.02",
+    "summary": "Targets are chosen weapon by weapon among those selected. Shooting: each weapon gets exactly one enemy unit as its target, and unless stated otherwise that unit must be visible (06.01) to the bearer of the weapon, inside the weapon’s range, and unengaged. Fighting: a weapon may target any number of enemy units from one up to its A characteristic, each of them engaged with the weapon’s bearer. Different weapons may aim at different units. A weapon with no legal target makes no attacks, and neither does a ranged weapon whose owner opts not to give it one. Rules that trigger “against” certain attacks fire once the attacking unit has finished choosing targets, provided their other conditions hold; rules keyed to an attack being allocated to a unit fire in Inflict Damage, step 1 (05.04). When every attack a model or unit makes with its weapons goes at the same unit, it is treated as having a single target, whether it is shooting, fighting or just targeting.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "attack-step",
+        "ruleNumber": "04.02",
+        "perWeapon": true,
+        "shooting": {
+          "targetsPerWeapon": 1,
+          "unlessOtherwiseStated": true,
+          "requires": [
+            "visible-to-bearer",
+            "within-weapon-range",
+            "unengaged"
+          ],
+          "visibilityRef": "06.01"
+        },
+        "fighting": {
+          "minTargets": 1,
+          "maxTargets": "weapon-A",
+          "requires": [
+            "engaged-with-bearer"
+          ]
+        },
+        "differentTargetsPerWeapon": true,
+        "noAttacksIf": [
+          "no-legal-target",
+          "ranged-weapon-declined"
+        ],
+        "againstAttackTrigger": "after-select-targets-if-qualified",
+        "allocatedTrigger": {
+          "ruleNumber": "05.04",
+          "step": 1
+        },
+        "singleTarget": "all-attacks-from-those-weapons-at-one-unit"
+      }
+    }
+  }
+}

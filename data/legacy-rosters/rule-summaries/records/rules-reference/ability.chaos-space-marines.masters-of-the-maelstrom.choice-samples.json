@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.masters-of-the-maelstrom.choice-samples",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Masters of the Maelstrom",
+    "summary": "During your Command phase, if Garreon the Corpsemaster is still in play, pick one option. You may return a destroyed model other than a CHARACTER to his unit. The other option grants 1 CP if any HERETIC ASTARTES INFANTRY unit of yours is within 3″ of his unit and below Starting Strength.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 136,
+        "end": 145,
+        "bold": true
+      },
+      {
+        "start": 183,
+        "end": 187,
+        "bold": true
+      },
+      {
+        "start": 195,
+        "end": 220,
+        "bold": true
+      },
+      {
+        "start": 245,
+        "end": 247,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "trigger": {
+          "event": "phase",
+          "phase": "command",
+          "timing": "during",
+          "turn": "your-turn"
+        },
+        "condition": {
+          "model": "Garreon the Corpsemaster",
+          "owner": "this-unit",
+          "location": "battlefield"
+        },
+        "optional": false,
+        "effect": {
+          "operation": "choose-one",
+          "options": [
+            {
+              "optional": true,
+              "effect": {
+                "operation": "return-destroyed-models",
+                "recipient": "this-unit",
+                "quantity": 1,
+                "excludeAnyKeywords": [
+                  "CHARACTER"
+                ]
+              }
+            },
+            {
+              "condition": {
+                "exists": {
+                  "origin": "this-unit",
+                  "comparison": "within",
+                  "inclusive": true,
+                  "distanceInches": 3,
+                  "scope": "unit",
+                  "owner": "you",
+                  "minimum": 1,
+                  "requireAllKeywords": [
+                    "HERETIC ASTARTES",
+                    "INFANTRY"
+                  ],
+                  "strength": "below-starting-strength"
+                }
+              },
+              "effect": {
+                "operation": "gain-cp",
+                "recipient": "you",
+                "quantity": 1
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

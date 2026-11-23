@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.psychomancer.nightmare-shroud",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Psychomancer",
+    "summary": "The Psychomancer forces a Battle-shock test at −1 from enemy units within 6″ and below their Starting Strength. Resolve this in the opponent’s Battle-shock step.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 43,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 47,
+        "end": 49,
+        "bold": true
+      },
+      {
+        "start": 74,
+        "end": 76,
+        "bold": true
+      },
+      {
+        "start": 143,
+        "end": 160,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock-step"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "aura",
+        "area": {
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 6,
+          "origin": "this-model",
+          "candidate": {
+            "entity": "unit",
+            "side": "enemy",
+            "requireAllKeywords": [],
+            "excludeAnyKeywords": []
+          }
+        },
+        "trigger": {
+          "event": "phase",
+          "phase": "command",
+          "timing": "battle-shock-step",
+          "turn": "opponent"
+        },
+        "condition": {
+          "strengthComparison": "below-starting-strength"
+        },
+        "effect": {
+          "operation": "take-test",
+          "test": "battle-shock",
+          "optional": false,
+          "rollModifier": {
+            "operation": "subtract",
+            "amount": 1
+          }
+        }
+      }
+    }
+  }
+}

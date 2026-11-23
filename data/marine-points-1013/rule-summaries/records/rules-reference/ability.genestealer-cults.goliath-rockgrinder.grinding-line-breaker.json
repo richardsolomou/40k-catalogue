@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.goliath-rockgrinder.grinding-line-breaker",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Goliath Rockgrinder",
+    "summary": "If an enemy unit that is not a MONSTER or VEHICLE Falls Back while this model has it within Engagement Range, each of its models has to pass a Desperate Escape test, and those tests suffer -1 when the fleeing unit is Battle-shocked.",
+    "summarySpans": [
+      {
+        "start": 50,
+        "end": 60,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 92,
+        "end": 108,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 217,
+        "end": 231,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "unit-ability",
+        "datasheet": "Goliath Rockgrinder",
+        "trigger": {
+          "event": "enemy-unit-falls-back",
+          "fromEngagementRangeOfThisModel": true,
+          "excludeKeywords": [
+            "MONSTER",
+            "VEHICLE"
+          ]
+        },
+        "effects": [
+          {
+            "allModelsTake": "desperate-escape-test"
+          },
+          {
+            "ifBattleShocked": true,
+            "testModifier": {
+              "change": 1,
+              "direction": "decrease"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

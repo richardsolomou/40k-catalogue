@@ -1,0 +1,134 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.brazen-engines.rampaging-terrors",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Brazen Engines",
+    "summary": "Friendly Daemon Vehicle units gain Terror of Khorne: As the Fight phase opens, the bearer may pick an enemy unit engaged with it. Require a battle‑shock roll from that foe, with a −1 modifier. A particular foe can face Terror of Khorne only once in a phase. An onslaught unit taken in this detachment is barred from another detachment.",
+    "summarySpans": [
+      {
+        "start": 9,
+        "end": 23,
+        "bold": true
+      },
+      {
+        "start": 35,
+        "end": 52,
+        "bold": true
+      },
+      {
+        "start": 60,
+        "end": 71,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 113,
+        "end": 120,
+        "bold": true
+      },
+      {
+        "start": 140,
+        "end": 157,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 261,
+        "end": 270,
+        "bold": true
+      },
+      {
+        "start": 290,
+        "end": 300,
+        "bold": true
+      },
+      {
+        "start": 324,
+        "end": 334,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "8bd4c67d-4aba-4502-8561-7c6c6faae51d",
+          "faction": "World Eaters",
+          "detachmentId": "b316e2f6-0b93-4805-9b5e-38f050875ad3",
+          "detachment": "Brazen Engines",
+          "uniqueTags": [],
+          "sourceId": "b316e2f6-0b93-4805-9b5e-38f050875ad3:rampaging-terrors",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "grant": {
+          "type": "ability-grant",
+          "name": "Terror of Khorne",
+          "bearer": {
+            "owner": "friendly",
+            "level": "unit",
+            "allOf": [
+              "Daemon",
+              "Vehicle"
+            ]
+          },
+          "trigger": {
+            "event": "phase-started",
+            "phase": "fight",
+            "owner": "either"
+          },
+          "selection": {
+            "count": 1,
+            "optional": true,
+            "target": {
+              "owner": "enemy",
+              "level": "unit",
+              "engagedWith": "bearer-unit"
+            },
+            "limitPerTarget": {
+              "count": 1,
+              "period": "phase"
+            }
+          },
+          "effect": {
+            "type": "test",
+            "test": "battle-shock",
+            "target": "selected-enemy-unit",
+            "modifier": -1
+          }
+        },
+        "roster": {
+          "type": "detachment-tag-exclusivity",
+          "tag": "onslaught",
+          "scope": "friendly-army",
+          "allowedIn": "this-detachment",
+          "prohibitedIn": "other-detachments"
+        }
+      }
+    }
+  }
+}

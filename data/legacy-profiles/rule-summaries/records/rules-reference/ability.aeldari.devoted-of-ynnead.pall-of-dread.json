@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.devoted-of-ynnead.pall-of-dread",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Devoted of Ynnead",
+    "cp": 1,
+    "summary": "In any phase, choose your just-destroyed YNNARI unit if it died in range of at least one marker you controlled. Pick one of those markers. You keep it until your opponent beats your Level of Control there at phase end.",
+    "summarySpans": [
+      {
+        "start": 41,
+        "end": 47,
+        "bold": true
+      },
+      {
+        "start": 182,
+        "end": 198,
+        "target": {
+          "kind": "core-rule",
+          "id": "level-of-control"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "YNNARI"
+            ],
+            "state": "just-destroyed",
+            "whenDestroyed": {
+              "withinRangeOf": {
+                "entity": "objective-marker",
+                "minCount": 1,
+                "controlledBy": "your-army"
+              }
+            },
+            "allowDestroyed": true
+          },
+          "effects": [
+            {
+              "action": "select-objective-marker",
+              "recipient": "one-of-those-controlled-markers"
+            },
+            {
+              "action": "retain-objective-control",
+              "recipient": "selected-marker",
+              "owner": "your-army",
+              "duration": {
+                "until": "end-of-phase-when-opposing-level-of-control-exceeds-yours"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

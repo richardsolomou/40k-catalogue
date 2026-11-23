@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.renegade-warband.fratricidal-trophies",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Renegade Warband",
+    "summary": "Choosing a Doctrine for the bearer’s unit lets its models re-roll their Hit rolls for the rest of that turn.",
+    "summarySpans": [
+      {
+        "start": 11,
+        "end": 19,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-space-marines.renegade-warband.slaves-to-none"
+        }
+      },
+      {
+        "start": 72,
+        "end": 81,
+        "target": {
+          "kind": "core-rule",
+          "id": "making-attacks"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "choose-doctrine",
+          "selector": "own-player",
+          "recipient": "bearer-unit"
+        },
+        "effect": {
+          "type": "reroll",
+          "roll": "hit",
+          "subset": "any",
+          "optional": true,
+          "actor": "model-in-bearer-unit",
+          "on": "each-attack"
+        },
+        "expiry": {
+          "event": "turn-end",
+          "turn": "trigger-turn"
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Terminator",
+            "Heretic Astartes"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

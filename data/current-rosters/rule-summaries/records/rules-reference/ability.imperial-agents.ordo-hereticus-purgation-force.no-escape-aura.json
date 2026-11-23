@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-agents.ordo-hereticus-purgation-force.no-escape-aura",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Ordo Hereticus, Purgation Force",
+    "summary": "An enemy unit trying to Fall Back needs a Leadership test if it is 6″ or closer to the bearer. A failed test forces it to Remain Stationary.",
+    "summarySpans": [
+      {
+        "start": 24,
+        "end": 33,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 42,
+        "end": 57,
+        "target": {
+          "kind": "core-rule",
+          "id": "leadership-rolls"
+        }
+      },
+      {
+        "start": 122,
+        "end": 139,
+        "target": {
+          "kind": "core-rule",
+          "id": "remain-stationary"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "selected-for-move",
+          "move": "fall-back",
+          "side": "enemy",
+          "distance": {
+            "relation": "within",
+            "inches": 6,
+            "origin": "bearer"
+          },
+          "repeat": "each"
+        },
+        "test": {
+          "kind": "leadership",
+          "actor": "selected-unit",
+          "required": true,
+          "timing": "before-move"
+        },
+        "branches": [
+          {
+            "result": "pass",
+            "action": "allow-selected-fall-back"
+          },
+          {
+            "result": "fail",
+            "action": "replace-selected-move",
+            "replacement": "remain-stationary",
+            "mandatory": true
+          }
+        ],
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Inquisitor"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

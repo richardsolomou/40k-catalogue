@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.deathstrike.deathstrike-missile",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Deathstrike",
+    "summary": "When you choose this Deathstrike to fire during your Shooting phase, it can set or reposition its own target marker as well as resolve ranged attacks, provided it has yet to launch its missile this battle. Set the marker if there is none. Otherwise you may relocate it. Either choice allows any point on the battlefield. The missile’s Plasma Warhead governs when it can fire and how to resolve attacks around that marker.",
+    "summarySpans": [
+      {
+        "start": 53,
+        "end": 67,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 335,
+        "end": 349,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "plasma-warhead"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "per-model-marker-placement",
+        "actor": "owning-Deathstrike-model",
+        "trigger": "selected-to-shoot-in-own-shooting-phase",
+        "requires": "has-not-fired-its-Deathstrike-missile-this-battle",
+        "mode": "optional-in-addition-to-resolving-ranged-attacks",
+        "maxChoices": 1,
+        "marker": {
+          "identity": "unique-to-owning-model",
+          "location": "anywhere-on-battlefield",
+          "ifAbsent": "place",
+          "ifPresent": "relocate-existing-marker"
+        },
+        "weaponBinding": {
+          "profile": "Deathstrike missile",
+          "ability": "Plasma Warhead",
+          "targetSelection": "delegated-to-verified-weapon-ability"
+        }
+      }
+    }
+  }
+}

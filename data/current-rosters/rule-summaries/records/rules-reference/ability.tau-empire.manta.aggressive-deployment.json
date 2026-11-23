@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.manta.aggressive-deployment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Manta",
+    "summary": "In your Shooting phase, once this model has shot, pick one enemy unit that took at least one hit from those attacks. For the rest of this phase, friendly models which disembarked from this TRANSPORT during this turn may re-roll Wound rolls for attacks against that enemy unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "this-model-has-shot"
+        },
+        "selection": {
+          "side": "enemy",
+          "count": 1,
+          "condition": "hit-by-those-attacks"
+        },
+        "effects": [
+          {
+            "kind": "wound-reroll",
+            "rollsOf": "any",
+            "attackers": "friendly-models-disembarked-from-this-transport-this-turn",
+            "condition": "target-is-selected-unit"
+          }
+        ],
+        "duration": "end-of-phase"
+      }
+    }
+  }
+}

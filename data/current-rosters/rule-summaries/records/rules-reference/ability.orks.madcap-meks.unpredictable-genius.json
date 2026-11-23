@@ -1,0 +1,251 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.madcap-meks.unpredictable-genius",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Madcap Meks",
+    "summary": "In your Shooting phase, roll one D6 when a single enemy takes all the ranged targeting from a friendly Morkanaut, Wazbom Blastajet, Big Mek or Mek Gunz unit. On 1, Dat’s Weird gives the target 4+ InSv. On 2–3, For Hop Splat, pick a different enemy within 3\" of that target. Deal D3 Mortal Wounds to the chosen unit. On 4, Seekerz gives those attacks +1 on Hit rolls. On 5, Lifted gives the target Fly and strips its Benefit of Cover. On 6, Runtified gives the target −1 T. Results 1, 5 and 6 last until the firing unit finishes shooting.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 103,
+        "end": 112,
+        "bold": true
+      },
+      {
+        "start": 114,
+        "end": 130,
+        "bold": true
+      },
+      {
+        "start": 132,
+        "end": 139,
+        "bold": true
+      },
+      {
+        "start": 143,
+        "end": 151,
+        "bold": true
+      },
+      {
+        "start": 164,
+        "end": 175,
+        "bold": true
+      },
+      {
+        "start": 196,
+        "end": 200,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "save-rolls"
+        }
+      },
+      {
+        "start": 214,
+        "end": 223,
+        "bold": true
+      },
+      {
+        "start": 282,
+        "end": 295,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 322,
+        "end": 329,
+        "bold": true
+      },
+      {
+        "start": 356,
+        "end": 365,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hit-rolls"
+        }
+      },
+      {
+        "start": 373,
+        "end": 379,
+        "bold": true
+      },
+      {
+        "start": 397,
+        "end": 400,
+        "bold": true
+      },
+      {
+        "start": 416,
+        "end": 432,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "benefit-of-cover"
+        }
+      },
+      {
+        "start": 440,
+        "end": 449,
+        "bold": true
+      },
+      {
+        "start": 470,
+        "end": 471,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "target": {
+          "owner": "friendly",
+          "level": "unit",
+          "anyOf": [
+            "Big Mek",
+            "Mek Gunz",
+            "Morkanaut",
+            "Wazbom Blastajet"
+          ]
+        },
+        "trigger": {
+          "event": "target-selection",
+          "phase": "shooting",
+          "owner": "self"
+        },
+        "condition": {
+          "type": "single-enemy-target",
+          "attackType": "ranged",
+          "quantifier": "all"
+        },
+        "roll": {
+          "dice": "D6",
+          "count": 1
+        },
+        "effect": {
+          "type": "roll-table",
+          "results": [
+            {
+              "range": [
+                1
+              ],
+              "name": "Dat’s Weird",
+              "effect": {
+                "type": "set-invulnerable-save",
+                "threshold": 4,
+                "recipient": "attack-target",
+                "expires": {
+                  "event": "unit-finished-shooting",
+                  "subject": "triggering-unit"
+                }
+              }
+            },
+            {
+              "range": [
+                2,
+                3
+              ],
+              "name": "Hop Splat",
+              "selection": {
+                "owner": "enemy",
+                "level": "unit",
+                "count": 1,
+                "excludes": "attack-target",
+                "distance": {
+                  "maximum": 3,
+                  "unit": "inches",
+                  "from": "attack-target"
+                }
+              },
+              "effect": {
+                "type": "mortal-wounds",
+                "dice": "D3",
+                "count": 1,
+                "recipient": "selected-other-unit"
+              }
+            },
+            {
+              "range": [
+                4
+              ],
+              "name": "Seekerz",
+              "effect": {
+                "type": "roll-modifier",
+                "roll": "hit",
+                "operation": "add",
+                "value": 1,
+                "recipient": "triggering-attacks"
+              }
+            },
+            {
+              "range": [
+                5
+              ],
+              "name": "Lifted",
+              "recipient": "attack-target",
+              "expires": {
+                "event": "unit-finished-shooting",
+                "subject": "triggering-unit"
+              },
+              "effects": [
+                {
+                  "type": "keyword-grant",
+                  "keyword": "Fly"
+                },
+                {
+                  "type": "deny-benefit-of-cover"
+                }
+              ]
+            },
+            {
+              "range": [
+                6
+              ],
+              "name": "Runtified",
+              "effect": {
+                "type": "stat-modifier",
+                "stat": "toughness",
+                "operation": "add",
+                "value": -1,
+                "recipient": "attack-target",
+                "expires": {
+                  "event": "unit-finished-shooting",
+                  "subject": "triggering-unit"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

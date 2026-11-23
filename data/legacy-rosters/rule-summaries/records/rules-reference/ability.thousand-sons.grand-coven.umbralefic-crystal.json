@@ -1,0 +1,127 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.grand-coven.umbralefic-crystal",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Grand Coven",
+    "summary": "Model eligibility. THOUSAND SONS. In a Command phase you take, you may use this once in a battle if the bearer’s unit is unengaged. Send it to Strategic Reserves and give it Deep Strike. The grant expires when you next start a Shooting phase. It must return by Ingress Move in the Movement phase you take next, even on your first turn.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 32,
+        "bold": true
+      },
+      {
+        "start": 39,
+        "end": 52,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 143,
+        "end": 161,
+        "target": {
+          "kind": "core-rule",
+          "id": "strategic-reserves"
+        }
+      },
+      {
+        "start": 174,
+        "end": 185,
+        "target": {
+          "kind": "core-rule",
+          "id": "deep-strike"
+        }
+      },
+      {
+        "start": 227,
+        "end": 241,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 261,
+        "end": 273,
+        "target": {
+          "kind": "core-rule",
+          "id": "ingress-move"
+        }
+      },
+      {
+        "start": 281,
+        "end": 295,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "THOUSAND SONS"
+          ],
+          "excludes": [],
+          "characterOnly": true
+        },
+        "effects": [
+          {
+            "type": "place-in-strategic-reserves",
+            "target": "bearer-unit",
+            "requires": "unengaged",
+            "optional": true
+          },
+          {
+            "type": "grant-ability",
+            "target": "bearer-unit",
+            "ability": "Deep Strike",
+            "duration": "until-start-of-next-own-shooting-phase",
+            "requires": "enhancement-used"
+          },
+          {
+            "type": "require-move",
+            "target": "bearer-unit",
+            "move": "Ingress Move",
+            "timing": "next-own-movement-phase",
+            "allowOwnFirstTurn": true,
+            "requires": "enhancement-used"
+          }
+        ],
+        "trigger": {
+          "phase": "command",
+          "owner": "self"
+        },
+        "usage": {
+          "limit": "once-per-battle",
+          "optional": true
+        }
+      }
+    }
+  }
+}

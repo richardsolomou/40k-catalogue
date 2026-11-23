@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.brood-brothers-auxilia.suppress-and-overwhelm",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Brood Brothers Auxilia",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP, in your Shooting phase right after one of your ASTRA MILITARUM units has shot; that unit is the target. Pick one enemy unit struck by at least one of its attacks. Until the turn ends, the Fire Overwatch Stratagem cannot target that enemy unit, and whenever a GENESTEALER CULTS unit of yours declares a charge against it, you may re-roll its Charge roll.",
+    "summarySpans": [
+      {
+        "start": 30,
+        "end": 44,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 210,
+        "end": 224,
+        "target": {
+          "kind": "core-rule",
+          "id": "fire-overwatch"
+        }
+      },
+      {
+        "start": 363,
+        "end": 374,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Brood Brothers Auxilia",
+          "when": {
+            "phase": "shooting",
+            "turn": "own",
+            "event": "friendly-unit-has-shot",
+            "unitKeywordsAll": [
+              "ASTRA MILITARUM"
+            ]
+          },
+          "target": {
+            "unit": "that-astra-militarum-unit"
+          },
+          "effects": [
+            {
+              "select": {
+                "count": 1,
+                "side": "enemy",
+                "condition": "hit-by-those-attacks"
+              }
+            },
+            {
+              "enemyUnit": "selected",
+              "cannotBeTargetedBy": "Fire Overwatch",
+              "duration": "end-of-turn"
+            },
+            {
+              "chargeBy": {
+                "keywordsAll": [
+                  "GENESTEALER CULTS"
+                ]
+              },
+              "againstSelected": true,
+              "reroll": "charge",
+              "duration": "end-of-turn"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

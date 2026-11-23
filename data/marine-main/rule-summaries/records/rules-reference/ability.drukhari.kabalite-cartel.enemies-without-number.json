@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.kabalite-cartel.enemies-without-number",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Kabalite Cartel",
+    "cp": 1,
+    "summary": "In your Command phase, use this immediately after completing a Murderous Agenda contract. Choose the ARCHON who is your Warlord, pick a contract from that rule, and nominate an opposing unit on the battlefield that fits it. You may return to a previously completed contract. Follow Murderous Agenda for the new assignment until you complete it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Kabalite Cartel",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "own"
+              }
+            ],
+            "after": "murderous-agenda-contract-completed"
+          },
+          "target": {
+            "entity": "model",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "ARCHON"
+            ],
+            "condition": "own-warlord"
+          },
+          "effects": [
+            {
+              "action": "select-contract",
+              "rule": "murderous-agenda",
+              "allowPreviouslyCompleted": true
+            },
+            {
+              "action": "select-contract-target",
+              "entity": "unit",
+              "controller": "opponent",
+              "onBattlefield": true,
+              "mustMatch": "selected-contract-description"
+            },
+            {
+              "action": "apply-detachment-rule-normally",
+              "rule": "murderous-agenda",
+              "until": "new-contract-completed"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

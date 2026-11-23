@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.hurons-marauders.to-the-favoured-the-spoils",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Huron’s Marauders",
+    "cp": 1,
+    "summary": "Right after an enemy unit shoots during its Shooting phase, pick a HERETIC ASTARTES unit of yours that lost at least one wound to those attacks. It may make a Surge move capped at D6 inches.",
+    "summarySpans": [
+      {
+        "start": 44,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 67,
+        "end": 83,
+        "bold": true
+      },
+      {
+        "start": 159,
+        "end": 169,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "surge-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-enemy-unit-shoots",
+            "actor": "enemy-shooting-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "HERETIC ASTARTES"
+            ],
+            "triggerRelation": {
+              "event": "lost-wounds-from-triggering-attacks",
+              "minimum": 1
+            }
+          },
+          "effects": [
+            {
+              "kind": "optional-move",
+              "recipient": "target-unit",
+              "moveType": "surge",
+              "distanceCap": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1,
+                "unit": "inch"
+              },
+              "duration": {
+                "until": "resolution"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

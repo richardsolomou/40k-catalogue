@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.shield-captain-on-dawneagle-jetbike.sweeping-advance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Shield-Captain on Dawneagle Jetbike",
+    "summary": "Once per battle, as the Fight phase ends, if the unit this model is in has fought in that phase, it may move. If an enemy unit is still within Engagement Range of it, it may Fall Back; if none is, it may make a Normal move instead.",
+    "summarySpans": [
+      {
+        "start": 24,
+        "end": 35,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 143,
+        "end": 159,
+        "bold": true
+      },
+      {
+        "start": 174,
+        "end": 183,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 211,
+        "end": 222,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Shield-Captain on Dawneagle Jetbike",
+        "clauses": [
+          {
+            "usage": {
+              "count": 1,
+              "per": "battle"
+            },
+            "optional": true,
+            "trigger": {
+              "phase": "fight",
+              "turn": "either",
+              "at": "end"
+            },
+            "condition": {
+              "thisModelsUnitFoughtThisPhase": true
+            },
+            "branches": [
+              {
+                "if": "within Engagement Range of one or more enemy units",
+                "mayMake": "fall-back-move"
+              },
+              {
+                "if": "not within Engagement Range of any enemy unit",
+                "mayMake": "normal-move"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

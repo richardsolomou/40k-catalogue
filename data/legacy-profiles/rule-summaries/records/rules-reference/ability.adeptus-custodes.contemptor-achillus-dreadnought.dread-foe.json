@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.contemptor-achillus-dreadnought.dread-foe",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Contemptor-Achillus Dreadnought",
+    "summary": "Whenever this model is picked to fight, you may choose an enemy unit in its Engagement Range and roll a D6, adding 2 when it has made a Charge move during this turn. A 4–5 inflicts D3 mortal wounds on that unit; a 6+ inflicts 3 mortal wounds.",
+    "summarySpans": [
+      {
+        "start": 76,
+        "end": 92,
+        "bold": true
+      },
+      {
+        "start": 136,
+        "end": 147,
+        "bold": true
+      },
+      {
+        "start": 184,
+        "end": 197,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 228,
+        "end": 241,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "owner": "Contemptor-Achillus Dreadnought",
+        "clauses": [
+          {
+            "trigger": {
+              "event": "selected-to-fight",
+              "subject": "this-model"
+            },
+            "selection": {
+              "relationship": "enemy",
+              "count": 1,
+              "optional": true,
+              "within": "Engagement Range"
+            },
+            "roll": {
+              "dice": "D6",
+              "count": 1,
+              "modifier": {
+                "value": 2,
+                "if": "this model made a Charge move this turn"
+              }
+            },
+            "outcomes": [
+              {
+                "min": 4,
+                "max": 5,
+                "mortalWounds": "D3"
+              },
+              {
+                "threshold": "6+",
+                "mortalWounds": 3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-action",
+  "id": "chapter-approved-2026-2027.surveil-the-foe.surveil-the-foe",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "summary": "During your Shooting phase, a friendly unit can start and immediately finish this action. There is no limit on starts. Pick one enemy unit visible to the acting unit, within 18\" of it, and still without the surveilled status this turn. The target counts as surveilled for the rest of the turn.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 82,
+        "end": 88,
+        "target": {
+          "kind": "core-rule",
+          "id": "performing-actions"
+        }
+      },
+      {
+        "start": 207,
+        "end": 217,
+        "bold": true
+      },
+      {
+        "start": 257,
+        "end": 267,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "starts": {
+          "player": "acting-player",
+          "phase": "shooting"
+        },
+        "eligibleUnit": {
+          "side": "friendly",
+          "countPerStart": 1
+        },
+        "useLimit": {
+          "starts": "unlimited"
+        },
+        "completes": {
+          "window": "immediately"
+        },
+        "effects": [
+          {
+            "kind": "mark-unit",
+            "target": {
+              "side": "enemy",
+              "count": 1,
+              "visibleTo": "acting-unit",
+              "within": {
+                "inches": 18,
+                "of": "acting-unit"
+              },
+              "excludeState": {
+                "state": "surveilled",
+                "window": "this-turn"
+              }
+            },
+            "state": "surveilled",
+            "until": "end-of-turn"
+          }
+        ]
+      }
+    }
+  }
+}

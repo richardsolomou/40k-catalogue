@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.blue-horrors.exploding-horrors",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Blue Horrors",
+    "summary": "Whenever this unit is picked to fight, you may choose an enemy unit that this unit is in Engagement Range of, and choose at least one BRIMSTONE HORROR model in this unit. Roll a D6 for each chosen BRIMSTONE HORROR; each 4+ destroys that BRIMSTONE HORROR and inflicts 1 mortal wound on the enemy unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "datasheet": "Blue Horrors",
+        "trigger": {
+          "event": "unit-selected-to-fight"
+        },
+        "effect": {
+          "optional": true,
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "within": "engagement-range"
+          },
+          "sacrifice": {
+            "models": "one or more BRIMSTONE HORROR models in this unit",
+            "die": "D6",
+            "success": "4+",
+            "onSuccess": {
+              "modelDestroyed": true,
+              "mortalWoundsToEnemy": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.archon.shadowfield",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Archon",
+    "summary": "The Archon’s unit cannot reroll the Archon’s saves. If the Archon loses a wound from any cause other than a mortal wound, it loses its invulnerable save for the rest of the battle.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "effects": [
+          {
+            "actor": "owning-unit",
+            "operation": "prohibit-reroll",
+            "roll": "saving-throw-for-owning-model"
+          },
+          {
+            "trigger": {
+              "event": "owning-model-loses-wound",
+              "excludeCause": "mortal-wound"
+            },
+            "operation": "remove-invulnerable-save",
+            "recipient": "owning-model",
+            "durationEnd": "battle-end"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-space-marines.renegade-warband.vengeful-destruction",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Renegade Warband",
+    "cp": 1,
+    "summary": "In your Shooting phase or either Fight phase, choose HERETIC ASTARTES INFANTRY or HERETIC ASTARTES MOUNTED, excluding DAMNED. It must still be waiting to shoot or fight, as appropriate. Its attacks against your Vendetta target get +1 to Wound rolls this phase.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 33,
+        "end": 44,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 53,
+        "end": 78,
+        "bold": true
+      },
+      {
+        "start": 82,
+        "end": 106,
+        "bold": true
+      },
+      {
+        "start": 118,
+        "end": 124,
+        "bold": true
+      },
+      {
+        "start": 211,
+        "end": 226,
+        "target": {
+          "kind": "ability",
+          "id": "chaos-space-marines.renegade-warband.slaves-to-none"
+        }
+      },
+      {
+        "start": 237,
+        "end": 248,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "HERETIC ASTARTES"
+            ],
+            "anyKeyword": [
+              "INFANTRY",
+              "MOUNTED"
+            ],
+            "excludingKeywords": [
+              "DAMNED"
+            ],
+            "stateByPhase": {
+              "shooting": "not-yet-selected-to-shoot",
+              "fight": "not-yet-selected-to-fight"
+            }
+          },
+          "effects": [
+            {
+              "action": "modify-roll",
+              "roll": "wound",
+              "operation": "add",
+              "amount": 1,
+              "actor": "model-in-target-unit",
+              "attackTarget": "vendetta-target",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.annihilation-barge.malevolent-arcing",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Annihilation Barge",
+    "summary": "In your Shooting phase, whenever this model chooses a target for its twin tesla destructor, roll a D6 for that target and a separate D6 for each other enemy unit no more than 3″ from it. Every unit that rolls 5+ is caught by the arcing energy; once this model has resolved all its attacks against the target, each caught unit takes D3 mortal wounds.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "target-selected",
+          "weapon": "twin tesla destructor"
+        },
+        "effects": [
+          {
+            "kind": "roll-per-unit",
+            "units": [
+              "target",
+              {
+                "otherEnemyUnitsWithinInchesOfTarget": 3
+              }
+            ],
+            "roll": "D6",
+            "success": "5+",
+            "onSuccess": {
+              "mortalWounds": "D3",
+              "timing": "after-all-attacks-against-target-resolved"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

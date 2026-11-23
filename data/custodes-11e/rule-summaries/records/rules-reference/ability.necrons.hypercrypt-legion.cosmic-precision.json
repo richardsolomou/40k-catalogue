@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.hypercrypt-legion.cosmic-precision",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hypercrypt Legion",
+    "cp": 1,
+    "summary": "During your Movement phase, pick one arriving NECRONS unit that uses an Ingress move and lacks MONSTER. It may deploy anywhere on the battlefield if every enemy model is over 6 inches away horizontally. The chosen unit cannot charge during that turn.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 46,
+        "end": 53,
+        "bold": true
+      },
+      {
+        "start": 72,
+        "end": 84,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "ingress-move"
+        }
+      },
+      {
+        "start": 95,
+        "end": 102,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "your",
+            "phases": [
+              "movement"
+            ],
+            "event": "phase-window"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "NECRONS"
+            ],
+            "excludingKeywords": [
+              "MONSTER"
+            ],
+            "arrival": {
+              "move": "ingress",
+              "window": "current-phase"
+            }
+          },
+          "effects": [
+            {
+              "kind": "set-up",
+              "subject": "selected-unit",
+              "optional": true,
+              "placement": {
+                "area": "battlefield",
+                "distance": {
+                  "inches": 6,
+                  "comparator": "greater-than",
+                  "axis": "horizontal",
+                  "from": "each-enemy-model"
+                }
+              }
+            }
+          ],
+          "restrictions": [
+            {
+              "kind": "charge-ineligibility",
+              "subject": "selected-unit",
+              "duration": "current-turn"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

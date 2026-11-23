@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.cronos.pain-parasite",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Cronos",
+    "summary": "When you pick this unit to shoot during your Shooting phase or to fight during the Fight phase, you can Empower it by paying a single token from Power From Pain. After its attacks resolve while Empowered, check whether they destroyed any enemy models. If they did, one Cronos model recovers up to 3 wounds it has lost. If every surviving model is at full health and the unit is below Starting Strength, return one destroyed model with 3 wounds.",
+    "summarySpans": [
+      {
+        "start": 145,
+        "end": 160,
+        "target": {
+          "kind": "ability",
+          "id": "drukhari.power-from-pain"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "pain-ability-healing-and-model-return",
+        "activation": {
+          "phases": [
+            {
+              "phase": "shooting",
+              "owner": "self",
+              "selectedFor": "shoot"
+            },
+            {
+              "phase": "fight",
+              "selectedFor": "fight"
+            }
+          ],
+          "spendPainTokens": 1,
+          "empower": "this-unit",
+          "optional": true
+        },
+        "resolution": {
+          "while": "empowered",
+          "after": "this-unit-resolves-its-attacks",
+          "requires": {
+            "enemyModelsDestroyedByThoseAttacksAtLeast": 1
+          },
+          "heal": {
+            "maxWounds": 3,
+            "maxModels": 1,
+            "recipient": "model-in-this-unit",
+            "onlyLostWounds": true
+          },
+          "return": {
+            "requiresEverySurvivingModelAtStartingWounds": true,
+            "requiresBelowStartingStrength": true,
+            "models": 1,
+            "woundsRemaining": 3
+          }
+        }
+      }
+    }
+  }
+}

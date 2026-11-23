@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.montka.strategic-conqueror",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Mont’ka",
+    "summary": "Model eligibility. T’AU EMPIRE. As battle round one opens, choose any battlefield objective marker before the first turn starts. With the bearer on the battlefield, friendly T’AU EMPIRE models in range of that marker get +1 Objective Control.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 30,
+        "bold": true
+      },
+      {
+        "start": 174,
+        "end": 185,
+        "bold": true
+      },
+      {
+        "start": 224,
+        "end": 241,
+        "target": {
+          "kind": "core-rule",
+          "id": "profiles"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "model",
+          "match": "all",
+          "keywords": [
+            "T’AU EMPIRE"
+          ],
+          "excludes": [],
+          "characterOnly": true
+        },
+        "effects": [
+          {
+            "type": "select-objective-marker",
+            "target": "own-player",
+            "count": 1,
+            "location": "battlefield"
+          },
+          {
+            "type": "modify-characteristic",
+            "target": "friendly-models",
+            "keyword": "T’AU EMPIRE",
+            "characteristic": "Objective Control",
+            "delta": 1,
+            "requires": {
+              "bearer": "on-battlefield",
+              "position": "within-range-of-chosen-objective-marker"
+            }
+          }
+        ],
+        "trigger": {
+          "event": "battle-round-start",
+          "round": 1,
+          "before": "first-turn"
+        }
+      }
+    }
+  }
+}

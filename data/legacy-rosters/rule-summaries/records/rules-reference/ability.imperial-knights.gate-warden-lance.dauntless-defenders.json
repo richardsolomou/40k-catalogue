@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "imperial-knights.gate-warden-lance.dauntless-defenders",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Imperial Knights Faction Pack: Version 1.2",
+    "page": "27",
+    "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_imperial_knights-n1irjnjygs-w8jfnk8kdn.pdf#page=27"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Gate Warden Lance",
+    "summary": "At battle round one’s opening, designate two objectives and put a round 40 mm foundation marker in each. A unit qualifies for the defensive line if any model’s base, or its hull if baseless, intersects a line joining any point on one foundation marker to any point on the other. Your Imperial Knights units that qualify give their weapons Sustained Hits 1. Their models may disregard some or all Hit modifiers on attacks against visible enemies.",
+    "summarySpans": [
+      {
+        "start": 339,
+        "end": 353,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      },
+      {
+        "type": "publisher",
+        "title": "Imperial Knights Faction Pack: Version 1.2",
+        "page": "27",
+        "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_imperial_knights-n1irjnjygs-w8jfnk8kdn.pdf#page=27"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "foundationSetup": {
+          "trigger": {
+            "battleRound": 1,
+            "timing": "start"
+          },
+          "objectiveCount": 2,
+          "markersPerObjective": 1,
+          "marker": {
+            "shape": "circle",
+            "sizeMillimetres": 40,
+            "placement": "in each selected objective"
+          }
+        },
+        "lineMembership": {
+          "aggregation": "at-least-one-model",
+          "lineEndpoints": [
+            "any point on first foundation marker",
+            "any point on second foundation marker"
+          ],
+          "test": "intersection-with-line",
+          "modelGeometry": {
+            "hasBase": "base",
+            "lacksBase": "hull"
+          }
+        },
+        "againstTheHorde": {
+          "recipient": {
+            "side": "friendly",
+            "faction": "Imperial Knights",
+            "defensiveLine": true
+          },
+          "hitRoll": {
+            "attackTarget": {
+              "side": "enemy",
+              "type": "unit",
+              "visible": true
+            },
+            "modifierPolicy": "may ignore any or all"
+          },
+          "weaponGrant": {
+            "weapons": "all equipped by eligible models",
+            "ability": "Sustained Hits",
+            "value": 1
+          }
+        }
+      }
+    }
+  }
+}

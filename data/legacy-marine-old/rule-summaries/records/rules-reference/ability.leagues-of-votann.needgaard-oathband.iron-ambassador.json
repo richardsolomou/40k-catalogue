@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.needgaard-oathband.iron-ambassador",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Needgaârd Oathband",
+    "summary": "This applies to a LEAGUES OF VOTANN model with the weapon named Autoch-pattern combi-bolter. The model may use the enhancement once per battle when its unit is picked to shoot. Spend up to 3 YP. For the rest of the phase, the bearer adds the amount spent to the Damage of all their ranged weapons.",
+    "summarySpans": [
+      {
+        "start": 18,
+        "end": 35,
+        "bold": true
+      },
+      {
+        "start": 160,
+        "end": 175,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "equipCondition": {
+          "requiredWeapon": "autoch-pattern-combi-bolter"
+        },
+        "trigger": {
+          "event": "unit-selected",
+          "action": "shoot",
+          "subject": "bearer-unit"
+        },
+        "limit": {
+          "count": 1,
+          "period": "battle"
+        },
+        "activationOptional": true,
+        "resourceSpend": {
+          "type": "yield-point",
+          "maximum": 3,
+          "payer": "own-player"
+        },
+        "effect": {
+          "type": "weapon-characteristic-modifier",
+          "stat": "damage",
+          "operation": "add",
+          "value": {
+            "equalTo": "yield-points-spent-on-activation"
+          },
+          "target": {
+            "subject": "bearer",
+            "weaponType": "ranged",
+            "quantifier": "all"
+          },
+          "expiry": {
+            "event": "phase-end"
+          }
+        },
+        "eligibility": {
+          "requiresCharacter": true,
+          "allKeywords": [
+            "Leagues of Votann"
+          ],
+          "excludedKeywords": []
+        }
+      }
+    }
+  }
+}

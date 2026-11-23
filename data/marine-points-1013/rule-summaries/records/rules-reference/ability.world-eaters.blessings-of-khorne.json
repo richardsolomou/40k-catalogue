@@ -1,0 +1,176 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.blessings-of-khorne",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "army-rule",
+    "summary": "At each round opening, a World Eaters army may roll eight D6. Choose at most two different blessings by paying their matching sets. A die pays for one set at most. Discard leftovers and apply the chosen blessings army-wide through that round. Unbridled Bloodlust accepts any pair. Boost charge rolls by 1. Rage-Fuelled Invigoration needs a pair showing 2 or better and sets a 6-inch limit for each model’s Pile-in and Consolidation moves, replacing the usual 3. Total Carnage takes a pair of 3 or higher. When a melee attack kills a model that hasn’t fought this phase, a D6 result of 4+ delays removal. The model may fight after the attacker finishes, then comes off the table. Martial Excellence takes a pair of 4 or higher or any triple, adding Sustained Hits 1 to melee weapons. Warp Blades takes a pair of 5 or higher or a triple of 2 or higher, giving those weapons Lethal Hits. Decapitating Strikes costs two sixes or a triple of 3 or better and grants Devastating Wounds to melee attacks against Infantry.",
+    "summarySpans": [
+      {
+        "start": 748,
+        "end": 762,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      },
+      {
+        "start": 872,
+        "end": 883,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
+        }
+      },
+      {
+        "start": 960,
+        "end": 978,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "devastating-wounds-infantry"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "dice-allocation-menu",
+        "armyFaction": "WORLD EATERS",
+        "timing": "round-start",
+        "optional": true,
+        "pool": {
+          "dice": 8,
+          "die": "D6",
+          "perDieMaxUses": 1,
+          "discardUnused": true
+        },
+        "maxActivations": 2,
+        "perBlessingMax": 1,
+        "recipient": "all-army-units",
+        "duration": "round",
+        "options": [
+          {
+            "name": "Unbridled Bloodlust",
+            "diceAlternatives": [
+              {
+                "equalDice": 2,
+                "minimumFace": 1
+              }
+            ],
+            "effect": {
+              "roll": "charge",
+              "add": 1
+            }
+          },
+          {
+            "name": "Rage-Fuelled Invigoration",
+            "diceAlternatives": [
+              {
+                "equalDice": 2,
+                "minimumFace": 2
+              }
+            ],
+            "effect": {
+              "moveTypes": [
+                "pile-in",
+                "consolidation"
+              ],
+              "scope": "model",
+              "maximumInches": 6,
+              "replacesInches": 3
+            }
+          },
+          {
+            "name": "Total Carnage",
+            "diceAlternatives": [
+              {
+                "equalDice": 2,
+                "minimumFace": 3
+              }
+            ],
+            "effect": {
+              "kind": "fight-on-death",
+              "triggerAttack": "melee",
+              "requiresNotFoughtThisPhase": true,
+              "die": "D6",
+              "min": 4,
+              "fightOptional": true,
+              "fightAfter": "attacking-unit-finishes",
+              "removeAfter": "model-fights"
+            }
+          },
+          {
+            "name": "Martial Excellence",
+            "diceAlternatives": [
+              {
+                "equalDice": 2,
+                "minimumFace": 4
+              },
+              {
+                "equalDice": 3,
+                "minimumFace": 1
+              }
+            ],
+            "effect": {
+              "weapons": "melee",
+              "grant": "sustained-hits",
+              "value": 1
+            }
+          },
+          {
+            "name": "Warp Blades",
+            "diceAlternatives": [
+              {
+                "equalDice": 2,
+                "minimumFace": 5
+              },
+              {
+                "equalDice": 3,
+                "minimumFace": 2
+              }
+            ],
+            "effect": {
+              "weapons": "melee",
+              "grant": "lethal-hits"
+            }
+          },
+          {
+            "name": "Decapitating Strikes",
+            "diceAlternatives": [
+              {
+                "equalDice": 2,
+                "minimumFace": 6
+              },
+              {
+                "equalDice": 3,
+                "minimumFace": 3
+              }
+            ],
+            "effect": {
+              "attacks": "melee",
+              "targetKeyword": "INFANTRY",
+              "grant": "devastating-wounds"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.hearthfyre-arsenal.preventative-purge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hearthfyre Arsenal",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it in the opposing player's Movement phase, right after an enemy unit finishes a Fall Back move. Choose one of your IRONKIN STEELJACKS or BRÔKHYR THUNDERKYN units. It may shoot as if this were your Shooting phase, but only at that enemy unit, which must be an eligible target; its models' attacks get -1 to their Hit rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Hearthfyre Arsenal",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "moment": "after-enemy-unit-ends-fall-back-move"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAny": [
+              "BRÔKHYR THUNDERKYN",
+              "IRONKIN STEELJACKS"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "shoot-out-of-phase",
+              "onlyTarget": "that enemy unit, if eligible",
+              "modifier": {
+                "roll": "hit",
+                "op": "subtract",
+                "value": 1
+              }
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

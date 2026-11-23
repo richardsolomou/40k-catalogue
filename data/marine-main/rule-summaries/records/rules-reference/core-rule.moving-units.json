@@ -1,0 +1,89 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "moving-units",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "03. Moving",
+    "ruleNumber": "03.01",
+    "summary": "Every move type defines who may make it, how far (its maximum or set-up distance) and what conditions apply. To move a unit, shift any of its models one after another, each through as many straight-line steps and rotations as you like. Unless stated otherwise, a model may travel through friendly models and through any space wide enough for its base, but its base may not travel through enemy models or past the battlefield edge, and all ‘While Moving’ conditions must hold. A straight-line step runs horizontally over the battlefield, measured between matching points on the base before and after; its length is added to everything the model has already moved during this move, and the running total may not go beyond the move type’s maximum distance. A rotation spins the model by any amount around its base centre, kept upright, and adds nothing to the distance travelled; baseless models spin on their central axis (Frame, 17.02). Once you have placed and/or moved every model you wish to, confirm the unit has coherency (03.03) if on the battlefield, that no model rests on another model or sits partly through a terrain surface such as a wall or ceiling, and that all ‘After Moving’ conditions hold. If any fails, the move is not allowed and the models return to their starting spots; otherwise apply any extra ‘After Moving’ rules for that move type, and the move is over. Where a move’s maximum distance is based on M and the unit’s models have differing M values, each model uses its own figure (for example 9\" for one model with M 9\" and 6\" for the others), and all other restrictions still apply. A model with a rule to move over or through models, or as though they were absent, can go through enemy models while obeying the move’s other restrictions. Random movement: see 02.02.03. When a rule grants a move type of up to some number of inches, that number is the maximum distance. Examples: two models each go 3\" in one straight line and 3\" in another, 6\" in total; a model allowed 12\" goes 6\", rotates, goes 6\" again and rotates, 12\" in all.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "movement-rule",
+        "ruleNumber": "03.01",
+        "modelsOneAtATime": true,
+        "defaults": {
+          "throughFriendly": true,
+          "throughGapsBaseFits": true,
+          "throughEnemy": false,
+          "crossBattlefieldEdge": false,
+          "whileMovingConditions": "required",
+          "unlessOtherwiseStated": true
+        },
+        "straightLine": {
+          "plane": "horizontal",
+          "measure": "same-base-point",
+          "cumulative": true,
+          "limit": "maximum-distance"
+        },
+        "rotation": {
+          "about": "base-centre",
+          "upright": true,
+          "countsTowardDistance": false,
+          "baselessAxisRef": "17.02"
+        },
+        "endChecks": [
+          "coherency-03.03-if-on-battlefield",
+          "not-on-model-or-through-terrain-surface",
+          "after-moving-conditions"
+        ],
+        "endCheckFailure": "cannot-make-move-return-models",
+        "mixedM": {
+          "perModelMaximum": true,
+          "exampleInches": [
+            9,
+            6
+          ]
+        },
+        "moveThroughModels": {
+          "throughEnemy": true,
+          "otherRestrictionsApply": true
+        },
+        "randomMovementRef": "02.02.03",
+        "upToX": "stated-distance-is-maximum",
+        "examples": {
+          "twoStraightLinesInches": [
+            3,
+            3
+          ],
+          "totalInches": 6,
+          "rotationExample": {
+            "maximumInches": 12,
+            "legsInches": [
+              6,
+              6
+            ]
+          }
+        }
+      }
+    }
+  }
+}

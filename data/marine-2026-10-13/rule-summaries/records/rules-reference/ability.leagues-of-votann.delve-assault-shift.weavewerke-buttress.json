@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.delve-assault-shift.weavewerke-buttress",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Dêlve Assault Shift",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it in the opposing player's Shooting phase, right after an enemy unit picks its targets, provided some of your units have Hostile Acquisition. Choose one of your LEAGUES OF VOTANN INFANTRY units that at least one of that enemy unit's attacks is aimed at. For the rest of the phase, attacks that target it get -1 to their Wound rolls.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Dêlve Assault Shift",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "moment": "after-enemy-unit-selects-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "LEAGUES OF VOTANN",
+              "INFANTRY"
+            ],
+            "targetedByTriggeringUnit": true
+          },
+          "effects": [
+            {
+              "kind": "roll-modifier",
+              "roll": "wound",
+              "op": "subtract",
+              "value": 1,
+              "appliesTo": "attacks targeting the unit"
+            }
+          ],
+          "duration": "end-of-phase",
+          "restrictions": [
+            "units from your army have Hostile Acquisition"
+          ]
+        }
+      }
+    }
+  }
+}

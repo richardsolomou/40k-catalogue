@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.spectacle-of-spite.a-challenge-met",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Spectacle of Spite",
+    "cp": 2,
+    "summary": "When an opponent’s unit finishes Falling Back during Movement, choose a WYCH CULT unit of yours that is unengaged and no more than 6″ away. Declare a charge with it. Eligible enemies must have used Fall Back during that phase and can be no farther away than maximum charge distance.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "detachment": "Spectacle of Spite",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "when": "enemy-unit-ends-fall-back-move"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "WYCH CULT"
+            ],
+            "condition": "unengaged",
+            "within": {
+              "of": "triggering-enemy-unit",
+              "inches": 6
+            }
+          },
+          "effects": [
+            {
+              "action": "declare-charge",
+              "recipient": "chosen-unit",
+              "targetFilter": {
+                "controller": "enemy",
+                "fellBackThisPhase": true,
+                "within": "maximum-charge-distance"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

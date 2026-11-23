@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.forgefathers-seekers.burning-vengeance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Forgefather's Seekers",
+    "cp": 1,
+    "summary": "Spend 1 CP during the opposing player's Shooting phase once an enemy unit has fired at an ADEPTUS ASTARTES TRANSPORT from your army. Choose one ADEPTUS ASTARTES unit embarked in that TRANSPORT. It may make a disembark move, and it may shoot using normal shooting with that enemy unit as its only eligible target.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Forgefather's Seekers",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-has-shot-friendly-transport",
+            "transportKeywords": [
+              "ADEPTUS ASTARTES",
+              "TRANSPORT"
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "embarkedIn": "that-transport"
+          },
+          "effects": [
+            {
+              "kind": "disembark-move",
+              "optional": true
+            },
+            {
+              "kind": "normal-shooting",
+              "optional": true,
+              "onlyTarget": "triggering-enemy-unit"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

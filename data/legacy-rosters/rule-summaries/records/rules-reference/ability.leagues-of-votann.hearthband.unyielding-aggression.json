@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.hearthband.unyielding-aggression",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Hearthband",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP. Use it in your Movement phase, right after one of your LEAGUES OF VOTANN INFANTRY units Falls Back; that unit is the target. Having Fallen Back this turn does not stop it from shooting or declaring a charge later in the turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Hearthband",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "moment": "after-unit-falls-back"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "LEAGUES OF VOTANN",
+              "INFANTRY"
+            ],
+            "justFellBack": true
+          },
+          "effects": [
+            {
+              "kind": "remains-eligible",
+              "action": "shoot",
+              "despite": "fell-back-this-turn"
+            },
+            {
+              "kind": "remains-eligible",
+              "action": "declare-charge",
+              "despite": "fell-back-this-turn"
+            }
+          ],
+          "duration": "end-of-turn",
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "level-of-control",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "14. Objectives",
+    "ruleNumber": "14.02",
+    "summary": "When the battle begins neither player controls any objective. To control one, a player needs models with an OC of at least 1 in range of it; for a terrain objective, standing inside its terrain area counts as being in range. As each phase and each turn ends, add up the OC values of all of a player’s models in range of an objective to get the level of control that player has there. Whoever has the higher level controls it; equal levels leave it uncontrolled unless it is secured (14.03). A unit belonging to a player who controls an objective counts as controlling it while the unit is in range and has a model whose OC is at least 1. Working out objective control comes first at every phase end and turn end, ahead of any other rules or abilities triggered then.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "objective-rule",
+        "ruleNumber": "14.02",
+        "initialControl": "none",
+        "minimumModelOc": 1,
+        "terrainObjectiveRange": "within-terrain-area",
+        "evaluate": {
+          "when": [
+            "end-of-each-phase",
+            "end-of-each-turn"
+          ],
+          "order": "before-all-other-end-rules"
+        },
+        "levelOfControl": "sum-OC-of-models-in-range",
+        "controller": "highest-level",
+        "tie": {
+          "controller": null,
+          "unless": "secured",
+          "securedRef": "14.03"
+        },
+        "controllingUnit": {
+          "requires": [
+            "within-range",
+            "player-controls-objective",
+            "model-with-OC-at-least-1"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.siege-regiment.callous-sacrifice",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Siege Regiment",
+    "cp": 1,
+    "summary": "During your Shooting phase, pick a PLATOON of yours that is engaged with the enemy. Through phase end you can fire ranged weapons at enemies engaged with that platoon. Once a firing unit resolves its attacks, roll a D6 per wound its fire took from an enemy model engaged with the platoon. For every 4+, choose a model from your platoon to destroy.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 26,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 35,
+        "end": 42,
+        "bold": true
+      },
+      {
+        "start": 159,
+        "end": 166,
+        "bold": true
+      },
+      {
+        "start": 280,
+        "end": 287,
+        "bold": true
+      },
+      {
+        "start": 328,
+        "end": 335,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "your"
+              }
+            ],
+            "event": "during-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "PLATOON"
+            ],
+            "state": "within-enemy-engagement-range"
+          },
+          "effects": [
+            {
+              "action": "permit-targeting-engaged-enemies-with-ranged-weapons",
+              "enemy": "unit-in-engagement-range-of-selected-platoon",
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "roll-per-wound-lost",
+              "dice": "D6",
+              "affected": "enemy-model-in-engagement-range-of-selected-platoon",
+              "timing": "after-firing-unit-finishes-its-attacks",
+              "condition": "wound-lost-to-ranged-attack",
+              "onResult": {
+                "atLeast": 4,
+                "result": {
+                  "action": "destroy-selected-friendly-model",
+                  "count": 1,
+                  "fromEntity": "target-unit"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.null-maiden-vigil.desperations-price",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Null Maiden Vigil",
+    "cp": 1,
+    "summary": "In any phase, once a PSYKER unit of your opponent's has finished making Psychic Attacks, or has finished with a Psychic ability aimed at a unit, spend 1 CP on an ANATHEMA PSYKANA unit of yours no more than 18\" from it. That PSYKER unit takes a Leadership test: if it passes it becomes Battle-shocked; if it fails it takes 3 mortal wounds and also becomes Battle-shocked.",
+    "summarySpans": [
+      {
+        "start": 21,
+        "end": 27,
+        "bold": true
+      },
+      {
+        "start": 72,
+        "end": 87,
+        "bold": true
+      },
+      {
+        "start": 112,
+        "end": 119,
+        "bold": true
+      },
+      {
+        "start": 162,
+        "end": 178,
+        "bold": true
+      },
+      {
+        "start": 224,
+        "end": 230,
+        "bold": true
+      },
+      {
+        "start": 244,
+        "end": 259,
+        "bold": true
+      },
+      {
+        "start": 285,
+        "end": 299,
+        "bold": true
+      },
+      {
+        "start": 324,
+        "end": 337,
+        "target": {
+          "kind": "core-rule",
+          "id": "mortal-wounds"
+        }
+      },
+      {
+        "start": 355,
+        "end": 369,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.0",
+        "dataBuild": 963,
+        "releaseDate": "2026-09-30"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Null Maiden Vigil",
+          "category": "Strategic Ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-psyker-finished-psychic-ability-or-psychic-attacks"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ANATHEMA PSYKANA"
+            ],
+            "withinInchesOfTriggeringEnemy": 18
+          },
+          "effects": [
+            {
+              "kind": "force-test",
+              "test": "leadership",
+              "subject": "triggering-enemy-psyker-unit",
+              "onPass": [
+                {
+                  "kind": "battle-shocked"
+                }
+              ],
+              "onFail": [
+                {
+                  "kind": "mortal-wounds",
+                  "amount": 3
+                },
+                {
+                  "kind": "battle-shocked"
+                }
+              ]
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.warpmeld-pact.gift-of-change",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Warpmeld Pact",
+    "cp": 1,
+    "summary": "Use this in any phase on a THOUSAND SONS CHARACTER model just destroyed, excluding MONSTERS. When that phase ends, your army gets a TZEENTCH CHAOS SPAWN unit. Set it up as near as possible to the spot where the character died while staying outside enemy Engagement Range. One use per battle.",
+    "summarySpans": [
+      {
+        "start": 27,
+        "end": 50,
+        "bold": true
+      },
+      {
+        "start": 83,
+        "end": 91,
+        "bold": true
+      },
+      {
+        "start": 132,
+        "end": 152,
+        "bold": true
+      },
+      {
+        "start": 254,
+        "end": 270,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "any",
+                "turn": "either"
+              }
+            ],
+            "event": "after-character-model-is-destroyed"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "model",
+            "count": 1,
+            "keywords": [
+              "THOUSAND SONS CHARACTER"
+            ],
+            "exclude": [
+              "MONSTER"
+            ],
+            "allowDestroyed": true
+          },
+          "effects": [
+            {
+              "action": "add-unit-to-army",
+              "count": 1,
+              "profile": "TZEENTCH CHAOS SPAWN",
+              "timing": "end-of-this-phase",
+              "placement": {
+                "nearestPossibleTo": "position-where-target-model-was-destroyed",
+                "outsideAllEnemyEngagementRanges": true
+              }
+            }
+          ],
+          "restrictions": [
+            "once-per-battle"
+          ]
+        }
+      }
+    }
+  }
+}

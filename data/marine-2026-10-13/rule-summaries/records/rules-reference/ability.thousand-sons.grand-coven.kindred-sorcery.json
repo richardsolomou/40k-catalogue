@@ -1,0 +1,129 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.grand-coven.kindred-sorcery",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 13 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Grand Coven",
+    "summary": "During your Command phase, select an unused option if desired. Its effect ends when you start your following Command phase. For THOUSAND SONS models, Imbued Manifestation increases Range by 6\" for ranged PSYCHIC weapons. Psychic Maelstrom improves Wound rolls by 1 for PSYCHIC weapon attacks. Wrath of the Immaterium gives [DEVASTATING WOUNDS] to PSYCHIC weapons. An option can be activated once a battle.",
+    "summarySpans": [
+      {
+        "start": 12,
+        "end": 25,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 109,
+        "end": 122,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      },
+      {
+        "start": 128,
+        "end": 141,
+        "bold": true
+      },
+      {
+        "start": 323,
+        "end": 343,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "devastating-wounds"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "command",
+          "player": "self"
+        },
+        "selection": {
+          "count": 1,
+          "optional": true,
+          "usesPerOptionPerBattle": 1
+        },
+        "expires": {
+          "event": "next-phase-start",
+          "phase": "command",
+          "player": "self"
+        },
+        "recipient": {
+          "level": "model",
+          "owner": "friendly",
+          "allOf": [
+            "THOUSAND SONS"
+          ]
+        },
+        "options": [
+          {
+            "name": "Imbued Manifestation",
+            "effect": {
+              "type": "weapon-stat-modifier",
+              "weapon": {
+                "attackType": "ranged",
+                "allOf": [
+                  "PSYCHIC"
+                ]
+              },
+              "stat": "range",
+              "operation": "add",
+              "value": 6,
+              "unit": "inches"
+            }
+          },
+          {
+            "name": "Psychic Maelstrom",
+            "effect": {
+              "type": "roll-modifier",
+              "weapon": {
+                "allOf": [
+                  "PSYCHIC"
+                ]
+              },
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "name": "Wrath of the Immaterium",
+            "effect": {
+              "type": "weapon-ability-grant",
+              "weapon": {
+                "allOf": [
+                  "PSYCHIC"
+                ]
+              },
+              "ability": "devastating-wounds"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

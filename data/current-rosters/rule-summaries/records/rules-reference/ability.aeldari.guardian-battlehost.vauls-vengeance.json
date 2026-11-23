@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.guardian-battlehost.vauls-vengeance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Guardian Battlehost",
+    "cp": 1,
+    "summary": "If an enemy destroys your DIRE AVENGERS or GUARDIANS in its Shooting phase or in the Fight phase, select a WAR WALKERS unit. Once that enemy finishes making its attacks, the walkers may fire back using your Shooting phase rules if that enemy is a legal target and the walkers are eligible to shoot. They must fire at the triggering unit. Each battle allows a single use.",
+    "summarySpans": [
+      {
+        "start": 26,
+        "end": 39,
+        "bold": true
+      },
+      {
+        "start": 43,
+        "end": 52,
+        "bold": true
+      },
+      {
+        "start": 60,
+        "end": 74,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 85,
+        "end": 96,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 107,
+        "end": 118,
+        "bold": true
+      },
+      {
+        "start": 207,
+        "end": 221,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "fight",
+              "shooting"
+            ],
+            "event": "enemy-unit-destroyed-friendly-unit",
+            "destroyedAnyKeyword": [
+              "DIRE AVENGERS",
+              "GUARDIANS"
+            ]
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "WAR WALKERS"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "shoot",
+              "optional": true,
+              "asIf": "your-shooting-phase",
+              "after": "triggering-unit-finishes-attacks",
+              "requiresEligibility": true,
+              "onlyTarget": "triggering-unit"
+            }
+          ],
+          "restrictions": {
+            "usesPerBattle": 1
+          }
+        }
+      }
+    }
+  }
+}

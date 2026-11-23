@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.phobos-shadow-force.shadow-masters",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Phobos Shadow Force",
+    "summary": "If one of your units with Scout Squad or Phobos is shot, choose a response. You can ignore those attacks for Hidden eligibility or roll D6 for the maximum distance in inches of a Normal Move. Taking the move bars charge declarations for the rest of that turn.",
+    "summarySpans": [
+      {
+        "start": 109,
+        "end": 115,
+        "target": {
+          "kind": "core-rule",
+          "id": "hidden"
+        }
+      },
+      {
+        "start": 179,
+        "end": 190,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "friendly": true,
+          "anyKeyword": [
+            "Phobos",
+            "Scout Squad"
+          ],
+          "after": "unit has been shot",
+          "requiresHit": false
+        },
+        "oneOf": [
+          {
+            "preserves": "Hidden eligibility",
+            "against": "those attacks"
+          },
+          {
+            "move": "Normal Move",
+            "optional": true,
+            "maximumDistanceInches": {
+              "die": "D6"
+            },
+            "cannotDeclareChargeUntil": "end of turn"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.rubricae-phalanx.implacable-guardians",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Custodes codex · 17 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Rubricae Phalanx",
+    "cp": 2,
+    "summary": "Immediately after an enemy picks its targets in their Shooting phase, choose a RUBRIC MARINES PSYKER unit among those targets. Through the rest of the phase, subtract 1 Damage from each attack allocated to a PSYKER model in that unit.",
+    "summarySpans": [
+      {
+        "start": 54,
+        "end": 68,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 79,
+        "end": 100,
+        "bold": true
+      },
+      {
+        "start": 208,
+        "end": 214,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 2,
+          "type": "strategic-ploy",
+          "trigger": {
+            "turn": "opponent",
+            "phases": [
+              "shooting"
+            ],
+            "event": "enemy-targets-selected",
+            "proximity": "immediate",
+            "window": {
+              "shooting": "opponent"
+            }
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "RUBRIC MARINES PSYKER"
+            ],
+            "targetedBy": "at-least-one-of-triggering-enemy-attacks"
+          },
+          "effects": [
+            {
+              "kind": "modifier",
+              "subject": "allocated-attack",
+              "characteristic": "damage",
+              "delta": -1,
+              "conditions": {
+                "recipientKeyword": "PSYKER",
+                "recipientBelongsTo": "selected-unit"
+              }
+            }
+          ],
+          "duration": {
+            "until": "end-of-phase"
+          }
+        }
+      }
+    }
+  }
+}

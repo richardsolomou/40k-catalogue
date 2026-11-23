@@ -1,0 +1,103 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.mekboy-workshop.fortification",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Mekboy Workshop",
+    "summary": "An enemy engaged exclusively with fortifications is a valid ranged target. Its attackers get −1 on ranged hit rolls, with an exception for close-quarters shooting. If that enemy makes a fall-back move while free of battle-shock, treat its hazard rolls as automatic passes.",
+    "summarySpans": [
+      {
+        "start": 9,
+        "end": 16,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      },
+      {
+        "start": 106,
+        "end": 115,
+        "bold": true
+      },
+      {
+        "start": 139,
+        "end": 162,
+        "target": {
+          "kind": "core-rule",
+          "id": "close-quarters-shooting"
+        }
+      },
+      {
+        "start": 186,
+        "end": 200,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 239,
+        "end": 251,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hazard-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "condition": {
+          "subject": "enemy-unit",
+          "engagedOnlyWith": "FORTIFICATION units"
+        },
+        "effects": [
+          {
+            "operation": "allow-selection-as-ranged-target",
+            "target": "qualified-enemy-unit"
+          },
+          {
+            "operation": "modify-hit-roll",
+            "target": "qualified-enemy-unit",
+            "attackType": "ranged",
+            "modifier": {
+              "operation": "subtract",
+              "magnitude": 1
+            },
+            "except": "close-quarters-shooting"
+          },
+          {
+            "operation": "automatically-pass-rolls",
+            "roll": "hazard",
+            "trigger": "qualified-enemy-unit-selected-to-make-fall-back-move",
+            "requires": {
+              "battleShocked": false
+            },
+            "scope": "all-triggered-hazard-rolls"
+          }
+        ]
+      }
+    }
+  }
+}

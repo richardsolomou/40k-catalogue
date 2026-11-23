@@ -1,0 +1,154 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-aeldari.errata.spirit-conclave-detachment-higher-duty-enhancement",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Aeldari Faction Pack: Version 1.0",
+    "page": "22",
+    "url": "https://assets.warhammer-community.com/eng_09-06_warhammer40000_faction_pack_aeldari-glkjirbhiw-9udkry7xbr.pdf#page=22"
+  },
+  "data": {
+    "publication": "Codex: Aeldari",
+    "amends": [
+      {
+        "kind": "ability",
+        "id": "aeldari.spirit-conclave.higher-duty"
+      }
+    ],
+    "summary": "Higher Duty is a Spiritseer upgrade. If at least one enemy finishes a move within 8″ in the opposing Movement phase, the bearer’s unit may take a Normal Move with a 6″ cap. It must be outside every enemy Engagement Range.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 11,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      },
+      {
+        "type": "publisher",
+        "title": "Aeldari Faction Pack: Version 1.0",
+        "page": "22",
+        "url": "https://assets.warhammer-community.com/eng_09-06_warhammer40000_faction_pack_aeldari-glkjirbhiw-9udkry7xbr.pdf#page=22"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "995328e1-ae96-4ef6-b548-c31fad1a06fc",
+          "typedMechanics": {
+            "operation": "replace-enhancement",
+            "effect": {
+              "effect": {
+                "type": "conditional",
+                "condition": {
+                  "operator": "and",
+                  "operands": [
+                    {
+                      "operator": "and",
+                      "operands": [
+                        {
+                          "type": "phase-is",
+                          "parameters": {
+                            "phase": "movement"
+                          }
+                        },
+                        {
+                          "type": "player-turn-is",
+                          "parameters": {
+                            "turn": "opponent-turn"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "matches",
+                      "parameters": {
+                        "subject": "event-subject",
+                        "filter": {
+                          "within": {
+                            "of": "this-unit",
+                            "range": {
+                              "inches": 8
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "operator": "not",
+                      "operands": [
+                        {
+                          "type": "matches",
+                          "parameters": {
+                            "filter": {
+                              "state": "engaged"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "move",
+                  "target": "this-unit",
+                  "modifier": {
+                    "move_type": "normal",
+                    "distance": 6
+                  }
+                }
+              },
+              "scope": {
+                "duration": "permanent"
+              },
+              "trigger": {
+                "event": "move-ended",
+                "subject": {
+                  "owner": "enemy"
+                },
+                "optional": true
+              },
+              "behavior": "reactive"
+            },
+            "detachmentId": "spirit-conclave",
+            "eligibility": {
+              "scope": "model",
+              "allOf": [
+                "Spiritseer"
+              ]
+            },
+            "targetQid": "ability:aeldari.spirit-conclave.higher-duty",
+            "minimumTriggeringEnemyUnits": 1
+          },
+          "statedValues": [
+            {
+              "kind": "trigger-distance",
+              "value": 8
+            },
+            {
+              "kind": "move-maximum",
+              "value": 6
+            },
+            {
+              "kind": "trigger-minimum-enemy-units",
+              "value": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

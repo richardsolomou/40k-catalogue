@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.changehost-of-deceit.chronosorcerous-bleed",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5 · 2 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Changehost of Deceit",
+    "cp": 1,
+    "summary": "At the opening of the opponent’s Charge phase, pick a unit that isn’t engaged. Choose either a THOUSAND SONS PSYKER unit or one from SCINTILLATING LEGIONS. Subtract 1 from the Charge roll of each enemy that declares a charge while visible and within 12\" of your chosen unit.",
+    "summarySpans": [
+      {
+        "start": 33,
+        "end": 45,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-phase"
+        }
+      },
+      {
+        "start": 95,
+        "end": 115,
+        "bold": true
+      },
+      {
+        "start": 133,
+        "end": 154,
+        "bold": true
+      },
+      {
+        "start": 207,
+        "end": 224,
+        "bold": true
+      },
+      {
+        "start": 231,
+        "end": 238,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "opponent"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [],
+            "anyKeyword": [
+              "THOUSAND SONS PSYKER",
+              "SCINTILLATING LEGIONS"
+            ],
+            "eligibility": "unengaged"
+          },
+          "effects": [
+            {
+              "action": "modify-roll",
+              "actor": "enemy-unit-declaring-charge",
+              "recipient": "enemy-charge-roll",
+              "roll": "charge",
+              "operation": "subtract",
+              "amount": 1,
+              "trigger": "enemy-declares-charge",
+              "condition": {
+                "visibleRelativeTo": "target-unit",
+                "distance": {
+                  "unit": "inch",
+                  "amount": 12,
+                  "from": "target-unit",
+                  "comparator": "at-most"
+                }
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

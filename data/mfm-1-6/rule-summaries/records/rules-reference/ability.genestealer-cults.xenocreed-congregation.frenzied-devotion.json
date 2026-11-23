@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Xenocreed Congregation",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP, in the Fight phase of either turn. Choose one NEOPHYTE HYBRIDS, ACOLYTE HYBRIDS or HYBRID METAMORPHS unit of yours that has not fought yet this phase. Until the phase ends, the melee weapons of its non-CHARACTER models get +1 Attacks, their Weapon Skill improves by 1, and they gain [HAZARDOUS].",
     "summarySpans": [
       {
@@ -38,6 +45,37 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ACOLYTE HYBRIDS"
+                ]
+              },
+              {
+                "keywords": [
+                  "HYBRID METAMORPHS"
+                ]
+              },
+              {
+                "keywords": [
+                  "NEOPHYTE HYBRIDS"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
         "detail": {
           "detachment": "Xenocreed Congregation",
           "when": {

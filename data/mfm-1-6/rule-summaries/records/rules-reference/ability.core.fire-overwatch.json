@@ -15,6 +15,12 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "As your opponent finishes their Movement phase, choose one of your units that is unengaged and lacks TITANIC. It shoots with Snap Shooting. The usual once-per-phase limit from Using Stratagems applies.",
     "summarySpans": [
       {
@@ -74,6 +80,23 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "excludedKeywords": [
+              "TITANIC"
+            ],
+            "conditions": [
+              "unengaged"
+            ]
+          }
+        },
         "detail": {
           "kind": "core-stratagem",
           "when": {

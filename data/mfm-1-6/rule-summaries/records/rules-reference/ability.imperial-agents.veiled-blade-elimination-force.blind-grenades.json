@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Veiled Blade Elimination Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "React immediately after the enemy declares a charge in its Charge phase. Pick one friendly charge target outside enemy Engagement Range. It must be a VINDICARE ASSASSIN or have both GRENADES and AGENTS OF THE IMPERIUM. Through phase end, subtract 1 from the charger’s Charge rolls. Subtract 2 instead for a VINDICARE ASSASSIN pick.",
     "summarySpans": [
       {
@@ -73,6 +80,32 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-declared-charge"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "AGENTS OF THE IMPERIUM",
+                  "GRENADES"
+                ]
+              },
+              {
+                "keywords": [
+                  "VINDICARE ASSASSIN"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "type": "strategic-ploy",
           "trigger": {

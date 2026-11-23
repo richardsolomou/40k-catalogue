@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Chaos Cult",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "In either Fight phase, respond immediately when an enemy picks its attack targets. Choose a DAMNED unit among those targets. Once that attacker resolves its attacks, roll one D6 for each selected-unit model those attacks destroyed. For every 6, the attacker takes 1 mortal wound.",
     "summarySpans": [
       {
@@ -51,6 +58,24 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DAMNED"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
         "detail": {
           "type": "strategic-ploy",
           "trigger": {

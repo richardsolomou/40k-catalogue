@@ -14,6 +14,16 @@
     "ruleType": "stratagem",
     "group": "Runt Swarm",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "After an enemy unit attacks in any phase of either turn, choose one of your GRETCHIN units that just got wiped out. It remains eligible despite its destruction. Put a new copy into Strategic Reserves for your army, restoring its Starting Strength and all its wounds.",
     "summarySpans": [
       {
@@ -43,6 +53,26 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GRETCHIN"
+            ],
+            "conditions": [
+              "just-destroyed"
+            ]
+          }
+        },
         "detail": {
           "trigger": {
             "windows": [

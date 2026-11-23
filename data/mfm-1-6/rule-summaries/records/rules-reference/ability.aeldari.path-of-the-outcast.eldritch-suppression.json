@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Path of the Outcast",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "After friendly RANGERS or SHROUD RUNNERS shoot in your Shooting phase, choose an enemy they hit. If the chosen enemy survived, it takes a −1 penalty on a Battle-shock Roll it must make now.",
     "summarySpans": [
       {
@@ -64,6 +70,29 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "RANGERS"
+                ]
+              },
+              {
+                "keywords": [
+                  "SHROUD RUNNERS"
+                ]
+              }
+            ]
+          }
+        },
         "detail": {
           "window": {
             "phase": "Shooting",

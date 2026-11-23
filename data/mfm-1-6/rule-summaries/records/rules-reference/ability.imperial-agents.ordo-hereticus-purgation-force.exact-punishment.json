@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Ordo Hereticus, Purgation Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "In the enemy Shooting phase, react when enemy fire destroys one of your AGENTS OF THE IMPERIUM units. Choose a surviving friendly unit no more than 6″ from the casualty. The eligible keywords are ADEPTUS ARBITES, INQUISITORIAL AGENTS, and ORDO HERETICUS. After the attacker has fired, your pick may shoot as in your own Shooting phase if eligible, and may fire only at that attacker.",
     "summarySpans": [
       {
@@ -66,6 +73,36 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-destroyed"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ARBITES"
+                ]
+              },
+              {
+                "keywords": [
+                  "INQUISITORIAL AGENTS"
+                ]
+              },
+              {
+                "keywords": [
+                  "ORDO HERETICUS"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "type": "strategic-ploy",
           "trigger": {

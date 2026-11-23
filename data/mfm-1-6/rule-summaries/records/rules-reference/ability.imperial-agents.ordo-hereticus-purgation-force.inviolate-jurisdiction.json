@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Ordo Hereticus, Purgation Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in the Fight phase or the opponent's Shooting phase, right after an enemy unit picks its targets, on an INFANTRY unit of yours that is ADEPTUS ARBITES, INQUISITORIAL AGENTS or ORDO HERETICUS, that it targeted with at least one attack and that is within an objective marker's range. For the rest of that phase, its models gain Feel No Pain 5+.",
     "citations": [
       {
@@ -28,6 +36,40 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ARBITES"
+                ]
+              },
+              {
+                "keywords": [
+                  "INQUISITORIAL AGENTS"
+                ]
+              },
+              {
+                "keywords": [
+                  "ORDO HERETICUS",
+                  "INFANTRY"
+                ]
+              }
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "detachment": "Ordo Hereticus, Purgation Force",
           "when": {

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Outlander Claw",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP, in your Shooting phase. Choose one GENESTEALER CULTS VEHICLE or GENESTEALER CULTS MOUNTED unit of yours that has not shot yet this phase. For the rest of the phase, its models' ranged weapons have [LETHAL HITS] when aimed at an enemy unit no more than 18″ away.",
     "summarySpans": [
       {
@@ -46,6 +53,34 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "GENESTEALER CULTS",
+                  "MOUNTED"
+                ]
+              },
+              {
+                "keywords": [
+                  "GENESTEALER CULTS",
+                  "VEHICLE"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
         "detail": {
           "detachment": "Outlander Claw",
           "when": {

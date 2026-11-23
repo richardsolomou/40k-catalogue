@@ -15,11 +15,13 @@ The contract is [src/rule-summaries/facts.v1.schema.json](../src/rule-summaries/
 | Record | `fields` |
 | --- | --- |
 | `ability` with `ruleType` `enhancement` | `enhancement`, `detail` |
-| `ability` with `ruleType` `stratagem` or `core-stratagem` | `detail` |
+| `ability` with `ruleType` `stratagem` or `core-stratagem` | `stratagem`, `detail` |
 | `mission-award` | `award` (required), `detail` |
 | any other summary kind | `detail` |
 
 A Stratagem's CP cost, phases, turn and type are the record's own `cp` and `stratagem` fields, not facts.
+
+A typed value the source leaves open, or that is not typed yet, is `{ "unresolved": "<what is missing>" }`. Show the summary for it and treat it as not calculated.
 
 ### Typed blocks
 
@@ -40,6 +42,23 @@ Typed blocks are closed: every field is listed here, and a value the source leav
 | `eligibility.notWarlord` | `true` when the bearer cannot be the Warlord. |
 
 Keywords are written in upper case, as the rules print them.
+
+**`stratagem`** says how often a Stratagem can be used, when, and on what:
+
+| Field | Meaning |
+| --- | --- |
+| `limit` | How often a player can use it: once per `phase` (the core rules' limit), `turn`, `battle-round` or `battle`. |
+| `perTarget` | How often the same unit or model can be its target, where the card limits that. |
+| `restricted` | `true` when the card states another restriction, which only the summary gives. |
+| `when.at` | The moment within its phases and turn: the `phase`, its `phase-start` or `phase-end`, a `turn-start` or `turn-end`, or the `reinforcements-step`. |
+| `when.after` | The event it answers, such as `enemy-selected-targets`, `enemy-shot`, `friendly-fell-back` or `friendly-selected-to-fight`. The schema lists every value. |
+| `target.count` | How many units or models it targets. `target.triggering` is `true` instead when it targets the unit named in `when.after`. |
+| `target.side`, `target.entity` | `friendly` or `enemy`, and `unit` or `model`. |
+| `target.keywords` | Keywords the target must all have. `target.anyOf` lists alternatives instead, each with its own `keywords`. |
+| `target.excludedKeywords` | Keywords that disqualify a target. |
+| `target.conditions` | Typed conditions on the target, such as `not-selected-to-shoot` or `targeted-by-the-attacking-unit`. |
+| `target.more` | `true` when the target has further conditions that only the summary gives. |
+| `extraCp` | The extra `cp` its optional additional effect costs, and `exclusive: true` when that effect replaces the main one. |
 
 **`award`** describes how a mission award scores. Its `vp` and `max` are the record's own fields.
 

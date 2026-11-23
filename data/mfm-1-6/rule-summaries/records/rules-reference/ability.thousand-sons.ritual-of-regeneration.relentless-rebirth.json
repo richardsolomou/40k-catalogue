@@ -14,6 +14,16 @@
     "ruleType": "stratagem",
     "group": "Ritual of Regeneration",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "1 CP, usable in any phase as one of your THOUSAND SONS PSYKER units that is INFANTRY or MOUNTED suffers a mortal wound, targeting that unit. It gains Feel No Pain 5+ versus mortal wounds. This lasts for the rest of that phase.",
     "citations": [
       {
@@ -28,6 +38,33 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-suffered-mortal-wound"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY",
+                  "THOUSAND SONS",
+                  "PSYKER"
+                ]
+              },
+              {
+                "keywords": [
+                  "MOUNTED",
+                  "THOUSAND SONS",
+                  "PSYKER"
+                ]
+              }
+            ]
+          }
+        },
         "detail": {
           "detachment": "Ritual of Regeneration",
           "trigger": {

@@ -15,6 +15,12 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "Use it as your opponent's Movement phase closes, on one friendly unit waiting in Strategic Reserves that is not AIRCRAFT. That unit makes an Ingress move. It is not available in the opening battle round.",
     "summarySpans": [
       {
@@ -66,6 +72,22 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "excludedKeywords": [
+              "AIRCRAFT"
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "kind": "core-stratagem",
           "when": {

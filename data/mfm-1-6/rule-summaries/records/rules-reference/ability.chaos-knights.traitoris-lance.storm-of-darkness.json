@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-knights.traitoris-lance.storm-of-darkness",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Chaos Knights Faction Pack: Version 1.2",
+    "page": "25",
+    "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_chaos_knights-87ywk2jovh-xk68yzyb18.pdf#page=25"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Traitoris Lance",
+    "cp": 1,
+    "summary": "After an enemy unit picks targets during its Shooting phase or in the Fight phase, choose one of your CHAOS KNIGHTS units among those targets. That unit gains STEALTH. Apply a −1 Hit modifier to melee attacks against it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Chaos Knights Faction Pack: Version 1.2",
+        "page": "25",
+        "url": "https://assets.warhammer-community.com/eng_wh40k_faction_pack_chaos_knights-87ywk2jovh-xk68yzyb18.pdf#page=25"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Traitoris Lance",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "after": "enemy-unit-selects-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "CHAOS KNIGHTS"
+            ],
+            "condition": "targeted-by-at-least-one-attack-of-triggering-unit"
+          },
+          "effects": [
+            {
+              "action": "grant-unit-ability",
+              "recipient": "chosen-unit",
+              "ability": "stealth"
+            },
+            {
+              "action": "modify-hit-roll",
+              "recipient": "melee-attacks-against-chosen-unit",
+              "amount": -1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

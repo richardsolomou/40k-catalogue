@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.emissaries-imperatus.slayers-of-nightmares",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "When you pick an Adeptus Custodes unit of yours to fight, its melee attacks gain a +1 Wound roll bonus against units with higher Toughness than its own. Use this in either Fight phase.",
+    "summarySpans": [
+      {
+        "start": 86,
+        "end": 96,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Emissaries Imperatus",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "friendly-selected-to-fight"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "controller": "friendly",
+            "allKeywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "relation": "selected-unit"
+          },
+          "effects": [
+            {
+              "action": "modify-wound-roll",
+              "amount": 1,
+              "attackType": "melee",
+              "condition": "target-toughness-exceeds-selected-unit-toughness"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

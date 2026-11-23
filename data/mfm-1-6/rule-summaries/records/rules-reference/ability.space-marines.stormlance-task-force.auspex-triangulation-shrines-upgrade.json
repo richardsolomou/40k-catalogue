@@ -1,0 +1,103 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.stormlance-task-force.auspex-triangulation-shrines-upgrade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Stormlance Task Force",
+    "summary": "Unit eligibility — Adeptus Astartes speeder. As your Shooting phase starts, choose one visible enemy unit at most 12\" from the upgraded unit. The chosen unit becomes spotted and gains +3\" detection range while spotted.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 43,
+        "bold": true
+      },
+      {
+        "start": 53,
+        "end": 67,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 87,
+        "end": 94,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "visibility"
+        }
+      },
+      {
+        "start": 166,
+        "end": 173,
+        "bold": true
+      },
+      {
+        "start": 188,
+        "end": 203,
+        "bold": true
+      },
+      {
+        "start": 210,
+        "end": 217,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "unit",
+          "match": "all",
+          "keywords": [
+            "Adeptus Astartes speeder"
+          ],
+          "anyOf": [],
+          "excludes": [],
+          "equipment": null,
+          "characterOnly": false,
+          "equipableByNonCharacter": true
+        },
+        "effects": [
+          {
+            "recipient": "selected visible enemy unit",
+            "operation": "apply-state",
+            "actor": "controlling player",
+            "select": 1,
+            "rangeInches": 12,
+            "rangeFrom": "upgrade unit",
+            "timing": "start of your Shooting phase",
+            "state": "spotted",
+            "whileActive": [
+              {
+                "recipient": "spotted unit",
+                "operation": "modify-distance",
+                "stat": "detection range",
+                "deltaInches": 3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

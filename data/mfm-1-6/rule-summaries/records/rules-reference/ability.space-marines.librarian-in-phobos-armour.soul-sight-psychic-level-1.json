@@ -1,0 +1,107 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.librarian-in-phobos-armour.soul-sight-psychic-level-1",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Librarian in Phobos Armour",
+    "summary": "The Phobos Librarian’s unit can attempt Soul Sight in your Shooting phase by rolling a D6. On 1, it becomes Battle-shocked. On success, pick one visible enemy unit. The Librarian’s unit gets [IGNORES COVER] on ranged attacks against that enemy.",
+    "summarySpans": [
+      {
+        "start": 87,
+        "end": 89,
+        "bold": true
+      },
+      {
+        "start": 94,
+        "end": 95,
+        "bold": true
+      },
+      {
+        "start": 108,
+        "end": 122,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 191,
+        "end": 206,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "ignores-cover"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "role": "psychic-spell",
+        "psychicLevel": 1,
+        "source": "this-unit",
+        "trigger": {
+          "event": "phase",
+          "phase": "shooting",
+          "turn": "your-turn",
+          "timing": "during"
+        },
+        "optional": true,
+        "effect": {
+          "operation": "roll-and-branch",
+          "dice": {
+            "count": 1,
+            "sides": 6,
+            "additive": 0
+          },
+          "branches": [
+            {
+              "comparison": "at-least",
+              "value": 2,
+              "effect": {
+                "operation": "select-and-grant",
+                "target": {
+                  "side": "enemy",
+                  "count": 1,
+                  "visible": true
+                },
+                "gameplayGrant": {
+                  "operation": "grant-ability",
+                  "label": "IGNORES COVER",
+                  "recipient": "ranged-attacks-by-this-unit-targeting-selected-unit"
+                }
+              }
+            },
+            {
+              "comparison": "less-than",
+              "value": 2,
+              "effect": {
+                "operation": "apply-condition",
+                "condition": "battle-shocked",
+                "recipient": "this-unit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

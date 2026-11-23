@@ -1,0 +1,176 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.designation-force.designated-targets",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Designation Force",
+    "summary": "Your Scout Sentinel units and units with ASTRA MILITARUM INFANTRY SMOKE gain Signal Flares: The bearer may mark one visible enemy unit as designated during your Shooting phase. The chosen foe must be up to 12\" away. A designated unit adds 3\" to its own detection range. A RECON unit in this detachment cannot also be taken in another detachment.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 19,
+        "bold": true
+      },
+      {
+        "start": 41,
+        "end": 71,
+        "bold": true
+      },
+      {
+        "start": 77,
+        "end": 91,
+        "bold": true
+      },
+      {
+        "start": 116,
+        "end": 123,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "visibility"
+        }
+      },
+      {
+        "start": 138,
+        "end": 148,
+        "bold": true
+      },
+      {
+        "start": 161,
+        "end": 175,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 218,
+        "end": 228,
+        "bold": true
+      },
+      {
+        "start": 253,
+        "end": 268,
+        "bold": true
+      },
+      {
+        "start": 272,
+        "end": 277,
+        "bold": true
+      },
+      {
+        "start": 291,
+        "end": 301,
+        "bold": true
+      },
+      {
+        "start": 334,
+        "end": 344,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "9b847488-9663-48dc-b819-08ab93ac4382",
+          "faction": "Astra Militarum",
+          "detachmentId": "7c12acc3-f2ae-4fa7-b80b-03dae96b72da",
+          "detachment": "Designation Force",
+          "uniqueTags": [
+            {
+              "id": "30a9528f-1692-4a82-9559-b9ef448d845d",
+              "name": {
+                "en": "Recon"
+              }
+            }
+          ],
+          "sourceId": "7c12acc3-f2ae-4fa7-b80b-03dae96b72da:designated-targets",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "grant": {
+          "type": "ability-grant",
+          "name": "Signal Flares",
+          "bearer": {
+            "owner": "friendly",
+            "level": "unit",
+            "anyOfFilters": [
+              {
+                "allOf": [
+                  "Scout Sentinel"
+                ]
+              },
+              {
+                "allOf": [
+                  "ASTRA MILITARUM",
+                  "INFANTRY",
+                  "SMOKE"
+                ]
+              }
+            ]
+          },
+          "timing": {
+            "event": "during-phase",
+            "phase": "shooting",
+            "owner": "self"
+          },
+          "selection": {
+            "count": 1,
+            "optional": true,
+            "target": {
+              "owner": "enemy",
+              "level": "unit",
+              "visibleTo": "bearer-unit",
+              "distance": {
+                "from": "bearer-unit",
+                "maximum": 12,
+                "unit": "inches"
+              }
+            }
+          },
+          "designation": {
+            "target": "selected-enemy-unit",
+            "tag": "designated"
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "stat": "detection-range",
+            "operation": "add",
+            "value": 3,
+            "unit": "inches",
+            "target": "designated-enemy-unit",
+            "while": {
+              "designation": "designated"
+            }
+          }
+        },
+        "roster": {
+          "type": "detachment-tag-exclusivity",
+          "tag": "RECON",
+          "scope": "friendly-army",
+          "allowedIn": "this-detachment",
+          "prohibitedIn": "other-detachments"
+        }
+      }
+    }
+  }
+}

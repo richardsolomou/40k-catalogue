@@ -1,0 +1,60 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.ghosts-of-the-webway.cegorachs-coil",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Ghosts of the Webway",
+    "summary": "For a TROUPE MASTER model. Whenever the bearer's unit finishes a Charge move, choose an enemy unit it is in Engagement Range of. Count the bearer's unit's models that are in Engagement Range of the chosen unit and roll that many D6; each 4+ inflicts 1 mortal wound on the chosen unit, with no more than 6 mortal wounds inflicted this way.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "enhancement",
+        "detachment": "Ghosts of the Webway",
+        "pointsCost": 25,
+        "eligibility": {
+          "scope": "model",
+          "keywordsAll": [
+            "TROUPE MASTER"
+          ]
+        },
+        "effects": [
+          {
+            "trigger": "bearer-unit-ends-charge-move",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "withinEngagementRange": true
+            },
+            "roll": {
+              "dice": "D6",
+              "count": "per-model-in-engagement-range-of-that-unit"
+            },
+            "perSuccess": {
+              "threshold": "4+",
+              "mortalWounds": 1
+            },
+            "maxMortalWounds": 6
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.blade-of-ultramar.armour-of-contempt",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Space Marines Faction Pack: Version 1.0",
+    "page": "12",
+    "url": "https://assets.warhammer-community.com/eng_08-06_warhammer40000_faction_pack_space-marines-nd2ezs5yzn-wxe2nf2ckk.pdf#page=12"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Blade of Ultramar",
+    "cp": 1,
+    "summary": "During the enemy’s Shooting phase or either Fight phase, react as an enemy picks an Adeptus Astartes unit of yours as a target. Worsen AP by 1 for attacks against the chosen unit until that enemy finishes attacking.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 33,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 44,
+        "end": 55,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 84,
+        "end": 100,
+        "bold": true
+      },
+      {
+        "start": 128,
+        "end": 142,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Space Marines Faction Pack: Version 1.0",
+        "page": "12",
+        "url": "https://assets.warhammer-community.com/eng_08-06_warhammer40000_faction_pack_space-marines-nd2ezs5yzn-wxe2nf2ckk.pdf#page=12"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-targets-friendly-unit"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "Adeptus Astartes"
+            ],
+            "selection": "friendly-unit-from-trigger"
+          },
+          "effects": [
+            {
+              "kind": "attack-characteristic-modifier",
+              "recipient": "attacks-targeting-selected-unit",
+              "characteristic": "armour-penetration",
+              "operation": "worsen",
+              "amount": 1,
+              "until": "triggering-enemy-unit-finishes-attacking"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

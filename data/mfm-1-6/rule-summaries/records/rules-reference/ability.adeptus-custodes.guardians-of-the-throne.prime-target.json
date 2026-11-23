@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.guardians-of-the-throne.prime-target",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "In your Shooting phase, play this at shooting selection for one of your units with ADEPTUS CUSTODES. Give its ranged attacks three separate rerolls. Use up to one each for hitting, wounding and damage.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Guardians of the Throne",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "own"
+              }
+            ],
+            "event": "unit-selected-to-shoot",
+            "actor": "chosen-unit"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "bind": "chosen-unit",
+            "allKeywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "condition": {
+              "event": "triggering-unit"
+            }
+          },
+          "effects": [
+            {
+              "action": "allow-rerolls",
+              "recipient": "ranged-attacks-of-chosen-unit",
+              "limits": [
+                {
+                  "roll": "hit",
+                  "maxRerolls": 1
+                },
+                {
+                  "roll": "wound",
+                  "maxRerolls": 1
+                },
+                {
+                  "roll": "damage",
+                  "maxRerolls": 1
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

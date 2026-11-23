@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.eliminator-squad.special-issue-optics-and-ammunition",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Eliminator Squad",
+    "summary": "As you pick the Eliminators to fire in your Shooting phase, you can choose one effect. Give their ranged attacks [IGNORES COVER], or pick one enemy no farther than 24″ from the squad. Through the squad’s shooting, count that enemy’s Detection Range as 6″ greater when the Eliminators check it.",
+    "summarySpans": [
+      {
+        "start": 44,
+        "end": 58,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 113,
+        "end": 128,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "ignores-cover"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "Shooting",
+          "side": "own",
+          "event": "owner unit selected to shoot"
+        },
+        "optional": true,
+        "selectCount": 1,
+        "options": [
+          {
+            "grant": "IGNORES COVER",
+            "recipient": "owner unit ranged attacks"
+          },
+          {
+            "target": {
+              "side": "enemy",
+              "kind": "unit",
+              "count": 1,
+              "withinInches": 24,
+              "origin": "owner unit"
+            },
+            "effect": {
+              "stat": "Detection Range",
+              "addInches": 6,
+              "recipient": "selected enemy",
+              "relativeTo": "owner unit",
+              "until": "owner unit has shot"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.covenite-coterie.postmortality",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Covenite Coterie",
+    "cp": 1,
+    "summary": "Any phase after your HAEMONCULUS dies, choose it and pay Pain tokens in a quantity from 1 to 3. At phase end, put it back unengaged, as near its death site as possible. Restore wounds equal to the tokens spent. If it was attached, it returns as a separate unit at starting strength 1. This requires at least one Pain token and is limited to one use per model per battle; it cannot be used with 0 tokens.",
+    "summarySpans": [
+      {
+        "start": 21,
+        "end": 32,
+        "bold": true
+      },
+      {
+        "start": 122,
+        "end": 131,
+        "bold": true
+      },
+      {
+        "start": 221,
+        "end": 229,
+        "bold": true
+      },
+      {
+        "start": 264,
+        "end": 281,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "epic-deed",
+          "trigger": {
+            "turn": "either",
+            "phases": [
+              "any"
+            ],
+            "event": "friendly-model-destroyed"
+          },
+          "target": {
+            "owner": "your-army",
+            "count": 1,
+            "keywords": [
+              "HAEMONCULUS"
+            ],
+            "subject": "model",
+            "destroyed": true
+          },
+          "effects": [
+            {
+              "kind": "spend-pain-tokens",
+              "minimum": 1,
+              "maximum": 3
+            },
+            {
+              "kind": "restore-destroyed-model",
+              "after": "end-of-phase",
+              "subject": "selected-model",
+              "wounds": {
+                "equalTo": "pain-tokens-spent"
+              },
+              "setup": {
+                "where": "battlefield",
+                "nearestTo": "where-destroyed",
+                "unengaged": true,
+                "ifPreviouslyAttached": {
+                  "separateFromPriorUnit": true,
+                  "startingStrength": 1
+                }
+              }
+            }
+          ],
+          "restrictions": {
+            "usesPerModelPerBattle": 1,
+            "minimumPainTokens": 1,
+            "excludedPainTokenCount": 0
+          }
+        }
+      }
+    }
+  }
+}

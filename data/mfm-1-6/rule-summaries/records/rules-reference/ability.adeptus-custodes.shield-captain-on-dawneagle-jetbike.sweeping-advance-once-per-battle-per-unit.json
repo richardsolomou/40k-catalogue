@@ -1,0 +1,79 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.shield-captain-on-dawneagle-jetbike.sweeping-advance-once-per-battle-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Shield-Captain on Dawneagle Jetbike",
+    "summary": "At Fight phase end, if the Shield-Captain’s unit is eligible to fight, it can make either a Normal move or a Fall-Back move. Each unit gets one use per battle.",
+    "summarySpans": [
+      {
+        "start": 3,
+        "end": 14,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 92,
+        "end": 103,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 109,
+        "end": 123,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "phase",
+          "phase": "fight",
+          "timing": "end",
+          "turn": "either-player"
+        },
+        "condition": "this-unit-eligible-to-fight",
+        "limit": {
+          "period": "battle",
+          "scope": "unit",
+          "count": 1
+        },
+        "effect": {
+          "operation": "make-move",
+          "recipient": "this-unit",
+          "optional": true,
+          "chooseOne": [
+            "normal",
+            "fall-back"
+          ]
+        }
+      }
+    }
+  }
+}

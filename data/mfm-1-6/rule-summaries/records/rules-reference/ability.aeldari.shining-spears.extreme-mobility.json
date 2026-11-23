@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "aeldari.shining-spears.extreme-mobility",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Shining Spears",
+    "summary": "For a Charge move, Fall Back, Normal move or Advance, leave vertical travel out of the distance each model in this unit moves.",
+    "summarySpans": [
+      {
+        "start": 6,
+        "end": 17,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-move"
+        }
+      },
+      {
+        "start": 19,
+        "end": 28,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 30,
+        "end": 41,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      },
+      {
+        "start": 45,
+        "end": 52,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-unit",
+        "trigger": {
+          "event": "source-unit-makes-move",
+          "anyMove": [
+            "normal",
+            "advance",
+            "fall-back",
+            "charge"
+          ]
+        },
+        "effect": {
+          "recipient": "models-in-source-unit",
+          "operation": "exclude-vertical-distance-from-total-distance-moved"
+        }
+      }
+    }
+  }
+}

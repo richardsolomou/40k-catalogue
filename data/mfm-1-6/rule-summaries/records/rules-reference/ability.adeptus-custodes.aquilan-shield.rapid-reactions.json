@@ -1,0 +1,106 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.aquilan-shield.rapid-reactions",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "Use 1 CP immediately after an enemy completes a Fall Back move in its Movement phase. Pick one friendly unit with both ADEPTUS CUSTODES and INFANTRY. It must have been Engaged with the retreating unit when the phase began. Resolve Normal Shooting for your pick, with that enemy as the sole legal target.",
+    "summarySpans": [
+      {
+        "start": 48,
+        "end": 62,
+        "target": {
+          "kind": "core-rule",
+          "id": "fall-back"
+        }
+      },
+      {
+        "start": 70,
+        "end": 84,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 119,
+        "end": 135,
+        "bold": true
+      },
+      {
+        "start": 140,
+        "end": 148,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Aquilan Shield",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "opponent"
+              }
+            ],
+            "event": "immediately-after-move-completed",
+            "actor": {
+              "bind": "triggering-enemy",
+              "controller": "opponent",
+              "entity": "unit"
+            },
+            "moveType": "fall-back"
+          },
+          "target": {
+            "controller": "friendly",
+            "entity": "unit",
+            "count": 1,
+            "bind": "chosen-unit",
+            "allKeywords": [
+              "ADEPTUS CUSTODES",
+              "INFANTRY"
+            ],
+            "condition": {
+              "relation": "engaged-with",
+              "unit": "triggering-enemy",
+              "asOf": "start-of-triggering-phase"
+            }
+          },
+          "effects": [
+            {
+              "action": "shoot",
+              "actor": "chosen-unit",
+              "kind": "normal-shooting",
+              "targetRestriction": {
+                "only": [
+                  "triggering-enemy"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.auxiliary-cadre.integrated-command-structure",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Auxiliary Cadre",
+    "summary": "Grant to your Vespid Stingwings and Kroot units. Harnessed Alien Instincts: The bearer may mark one visible enemy unit as prey‑marked during your Shooting phase. The chosen foe must be up to 12\" away. A prey‑marked unit adds 3\" to its own detection range. Give Localised Stealth Projectors (Aura): to your STEALTH BATTLESUITS and GHOSTKEEL BATTLESUIT units. A friendly Kroot or Vespid Stingwings unit up to 6\" from an emitter may retain hidden status after making ranged attacks. An AUXILIARIES unit taken in this detachment is barred from another detachment.",
+    "summarySpans": [
+      {
+        "start": 14,
+        "end": 31,
+        "bold": true
+      },
+      {
+        "start": 36,
+        "end": 41,
+        "bold": true
+      },
+      {
+        "start": 49,
+        "end": 75,
+        "bold": true
+      },
+      {
+        "start": 100,
+        "end": 107,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "visibility"
+        }
+      },
+      {
+        "start": 122,
+        "end": 133,
+        "bold": true
+      },
+      {
+        "start": 146,
+        "end": 160,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 203,
+        "end": 214,
+        "bold": true
+      },
+      {
+        "start": 239,
+        "end": 254,
+        "bold": true
+      },
+      {
+        "start": 261,
+        "end": 297,
+        "bold": true
+      },
+      {
+        "start": 306,
+        "end": 325,
+        "bold": true
+      },
+      {
+        "start": 330,
+        "end": 350,
+        "bold": true
+      },
+      {
+        "start": 369,
+        "end": 374,
+        "bold": true
+      },
+      {
+        "start": 378,
+        "end": 395,
+        "bold": true
+      },
+      {
+        "start": 437,
+        "end": 443,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "hidden"
+        }
+      },
+      {
+        "start": 483,
+        "end": 494,
+        "bold": true
+      },
+      {
+        "start": 514,
+        "end": 524,
+        "bold": true
+      },
+      {
+        "start": 548,
+        "end": 558,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "scope": {
+          "factionId": "1a241f8e-2d79-47c4-82b1-f6faea353970",
+          "faction": "T’au Empire",
+          "detachmentId": "5bdc7f35-d1cc-4c58-9888-81ee3f0ee8ab",
+          "detachment": "Auxiliary Cadre",
+          "uniqueTags": [
+            {
+              "id": "8b57cdd4-e1c9-4ee6-9efc-350e67c7a072",
+              "name": {
+                "en": "Auxiliary"
+              }
+            }
+          ],
+          "sourceId": "5bdc7f35-d1cc-4c58-9888-81ee3f0ee8ab:integrated-command-structure",
+          "cardType": "detachmentRule",
+          "cardEdition": "40k-11e"
+        },
+        "grant": {
+          "type": "ability-grant",
+          "name": "Harnessed Alien Instincts",
+          "bearer": {
+            "owner": "friendly",
+            "level": "unit",
+            "anyOf": [
+              "Kroot",
+              "Vespid Stingwings"
+            ]
+          },
+          "timing": {
+            "event": "during-phase",
+            "phase": "shooting",
+            "owner": "self"
+          },
+          "selection": {
+            "count": 1,
+            "optional": true,
+            "target": {
+              "owner": "enemy",
+              "level": "unit",
+              "visibleTo": "bearer-unit",
+              "distance": {
+                "from": "bearer-unit",
+                "maximum": 12,
+                "unit": "inches"
+              }
+            }
+          },
+          "designation": {
+            "target": "selected-enemy-unit",
+            "tag": "prey‑marked"
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "stat": "detection-range",
+            "operation": "add",
+            "value": 3,
+            "unit": "inches",
+            "target": "designated-enemy-unit",
+            "while": {
+              "designation": "prey‑marked"
+            }
+          }
+        },
+        "aura": {
+          "type": "ability-grant",
+          "name": "Localised Stealth Projectors",
+          "bearer": {
+            "owner": "friendly",
+            "level": "unit",
+            "anyOf": [
+              "GHOSTKEEL BATTLESUIT",
+              "STEALTH BATTLESUITS"
+            ]
+          },
+          "effect": {
+            "type": "aura",
+            "range": {
+              "maximum": 6,
+              "unit": "inches",
+              "from": "bearer-unit"
+            },
+            "recipient": {
+              "owner": "friendly",
+              "level": "unit",
+              "anyOf": [
+                "Kroot",
+                "Vespid Stingwings"
+              ]
+            },
+            "exception": {
+              "type": "hidden-eligibility-exception",
+              "ignores": "those-ranged-attacks-only"
+            }
+          }
+        },
+        "roster": {
+          "type": "detachment-tag-exclusivity",
+          "tag": "AUXILIARIES",
+          "scope": "friendly-army",
+          "allowedIn": "this-detachment",
+          "prohibitedIn": "other-detachments"
+        }
+      }
+    }
+  }
+}

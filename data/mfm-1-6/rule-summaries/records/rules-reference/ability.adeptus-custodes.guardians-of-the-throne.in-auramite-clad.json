@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.guardians-of-the-throne.in-auramite-clad",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "Spend 1 CP when an enemy picks one of your ADEPTUS CUSTODES units as its attack target. Use this in the opposing Shooting phase or in either player's Fight phase. Custodian Wardens are ineligible. That enemy's attacks into the chosen unit lose 1 AP through the end of its attacks.",
+    "summarySpans": [
+      {
+        "start": 113,
+        "end": 127,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 150,
+        "end": 161,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Guardians of the Throne",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              },
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-selects-friendly-target",
+            "side": "enemy"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "sameAs": "selected-defender",
+            "allKeywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "excludedUnits": [
+              "Custodian Wardens"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "attack-characteristic-modifier",
+              "field": "AP",
+              "delta": -1,
+              "attacker": "triggering-enemy-unit",
+              "defender": "selected-defender",
+              "expires": "triggering-enemy-finishes-attacks"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

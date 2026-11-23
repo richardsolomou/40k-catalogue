@@ -1,0 +1,87 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.outlander-claw.rapid-takeover",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Genestealer Cults Faction Pack: Version 1.1",
+    "page": "8",
+    "url": "https://assets.warhammer-community.com/eng_22-07_warhammer_40,000_faction_pack_genestealer_cults-vmkwgeydbr-sh7picbeqo.pdf#page=8"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Outlander Claw",
+    "summary": "Your Genestealer Cults models with Mounted or Vehicle get +1 OC while free of Battle-shock. When your Command phase ends, a controlled objective in range of any of your Atalan Jackals units stays yours. Retention ends if your opponent leads in control over that marker when a phase ends.",
+    "summarySpans": [
+      {
+        "start": 102,
+        "end": 115,
+        "target": {
+          "kind": "core-rule",
+          "id": "command-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Genestealer Cults Faction Pack: Version 1.1",
+        "page": "8",
+        "url": "https://assets.warhammer-community.com/eng_22-07_warhammer_40,000_faction_pack_genestealer_cults-vmkwgeydbr-sh7picbeqo.pdf#page=8"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "objectiveControlModifier": {
+          "recipient": {
+            "side": "friendly",
+            "faction": "Genestealer Cults",
+            "type": "model",
+            "anyOf": [
+              "Mounted",
+              "Vehicle"
+            ],
+            "battleShocked": false
+          },
+          "amount": "+1"
+        },
+        "retention": {
+          "trigger": {
+            "phase": "Command",
+            "turn": "own",
+            "timing": "end"
+          },
+          "target": {
+            "type": "objective",
+            "currentlyControlledBy": "own",
+            "withinRangeOf": {
+              "side": "friendly",
+              "unit": "Atalan Jackals",
+              "minimumUnits": 1
+            }
+          },
+          "expiry": {
+            "phase": "any",
+            "timing": "end",
+            "comparator": {
+              "left": "opponent Level of Control over this objective",
+              "operator": ">",
+              "right": "own Level of Control over this objective"
+            }
+          }
+        }
+      }
+    }
+  }
+}

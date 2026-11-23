@@ -1,0 +1,123 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.realspace-raiders.eager-for-the-kill",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Realspace Raiders",
+    "cp": 1,
+    "summary": "As your Movement phase begins, choose one or two of your WYCHES units, or a friendly DRUKHARI unit of a different kind. Each must still be unselected to move. When a chosen unit Advances this phase, skip its Advance roll and give its models +6″ Move through phase end. REAVERS using Matchless Swiftness cannot add this bonus on top.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 22,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 57,
+        "end": 63,
+        "bold": true
+      },
+      {
+        "start": 85,
+        "end": 93,
+        "bold": true
+      },
+      {
+        "start": 269,
+        "end": 276,
+        "bold": true
+      },
+      {
+        "start": 283,
+        "end": 302,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "battle-tactic",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ],
+            "event": "phase-start"
+          },
+          "target": {
+            "any": [
+              {
+                "owner": "your-army",
+                "entity": "unit",
+                "keywords": [
+                  "WYCHES"
+                ],
+                "count": {
+                  "upTo": 2
+                }
+              },
+              {
+                "owner": "your-army",
+                "entity": "unit",
+                "keywords": [
+                  "DRUKHARI"
+                ],
+                "count": 1,
+                "exclude": [
+                  "WYCHES"
+                ]
+              }
+            ],
+            "state": "not-selected-to-move-this-phase"
+          },
+          "effects": [
+            {
+              "action": "replace-advance-roll",
+              "recipient": "each-selected-unit-that-advances",
+              "replacement": {
+                "characteristic": "move",
+                "operation": "add",
+                "amount": 6,
+                "unit": "inch",
+                "recipient": "models-in-that-unit"
+              },
+              "duration": {
+                "until": "end-of-this-phase"
+              }
+            },
+            {
+              "action": "prevent-stacking",
+              "recipient": "affected-reavers",
+              "withAbility": "matchless-swiftness"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.xenocreed-congregation.the-path-of-anguish",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Xenocreed Congregation",
+    "cp": 1,
+    "summary": "Strategic Ploy, 1 CP, in the Shooting phase of your opponent's turn, right after an enemy unit finishes shooting. Choose one NEOPHYTE HYBRIDS or ACOLYTE HYBRIDS unit of yours whose models suffered at least one casualty from those attacks. It may move up to D6″, but must finish as close as it can get to the nearest enemy unit (ignoring AIRCRAFT); during this move its models are allowed inside that enemy unit's Engagement Range.",
+    "summarySpans": [
+      {
+        "start": 29,
+        "end": 43,
+        "target": {
+          "kind": "core-rule",
+          "id": "shooting-phase"
+        }
+      },
+      {
+        "start": 413,
+        "end": 429,
+        "target": {
+          "kind": "core-rule",
+          "id": "engagement-range"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "category": "Strategic Ploy",
+          "detachment": "Xenocreed Congregation",
+          "when": {
+            "phase": "shooting",
+            "turn": "opponent",
+            "event": "enemy-unit-has-shot"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "keywordsAny": [
+              "ACOLYTE HYBRIDS",
+              "NEOPHYTE HYBRIDS"
+            ],
+            "condition": "had-models-destroyed-by-those-attacks",
+            "minModelsDestroyed": 1
+          },
+          "effects": [
+            {
+              "move": "D6",
+              "mustEnd": "as-close-as-possible-to-closest-enemy-unit",
+              "excludeKeywords": [
+                "AIRCRAFT"
+              ],
+              "mayEnterEngagementRangeOf": "that-enemy-unit"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

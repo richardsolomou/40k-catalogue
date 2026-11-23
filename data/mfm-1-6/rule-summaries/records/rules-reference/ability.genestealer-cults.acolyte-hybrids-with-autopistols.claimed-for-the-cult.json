@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "genestealer-cults.acolyte-hybrids-with-autopistols.claimed-for-the-cult",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Acolyte Hybrids with Autopistols",
+    "summary": "As your Command phase opens, roll a D6 per objective you control with any of your units with this ability in range. At least one 4+ earns you 1 CP total.",
+    "summarySpans": [
+      {
+        "start": 8,
+        "end": 21,
+        "target": {
+          "kind": "core-rule",
+          "id": "start-of-command-phase"
+        }
+      },
+      {
+        "start": 36,
+        "end": 38,
+        "bold": true
+      },
+      {
+        "start": 43,
+        "end": 52,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 129,
+        "end": 131,
+        "bold": true
+      },
+      {
+        "start": 142,
+        "end": 146,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "event": "phase",
+          "phase": "command",
+          "timing": "start",
+          "turn": "your-turn"
+        },
+        "source": "your-army",
+        "optional": false,
+        "eligibleObjectives": {
+          "controller": "you",
+          "minUnitsInRange": 1,
+          "unitOwner": "you",
+          "requireThisAbility": true
+        },
+        "effect": {
+          "operation": "roll-per-eligible-objective",
+          "dice": {
+            "count": 1,
+            "sides": 6,
+            "additive": 0
+          },
+          "reward": {
+            "operation": "gain-cp",
+            "recipient": "you",
+            "quantity": 1,
+            "capPerTrigger": 1,
+            "condition": {
+              "minimumSuccessfulRolls": 1,
+              "threshold": {
+                "comparison": "at-least",
+                "value": 4
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

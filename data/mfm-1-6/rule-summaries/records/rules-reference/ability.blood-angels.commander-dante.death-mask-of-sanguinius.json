@@ -1,0 +1,88 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.commander-dante.death-mask-of-sanguinius",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Commander Dante",
+    "summary": "Foes no farther than 6″ from Dante take a Battle-shock roll at −1 as the Fight phase opens. Resolve one roll for each enemy unit in range.",
+    "summarySpans": [
+      {
+        "start": 21,
+        "end": 23,
+        "bold": true
+      },
+      {
+        "start": 42,
+        "end": 59,
+        "target": {
+          "kind": "core-rule",
+          "id": "battle-shock"
+        }
+      },
+      {
+        "start": 63,
+        "end": 65,
+        "bold": true
+      },
+      {
+        "start": 73,
+        "end": 84,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "source": "this-model",
+        "area": {
+          "comparison": "within",
+          "inclusive": true,
+          "distanceInches": 6,
+          "origin": "this-model",
+          "candidate": {
+            "entity": "unit",
+            "side": "enemy",
+            "requireAllKeywords": [],
+            "excludeAnyKeywords": []
+          }
+        },
+        "trigger": {
+          "event": "phase",
+          "phase": "fight",
+          "timing": "start",
+          "turn": "either-player"
+        },
+        "effect": {
+          "operation": "take-test",
+          "test": "battle-shock",
+          "optional": false,
+          "rollModifier": {
+            "operation": "subtract",
+            "amount": 1
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "drukhari.skysplinter-assault.wraithlike-retreat",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Skysplinter Assault",
+    "cp": 1,
+    "summary": "As a Fight phase closes, choose one of your DRUKHARI INFANTRY units that fought in it. The unit may move normally or fall back. For a unit without WYCHES, that move must end with every model within 5″ vertically and within 3″ horizontally of a friendly Transport with DRUKHARI. Board that Transport immediately or forgo the move. The unit can board a transport it left earlier in the turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Skysplinter Assault",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "at": "phase-end"
+          },
+          "target": {
+            "entity": "unit",
+            "controller": "friendly",
+            "count": 1,
+            "allKeywords": [
+              "DRUKHARI",
+              "INFANTRY"
+            ],
+            "condition": "fought-this-phase"
+          },
+          "effects": [
+            {
+              "action": "allow-move",
+              "recipient": "chosen-unit",
+              "choices": [
+                "normal",
+                "fall-back"
+              ],
+              "optional": true,
+              "condition": {
+                "exceptKeyword": "WYCHES",
+                "endWhollyWithin": {
+                  "of": "friendly-drukhari-transport",
+                  "horizontalInches": 3,
+                  "verticalInches": 5
+                },
+                "mustEmbarkAt": "move-end",
+                "disallowMoveIfConditionsUnmet": true
+              }
+            },
+            {
+              "action": "allow-embarking",
+              "recipient": "chosen-unit",
+              "allowTransportDisembarkedFromThisTurn": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

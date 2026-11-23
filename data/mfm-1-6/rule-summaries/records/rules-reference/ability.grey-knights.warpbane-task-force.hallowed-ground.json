@@ -1,0 +1,250 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "grey-knights.warpbane-task-force.hallowed-ground",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Warpbane Task Force",
+    "summary": "Hallowed Ground always includes your own deployment zone. At each phase start, check No Man’s Land and the enemy deployment zone separately. Add a region for that phase if your share of its controlled objectives reaches one half or more. The area within 6″ of friendly PURIFIER SQUAD units is also Hallowed Ground. Your GREY KNIGHTS re-roll Hit rolls of 1 on melee attacks or on ranged attacks against visible targets. For PURIFIER SQUAD units or units wholly in Hallowed Ground, any Hit roll on those attacks can be re-rolled instead.",
+    "summarySpans": [
+      {
+        "start": 269,
+        "end": 283,
+        "bold": true
+      },
+      {
+        "start": 320,
+        "end": 332,
+        "bold": true
+      },
+      {
+        "start": 423,
+        "end": 437,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "passive",
+        "scope": {
+          "duration": "permanent"
+        },
+        "effect": {
+          "type": "named-region-state",
+          "target": {
+            "owner": "friendly"
+          },
+          "modifier": {
+            "region_ref": {
+              "region_id": "hallowed-ground",
+              "owner_faction": "grey-knights"
+            },
+            "producer": {
+              "region_ref": {
+                "region_id": "hallowed-ground",
+                "owner_faction": "grey-knights"
+              },
+              "mode": "complete",
+              "parent_ref": null,
+              "baseline": [
+                {
+                  "region": {
+                    "territory": "your-deployment-zone"
+                  },
+                  "duration": "permanent"
+                }
+              ],
+              "phase_extensions": [
+                {
+                  "region": {
+                    "territory": "no-mans-land"
+                  },
+                  "condition": {
+                    "type": "controls",
+                    "parameters": {
+                      "by": "friendly",
+                      "objective": {
+                        "territory": "no-mans-land"
+                      },
+                      "proportion": {
+                        "comparison": "gte",
+                        "fraction": 0.5
+                      }
+                    }
+                  },
+                  "trigger": {
+                    "event": "phase-started"
+                  },
+                  "duration": "phase",
+                  "evaluation": "snapshot-once"
+                },
+                {
+                  "region": {
+                    "territory": "enemy-deployment-zone"
+                  },
+                  "condition": {
+                    "type": "controls",
+                    "parameters": {
+                      "by": "friendly",
+                      "objective": {
+                        "territory": "enemy-deployment-zone"
+                      },
+                      "proportion": {
+                        "comparison": "gte",
+                        "fraction": 0.5
+                      }
+                    }
+                  },
+                  "trigger": {
+                    "event": "phase-started"
+                  },
+                  "duration": "phase",
+                  "evaluation": "snapshot-once"
+                }
+              ],
+              "additive_extensions": [
+                {
+                  "kind": "unit-proximity",
+                  "filter": {
+                    "owner": "friendly",
+                    "all_of": [
+                      "PURIFIER SQUAD"
+                    ]
+                  },
+                  "range": {
+                    "inches": 6
+                  }
+                }
+              ]
+            },
+            "consumer": {
+              "state_ref": {
+                "region_id": "hallowed-ground",
+                "owner_faction": "grey-knights"
+              },
+              "beneficiary_filter": {
+                "owner": "friendly",
+                "all_of": [
+                  "GREY KNIGHTS"
+                ]
+              },
+              "membership": {
+                "unit_scope": "whole-unit",
+                "relation": "wholly-within"
+              },
+              "qualified_condition": {
+                "operator": "or",
+                "operands": [
+                  {
+                    "type": "matches",
+                    "parameters": {
+                      "subject": "this-unit",
+                      "filter": {
+                        "all_of": [
+                          "PURIFIER SQUAD"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "in-region",
+                    "parameters": {
+                      "region": {
+                        "rule_region": {
+                          "region_id": "hallowed-ground",
+                          "owner_faction": "grey-knights"
+                        }
+                      },
+                      "wholly": true,
+                      "models": "every"
+                    }
+                  }
+                ]
+              },
+              "default_branch": {
+                "effect": {
+                  "type": "ability-part",
+                  "effect": {
+                    "type": "re-roll",
+                    "target": "attacker",
+                    "modifier": {
+                      "roll": "hit",
+                      "subset": "ones"
+                    }
+                  },
+                  "optional": false
+                }
+              },
+              "qualified_branch": {
+                "effect": {
+                  "type": "ability-part",
+                  "effect": {
+                    "type": "re-roll",
+                    "target": "attacker",
+                    "modifier": {
+                      "roll": "hit",
+                      "result_scope": "any-result"
+                    }
+                  },
+                  "optional": true
+                }
+              },
+              "attack_condition": {
+                "operator": "or",
+                "operands": [
+                  {
+                    "type": "attack-is",
+                    "parameters": {
+                      "attack_type": "melee"
+                    }
+                  },
+                  {
+                    "operator": "and",
+                    "operands": [
+                      {
+                        "type": "attack-is",
+                        "parameters": {
+                          "attack_type": "ranged"
+                        }
+                      },
+                      {
+                        "type": "matches",
+                        "parameters": {
+                          "subject": "defender",
+                          "filter": {
+                            "visible": {
+                              "to": "attacker"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "branch_precedence": "qualified-replaces-default"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "orks.flyboyz.flyboss-upgrade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Flyboyz",
+    "summary": "Unit eligibility — Orks Aircraft. The upgraded unit gains Character. At the end of its ingress move, give the riled up status to each friendly unit in the Orks Aircraft/Deffkoptas group within 6\". Your next turn starting clears that status.",
+    "summarySpans": [
+      {
+        "start": 19,
+        "end": 32,
+        "bold": true
+      },
+      {
+        "start": 58,
+        "end": 67,
+        "bold": true
+      },
+      {
+        "start": 87,
+        "end": 99,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "ingress-move"
+        }
+      },
+      {
+        "start": 110,
+        "end": 118,
+        "bold": true
+      },
+      {
+        "start": 155,
+        "end": 179,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "eligibility": {
+          "scope": "unit",
+          "match": "all",
+          "keywords": [
+            "Orks Aircraft"
+          ],
+          "anyOf": [],
+          "excludes": [],
+          "equipment": null,
+          "characterOnly": false,
+          "equipableByNonCharacter": true
+        },
+        "effects": [
+          {
+            "recipient": "upgrade unit",
+            "operation": "grant-keyword",
+            "keyword": "Character"
+          },
+          {
+            "recipient": "each friendly Orks Aircraft or Deffkoptas unit in range",
+            "operation": "apply-state",
+            "trigger": "upgrade unit ends ingress move",
+            "rangeInches": 6,
+            "rangeFrom": "upgrade unit",
+            "state": "riled up",
+            "expires": "start of your next turn"
+          }
+        ]
+      }
+    }
+  }
+}

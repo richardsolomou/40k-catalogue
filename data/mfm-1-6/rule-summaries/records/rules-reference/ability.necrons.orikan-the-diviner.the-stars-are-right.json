@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.orikan-the-diviner.the-stars-are-right",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Orikan the Diviner",
+    "summary": "As a Fight phase begins, Orikan may use this ability once per battle. For the rest of that phase, triple his Strength and treat every successful Wound result he rolls as a Critical Wound.",
+    "summarySpans": [
+      {
+        "start": 5,
+        "end": 16,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 145,
+        "end": 157,
+        "target": {
+          "kind": "core-rule",
+          "id": "wound-rolls"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "actor": "Orikan the Diviner",
+        "trigger": "start of a Fight phase",
+        "optional": true,
+        "useLimit": {
+          "count": 1,
+          "per": "battle"
+        },
+        "duration": "until end of that phase",
+        "effects": [
+          {
+            "type": "multiply-characteristic",
+            "recipient": "owning model",
+            "characteristic": "Strength",
+            "factor": 3
+          },
+          {
+            "type": "convert-roll-outcome",
+            "madeBy": "owning model",
+            "roll": "wound",
+            "from": "successful",
+            "to": "critical wound"
+          }
+        ]
+      }
+    }
+  }
+}

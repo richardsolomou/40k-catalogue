@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.saga-of-the-great-wolf.master-of-wolves",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Saga of the Great Wolf",
+    "summary": "Every friendly ADEPTUS ASTARTES unit with this rule, other than MONSTER and VEHICLE units, gains three abilities tied to its active doctrine. Encircling Jaws (assault doctrine): the unit adds 1 to its Charge and Advance rolls. Hunter's Eye (devastator doctrine): its ranged attacks may re-roll a Hit roll of 1. Ferocious Strike (tactical doctrine): its attacks against enemy units within 9 inches have [SUSTAINED HITS 1]. LOGAN GRIMNAR units from your army also have Howling Onslaught, usable once per battle for your army during your Command phase: until your next Command phase starts, friendly ADEPTUS ASTARTES MONSTER and VEHICLE units also benefit from Master of Wolves. SPACE WOLVES units are allowed in your army, but ADEPTUS ASTARTES units from any other Chapter are not.",
+    "summarySpans": [
+      {
+        "start": 402,
+        "end": 420,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "interpretation": [
+      {
+        "question": "Printed text correction: \"with 9”\" means \"within 9”\""
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "kind": "detachment-rule",
+        "detachment": "Saga of the Great Wolf",
+        "recipients": {
+          "side": "friendly",
+          "keywordsAll": [
+            "ADEPTUS ASTARTES"
+          ],
+          "excludedKeywords": [
+            "MONSTER",
+            "VEHICLE"
+          ],
+          "withThisAbility": true
+        },
+        "abilities": {
+          "Encircling Jaws": {
+            "doctrine": "assault",
+            "rollModifiers": [
+              {
+                "roll": "advance",
+                "delta": 1
+              },
+              {
+                "roll": "charge",
+                "delta": 1
+              }
+            ]
+          },
+          "Hunter's Eye": {
+            "doctrine": "devastator",
+            "attackType": "ranged",
+            "reroll": {
+              "roll": "hit",
+              "value": 1
+            }
+          },
+          "Ferocious Strike": {
+            "doctrine": "tactical",
+            "condition": {
+              "targetWithinInches": 9
+            },
+            "grant": {
+              "ability": "SUSTAINED HITS",
+              "value": 1
+            }
+          }
+        },
+        "howlingOnslaught": {
+          "holder": "LOGAN GRIMNAR",
+          "usage": "once-per-battle-per-army",
+          "phase": "own-command",
+          "effect": {
+            "extendTo": {
+              "keywordsAll": [
+                "ADEPTUS ASTARTES"
+              ],
+              "keywordsAny": [
+                "MONSTER",
+                "VEHICLE"
+              ]
+            },
+            "until": "start-of-your-next-command-phase"
+          }
+        },
+        "restriction": {
+          "allowedChapter": "SPACE WOLVES",
+          "otherChaptersForbidden": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "astra-militarum.armoured-infantry.burst-of-speed",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Astra Militarum Faction Pack: Version 1.3",
+    "page": "8",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_astra_militarum-1hevkhdpmv-stfkch2tsz.pdf#page=8"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Armoured Infantry",
+    "cp": 1,
+    "summary": "At Movement phase end on your turn, choose a friendly ASTRA MILITARUM unit. Exclude Reserves arrivals from that phase. The pick may make a Normal Move capped at D6 inches.",
+    "summarySpans": [
+      {
+        "start": 3,
+        "end": 17,
+        "target": {
+          "kind": "core-rule",
+          "id": "movement-phase"
+        }
+      },
+      {
+        "start": 54,
+        "end": 69,
+        "bold": true
+      },
+      {
+        "start": 139,
+        "end": 150,
+        "target": {
+          "kind": "core-rule",
+          "id": "normal-move"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Astra Militarum Faction Pack: Version 1.3",
+        "page": "8",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_astra_militarum-1hevkhdpmv-stfkch2tsz.pdf#page=8"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "type": "strategic-ploy",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ],
+            "event": "end-of-phase"
+          },
+          "target": {
+            "owner": "your-army",
+            "entity": "unit",
+            "count": 1,
+            "keywords": [
+              "ASTRA MILITARUM"
+            ],
+            "didNotArriveFromReserves": "this-phase"
+          },
+          "effects": [
+            {
+              "kind": "optional-move",
+              "recipient": "target-unit",
+              "moveType": "normal",
+              "distanceCap": {
+                "kind": "die",
+                "sides": 6,
+                "count": 1,
+                "unit": "inch"
+              },
+              "duration": {
+                "until": "resolution"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

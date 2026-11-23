@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "world-eaters.vessels-of-wrath.wrath-of-khorne",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Vessels of Wrath",
+    "summary": "On selection to fight, a friendly unit with both World Eaters and Character qualifies unless it has EPIC HERO. You may give +1 AP or [Cleave 1] to the melee attacks of its Character models.",
+    "summarySpans": [
+      {
+        "start": 13,
+        "end": 21,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "fight-phase"
+        }
+      },
+      {
+        "start": 49,
+        "end": 61,
+        "bold": true
+      },
+      {
+        "start": 66,
+        "end": 75,
+        "bold": true
+      },
+      {
+        "start": 100,
+        "end": 109,
+        "bold": true
+      },
+      {
+        "start": 127,
+        "end": 129,
+        "bold": true
+      },
+      {
+        "start": 133,
+        "end": 143,
+        "bold": true,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "cleave"
+        }
+      },
+      {
+        "start": 172,
+        "end": 181,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "target": {
+          "owner": "friendly",
+          "level": "unit",
+          "allOf": [
+            "World Eaters",
+            "Character"
+          ],
+          "noneOf": [
+            "EPIC HERO"
+          ]
+        },
+        "trigger": {
+          "event": "selected-to-fight",
+          "optional": true
+        },
+        "recipient": {
+          "level": "model",
+          "inUnit": "selected-unit",
+          "allOf": [
+            "Character"
+          ]
+        },
+        "effect": {
+          "type": "choice",
+          "count": 1,
+          "optional": true,
+          "options": [
+            {
+              "type": "weapon-ability-grant",
+              "keyword": "cleave",
+              "attackType": "melee",
+              "value": 1
+            },
+            {
+              "type": "stat-modifier",
+              "stat": "armour-penetration",
+              "operation": "add",
+              "value": 1,
+              "attackType": "melee"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-custodes.might-of-the-moritoi.unceasing-onslaught",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "cp": 1,
+    "summary": "In your Movement phase, use this as one of your Adeptus Custodes Dreadnoughts finishes an Advance move. Its ranged attacks gain Assault through turn end. The advance also leaves the unit eligible to charge.",
+    "summarySpans": [
+      {
+        "start": 90,
+        "end": 102,
+        "target": {
+          "kind": "core-rule",
+          "id": "advance-move"
+        }
+      },
+      {
+        "start": 128,
+        "end": 135,
+        "target": {
+          "kind": "weapon-ability",
+          "id": "assault"
+        }
+      },
+      {
+        "start": 187,
+        "end": 205,
+        "target": {
+          "kind": "core-rule",
+          "id": "charge-step"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Might of the Moritoi",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "your"
+              }
+            ],
+            "event": "friendly-finishes-advance"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "controller": "friendly",
+            "allKeywords": [
+              "ADEPTUS CUSTODES",
+              "DREADNOUGHT"
+            ],
+            "relation": "triggering-unit"
+          },
+          "effects": [
+            {
+              "action": "grant-weapon-ability",
+              "ability": "ASSAULT",
+              "attackType": "ranged",
+              "expires": "turn-end"
+            },
+            {
+              "action": "keep-charge-eligibility",
+              "despite": "triggering-advance"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

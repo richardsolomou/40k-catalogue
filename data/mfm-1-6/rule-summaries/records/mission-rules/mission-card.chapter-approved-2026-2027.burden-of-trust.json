@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "mission-card",
+  "id": "chapter-approved-2026-2027.burden-of-trust",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "pack": "Chapter Approved 2026-2027",
+    "card": "secondary",
+    "summary": "When you draw this card or begin your turn, you can assign one on-field friendly unit to guard each objective. This assignment expires as your next turn begins. In the meantime, the objective is guarded for your army while you hold control and the assigned unit is in range.",
+    "summarySpans": [
+      {
+        "start": 89,
+        "end": 94,
+        "bold": true
+      },
+      {
+        "start": 100,
+        "end": 109,
+        "bold": true,
+        "target": {
+          "kind": "core-rule",
+          "id": "objectives"
+        }
+      },
+      {
+        "start": 195,
+        "end": 202,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "timing": [
+          "when-drawn",
+          "start-of-own-turn"
+        ],
+        "actor": "mission-player",
+        "mode": "optional",
+        "selector": {
+          "per": "each-objective",
+          "kind": "unit",
+          "side": "friendly",
+          "count": 1,
+          "position": "on-battlefield"
+        },
+        "effect": {
+          "kind": "designate-objective",
+          "status": "guarded",
+          "recipient": "acting-army",
+          "expiresAt": "start-of-next-own-turn",
+          "whileAll": [
+            {
+              "predicate": "control",
+              "actor": "mission-player",
+              "target": "assigned-objective"
+            },
+            {
+              "predicate": "within-range",
+              "actor": "assigned-unit",
+              "target": "assigned-objective"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

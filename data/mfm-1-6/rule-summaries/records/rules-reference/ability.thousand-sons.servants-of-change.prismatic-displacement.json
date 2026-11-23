@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "thousand-sons.servants-of-change.prismatic-displacement",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Thousand Sons Faction Pack: Version 1.3",
+    "page": "4",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_thousand_sons-4lioijwxdj-otjrinzt8c.pdf#page=4"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Servants of Change",
+    "cp": 1,
+    "summary": "In your Movement phase, spend 1 CP when you pick a friendly MUTANT unit to Advance or Fall Back. The unit must have INFANTRY or MOUNTED. It gains Assault on ranged attacks through turn end. It can still shoot and declare charges after the chosen move if it otherwise qualifies.",
+    "summarySpans": [
+      {
+        "start": 146,
+        "end": 153,
+        "target": {
+          "kind": "core-rule",
+          "id": "assault"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Thousand Sons Faction Pack: Version 1.3",
+        "page": "4",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_thousand_sons-4lioijwxdj-otjrinzt8c.pdf#page=4"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Servants of Change",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              }
+            ],
+            "event": "unit-selected-for-move",
+            "side": "friendly",
+            "moveAnyOf": [
+              "advance",
+              "fall-back"
+            ],
+            "allOf": [
+              "MUTANT"
+            ],
+            "anyOf": [
+              "INFANTRY",
+              "MOUNTED"
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "sameAs": "triggering-unit"
+          },
+          "effects": [
+            {
+              "effect": "grant-weapon-ability",
+              "ability": "ASSAULT",
+              "attacks": "ranged",
+              "expiration": "end-of-turn"
+            },
+            {
+              "effect": "ignore-move-caused-ineligibility",
+              "move": "triggering-move",
+              "actions": [
+                "shoot",
+                "declare-charge"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

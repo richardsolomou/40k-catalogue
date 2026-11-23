@@ -1,0 +1,57 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "tau-empire.strike-team.suppression-volley",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Strike Team",
+    "summary": "In your Shooting phase, once this unit has shot, pick an enemy INFANTRY unit that took at least one hit from those attacks. Until your next turn starts, provided this unit stays on the battlefield, the chosen unit is suppressed, which gives -1 to Hit for attacks made by its models.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "trigger": {
+          "phase": "shooting",
+          "turn": "own",
+          "event": "unit-has-shot"
+        },
+        "selection": {
+          "side": "enemy",
+          "count": 1,
+          "unitKeywords": [
+            "INFANTRY"
+          ],
+          "condition": "hit-by-those-attacks"
+        },
+        "effects": [
+          {
+            "kind": "apply-state",
+            "state": "suppressed",
+            "while": "this-unit-on-battlefield",
+            "duration": "start-of-your-next-turn",
+            "stateEffects": {
+              "hitRollModifier": -1,
+              "magnitude": 1
+            }
+          }
+        ]
+      }
+    }
+  }
+}

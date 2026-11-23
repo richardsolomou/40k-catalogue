@@ -1,0 +1,184 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "necrons.canoptek-court.power-matrix",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Canoptek Court",
+    "summary": "The Power Matrix always covers your own deployment zone. At each phase start, check No Man’s Land and the opposing deployment zone separately. Add each region for that phase if you hold half or more of its objectives. For a friendly CRYPTEK or CANOPTEK attacker, a 1 to hit is re-rolled. If the model’s unit is wholly inside the Power Matrix, a re-roll is available on any Hit roll instead.",
+    "summarySpans": [
+      {
+        "start": 233,
+        "end": 240,
+        "bold": true
+      },
+      {
+        "start": 244,
+        "end": 252,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "behavior": "passive",
+        "scope": {
+          "duration": "permanent"
+        },
+        "effect": {
+          "type": "named-region-state",
+          "target": {
+            "owner": "friendly"
+          },
+          "modifier": {
+            "region_ref": {
+              "region_id": "power-matrix",
+              "owner_faction": "necrons"
+            },
+            "producer": {
+              "region_ref": {
+                "region_id": "power-matrix",
+                "owner_faction": "necrons"
+              },
+              "mode": "complete",
+              "parent_ref": null,
+              "baseline": [
+                {
+                  "region": {
+                    "territory": "your-deployment-zone"
+                  },
+                  "duration": "permanent"
+                }
+              ],
+              "phase_extensions": [
+                {
+                  "region": {
+                    "territory": "no-mans-land"
+                  },
+                  "condition": {
+                    "type": "controls",
+                    "parameters": {
+                      "by": "friendly",
+                      "objective": {
+                        "territory": "no-mans-land"
+                      },
+                      "proportion": {
+                        "comparison": "gte",
+                        "fraction": 0.5
+                      }
+                    }
+                  },
+                  "trigger": {
+                    "event": "phase-started"
+                  },
+                  "duration": "phase",
+                  "evaluation": "snapshot-once"
+                },
+                {
+                  "region": {
+                    "territory": "enemy-deployment-zone"
+                  },
+                  "condition": {
+                    "type": "controls",
+                    "parameters": {
+                      "by": "friendly",
+                      "objective": {
+                        "territory": "enemy-deployment-zone"
+                      },
+                      "proportion": {
+                        "comparison": "gte",
+                        "fraction": 0.5
+                      }
+                    }
+                  },
+                  "trigger": {
+                    "event": "phase-started"
+                  },
+                  "duration": "phase",
+                  "evaluation": "snapshot-once"
+                }
+              ],
+              "additive_extensions": []
+            },
+            "consumer": {
+              "state_ref": {
+                "region_id": "power-matrix",
+                "owner_faction": "necrons"
+              },
+              "beneficiary_filter": {
+                "owner": "friendly",
+                "any_of": [
+                  "CRYPTEK",
+                  "CANOPTEK"
+                ]
+              },
+              "membership": {
+                "unit_scope": "whole-unit",
+                "relation": "wholly-within"
+              },
+              "qualified_condition": {
+                "type": "in-region",
+                "parameters": {
+                  "region": {
+                    "rule_region": {
+                      "region_id": "power-matrix",
+                      "owner_faction": "necrons"
+                    }
+                  },
+                  "wholly": true,
+                  "models": "every"
+                }
+              },
+              "default_branch": {
+                "effect": {
+                  "type": "ability-part",
+                  "effect": {
+                    "type": "re-roll",
+                    "target": "attacker",
+                    "modifier": {
+                      "roll": "hit",
+                      "subset": "ones"
+                    }
+                  },
+                  "optional": false
+                }
+              },
+              "qualified_branch": {
+                "effect": {
+                  "type": "ability-part",
+                  "effect": {
+                    "type": "re-roll",
+                    "target": "attacker",
+                    "modifier": {
+                      "roll": "hit",
+                      "result_scope": "any-result"
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "branch_precedence": "qualified-replaces-default"
+          }
+        }
+      }
+    }
+  }
+}

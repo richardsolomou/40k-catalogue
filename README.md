@@ -46,7 +46,7 @@ This invented rule shows the shape of a mechanic record. The structured fields s
 
 Its summary is the text an app shows players:
 
-> At the start of your Shooting phase, select one enemy unit that is Battle-shocked and is within 12" of this unit, then subtract 1 from saving throws for the selected unit until the end of the phase.
+> As your Shooting phase begins, pick one enemy unit that is Battle-shocked and is within 12" of this unit, then the selected unit gets -1 to saving throws for the rest of the phase.
 
 The [full example](fixtures/valid/targeted-effect.json) also has the rules version and source. The [mechanic format](docs/records.md) documents every field.
 

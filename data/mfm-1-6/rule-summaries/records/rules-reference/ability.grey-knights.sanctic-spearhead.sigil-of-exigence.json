@@ -34,50 +34,59 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "target-selected",
-          "action": "shoot",
-          "subject": "bearer-unit",
-          "owner": "opponent",
-          "phase": "shooting"
-        },
-        "limit": {
-          "count": 1,
-          "period": "battle"
-        },
-        "effects": [
-          {
-            "type": "reposition",
-            "optional": true,
-            "subject": "bearer-unit",
-            "destination": "battlefield",
-            "distance": {
-              "relation": "strictly-more-than",
-              "inches": 8,
-              "axis": "horizontal",
-              "from": "all-enemy-units"
-            }
-          },
-          {
-            "type": "retarget-attacks",
-            "actor": "opponent",
-            "subject": "original-attacking-unit",
-            "optional": true,
-            "condition": {
-              "subject": "bearer-unit",
-              "state": "no-longer-eligible-target"
-            },
-            "scope": "affected-attacks"
+        "enhancement": {
+          "type": "model",
+          "points": 30,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "GREY KNIGHTS"
+                ]
+              }
+            ]
           }
-        ],
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Grey Knights"
-          ],
-          "excludedKeywords": []
+        },
+        "detail": {
+          "trigger": {
+            "event": "target-selected",
+            "action": "shoot",
+            "subject": "bearer-unit",
+            "owner": "opponent",
+            "phase": "shooting"
+          },
+          "limit": {
+            "count": 1,
+            "period": "battle"
+          },
+          "effects": [
+            {
+              "type": "reposition",
+              "optional": true,
+              "subject": "bearer-unit",
+              "destination": "battlefield",
+              "distance": {
+                "relation": "strictly-more-than",
+                "inches": 8,
+                "axis": "horizontal",
+                "from": "all-enemy-units"
+              }
+            },
+            {
+              "type": "retarget-attacks",
+              "actor": "opponent",
+              "subject": "original-attacking-unit",
+              "optional": true,
+              "condition": {
+                "subject": "bearer-unit",
+                "state": "no-longer-eligible-target"
+              },
+              "scope": "affected-attacks"
+            }
+          ]
         }
       }
     }

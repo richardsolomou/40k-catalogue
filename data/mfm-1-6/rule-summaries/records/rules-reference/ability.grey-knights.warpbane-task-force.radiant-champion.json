@@ -56,39 +56,46 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "GREY KNIGHTS",
-            "INFANTRY"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "grant-weapon-ability",
-            "recipient": "bearer melee weapons",
-            "ability": "[PRECISION]"
-          },
-          {
-            "operation": "inflict-mortal-wounds",
-            "recipient": "target of that melee attack",
-            "actor": "bearer",
-            "condition": {
-              "location": "your army’s Hallowed Ground",
-              "whollyWithin": true
-            },
-            "trigger": "bearer scores a melee wound",
-            "amount": 1,
-            "inAdditionToNormalDamage": true
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY"
+                ],
+                "factionKeywords": [
+                  "GREY KNIGHTS"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer melee weapons",
+              "ability": "[PRECISION]",
+              "kind": "grant-weapon-ability"
+            },
+            {
+              "recipient": "target of that melee attack",
+              "actor": "bearer",
+              "condition": {
+                "location": "your army’s Hallowed Ground",
+                "whollyWithin": true
+              },
+              "trigger": "bearer scores a melee wound",
+              "amount": 1,
+              "inAdditionToNormalDamage": true,
+              "kind": "inflict-mortal-wounds"
+            }
+          ]
+        }
       }
     }
   }

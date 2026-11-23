@@ -157,131 +157,134 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "scope": {
-          "factionId": "28162de0-fd36-450b-87ee-39e973ead32d",
-          "faction": "Black Templars",
-          "detachmentId": "ced4cd04-74b5-4341-a7c8-5da07b5b5620",
-          "detachment": "Vow-sworn Crusaders",
-          "uniqueTags": [],
-          "sourceId": "ced4cd04-74b5-4341-a7c8-5da07b5b5620:templar-vows",
-          "cardType": "detachmentRule",
-          "cardEdition": "40k-11e"
-        },
-        "trigger": {
-          "event": "battle-round-started",
-          "round": 1
-        },
-        "selection": {
-          "count": 1,
-          "optional": true
-        },
-        "target": {
-          "owner": "friendly",
-          "level": "unit",
-          "allOf": [
-            "Adeptus Astartes"
-          ]
-        },
-        "expires": {
-          "event": "battle-ended"
-        },
-        "options": [
-          {
-            "name": "Abhor the Witch, Destroy the Witch",
-            "condition": {
-              "attackType": "melee",
-              "target": {
-                "level": "unit",
-                "allOf": [
-                  "PSYKER"
-                ]
-              }
-            },
-            "effects": [
-              {
-                "type": "weapon-ability-grant",
-                "keyword": "precision",
-                "attackType": "melee"
-              },
-              {
-                "type": "weapon-ability-grant",
-                "keyword": "lance",
-                "attackType": "melee"
-              }
-            ]
+        "detail": {
+          "scope": {
+            "factionId": "28162de0-fd36-450b-87ee-39e973ead32d",
+            "faction": "Black Templars",
+            "detachmentId": "ced4cd04-74b5-4341-a7c8-5da07b5b5620",
+            "detachment": "Vow-sworn Crusaders",
+            "uniqueTags": [],
+            "sourceId": "ced4cd04-74b5-4341-a7c8-5da07b5b5620:templar-vows",
+            "cardType": "detachmentRule",
+            "cardEdition": "40k-11e"
           },
-          {
-            "name": "Accept Any Challenge, No Matter the Odds",
-            "condition": {
-              "attackType": "melee",
-              "compare": {
-                "targetStat": "toughness",
-                "operation": "greater-than",
-                "attackStat": "strength"
-              }
-            },
-            "effect": {
-              "type": "roll-modifier",
-              "roll": "wound",
-              "operation": "add",
-              "value": 1
-            }
+          "trigger": {
+            "event": "battle-round-started",
+            "round": 1
           },
-          {
-            "name": "Uphold the Honour of the Emperor",
-            "bearer": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Adeptus Astartes",
-                "Infantry"
-              ]
-            },
-            "effects": [
-              {
-                "type": "secure-objective",
-                "trigger": {
-                  "event": "phase-ended",
-                  "phase": "movement",
-                  "owner": "self"
-                },
-                "objective": {
-                  "controlledBy": "bearer-unit"
-                }
-              },
-              {
-                "type": "eligibility-exception",
-                "action": "start-action",
-                "ignores": "triggering-move-only",
-                "trigger": {
-                  "event": "selected-to-move",
-                  "moveTypes": [
-                    "advance"
-                  ]
-                }
-              }
-            ]
-          }
-        ],
-        "roster": {
-          "type": "roster-restriction",
-          "permits": {
-            "owner": "friendly",
-            "level": "unit",
-            "allOf": [
-              "Black Templars"
-            ]
+          "selection": {
+            "count": 1,
+            "optional": true
           },
-          "excludes": {
+          "target": {
             "owner": "friendly",
             "level": "unit",
             "allOf": [
               "Adeptus Astartes"
-            ],
-            "chapter": {
-              "otherThan": "Black Templars"
+            ]
+          },
+          "expires": {
+            "event": "battle-ended"
+          },
+          "options": [
+            {
+              "name": "Abhor the Witch, Destroy the Witch",
+              "condition": {
+                "attackType": "melee",
+                "target": {
+                  "level": "unit",
+                  "allOf": [
+                    "PSYKER"
+                  ]
+                }
+              },
+              "effects": [
+                {
+                  "type": "weapon-ability-grant",
+                  "keyword": "precision",
+                  "attackType": "melee"
+                },
+                {
+                  "type": "weapon-ability-grant",
+                  "keyword": "lance",
+                  "attackType": "melee"
+                }
+              ]
+            },
+            {
+              "name": "Accept Any Challenge, No Matter the Odds",
+              "condition": {
+                "attackType": "melee",
+                "compare": {
+                  "targetStat": "toughness",
+                  "attackStat": "strength",
+                  "kind": "greater-than"
+                }
+              },
+              "effect": {
+                "type": "roll-modifier",
+                "roll": "wound",
+                "operation": "add",
+                "value": 1
+              }
+            },
+            {
+              "name": "Uphold the Honour of the Emperor",
+              "bearer": {
+                "owner": "friendly",
+                "level": "unit",
+                "allOf": [
+                  "Adeptus Astartes",
+                  "Infantry"
+                ]
+              },
+              "effects": [
+                {
+                  "type": "secure-objective",
+                  "trigger": {
+                    "event": "phase-ended",
+                    "phase": "movement",
+                    "owner": "self"
+                  },
+                  "objective": {
+                    "controlledBy": "bearer-unit"
+                  }
+                },
+                {
+                  "type": "eligibility-exception",
+                  "action": "start-action",
+                  "ignores": "triggering-move-only",
+                  "trigger": {
+                    "event": "selected-to-move",
+                    "moveTypes": [
+                      "advance"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "roster": {
+            "type": "roster-restriction",
+            "permits": {
+              "owner": "friendly",
+              "level": "unit",
+              "allOf": [
+                "Black Templars"
+              ]
+            },
+            "excludes": {
+              "owner": "friendly",
+              "level": "unit",
+              "allOf": [
+                "Adeptus Astartes"
+              ],
+              "chapter": {
+                "otherThan": "Black Templars"
+              }
             }
           }
         }

@@ -63,155 +63,158 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "behavior": "reactive",
-        "trigger": {
-          "event": "used",
-          "subject": {
-            "owner": "friendly",
-            "level": "model"
+        "detail": {
+          "behavior": "reactive",
+          "trigger": {
+            "event": "used",
+            "subject": {
+              "owner": "friendly",
+              "level": "model"
+            },
+            "filter": {
+              "kind": "ability",
+              "ability_keyword": "BONDSMAN"
+            },
+            "binds_event_variable": "ability-use",
+            "optional": true
           },
-          "filter": {
-            "kind": "ability",
-            "ability_keyword": "BONDSMAN"
-          },
-          "binds_event_variable": "ability-use",
-          "optional": true
-        },
-        "scope": {
-          "duration": "resolution"
-        },
-        "effect": {
-          "type": "conditional",
-          "condition": {
-            "operator": "not",
-            "operands": [
-              {
-                "type": "happened",
-                "parameters": {
-                  "event": "used",
-                  "subject": {
-                    "owner": "friendly",
-                    "level": "model",
-                    "excluding": {
-                      "event_var": "ability-use"
-                    }
-                  },
-                  "filter": {
-                    "kind": "ability",
-                    "same_rule_as": {
-                      "event_var": "ability-use"
-                    }
-                  },
-                  "window": "turn"
-                }
-              }
-            ]
+          "scope": {
+            "duration": "resolution"
           },
           "effect": {
-            "type": "sequence",
-            "steps": [
-              {
-                "type": "conditional",
-                "condition": {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "type": "army-state",
-                      "parameters": {
-                        "owner": "friendly",
-                        "state": "honoured"
-                      }
-                    }
-                  ]
-                },
-                "effect": {
-                  "type": "ability-modifier",
-                  "target": {
-                    "event_var": "ability-use"
-                  },
-                  "modifier": {
-                    "ability": {
-                      "event": "used",
-                      "event_var": "ability-use"
-                    },
-                    "aspect": "selection",
-                    "operation": "set",
-                    "selection": {
-                      "filter": {
-                        "owner": "friendly",
-                        "all_of": [
-                          "ARMIGER"
-                        ],
-                        "level": "model",
-                        "not_designated": "bondsman-affected",
-                        "within": {
-                          "range": {
-                            "inches": 12
-                          },
-                          "of": {
-                            "event_var": "ability-use"
-                          }
-                        }
-                      },
-                      "count": {
-                        "min": 0,
-                        "max": 3
-                      }
-                    },
-                    "recipient_duration": "until-next-command-phase"
-                  }
-                }
-              },
-              {
-                "type": "conditional",
-                "condition": {
-                  "type": "army-state",
+            "type": "conditional",
+            "condition": {
+              "operator": "not",
+              "operands": [
+                {
+                  "type": "happened",
                   "parameters": {
-                    "owner": "friendly",
-                    "state": "honoured"
-                  }
-                },
-                "effect": {
-                  "type": "ability-modifier",
-                  "target": {
-                    "event_var": "ability-use"
-                  },
-                  "modifier": {
-                    "ability": {
-                      "event": "used",
-                      "event_var": "ability-use"
-                    },
-                    "aspect": "selection",
-                    "operation": "set",
-                    "selection": {
-                      "filter": {
-                        "owner": "friendly",
-                        "all_of": [
-                          "ARMIGER"
-                        ],
-                        "level": "model",
-                        "not_designated": "bondsman-affected",
-                        "within": {
-                          "range": {
-                            "inches": 15
-                          },
-                          "of": {
-                            "event_var": "ability-use"
-                          }
-                        }
-                      },
-                      "count": {
-                        "min": 0,
-                        "max": 3
+                    "event": "used",
+                    "subject": {
+                      "owner": "friendly",
+                      "level": "model",
+                      "excluding": {
+                        "event_var": "ability-use"
                       }
                     },
-                    "recipient_duration": "until-next-command-phase"
+                    "filter": {
+                      "kind": "ability",
+                      "same_rule_as": {
+                        "event_var": "ability-use"
+                      }
+                    },
+                    "window": "turn"
                   }
                 }
-              }
-            ]
+              ]
+            },
+            "effect": {
+              "type": "sequence",
+              "steps": [
+                {
+                  "type": "conditional",
+                  "condition": {
+                    "operator": "not",
+                    "operands": [
+                      {
+                        "type": "army-state",
+                        "parameters": {
+                          "owner": "friendly",
+                          "state": "honoured"
+                        }
+                      }
+                    ]
+                  },
+                  "effect": {
+                    "type": "ability-modifier",
+                    "target": {
+                      "event_var": "ability-use"
+                    },
+                    "modifier": {
+                      "ability": {
+                        "event": "used",
+                        "event_var": "ability-use"
+                      },
+                      "aspect": "selection",
+                      "operation": "set",
+                      "selection": {
+                        "filter": {
+                          "owner": "friendly",
+                          "all_of": [
+                            "ARMIGER"
+                          ],
+                          "level": "model",
+                          "not_designated": "bondsman-affected",
+                          "within": {
+                            "range": {
+                              "inches": 12
+                            },
+                            "of": {
+                              "event_var": "ability-use"
+                            }
+                          }
+                        },
+                        "count": {
+                          "min": 0,
+                          "max": 3
+                        }
+                      },
+                      "recipient_duration": "until-next-command-phase"
+                    }
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "condition": {
+                    "type": "army-state",
+                    "parameters": {
+                      "owner": "friendly",
+                      "state": "honoured"
+                    }
+                  },
+                  "effect": {
+                    "type": "ability-modifier",
+                    "target": {
+                      "event_var": "ability-use"
+                    },
+                    "modifier": {
+                      "ability": {
+                        "event": "used",
+                        "event_var": "ability-use"
+                      },
+                      "aspect": "selection",
+                      "operation": "set",
+                      "selection": {
+                        "filter": {
+                          "owner": "friendly",
+                          "all_of": [
+                            "ARMIGER"
+                          ],
+                          "level": "model",
+                          "not_designated": "bondsman-affected",
+                          "within": {
+                            "range": {
+                              "inches": 15
+                            },
+                            "of": {
+                              "event_var": "ability-use"
+                            }
+                          }
+                        },
+                        "count": {
+                          "min": 0,
+                          "max": 3
+                        }
+                      },
+                      "recipient_duration": "until-next-command-phase"
+                    }
+                  }
+                }
+              ]
+            }
           }
         }
       }

@@ -49,31 +49,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "unit",
-          "match": "all",
-          "keywords": [
-            "Battleline",
-            "Legiones Daemonica"
-          ],
-          "excludes": []
+        "enhancement": {
+          "type": "upgrade",
+          "points": 10,
+          "perRoster": 3,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "BATTLELINE"
+                ],
+                "factionKeywords": [
+                  "LEGIONES DAEMONICA"
+                ]
+              }
+            ],
+            "nonCharacters": true
+          }
         },
-        "trigger": {
-          "event": "use-stratagem-to-target",
-          "actor": "own-player",
-          "recipient": "this-unit",
-          "stratagems": [
-            "Fire Overwatch",
-            "Heroic Intervention"
-          ]
-        },
-        "effect": {
-          "type": "modify-cp-cost",
-          "operation": "subtract",
-          "amount": 1,
-          "use": "triggering-use"
+        "detail": {
+          "trigger": {
+            "event": "use-stratagem-to-target",
+            "actor": "own-player",
+            "recipient": "this-unit",
+            "stratagems": [
+              "Fire Overwatch",
+              "Heroic Intervention"
+            ]
+          },
+          "effect": {
+            "type": "modify-cp-cost",
+            "operation": "subtract",
+            "amount": 1,
+            "use": "triggering-use"
+          }
         }
       }
     }

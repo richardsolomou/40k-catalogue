@@ -33,45 +33,48 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "target": {
-          "keyword": "DREADNOUGHT"
-        },
-        "effect": {
-          "type": "sequence",
-          "steps": [
-            {
-              "condition": "at-starting-strength",
-              "effect": {
-                "type": "stat-modifier",
-                "stat": "objective-control",
-                "operation": "add",
-                "value": 2
+        "detail": {
+          "target": {
+            "keyword": "DREADNOUGHT"
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "condition": "at-starting-strength",
+                "effect": {
+                  "type": "stat-modifier",
+                  "stat": "objective-control",
+                  "operation": "add",
+                  "value": 2
+                }
+              },
+              {
+                "condition": "below-starting-strength",
+                "effect": {
+                  "type": "re-roll",
+                  "roll": "hit",
+                  "subset": "ones",
+                  "naturalValue": 1
+                }
+              },
+              {
+                "condition": "below-half-strength",
+                "effect": {
+                  "type": "re-roll",
+                  "rolls": [
+                    "hit",
+                    "wound"
+                  ],
+                  "subset": "ones",
+                  "naturalValue": 1
+                }
               }
-            },
-            {
-              "condition": "below-starting-strength",
-              "effect": {
-                "type": "re-roll",
-                "roll": "hit",
-                "subset": "ones",
-                "naturalValue": 1
-              }
-            },
-            {
-              "condition": "below-half-strength",
-              "effect": {
-                "type": "re-roll",
-                "rolls": [
-                  "hit",
-                  "wound"
-                ],
-                "subset": "ones",
-                "naturalValue": 1
-              }
-            }
-          ]
+            ]
+          }
         }
       }
     }

@@ -32,55 +32,58 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "move-type",
-        "ruleNumber": "12.08",
-        "name": "Consolidation Move",
-        "effectRef": "03",
-        "eligibleIf": [
-          "fight-phase",
-          "unit-was-eligible-to-fight-this-phase"
-        ],
-        "maximumDistanceInches": 3,
-        "modes": [
-          {
-            "name": "Ongoing Consolidation",
-            "requiredIf": "engaged",
-            "select": "every-engaged-enemy-unit",
-            "whileMoving": [
-              "base-contact-models-cannot-move",
-              "end-closer-to-closest-selected-enemy-engaged-if-possible"
-            ],
-            "after": "models-starting-engaged-remain-engaged-with-same-unit"
-          },
-          {
-            "name": "Engaging Consolidation",
-            "requiredIf": "otherwise-within-inches-of-enemy",
-            "withinInches": 3,
-            "select": "one-or-more-of-those-enemy-units",
-            "whileMoving": [
-              "end-closer-to-closest-selected-enemy-engaged-if-possible"
-            ],
-            "after": [
-              "engaged-with-all-selected",
-              "opponent-selects-each-unselected-engaged-unit-to-fight-12.04"
-            ]
-          },
-          {
-            "name": "Objective Consolidation",
-            "requiredIf": "otherwise-within-inches-of-objective",
-            "withinInches": 3,
-            "select": "one-objective",
-            "whileMoving": [
-              "end-within-range-if-possible-else-closer"
-            ],
-            "after": [
-              "unengaged",
-              "within-range-of-selected-objective"
-            ]
-          }
-        ]
+        "detail": {
+          "kind": "move-type",
+          "ruleNumber": "12.08",
+          "name": "Consolidation Move",
+          "effectRef": "03",
+          "eligibleIf": [
+            "fight-phase",
+            "unit-was-eligible-to-fight-this-phase"
+          ],
+          "maximumDistanceInches": 3,
+          "modes": [
+            {
+              "name": "Ongoing Consolidation",
+              "requiredIf": "engaged",
+              "select": "every-engaged-enemy-unit",
+              "whileMoving": [
+                "base-contact-models-cannot-move",
+                "end-closer-to-closest-selected-enemy-engaged-if-possible"
+              ],
+              "after": "models-starting-engaged-remain-engaged-with-same-unit"
+            },
+            {
+              "name": "Engaging Consolidation",
+              "requiredIf": "otherwise-within-inches-of-enemy",
+              "withinInches": 3,
+              "select": "one-or-more-of-those-enemy-units",
+              "whileMoving": [
+                "end-closer-to-closest-selected-enemy-engaged-if-possible"
+              ],
+              "after": [
+                "engaged-with-all-selected",
+                "opponent-selects-each-unselected-engaged-unit-to-fight-12.04"
+              ]
+            },
+            {
+              "name": "Objective Consolidation",
+              "requiredIf": "otherwise-within-inches-of-objective",
+              "withinInches": 3,
+              "select": "one-objective",
+              "whileMoving": [
+                "end-within-range-if-possible-else-closer"
+              ],
+              "after": [
+                "unengaged",
+                "within-range-of-selected-objective"
+              ]
+            }
+          ]
+        }
       }
     }
   }

@@ -92,130 +92,133 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "scope": {
-          "factionId": "d4162ab7-8356-4e4e-adb3-5e3b631d47e6",
-          "faction": "Heretic Astartes",
-          "detachmentId": "d730df46-12ec-4dff-80cf-60aeea5eefcd",
-          "detachment": "Creations of Bile",
-          "uniqueTags": [],
-          "sourceId": "d730df46-12ec-4dff-80cf-60aeea5eefcd:experimental-augmentations",
-          "cardType": "detachmentRule",
-          "cardEdition": "40k-11e"
-        },
-        "trigger": {
-          "event": "battle-started"
-        },
-        "target": {
-          "owner": "friendly",
-          "level": "model",
-          "allOf": [
-            "HERETIC ASTARTES",
-            "INFANTRY"
-          ],
-          "noneOf": [
-            "DAMNED"
-          ]
-        },
-        "expires": {
-          "event": "battle-ended"
-        },
-        "selection": {
-          "type": "choice",
-          "count": 1,
-          "options": [
+        "detail": {
+          "scope": {
+            "factionId": "d4162ab7-8356-4e4e-adb3-5e3b631d47e6",
+            "faction": "Heretic Astartes",
+            "detachmentId": "d730df46-12ec-4dff-80cf-60aeea5eefcd",
+            "detachment": "Creations of Bile",
+            "uniqueTags": [],
+            "sourceId": "d730df46-12ec-4dff-80cf-60aeea5eefcd:experimental-augmentations",
+            "cardType": "detachmentRule",
+            "cardEdition": "40k-11e"
+          },
+          "trigger": {
+            "event": "battle-started"
+          },
+          "target": {
+            "owner": "friendly",
+            "level": "model",
+            "allOf": [
+              "HERETIC ASTARTES",
+              "INFANTRY"
+            ],
+            "noneOf": [
+              "DAMNED"
+            ]
+          },
+          "expires": {
+            "event": "battle-ended"
+          },
+          "selection": {
+            "type": "choice",
+            "count": 1,
+            "options": [
+              {
+                "type": "named-augmentation",
+                "count": 1
+              },
+              {
+                "type": "roll-table",
+                "dice": "D6",
+                "count": 2,
+                "resultCount": 2,
+                "duplicateAugmentation": "no-additional-effect",
+                "reroll": {
+                  "allowedCounts": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "optional": true,
+                  "condition": {
+                    "warlord": "FABIUS BILE"
+                  }
+                }
+              }
+            ]
+          },
+          "results": [
             {
-              "type": "named-augmentation",
-              "count": 1
+              "roll": 1,
+              "name": "Cholinergic Accelerants",
+              "effect": {
+                "type": "stat-modifier",
+                "stat": "attacks",
+                "operation": "add",
+                "value": 1,
+                "attackType": "melee"
+              }
             },
             {
-              "type": "roll-table",
-              "dice": "D6",
-              "count": 2,
-              "resultCount": 2,
-              "duplicateAugmentation": "no-additional-effect",
-              "reroll": {
-                "allowedCounts": [
-                  0,
-                  1,
-                  2
-                ],
-                "optional": true,
-                "condition": {
-                  "warlord": "FABIUS BILE"
-                }
+              "roll": 2,
+              "name": "Hyperadrenal Infusion",
+              "effect": {
+                "type": "stat-modifier",
+                "stat": "move",
+                "operation": "add",
+                "value": 2,
+                "unit": "inches"
+              }
+            },
+            {
+              "roll": 3,
+              "name": "Paraneural Reactions",
+              "effect": {
+                "type": "stat-modifier",
+                "stat": "weapon-skill",
+                "operation": "improve",
+                "value": 1,
+                "attackType": "melee"
+              }
+            },
+            {
+              "roll": 4,
+              "name": "Supracutaneous Chitination",
+              "effect": {
+                "type": "stat-modifier",
+                "stat": "toughness",
+                "operation": "improve",
+                "value": 1
+              }
+            },
+            {
+              "roll": 5,
+              "name": "Macrotensile Sinews",
+              "effect": {
+                "type": "stat-modifier",
+                "stat": "strength",
+                "operation": "add",
+                "value": 1,
+                "attackType": "melee"
+              }
+            },
+            {
+              "roll": 6,
+              "name": "Ophthalmic Enhancement",
+              "effect": {
+                "type": "stat-modifier",
+                "stat": "ballistic-skill",
+                "operation": "improve",
+                "value": 1,
+                "attackType": "ranged"
               }
             }
           ]
-        },
-        "results": [
-          {
-            "roll": 1,
-            "name": "Cholinergic Accelerants",
-            "effect": {
-              "type": "stat-modifier",
-              "stat": "attacks",
-              "operation": "add",
-              "value": 1,
-              "attackType": "melee"
-            }
-          },
-          {
-            "roll": 2,
-            "name": "Hyperadrenal Infusion",
-            "effect": {
-              "type": "stat-modifier",
-              "stat": "move",
-              "operation": "add",
-              "value": 2,
-              "unit": "inches"
-            }
-          },
-          {
-            "roll": 3,
-            "name": "Paraneural Reactions",
-            "effect": {
-              "type": "stat-modifier",
-              "stat": "weapon-skill",
-              "operation": "improve",
-              "value": 1,
-              "attackType": "melee"
-            }
-          },
-          {
-            "roll": 4,
-            "name": "Supracutaneous Chitination",
-            "effect": {
-              "type": "stat-modifier",
-              "stat": "toughness",
-              "operation": "improve",
-              "value": 1
-            }
-          },
-          {
-            "roll": 5,
-            "name": "Macrotensile Sinews",
-            "effect": {
-              "type": "stat-modifier",
-              "stat": "strength",
-              "operation": "add",
-              "value": 1,
-              "attackType": "melee"
-            }
-          },
-          {
-            "roll": 6,
-            "name": "Ophthalmic Enhancement",
-            "effect": {
-              "type": "stat-modifier",
-              "stat": "ballistic-skill",
-              "operation": "improve",
-              "value": 1,
-              "attackType": "ranged"
-            }
-          }
-        ]
+        }
       }
     }
   }

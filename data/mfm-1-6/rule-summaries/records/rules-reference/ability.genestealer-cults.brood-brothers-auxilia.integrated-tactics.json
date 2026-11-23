@@ -36,128 +36,131 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "behavior": "reactive",
-        "trigger": {
-          "event": "selected",
-          "filter": {
-            "to": "shoot"
-          },
-          "subject": {
-            "owner": "friendly",
-            "all_of": [
-              "ASTRA MILITARUM"
-            ]
-          },
-          "optional": true
-        },
-        "scope": {
-          "duration": "phase"
-        },
-        "effect": {
-          "type": "select-units",
-          "selector": {
+        "detail": {
+          "behavior": "reactive",
+          "trigger": {
+            "event": "selected",
             "filter": {
-              "owner": "enemy"
+              "to": "shoot"
             },
-            "count": {
-              "min": 1,
-              "max": 1
+            "subject": {
+              "owner": "friendly",
+              "all_of": [
+                "ASTRA MILITARUM"
+              ]
             },
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "subject": "selected-unit",
-                    "filter": {
-                      "within": {
-                        "of": "event-subject",
-                        "range": {
-                          "inches": 18
+            "optional": true
+          },
+          "scope": {
+            "duration": "phase"
+          },
+          "effect": {
+            "type": "select-units",
+            "selector": {
+              "filter": {
+                "owner": "enemy"
+              },
+              "count": {
+                "min": 1,
+                "max": 1
+              },
+              "eligibility": {
+                "operator": "and",
+                "operands": [
+                  {
+                    "type": "matches",
+                    "parameters": {
+                      "subject": "selected-unit",
+                      "filter": {
+                        "within": {
+                          "of": "event-subject",
+                          "range": {
+                            "inches": 18
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "matches",
+                    "parameters": {
+                      "subject": "selected-unit",
+                      "filter": {
+                        "visible": {
+                          "to": "event-subject"
                         }
                       }
                     }
                   }
+                ]
+              }
+            },
+            "effect": {
+              "type": "sequence",
+              "steps": [
+                {
+                  "type": "targeting",
+                  "target": "event-subject",
+                  "modifier": {
+                    "by": "event-subject",
+                    "may": "must-target",
+                    "kind": "attack",
+                    "weapons": {
+                      "type": "ranged"
+                    },
+                    "target": "selected-unit"
+                  }
                 },
                 {
-                  "type": "matches",
-                  "parameters": {
-                    "subject": "selected-unit",
-                    "filter": {
-                      "visible": {
-                        "to": "event-subject"
+                  "type": "designate",
+                  "target": "selected-unit",
+                  "modifier": {
+                    "tag": "overlapping-fire"
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "condition": {
+                    "operator": "and",
+                    "operands": [
+                      {
+                        "type": "matches",
+                        "parameters": {
+                          "subject": "defender",
+                          "filter": {
+                            "designated": "overlapping-fire"
+                          }
+                        }
+                      },
+                      {
+                        "type": "attack-is",
+                        "parameters": {
+                          "attack_type": "ranged"
+                        }
                       }
+                    ]
+                  },
+                  "effect": {
+                    "type": "roll-modifier",
+                    "target": {
+                      "owner": "friendly",
+                      "all_of": [
+                        "GENESTEALER CULTS"
+                      ],
+                      "level": "model"
+                    },
+                    "modifier": {
+                      "roll": "hit",
+                      "operation": "add",
+                      "value": 1
                     }
                   }
                 }
               ]
             }
-          },
-          "effect": {
-            "type": "sequence",
-            "steps": [
-              {
-                "type": "targeting",
-                "target": "event-subject",
-                "modifier": {
-                  "by": "event-subject",
-                  "may": "must-target",
-                  "kind": "attack",
-                  "weapons": {
-                    "type": "ranged"
-                  },
-                  "target": "selected-unit"
-                }
-              },
-              {
-                "type": "designate",
-                "target": "selected-unit",
-                "modifier": {
-                  "tag": "overlapping-fire"
-                }
-              },
-              {
-                "type": "conditional",
-                "condition": {
-                  "operator": "and",
-                  "operands": [
-                    {
-                      "type": "matches",
-                      "parameters": {
-                        "subject": "defender",
-                        "filter": {
-                          "designated": "overlapping-fire"
-                        }
-                      }
-                    },
-                    {
-                      "type": "attack-is",
-                      "parameters": {
-                        "attack_type": "ranged"
-                      }
-                    }
-                  ]
-                },
-                "effect": {
-                  "type": "roll-modifier",
-                  "target": {
-                    "owner": "friendly",
-                    "all_of": [
-                      "GENESTEALER CULTS"
-                    ],
-                    "level": "model"
-                  },
-                  "modifier": {
-                    "roll": "hit",
-                    "operation": "add",
-                    "value": 1
-                  }
-                }
-              }
-            ]
           }
         }
       }

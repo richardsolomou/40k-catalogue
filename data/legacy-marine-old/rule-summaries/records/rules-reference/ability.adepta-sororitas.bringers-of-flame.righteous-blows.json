@@ -14,32 +14,15 @@
     "ruleType": "stratagem",
     "group": "Bringers of Flame",
     "cp": 1,
-    "summary": "Either Fight Phase. Choose an ADEPTA SORORITAS unit of yours that has yet to be picked to fight. Its melee weapons gain [LETHAL HITS] through this phase. Once the unit finishes attacking, pick one enemy unit that lost a model to those melee attacks. That enemy unit takes a Battle-shock test.",
+    "summary": "Spend 1 CP in the Fight phase of either player's turn and pick one of your ADEPTA SORORITAS units that is not yet chosen to fight in this phase. For the rest of the phase, the melee weapons of its models have [LETHAL HITS]. If attacks with those weapons destroy any enemy models this phase, choose one of the destroyed models; the unit it came from must test for Battle-shock.",
     "summarySpans": [
       {
-        "start": 7,
-        "end": 18,
+        "start": 209,
+        "end": 222,
+        "bold": true,
         "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 30,
-        "end": 46,
-        "bold": true
-      },
-      {
-        "start": 120,
-        "end": 133,
-        "bold": true
-      },
-      {
-        "start": 274,
-        "end": 291,
-        "target": {
-          "kind": "core-rule",
-          "id": "battle-shock"
+          "kind": "weapon-ability",
+          "id": "lethal-hits"
         }
       }
     ],
@@ -55,125 +38,40 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "sequence",
-            "steps": [
-              {
-                "type": "weapon-ability-grant",
-                "target": "this-unit",
-                "modifier": {
-                  "keywords": [
-                    {
-                      "keyword_id": "lethal-hits"
-                    }
-                  ],
-                  "weapons": {
-                    "type": "melee"
-                  }
-                }
-              },
-              {
-                "type": "ability-part",
-                "trigger": {
-                  "event": "attacks-resolved",
-                  "filter": {
-                    "attack_type": "melee"
-                  }
-                },
-                "effect": {
-                  "type": "select-units",
-                  "selector": {
-                    "filter": {
-                      "owner": "enemy"
-                    },
-                    "count": {
-                      "min": 1,
-                      "max": 1
-                    },
-                    "eligibility": {
-                      "type": "happened",
-                      "parameters": {
-                        "event": "model-destroyed",
-                        "object": {
-                          "level": "model",
-                          "member_of": "selected-unit"
-                        },
-                        "filter": {
-                          "by": "this-unit"
-                        },
-                        "window": "event"
-                      }
-                    }
-                  },
-                  "effect": {
-                    "type": "test",
-                    "target": "selected-unit",
-                    "modifier": {
-                      "test": "battle-shock"
-                    }
-                  }
-                }
-              }
-            ]
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "applies_to": {
-            "all_of": [
-              "ADEPTA SORORITAS"
-            ]
-          },
-          "behavior": "reactive"
-        },
         "stratagem": {
-          "id": "righteous-blows-bringers-of-flame-adepta-sororitas",
-          "cp_cost": 1,
-          "phases": [
-            "fight"
-          ],
-          "player_turn": "either",
-          "timing": "once-per-phase",
-          "type": "battle-tactic",
-          "target_restrictions": {
-            "required_keywords": [
-              "Adepta Sororitas"
-            ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "owner": "friendly"
-                    }
-                  }
-                },
-                {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "type": "happened",
-                      "parameters": {
-                        "event": "selected",
-                        "filter": {
-                          "to": "fight"
-                        },
-                        "window": "phase"
-                      }
-                    }
-                  ]
-                }
-              ]
+          "cpCost": 1,
+          "detachment": "Bringers of Flame",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          }
-        },
-        "valueRoles": {}
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTA SORORITAS"
+            ],
+            "notSelectedToFightThisPhase": true
+          },
+          "effects": [
+            {
+              "weapons": "melee",
+              "grantWeaponAbility": "LETHAL HITS"
+            },
+            {
+              "trigger": "enemy-models-destroyed-by-those-weapons-this-phase",
+              "select": {
+                "count": 1,
+                "from": "destroyed-enemy-models"
+              },
+              "battleShockTest": "unit-of-selected-destroyed-model"
+            }
+          ],
+          "duration": "end-of-phase"
+        }
       }
     }
   }

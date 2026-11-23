@@ -10,21 +10,14 @@
     "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "enhancement",
     "group": "Elegant Brutes",
-    "summary": "Grant [SUSTAINED HITS 1] to weapons equipped by models in this unit.",
+    "summary": "Upgrade for a unit that is an EMPEROR’S CHILDREN TERMINATOR SQUAD. Every attack that unit makes has [SUSTAINED HITS 1].",
     "summarySpans": [
       {
-        "start": 7,
-        "end": 23,
+        "start": 100,
+        "end": 118,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -42,25 +35,29 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "always"
+        "kind": "enhancement",
+        "detachment": "Elegant Brutes",
+        "pointsCost": 15,
+        "upgrade": true,
+        "eligibility": {
+          "scope": "unit",
+          "keywordsAll": [
+            "EMPEROR’S CHILDREN",
+            "TERMINATOR SQUAD"
+          ]
         },
-        "target": {
-          "unit": "this-unit"
-        },
-        "conditions": [],
-        "effect": {
-          "kind": "grant-weapon-abilities",
-          "abilities": [
-            {
-              "ability": "sustained-hits",
+        "effects": [
+          {
+            "appliesTo": "this-unit",
+            "attackType": "all",
+            "grantWeaponAbility": {
+              "ability": "SUSTAINED HITS",
               "value": 1
             }
-          ]
-        }
+          }
+        ]
       }
     }
   }

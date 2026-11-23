@@ -14,45 +14,7 @@
     "ruleType": "stratagem",
     "group": "Questoris Companions",
     "cp": 1,
-    "summary": "Your Shooting Phase or either Fight Phase. Choose an IMPERIAL KNIGHTS TITANIC model of yours that has yet to be picked to shoot or fight in that phase. For the phase, add 1 to its Hit rolls and 1 to its Wound rolls when it attacks MONSTER, TITANIC or WALKER units.",
-    "summarySpans": [
-      {
-        "start": 5,
-        "end": 19,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 30,
-        "end": 41,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 53,
-        "end": 77,
-        "bold": true
-      },
-      {
-        "start": 231,
-        "end": 238,
-        "bold": true
-      },
-      {
-        "start": 240,
-        "end": 247,
-        "bold": true
-      },
-      {
-        "start": 251,
-        "end": 257,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase or in the Fight phase of either player's turn. Pick one of your IMPERIAL KNIGHTS TITANIC models that has not yet been chosen to shoot or to fight this phase. For the rest of the phase, each attack it makes against a unit with the MONSTER, TITANIC or WALKER keyword gets +1 on both its Hit roll and its Wound roll.",
     "citations": [
       {
         "type": "app",
@@ -65,119 +27,55 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "conditional",
-            "condition": {
-              "type": "matches",
-              "parameters": {
-                "subject": "defender",
-                "filter": {
-                  "any_of": [
-                    "MONSTER",
-                    "TITANIC",
-                    "WALKER"
-                  ]
-                }
-              }
-            },
-            "effect": {
-              "type": "sequence",
-              "steps": [
-                {
-                  "type": "roll-modifier",
-                  "target": "this-model",
-                  "modifier": {
-                    "roll": "hit",
-                    "operation": "add",
-                    "value": 1
-                  }
-                },
-                {
-                  "type": "roll-modifier",
-                  "target": "this-model",
-                  "modifier": {
-                    "roll": "wound",
-                    "operation": "add",
-                    "value": 1
-                  }
-                }
-              ]
-            }
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "behavior": "activated"
-        },
         "stratagem": {
-          "id": "titanic-duel-questoris-companions-imperial-knights",
-          "cp_cost": 1,
-          "phases": [
-            "fight",
-            "shooting"
-          ],
-          "player_turn": "either",
-          "timing": "once-per-phase",
-          "type": "epic-deed",
-          "target_restrictions": {
-            "required_keywords": [
-              "Imperial Knights",
-              "Titanic"
-            ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "model",
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "owner": "friendly"
-                    }
-                  }
-                },
-                {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "operator": "or",
-                      "operands": [
-                        {
-                          "type": "happened",
-                          "parameters": {
-                            "event": "selected",
-                            "filter": {
-                              "to": "fight"
-                            },
-                            "window": "phase"
-                          }
-                        },
-                        {
-                          "type": "happened",
-                          "parameters": {
-                            "event": "selected",
-                            "filter": {
-                              "to": "shoot"
-                            },
-                            "window": "phase"
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
+          "cpCost": 1,
+          "detachment": "Questoris Companions",
+          "type": "Epic Deed",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          }
-        },
-        "valueRoles": {
-          "1": [
-            "Hit-roll bonus",
-            "Wound-roll bonus"
-          ]
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "scope": "model",
+            "keywordsAll": [
+              "IMPERIAL KNIGHTS",
+              "TITANIC"
+            ],
+            "notSelectedToShootOrFightThisPhase": true
+          },
+          "effects": [
+            {
+              "condition": {
+                "targetKeywordsAny": [
+                  "MONSTER",
+                  "TITANIC",
+                  "WALKER"
+                ]
+              },
+              "roll": "hit",
+              "delta": 1
+            },
+            {
+              "condition": {
+                "targetKeywordsAny": [
+                  "MONSTER",
+                  "TITANIC",
+                  "WALKER"
+                ]
+              },
+              "roll": "wound",
+              "delta": 1
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

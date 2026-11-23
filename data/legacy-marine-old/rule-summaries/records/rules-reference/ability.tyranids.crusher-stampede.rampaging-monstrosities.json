@@ -10,30 +10,11 @@
     "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Crusher Stampede",
     "cp": 1,
-    "summary": "During either player's Fight phase, you can use this to select one friendly Monster Tyranids unit that has not been selected to fight this phase, then re-roll Hit rolls for the selected unit until the end of the phase. Use once per phase.",
-    "summarySpans": [
-      {
-        "start": 76,
-        "end": 83,
-        "bold": true
-      },
-      {
-        "start": 84,
-        "end": 92,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in the Fight phase of either player's turn. Pick one of your TYRANIDS MONSTER units that has not yet been chosen to fight this phase. For the rest of the phase, its models may re-roll any Hit roll for their attacks.",
     "citations": [
       {
         "type": "app",
@@ -44,47 +25,34 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "use"
-        },
-        "target": {
-          "select": {
-            "side": "friendly",
-            "keywords": [
-              "Monster",
-              "Tyranids"
-            ]
-          }
-        },
-        "conditions": [
-          {
-            "kind": "not-selected",
-            "unit": "target",
-            "to": [
-              "fight"
-            ]
-          }
-        ],
-        "effect": {
-          "kind": "re-roll",
-          "roll": "hit",
-          "results": "all"
-        },
-        "duration": {
-          "until": "end-of-phase"
-        },
-        "usage": {
-          "cp": 1,
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Crusher Stampede",
+          "type": "Battle Tactic",
           "windows": [
             {
-              "phase": "fight",
-              "turn": "any"
+              "turn": "either",
+              "phase": "fight"
             }
           ],
-          "oncePerPhase": true
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "TYRANIDS",
+              "MONSTER"
+            ],
+            "notSelectedToFightThisPhase": true
+          },
+          "effects": [
+            {
+              "reroll": "hit",
+              "attacks": "target-unit-models"
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

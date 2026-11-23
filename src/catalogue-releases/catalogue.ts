@@ -8,6 +8,7 @@ import localisationSchema from "../localisation/localisation.v1.schema.json" wit
 import missionPackSchema from "../mission-packs/mission-pack.v1.schema.json" with { type: "json" };
 import pointsHistorySchema from "../points/history.v1.schema.json" with { type: "json" };
 import pointsSchema from "../points/points.v1.schema.json" with { type: "json" };
+import summariesSchema from "../rule-summaries/summaries.v1.schema.json" with { type: "json" };
 import { canonicalJson, checkReleaseFiles, releaseFiles, sha256, type ReleaseFiles } from "../releases/release.ts";
 import rosterSchema from "../roster-definitions/definitions.v1.schema.json" with { type: "json" };
 import terrainSchema from "../terrain/terrain.v1.schema.json" with { type: "json" };
@@ -18,7 +19,8 @@ import recordSchema from "./record.v1.schema.json" with { type: "json" };
 
 // Mirrors the schemas in this directory, which are the contract consumers rely on.
 export type Source = { title: string; page?: string; url?: string; revision?: string };
-export type CatalogueRecord = { formatVersion: 1; kind: string; id: string; rulesVersion: RulesVersion; source: Source; data: object };
+export type Attribution = { url: string; revision: string; credit: string; licence: string; changes: string };
+export type CatalogueRecord = { formatVersion: 1; kind: string; id: string; rulesVersion: RulesVersion; source: Source; attribution?: Attribution; data: object };
 type Categories = { formatVersion: 1; categories: { name: string; status: "included" | "retained"; kinds: string[]; sources: Source[] }[] };
 type Status = "complete" | "partial" | "retained";
 type FileRef = { path: string; sha256: string };
@@ -37,7 +39,7 @@ export type Category = {
     added: Ref[];
     renamed: (Ref & { from: string; to: string })[];
     aliased: (Ref & { canonical: string })[];
-    retired: (Ref & { replacedBy: string[] })[];
+    retired: (Ref & { replacedBy: string[]; sources?: Source[] })[];
     recordsAdded: Ref[];
     recordsChanged: Ref[];
     recordsRemoved: Ref[];
@@ -69,6 +71,7 @@ const SCHEMAS = new Map<string, object>([
   ["schema/points/history.v1.schema.json", pointsHistorySchema],
   ["schema/points/points.v1.schema.json", pointsSchema],
   ["schema/roster-definitions/definitions.v1.schema.json", rosterSchema],
+  ["schema/rule-summaries/summaries.v1.schema.json", summariesSchema],
   ["schema/terrain/terrain.v1.schema.json", terrainSchema],
 ]);
 
@@ -268,7 +271,7 @@ function changes(kinds: string[], identity: Release, records: (Ref & FileRef)[],
     const prior = was.get(key(entry));
     if (!prior) result.added.push(ref(entry));
     else if (prior.name !== entry.name) result.renamed.push({ ...ref(entry), from: prior.name, to: entry.name });
-    if (prior && !prior.retired && entry.retired) result.retired.push({ ...ref(entry), replacedBy: entry.retired.replacedBy });
+    if (prior && !prior.retired && entry.retired) result.retired.push({ ...ref(entry), ...entry.retired });
   }
   for (const prior of was.values()) {
     const found = resolve(identity, prior);

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Cadian Recon Squad",
-    "summary": "As the battle starts, you may place the Cadian Recon Squad’s Vox‑relay Beacon anywhere on the field outside the opponent’s deployment zone. A friendly unit with **ASTRA MILITARUM** and **REGIMENT** within 6″ of the beacon can receive [Orders](vsdata:ability/astra-militarum.voice-of-command) from an **OFFICER** unit in your army as though that unit were within 6″ of the recipient. Remove the marker if an enemy unit sets up or ends a move within 1″ of it.",
+    "summary": "As the battle starts, you can place this unit's Vox‑relay Beacon token anywhere on the battlefield outside the enemy deployment zone.\n\n- While the token is within 6\" of an **ASTRA MILITARUM REGIMENT** unit of yours, your **OFFICER** units can issue [Orders](vsdata:ability/astra-militarum.voice-of-command) to it as though they were within 6\" of it.\n- As each phase ends, remove the token if it is within 1\" of an enemy unit.",
     "citations": [
       {
         "type": "app",
@@ -32,6 +32,8 @@
           "setup": {
             "optional": true,
             "when": "start of battle",
+            "token": "Vox‑relay Beacon",
+            "count": 1,
             "where": "on battlefield outside opponent deployment zone"
           },
           "orders": {
@@ -41,11 +43,8 @@
             "treatOfficerAsWithinInchesOfRecipient": 6
           },
           "removeMarker": {
-            "side": "enemy",
-            "events": [
-              "sets up",
-              "ends move"
-            ],
+            "when": "end of every phase",
+            "condition": "an enemy unit is within 1\" of the token",
             "rangeInches": 1
           }
         }

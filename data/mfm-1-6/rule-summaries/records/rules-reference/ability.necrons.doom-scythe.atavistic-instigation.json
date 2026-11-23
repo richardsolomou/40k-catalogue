@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Doom Scythe",
-    "summary": "When the Doom Scythe picks a target for the heavy death ray, the enemy player chooses one outcome. The target can stand firm. Or it can duck for cover. Against a unit that stands firm, the ray scores Critical Hits on unmodified rolls to Hit of 5+. If the unit ducks, its models take −1 on their [Hit rolls](vsdata:core-rule/hit-rolls). That penalty expires as your next [Shooting phase](vsdata:core-rule/shooting-phase) starts.",
+    "summary": "Whenever this model picks an enemy unit as a target for its heavy death ray, the opposing player must choose one of two responses for that unit:\n\n- Stand firm: for the rest of this phase, ranged attacks that target that unit score a Critical Hit on an unmodified 5+ to hit.\n- Duck for cover: until your next [Shooting phase](vsdata:core-rule/shooting-phase) begins, subtract 1 from [Hit rolls](vsdata:core-rule/hit-rolls) for attacks made by models in that unit.",
     "citations": [
       {
         "type": "app",
@@ -28,201 +28,7 @@
       "version": "1",
       "fields": {
         "combat": {
-          "applies": {
-            "reachesAttached": true
-          },
-          "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "stated",
-                      "label": "Target stands firm"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "weapon": "heavy death ray",
-                      "criticalHit": 5,
-                      "criticalHitRequiresSuccess": true
-                    }
-                  ]
-                },
-                {
-                  "conditions": [
-                    {
-                      "kind": "stated",
-                      "label": "Attacker ducks for cover after being targeted"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "rolls": {
-                        "hitModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "attacker",
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "stated",
-                      "label": "Target stands firm"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "weapon": "heavy death ray",
-                      "criticalHit": 5,
-                      "criticalHitRequiresSuccess": true
-                    }
-                  ]
-                },
-                {
-                  "conditions": [
-                    {
-                      "kind": "stated",
-                      "label": "Attacker ducks for cover after being targeted"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "rolls": {
-                        "hitModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "attacker",
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "stated",
-                      "label": "Target stands firm"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "weapon": "heavy death ray",
-                      "criticalHit": 5,
-                      "criticalHitRequiresSuccess": true
-                    }
-                  ]
-                },
-                {
-                  "conditions": [
-                    {
-                      "kind": "stated",
-                      "label": "Attacker ducks for cover after being targeted"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "rolls": {
-                        "hitModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "attacker",
-                "defender"
-              ]
-            }
-          ],
-          "trees": [
-            [
-              {
-                "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ],
-            [
-              {
-                "reading": 2
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 0,
-            "own.many.known": 0,
-            "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
-            "aura.one.known": 0,
-            "aura.one.unknown": 0,
-            "aura.many.known": 0,
-            "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
-            "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 0,
-            "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 0,
-            "army.one.known": 0,
-            "army.one.unknown": 0,
-            "army.many.known": 0,
-            "army.many.unknown": 0
-          }
+          "unresolved": "Withheld as a class: independent reviews found 9 of 157 sampled combat readings of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
           "actor": "Doom Scythe model",
@@ -230,8 +36,8 @@
           "choiceBy": "opponent",
           "branches": {
             "stand firm": {
-              "attacker": "Doom Scythe heavy death ray",
-              "against": "chosen enemy unit",
+              "attacks": "ranged attacks against chosen enemy unit",
+              "duration": "this phase",
               "criticalHitOnUnmodified": "5+"
             },
             "duck for cover": {

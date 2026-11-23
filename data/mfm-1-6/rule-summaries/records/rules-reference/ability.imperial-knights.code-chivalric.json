@@ -12,7 +12,7 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "If IMPERIAL KNIGHTS are your faction, make an oath as soon as Read Mission Objectives is over. Choose a deed and a quality independently. For either choice, you may pick an entry or roll a D6 against its table. Your selected quality benefits the army’s models all battle. The first time the deed is met, your army becomes Honoured for the rest of the battle. Earn 2 CP, or 3 CP if you rolled for either choice. This award bypasses the usual single extra CP per round limit. “We vow to lay low the tyrant...” checks at turn end whether the enemy CHARACTER model named at battle start has died. “We swear to reclaim the realm...” checks at the close of the opposing turn. You need more controlled objectives than the opponent. “We pledge to reap a great tally...” checks each round’s losses at [round end](vsdata:core-rule/end-of-battle-round). The enemy must have lost more units that round than its round number. A unit still counts if it subsequently returns to the field. “...with all our martial valour risen over all.” offers one Hit or Wound re-roll whenever a model is picked to shoot or fight. “...and we are eager for the challenge.” boosts Move by 2 inches and Advance and Charge rolls by 1. “...yet shall our legacy be unsullied.” improves Objective Control by 2 and Leadership by 1.",
+    "summary": "With **IMPERIAL KNIGHTS** as your Army Faction, you must set your army's Oath once Read Mission Objectives is over. An Oath is 1 Deed and 1 Quality; for each, pick an entry or roll a D6 on its table.\n\nDeeds:\n\n- We vow to lay low the tyrant... (1–2): as the battle begins, choose 1 enemy **CHARACTER** model; the Deed is achieved as any turn ends once that model is destroyed.\n- We swear to reclaim the realm... (3–4): the Deed is achieved as your opponent's turn ends if they control fewer objective markers than you.\n- We pledge to reap a great tally... (5–6): the Deed is achieved as a battle round ends if the enemy units destroyed in that round outnumber its number (e.g. 2 in round 1), even ones later returned to the battlefield.\n\nQualities, which apply for the rest of the battle to every model of yours that has this ability:\n\n- ...with all our martial valour risen over all. (1–2): whenever the model is picked to shoot or fight, 1 Hit roll and 1 Wound roll can be re-rolled.\n- ...and we are eager for the challenge. (3–4): it gets +2\" Move, and +1 to its Advance and Charge rolls.\n- ...yet shall our legacy be unsullied. (5–6): it gets +2 Objective Control and +1 Leadership.\n\nThe first time your Deed is achieved, the Oath is fulfilled: your army is Honoured for the rest of the battle, and you get 2CP, or 3CP if either part was rolled. These CP are exempt from the Core Rules cap of 1CP gained per battle round.",
     "citations": [
       {
         "type": "app",
@@ -88,7 +88,7 @@
           "kind": "oath-and-permanent-quality",
           "armyFaction": "IMPERIAL KNIGHTS",
           "selection": {
-            "timing": "read-mission-rules-step-end",
+            "timing": "read-mission-objectives-step-end",
             "required": true,
             "deedCount": 1,
             "qualityCount": 1,
@@ -143,7 +143,7 @@
             }
           ],
           "qualityDuration": "battle",
-          "qualityRecipient": "all-models-in-army",
+          "qualityRecipient": "models-in-army-with-this-ability",
           "qualities": [
             {
               "id": "martial-valour",
@@ -153,9 +153,9 @@
               ],
               "owner": "model",
               "trigger": "selected-to-shoot-or-fight",
-              "choice": [
-                "one-hit-reroll",
-                "one-wound-reroll"
+              "rerolls": [
+                "one-hit-roll",
+                "one-wound-roll"
               ]
             },
             {

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Designation Force",
-    "summary": "Your **SCOUT SENTINEL** units, and those of your units that are **ASTRA MILITARUM INFANTRY SMOKE**, have **Signal Flares**, which lets such a unit, during your [Shooting phase](vsdata:core-rule/shooting-phase), choose one enemy unit it can see within 12\", and that enemy becomes **designated**; a **designated** unit's detection range is increased by 3\". This Detachment carries the **RECON** tag, so it cannot be combined with another **RECON** Detachment. The card does not say how long a unit stays **designated**.",
+    "summary": "Your **SCOUT SENTINEL** and **ASTRA MILITARUM INFANTRY SMOKE** units gain **Signal Flares**: in your [Shooting phase](vsdata:core-rule/shooting-phase), such a unit may pick one enemy unit it can see within 12\", which is **designated** for the rest of the phase and so has +3\" detection range.\n\nCarrying the **RECON** tag, this detachment cannot be combined with another **RECON** detachment.",
     "citations": [
       {
         "type": "app",
@@ -27,6 +27,18 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "grants": {
+          "unresolved": "Withheld as a class: independent reviews found 1 of 8 sampled ability grants of Detachment rules wrong or partly wrong, above the 2% this reading may ship with."
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "own"
+            }
+          ]
+        },
         "detail": {
           "kind": "detachment-rule",
           "detachment": "Designation Force",
@@ -53,16 +65,15 @@
               "status": "designated",
               "statusEffect": {
                 "detectionRangeDeltaInches": 3
-              }
+              },
+              "statusDuration": "end-of-phase",
+              "durationBasis": "Core Rules 01.02.02: with no duration printed, the status lasts for the rest of the phase it was applied in."
             }
           },
           "detachmentTag": {
             "tag": "RECON",
             "exclusiveWithSameTag": true
-          },
-          "gaps": [
-            "duration of designated is not stated"
-          ]
+          }
         }
       }
     }

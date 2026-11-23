@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "Costs 2 CP. Choose a friendly **ASTRA MILITARUM** unit in your [Shooting phase](vsdata:core-rule/shooting-phase). Identify an enemy in [Engagement Range](vsdata:core-rule/engagement-range) of at least one friendly **GENESTEALER CULTS** unit. That enemy is a legal ranged target for your chosen unit through phase end. When your chosen unit finishes attacking, test each engaged Cults unit with a separate D6. A result of 5+ deals D3+1 [mortal wounds](vsdata:core-rule/mortal-wounds) to the Cults unit tested.",
+    "summary": "Spend 2 CP in your [Shooting phase](vsdata:core-rule/shooting-phase) on an **ASTRA MILITARUM** unit of yours. Pick an enemy unit in [Engagement Range](vsdata:core-rule/engagement-range) of 1 or more of your **GENESTEALER CULTS** units. Until the phase ends, your unit may target that enemy unit with ranged attacks.\n\nIf it does, once those attacks are resolved, roll a D6 for each such **GENESTEALER CULTS** unit: on a 5+, that unit takes D3+1 [mortal wounds](vsdata:core-rule/mortal-wounds).",
     "citations": [
       {
         "type": "app",
@@ -63,71 +63,7 @@
           ]
         },
         "combat": {
-          "applies": {
-            "target": {
-              "anyOf": [
-                [
-                  "ASTRA MILITARUM"
-                ]
-              ]
-            }
-          },
-          "readings": [
-            {
-              "roles": [
-                "attacker"
-              ]
-            },
-            {
-              "choices": [],
-              "default": 0,
-              "roles": [
-                "attacker"
-              ]
-            }
-          ],
-          "trees": [
-            [
-              {
-                "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 0,
-            "own.many.known": 0,
-            "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
-            "aura.one.known": 0,
-            "aura.one.unknown": 0,
-            "aura.many.known": 0,
-            "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 0,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 0,
-            "stratagem-fight.one.known": 1,
-            "stratagem-fight.one.unknown": 1,
-            "stratagem-fight.many.known": 1,
-            "stratagem-fight.many.unknown": 1,
-            "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 0,
-            "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 0,
-            "army.one.known": 0,
-            "army.one.unknown": 0,
-            "army.many.known": 0,
-            "army.many.unknown": 0
-          }
+          "unresolved": "Withheld as a class: independent reviews found 7 of 72 sampled combat readings of Stratagems wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
           "type": "strategic-ploy",
@@ -166,7 +102,8 @@
               "action": "roll-per-unit",
               "dice": "D6",
               "eligible": "friendly-genestealer-cults-unit-engaging-marked-enemy",
-              "timing": "after-target-unit-has-finished-making-its-attacks",
+              "condition": "target-unit-made-ranged-attacks-at-marked-enemy",
+              "timing": "after-target-unit-has-resolved-those-attacks",
               "onResult": {
                 "atLeast": 5,
                 "result": {

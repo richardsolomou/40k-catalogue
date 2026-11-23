@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "battle-tactic"
     },
-    "summary": "Costs 1 CP. During your [Shooting phase](vsdata:core-rule/shooting-phase) choose an **ADEPTA SORORITAS** unit of yours before selecting it to shoot. It must have left a **TRANSPORT** earlier this turn. Through phase end, add 1 to its ranged [Wound rolls](vsdata:core-rule/wound-rolls) against enemies up to 6\" from any [objective marker](vsdata:core-rule/objectives). If those attacks kill any enemy models, choose one enemy unit that lost a model this way. It takes a [Battle-shock test](vsdata:core-rule/battle-shock).",
+    "summary": "Spend 1 CP in your [Shooting phase](vsdata:core-rule/shooting-phase) on an **ADEPTA SORORITAS** unit of yours that disembarked this turn from a **TRANSPORT** and is not yet picked to shoot this phase. For the rest of the phase, its models get +1 on [Wound rolls](vsdata:core-rule/wound-rolls) for ranged attacks at an enemy unit that is:\n\n- within 6\" of the attacking model\n- in range of an [objective marker](vsdata:core-rule/objectives)\n\nIf those attacks destroy any enemy models, pick one of the destroyed models: its unit takes a [Battle-shock test](vsdata:core-rule/battle-shock).",
     "citations": [
       {
         "type": "app",
@@ -53,6 +53,18 @@
             ],
             "more": true
           }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "own"
+            }
+          ]
+        },
+        "combat": {
+          "unresolved": "Withheld as a class: independent reviews found 7 of 72 sampled combat readings of Stratagems wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
           "type": "battle-tactic",
@@ -94,9 +106,10 @@
                 "distance": {
                   "unit": "inch",
                   "amount": 6,
-                  "comparator": "at-most",
-                  "from": "objective-marker"
-                }
+                  "comparator": "within",
+                  "from": "attacking-model"
+                },
+                "withinRangeOfObjectiveMarker": true
               },
               "duration": {
                 "until": "end-of-this-phase"
@@ -106,7 +119,7 @@
               "kind": "test",
               "test": "battle-shock",
               "owner": "enemy",
-              "recipient": "one-chosen-enemy-unit-that-lost-models",
+              "recipient": "unit-of-one-chosen-destroyed-model",
               "condition": {
                 "event": "enemy-model-destroyed-by-qualifying-attacks",
                 "minModels": 1

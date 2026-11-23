@@ -36,7 +36,7 @@
         }
       ]
     },
-    "summary": "Costs 2 CP. As your [Shooting phase](vsdata:core-rule/shooting-phase) or either [Fight phase](vsdata:core-rule/fight-phase) begins, choose two friendly **SKITARII** units that have yet to be selected for that phase’s attacks. Pick one enemy unit. Improve the AP of the friendly pair’s weapons by 1 through phase end. During that time, their models must target the chosen enemy with each attack for which it is eligible.",
+    "summary": "Spend 2 CP as your Shooting phase or either player's Fight phase begins. Pick 2 **SKITARII** units of yours not yet chosen to shoot or fight in this phase, and 1 enemy unit. For the rest of that phase:\n\n- improve the AP of weapons of models in both your units by 1\n- models in those 2 units can attack only that enemy unit, provided it is eligible as a target",
     "citations": [
       {
         "type": "app",
@@ -65,6 +65,23 @@
             ],
             "more": true
           }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "own"
+            },
+            {
+              "at": "phase-start",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ]
+        },
+        "combat": {
+          "unresolved": "Withheld as a class: independent reviews found 7 of 72 sampled combat readings of Stratagems wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
           "type": "strategic-ploy",
@@ -117,11 +134,11 @@
           ],
           "restrictions": [
             {
-              "kind": "required-attack-target-if-eligible",
+              "kind": "attacks-may-target-only",
               "actors": "friendly-pair-models",
               "recipient": "marked-enemy",
-              "checksEligibility": "per-attack",
-              "fallback": "normal-target-selection",
+              "onlyIfEligibleTarget": true,
+              "otherTargetsAllowed": false,
               "duration": {
                 "until": "end-of-this-phase"
               }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Deathstrike",
-    "summary": "When you choose this Deathstrike to fire during your [Shooting phase](vsdata:core-rule/shooting-phase), it can set or reposition its own target marker as well as resolve ranged attacks, provided it has yet to launch its missile this battle. Set the marker if there is none. Otherwise you may relocate it. Either choice allows any point on the battlefield. The missile’s [Plasma Warhead](vsdata:weapon-ability/plasma-warhead) governs when it can fire and how to resolve attacks around that marker.",
+    "summary": "In your [Shooting phase](vsdata:core-rule/shooting-phase), whenever you select this model to shoot, if it is yet to fire its Deathstrike missile in this battle, you can pick 1 of these, on top of resolving its ranged attacks as normal:\n\n- **Designate Target**: if it has no Deathstrike Target marker yet, put a unique one for this model on the battlefield, at any point\n- **Adjust Target**: if it already has one, move that marker to a new point on the battlefield",
     "citations": [
       {
         "type": "app",
@@ -28,31 +28,26 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "shooting",
-              "turn": "own"
-            }
-          ]
+          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
           "kind": "per-model-marker-placement",
-          "actor": "owning-Deathstrike-model",
+          "actor": "this model",
           "trigger": "selected-to-shoot-in-own-shooting-phase",
-          "requires": "has-not-fired-its-Deathstrike-missile-this-battle",
+          "requires": "has-not-shot-with-its-Deathstrike-missile-this-battle",
           "mode": "optional-in-addition-to-resolving-ranged-attacks",
           "maxChoices": 1,
-          "marker": {
-            "identity": "unique-to-owning-model",
-            "location": "anywhere-on-battlefield",
-            "ifAbsent": "place",
-            "ifPresent": "relocate-existing-marker"
-          },
-          "weaponBinding": {
-            "profile": "Deathstrike missile",
-            "ability": "Plasma Warhead",
-            "targetSelection": "delegated-to-verified-weapon-ability"
+          "options": {
+            "Designate Target": {
+              "ifNoMarker": true,
+              "place": "unique Deathstrike Target marker for this model",
+              "location": "anywhere-on-battlefield"
+            },
+            "Adjust Target": {
+              "ifHasMarker": true,
+              "move": "that marker",
+              "location": "anywhere-else-on-battlefield"
+            }
           }
         }
       }

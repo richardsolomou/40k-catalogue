@@ -12,7 +12,7 @@
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "Whenever one of your units with **Martial Ka’tah** is picked to fight, choose a **Ka’tah Stance** for it. That Stance is active, and the unit holds its ability, only until the unit's attacks are all resolved. **Dacatari Stance**: the unit's models get **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)** on their melee weapons. **Rendax Stance**: the unit's models get **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)** on their melee weapons.",
+    "summary": "Each time a unit of yours with **Martial Ka’tah** is picked to fight, choose a Ka’tah Stance for it. Until the unit's attacks are all resolved, that Stance is active and the unit has its ability:\n\n- **Dacatari Stance**: its models' melee weapons get **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)**.\n- **Rendax Stance**: its models' melee weapons get **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)**.",
     "citations": [
       {
         "type": "app",
@@ -26,6 +26,100 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "combat": {
+          "applies": {
+            "reachesAttached": true
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "option": "Dacatari Stance",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "SUSTAINED HITS 1"
+                    }
+                  ]
+                },
+                {
+                  "option": "Rendax Stance",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "LETHAL HITS"
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
+        },
+        "references": [
+          {
+            "kind": "weapon-ability",
+            "id": "lethal-hits"
+          }
+        ],
         "detail": {
           "kind": "fight-stance-choice",
           "subject": {

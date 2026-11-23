@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "Costs 1 CP. During your [Shooting phase](vsdata:core-rule/shooting-phase), pick one of your **PLAGUE LEGIONS** units that is engaged. Ranged weapons can fire into the enemy units engaging it for the rest of the phase. Once a firing unit finishes, take one D6 per wound it removed from enemy models engaged with your pick. The friendly unit takes 1 mortal wound per 5+.",
+    "summary": "Spend 1 CP in your [Shooting phase](vsdata:core-rule/shooting-phase) on 1 **PLAGUE LEGIONS** unit of yours in Engagement Range of at least 1 enemy unit. For the rest of the phase:\n\n- when ranged weapons pick targets, enemy units count as outside your unit's Engagement Range\n- roll 1 D6 for each wound lost by an enemy model whose unit is within your unit's Engagement Range: a 5+ means your unit takes 1 mortal wound once the attacking unit finishes its attacks",
     "citations": [
       {
         "type": "app",
@@ -87,8 +87,8 @@
           },
           "effects": [
             {
-              "action": "permit-targeting-engaged-enemies-with-ranged-weapons",
-              "enemy": "unit-in-engagement-range-of-selected-plague-legions-unit",
+              "action": "ignore-engagement-range-for-ranged-target-selection",
+              "enemy": "units-in-engagement-range-of-selected-unit",
               "duration": {
                 "until": "end-of-this-phase"
               }
@@ -96,15 +96,19 @@
             {
               "action": "roll-per-wound-lost",
               "dice": "D6",
-              "affected": "enemy-model-in-engagement-range-of-selected-unit",
-              "timing": "after-firing-unit-finishes-its-attacks",
-              "condition": "wound-lost-to-ranged-attack",
+              "count": 1,
+              "trigger": "enemy-model-loses-a-wound",
+              "condition": "that-model's-unit-within-engagement-range-of-selected-unit",
+              "duration": {
+                "until": "end-of-this-phase"
+              },
               "onResult": {
                 "atLeast": 5,
                 "result": {
                   "action": "inflict-mortal-wounds",
                   "amount": 1,
-                  "recipient": "target-unit"
+                  "recipient": "target-unit",
+                  "timing": "after-attacking-unit-finishes-its-attacks"
                 }
               }
             }

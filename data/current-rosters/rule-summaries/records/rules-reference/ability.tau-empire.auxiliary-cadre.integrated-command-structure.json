@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Auxiliary Cadre",
-    "summary": "Your **KROOT** and **VESPID STINGWINGS** units have **Harnessed Alien Instincts**, which lets such a unit, during your [Shooting phase](vsdata:core-rule/shooting-phase), choose one enemy unit it can see within 12\", and that enemy becomes **prey-marked**; a **prey-marked** unit's detection range is increased by 3\". Your **GHOSTKEEL BATTLESUIT** and **STEALTH BATTLESUITS** units have **Localised Stealth Projectors (Aura)**: if a **KROOT** or **VESPID STINGWINGS** unit of yours within 6\" of such a unit has shot, its shooting does not stop it counting as **hidden**. This Detachment carries the **AUXILIARIES** tag, so it cannot be combined with another **AUXILIARIES** Detachment. The card does not say how long a unit stays **prey-marked**.",
+    "summary": "Your **KROOT** and **VESPID STINGWINGS** units have **Harnessed Alien Instincts**: in your [Shooting phase](vsdata:core-rule/shooting-phase), the unit may pick one enemy unit it can see within 12\", which is **prey-marked** for the rest of the phase; a **prey-marked** unit's detection range grows by 3\".\n\nYour **GHOSTKEEL BATTLESUIT** and **STEALTH BATTLESUITS** units have **Localised Stealth Projectors (Aura)**: a **KROOT** or **VESPID STINGWINGS** unit of yours within 6\" of such a unit still counts as **hidden** after it has shot.\n\nCarrying the **AUXILIARIES** tag, this detachment cannot be combined with another **AUXILIARIES** detachment.",
     "citations": [
       {
         "type": "app",
@@ -27,6 +27,27 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "grants": {
+          "unresolved": "Withheld as a class: independent reviews found 1 of 8 sampled ability grants of Detachment rules wrong or partly wrong, above the 2% this reading may ship with."
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "own"
+            }
+          ]
+        },
+        "combat": {
+          "unresolved": "Withheld as a class: independent reviews found 2 of 31 sampled combat readings of Detachment rules wrong or partly wrong, above the 2% this reading may ship with."
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "hidden"
+          }
+        ],
         "detail": {
           "kind": "detachment-rule",
           "detachment": "Auxiliary Cadre",
@@ -47,7 +68,9 @@
               "status": "prey-marked",
               "statusEffect": {
                 "detectionRangeDeltaInches": 3
-              }
+              },
+              "statusDuration": "end-of-phase",
+              "durationBasis": "Core Rules 01.02.02: with no duration printed, the status lasts for the rest of the phase it was applied in."
             },
             "Localised Stealth Projectors": {
               "aura": true,
@@ -69,10 +92,7 @@
           "detachmentTag": {
             "tag": "AUXILIARIES",
             "exclusiveWithSameTag": true
-          },
-          "gaps": [
-            "duration of prey-marked is not stated"
-          ]
+          }
         }
       }
     }

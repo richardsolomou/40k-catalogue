@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Monolith",
-    "summary": "After battle round one, during your [Movement phase](vsdata:core-rule/movement-phase), you may select a friendly **NECRONS INFANTRY** unit from the battlefield or **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**. If on the battlefield, remove it and put it into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**. When it arrives from **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**, place it wholly within 6″ of the Monolith and farther than 8″ from every enemy unit. This applies even inside the enemy deployment zone. The arriving unit is barred from **[Charge moves](vsdata:core-rule/charge-move)** that turn.",
+    "summary": "In your [Movement phase](vsdata:core-rule/movement-phase) (not in battle round 1), you can pick 1 **NECRONS INFANTRY** unit of yours that is either on the battlefield or in **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**. A unit picked from the battlefield is removed and put into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**.\n\nThe picked unit may then make an **ingress move**, during which:\n\n- it must be set up **unengaged** and wholly within 6\" of the Monolith, instead of the usual more than 8\" horizontally away from every enemy unit\n- it may be set up inside the enemy deployment zone\n\nThat unit is barred from **[Charge moves](vsdata:core-rule/charge-move)** this turn.",
     "citations": [
       {
         "type": "app",
@@ -28,13 +28,7 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "movement",
-              "turn": "own"
-            }
-          ]
+          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
         },
         "references": [
           {
@@ -68,9 +62,13 @@
           },
           "ifOnBattlefield": "remove unit and put into Strategic Reserves",
           "setup": {
-            "when": "arriving from Strategic Reserves",
+            "move": "ingress move",
+            "optional": true,
             "whollyWithinInchesOfMonolith": 6,
-            "strictlyFartherThanInchesFromAllEnemyUnits": 8,
+            "unengaged": true,
+            "replacesRequirement": {
+              "moreThanInchesHorizontallyFromAllEnemyUnits": 8
+            },
             "allowsEnemyDeploymentZone": true
           },
           "restriction": "no Charge move this turn"

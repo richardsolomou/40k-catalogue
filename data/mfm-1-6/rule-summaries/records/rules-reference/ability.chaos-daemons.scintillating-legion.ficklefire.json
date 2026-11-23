@@ -26,7 +26,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "Costs 1 CP. Use this in your [Shooting phase](vsdata:core-rule/shooting-phase) on a friendly **LEGIONES DAEMONICA TZEENTCH** unit engaged with at least one enemy. For this phase, disregard enemies’ Engagement Range with that unit when choosing targets and resolving its ranged attacks. Roll a D6 whenever an enemy model dies this phase while its unit is in the chosen unit’s Engagement Range. Each 5+ deals 1 [mortal wound](vsdata:core-rule/mortal-wounds) to the chosen unit after it finishes its attacks.",
+    "summary": "Spend 1 CP in your [Shooting phase](vsdata:core-rule/shooting-phase) on a **LEGIONES DAEMONICA TZEENTCH** unit of yours within Engagement Range of any enemy unit. For the rest of the phase:\n\n- for choosing targets for ranged weapons and resolving their attacks, enemy units do not count as within your unit's Engagement Range\n- whenever a model from an enemy unit within your unit's Engagement Range is destroyed, roll a D6; each 5+ deals 1 [mortal wound](vsdata:core-rule/mortal-wounds) to your unit after the attacking unit's attacks are all resolved",
     "citations": [
       {
         "type": "app",
@@ -87,11 +87,11 @@
           "effect": {
             "expiry": "phase end",
             "engagementException": {
-              "treatEnemiesAsOutsideSelectedUnitsRange": true,
               "onlyFor": [
-                "selecting its targets",
-                "resolving its ranged attacks"
-              ]
+                "selecting targets for ranged weapons",
+                "resolving attacks with ranged weapons"
+              ],
+              "enemyUnitsNotWithinSelectedUnitsEngagementRange": true
             },
             "recoil": {
               "trigger": "each enemy model destroyed while its unit is within the selected unit’s Engagement Range",
@@ -100,7 +100,7 @@
               "threshold": "5+",
               "mortalWoundsPerSuccess": 1,
               "recipient": "selected unit",
-              "apply": "after selected unit finishes its attacks"
+              "apply": "after the attacking unit has finished making its attacks"
             }
           },
           "restrictions": []

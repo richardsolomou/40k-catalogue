@@ -36,7 +36,7 @@
         }
       ]
     },
-    "summary": "Costs 1 CP. React immediately after an enemy picks targets in its [Shooting phase](vsdata:core-rule/shooting-phase) or either [Fight phase](vsdata:core-rule/fight-phase). Pick a **DRUKHARI** unit of yours among those targets. Gain one Pain token and spend one to worsen AP by 1 on that enemy’s attacks against your pick until it finishes attacking. Gain one Pain token at phase end if your **HAEMONCULUS COVENS** pick survives.",
+    "summary": "Spend 1 CP and 1 Pain token in either player's [Fight phase](vsdata:core-rule/fight-phase) or the opponent's [Shooting phase](vsdata:core-rule/shooting-phase), right after an enemy unit picks its targets. Pick a **DRUKHARI** unit of yours that is a target of at least 1 of those attacks.\n\nUntil the enemy unit finishes attacking, each attack aimed at your unit has its Armour Penetration worsened by 1. When the phase ends, add 1 Pain token to your pool if your unit is **HAEMONCULUS COVENS** and remains on the battlefield.",
     "citations": [
       {
         "type": "app",
@@ -83,228 +83,49 @@
           ]
         },
         "combat": {
-          "applies": {
-            "target": {
-              "anyOf": [
-                [
-                  "DRUKHARI"
-                ]
-              ]
-            }
-          },
-          "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "characteristic": {
-                        "name": "armour-penetration",
-                        "add": 1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "characteristic": {
-                        "name": "armour-penetration",
-                        "add": 1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "characteristic": {
-                        "name": "armour-penetration",
-                        "add": 1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "characteristic": {
-                        "name": "armour-penetration",
-                        "add": 1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            }
-          ],
-          "trees": [
-            [
-              {
-                "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ],
-            [
-              {
-                "reading": 2
-              }
-            ],
-            [
-              {
-                "reading": 3
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 0,
-            "own.many.known": 0,
-            "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
-            "aura.one.known": 1,
-            "aura.one.unknown": 1,
-            "aura.many.known": 1,
-            "aura.many.unknown": 1,
-            "stratagem-shooting.one.known": 2,
-            "stratagem-shooting.one.unknown": 2,
-            "stratagem-shooting.many.known": 2,
-            "stratagem-shooting.many.unknown": 2,
-            "stratagem-fight.one.known": 3,
-            "stratagem-fight.one.unknown": 3,
-            "stratagem-fight.many.known": 3,
-            "stratagem-fight.many.unknown": 3,
-            "stratagem-both.one.known": 1,
-            "stratagem-both.one.unknown": 1,
-            "stratagem-both.many.known": 1,
-            "stratagem-both.many.unknown": 1,
-            "army.one.known": 0,
-            "army.one.unknown": 0,
-            "army.many.known": 0,
-            "army.many.unknown": 0
-          }
+          "unresolved": "Withheld as a class: independent reviews found 7 of 72 sampled combat readings of Stratagems wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
-          "type": "battle-tactic",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "opponent"
-              },
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "immediately-after-enemy-selects-attack-targets",
-            "actor": "enemy-attacking-unit"
-          },
+          "detachment": "Covenite Coterie",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "timing": "after-enemy-unit-selects-targets",
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "DRUKHARI"
             ],
-            "triggerRelation": {
-              "event": "selected-as-target-of-triggering-attacks",
-              "minimum": 1
-            }
+            "targetedByThatEnemyUnit": true
           },
           "effects": [
             {
-              "kind": "gain-resource",
-              "recipient": "your-pool",
-              "resource": "pain-token",
-              "amount": 1
+              "spendPainTokens": 1
             },
             {
-              "kind": "spend-resource",
-              "recipient": "your-pool",
-              "resource": "pain-token",
-              "amount": 1
+              "attacksAgainstTargetUnit": true,
+              "characteristic": "AP",
+              "worsenBy": 1,
+              "duration": "until-attacking-unit-finishes-attacks"
             },
             {
-              "kind": "attack-characteristic-modifier",
-              "actor": "triggering-enemy-unit",
-              "recipient": "attacks-targeting-your-unit",
-              "characteristic": "armour-penetration",
-              "operation": "worsen",
-              "amount": 1,
-              "duration": {
-                "until": "triggering-enemy-finishes-attacks"
-              }
-            },
-            {
-              "kind": "gain-resource",
-              "recipient": "your-pool",
-              "resource": "pain-token",
-              "amount": 1,
-              "trigger": "end-of-this-phase",
+              "when": "end-of-phase",
               "condition": {
-                "targetKeywords": [
+                "unitKeywordsAll": [
                   "HAEMONCULUS COVENS"
                 ],
-                "state": "target-unit-survives"
-              }
+                "unitStillOnBattlefield": true
+              },
+              "gainPainTokens": 1
             }
           ]
         }

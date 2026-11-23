@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Commissar Yarrick",
-    "summary": "While Counterstrategist is active through [Hero of Hades Hive](vsdata:ability/astra-militarum.commissar-yarrick.hero-of-hades-hive), use it as the opponent’s [Movement phase](vsdata:core-rule/movement-phase) ends. Pick an enemy that finished a move or was set up within 8″ of Yarrick. Within 6″ of Yarrick, choose a friendly REGIMENT unit he can see. That unit is ineligible if it took a [Normal Move](vsdata:core-rule/normal-move) or was targeted by [Fire Overwatch](vsdata:core-rule/fire-overwatch) during this phase. Choose one response. Move up to D6″ using a Normal Move, shoot solely at the chosen enemy subject to normal target eligibility, or declare a charge. For the rest of the phase, its ranged attacks hit on unmodified 6s regardless of Ballistic Skill or modifiers. The [Charge Move](vsdata:core-rule/charge-move) must engage the chosen enemy. A successful charge grants the REGIMENT unit no Charge Bonus this turn.",
+    "summary": "As your opponent's [Movement phase](vsdata:core-rule/movement-phase) ends, you can pick 2 units, measuring from this model:\n\n- 1 enemy unit that ended a move, or was set up, within 8\"\n- 1 **REGIMENT** unit of yours within 6\" that this model can see and that, this phase, has neither made a [Normal move](vsdata:core-rule/normal-move) nor been the target of the [Fire Overwatch](vsdata:core-rule/fire-overwatch) Stratagem\n\nYour **REGIMENT** unit can then do 1 of these:\n\n- Move up to D6\" as a Normal move.\n- Shoot, targeting only the picked enemy unit, which must be an eligible target. For the rest of the phase, its ranged attacks need an unmodified 6 to hit, regardless of modifiers or the weapon's Ballistic Skill.\n- Declare a charge. Its **[charge move](vsdata:core-rule/charge-move)** must end **engaged** with the picked enemy unit, and even a successful charge gives it no Charge bonus this turn.",
     "citations": [
       {
         "type": "app",
@@ -28,70 +28,18 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "timings": [
-            {
-              "at": "phase-end",
-              "phase": "movement",
-              "turn": "opponent"
-            }
-          ]
+          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
         },
         "combat": {
-          "applies": {
-            "reachesAttached": true
-          },
-          "readings": [
-            {
-              "roles": [
-                "attacker"
-              ]
-            }
-          ],
-          "trees": [
-            [
-              {
-                "reading": 0
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 0,
-            "own.many.known": 0,
-            "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
-            "aura.one.known": 0,
-            "aura.one.unknown": 0,
-            "aura.many.known": 0,
-            "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 0,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 0,
-            "stratagem-fight.one.known": 0,
-            "stratagem-fight.one.unknown": 0,
-            "stratagem-fight.many.known": 0,
-            "stratagem-fight.many.unknown": 0,
-            "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 0,
-            "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 0,
-            "army.one.known": 0,
-            "army.one.unknown": 0,
-            "army.many.known": 0,
-            "army.many.unknown": 0
-          }
+          "unresolved": "Withheld as a class: independent reviews found 9 of 157 sampled combat readings of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
         },
         "detail": {
-          "kind": "reactive-command-menu-option",
-          "activation": "Hero of Hades Hive",
+          "kind": "reactive-option",
           "timing": "end-of-opponent-movement-phase",
+          "optional": true,
           "chooseEnemy": {
             "count": 1,
-            "withinInchesOfYarrick": 8,
+            "withinInchesOfThisModel": 8,
             "either": [
               "ended-a-move",
               "was-set-up"
@@ -100,8 +48,8 @@
           "chooseFriendly": {
             "count": 1,
             "keyword": "REGIMENT",
-            "withinInchesOfYarrick": 6,
-            "visibleTo": "Yarrick",
+            "withinInchesOfThisModel": 6,
+            "visibleToThisModel": true,
             "excludesThisPhase": [
               "made-a-normal-move",
               "targeted-by-fire-overwatch"
@@ -115,23 +63,21 @@
             },
             {
               "kind": "shoot",
-              "onlyEligibleTarget": "selected-enemy-unit"
+              "onlyEligibleTarget": "selected-enemy-unit",
+              "untilEndOfPhase": {
+                "requiredUnmodifiedHitRoll": 6,
+                "disregard": [
+                  "ballistic-skill",
+                  "modifiers"
+                ]
+              }
             },
             {
               "kind": "declare-charge",
               "chargeMoveMustEndEngagedWith": "selected-enemy-unit",
               "chargeBonusThisTurn": false
             }
-          ],
-          "rangedOverride": {
-            "recipient": "selected-friendly-unit",
-            "expires": "end-of-triggering-phase",
-            "requiredUnmodifiedHitRoll": 6,
-            "disregard": [
-              "ballistic-skill",
-              "modifiers"
-            ]
-          }
+          ]
         }
       }
     }

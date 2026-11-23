@@ -13,7 +13,7 @@
   "data": {
     "pack": "Chapter Approved 2026-2027",
     "card": "primary",
-    "summary": "As your turn begins, pick an enemy unit on the battlefield that meets both conditions. It is in range of **[objectives](vsdata:core-rule/objectives)** and it destroyed at least one friendly unit last turn. If none qualifies, pick any enemy unit on the battlefield. The chosen unit is **condemned** until your following turn begins.",
+    "summary": "As your turn begins, pick 1 to 3 enemy units on the battlefield, each meeting either or both of these:\n\n- It is in range of **[objectives](vsdata:core-rule/objectives)**.\n- It **destroyed** a friendly unit during the previous turn.\n\nIf no enemy unit qualifies, pick 1 enemy unit on the battlefield instead. The picked units are **condemned** until your next turn begins.",
     "citations": [
       {
         "type": "app",
@@ -30,16 +30,17 @@
         "detail": {
           "items": [
             {
-              "kind": "choose-unit",
+              "kind": "choose-units",
               "window": {
                 "at": "turn-start",
                 "turn": "own"
               },
               "choice": {
                 "owner": "enemy",
-                "count": 1,
+                "countMin": 1,
+                "countMax": 3,
                 "location": "battlefield",
-                "priorityCriteria": [
+                "eligibleIfAny": [
                   {
                     "kind": "within-range",
                     "of": "objectives"
@@ -51,12 +52,17 @@
                     "window": "previous-turn"
                   }
                 ],
-                "fallback": "any-enemy-unit-on-battlefield-if-no-priority-target"
+                "fallback": {
+                  "when": "no-eligible-unit",
+                  "owner": "enemy",
+                  "count": 1,
+                  "location": "battlefield"
+                }
               }
             },
             {
               "kind": "designate",
-              "target": "chosen-unit",
+              "target": "chosen-units",
               "designation": "condemned",
               "expires": {
                 "at": "turn-start",

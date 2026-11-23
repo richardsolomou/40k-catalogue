@@ -30,7 +30,7 @@
       "turn": "any",
       "type": "epic-deed"
     },
-    "summary": "Costs 1 CP. Any phase after your **HAEMONCULUS** dies, choose it and pay Pain tokens in a quantity from 1 to 3. At phase end, put it back **unengaged**, as near its death site as possible. Restore wounds equal to the tokens spent. If it was **attached**, it returns as a separate unit at **starting strength** 1. This requires at least one Pain token and is limited to one use per model per battle; it cannot be used with 0 tokens.",
+    "summary": "Spend 1 CP and 1–3 Pain tokens in any phase, right after a **HAEMONCULUS** model of yours is **destroyed**; it can be picked although it was just **destroyed**. When the phase ends, return it to the battlefield:\n\n- **unengaged**, as near as possible to the place it was **destroyed**\n- with 1 wound remaining per Pain token spent\n- outside any **attached** unit\n- in a unit whose **starting strength** is 1\n\nIt can't be used with 0 Pain tokens, and only once per battle on the same **HAEMONCULUS** model.",
     "citations": [
       {
         "type": "app",
@@ -62,52 +62,50 @@
             ]
           }
         },
+        "reminder": {
+          "timings": [],
+          "whileDestroyed": true
+        },
         "detail": {
-          "type": "epic-deed",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "any"
-            ],
-            "event": "friendly-model-destroyed"
-          },
+          "detachment": "Covenite Coterie",
+          "type": "Epic Deed",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "any"
+            }
+          ],
+          "timing": "after-friendly-model-destroyed",
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "model": true,
+            "keywordsAll": [
               "HAEMONCULUS"
             ],
-            "subject": "model",
-            "destroyed": true
+            "justDestroyed": true,
+            "usableAlthoughJustDestroyed": true
           },
           "effects": [
             {
-              "kind": "spend-pain-tokens",
-              "minimum": 1,
-              "maximum": 3
+              "spendPainTokens": {
+                "min": 1,
+                "max": 3
+              }
             },
             {
-              "kind": "restore-destroyed-model",
-              "after": "end-of-phase",
-              "subject": "selected-model",
-              "wounds": {
-                "equalTo": "pain-tokens-spent"
-              },
-              "setup": {
-                "where": "battlefield",
-                "nearestTo": "where-destroyed",
-                "unengaged": true,
-                "ifPreviouslyAttached": {
-                  "separateFromPriorUnit": true,
-                  "startingStrength": 1
-                }
-              }
+              "when": "end-of-phase",
+              "setUpDestroyedModel": true,
+              "unengaged": true,
+              "placement": "as-close-as-possible-to-where-destroyed",
+              "notPartOfAttachedUnit": true,
+              "unitStartingStrength": 1,
+              "woundsRemaining": "pain-tokens-spent"
             }
           ],
           "restrictions": {
-            "usesPerModelPerBattle": 1,
-            "minimumPainTokens": 1,
-            "excludedPainTokenCount": 0
+            "notUsableWithPainTokens": 0,
+            "sameModelPerBattle": 1
           }
         }
       }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Biovores",
-    "summary": "Once per turn, when you select the Biovores to shoot in your [Shooting phase](vsdata:core-rule/shooting-phase), you can have them seed mines in place of attacking. Your army gains a new unit of **SPORE MINES** containing 1 mine per Biovore model. The new unit must be wholly within 48″ of the Biovores and farther than 8″ from every enemy unit.",
+    "summary": "Once per turn, when one of your units with this ability is selected to shoot in your [Shooting phase](vsdata:core-rule/shooting-phase), it can use this ability instead of making any ranged attacks. If it does, your army can gain a new **SPORE MINES** unit with 1 model per model in the unit using it, placed at any point on the battlefield:\n\n- wholly within 48\" of the unit using it\n- more than 8\" horizontally from every enemy unit",
     "citations": [
       {
         "type": "app",
@@ -28,13 +28,7 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "shooting",
-              "turn": "own"
-            }
-          ]
+          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
         },
         "roster": {
           "addsUnits": [
@@ -51,16 +45,18 @@
           "optional": true,
           "limit": {
             "count": 1,
-            "per": "turn"
+            "per": "turn",
+            "scope": "units with this ability"
           },
-          "replaces": "making any attacks",
+          "replaces": "making any attacks with its ranged weapons",
           "add": {
             "units": 1,
             "unit": "SPORE MINES",
             "modelsPerBiovore": 1,
             "setup": {
+              "anywhereOnBattlefield": true,
               "whollyWithinInchesOfUsingUnit": 48,
-              "strictlyFartherThanInchesFromAnyEnemyUnit": 8
+              "moreThanInchesHorizontallyFromAllEnemyUnits": 8
             }
           }
         }

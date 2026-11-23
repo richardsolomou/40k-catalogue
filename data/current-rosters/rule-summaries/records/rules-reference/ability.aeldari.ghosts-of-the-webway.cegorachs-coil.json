@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "aeldari.ghosts-of-the-webway"
     },
-    "summary": "For a TROUPE MASTER model. Whenever the bearer's unit finishes a Charge move, choose an enemy unit it is in Engagement Range of. Count the bearer's unit's models that are in Engagement Range of the chosen unit and roll that many D6; each 4+ inflicts 1 mortal wound on the chosen unit, with no more than 6 mortal wounds inflicted this way.",
+    "summary": "For a **TROUPE MASTER** model. Whenever the bearer's unit finishes a Charge move, pick 1 enemy unit in Engagement Range of it.\n\nRoll 1 D6 for every model from the bearer's unit in Engagement Range of the chosen unit: each 4+ inflicts 1 mortal wound on the chosen unit, up to 6 mortal wounds in total.",
     "citations": [
       {
         "type": "app",
@@ -43,6 +43,143 @@
                 ]
               }
             ]
+          }
+        },
+        "combat": {
+          "applies": {
+            "reachesAttached": true
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "selected-target-in-engagement-range"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "mortalWounds": {
+                        "timing": "outside-attacks",
+                        "rolls": 1,
+                        "perModel": true,
+                        "max": 6,
+                        "outcomes": [
+                          {
+                            "min": 4,
+                            "max": 6,
+                            "damage": {
+                              "dice": 0,
+                              "sides": 6,
+                              "bonus": 1
+                            }
+                          }
+                        ],
+                        "psychic": true
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "selected-target-in-engagement-range"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "mortalWounds": {
+                        "timing": "outside-attacks",
+                        "rolls": 1,
+                        "perModel": true,
+                        "max": 6,
+                        "outcomes": [
+                          {
+                            "min": 4,
+                            "max": 6,
+                            "damage": {
+                              "dice": 0,
+                              "sides": 6,
+                              "bonus": 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "ask": {
+                  "psychic": true
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 0
+              },
+              {
+                "reading": 1
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
           }
         },
         "detail": {

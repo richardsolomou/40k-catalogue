@@ -25,7 +25,7 @@
       "turn": "any",
       "type": "strategic-ploy"
     },
-    "summary": "Costs 1 CP. In the [Fight phase](vsdata:core-rule/fight-phase), pick a **HERETIC ASTARTES DAEMON VEHICLE** that has yet to be selected to fight and lacks **TITANIC**. For what remains of the phase, finish resolving each of its attacks that kills an enemy model and then roll D6. On 5+, restore 1 lost wound to the chosen unit, to a total restoration cap of 6.",
+    "summary": "Spend 1 CP in either player's [Fight phase](vsdata:core-rule/fight-phase) on 1 **HERETIC ASTARTES DAEMON VEHICLE** unit of yours that is not **TITANIC** and is not yet chosen to fight in this phase.\n\nFor the rest of that phase, if that unit invokes its contract, roll a D6 each time 1 of its attacks destroys an enemy model. For each 5+, it gets back 1 lost wound once all its attacks are resolved, up to 6 wounds in total.",
     "citations": [
       {
         "type": "app",
@@ -93,13 +93,14 @@
           "effects": [
             {
               "kind": "regain-lost-wounds",
+              "condition": "selected-unit-invokes-its-contract",
               "roll": {
                 "dice": "D6",
                 "minimum": 5,
                 "comparison": "at-least"
               },
               "rollPer": "enemy-model-destroyed-by-selected-unit-attack",
-              "after": "attack-resolves",
+              "regainAfter": "all-selected-unit-attacks-resolved",
               "recipient": "selected-unit",
               "amountPerSuccess": 1,
               "maximumRestored": 6

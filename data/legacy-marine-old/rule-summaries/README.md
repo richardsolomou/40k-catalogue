@@ -6,12 +6,12 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 5,923 | 5,385 | 538 |
+| `rules-reference` | 5,923 | 5,383 | 540 |
 | `mission-rules` | 285 | 236 | 49 |
 
 Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02. 515 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 752 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 752 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2055, `grants` 302, `weaponAbilities` 77, `reminder` 1902, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 60, `attachment` 39, `references` 677 (3,439 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,107 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 780 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 353 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 343 of them from the Munitorum Field Manual's Legends section. 336 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (35 of them with options left out, listed below), and their weapon profiles name that wargear.
 
@@ -959,7 +959,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-wolves.saga-of-the-great-wolf.fangs-of-the-pack`
 - `ability` `space-wolves.saga-of-the-great-wolf.wolf-totems`
 
-### The summary or typed facts repeat a run of the official wording and await a redraft (50)
+### The summary or typed facts repeat a run of the official wording and await a redraft (52)
 
 - `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
 - `ability` `black-templars.vow-sworn-crusaders.dread-crusaders`
@@ -976,6 +976,8 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `deathwatch.black-spear-task-force.the-tome-of-ectoclades`
 - `ability` `imperial-agents.veiled-blade-elimination-force.ensnaring-trap`
 - `ability` `imperial-agents.watch-master.strategic-acumen`
+- `ability` `orks.beastboss-on-squigosaur.keep-huntin-once-per-battle-round-per-army`
+- `ability` `orks.beastboss.keep-huntin-once-per-battle-round-per-army`
 - `ability` `space-marines.aethon-shaan.master-of-shadows`
 - `ability` `space-marines.ancient-in-terminator-armour.raise-the-banner`
 - `ability` `space-marines.ancient.raise-the-banner`

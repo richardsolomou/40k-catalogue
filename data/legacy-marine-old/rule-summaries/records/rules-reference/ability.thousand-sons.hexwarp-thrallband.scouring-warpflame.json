@@ -14,40 +14,15 @@
     "ruleType": "stratagem",
     "group": "Hexwarp Thrallband",
     "cp": 1,
-    "summary": "Your Shooting Phase. Choose a THOUSAND SONS PSYKER unit of yours wholly in your Flow of Magic that has yet to be picked to shoot. For the phase, its models gain [IGNORES COVER] on their ranged weapons. Once they finish attacking, pick one enemy unit they hit with those attacks. That enemy unit cannot receive the Benefit of Cover during the rest of this phase.",
+    "summary": "Spend 1 CP in your Shooting phase and pick one of your THOUSAND SONS PSYKER units that is wholly within the Flow of Magic of your army and is not yet chosen to shoot in this phase. For the rest of the phase, the ranged weapons its models carry gain [IGNORES COVER]. Once your unit has shot, choose one enemy unit that at least one of those attacks hit; for the rest of the phase, that unit's models get no Benefit of Cover.",
     "summarySpans": [
       {
-        "start": 5,
-        "end": 19,
+        "start": 249,
+        "end": 264,
+        "bold": true,
         "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 30,
-        "end": 50,
-        "bold": true
-      },
-      {
-        "start": 80,
-        "end": 93,
-        "target": {
-          "kind": "ability",
-          "id": "thousand-sons.hexwarp-thrallband.flow-of-magic"
-        }
-      },
-      {
-        "start": 161,
-        "end": 176,
-        "bold": true
-      },
-      {
-        "start": 314,
-        "end": 330,
-        "target": {
-          "kind": "core-rule",
-          "id": "benefit-of-cover"
+          "kind": "weapon-ability",
+          "id": "ignores-cover"
         }
       }
     ],
@@ -63,140 +38,43 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "sequence",
-            "steps": [
-              {
-                "type": "ability-part",
-                "duration": "phase",
-                "effect": {
-                  "type": "weapon-ability-grant",
-                  "target": "this-unit",
-                  "modifier": {
-                    "keywords": [
-                      {
-                        "keyword_id": "ignores-cover"
-                      }
-                    ],
-                    "weapons": {
-                      "type": "ranged"
-                    }
-                  }
-                }
-              },
-              {
-                "type": "ability-part",
-                "trigger": {
-                  "event": "attacks-resolved",
-                  "filter": {
-                    "kind": "shoot"
-                  }
-                },
-                "duration": "phase",
-                "effect": {
-                  "type": "select-units",
-                  "selector": {
-                    "filter": {
-                      "owner": "enemy"
-                    },
-                    "count": {
-                      "min": 1,
-                      "max": 1
-                    },
-                    "eligibility": {
-                      "type": "happened",
-                      "parameters": {
-                        "event": "after-roll",
-                        "subject": "event-subject",
-                        "object": "this-unit",
-                        "filter": {
-                          "roll": "hit",
-                          "result": "success"
-                        },
-                        "window": "event"
-                      }
-                    }
-                  },
-                  "effect": {
-                    "type": "rule-state",
-                    "target": "selected-unit",
-                    "modifier": {
-                      "direction": "suppressed",
-                      "rule_kind": "core-rule",
-                      "rule": "benefit-of-cover"
-                    }
-                  }
-                }
-              }
-            ]
-          },
-          "scope": {
-            "duration": "permanent"
-          },
-          "behavior": "reactive"
-        },
         "stratagem": {
-          "id": "scouring-warpflame-hexwarp-thrallband-thousand-sons",
-          "cp_cost": 1,
-          "phases": [
-            "shooting"
-          ],
-          "player_turn": "your-turn",
-          "timing": "once-per-phase",
-          "type": "strategic-ploy",
-          "target_restrictions": {
-            "required_keywords": [
-              "Psyker",
-              "Thousand Sons"
-            ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "owner": "friendly"
-                    }
-                  }
-                },
-                {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "type": "happened",
-                      "parameters": {
-                        "event": "selected",
-                        "filter": {
-                          "to": "shoot"
-                        },
-                        "window": "phase"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "in-region",
-                  "parameters": {
-                    "subject": "this-unit",
-                    "region": {
-                      "rule_region": {
-                        "region_id": "flow-of-magic",
-                        "owner_faction": "thousand-sons"
-                      }
-                    },
-                    "wholly": true
-                  }
-                }
-              ]
+          "cpCost": 1,
+          "detachment": "Hexwarp Thrallband",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
             }
-          }
-        },
-        "valueRoles": {}
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "THOUSAND SONS",
+              "PSYKER"
+            ],
+            "notSelectedToShootThisPhase": true,
+            "whollyWithin": "army-flow-of-magic"
+          },
+          "effects": [
+            {
+              "weapons": "ranged",
+              "grantWeaponAbility": "IGNORES COVER"
+            },
+            {
+              "trigger": "after-target-unit-has-shot",
+              "selectEnemy": {
+                "side": "enemy",
+                "count": 1,
+                "hitByThoseAttacks": true
+              },
+              "benefitOfCover": false
+            }
+          ],
+          "duration": "end-of-phase"
+        }
       }
     }
   }

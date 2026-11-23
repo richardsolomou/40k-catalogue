@@ -10,17 +10,10 @@
     "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "unit-ability",
     "group": "Sternguard Veteran Squad",
-    "summary": "Re-roll Hit rolls of 1 for ranged attacks made by this unit.",
+    "summary": "When this unit makes a ranged attack, a Hit roll of 1 can be re-rolled.",
     "citations": [
       {
         "type": "app",
@@ -31,21 +24,19 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "always"
-        },
-        "target": {
-          "unit": "this-unit"
-        },
-        "conditions": [],
-        "effect": {
-          "kind": "re-roll",
-          "roll": "hit",
-          "results": "ones",
-          "weapons": "ranged"
+        "ability": {
+          "effects": [
+            {
+              "appliesTo": "this-unit",
+              "attackType": "ranged",
+              "reroll": "hit",
+              "results": [
+                1
+              ]
+            }
+          ]
         }
       }
     }

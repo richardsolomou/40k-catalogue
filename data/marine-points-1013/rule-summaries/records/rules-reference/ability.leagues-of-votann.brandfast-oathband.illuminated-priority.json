@@ -14,27 +14,7 @@
     "ruleType": "stratagem",
     "group": "Brandfast Oathband",
     "cp": 1,
-    "summary": "Your Shooting Phase. Once one of your LEAGUES OF VOTANN VEHICLE units finishes shooting, pick that unit and designate one enemy unit it hit. Through this phase, your LEAGUES OF VOTANN INFANTRY models reroll Hit rolls of 1 when attacking the designated unit.",
-    "summarySpans": [
-      {
-        "start": 5,
-        "end": 19,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 38,
-        "end": 63,
-        "bold": true
-      },
-      {
-        "start": 166,
-        "end": 192,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase, straight after a VEHICLE unit of yours with the LEAGUES OF VOTANN keyword has shot; that VEHICLE unit is the target. Choose one enemy unit that at least one of those attacks hit. Until the phase ends, whenever an INFANTRY model of yours with the LEAGUES OF VOTANN keyword attacks that enemy unit, it must re-roll Hit rolls of 1.",
     "citations": [
       {
         "type": "app",
@@ -47,94 +27,55 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "designate-target",
-            "designation": "illuminated-priority-target",
-            "select": {
-              "kind": "unit",
-              "selector": {
-                "filter": {
-                  "owner": "enemy"
-                },
-                "count": {
-                  "min": 1,
-                  "max": 1
-                },
-                "eligibility": {
-                  "type": "happened",
-                  "parameters": {
-                    "event": "after-roll",
-                    "subject": "event-subject",
-                    "object": "this-unit",
-                    "filter": {
-                      "roll": "hit",
-                      "result": "success"
-                    },
-                    "window": "event"
-                  }
-                }
-              }
-            },
-            "applies": {
-              "to": "attackers-of-target",
-              "effect": {
-                "type": "re-roll",
-                "target": {
-                  "owner": "friendly",
-                  "all_of": [
-                    "INFANTRY",
-                    "LEAGUES OF VOTANN"
-                  ],
-                  "level": "model"
-                },
-                "modifier": {
-                  "roll": "hit",
-                  "subset": "ones"
-                }
-              }
-            },
-            "duration": "phase"
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "trigger": {
-            "event": "attacks-resolved",
-            "filter": {
-              "kind": "shoot"
-            },
-            "subject": {
-              "owner": "friendly",
-              "all_of": [
-                "LEAGUES OF VOTANN",
-                "VEHICLE"
-              ]
-            }
-          },
-          "behavior": "reactive"
-        },
         "stratagem": {
-          "id": "illuminated-priority-brandfast-oathband-leagues-of-votann",
-          "cp_cost": 1,
-          "phases": [
-            "shooting"
+          "cpCost": 1,
+          "detachment": "Brandfast Oathband",
+          "type": "Wargear",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "after-unit-has-shot"
+            }
           ],
-          "player_turn": "your-turn",
-          "timing": "once-per-phase",
-          "type": "wargear",
-          "target_restrictions": {
-            "required_keywords": [
-              "Leagues of Votann",
-              "Vehicle"
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "LEAGUES OF VOTANN",
+              "VEHICLE"
             ],
-            "count": "one",
-            "selects": "unit",
-            "bound_to": "triggering-unit"
-          }
-        },
-        "valueRoles": {
-          "1": "Hit-roll reroll result against designated enemy"
+            "justShot": true
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "hitByThoseAttacks": {
+                  "minimum": 1
+                }
+              }
+            },
+            {
+              "attackers": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "LEAGUES OF VOTANN",
+                  "INFANTRY"
+                ]
+              },
+              "condition": {
+                "targetIsSelectedEnemyUnit": true
+              },
+              "reroll": "hit",
+              "results": [
+                1
+              ],
+              "mandatory": true
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

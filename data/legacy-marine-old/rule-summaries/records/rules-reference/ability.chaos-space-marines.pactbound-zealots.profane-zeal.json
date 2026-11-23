@@ -10,30 +10,11 @@
     "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Pactbound Zealots",
     "cp": 1,
-    "summary": "During either player's Fight phase or either player's Shooting phase, you can use this to select one friendly Chaos Undivided Heretic Astartes unit that has not been selected to fight or shoot this phase, then re-roll Wound rolls for the selected unit until the end of the phase. Use once per phase.",
-    "summarySpans": [
-      {
-        "start": 110,
-        "end": 125,
-        "bold": true
-      },
-      {
-        "start": 126,
-        "end": 142,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase or in the Fight phase of either player's turn. Pick one of your HERETIC ASTARTES CHAOS UNDIVIDED units that is not yet chosen this phase to shoot or fight. For the rest of the phase, its models' attacks may re-roll their Wound rolls.",
     "citations": [
       {
         "type": "app",
@@ -44,52 +25,38 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "use"
-        },
-        "target": {
-          "select": {
-            "side": "friendly",
-            "keywords": [
-              "Chaos Undivided",
-              "Heretic Astartes"
-            ]
-          }
-        },
-        "conditions": [
-          {
-            "kind": "not-selected",
-            "unit": "target",
-            "to": [
-              "fight",
-              "shoot"
-            ]
-          }
-        ],
-        "effect": {
-          "kind": "re-roll",
-          "roll": "wound",
-          "results": "all"
-        },
-        "duration": {
-          "until": "end-of-phase"
-        },
-        "usage": {
-          "cp": 1,
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Pactbound Zealots",
+          "type": "Battle Tactic",
           "windows": [
             {
-              "phase": "fight",
-              "turn": "any"
+              "turn": "own",
+              "phase": "shooting"
             },
             {
-              "phase": "shooting",
-              "turn": "any"
+              "turn": "either",
+              "phase": "fight"
             }
           ],
-          "oncePerPhase": true
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "HERETIC ASTARTES",
+              "CHAOS UNDIVIDED"
+            ],
+            "notSelectedToShootOrFightThisPhase": true
+          },
+          "effects": [
+            {
+              "reroll": "wound",
+              "attacks": "target-unit-models"
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

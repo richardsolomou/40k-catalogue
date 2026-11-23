@@ -14,41 +14,16 @@
     "ruleType": "stratagem",
     "group": "Warpbane Task Force",
     "cp": 1,
-    "summary": "Your Shooting Phase or either Fight Phase. Pick one of your GREY KNIGHTS units wholly in your Hallowed Ground that has yet to be picked to shoot or fight in that phase. Its models can reroll Wound rolls of 1 through that phase. If it is a PURIFIER SQUAD, they can reroll any Wound roll instead.",
+    "summary": "Spend 1 CP in your Shooting phase or in any Fight phase, yours or your opponent's, targeting a GREY KNIGHTS unit in your army that is wholly inside your Hallowed Ground and has not been chosen to shoot or fight so far this phase. For the rest of the phase, its models may re-roll Wound rolls of 1 for their attacks; a PURIFIER SQUAD unit may re-roll any Wound roll instead.",
     "summarySpans": [
       {
-        "start": 5,
-        "end": 19,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 30,
-        "end": 41,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 60,
-        "end": 72,
-        "bold": true
-      },
-      {
-        "start": 94,
-        "end": 109,
+        "start": 153,
+        "end": 168,
+        "bold": true,
         "target": {
           "kind": "ability",
           "id": "grey-knights.warpbane-task-force.hallowed-ground"
         }
-      },
-      {
-        "start": 239,
-        "end": 253,
-        "bold": true
       }
     ],
     "citations": [
@@ -63,141 +38,50 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "sequence",
-            "steps": [
-              {
-                "type": "conditional",
-                "condition": {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "type": "matches",
-                      "parameters": {
-                        "filter": {
-                          "all_of": [
-                            "PURIFIER SQUAD"
-                          ]
-                        }
-                      }
-                    }
-                  ]
-                },
-                "effect": {
-                  "type": "re-roll",
-                  "target": "this-unit",
-                  "modifier": {
-                    "roll": "wound",
-                    "subset": "ones"
-                  }
-                }
-              },
-              {
-                "type": "conditional",
-                "condition": {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "all_of": [
-                        "PURIFIER SQUAD"
-                      ]
-                    }
-                  }
-                },
-                "effect": {
-                  "type": "re-roll",
-                  "target": "this-unit",
-                  "modifier": {
-                    "roll": "wound",
-                    "result_scope": "any-result"
-                  }
-                }
-              }
-            ]
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "behavior": "activated"
-        },
         "stratagem": {
-          "id": "sanctified-kill-zone-warpbane-task-force-grey-knights",
-          "cp_cost": 1,
-          "phases": [
-            "shooting",
-            "fight"
-          ],
-          "player_turn": "either",
-          "timing": "once-per-phase",
-          "type": "battle-tactic",
-          "target_restrictions": {
-            "required_keywords": [
-              "Grey Knights"
-            ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "owner": "friendly"
-                    }
-                  }
-                },
-                {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "operator": "or",
-                      "operands": [
-                        {
-                          "type": "happened",
-                          "parameters": {
-                            "event": "selected",
-                            "filter": {
-                              "to": "fight"
-                            },
-                            "window": "phase"
-                          }
-                        },
-                        {
-                          "type": "happened",
-                          "parameters": {
-                            "event": "selected",
-                            "filter": {
-                              "to": "shoot"
-                            },
-                            "window": "phase"
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "in-region",
-                  "parameters": {
-                    "subject": "this-unit",
-                    "region": {
-                      "rule_region": {
-                        "region_id": "hallowed-ground",
-                        "owner_faction": "grey-knights"
-                      }
-                    },
-                    "wholly": true
-                  }
-                }
-              ]
+          "cpCost": 1,
+          "detachment": "Warpbane Task Force",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          }
-        },
-        "valueRoles": {
-          "1": "reroll result outside the Purifier Squad branch"
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "GREY KNIGHTS"
+            ],
+            "whollyWithin": "own-hallowed-ground",
+            "notSelectedToShootOrFightThisPhase": true
+          },
+          "effects": [
+            {
+              "attacks": "target-unit-models",
+              "reroll": "wound",
+              "results": [
+                1
+              ]
+            },
+            {
+              "condition": {
+                "targetUnitKeywordsAll": [
+                  "PURIFIER SQUAD"
+                ]
+              },
+              "attacks": "target-unit-models",
+              "reroll": "wound",
+              "results": "any",
+              "replacesPrevious": true
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

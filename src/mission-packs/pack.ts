@@ -30,7 +30,9 @@ export type Pairing = { friendly: string; opposition: string; deployments: strin
 /** `aliases` are other IDs of the same member, such as the IDs another data source uses for it. */
 type Aliased = { aliases?: string[] };
 export type Primary = Aliased & { id: string; name: string; source: Source; pairings: Pairing[]; detachment?: string; awards: Award[] };
-export type WhenDrawn = { action: "redraw"; required: boolean; untilRound?: number; ifActive?: string };
+/** `ifNoEnemy`: the redraw is allowed only while no enemy model or unit on the battlefield has at least `min` of the characteristic. */
+export type NoEnemy = { entity: "model" | "unit"; characteristic: "wounds" | "starting-strength"; min: number };
+export type WhenDrawn = { action: "redraw"; required: boolean; untilRound?: number; ifActive?: string; ifNoEnemy?: NoEnemy };
 export type Secondary = Aliased & { id: string; name: string; source: Source; modes: Mode[]; awards: Award[]; whenDrawn?: OrUnresolved<WhenDrawn> };
 export type Twist = Aliased & { id: string; name: string; source: Source; changesPrimary: boolean; effect: OrUnresolved<{ summary: string }> };
 /** `perRoundExcludesBattleEnd`: what is scored at the battle end counts against `perBattle` but not `perRound`. */
@@ -46,6 +48,7 @@ export type MissionPack = {
   battleRounds: OrUnresolved<{ count: number }>;
   battleReady: OrUnresolved<{ vp: number }>;
   caps: { primary: Cap; secondary: Cap; fixedSecondaryPerCard: Cap };
+  /** Empty in a pack that pairs no primary by disposition, such as Combat Patrol. */
   dispositions: (Aliased & { id: string; name: string })[];
   /** Stable references only; zones, objective markers, and terrain geometry are published separately under the same IDs. */
   deployments: (Aliased & { id: string; name: string })[];

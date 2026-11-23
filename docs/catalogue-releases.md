@@ -88,6 +88,8 @@ The first release reports every entry and record as added.
 
 A release follows the latest release of its own rules version, or of the rules version it replaces in play, so the history rules carry IDs forward. An earlier rules version published after a later one, to keep data saved under it resolvable, starts a line of its own with no previous release: it predates the later version's splits and retirements, so following that release would drop their IDs. IDs still name the same entity in every rules version that has it, and its catalogue revisions count from 1 within its own line.
 
+A retired line publishes no further releases; its published releases stay available and keep resolving. The Custodes codex line (`rules-custodes-11e-v*`) is retired: its data is folded into MFM 1.6, and v0.4.0 is its last release.
+
 ## Building and verifying
 
 Build from a clean checkout with every input tracked at the release commit:

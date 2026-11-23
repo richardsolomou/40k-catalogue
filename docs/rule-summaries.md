@@ -11,7 +11,7 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 | Category | Kind | `data` beside the common fields |
 | --- | --- | --- |
 | `rules-reference` | `ability` | `ruleType`, optional `group`, for a Stratagem or Enhancement an optional `detachment`, and for a Stratagem `cp` and optional `stratagem` timing. |
-| `rules-reference` | `core-rule` | `document`, optional `section` and `ruleNumber`. |
+| `rules-reference` | `core-rule` | `document`, optional `section`, `ruleNumber` and `parent`. |
 | `rules-reference` | `core-ability`, `weapon-ability` | `parameterized: true` when the keyword takes values, such as Sustained Hits X. |
 | `rules-reference` | `faq` | `publication`, `amends`, optional `amendsUnlisted`. |
 | `mission-rules` | `mission-card` | `pack` and `card`. |
@@ -23,6 +23,8 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 - `phases` are `command`, `movement`, `shooting`, `charge`, `fight` and `end-of-turn`, the end of a turn after its Fight phase. A Stratagem usable in any phase lists all six, so it differs from one that names the five phases.
 - Where the phases' turns differ, such as your opponent's Shooting phase or either player's Fight phase, `windows` gives each phase its `turn`, as `[{ phase, turn }]` in the order of `phases`, and `turn` is `any`.
 - `type` is left out where the official source gives the Stratagem none; it is never inferred.
+
+A clarification the core rules number beneath a rule, such as 01.02.06 under Units and Models, is a `core-rule` whose `parent` is that rule, by `{ kind: "core-rule", id }`. The parent is current, is a reference of the clarification's identity entry, and has no parent of its own.
 
 `pack` and `publication` are display names. `card` is `primary` or `secondary`. An award scores `vp` victory points, up to `max` where the card caps it.
 

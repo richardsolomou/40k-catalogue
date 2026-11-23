@@ -41,7 +41,8 @@ export type AbilityData = SummaryData & {
     oncePerPhase?: true;
   };
 };
-export type CoreRuleData = SummaryData & { document: string; section?: string; ruleNumber?: string };
+/** `parent` is the rule a numbered clarification sits under, such as 01.02.06 under Units and Models. */
+export type CoreRuleData = SummaryData & { document: string; section?: string; ruleNumber?: string; parent?: Ref };
 export type KeywordData = SummaryData & { parameterized?: true };
 /** `amendsUnlisted` names targets the catalogue has no entry for yet, by the kind they will have. */
 export type FaqData = SummaryData & { publication: string; amends: Ref[]; amendsUnlisted?: { kind: string; name: string }[] };
@@ -170,6 +171,13 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
         else if (!entry.references?.some((r) => key(r) === key(detachment))) errors.push(`${at} names ${key(detachment)} but its identity entry does not reference it`);
       }
     }
+    const parent = summary.kind === "core-rule" ? (summary.data as CoreRuleData).parent : undefined;
+    if (parent) {
+      const target = entries.get(key(parent));
+      if (parent.kind !== "core-rule" || key(parent) === at) errors.push(`${at} parent must be another core-rule`);
+      else if (!target || target.retired) errors.push(`${at} parent ${key(parent)} is not current in the identity release`);
+      else if (!entry.references?.some((r) => key(r) === key(parent))) errors.push(`${at} parent ${key(parent)} is not a reference of its identity entry`);
+    }
     const { summary: text, facts } = summary.data;
     const parsed = parseSummary(text);
     if (!parsed.ok) errors.push(`${at} summary ${parsed.error}`);
@@ -203,6 +211,11 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
     }
   }
 
+  // A clarification's parent is a rule of its own, never another clarification: one level.
+  for (const [at, s] of byKey) {
+    const parent = s.kind === "core-rule" ? (s.data as CoreRuleData).parent : undefined;
+    if (parent && key(parent) !== at && (byKey.get(key(parent))?.data as CoreRuleData | undefined)?.parent) errors.push(`${at} parent ${key(parent)} has a parent of its own`);
+  }
   if (errors.length > 0) return { ok: false, errors };
   const faqs = [...byKey.values()].filter((s): s is Summary<"faq"> => s.kind === "faq").sort((a, b) => (a.id < b.id ? -1 : 1));
   return {

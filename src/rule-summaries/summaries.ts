@@ -19,6 +19,8 @@ export type SummaryData = {
   citations: Citation[];
   /** The open questions the summary's reading rests on. */
   interpretation?: { question: string }[];
+  /** Written with no official source in reach to check it against, so `citations` is empty; replaced once one prints the rule. */
+  provisional?: true;
   facts?: Facts;
 };
 /** `end-of-turn` is a turn's end, after its Fight phase. */

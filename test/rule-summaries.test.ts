@@ -83,6 +83,21 @@ test("a catalogue record's attribution must be complete", () => {
   assert.deepEqual(result.ok ? [] : result.errors, [`records/rules-reference/ability.${OATH.id}.json: /attribution must have required property 'licence'`]);
 });
 
+test("a provisional summary has no citations", () => {
+  assert.deepEqual(
+    errors((_, recs) => Object.assign(data(recs, "ability", OATH.id), { provisional: true, citations: [] })),
+    [],
+  );
+});
+
+test("a provisional summary cannot cite a source it was not checked against", () => {
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).provisional = true)).includes(`ability:${OATH.id} data/citations must NOT have more than 0 items`));
+});
+
+test("a summary that is not provisional cites an official source", () => {
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).citations = [])).includes(`ability:${OATH.id} data/citations must NOT have fewer than 1 items`));
+});
+
 const CLARIFICATION = "synthetic.shooting-phase.selecting-targets";
 
 test("a clarification's parent is another core rule", () => {

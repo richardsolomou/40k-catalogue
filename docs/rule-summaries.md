@@ -38,8 +38,9 @@ The record's display name is its identity entry's `name`.
 | `citations` | The official sources the summary was checked against, described below. |
 | `interpretation` | Open questions the summary's reading rests on, each as `{ question }`. The summary states the reading the project chose. Show the flag so players know the source leaves the point open. |
 | `facts` | Optional typed facts as `{ format, version, fields }`. |
+| `provisional` | `true` when no official source in reach prints the rule, so the summary was written without one to check it against and `citations` is empty. Show the flag so players know the summary is unchecked; a later release replaces the summary, with citations, once an official source prints the rule. |
 
-The record's `source` locates the printed rule, so it is the publisher document where there is one, else the app build. A record that adapts upstream data carries an `attribution`, as any [catalogue record](catalogue-releases.md#inputs) can.
+The record's `source` locates the printed rule, so it is the publisher document where there is one, else the app build. A provisional record's `source` names the official publication that prints the rule, with page `n/a`, since it was not checked against it. A record that adapts upstream data carries an `attribution`, as any [catalogue record](catalogue-releases.md#inputs) can.
 
 ## Summary text
 

@@ -12,7 +12,8 @@
       "required": ["kind", "id"],
       "properties": { "kind": { "$ref": "#/$defs/slug" }, "id": { "$ref": "#/$defs/id" } }
     },
-    "phase": { "enum": ["command", "movement", "shooting", "charge", "fight"] },
+    "phase": { "enum": ["command", "movement", "shooting", "charge", "fight", "end-of-turn"] },
+    "turn": { "enum": ["own", "opponent", "any"] },
     "card": { "enum": ["primary", "secondary"] },
     "summarySpans": {
       "type": "array",
@@ -95,6 +96,7 @@
       "properties": {
         "ruleType": { "enum": ["army-rule", "detachment-rule", "stratagem", "core-stratagem", "enhancement", "unit-ability", "core-ability", "weapon-ability"] },
         "group": { "$ref": "#/$defs/text" },
+        "detachment": { "type": "object", "$ref": "#/$defs/ref", "properties": { "kind": { "const": "detachment" } } },
         "cp": { "type": "integer", "minimum": 0 },
         "stratagem": {
           "type": "object",
@@ -102,7 +104,17 @@
           "required": ["phases", "turn"],
           "properties": {
             "phases": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/phase" } },
-            "turn": { "enum": ["own", "opponent", "any"] },
+            "turn": { "$ref": "#/$defs/turn" },
+            "windows": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["phase", "turn"],
+                "properties": { "phase": { "$ref": "#/$defs/phase" }, "turn": { "$ref": "#/$defs/turn" } }
+              }
+            },
             "type": { "enum": ["battle-tactic", "strategic-ploy", "epic-deed", "wargear"] },
             "oncePerPhase": { "const": true }
           }

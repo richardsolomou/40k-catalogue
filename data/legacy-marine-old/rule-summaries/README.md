@@ -1,19 +1,23 @@
 # MFM 1.4 · 2 Sep 2026 rule summaries
 
-Catalogue release input for Warhammer 40,000 11th edition, MFM 1.4 · 2 Sep 2026: the `rules-reference` and `mission-rules` categories. [Rule summaries](../../../docs/rule-summaries.md) defines the records and [catalogue releases](../../../docs/catalogue-releases.md) explains how to build them.
+Catalogue release input for Warhammer 40,000 11th edition, MFM 1.4 · 2 Sep 2026: the `rules-reference` and `mission-rules` categories and its mission packs. [Rule summaries](../../../docs/rule-summaries.md) defines the records and [catalogue releases](../../../docs/catalogue-releases.md) explains how to build them.
 
 Every summary is original wording, checked against the official sources it cites. They are pre-release drafts that no person has reviewed yet.
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 5,923 | 5,381 | 542 |
-| `mission-rules` | 236 | 236 | 0 |
+| `rules-reference` | 5,923 | 5,385 | 538 |
+| `mission-rules` | 285 | 236 | 49 |
 
 Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02. 516 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 750 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 752 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`.
 
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,107 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 780 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 325 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 315 of them from the Munitorum Field Manual's Legends section. 308 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (35 of them with options left out, listed below), and their weapon profiles name that wargear.
+
+The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
+
+The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Combat Patrol, built from the app build's mission tables: 0 force dispositions, 3 deployments, 3 layouts, 24 primary missions, 0 secondary cards and 0 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
 FAQs also name 1 publication, an identity entry of the retained `publications` category.
 
@@ -28,7 +32,7 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 
 Active entries without a record, by reason. An entry with several reasons is listed under each.
 
-### The rule's text first appears in an app build released after the update's cutoff, and no official source dated before the cutoff prints it (397)
+### The rule's text first appears in an app build released after the update's cutoff, and no official source dated before the cutoff prints it (393)
 
 - `ability` `black-templars.castellan.vehement-aggression`
 - `ability` `black-templars.chaplain-grimaldus.faithful-cenobytes`
@@ -265,12 +269,8 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.marneus-calgar.codex-adept`
 - `ability` `space-marines.marneus-calgar.master-tactician`
 - `ability` `space-marines.marneus-calgar.thunderhawk-insertion`
-- `ability` `space-marines.medusas-wrath.adept-of-the-omnissiah`
-- `ability` `space-marines.medusas-wrath.armoured-wrath`
 - `ability` `space-marines.medusas-wrath.master-of-the-machine-war`
 - `ability` `space-marines.medusas-wrath.methodical-brutality`
-- `ability` `space-marines.medusas-wrath.power-of-the-machine-spirit`
-- `ability` `space-marines.medusas-wrath.target-augury-web`
 - `ability` `space-marines.phobos-shadow-force.execute-and-redeploy`
 - `ability` `space-marines.phobos-shadow-force.shadow-masters`
 - `ability` `space-marines.phobos-shadow-force.venator-omni-auspex`
@@ -428,7 +428,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `weapon-ability` `sustained-hits-1-non-monster-vehicle`
 - `weapon-ability` `sustained-hits-2-non-monster-vehicle`
 
-### Neither a datasheet or rule of the app build in force nor a dated publisher page carries the rule, so it has no official citation yet (286)
+### Neither a datasheet or rule of the app build in force nor a dated publisher page carries the rule, so it has no official citation yet (282)
 
 - `ability` `black-templars.chaplain-grimaldus.faithful-cenobytes`
 - `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
@@ -596,13 +596,9 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.marneus-calgar.thunderhawk-insertion`
 - `ability` `space-marines.mastodon.damaged`
 - `ability` `space-marines.mastodon.inviolable-transport`
-- `ability` `space-marines.medusas-wrath.adept-of-the-omnissiah`
-- `ability` `space-marines.medusas-wrath.armoured-wrath`
 - `ability` `space-marines.medusas-wrath.master-of-the-machine-war`
 - `ability` `space-marines.medusas-wrath.methodical-brutality`
-- `ability` `space-marines.medusas-wrath.power-of-the-machine-spirit`
 - `ability` `space-marines.medusas-wrath.spirits-of-iron`
-- `ability` `space-marines.medusas-wrath.target-augury-web`
 - `ability` `space-marines.outrider-squad.full-throttle-assault`
 - `ability` `space-marines.phobos-shadow-force.execute-and-redeploy`
 - `ability` `space-marines.phobos-shadow-force.mortis-snares`
@@ -1124,6 +1120,61 @@ Active entries without a record, by reason. An entry with several reasons is lis
 ### The FAQ's question and answer are not both captured (1)
 
 - `faq` `codex-emperors-children.faq.carnival-of-excess`
+
+### The card prints no rules beyond its awards, which have their own records (27)
+
+- `mission-card` `chapter-approved-2026-2027.assassination`
+- `mission-card` `chapter-approved-2026-2027.battlefield-dominance`
+- `mission-card` `chapter-approved-2026-2027.centre-ground`
+- `mission-card` `chapter-approved-2026-2027.death-trap`
+- `mission-card` `chapter-approved-2026-2027.delaying-action`
+- `mission-card` `chapter-approved-2026-2027.destroyers-wrath`
+- `mission-card` `chapter-approved-2026-2027.determined-acquisition`
+- `mission-card` `chapter-approved-2026-2027.display-of-might`
+- `mission-card` `chapter-approved-2026-2027.extract-relic`
+- `mission-card` `chapter-approved-2026-2027.gather-intel`
+- `mission-card` `chapter-approved-2026-2027.immovable-object`
+- `mission-card` `chapter-approved-2026-2027.inescapable-dominion`
+- `mission-card` `chapter-approved-2026-2027.meatgrinder`
+- `mission-card` `chapter-approved-2026-2027.no-prisoners`
+- `mission-card` `chapter-approved-2026-2027.outmanoeuvre`
+- `mission-card` `chapter-approved-2026-2027.overwhelming-force`
+- `mission-card` `chapter-approved-2026-2027.purge-and-secure`
+- `mission-card` `chapter-approved-2026-2027.reconnaissance-sweep`
+- `mission-card` `chapter-approved-2026-2027.sabotage`
+- `mission-card` `chapter-approved-2026-2027.search-and-scour`
+- `mission-card` `chapter-approved-2026-2027.secure-asset`
+- `mission-card` `chapter-approved-2026-2027.secure-no-mans-land`
+- `mission-card` `chapter-approved-2026-2027.smoke-and-mirrors`
+- `mission-card` `chapter-approved-2026-2027.triangulation`
+- `mission-card` `chapter-approved-2026-2027.unstoppable-force`
+- `mission-card` `chapter-approved-2026-2027.vanguard-operation`
+- `mission-card` `chapter-approved-2026-2027.vital-link`
+
+### A Combat Patrol mission card, whose summary is not drafted yet (22)
+
+- `mission-card` `combat-patrol.architects-of-agony`
+- `mission-card` `combat-patrol.cult-ritual`
+- `mission-card` `combat-patrol.defenders-of-the-golden-throne-2`
+- `mission-card` `combat-patrol.duff-em-up`
+- `mission-card` `combat-patrol.encircle-and-destroy`
+- `mission-card` `combat-patrol.expansionary-campaign`
+- `mission-card` `combat-patrol.for-cadia`
+- `mission-card` `combat-patrol.for-the-kindred`
+- `mission-card` `combat-patrol.grandiose-slaughter`
+- `mission-card` `combat-patrol.honour-the-chapter`
+- `mission-card` `combat-patrol.indescriminate-butchery`
+- `mission-card` `combat-patrol.inexorable-conquest`
+- `mission-card` `combat-patrol.inquisitorial-sanction`
+- `mission-card` `combat-patrol.on-holy-ground`
+- `mission-card` `combat-patrol.outflank-and-encircle`
+- `mission-card` `combat-patrol.prepare-the-way`
+- `mission-card` `combat-patrol.purification`
+- `mission-card` `combat-patrol.seize-their-strongholds`
+- `mission-card` `combat-patrol.shatter-the-veil`
+- `mission-card` `combat-patrol.slay-the-oppressors`
+- `mission-card` `combat-patrol.strike-from-on-high`
+- `mission-card` `combat-patrol.uphold-your-vows`
 
 ### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (16)
 

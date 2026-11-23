@@ -1,6 +1,6 @@
 # MFM 1.6 rule summaries
 
-Catalogue release input for Warhammer 40,000 11th edition, MFM 1.6: the `rules-reference` and `mission-rules` categories and its mission pack. [Rule summaries](../../../docs/rule-summaries.md) defines the records and [catalogue releases](../../../docs/catalogue-releases.md) explains how to build them.
+Catalogue release input for Warhammer 40,000 11th edition, MFM 1.6: the `rules-reference` and `mission-rules` categories and its mission packs. [Rule summaries](../../../docs/rule-summaries.md) defines the records and [catalogue releases](../../../docs/catalogue-releases.md) explains how to build them.
 
 Every summary is original wording, checked against the official sources it cites. They are pre-release drafts that no person has reviewed yet.
 
@@ -16,6 +16,8 @@ Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enh
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,061 units with roster definitions (1,312 wargear options), 1,121 stat lines and 5,177 weapon profiles, and the `mfm-1-6` points snapshot of 1,060 units, 256 Detachments and 817 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 252 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `mfm-1-6-legends` snapshot, the costs of 243 of them from the Munitorum Field Manual's Legends section. 238 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (22 of them with options left out, listed below), and their weapon profiles name that wargear.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
+
+The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Combat Patrol, built from the app build's mission tables: 0 force dispositions, 3 deployments, 3 layouts, 26 primary missions, 0 secondary cards and 0 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
 FAQs also name 1 publication, an identity entry of the retained `publications` category.
 

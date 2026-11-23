@@ -96,6 +96,22 @@ test("only a Stratagem has a CP cost", () => {
   );
 });
 
+test("a Stratagem's Detachment is a reference of its identity entry", () => {
+  assert.deepEqual(
+    errors((id) => id.entries.find((e) => e.id === VOLLEY)!.references!.pop()),
+    [`ability:${VOLLEY} names detachment:synthetic.ember-host.kindled-vow but its identity entry does not reference it`],
+  );
+});
+
+test("a Stratagem's windows give each of its phases a turn, and differ", () => {
+  const timing = (recs: CatalogueRecord[], windows: object[]) => Object.assign(data(recs, "ability", VOLLEY).stratagem, { phases: ["shooting", "fight"], turn: "any", windows });
+  assert.deepEqual(errors((_, recs) => timing(recs, [{ phase: "shooting", turn: "opponent" }, { phase: "fight", turn: "any" }])), []);
+  assert.deepEqual(
+    errors((_, recs) => timing(recs, [{ phase: "fight", turn: "any" }, { phase: "shooting", turn: "opponent" }])),
+    [`ability:${VOLLEY} Stratagem windows must give each of its phases, in order, turns that differ, with turn any`],
+  );
+});
+
 test("a summary span must lie within the summary", () => {
   assert.deepEqual(
     errors((_, recs) => (data(recs, "weapon-ability", "synthetic.searing").summarySpans[0].end = 500)),

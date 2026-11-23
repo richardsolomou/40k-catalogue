@@ -20,14 +20,25 @@ export type SummaryData = {
   interpretation?: { question: string }[];
   facts?: Facts;
 };
-type Phase = "command" | "movement" | "shooting" | "charge" | "fight";
+/** `end-of-turn` is a turn's end, after its Fight phase. */
+type Phase = "command" | "movement" | "shooting" | "charge" | "fight" | "end-of-turn";
+type Turn = "own" | "opponent" | "any";
 type Card = "primary" | "secondary";
 export type AbilityData = SummaryData & {
   ruleType: "army-rule" | "detachment-rule" | "stratagem" | "core-stratagem" | "enhancement" | "unit-ability" | "core-ability" | "weapon-ability";
   group?: string;
+  /** The Detachment entry a Stratagem or Enhancement belongs to. */
+  detachment?: Ref;
   /** Required for Stratagems and absent otherwise, like `stratagem`. */
   cp?: number;
-  stratagem?: { phases: Phase[]; turn: "own" | "opponent" | "any"; type?: "battle-tactic" | "strategic-ploy" | "epic-deed" | "wargear"; oncePerPhase?: true };
+  /** `windows` gives each phase its turn where the phases' turns differ; `turn` is then `any`. */
+  stratagem?: {
+    phases: Phase[];
+    turn: Turn;
+    windows?: { phase: Phase; turn: Turn }[];
+    type?: "battle-tactic" | "strategic-ploy" | "epic-deed" | "wargear";
+    oncePerPhase?: true;
+  };
 };
 export type CoreRuleData = SummaryData & { document: string; section?: string; ruleNumber?: string };
 export type KeywordData = SummaryData & { parameterized?: true };
@@ -144,10 +155,19 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
     byKey.set(at, summary as Summary);
 
     if (summary.kind === "ability") {
-      const { ruleType, cp, stratagem } = summary.data as AbilityData;
+      const { ruleType, cp, stratagem, detachment } = summary.data as AbilityData;
       if (STRATAGEMS.has(ruleType)) {
         if (cp === undefined) errors.push(`${at} is a Stratagem with no CP cost`);
       } else if (cp !== undefined || stratagem) errors.push(`${at} is not a Stratagem but has a CP cost or Stratagem timing`);
+      const { phases = [], turn, windows } = stratagem ?? {};
+      if (windows && (windows.map((w) => w.phase).join() !== phases.join() || turn !== "any" || new Set(windows.map((w) => w.turn)).size < 2))
+        errors.push(`${at} Stratagem windows must give each of its phases, in order, turns that differ, with turn any`);
+      if (detachment) {
+        const target = entries.get(key(detachment));
+        if (ruleType !== "stratagem" && ruleType !== "enhancement") errors.push(`${at} names a Detachment but is not a Stratagem or Enhancement`);
+        else if (!target || target.retired) errors.push(`${at} names ${key(detachment)}, which is not current in the identity release`);
+        else if (!entry.references?.some((r) => key(r) === key(detachment))) errors.push(`${at} names ${key(detachment)} but its identity entry does not reference it`);
+      }
     }
     const { summary: text, summarySpans = [], facts } = summary.data;
     summarySpans.forEach(({ start, end }, i) => {

@@ -1,19 +1,23 @@
 # Space Marines codex · 12 Oct 2026 rule summaries
 
-Catalogue release input for Warhammer 40,000 11th edition, Space Marines codex · 12 Oct 2026: the `rules-reference` and `mission-rules` categories. [Rule summaries](../../../docs/rule-summaries.md) defines the records and [catalogue releases](../../../docs/catalogue-releases.md) explains how to build them.
+Catalogue release input for Warhammer 40,000 11th edition, Space Marines codex · 12 Oct 2026: the `rules-reference` and `mission-rules` categories and its mission packs. [Rule summaries](../../../docs/rule-summaries.md) defines the records and [catalogue releases](../../../docs/catalogue-releases.md) explains how to build them.
 
 Every summary is original wording, checked against the official sources it cites. They are pre-release drafts that no person has reviewed yet.
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
 | `rules-reference` | 5,931 | 5,918 | 13 |
-| `mission-rules` | 236 | 236 | 0 |
+| `mission-rules` | 285 | 236 | 49 |
 
 Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02. 601 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`.
 
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,116 stat lines and 5,172 weapon profiles, and the `marine-main` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 307 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `marine-main-legends` snapshot, the costs of 297 of them from the Munitorum Field Manual's Legends section. 291 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (30 of them with options left out, listed below), and their weapon profiles name that wargear.
+
+The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
+
+The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Combat Patrol, built from the app build's mission tables: 0 force dispositions, 3 deployments, 3 layouts, 24 primary missions, 0 secondary cards and 0 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
 FAQs also name 1 publication, an identity entry of the retained `publications` category.
 
@@ -66,6 +70,61 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `shared.land-raider-redeemer.damaged`
 - `ability` `shared.land-raider.damaged`
 - `ability` `shared.stormraven-gunship.damaged`
+
+### The card prints no rules beyond its awards, which have their own records (27)
+
+- `mission-card` `chapter-approved-2026-2027.assassination`
+- `mission-card` `chapter-approved-2026-2027.battlefield-dominance`
+- `mission-card` `chapter-approved-2026-2027.centre-ground`
+- `mission-card` `chapter-approved-2026-2027.death-trap`
+- `mission-card` `chapter-approved-2026-2027.delaying-action`
+- `mission-card` `chapter-approved-2026-2027.destroyers-wrath`
+- `mission-card` `chapter-approved-2026-2027.determined-acquisition`
+- `mission-card` `chapter-approved-2026-2027.display-of-might`
+- `mission-card` `chapter-approved-2026-2027.extract-relic`
+- `mission-card` `chapter-approved-2026-2027.gather-intel`
+- `mission-card` `chapter-approved-2026-2027.immovable-object`
+- `mission-card` `chapter-approved-2026-2027.inescapable-dominion`
+- `mission-card` `chapter-approved-2026-2027.meatgrinder`
+- `mission-card` `chapter-approved-2026-2027.no-prisoners`
+- `mission-card` `chapter-approved-2026-2027.outmanoeuvre`
+- `mission-card` `chapter-approved-2026-2027.overwhelming-force`
+- `mission-card` `chapter-approved-2026-2027.purge-and-secure`
+- `mission-card` `chapter-approved-2026-2027.reconnaissance-sweep`
+- `mission-card` `chapter-approved-2026-2027.sabotage`
+- `mission-card` `chapter-approved-2026-2027.search-and-scour`
+- `mission-card` `chapter-approved-2026-2027.secure-asset`
+- `mission-card` `chapter-approved-2026-2027.secure-no-mans-land`
+- `mission-card` `chapter-approved-2026-2027.smoke-and-mirrors`
+- `mission-card` `chapter-approved-2026-2027.triangulation`
+- `mission-card` `chapter-approved-2026-2027.unstoppable-force`
+- `mission-card` `chapter-approved-2026-2027.vanguard-operation`
+- `mission-card` `chapter-approved-2026-2027.vital-link`
+
+### A Combat Patrol mission card, whose summary is not drafted yet (22)
+
+- `mission-card` `combat-patrol.architects-of-agony`
+- `mission-card` `combat-patrol.cult-ritual`
+- `mission-card` `combat-patrol.defenders-of-the-golden-throne-2`
+- `mission-card` `combat-patrol.duff-em-up`
+- `mission-card` `combat-patrol.encircle-and-destroy`
+- `mission-card` `combat-patrol.expansionary-campaign`
+- `mission-card` `combat-patrol.for-cadia`
+- `mission-card` `combat-patrol.for-the-kindred`
+- `mission-card` `combat-patrol.grandiose-slaughter`
+- `mission-card` `combat-patrol.honour-the-chapter`
+- `mission-card` `combat-patrol.indescriminate-butchery`
+- `mission-card` `combat-patrol.inexorable-conquest`
+- `mission-card` `combat-patrol.inquisitorial-sanction`
+- `mission-card` `combat-patrol.on-holy-ground`
+- `mission-card` `combat-patrol.outflank-and-encircle`
+- `mission-card` `combat-patrol.prepare-the-way`
+- `mission-card` `combat-patrol.purification`
+- `mission-card` `combat-patrol.seize-their-strongholds`
+- `mission-card` `combat-patrol.shatter-the-veil`
+- `mission-card` `combat-patrol.slay-the-oppressors`
+- `mission-card` `combat-patrol.strike-from-on-high`
+- `mission-card` `combat-patrol.uphold-your-vows`
 
 ### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (16)
 

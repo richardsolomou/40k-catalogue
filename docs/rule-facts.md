@@ -20,7 +20,7 @@ The contract is [src/rule-summaries/facts.v1.schema.json](../src/rule-summaries/
 | `mission-award` | `award` (required), `detail` |
 | any other summary kind | `detail` |
 
-A Stratagem's CP cost, phases, turn and type are the record's own `cp` and `stratagem` fields, not facts.
+A Stratagem's CP cost, phases, turns and type are the record's own `cp` and `stratagem` fields, not facts.
 
 A typed value the source leaves open, or that is not typed yet, is `{ "unresolved": "<what is missing>" }`. Show the summary for it and treat it as not calculated.
 
@@ -49,7 +49,7 @@ Keywords are written in upper case, as the rules print them.
 
 | Field | Meaning |
 | --- | --- |
-| `limit` | How often a player can use it: once per `phase` (the core rules' limit), `turn`, `battle-round` or `battle`. |
+| `limit` | How often a player can use it: once per `phase` (the core rules' limit), `turn`, `battle-round` or `battle`, as its card prints it, or as another rule of the same source prints it where the card leaves it out. |
 | `perTarget` | How often the same unit or model can be its target, where the card limits that. |
 | `restricted` | `true` when the card states another restriction, which only the summary gives. |
 | `when.at` | The moment within its phases and turn: the `phase`, its `phase-start` or `phase-end`, a `turn-start` or `turn-end`, or the `reinforcements-step`. |

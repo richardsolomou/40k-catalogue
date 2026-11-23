@@ -754,6 +754,9 @@
               "mortal-wounds"
             ]
           }
+        },
+        "recipientKeywords": {
+          "$ref": "#/$defs/selectors"
         }
       },
       "if": {
@@ -1109,6 +1112,9 @@
         },
         "none": {
           "const": true
+        },
+        "attached": {
+          "const": true
         }
       },
       "if": {
@@ -1234,7 +1240,10 @@
                 "selected-target-in-engagement-range",
                 "target-closest",
                 "target-on-objective",
-                "source-destroyed-unit"
+                "source-destroyed-unit",
+                "target-below-starting-strength",
+                "target-below-half-strength",
+                "target-battle-shocked"
               ]
             }
           }
@@ -1347,6 +1356,9 @@
             },
             "keywords": {
               "$ref": "#/$defs/selectors"
+            },
+            "excludedKeywords": {
+              "$ref": "#/$defs/selectors"
             }
           }
         },
@@ -1362,6 +1374,22 @@
             },
             "label": {
               "$ref": "#/$defs/text"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "status"
+          ],
+          "properties": {
+            "kind": {
+              "const": "enemy-status"
+            },
+            "status": {
+              "$ref": "#/$defs/keyword"
             }
           }
         }
@@ -1709,6 +1737,9 @@
           "items": {
             "$ref": "#/$defs/text"
           }
+        },
+        "bearerOnly": {
+          "const": true
         }
       }
     },

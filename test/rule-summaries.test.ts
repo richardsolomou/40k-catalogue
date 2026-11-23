@@ -257,3 +257,11 @@ test("an effect block can be withheld as unresolved", () => {
   const withheld = { ...EFFECTS, fields: { ...EFFECTS.fields, combat: { unresolved: "the reading gives the effect to the wrong unit" } } };
   assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = withheld)), []);
 });
+
+test("an effect can be the bearer's alone, and a target only an Attached unit", () => {
+  const scoped = structuredClone(EFFECTS);
+  (scoped.fields.combat.readings[0]!.choices![0]!.effects[0] as Record<string, unknown>).bearerOnly = true;
+  (scoped.fields.combat.applies.target as Record<string, unknown>).attached = true;
+  scoped.fields.combat.readings[0]!.choices![0]!.conditions.push({ kind: "enemy-status", status: "BATTLE-SHOCKED" } as never);
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = scoped)), []);
+});

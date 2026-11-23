@@ -4,6 +4,8 @@ A rule summary gives players one rule in plain language, with bold keywords and 
 
 A rule that the [mechanic format](records.md) fully describes also ships as a mechanic record. Its summary record carries the same structured fields as typed facts.
 
+The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summaries for the current rules version and lists the entries still unresolved.
+
 ## Records
 
 | Category | Kind | `data` beside the common fields |

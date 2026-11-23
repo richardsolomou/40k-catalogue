@@ -78,6 +78,10 @@ A model loadout that a source writes as separate model entries, one per weapon, 
 
 The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) includes the `rosters` category in format version 2, built from the official app's data build: factions, battle sizes, Detachments, and every datasheet outside Combat Patrol as one unit, modelled once rather than once per Space Marine chapter. Every wargear option the app allows is stated exactly. A unit's `aliases` are the BSData entry IDs of the datasheets it stands for (`bsdata.<entry ID with dots>`), so lists saved against BSData IDs resolve. Warhammer Legends datasheets the app does not carry are typed from Games Workshop's Legends PDFs where their text states the loadout exactly; the README lists the rest. Enhancement eligibility is in each Enhancement's [rule facts](rule-facts.md).
 
+## Earlier rules versions
+
+Each earlier 11th-edition input except the Custodes codex one (`data/<version>/rule-summaries/`) includes the same `rosters` category, built from the app build in force at that update's cutoff and the Legends documents dated before it. A unit keeps the ID it has in MFM 1.6, and lists the BSData entry IDs of the datasheets Praetorium compiled for that update among its aliases.
+
 ## Saved rosters
 
 A saved roster names a `faction`, a `detachment`, an optional `battleSize`, and its `units`. Each unit gives its `unit` ID, its model counts by model ID, its taken wargear as `{ <option ID>: { <wargear ID>: count } }`, an optional `enhancement`, and, for the warlord's unit, the warlord's model ID as `warlord`. An omitted model count uses its base `min`. The checker then applies the bounds for the sum of those counts. Wargear a unit keeps by default is not listed.

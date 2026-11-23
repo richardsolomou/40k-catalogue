@@ -13,7 +13,9 @@ Every record cites the signed app build in force at the update's cutoff, Warhamm
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`.
 
-FAQs, links and Enhancement eligibility also name 494 units, 46 detachments, 0 pieces of wargear and 1 publication. They are identity entries of the `rosters` and `publications` categories, which are retained: their records still come from the app build.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,116 stat lines and 5,172 weapon profiles, and the `legacy-rosters` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 310 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-rosters-legends` snapshot, the costs of 300 of them from the Munitorum Field Manual's Legends section. 294 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (32 of them with options left out, listed below), and their weapon profiles name that wargear.
+
+FAQs also name 1 publication, an identity entry of the retained `publications` category.
 
 ## Retired
 
@@ -65,548 +67,85 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `shared.land-raider.damaged`
 - `ability` `shared.stormraven-gunship.damaged`
 
-### A unit FAQs or links name, with no datasheet in this rules version's app build (494)
+### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (16)
 
-- `unit` `adepta-sororitas.canoness-with-jump-pack`
-- `unit` `adepta-sororitas.castigator`
-- `unit` `adepta-sororitas.celestian-sacresants`
-- `unit` `adepta-sororitas.daemonifuge`
-- `unit` `adepta-sororitas.dialogus`
-- `unit` `adepta-sororitas.dogmata`
-- `unit` `adepta-sororitas.dominion-squad`
-- `unit` `adepta-sororitas.exorcist`
-- `unit` `adepta-sororitas.hospitaller`
-- `unit` `adepta-sororitas.imagifier`
-- `unit` `adepta-sororitas.immolator`
-- `unit` `adepta-sororitas.junith-eruita`
-- `unit` `adepta-sororitas.retributor-squad`
-- `unit` `adepta-sororitas.sororitas-rhino`
-- `unit` `adepta-sororitas.triumph-of-saint-katherine`
-- `unit` `adepta-sororitas.zephyrim-squad`
-- `unit` `adeptus-custodes.allarus-custodians`
-- `unit` `adeptus-custodes.anathema-psykana-rhino`
-- `unit` `adeptus-custodes.ares-gunship`
-- `unit` `adeptus-custodes.caladius-grav-tank`
-- `unit` `adeptus-custodes.coronus-grav-carrier`
-- `unit` `adeptus-custodes.custodian-guard-sodality`
-- `unit` `adeptus-custodes.custodian-wardens`
-- `unit` `adeptus-custodes.gyrfalcon-jetbike-sodality`
-- `unit` `adeptus-custodes.knight-centura`
-- `unit` `adeptus-custodes.orion-assault-dropship`
-- `unit` `adeptus-custodes.pallas-grav-attack`
-- `unit` `adeptus-custodes.prosecutor-squad`
-- `unit` `adeptus-custodes.shield-captain-in-allarus-terminator-armour`
-- `unit` `adeptus-custodes.shield-captain-on-dawneagle-jetbike`
-- `unit` `adeptus-custodes.shield-captain`
-- `unit` `adeptus-custodes.valerian`
-- `unit` `adeptus-custodes.venerable-contemptor-dreadnought`
-- `unit` `adeptus-custodes.venerable-land-raider`
-- `unit` `adeptus-custodes.vertus-praetors`
-- `unit` `adeptus-mechanicus.archaeopter-fusilave`
-- `unit` `adeptus-mechanicus.archaeopter-stratoraptor`
-- `unit` `adeptus-mechanicus.archaeopter-transvector`
-- `unit` `adeptus-mechanicus.belisarius-cawl`
-- `unit` `adeptus-mechanicus.corpuscarii-electro-priests`
-- `unit` `adeptus-mechanicus.cybernetica-datasmith`
-- `unit` `adeptus-mechanicus.fulgurite-electro-priests`
-- `unit` `adeptus-mechanicus.ironstrider-ballistarii`
-- `unit` `adeptus-mechanicus.kastelan-robots`
-- `unit` `adeptus-mechanicus.onager-dunecrawler`
-- `unit` `adeptus-mechanicus.serberys-raiders`
-- `unit` `adeptus-mechanicus.sicarian-infiltrators`
-- `unit` `adeptus-mechanicus.sicarian-ruststalkers`
-- `unit` `adeptus-mechanicus.skitarii-marshal`
-- `unit` `adeptus-mechanicus.skorpius-disintegrator`
-- `unit` `adeptus-mechanicus.skorpius-dunerider`
-- `unit` `adeptus-mechanicus.tech-priest-dominus`
-- `unit` `adeptus-mechanicus.tech-priest-manipulus`
-- `unit` `adeptus-mechanicus.technoarcheologist`
-- `unit` `aeldari.asurmen`
-- `unit` `aeldari.baharroth`
-- `unit` `aeldari.corsair-voidreavers`
-- `unit` `aeldari.crimson-hunter`
-- `unit` `aeldari.d-cannon-platform`
-- `unit` `aeldari.dark-reapers`
-- `unit` `aeldari.dire-avengers`
-- `unit` `aeldari.eldrad-ulthran`
-- `unit` `aeldari.falcon`
-- `unit` `aeldari.farseer-skyrunner`
-- `unit` `aeldari.fire-dragons`
-- `unit` `aeldari.fire-prism`
-- `unit` `aeldari.hemlock-wraithfighter`
-- `unit` `aeldari.howling-banshees`
-- `unit` `aeldari.night-spinner`
-- `unit` `aeldari.rangers`
-- `unit` `aeldari.shadow-weaver-platform`
-- `unit` `aeldari.shadowseer`
-- `unit` `aeldari.shining-spears`
-- `unit` `aeldari.shroud-runners`
-- `unit` `aeldari.skyweavers`
-- `unit` `aeldari.starweaver`
-- `unit` `aeldari.striking-scorpions`
-- `unit` `aeldari.swooping-hawks`
-- `unit` `aeldari.the-visarch`
-- `unit` `aeldari.the-yncarne`
-- `unit` `aeldari.troupe-master`
-- `unit` `aeldari.troupe`
-- `unit` `aeldari.vibro-cannon-platform`
-- `unit` `aeldari.voidweaver`
-- `unit` `aeldari.warlock-conclave`
-- `unit` `aeldari.warlock-skyrunners`
-- `unit` `aeldari.warlock`
-- `unit` `aeldari.warp-spiders`
-- `unit` `aeldari.wave-serpent`
-- `unit` `aeldari.windriders`
-- `unit` `aeldari.ynnari-incubi`
-- `unit` `aeldari.ynnari-raider`
-- `unit` `aeldari.ynnari-reavers`
-- `unit` `aeldari.ynnari-venom`
-- `unit` `aeldari.yvraine`
-- `unit` `astra-militarum.aegis-defence-line`
-- `unit` `astra-militarum.baneblade`
-- `unit` `astra-militarum.banehammer`
-- `unit` `astra-militarum.banesword`
-- `unit` `astra-militarum.basilisk`
-- `unit` `astra-militarum.cadian-command-squad`
-- `unit` `astra-militarum.cadian-shock-troops`
-- `unit` `astra-militarum.catachan-command-squad`
-- `unit` `astra-militarum.catachan-jungle-fighters`
-- `unit` `astra-militarum.chimera`
-- `unit` `astra-militarum.commissar-yarrick`
-- `unit` `astra-militarum.death-korps-of-krieg`
-- `unit` `astra-militarum.death-riders`
-- `unit` `astra-militarum.deathstrike`
-- `unit` `astra-militarum.doomhammer`
-- `unit` `astra-militarum.gaunts-ghosts`
-- `unit` `astra-militarum.hellhammer`
-- `unit` `astra-militarum.hellhound`
-- `unit` `astra-militarum.hydra`
-- `unit` `astra-militarum.kasrkin`
-- `unit` `astra-militarum.krieg-combat-engineers`
-- `unit` `astra-militarum.krieg-command-squad`
-- `unit` `astra-militarum.krieg-heavy-weapons-squad`
-- `unit` `astra-militarum.leman-russ-battle-tank`
-- `unit` `astra-militarum.leman-russ-commander`
-- `unit` `astra-militarum.leman-russ-demolisher`
-- `unit` `astra-militarum.leman-russ-eradicator`
-- `unit` `astra-militarum.leman-russ-executioner`
-- `unit` `astra-militarum.leman-russ-exterminator`
-- `unit` `astra-militarum.leman-russ-punisher`
-- `unit` `astra-militarum.leman-russ-vanquisher`
-- `unit` `astra-militarum.lord-solar-leontus`
-- `unit` `astra-militarum.manticore`
-- `unit` `astra-militarum.militarum-tempestus-command-squad`
-- `unit` `astra-militarum.ogryn-bodyguard`
-- `unit` `astra-militarum.ratlings`
-- `unit` `astra-militarum.rogal-dorn-battle-tank`
-- `unit` `astra-militarum.rogal-dorn-commander`
-- `unit` `astra-militarum.scout-sentinels`
-- `unit` `astra-militarum.shadowsword`
-- `unit` `astra-militarum.stormlord`
-- `unit` `astra-militarum.stormsword`
-- `unit` `astra-militarum.taurox-prime`
-- `unit` `astra-militarum.taurox`
-- `unit` `astra-militarum.tempestus-aquilons`
-- `unit` `astra-militarum.tempestus-scions`
-- `unit` `astra-militarum.valkyrie`
-- `unit` `astra-militarum.wyvern`
-- `unit` `black-templars.crusader-squad`
-- `unit` `black-templars.sword-brethren-squad`
-- `unit` `chaos-daemons.belakor`
-- `unit` `chaos-daemons.bloodthirster`
-- `unit` `chaos-daemons.blue-horrors`
-- `unit` `chaos-daemons.feculent-gnarlmaw`
-- `unit` `chaos-daemons.great-unclean-one`
-- `unit` `chaos-daemons.horticulous-slimux`
-- `unit` `chaos-daemons.kairos-fateweaver`
-- `unit` `chaos-daemons.keeper-of-secrets`
-- `unit` `chaos-daemons.lord-of-change`
-- `unit` `chaos-daemons.pink-horrors`
-- `unit` `chaos-daemons.rotigus`
-- `unit` `chaos-daemons.screamers`
-- `unit` `chaos-daemons.shalaxi-helbane`
-- `unit` `chaos-daemons.skarbrand`
-- `unit` `chaos-daemons.skull-altar`
-- `unit` `chaos-knights.chaos-acastus-knight-asterius`
-- `unit` `chaos-knights.chaos-acastus-knight-porphyrion`
-- `unit` `chaos-knights.knight-abominant`
-- `unit` `chaos-knights.knight-desecrator`
-- `unit` `chaos-knights.knight-ruinator`
-- `unit` `chaos-knights.knight-tyrant`
-- `unit` `chaos-knights.war-dog-moirax`
-- `unit` `chaos-space-marines.abaddon-the-despoiler`
-- `unit` `chaos-space-marines.accursed-cultists`
-- `unit` `chaos-space-marines.chaos-bikers`
-- `unit` `chaos-space-marines.chaos-land-raider`
-- `unit` `chaos-space-marines.chaos-lord-in-terminator-armour`
-- `unit` `chaos-space-marines.chaos-lord-with-jump-pack`
-- `unit` `chaos-space-marines.chaos-lord`
-- `unit` `chaos-space-marines.chaos-predator-annihilator`
-- `unit` `chaos-space-marines.chaos-predator-destructor`
-- `unit` `chaos-space-marines.chaos-rhino`
-- `unit` `chaos-space-marines.chaos-terminator-squad`
-- `unit` `chaos-space-marines.chaos-vindicator`
-- `unit` `chaos-space-marines.chosen`
-- `unit` `chaos-space-marines.cypher`
-- `unit` `chaos-space-marines.dark-apostle`
-- `unit` `chaos-space-marines.fabius-bile`
-- `unit` `chaos-space-marines.haarken-worldclaimer`
-- `unit` `chaos-space-marines.havocs`
-- `unit` `chaos-space-marines.heldrake`
-- `unit` `chaos-space-marines.heretic-astartes-daemon-prince`
-- `unit` `chaos-space-marines.huron-blackheart`
-- `unit` `chaos-space-marines.khorne-lord-of-skulls`
-- `unit` `chaos-space-marines.kravek-morne`
-- `unit` `chaos-space-marines.legionaries`
-- `unit` `chaos-space-marines.lord-discordant-on-helstalker`
-- `unit` `chaos-space-marines.master-of-executions`
-- `unit` `chaos-space-marines.master-of-possession`
-- `unit` `chaos-space-marines.masters-of-the-maelstrom`
-- `unit` `chaos-space-marines.nemesis-claw`
-- `unit` `chaos-space-marines.noctilith-crown`
-- `unit` `chaos-space-marines.obliterators`
-- `unit` `chaos-space-marines.raptors`
-- `unit` `chaos-space-marines.red-corsairs-raiders`
-- `unit` `chaos-space-marines.red-corsairs-reave-captain`
-- `unit` `chaos-space-marines.sorcerer-in-terminator-armour`
-- `unit` `chaos-space-marines.sorcerer`
-- `unit` `chaos-space-marines.traitor-enforcer`
-- `unit` `chaos-space-marines.traitor-guardsmen-squad`
-- `unit` `chaos-space-marines.vashtorr-the-arkifane`
-- `unit` `chaos-space-marines.warp-talons`
-- `unit` `chaos-space-marines.warpsmith`
-- `unit` `chaos-titan-legions.chaos-reaver-titan`
-- `unit` `chaos-titan-legions.chaos-warbringer-nemesis-titan`
-- `unit` `chaos-titan-legions.chaos-warhound-titan`
-- `unit` `chaos-titan-legions.chaos-warlord-titan`
-- `unit` `dark-angels.land-speeder-vengeance`
-- `unit` `death-guard.biologus-putrifier`
-- `unit` `death-guard.blightlord-terminators`
-- `unit` `death-guard.chaos-land-raider`
-- `unit` `death-guard.chaos-predator-annihilator`
-- `unit` `death-guard.chaos-predator-destructor`
-- `unit` `death-guard.chaos-rhino`
-- `unit` `death-guard.deathshroud-terminators`
-- `unit` `death-guard.foul-blightspawn`
-- `unit` `death-guard.helbrute`
-- `unit` `death-guard.icon-bearer`
-- `unit` `death-guard.malignant-plaguecaster`
-- `unit` `death-guard.miasmic-malignifier`
-- `unit` `death-guard.mortarion`
-- `unit` `death-guard.myphitic-blight-haulers`
-- `unit` `death-guard.plague-marines`
-- `unit` `death-guard.plague-surgeon`
-- `unit` `death-guard.plagueburst-crawler`
-- `unit` `death-guard.tallyman`
-- `unit` `death-guard.typhus`
-- `unit` `deathwatch.watch-master`
-- `unit` `drukhari.archon`
-- `unit` `drukhari.cronos`
-- `unit` `drukhari.haemonculus`
-- `unit` `drukhari.hellions`
-- `unit` `drukhari.lady-malys`
-- `unit` `drukhari.raider`
-- `unit` `drukhari.ravager`
-- `unit` `drukhari.razorwing-jetfighter`
-- `unit` `drukhari.scourges-with-shardcarbines`
-- `unit` `drukhari.succubus`
-- `unit` `drukhari.talos`
-- `unit` `drukhari.venom`
-- `unit` `drukhari.voidraven-bomber`
-- `unit` `emperors-children.chaos-land-raider`
-- `unit` `emperors-children.chaos-rhino`
-- `unit` `emperors-children.chaos-spawn`
-- `unit` `emperors-children.chaos-terminators`
-- `unit` `emperors-children.flawless-blades`
-- `unit` `emperors-children.fulgrim`
-- `unit` `emperors-children.heldrake`
-- `unit` `emperors-children.infractors`
-- `unit` `emperors-children.lord-exultant`
-- `unit` `emperors-children.lord-kakophonist`
-- `unit` `emperors-children.lucius-the-eternal`
-- `unit` `emperors-children.noise-marines`
-- `unit` `emperors-children.sorcerer`
-- `unit` `emperors-children.tormentors`
-- `unit` `genestealer-cults.acolyte-hybrids-with-hand-flamers`
-- `unit` `genestealer-cults.acolyte-iconward`
-- `unit` `genestealer-cults.biophagus`
-- `unit` `genestealer-cults.clamavus`
-- `unit` `genestealer-cults.goliath-rockgrinder`
-- `unit` `genestealer-cults.goliath-truck`
-- `unit` `genestealer-cults.hybrid-metamorphs`
-- `unit` `genestealer-cults.kelermorph`
-- `unit` `genestealer-cults.locus`
-- `unit` `genestealer-cults.magus`
-- `unit` `genestealer-cults.neophyte-hybrids`
-- `unit` `genestealer-cults.nexos`
-- `unit` `genestealer-cults.patriarch`
-- `unit` `genestealer-cults.primus`
-- `unit` `genestealer-cults.purestrain-genestealers`
-- `unit` `genestealer-cults.reductus-saboteur`
-- `unit` `genestealer-cults.sanctus`
-- `unit` `grey-knights.brother-captain`
-- `unit` `grey-knights.brotherhood-champion`
-- `unit` `grey-knights.brotherhood-chaplain`
-- `unit` `grey-knights.brotherhood-librarian`
-- `unit` `grey-knights.brotherhood-techmarine`
-- `unit` `grey-knights.brotherhood-terminator-squad`
-- `unit` `grey-knights.castellan-crowe`
-- `unit` `grey-knights.grand-master-in-nemesis-dreadknight`
-- `unit` `grey-knights.grand-master-voldus`
-- `unit` `grey-knights.grand-master`
-- `unit` `grey-knights.grey-knights-thunderhawk-gunship`
-- `unit` `grey-knights.interceptor-squad`
-- `unit` `grey-knights.land-raider-crusader`
-- `unit` `grey-knights.land-raider-redeemer`
-- `unit` `grey-knights.land-raider`
-- `unit` `grey-knights.nemesis-dreadknight`
-- `unit` `grey-knights.paladin-squad`
-- `unit` `grey-knights.purgation-squad`
-- `unit` `grey-knights.purifier-squad`
-- `unit` `grey-knights.razorback`
-- `unit` `grey-knights.rhino`
-- `unit` `grey-knights.stormhawk-interceptor`
-- `unit` `grey-knights.stormraven-gunship`
-- `unit` `grey-knights.stormtalon-gunship`
-- `unit` `grey-knights.strike-squad`
-- `unit` `grey-knights.venerable-dreadnought`
-- `unit` `imperial-agents.callidus-assassin`
-- `unit` `imperial-agents.corvus-blackstar`
-- `unit` `imperial-agents.culexus-assassin`
-- `unit` `imperial-agents.grey-knights-terminator-squad`
-- `unit` `imperial-agents.imperial-rhino`
-- `unit` `imperial-agents.inquisitor-draxus`
-- `unit` `imperial-agents.inquisitor`
-- `unit` `imperial-agents.inquisitorial-agents`
-- `unit` `imperial-agents.inquisitorial-chimera`
-- `unit` `imperial-agents.ministorum-priest`
-- `unit` `imperial-agents.sisters-of-battle-immolator`
-- `unit` `imperial-agents.vindicare-assassin`
-- `unit` `imperial-agents.voidsmen-at-arms`
-- `unit` `imperial-knights.acastus-knight-asterius`
-- `unit` `imperial-knights.acastus-knight-porphyrion`
-- `unit` `imperial-knights.armiger-moirax`
-- `unit` `imperial-knights.canis-rex`
-- `unit` `imperial-knights.knight-castellan`
-- `unit` `imperial-knights.knight-crusader`
-- `unit` `imperial-knights.knight-defender`
-- `unit` `imperial-knights.knight-errant`
-- `unit` `imperial-knights.knight-gallant`
-- `unit` `imperial-knights.knight-paladin`
-- `unit` `imperial-knights.knight-preceptor`
-- `unit` `imperial-knights.knight-valiant`
-- `unit` `imperial-knights.knight-warden`
-- `unit` `leagues-of-votann.berehk-stornbrow`
-- `unit` `leagues-of-votann.buri-aegnirssen`
-- `unit` `leagues-of-votann.hekaton-land-fortress`
-- `unit` `leagues-of-votann.hernkyn-yaegirs`
-- `unit` `leagues-of-votann.memnyr-strategist`
-- `unit` `leagues-of-votann.sagitaur`
-- `unit` `leagues-of-votann.uthar-the-destined`
-- `unit` `necrons.annihilation-barge`
-- `unit` `necrons.canoptek-reanimator`
-- `unit` `necrons.catacomb-command-barge`
-- `unit` `necrons.chronomancer`
-- `unit` `necrons.convergence-of-dominion`
-- `unit` `necrons.cryptothralls`
-- `unit` `necrons.doom-scythe`
-- `unit` `necrons.doomsday-ark`
-- `unit` `necrons.geomancer`
-- `unit` `necrons.ghost-ark`
-- `unit` `necrons.immortals`
-- `unit` `necrons.lokhust-destroyers`
-- `unit` `necrons.lokhust-lord`
-- `unit` `necrons.monolith`
-- `unit` `necrons.necron-warriors`
-- `unit` `necrons.night-scythe`
-- `unit` `necrons.obelisk`
-- `unit` `necrons.ophydian-destroyers`
-- `unit` `necrons.orikan-the-diviner`
-- `unit` `necrons.overlord-with-translocation-shroud`
-- `unit` `necrons.overlord`
-- `unit` `necrons.plasmancer`
-- `unit` `necrons.psychomancer`
-- `unit` `necrons.seraptek-heavy-construct`
-- `unit` `necrons.technomancer`
-- `unit` `necrons.tesseract-vault`
-- `unit` `necrons.the-silent-king`
-- `unit` `necrons.tomb-blades`
-- `unit` `necrons.transcendent-ctan`
-- `unit` `necrons.triarch-stalker`
-- `unit` `orks.beastboss-on-squigosaur`
-- `unit` `orks.big-mek-with-shokk-attack-gun`
-- `unit` `orks.big-mek`
-- `unit` `orks.bigboss`
-- `unit` `orks.boyz`
-- `unit` `orks.deffkilla-wartrike`
-- `unit` `orks.flash-gitz`
-- `unit` `orks.gretchin`
-- `unit` `orks.kommandos`
-- `unit` `orks.mek`
-- `unit` `orks.nobz`
-- `unit` `orks.stormboyz`
-- `unit` `space-marines.ancient`
-- `unit` `space-marines.apothecary-biologis`
-- `unit` `space-marines.captain-in-terminator-armour`
-- `unit` `space-marines.captain-titus`
-- `unit` `space-marines.captain`
-- `unit` `space-marines.chaplain`
-- `unit` `space-marines.iron-father-feirros`
-- `unit` `space-marines.judiciar`
-- `unit` `space-marines.kayvaan-shrike`
-- `unit` `space-marines.librarian-in-terminator-armour`
-- `unit` `space-marines.stormhawk-interceptor`
-- `unit` `space-marines.techmarine`
-- `unit` `space-wolves.wolf-guard-battle-leader`
-- `unit` `space-wolves.wolf-priest`
-- `unit` `tau-empire.ax-1-0-tiger-shark`
-- `unit` `tau-empire.crisis-sunforge-battlesuits`
-- `unit` `tau-empire.devilfish`
-- `unit` `tau-empire.ethereal`
-- `unit` `tau-empire.firesight-team`
-- `unit` `tau-empire.hammerhead-gunship`
-- `unit` `tau-empire.kroot-trail-shaper`
-- `unit` `tau-empire.manta`
-- `unit` `tau-empire.pathfinder-team`
-- `unit` `tau-empire.piranhas`
-- `unit` `tau-empire.razorshark-strike-fighter`
-- `unit` `tau-empire.riptide-battlesuit`
-- `unit` `tau-empire.sky-ray-gunship`
-- `unit` `tau-empire.stealth-battlesuits`
-- `unit` `tau-empire.sun-shark-bomber`
-- `unit` `tau-empire.taunar-supremacy-armour`
-- `unit` `tau-empire.the-twin-lance`
-- `unit` `tau-empire.tidewall-droneport`
-- `unit` `tau-empire.tidewall-gunrig`
-- `unit` `tau-empire.tidewall-shieldline`
-- `unit` `tau-empire.tiger-shark`
-- `unit` `thousand-sons.ahriman`
-- `unit` `thousand-sons.chaos-land-raider`
-- `unit` `thousand-sons.chaos-predator-annihilator`
-- `unit` `thousand-sons.chaos-predator-destructor`
-- `unit` `thousand-sons.chaos-rhino`
-- `unit` `thousand-sons.chaos-vindicator`
-- `unit` `thousand-sons.daemon-prince-of-tzeentch-with-wings`
-- `unit` `thousand-sons.exalted-sorcerer-on-disc-of-tzeentch`
-- `unit` `thousand-sons.exalted-sorcerer`
-- `unit` `thousand-sons.flamers`
-- `unit` `thousand-sons.helbrute`
-- `unit` `thousand-sons.heldrake`
-- `unit` `thousand-sons.infernal-master`
-- `unit` `thousand-sons.kairos-fateweaver`
-- `unit` `thousand-sons.lord-of-change`
-- `unit` `thousand-sons.maulerfiend`
-- `unit` `thousand-sons.mutalith-vortex-beast`
-- `unit` `thousand-sons.rubric-marines`
-- `unit` `thousand-sons.scarab-occult-terminators`
-- `unit` `thousand-sons.screamers`
-- `unit` `thousand-sons.sekhetar-robots`
-- `unit` `thousand-sons.sorcerer-in-terminator-armour`
-- `unit` `thousand-sons.sorcerer`
-- `unit` `thousand-sons.tzaangor-enlightened-with-fatecaster-greatbows`
-- `unit` `thousand-sons.tzaangor-shaman`
-- `unit` `thousand-sons.tzaangors`
-- `unit` `titan-legions.reaver-titan`
-- `unit` `titan-legions.warbringer-nemesis-titan`
-- `unit` `titan-legions.warhound-titan`
-- `unit` `titan-legions.warlord-titan`
-- `unit` `tyranids.biovores`
-- `unit` `tyranids.broodlord`
-- `unit` `tyranids.carnifexes`
-- `unit` `tyranids.exocrine`
-- `unit` `tyranids.harpy`
-- `unit` `tyranids.harridan`
-- `unit` `tyranids.hierophant`
-- `unit` `tyranids.hive-crone`
-- `unit` `tyranids.hive-tyrant`
-- `unit` `tyranids.hyperadapted-raveners`
-- `unit` `tyranids.lictor`
-- `unit` `tyranids.mawloc`
-- `unit` `tyranids.neurolictor`
-- `unit` `tyranids.neurotyrant`
-- `unit` `tyranids.norn-assimilator`
-- `unit` `tyranids.norn-emissary`
-- `unit` `tyranids.parasite-of-mortrex`
-- `unit` `tyranids.psychophage`
-- `unit` `tyranids.raveners`
-- `unit` `tyranids.spore-mines`
-- `unit` `tyranids.termagants`
-- `unit` `tyranids.the-swarmlord`
-- `unit` `tyranids.toxicrene`
-- `unit` `tyranids.trygon`
-- `unit` `tyranids.tyranid-prime-with-lash-whip`
-- `unit` `tyranids.tyranid-warriors-with-melee-bio-weapons`
-- `unit` `tyranids.tyrannocyte`
-- `unit` `tyranids.tyrannofex`
-- `unit` `tyranids.venomthropes`
-- `unit` `tyranids.von-ryans-leapers`
-- `unit` `tyranids.winged-hive-tyrant`
-- `unit` `tyranids.winged-tyranid-prime`
-- `unit` `world-eaters.angron`
-- `unit` `world-eaters.chaos-land-raider`
-- `unit` `world-eaters.chaos-predator-annihilator`
-- `unit` `world-eaters.chaos-predator-destructor`
-- `unit` `world-eaters.chaos-rhino`
-- `unit` `world-eaters.chaos-terminators`
-- `unit` `world-eaters.defiler`
-- `unit` `world-eaters.exalted-eightbound`
-- `unit` `world-eaters.goremongers`
-- `unit` `world-eaters.helbrute`
-- `unit` `world-eaters.heldrake`
-- `unit` `world-eaters.jakhals`
-- `unit` `world-eaters.kharn-the-betrayer`
-- `unit` `world-eaters.khorne-berzerkers`
-- `unit` `world-eaters.khorne-lord-of-skulls`
-- `unit` `world-eaters.lord-invocatus`
-- `unit` `world-eaters.master-of-executions`
-- `unit` `world-eaters.maulerfiend`
-- `unit` `world-eaters.slaughterbound`
+- `unit` `astra-militarum.death-korps-grenadier-squad`
+- `unit` `astra-militarum.hells-last`
+- `unit` `astra-militarum.macharius-vulcan`
+- `unit` `astra-militarum.praetor`
+- `unit` `astra-militarum.regimental-attaches`
+- `unit` `astra-militarum.rein-and-raus`
+- `unit` `chaos-space-marines.gellerpox-infected`
+- `unit` `imperial-agents.inquisitor-eisenhorn`
+- `unit` `imperial-agents.inquisitor-ostromandeus`
+- `unit` `imperial-agents.kill-team-cassius`
+- `unit` `imperial-agents.proteus-kill-team`
+- `unit` `necrons.night-shroud`
+- `unit` `space-marines.bike-squad`
+- `unit` `space-marines.fire-raptor-gunship`
+- `unit` `tau-empire.aunva`
+- `unit` `unaligned-forces.imperial-fortress-walls`
 
-### A detachment named by other records that has no record of its own (46)
+## Wargear options left out
 
-- `detachment` `adepta-sororitas.army-of-faith`
-- `detachment` `adepta-sororitas.bringers-of-flame`
-- `detachment` `adepta-sororitas.penitent-host`
-- `detachment` `adeptus-custodes.auric-champions`
-- `detachment` `adeptus-custodes.shield-host`
-- `detachment` `adeptus-mechanicus.cohort-cybernetica`
-- `detachment` `adeptus-mechanicus.rad-zone-corps`
-- `detachment` `adeptus-mechanicus.skitarii-hunter-cohort`
-- `detachment` `aeldari.aspect-host`
-- `detachment` `aeldari.devoted-of-ynnead`
-- `detachment` `aeldari.ghosts-of-the-webway`
-- `detachment` `aeldari.warhost`
-- `detachment` `astra-militarum.armoured-infantry`
-- `detachment` `astra-militarum.recon-element`
-- `detachment` `astra-militarum.siege-regiment`
-- `detachment` `chaos-daemons.blood-legion`
-- `detachment` `chaos-daemons.daemonic-incursion`
-- `detachment` `chaos-daemons.shadow-legion`
-- `detachment` `chaos-knights.infernal-lance`
-- `detachment` `chaos-space-marines.chaos-cult`
-- `detachment` `chaos-space-marines.pactbound-zealots`
-- `detachment` `chaos-space-marines.veterans-of-the-long-war`
-- `detachment` `death-guard.virulent-vectorium`
-- `detachment` `emperors-children.carnival-of-excess`
-- `detachment` `emperors-children.rapid-evisceration`
-- `detachment` `genestealer-cults.brood-brothers-auxilia`
-- `detachment` `genestealer-cults.outlander-claw`
-- `detachment` `imperial-agents.veiled-blade-elimination-force`
-- `detachment` `imperial-knights.gate-warden-lance`
-- `detachment` `imperial-knights.questor-forgepact`
-- `detachment` `imperial-knights.valourstrike-lance`
-- `detachment` `necrons.annihilation-legion`
-- `detachment` `necrons.canoptek-court`
-- `detachment` `necrons.hypercrypt-legion`
-- `detachment` `necrons.obeisance-phalanx`
-- `detachment` `tau-empire.kauyon`
-- `detachment` `tau-empire.montka`
-- `detachment` `tau-empire.retaliation-cadre`
-- `detachment` `thousand-sons.rubricae-phalanx`
-- `detachment` `thousand-sons.warpmeld-pact`
-- `detachment` `tyranids.assimilation-swarm`
-- `detachment` `tyranids.crusher-stampede`
-- `detachment` `tyranids.unending-swarm`
-- `detachment` `world-eaters.berzerker-warband`
-- `detachment` `world-eaters.khorne-daemonkin`
-- `detachment` `world-eaters.possessed-slaughterband`
+Options a source gives that are not stated: from the app build, structures the roster format cannot express exactly; from a Legends PDF (marked so), option text not of a typed form. `checkRoster` refuses them rather than accept a choice the source forbids.
+
+- `adeptus-mechanicus.secutarii-peltasts`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `aeldari-2.skathach-wraithknight`: option not typed: its choices did not read as wargear (Legends PDF)
+- `astra-militarum.death-korps-grenadier-squad`: alternative unit compositions are printed (Legends PDF)
+- `astra-militarum.griffon-mortar-carrier`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `astra-militarum.hells-last`: default equipment not typed (Legends PDF)
+- `astra-militarum.macharius-vulcan`: default equipment not read (Legends PDF)
+- `astra-militarum.praetor`: default equipment not read (Legends PDF)
+- `astra-militarum.regimental-attaches`: a model's default equipment not read (Legends PDF)
+- `astra-militarum.rein-and-raus`: a model's default equipment not read (Legends PDF)
+- `astra-militarum.sabre-weapons-battery`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `blood-angels.death-company-dreadnought-with-magna-grapple`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `chaos-daemons.pox-riders`: option not typed: its choices did not read as wargear (Legends PDF)
+- `chaos-daemons.pox-riders`: option not typed: its choices did not read as wargear (Legends PDF)
+- `chaos-space-marines.cultist-mob-with-firearms`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `chaos-space-marines.cultist-mob-with-firearms`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `chaos-space-marines.cultist-mob-with-firearms`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `chaos-space-marines.cultist-mob-with-firearms`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `chaos-space-marines.decimator`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `chaos-space-marines.gellerpox-infected`: default equipment not typed (Legends PDF)
+- `chaos-space-marines.renegade-heavy-weapons-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `dark-angels.deathwing-command-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `dark-angels.deathwing-command-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `dark-angels.deathwing-strikemaster`: option not typed: its choices did not read as wargear (Legends PDF)
+- `drukhari.grotesques`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `imperial-agents.inquisitor-eisenhorn`: default equipment not read (Legends PDF)
+- `imperial-agents.inquisitor-in-terminator-armour`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `imperial-agents.inquisitor-in-terminator-armour`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `imperial-agents.inquisitor-ostromandeus`: a model's default equipment not read (Legends PDF)
+- `imperial-agents.kill-team-cassius`: default equipment not read (Legends PDF)
+- `imperial-agents.proteus-kill-team`: a model's default equipment not read (Legends PDF)
+- `necrons.night-shroud`: default equipment not read (Legends PDF)
+- `necrons.tomb-citadel-walls`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.assault-squad-with-jump-packs`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.assault-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.bike-squad`: a model's default equipment not read (Legends PDF)
+- `space-marines.command-squad`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `space-marines.command-squad`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `space-marines.company-veterans-on-bikes`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.company-veterans-on-bikes`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.fire-raptor-gunship`: default equipment not read (Legends PDF)
+- `space-marines.relic-terminator-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.scout-sniper-squad`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `space-marines.storm-eagle-gunship`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `space-marines.techmarine-on-bike`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-wolves.stormwolf`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-wolves.wolf-guard-pack-leader-in-terminator-armour`: option not typed: its choices did not read as wargear (Legends PDF)
+- `space-wolves.wolf-guard-pack-leader-in-terminator-armour`: option not typed: its choices did not read as wargear (Legends PDF)
+- `space-wolves.wolf-guard-pack-leader-with-jump-pack`: option not typed: its choices did not read as wargear (Legends PDF)
+- `space-wolves.wolf-guard-pack-leader`: option not typed: its choices did not read as wargear (Legends PDF)
+- `space-wolves.wolf-guard`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `tau-empire.aunva`: default equipment not typed (Legends PDF)
+- `tau-empire.commander-in-crisis-battlesuit`: option not typed: its choices did not read as wargear (Legends PDF)
+- `tau-empire.commander-in-crisis-battlesuit`: option not typed: its choices did not read as wargear (Legends PDF)
+- `tau-empire.crisis-battlesuits`: option not typed: its choices did not read as wargear (Legends PDF)
+- `tau-empire.crisis-battlesuits`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `tau-empire.xv9-hazard-battlesuits`: option not typed: its choices did not read as wargear (Legends PDF)
+- `unaligned-forces.aegis-defence-line-with-weapon-emplacement`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `unaligned-forces.castellum-stronghold`: option not typed: its choices did not read as wargear (Legends PDF)
+- `unaligned-forces.imperial-fortress-walls`: default equipment not typed (Legends PDF)

@@ -10,59 +10,11 @@
     "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Khorne Daemonkin",
     "cp": 1,
-    "summary": "Either Fight Phase, or the Shooting Phase on your opponent’s turn. Once an enemy unit picks its targets, choose a WORLD EATERS unit of yours among those targets. Also choose a different BLOOD LEGIONS unit of yours within 6″ of the first. Through this phase, give models in your chosen WORLD EATERS unit a 5+ invulnerable save. Your army’s active Boon of Blood raises it to 4+.",
-    "summarySpans": [
-      {
-        "start": 7,
-        "end": 18,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 27,
-        "end": 41,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 114,
-        "end": 126,
-        "bold": true
-      },
-      {
-        "start": 186,
-        "end": 199,
-        "bold": true
-      },
-      {
-        "start": 285,
-        "end": 297,
-        "bold": true
-      },
-      {
-        "start": 346,
-        "end": 359,
-        "target": {
-          "kind": "ability",
-          "id": "world-eaters.khorne-daemonkin.blood-tithe"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in the opposing player's Shooting phase or in the Fight phase of either player's turn, immediately after an enemy unit chooses its targets. Pick one of your BLOOD LEGIONS units that lies 6\" or less from one of your WORLD EATERS units that the enemy unit targeted with at least one attack. For the rest of the phase, that WORLD EATERS unit's models get a 5+ invulnerable save, improved to 4+ while your army's Boon of Blood is in effect.",
     "citations": [
       {
         "type": "app",
@@ -75,133 +27,51 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "sequence",
-            "steps": [
-              {
-                "type": "invulnerable-save",
-                "target": {
-                  "stratagem_target": "second"
-                },
-                "modifier": {
-                  "invuln_sv": 5
-                }
-              },
-              {
-                "type": "conditional",
-                "condition": {
-                  "type": "rule-active",
-                  "parameters": {
-                    "rule": "boon-of-blood-world-eaters"
-                  }
-                },
-                "effect": {
-                  "type": "invulnerable-save",
-                  "target": {
-                    "stratagem_target": "second"
-                  },
-                  "modifier": {
-                    "invuln_sv": 4
-                  }
-                }
-              }
-            ]
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "trigger": {
-            "event": "targets-selected",
-            "filter": {
-              "kind": "attack"
-            },
-            "subject": {
-              "owner": "enemy"
-            },
-            "object": {
-              "stratagem_target": "second"
-            }
-          },
-          "behavior": "reactive"
-        },
         "stratagem": {
-          "id": "blessing-of-burning-blood-khorne-daemonkin-world-eaters",
-          "cp_cost": 1,
-          "phases": [
-            "fight",
-            "shooting"
-          ],
-          "player_turn": "either",
-          "timing": "once-per-phase",
-          "type": "battle-tactic",
-          "target_restrictions": [
+          "cpCost": 1,
+          "detachment": "Khorne Daemonkin",
+          "type": "Battle Tactic",
+          "windows": [
             {
-              "required_keywords": [
-                "Blood Legions"
-              ],
-              "name": "first",
-              "count": "one",
-              "side": "your-army",
-              "selects": "unit",
-              "eligibility": {
-                "operator": "and",
-                "operands": [
-                  {
-                    "type": "matches",
-                    "parameters": {
-                      "filter": {
-                        "owner": "friendly"
-                      }
-                    }
-                  },
-                  {
-                    "type": "matches",
-                    "parameters": {
-                      "filter": {
-                        "within": {
-                          "of": {
-                            "stratagem_target": "second"
-                          },
-                          "range": {
-                            "inches": 6
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              }
+              "turn": "opponent",
+              "phase": "shooting"
             },
             {
-              "required_keywords": [
-                "World Eaters"
-              ],
-              "name": "second",
-              "count": "one",
-              "side": "your-army",
-              "selects": "unit",
-              "bound_to": "attacked-unit",
-              "eligibility": {
-                "operator": "not",
-                "operands": [
-                  {
-                    "type": "same-unit",
-                    "parameters": {
-                      "as": {
-                        "stratagem_target": "first"
-                      }
-                    }
-                  }
-                ]
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
+          "timing": "after-enemy-unit-selects-targets",
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "BLOOD LEGIONS"
+            ],
+            "within": {
+              "inches": 6,
+              "of": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "WORLD EATERS"
+                ],
+                "targetedByThatEnemyUnit": true
               }
             }
-          ]
-        },
-        "valueRoles": {
-          "6": "distance between the two friendly targets",
-          "5+": "normal invulnerable save",
-          "4+": "Boon of Blood replacement save"
+          },
+          "effects": [
+            {
+              "appliesTo": "that-world-eaters-unit",
+              "invulnerableSave": "5+"
+            },
+            {
+              "appliesTo": "that-world-eaters-unit",
+              "condition": "army-boon-of-blood-active",
+              "invulnerableSave": "4+",
+              "replacesPrevious": true
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

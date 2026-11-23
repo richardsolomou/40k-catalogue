@@ -10,52 +10,20 @@
     "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Gate Warden Lance",
     "cp": 1,
-    "summary": "Your Shooting Phase. Choose an IMPERIAL KNIGHTS TITANIC unit of yours in your Defensive Line that already Remained Stationary during this turn and has yet to be picked to shoot. For the phase, its models’ ranged weapons gain [SUSTAINED HITS 2].",
+    "summary": "Spend 1 CP in your Shooting phase. Pick one of your IMPERIAL KNIGHTS TITANIC units which Remained Stationary earlier this turn, has not yet been chosen to shoot this phase and stands on your defensive line. For the rest of the phase, the ranged weapons its models carry have [SUSTAINED HITS 2].",
     "summarySpans": [
       {
-        "start": 5,
-        "end": 19,
+        "start": 275,
+        "end": 293,
+        "bold": true,
         "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
+          "kind": "weapon-ability",
+          "id": "sustained-hits"
         }
-      },
-      {
-        "start": 31,
-        "end": 55,
-        "bold": true
-      },
-      {
-        "start": 78,
-        "end": 92,
-        "target": {
-          "kind": "ability",
-          "id": "imperial-knights.gate-warden-lance.dauntless-defenders"
-        }
-      },
-      {
-        "start": 106,
-        "end": 125,
-        "target": {
-          "kind": "core-rule",
-          "id": "remain-stationary"
-        }
-      },
-      {
-        "start": 225,
-        "end": 243,
-        "bold": true
       }
     ],
     "citations": [
@@ -70,102 +38,37 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "weapon-ability-grant",
-            "target": "this-unit",
-            "modifier": {
-              "keywords": [
-                {
-                  "keyword_id": "sustained-hits",
-                  "parameters": {
-                    "value": 2
-                  }
-                }
-              ],
-              "weapons": {
-                "type": "ranged"
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Gate Warden Lance",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "IMPERIAL KNIGHTS",
+              "TITANIC"
+            ],
+            "remainedStationaryThisTurn": true,
+            "onYourDefensiveLine": true,
+            "notSelectedToShootThisPhase": true
+          },
+          "effects": [
+            {
+              "weapons": "ranged",
+              "grantWeaponAbility": {
+                "ability": "SUSTAINED HITS",
+                "value": 2
               }
             }
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "behavior": "activated"
-        },
-        "stratagem": {
-          "id": "titanic-bombardment-gate-warden-lance-imperial-knights",
-          "cp_cost": 1,
-          "phases": [
-            "shooting"
           ],
-          "player_turn": "your-turn",
-          "timing": "once-per-phase",
-          "type": "battle-tactic",
-          "target_restrictions": {
-            "required_keywords": [
-              "Imperial Knights",
-              "Titanic"
-            ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "owner": "friendly"
-                    }
-                  }
-                },
-                {
-                  "type": "happened",
-                  "parameters": {
-                    "event": "move-ended",
-                    "filter": {
-                      "move_types": [
-                        "remain-stationary"
-                      ]
-                    },
-                    "window": "turn"
-                  }
-                },
-                {
-                  "type": "in-region",
-                  "parameters": {
-                    "subject": "this-unit",
-                    "region": {
-                      "rule_region": {
-                        "region_id": "defensive-line",
-                        "owner_faction": "imperial-knights"
-                      }
-                    }
-                  }
-                },
-                {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "type": "happened",
-                      "parameters": {
-                        "event": "selected",
-                        "filter": {
-                          "to": "shoot"
-                        },
-                        "window": "phase"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "valueRoles": {
-          "2": "Sustained Hits grant parameter"
+          "duration": "end-of-phase"
         }
       }
     }

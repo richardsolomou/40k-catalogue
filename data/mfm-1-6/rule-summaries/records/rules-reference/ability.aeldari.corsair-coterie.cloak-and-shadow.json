@@ -10,35 +10,16 @@
     "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Corsair Coterie",
     "cp": 1,
-    "summary": "Opponent’s Shooting Phase. After an enemy unit picks its shooting targets, choose an AELDARI INFANTRY unit of yours it picked. Your army must control an objective marker with its range reaching that unit. Through this phase it gains Stealth, and enemy models more than 18″ away cannot pick it as a ranged attack target.",
+    "summary": "Spend 1 CP in the Shooting phase of your opponent's turn, as soon as an enemy unit has chosen its targets. Pick one of your AELDARI INFANTRY units that the enemy unit chose as a target for at least one attack and that sits within range of one of the objective markers you control. Until the phase ends, its models have Stealth, and only models within 18\" of it may aim ranged attacks at it.",
     "summarySpans": [
       {
-        "start": 11,
-        "end": 25,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 85,
-        "end": 101,
-        "bold": true
-      },
-      {
-        "start": 233,
-        "end": 240,
+        "start": 319,
+        "end": 326,
+        "bold": true,
         "target": {
           "kind": "core-ability",
           "id": "stealth"
@@ -57,118 +38,37 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "sequence",
-            "steps": [
-              {
-                "type": "ability-grant",
-                "target": "this-unit",
-                "modifier": {
-                  "ability": "stealth"
-                }
-              },
-              {
-                "type": "conditional",
-                "condition": {
-                  "type": "matches",
-                  "parameters": {
-                    "subject": "attacker",
-                    "filter": {
-                      "within": {
-                        "of": "this-unit",
-                        "range": {
-                          "inches": 18
-                        }
-                      }
-                    }
-                  }
-                },
-                "effect": {
-                  "type": "targeting",
-                  "target": {
-                    "owner": "enemy"
-                  },
-                  "modifier": {
-                    "by": {
-                      "owner": "enemy"
-                    },
-                    "may": "target",
-                    "kind": "attack",
-                    "weapons": {
-                      "type": "ranged"
-                    },
-                    "target": "this-unit"
-                  }
-                }
-              }
-            ]
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "trigger": {
-            "event": "targets-selected",
-            "filter": {
-              "kind": "attack"
-            },
-            "subject": {
-              "owner": "enemy"
-            },
-            "object": "this-unit"
-          },
-          "behavior": "reactive"
-        },
         "stratagem": {
-          "id": "cloak-and-shadow-corsair-coterie-aeldari",
-          "cp_cost": 1,
-          "phases": [
-            "shooting"
-          ],
-          "player_turn": "opponent-turn",
-          "timing": "once-per-phase",
-          "type": "strategic-ploy",
-          "target_restrictions": {
-            "required_keywords": [
-              "Aeldari",
-              "Infantry"
-            ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "bound_to": "attacked-unit",
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "owner": "friendly"
-                    }
-                  }
-                },
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "within": {
-                        "of": {
-                          "objective": {
-                            "controlled_by": "friendly"
-                          }
-                        },
-                        "range": "objective-control"
-                      }
-                    }
-                  }
-                }
-              ]
+          "cpCost": 1,
+          "detachment": "Corsair Coterie",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "after-enemy-unit-selects-targets"
             }
-          }
-        },
-        "valueRoles": {
-          "18": "maximum range of enemy attacking model"
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "AELDARI",
+              "INFANTRY"
+            ],
+            "targetedByThatEnemyUnit": true,
+            "withinRangeOfObjectiveYouControl": true
+          },
+          "effects": [
+            {
+              "grantAbility": "Stealth",
+              "to": "target-unit-models"
+            },
+            {
+              "rangedAttacksAgainstUnitOnlyFromWithinInches": 18
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

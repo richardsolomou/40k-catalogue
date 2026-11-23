@@ -208,3 +208,47 @@ test("a Stratagem's moment names a typed event", () => {
     ],
   );
 });
+
+const EFFECTS = {
+  format: "vs-data-facts",
+  version: "1",
+  fields: {
+    grants: { abilities: [{ ability: "Feel No Pain 5+", to: "unit", whileAttached: true, against: ["mortal-wounds"] }] },
+    weaponAbilities: [{ ability: "LETHAL HITS", attacks: ["melee"], to: "led-unit" }],
+    reminder: { timings: [{ at: "phase-start", phase: "shooting", turn: "own" }] },
+    combat: {
+      applies: { target: { anyOf: [["INFANTRY"]] }, leading: true },
+      readings: [
+        { choices: [{ conditions: [{ kind: "leading" }], effects: [{ role: "attacker", attacks: ["melee"], rolls: { hitModifier: 1 } }] }], default: 1, roles: ["attacker"] },
+        { roles: ["attacker"] },
+      ],
+      trees: [[{ ask: { unitHas: "INFANTRY" }, yes: 1, no: 2 }, { reading: 0 }, { reading: 1 }]],
+      contexts: { "own.many.known": 0, "leading.many.known": 0 },
+    },
+  },
+};
+
+test("an ability's effect blocks give its grants, weapon abilities, reminders and combat readings", () => {
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = EFFECTS)), []);
+});
+
+test("a combat reading's trees and contexts point at entries that exist", () => {
+  const broken = structuredClone(EFFECTS);
+  broken.fields.combat.trees[0]![2] = { reading: 2 } as never;
+  (broken.fields.combat.contexts as Record<string, number>)["army.one.known"] = 1;
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = broken)), [
+    `ability:${OATH.id} facts/combat/trees/0/2 names a reading that does not exist`,
+    `ability:${OATH.id} facts/combat/contexts/army.one.known names a tree that does not exist`,
+  ]);
+});
+
+test("an effect names only the fields the format lists", () => {
+  const unknown = structuredClone(EFFECTS);
+  (unknown.fields.combat.readings[0]!.choices![0]!.effects[0] as Record<string, unknown>).reroll = "all";
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = unknown)).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0 must NOT have additional properties`));
+});
+
+test("rules the facts name are references of the record", () => {
+  const named = { ...EFFECTS, fields: { ...EFFECTS.fields, references: [{ kind: "ability", id: VOLLEY }] } };
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = named)), [`ability:${OATH.id} facts name ability:${VOLLEY} but its identity entry does not reference it`]);
+});

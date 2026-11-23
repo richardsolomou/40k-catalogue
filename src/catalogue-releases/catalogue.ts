@@ -9,7 +9,7 @@ import missionPackSchema from "../mission-packs/mission-pack.v1.schema.json" wit
 import pointsHistorySchema from "../points/history.v1.schema.json" with { type: "json" };
 import pointsSchema from "../points/points.v1.schema.json" with { type: "json" };
 import factsSchema from "../rule-summaries/facts.v1.schema.json" with { type: "json" };
-import summariesSchema from "../rule-summaries/summaries.v1.schema.json" with { type: "json" };
+import summariesSchema from "../rule-summaries/summaries.v2.schema.json" with { type: "json" };
 import { canonicalJson, checkReleaseFiles, releaseFiles, sha256, type ReleaseFiles } from "../releases/release.ts";
 import rosterSchema from "../roster-definitions/definitions.v1.schema.json" with { type: "json" };
 import terrainSchema from "../terrain/terrain.v1.schema.json" with { type: "json" };
@@ -73,7 +73,7 @@ const SCHEMAS = new Map<string, object>([
   ["schema/points/points.v1.schema.json", pointsSchema],
   ["schema/roster-definitions/definitions.v1.schema.json", rosterSchema],
   ["schema/rule-summaries/facts.v1.schema.json", factsSchema],
-  ["schema/rule-summaries/summaries.v1.schema.json", summariesSchema],
+  ["schema/rule-summaries/summaries.v2.schema.json", summariesSchema],
   ["schema/terrain/terrain.v1.schema.json", terrainSchema],
 ]);
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/richardsolomou/vs-data/src/rule-summaries/summaries.v1.schema.json",
-  "title": "Rule summary record data, format version 1",
+  "$id": "https://github.com/richardsolomou/vs-data/src/rule-summaries/summaries.v2.schema.json",
+  "title": "Rule summary record data, format version 2",
   "$defs": {
     "text": { "type": "string", "pattern": "\\S" },
     "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
@@ -15,22 +15,6 @@
     "phase": { "enum": ["command", "movement", "shooting", "charge", "fight", "end-of-turn"] },
     "turn": { "enum": ["own", "opponent", "any"] },
     "card": { "enum": ["primary", "secondary"] },
-    "summarySpans": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["start", "end"],
-        "anyOf": [{ "required": ["bold"] }, { "required": ["target"] }],
-        "properties": {
-          "start": { "type": "integer", "minimum": 0 },
-          "end": { "type": "integer", "minimum": 1 },
-          "bold": { "const": true },
-          "target": { "$ref": "#/$defs/ref" }
-        }
-      }
-    },
     "citation": {
       "oneOf": [
         {
@@ -62,8 +46,7 @@
       "type": "object",
       "required": ["summary", "citations"],
       "properties": {
-        "summary": { "$ref": "#/$defs/text" },
-        "summarySpans": { "$ref": "#/$defs/summarySpans" },
+        "summary": { "$ref": "#/$defs/text", "description": "Markdown limited to the summary grammar in docs/rule-summaries.md; validateSummaries parses it." },
         "citations": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/citation" } },
         "interpretation": {
           "type": "array",

@@ -7,7 +7,8 @@ import { test } from "node:test";
 import type { Release } from "../src/catalogue-identity/identity.ts";
 import { buildCatalogueRelease, type CatalogueRecord, type Manifest } from "../src/catalogue-releases/catalogue.ts";
 import type { ReleaseFiles } from "../src/releases/release.ts";
-import { validateSummaries } from "../src/rule-summaries/summaries.ts";
+import { parseSummary, plain, validateSummaries } from "../src/rule-summaries/summaries.ts";
+import { commonmark } from "./commonmark.ts";
 
 const fixtures = fileURLToPath(new URL("../fixtures/rule-summaries/", import.meta.url));
 const json = (path: string): any => JSON.parse(readFileSync(join(fixtures, path), "utf8"));
@@ -44,7 +45,7 @@ test("the synthetic summaries validate and list the FAQ that amends a rule", () 
 
 test("rules reference and mission rules build as categories, with undrafted entries unresolved", () => {
   const files = build();
-  assert.ok(files.has("schema/rule-summaries/summaries.v1.schema.json"));
+  assert.ok(files.has("schema/rule-summaries/summaries.v2.schema.json"));
   const rules = category(files, "rules-reference");
   const missions = category(files, "mission-rules");
   assert.deepEqual(
@@ -112,18 +113,37 @@ test("a Stratagem's windows give each of its phases a turn, and differ", () => {
   );
 });
 
-test("a summary span must lie within the summary", () => {
+test("a summary must follow the summary grammar", () => {
   assert.deepEqual(
-    errors((_, recs) => (data(recs, "weapon-ability", "synthetic.searing").summarySpans[0].end = 500)),
-    ["weapon-ability:synthetic.searing span 0 does not lie within the summary"],
+    errors((_, recs) => (data(recs, "weapon-ability", "synthetic.searing").summary = "Searing is _hot_.")),
+    ["weapon-ability:synthetic.searing summary block 1 uses markup outside the summary grammar (_)"],
   );
 });
 
-test("summary spans must not overlap", () => {
+test("a summary link must point to a catalogue entry", () => {
   assert.deepEqual(
-    errors((_, recs) => (data(recs, "ability", OATH.id).summarySpans[1].start = 30)),
-    [`ability:${OATH.id} span 1 overlaps or precedes the span before it`],
+    errors((_, recs) => (data(recs, "weapon-ability", "synthetic.searing").summary = "See [the codex](https://example.com).")),
+    ["weapon-ability:synthetic.searing summary block 1 uses markup outside the summary grammar (https://)"],
   );
+});
+
+test("the summary grammar rejects what CommonMark would read as other markup or merge", () => {
+  const rejected = ["# Heading", "> Quote", "Two\n\n\nblank lines", "- a\n\n- b", "Lead\n- item", "2. starts at two", "- - nested", "a *b*", "a ***b***", "**open", "[x](vsdata:Bad/id)", "![x](vsdata:a/b)", "`code`", "<b>x</b>", "x &amp; y", "trailing \nspace"];
+  assert.deepEqual(rejected.filter((summary) => parseSummary(summary).ok), []);
+});
+
+test("plain text keeps the summary's blocks and drops its markup", () => {
+  assert.equal(
+    plain(data(records(), "core-rule", "synthetic.shooting-phase").summary),
+    "In your Shooting phase, each of your units that is eligible to shoot shoots in turn.\n\nFor each unit:\n\n1. Select targets for its ranged weapons.\n2. Resolve those attacks.\n3. Select the next unit.\n\nA unit that has no eligible target cannot be selected.",
+  );
+});
+
+test("CommonMark reads every fixture summary as the strict parser does", () => {
+  for (const record of records()) {
+    const parsed = parseSummary((record.data as { summary: string }).summary);
+    assert.deepEqual(parsed.ok && parsed.blocks, commonmark((record.data as { summary: string }).summary), record.id);
+  }
 });
 
 test("a linked rule must be a reference of the record's identity entry", () => {

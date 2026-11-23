@@ -4,12 +4,14 @@ import schema from "./release.v1.schema.json" with { type: "json" };
 // Mirrors release.v1.schema.json, which is the contract consumers rely on.
 export type RulesVersion = { edition: string; update: string };
 export type Ref = { kind: string; id: string };
+export type Source = { title: string; page?: string; url?: string };
 export type Entry = {
   kind: string;
   id: string;
   name: string;
   aliases?: string[];
-  retired?: { replacedBy: string[] };
+  /** `sources` names the publications that retired the entry, such as the document superseding an FAQ. */
+  retired?: { replacedBy: string[]; sources?: Source[] };
   references?: Ref[];
 };
 export type Release = { formatVersion: 1; rulesVersion: RulesVersion; revision: number; entries: Entry[] };

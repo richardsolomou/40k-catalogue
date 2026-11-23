@@ -10,21 +10,14 @@
     "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "enhancement",
     "group": "Rad-Zone Corps",
-    "summary": "While this model is leading a unit, grant Stealth to this unit.",
+    "summary": "For an ADEPTUS MECHANICUS model. As long as the bearer leads a unit, the models of that unit gain the Stealth ability.",
     "summarySpans": [
       {
-        "start": 42,
-        "end": 49,
+        "start": 102,
+        "end": 109,
         "bold": true,
         "target": {
           "kind": "core-ability",
@@ -42,28 +35,24 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "always"
-        },
-        "target": {
-          "unit": "this-unit"
-        },
-        "conditions": [
-          {
-            "kind": "source-model-leading"
-          }
-        ],
-        "effect": {
-          "kind": "grant-abilities",
-          "abilities": [
-            {
-              "ability": "stealth"
-            }
+        "kind": "enhancement",
+        "detachment": "Rad-Zone Corps",
+        "pointsCost": 20,
+        "eligibility": {
+          "scope": "model",
+          "keywordsAll": [
+            "ADEPTUS MECHANICUS"
           ]
-        }
+        },
+        "effects": [
+          {
+            "condition": "bearer-leading-a-unit",
+            "appliesTo": "led-unit-models",
+            "grantAbility": "Stealth"
+          }
+        ]
       }
     }
   }

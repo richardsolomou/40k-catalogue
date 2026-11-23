@@ -10,49 +10,11 @@
     "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Gate Warden Lance",
     "cp": 1,
-    "summary": "Your Shooting Phase or either Fight Phase. Choose an IMPERIAL KNIGHTS unit of yours that has yet to be picked to shoot or fight in that phase. For the phase, its models score Critical Hits on unmodified Hit rolls of 5+ against targets in your Defensive Line.",
-    "summarySpans": [
-      {
-        "start": 5,
-        "end": 19,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 30,
-        "end": 41,
-        "target": {
-          "kind": "core-rule",
-          "id": "fight-phase"
-        }
-      },
-      {
-        "start": 53,
-        "end": 69,
-        "bold": true
-      },
-      {
-        "start": 243,
-        "end": 257,
-        "target": {
-          "kind": "ability",
-          "id": "imperial-knights.gate-warden-lance.dauntless-defenders"
-        }
-      }
-    ],
+    "summary": "Spend 1 CP in your Shooting phase or in the Fight phase of either player's turn. Pick one of your IMPERIAL KNIGHTS units that has not yet been chosen to shoot or to fight this phase. For the rest of the phase, whenever one of its models attacks an enemy unit that is on your defensive line, it scores a Critical Hit on a Hit roll of 5+ before any modifiers.",
     "citations": [
       {
         "type": "app",
@@ -65,99 +27,40 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "conditional",
-            "condition": {
-              "type": "in-region",
-              "parameters": {
-                "subject": "defender",
-                "region": {
-                  "rule_region": {
-                    "region_id": "defensive-line",
-                    "owner_faction": "imperial-knights"
-                  }
-                }
-              }
-            },
-            "effect": {
-              "type": "roll-result",
-              "target": "this-unit",
-              "modifier": {
-                "roll": "hit",
-                "critical_on": 5
-              }
-            }
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "behavior": "activated"
-        },
         "stratagem": {
-          "id": "drive-them-out-gate-warden-lance-imperial-knights",
-          "cp_cost": 1,
-          "phases": [
-            "fight",
-            "shooting"
-          ],
-          "player_turn": "either",
-          "timing": "once-per-phase",
-          "type": "battle-tactic",
-          "target_restrictions": {
-            "required_keywords": [
-              "Imperial Knights"
-            ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "eligibility": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "owner": "friendly"
-                    }
-                  }
-                },
-                {
-                  "operator": "not",
-                  "operands": [
-                    {
-                      "operator": "or",
-                      "operands": [
-                        {
-                          "type": "happened",
-                          "parameters": {
-                            "event": "selected",
-                            "filter": {
-                              "to": "fight"
-                            },
-                            "window": "phase"
-                          }
-                        },
-                        {
-                          "type": "happened",
-                          "parameters": {
-                            "event": "selected",
-                            "filter": {
-                              "to": "shoot"
-                            },
-                            "window": "phase"
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
+          "cpCost": 1,
+          "detachment": "Gate Warden Lance",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          }
-        },
-        "valueRoles": {
-          "5+": "unmodified Hit-roll critical threshold"
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "IMPERIAL KNIGHTS"
+            ],
+            "notSelectedToShootOrFightThisPhase": true
+          },
+          "effects": [
+            {
+              "condition": {
+                "targetOnYourDefensiveLine": true
+              },
+              "criticalHit": {
+                "roll": "hit",
+                "unmodifiedAtLeast": 5
+              }
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

@@ -10,27 +10,15 @@
     "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Death Lord’s Chosen",
     "cp": 1,
-    "summary": "During your Shooting phase, you can use this to select one friendly Terminator unit that has not been selected to shoot this phase, then grant [ASSAULT] and [HEAVY] to ranged weapons equipped by models in the selected unit until the end of the phase. Use once per phase.",
+    "summary": "Spend 1 CP in your Shooting phase and pick one of your TERMINATOR units that is not yet chosen to shoot in this phase. For the rest of the phase, the ranged weapons its models carry gain both [ASSAULT] and [HEAVY].",
     "summarySpans": [
       {
-        "start": 68,
-        "end": 78,
-        "bold": true
-      },
-      {
-        "start": 144,
-        "end": 151,
+        "start": 192,
+        "end": 201,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -38,8 +26,8 @@
         }
       },
       {
-        "start": 158,
-        "end": 163,
+        "start": 206,
+        "end": 213,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -57,53 +45,36 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "use"
-        },
-        "target": {
-          "select": {
-            "side": "friendly",
-            "keywords": [
-              "Terminator"
-            ]
-          }
-        },
-        "conditions": [
-          {
-            "kind": "not-selected",
-            "unit": "target",
-            "to": [
-              "shoot"
-            ]
-          }
-        ],
-        "effect": {
-          "kind": "grant-weapon-abilities",
-          "abilities": [
-            {
-              "ability": "assault"
-            },
-            {
-              "ability": "heavy"
-            }
-          ],
-          "weapons": "ranged"
-        },
-        "duration": {
-          "until": "end-of-phase"
-        },
-        "usage": {
-          "cp": 1,
+        "stratagem": {
+          "cpCost": 1,
+          "detachment": "Death Lord’s Chosen",
+          "type": "Strategic Ploy",
           "windows": [
             {
-              "phase": "shooting",
-              "turn": "own"
+              "turn": "own",
+              "phase": "shooting"
             }
           ],
-          "oncePerPhase": true
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "TERMINATOR"
+            ],
+            "notSelectedToShootThisPhase": true
+          },
+          "effects": [
+            {
+              "weapons": "ranged",
+              "grantWeaponAbilities": [
+                "ASSAULT",
+                "HEAVY"
+              ]
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

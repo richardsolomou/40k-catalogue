@@ -10,33 +10,11 @@
     "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "stratagem",
     "group": "Kroot Hunting Pack",
     "cp": 1,
-    "summary": "Opponent’s Shooting Phase. React once an enemy unit has picked its shooting targets. Choose one of the KROOT units it picked from your army. Through this phase, enemy models more than 18″ away cannot choose your unit for ranged attacks.",
-    "summarySpans": [
-      {
-        "start": 11,
-        "end": 25,
-        "target": {
-          "kind": "core-rule",
-          "id": "shooting-phase"
-        }
-      },
-      {
-        "start": 103,
-        "end": 108,
-        "bold": true
-      }
-    ],
+    "summary": "Spend 1 CP in the Shooting phase of your opponent's turn, as soon as an enemy unit has chosen its targets. Pick one KROOT unit of yours that the enemy unit chose as a target for at least one attack. Until the phase ends, only models within 18\" of it may aim ranged attacks at it.",
     "citations": [
       {
         "type": "app",
@@ -49,90 +27,31 @@
     "facts": {
       "format": "catalogue-core-facts",
       "fields": {
-        "ability": {
-          "effect": {
-            "type": "conditional",
-            "condition": {
-              "type": "matches",
-              "parameters": {
-                "subject": "attacker",
-                "filter": {
-                  "within": {
-                    "of": "this-unit",
-                    "range": {
-                      "inches": 18
-                    }
-                  }
-                }
-              }
-            },
-            "effect": {
-              "type": "targeting",
-              "target": {
-                "owner": "enemy"
-              },
-              "modifier": {
-                "by": {
-                  "owner": "enemy"
-                },
-                "may": "target",
-                "kind": "attack",
-                "weapons": {
-                  "type": "ranged"
-                },
-                "target": "this-unit"
-              }
-            }
-          },
-          "scope": {
-            "duration": "phase"
-          },
-          "trigger": {
-            "event": "targets-selected",
-            "filter": {
-              "kind": "attack"
-            },
-            "subject": {
-              "owner": "enemy"
-            },
-            "object": "this-unit"
-          },
-          "applies_to": {
-            "all_of": [
-              "KROOT"
-            ]
-          },
-          "behavior": "reactive"
-        },
         "stratagem": {
-          "id": "hidden-hunters-kroot-hunting-pack-tau-empire",
-          "cp_cost": 1,
-          "phases": [
-            "shooting"
-          ],
-          "player_turn": "opponent-turn",
-          "timing": "once-per-phase",
-          "type": "strategic-ploy",
-          "target_restrictions": {
-            "required_keywords": [
-              "Kroot"
-            ],
-            "count": "one",
-            "side": "your-army",
-            "selects": "unit",
-            "bound_to": "attacked-unit",
-            "eligibility": {
-              "type": "matches",
-              "parameters": {
-                "filter": {
-                  "owner": "friendly"
-                }
-              }
+          "cpCost": 1,
+          "detachment": "Kroot Hunting Pack",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "after-enemy-unit-selects-targets"
             }
-          }
-        },
-        "valueRoles": {
-          "18": "maximum range of enemy attacking model"
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "KROOT"
+            ],
+            "targetedByThatEnemyUnit": true
+          },
+          "effects": [
+            {
+              "rangedAttacksAgainstUnitOnlyFromWithinInches": 18
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

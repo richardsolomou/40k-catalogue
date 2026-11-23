@@ -10,21 +10,14 @@
     "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
-  "attribution": {
-    "url": "https://github.com/wn-mitch/40kdc-data/tree/0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "revision": "0be661cbdc1de16ad4137b9e000265b2d6c6c7ad",
-    "credit": "Alpaca Software and the 40kdc community contributors",
-    "licence": "https://creativecommons.org/licenses/by/4.0/legalcode",
-    "changes": "Structured ability fields mapped to typed facts and linked to VS Data catalogue IDs."
-  },
   "data": {
     "ruleType": "unit-ability",
     "group": "Cadian Castellan",
-    "summary": "While this model is leading a unit, grant [SUSTAINED HITS 1] to ranged weapons equipped by models in this unit.",
+    "summary": "As long as this model is the leader of a unit, the ranged weapons of models in that unit gain [SUSTAINED HITS 1].",
     "summarySpans": [
       {
-        "start": 43,
-        "end": 59,
+        "start": 94,
+        "end": 112,
         "bold": true,
         "target": {
           "kind": "weapon-ability",
@@ -42,29 +35,20 @@
       }
     ],
     "facts": {
-      "format": "vs-data-mechanic",
-      "version": "1",
+      "format": "catalogue-core-facts",
       "fields": {
-        "trigger": {
-          "kind": "always"
-        },
-        "target": {
-          "unit": "this-unit"
-        },
-        "conditions": [
-          {
-            "kind": "source-model-leading"
-          }
-        ],
-        "effect": {
-          "kind": "grant-weapon-abilities",
-          "abilities": [
+        "ability": {
+          "condition": "this-model-leading-a-unit",
+          "effects": [
             {
-              "ability": "sustained-hits",
-              "value": 1
+              "appliesTo": "led-unit-models",
+              "weapons": "ranged",
+              "grantWeaponAbility": {
+                "ability": "SUSTAINED HITS",
+                "value": 1
+              }
             }
-          ],
-          "weapons": "ranged"
+          ]
         }
       }
     }

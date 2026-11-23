@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-grey-knights.errata.grand-master-voldus-sanctuary-ability",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Grey Knights Faction Pack: Version 1.2",
+    "page": "10",
+    "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_grey_knights-jnrahwb1qf-ubjtmdlivm.pdf#page=10"
+  },
+  "data": {
+    "publication": "Codex: Grey Knights",
+    "amends": [
+      {
+        "kind": "unit",
+        "id": "grey-knights.grand-master-voldus"
+      }
+    ],
+    "summary": "Sanctuary gives Voldus’s unit Stealth and imposes a −1 hit modifier on each melee attack targeting it.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 9,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "grey-knights.grand-master-voldus.sanctuary"
+        }
+      },
+      {
+        "start": 30,
+        "end": 37,
+        "bold": true,
+        "target": {
+          "kind": "core-ability",
+          "id": "stealth"
+        }
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Grey Knights Faction Pack: Version 1.2",
+        "page": "10",
+        "url": "https://assets.warhammer-community.com/eng_30-09_wh40k_faction_pack_grey_knights-jnrahwb1qf-ubjtmdlivm.pdf#page=10"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "2668a3da-9268-414a-9554-59abbefcd788",
+          "typedMechanics": {
+            "operation": "replace-ability",
+            "abilityQid": "ability:grey-knights.grand-master-voldus.sanctuary",
+            "effect": {
+              "effect": {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "ability-grant",
+                    "target": "this-unit",
+                    "modifier": {
+                      "ability": "stealth"
+                    }
+                  },
+                  {
+                    "type": "conditional",
+                    "condition": {
+                      "type": "attack-is",
+                      "parameters": {
+                        "attack_type": "melee"
+                      }
+                    },
+                    "effect": {
+                      "type": "roll-modifier",
+                      "target": "attacker",
+                      "modifier": {
+                        "roll": "hit",
+                        "operation": "subtract",
+                        "value": 1
+                      }
+                    }
+                  }
+                ]
+              },
+              "scope": {
+                "duration": "permanent"
+              },
+              "behavior": "passive"
+            }
+          },
+          "statedValues": [
+            {
+              "kind": "hit-penalty-magnitude",
+              "value": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

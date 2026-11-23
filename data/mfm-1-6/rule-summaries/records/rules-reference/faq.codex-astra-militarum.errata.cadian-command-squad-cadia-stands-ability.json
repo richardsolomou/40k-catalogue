@@ -1,0 +1,118 @@
+{
+  "formatVersion": 1,
+  "kind": "faq",
+  "id": "codex-astra-militarum.errata.cadian-command-squad-cadia-stands-ability",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Astra Militarum Faction Pack: Version 1.0",
+    "page": "27",
+    "url": "https://assets.warhammer-community.com/eng_11-06_warhammer40000_faction_pack_astra_militarum-etf9ihpodv-mbqdsa1bfv.pdf#page=27"
+  },
+  "data": {
+    "publication": "Codex: Astra Militarum",
+    "amends": [
+      {
+        "kind": "unit",
+        "id": "astra-militarum.cadian-command-squad"
+      }
+    ],
+    "summary": "Cadia Stands! allows the Cadian Command Squad to reroll a Battle-shock test while its unit is in range of an objective marker and includes at least one OFFICER model.",
+    "summarySpans": [
+      {
+        "start": 0,
+        "end": 13,
+        "bold": true,
+        "target": {
+          "kind": "ability",
+          "id": "astra-militarum.cadian-command-squad.cadia-stands"
+        }
+      },
+      {
+        "start": 25,
+        "end": 45,
+        "bold": true
+      }
+    ],
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      },
+      {
+        "type": "publisher",
+        "title": "Astra Militarum Faction Pack: Version 1.0",
+        "page": "27",
+        "url": "https://assets.warhammer-community.com/eng_11-06_warhammer40000_faction_pack_astra_militarum-etf9ihpodv-mbqdsa1bfv.pdf#page=27"
+      }
+    ],
+    "facts": {
+      "format": "catalogue-core-facts",
+      "fields": {
+        "faq": {
+          "entryType": "errata",
+          "publicationId": "9d9e408a-a55e-453a-8f70-178801cef1a4",
+          "typedMechanics": {
+            "operation": "replace-ability",
+            "abilityQid": "ability:astra-militarum.cadian-command-squad.cadia-stands",
+            "effect": {
+              "effect": {
+                "type": "conditional",
+                "condition": {
+                  "operator": "and",
+                  "operands": [
+                    {
+                      "type": "model-count",
+                      "parameters": {
+                        "subject": "this-unit",
+                        "keyword": "OFFICER",
+                        "min": 1
+                      }
+                    },
+                    {
+                      "type": "matches",
+                      "parameters": {
+                        "filter": {
+                          "within": {
+                            "of": {
+                              "objective": {}
+                            },
+                            "range": "objective-control"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "re-roll",
+                  "target": "this-unit",
+                  "modifier": {
+                    "roll": "battle-shock",
+                    "result_scope": "any-result"
+                  }
+                }
+              },
+              "scope": {
+                "duration": "permanent"
+              },
+              "optional": true,
+              "behavior": "activated"
+            }
+          },
+          "statedValues": [
+            {
+              "kind": "minimum-officer-models",
+              "value": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

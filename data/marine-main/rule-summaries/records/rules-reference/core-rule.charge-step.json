@@ -74,70 +74,73 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "phase-step",
-        "phase": "charge",
-        "actor": "active-player",
-        "loop": {
-          "unitsAtATime": 1,
-          "until": "all-chosen-units-declared-and-resolved",
-          "optionalPerUnit": true
-        },
-        "subSteps": [
-          {
-            "order": 1,
-            "name": "Declare Charge",
-            "select": {
-              "count": 1,
-              "side": "friendly",
-              "notAlready": "declared-charge-this-phase",
-              "constraint": "eligible-to-declare-charge"
-            },
-            "setsState": "declared-charge"
+        "detail": {
+          "kind": "phase-step",
+          "phase": "charge",
+          "actor": "active-player",
+          "loop": {
+            "unitsAtATime": 1,
+            "until": "all-chosen-units-declared-and-resolved",
+            "optionalPerUnit": true
           },
-          {
-            "order": 2,
-            "name": "Make Charge Roll",
-            "roll": "2D6",
-            "result": "maximum-charge-move-distance"
-          },
-          {
-            "order": 3,
-            "name": "Charge Move",
-            "move": {
-              "if": [
-                "charge-move-possible",
-                "player-still-wants"
-              ],
-              "otherwise": "no-charge-move"
-            },
-            "then": "charge-resolved"
-          }
-        ],
-        "eligibility": {
-          "requires": [
-            "on-battlefield"
-          ],
-          "unlessOtherwiseStated": true,
-          "ineligibleIf": [
+          "subSteps": [
             {
-              "notWithinInches": 12,
-              "of": "one-or-more-enemy-units"
+              "order": 1,
+              "name": "Declare Charge",
+              "select": {
+                "count": 1,
+                "side": "friendly",
+                "notAlready": "declared-charge-this-phase",
+                "constraint": "eligible-to-declare-charge"
+              },
+              "setsState": "declared-charge"
             },
             {
-              "state": "engaged"
+              "order": 2,
+              "name": "Make Charge Roll",
+              "roll": "2D6",
+              "result": "maximum-charge-move-distance"
             },
             {
-              "madeThisTurn": [
-                "advance-move",
-                "fall-back-move"
-              ]
+              "order": 3,
+              "name": "Charge Move",
+              "move": {
+                "if": [
+                  "charge-move-possible",
+                  "player-still-wants"
+                ],
+                "otherwise": "no-charge-move"
+              },
+              "then": "charge-resolved"
             }
-          ]
-        },
-        "noSkip": {
-          "allUnitsSelected": false
+          ],
+          "eligibility": {
+            "requires": [
+              "on-battlefield"
+            ],
+            "unlessOtherwiseStated": true,
+            "ineligibleIf": [
+              {
+                "notWithinInches": 12,
+                "of": "one-or-more-enemy-units"
+              },
+              {
+                "state": "engaged"
+              },
+              {
+                "madeThisTurn": [
+                  "advance-move",
+                  "fall-back-move"
+                ]
+              }
+            ]
+          },
+          "noSkip": {
+            "allUnitsSelected": false
+          }
         }
       }
     }

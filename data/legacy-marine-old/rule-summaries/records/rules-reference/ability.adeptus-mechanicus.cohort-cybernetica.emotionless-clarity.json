@@ -42,49 +42,58 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "characterOnly": true,
-          "keywords": [
-            "TECH-PRIEST"
-          ]
-        },
-        "trigger": {
-          "event": "model-destroyed",
-          "side": "friendly",
-          "rangeInches": 12,
-          "origin": "bearer-model",
-          "comparison": "within",
-          "requiresAbility": "deadly-demise",
-          "anyKeywordGroups": [
-            [
-              "LEGIO CYBERNETICA"
-            ],
-            [
-              "ADEPTUS MECHANICUS",
-              "VEHICLE"
+        "enhancement": {
+          "type": "model",
+          "points": 10,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "TECH-PRIEST"
+                ]
+              }
             ]
-          ]
-        },
-        "limit": {
-          "count": 1,
-          "per": "turn",
-          "owner": "either-player"
-        },
-        "effects": [
-          {
-            "type": "replace-deadly-demise-trigger-roll",
-            "optional": true,
-            "actor": "bearer-model",
-            "source": "destroyed-friendly-model",
-            "replacement": "automatically-trigger-mortal-wounds",
-            "woundAmount": "as-specified-by-destroyed-models-ability",
-            "recipient": "normal-deadly-demise-recipients",
-            "expiry": "triggering-destruction-only"
           }
-        ]
+        },
+        "detail": {
+          "trigger": {
+            "event": "model-destroyed",
+            "side": "friendly",
+            "rangeInches": 12,
+            "origin": "bearer-model",
+            "comparison": "within",
+            "requiresAbility": "deadly-demise",
+            "anyKeywordGroups": [
+              [
+                "LEGIO CYBERNETICA"
+              ],
+              [
+                "ADEPTUS MECHANICUS",
+                "VEHICLE"
+              ]
+            ]
+          },
+          "limit": {
+            "count": 1,
+            "per": "turn",
+            "owner": "either-player"
+          },
+          "effects": [
+            {
+              "type": "replace-deadly-demise-trigger-roll",
+              "optional": true,
+              "actor": "bearer-model",
+              "source": "destroyed-friendly-model",
+              "replacement": "automatically-trigger-mortal-wounds",
+              "woundAmount": "as-specified-by-destroyed-models-ability",
+              "recipient": "normal-deadly-demise-recipients",
+              "expiry": "triggering-destruction-only"
+            }
+          ]
+        }
       }
     }
   }

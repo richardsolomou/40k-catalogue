@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Shadowmark Talon",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "During the enemy Movement phase, use this once an enemy ends its move no more than 8 inches from your ADEPTUS ASTARTES INFANTRY unit. The friendly unit must be unengaged. That friendly unit may make a Normal move with a D6-inch cap. A PHOBOS unit or a Scout Squad uses a fixed cap of 6 inches instead.",
     "summarySpans": [
       {
@@ -59,10 +65,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "unengaged"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "trigger": {
             "turn": "opponent",
             "phases": [

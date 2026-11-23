@@ -58,40 +58,49 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "phase": "command",
-          "player": "self",
-          "timing": "start",
-          "after": "army-wide-drug-selection"
-        },
-        "roll": {
-          "diceCount": 1,
-          "die": "D6",
-          "table": "Combat Drugs"
-        },
-        "application": {
-          "recipient": "bearers-unit",
-          "selection": "rolled-result",
-          "stacksWithArmyEffect": true,
-          "duplicate": {
-            "condition": "rolled-result-already-active-for-army",
-            "additionalEffect": false
-          },
-          "expires": {
-            "point": "start",
-            "phase": "command",
-            "player": "self",
-            "occurrence": "next"
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "SUCCUBUS"
+                ]
+              }
+            ]
           }
         },
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Succubus"
-          ],
-          "excludedKeywords": []
+        "detail": {
+          "trigger": {
+            "phase": "command",
+            "player": "self",
+            "timing": "start",
+            "after": "army-wide-drug-selection"
+          },
+          "roll": {
+            "diceCount": 1,
+            "die": "D6",
+            "table": "Combat Drugs"
+          },
+          "application": {
+            "recipient": "bearers-unit",
+            "selection": "rolled-result",
+            "stacksWithArmyEffect": true,
+            "duplicate": {
+              "condition": "rolled-result-already-active-for-army",
+              "additionalEffect": false
+            },
+            "expires": {
+              "point": "start",
+              "phase": "command",
+              "player": "self",
+              "occurrence": "next"
+            }
+          }
         }
       }
     }

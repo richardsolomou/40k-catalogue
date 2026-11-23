@@ -113,94 +113,97 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "attack-modifier-state",
-        "trigger": {
-          "attack": "ranged",
-          "event": "targets a unit"
-        },
-        "scope": "that attack only",
-        "melee": false,
-        "grantedWhen": {
-          "every": "model in the target unit",
-          "meetsAtLeastOne": [
+        "detail": {
+          "kind": "attack-modifier-state",
+          "trigger": {
+            "attack": "ranged",
+            "event": "targets a unit"
+          },
+          "scope": "that attack only",
+          "melee": false,
+          "grantedWhen": {
+            "every": "model in the target unit",
+            "meetsAtLeastOne": [
+              {
+                "keywordsAny": [
+                  "INFANTRY",
+                  "BEASTS",
+                  "SWARM"
+                ],
+                "and": "within a terrain area"
+              },
+              {
+                "notFullyVisibleTo": "the attacking model",
+                "because": [
+                  "one or more terrain features",
+                  "Obscuring terrain (13.10)"
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "characteristic": "BS",
+            "change": "worsen",
+            "by": 1,
+            "of": "the attack"
+          },
+          "savesChanged": false,
+          "stackingStated": false,
+          "bsFloorPrinted": false,
+          "diagrams": {
+            "printedIn": "p51",
+            "cases": [
+              {
+                "case": "fully visible, no model in terrain",
+                "has": false
+              },
+              {
+                "case": "not every model within a terrain area",
+                "has": false
+              },
+              {
+                "case": "every model within a terrain area",
+                "has": true
+              },
+              {
+                "case": "not fully visible through an Obscuring terrain area",
+                "has": true
+              }
+            ],
+            "bsLabels": 2
+          },
+          "otherSources": [
             {
-              "keywordsAny": [
-                "INFANTRY",
-                "BEASTS",
-                "SWARM"
-              ],
-              "and": "within a terrain area"
+              "ruleNumber": "24.18",
+              "effect": "denies"
             },
             {
-              "notFullyVisibleTo": "the attacking model",
-              "because": [
-                "one or more terrain features",
-                "Obscuring terrain (13.10)"
-              ]
-            }
-          ]
-        },
-        "effect": {
-          "characteristic": "BS",
-          "change": "worsen",
-          "by": 1,
-          "of": "the attack"
-        },
-        "savesChanged": false,
-        "stackingStated": false,
-        "bsFloorPrinted": false,
-        "diagrams": {
-          "printedIn": "p51",
-          "cases": [
-            {
-              "case": "fully visible, no model in terrain",
-              "has": false
+              "ruleNumber": "24.33",
+              "effect": "grants"
             },
             {
-              "case": "not every model within a terrain area",
-              "has": false
+              "ruleNumber": "10.07",
+              "effect": "grants"
             },
             {
-              "case": "every model within a terrain area",
-              "has": true
-            },
-            {
-              "case": "not fully visible through an Obscuring terrain area",
-              "has": true
+              "ruleNumber": "15.10",
+              "effect": "grants"
             }
           ],
-          "bsLabels": 2
-        },
-        "otherSources": [
-          {
-            "ruleNumber": "24.18",
-            "effect": "denies"
+          "faq": "silent",
+          "gdcOnly": {
+            "bsAnnotation": "GDC appends the p51 diagram's two '-1 BS' labels to the two captions that grant cover; consistent with the printed effect",
+            "obscuringCode": "GDC gives 13.10 where print says 'see below'",
+            "adopted": false
           },
-          {
-            "ruleNumber": "24.33",
-            "effect": "grants"
-          },
-          {
-            "ruleNumber": "10.07",
-            "effect": "grants"
-          },
-          {
-            "ruleNumber": "15.10",
-            "effect": "grants"
+          "hitRollOrder": {
+            "rule": "05.01",
+            "unmodifiedSix": "critical-hit-before-comparing-bs",
+            "bsBeyondDieRange": null
           }
-        ],
-        "faq": "silent",
-        "gdcOnly": {
-          "bsAnnotation": "GDC appends the p51 diagram's two '-1 BS' labels to the two captions that grant cover; consistent with the printed effect",
-          "obscuringCode": "GDC gives 13.10 where print says 'see below'",
-          "adopted": false
-        },
-        "hitRollOrder": {
-          "rule": "05.01",
-          "unmodifiedSix": "critical-hit-before-comparing-bs",
-          "bsBeyondDieRange": null
         }
       }
     }

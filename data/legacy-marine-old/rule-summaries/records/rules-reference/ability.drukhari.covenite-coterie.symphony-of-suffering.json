@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Covenite Coterie",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "epic-deed"
+    },
     "summary": "Spend 1 CP in the Fight phase of either turn right after one of your DRUKHARI units has destroyed an enemy unit; target that unit. Every enemy unit that is visible to it and within 9\" of it takes a Battle-shock test, with 1 subtracted from each test if your chosen unit is HAEMONCULUS COVENS.",
     "citations": [
       {
@@ -25,10 +32,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-destroyed-enemy"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "DRUKHARI"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Covenite Coterie",
           "type": "Epic Deed",
           "windows": [

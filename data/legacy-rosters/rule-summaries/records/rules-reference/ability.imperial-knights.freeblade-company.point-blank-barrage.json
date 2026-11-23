@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Freeblade Company",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "In your Shooting phase, choose one friendly IMPERIAL KNIGHTS unit that has yet to be picked to shoot. For the rest of the phase, its ranged weapons can shoot at enemies in its Engagement Range, even when those enemies are also engaged with other friendly units. The Knights ignore the penalty to their Hit rolls for being engaged. For shots against enemies in the Knights’ own Engagement Range, each unmodified 1 on a Hit roll deals 1 mortal wound to the shooting unit after it resolves all its attacks.",
     "summarySpans": [
       {
@@ -55,34 +62,53 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "own"
-        },
-        "target": {
-          "count": 1,
-          "ownership": "friendly",
-          "keyword": "IMPERIAL KNIGHTS",
-          "alreadySelectedToShootThisPhase": false
-        },
-        "effect": {
-          "expiry": "phase end",
-          "rangedTargetPermission": {
-            "engagedWith": "selected Knight unit",
-            "includeTargetsAlsoEngagedWithOtherFriendlyUnits": true
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
           },
-          "ignoreHitPenaltyCause": "selected unit within Engagement Range of one or more enemies",
-          "selfDamage": {
-            "attackTargetWithinShootersEngagementRange": true,
-            "unmodifiedHitRoll": 1,
-            "mortalWoundsPerMatchingRoll": 1,
-            "when": "after all attacks are resolved"
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "IMPERIAL KNIGHTS"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "own"
+          },
+          "target": {
+            "count": 1,
+            "ownership": "friendly",
+            "keyword": "IMPERIAL KNIGHTS",
+            "alreadySelectedToShootThisPhase": false
+          },
+          "effect": {
+            "expiry": "phase end",
+            "rangedTargetPermission": {
+              "engagedWith": "selected Knight unit",
+              "includeTargetsAlsoEngagedWithOtherFriendlyUnits": true
+            },
+            "ignoreHitPenaltyCause": "selected unit within Engagement Range of one or more enemies",
+            "selfDamage": {
+              "attackTargetWithinShootersEngagementRange": true,
+              "unmodifiedHitRoll": 1,
+              "mortalWoundsPerMatchingRoll": 1,
+              "when": "after all attacks are resolved"
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

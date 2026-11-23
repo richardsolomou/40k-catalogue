@@ -66,57 +66,60 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "phase-step",
-        "phase": "movement",
-        "actor": "active-player",
-        "loop": {
-          "unitsAtATime": 1,
-          "until": "all-own-units-selected-to-move",
-          "optionalPerUnit": false
-        },
-        "subSteps": [
-          {
-            "order": 1,
-            "name": "Select Unit",
-            "select": {
-              "count": 1,
-              "side": "friendly",
-              "notAlready": "selected-to-move-this-phase",
-              "locations": [
-                "battlefield",
-                "strategic-reserves",
-                "embarked-within-transport"
-              ]
-            },
-            "setsState": "selected-to-move"
+        "detail": {
+          "kind": "phase-step",
+          "phase": "movement",
+          "actor": "active-player",
+          "loop": {
+            "unitsAtATime": 1,
+            "until": "all-own-units-selected-to-move",
+            "optionalPerUnit": false
           },
-          {
-            "order": 2,
-            "name": "Select Move Type",
-            "choose": {
-              "count": 1,
-              "constraint": "unit-eligible"
+          "subSteps": [
+            {
+              "order": 1,
+              "name": "Select Unit",
+              "select": {
+                "count": 1,
+                "side": "friendly",
+                "notAlready": "selected-to-move-this-phase",
+                "locations": [
+                  "battlefield",
+                  "strategic-reserves",
+                  "embarked-within-transport"
+                ]
+              },
+              "setsState": "selected-to-move"
             },
-            "then": "resolve"
-          }
-        ],
-        "moveTypes": {
-          "listed": [
-            "09.04",
-            "09.05",
-            "09.06",
-            "09.07",
-            "18.04",
-            "20.04"
+            {
+              "order": 2,
+              "name": "Select Move Type",
+              "choose": {
+                "count": 1,
+                "constraint": "unit-eligible"
+              },
+              "then": "resolve"
+            }
           ],
-          "exhaustive": false
-        },
-        "noSkip": {
-          "allUnitsSelected": true,
-          "includes": "strategic-reserves",
-          "evenIfRemainStationary": true
+          "moveTypes": {
+            "listed": [
+              "09.04",
+              "09.05",
+              "09.06",
+              "09.07",
+              "18.04",
+              "20.04"
+            ],
+            "exhaustive": false
+          },
+          "noSkip": {
+            "allUnitsSelected": true,
+            "includes": "strategic-reserves",
+            "evenIfRemainStationary": true
+          }
         }
       }
     }

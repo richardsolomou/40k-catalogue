@@ -64,37 +64,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "unit",
-          "match": "all",
-          "keywords": [
-            "Adeptus Astartes Vehicle"
-          ],
-          "anyOf": [],
-          "excludes": [
-            "Dedicated Transport",
-            "Fly",
-            "Walker"
-          ],
-          "equipment": null,
-          "characterOnly": false,
-          "equipableByNonCharacter": true
-        },
-        "effects": [
-          {
-            "recipient": "upgrade unit",
-            "operation": "grant-invulnerable-save",
-            "target": 5
-          },
-          {
-            "recipient": "upgrade unit",
-            "operation": "heal",
-            "timing": "end of your Command phase",
-            "wounds": 1
+        "enhancement": {
+          "type": "upgrade",
+          "points": 25,
+          "perRoster": 3,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "VEHICLE"
+                ],
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              }
+            ],
+            "excludedKeywords": [
+              "DEDICATED TRANSPORT",
+              "FLY",
+              "WALKER"
+            ],
+            "nonCharacters": true
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "upgrade unit",
+              "target": 5,
+              "kind": "grant-invulnerable-save"
+            },
+            {
+              "recipient": "upgrade unit",
+              "timing": "end of your Command phase",
+              "wounds": 1,
+              "kind": "heal"
+            }
+          ]
+        }
       }
     }
   }

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Warpstrike Champions",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Wait for an enemy to nominate Fight phase targets. Protect one it picked, from MUTILATORS, OBLITERATORS or HERETIC ASTARTES TERMINATOR units. Damage drops by 1 on attacks allocated to the protected unit for the rest of this turn. If a unit receives either Armour of Corruption or Empyric Dislocation, the other is unavailable to it that phase.",
     "summarySpans": [
       {
@@ -66,37 +73,73 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 2,
-        "window": [
-          "Fight phase",
-          "after enemy selects targets"
-        ],
-        "target": {
-          "anyOf": [
-            "HERETIC ASTARTES TERMINATOR",
-            "OBLITERATORS",
-            "MUTILATORS"
-          ],
-          "count": 1,
-          "selectedBy": "attacking unit"
-        },
-        "effect": {
-          "per": "attack allocated to target",
-          "damageModifier": -1,
-          "expiry": "turn end"
-        },
-        "restrictions": [
-          {
-            "group": [
-              "Empyric Dislocation",
-              "Armour of Corruption"
+        "stratagem": {
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "HERETIC ASTARTES",
+                  "TERMINATOR"
+                ]
+              },
+              {
+                "keywords": [
+                  "OBLITERATORS"
+                ]
+              },
+              {
+                "keywords": [
+                  "MUTILATORS"
+                ]
+              }
             ],
-            "sameUnit": true,
-            "mutuallyExclusiveWithin": "phase"
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
           }
-        ]
+        },
+        "detail": {
+          "window": [
+            "Fight phase",
+            "after enemy selects targets"
+          ],
+          "target": {
+            "anyOf": [
+              "HERETIC ASTARTES TERMINATOR",
+              "OBLITERATORS",
+              "MUTILATORS"
+            ],
+            "count": 1,
+            "selectedBy": "attacking unit"
+          },
+          "effect": {
+            "per": "attack allocated to target",
+            "damageModifier": -1,
+            "expiry": "turn end"
+          },
+          "restrictions": [
+            {
+              "group": [
+                "Empyric Dislocation",
+                "Armour of Corruption"
+              ],
+              "sameUnit": true,
+              "mutuallyExclusiveWithin": "phase"
+            }
+          ]
+        }
       }
     }
   }

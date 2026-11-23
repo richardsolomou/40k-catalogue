@@ -14,6 +14,16 @@
     "ruleType": "stratagem",
     "group": "Argent Assault",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Spend 1 CP in any phase as a PALADIN SQUAD unit of yours takes a mortal wound. That unit is the target and gains Feel No Pain 4+ versus mortal wounds.",
     "citations": [
       {
@@ -25,10 +35,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-suffered-mortal-wound"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "PALADIN SQUAD"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Argent Assault",
           "trigger": {
             "windows": [

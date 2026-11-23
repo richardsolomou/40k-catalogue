@@ -47,55 +47,62 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "characterOnly": true,
-          "match": "all",
-          "keywords": [
-            "KÂHL"
-          ],
-          "excludes": []
-        },
-        "trigger": {
-          "phase": "command",
-          "owner": "own-player",
-          "timing": "during"
-        },
-        "conditions": [
-          {
-            "type": "in-range-of-objective-marker",
-            "subject": "bearer-unit",
-            "objective": {
-              "controlledBy": "own-player",
-              "position": "not-within-own-deployment-zone"
-            }
+        "enhancement": {
+          "type": "model",
+          "points": 10,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "KÂHL"
+                ]
+              }
+            ]
           }
-        ],
-        "effects": [
-          {
-            "type": "spend-resource",
-            "actor": "own-player",
-            "resource": "yield-point",
-            "amount": 1,
-            "optional": true,
-            "ruleQid": "ability:leagues-of-votann.prioritised-efficiency"
+        },
+        "detail": {
+          "trigger": {
+            "phase": "command",
+            "owner": "own-player",
+            "timing": "during"
           },
-          {
-            "type": "roll-for-resource",
-            "requires": "paid-yield-point",
-            "target": "own-player",
-            "roll": {
-              "dice": "D6",
-              "count": 1
+          "conditions": [
+            {
+              "type": "in-range-of-objective-marker",
+              "subject": "bearer-unit",
+              "objective": {
+                "controlledBy": "own-player",
+                "position": "not-within-own-deployment-zone"
+              }
+            }
+          ],
+          "effects": [
+            {
+              "type": "spend-resource",
+              "actor": "own-player",
+              "resource": "yield-point",
+              "amount": 1,
+              "optional": true,
+              "ruleQid": "ability:leagues-of-votann.prioritised-efficiency"
             },
-            "minimum": 4,
-            "resource": "command-point",
-            "amount": 1,
-            "operation": "gain"
-          }
-        ]
+            {
+              "type": "roll-for-resource",
+              "requires": "paid-yield-point",
+              "target": "own-player",
+              "roll": {
+                "dice": "D6",
+                "count": 1
+              },
+              "minimum": 4,
+              "resource": "command-point",
+              "amount": 1,
+              "kind": "gain"
+            }
+          ]
+        }
       }
     }
   }

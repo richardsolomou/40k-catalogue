@@ -45,38 +45,45 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "Adeptus Astartes",
-            "Infantry"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "allow-rerolls",
-            "recipient": "bearer unit",
-            "condition": "bearer unit disembarked this turn",
-            "rolls": [
-              "charge rolls"
-            ],
-            "optional": true
-          },
-          {
-            "operation": "prohibit-targeting",
-            "recipient": "bearer unit",
-            "actor": "enemy units",
-            "condition": "bearer unit disembarked this turn",
-            "attacks": "snap shooting"
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY"
+                ],
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer unit",
+              "condition": "bearer unit disembarked this turn",
+              "rolls": [
+                "charge rolls"
+              ],
+              "optional": true,
+              "kind": "allow-rerolls"
+            },
+            {
+              "recipient": "bearer unit",
+              "actor": "enemy units",
+              "condition": "bearer unit disembarked this turn",
+              "attacks": "snap shooting",
+              "kind": "prohibit-targeting"
+            }
+          ]
+        }
       }
     }
   }

@@ -39,48 +39,60 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "equipCondition": {
-          "requiredWeapon": "autoch-pattern-combi-bolter"
-        },
-        "trigger": {
-          "event": "unit-selected",
-          "action": "shoot",
-          "subject": "bearer-unit"
-        },
-        "limit": {
-          "count": 1,
-          "period": "battle"
-        },
-        "activationOptional": true,
-        "resourceSpend": {
-          "type": "yield-point",
-          "maximum": 3,
-          "payer": "own-player"
-        },
-        "effect": {
-          "type": "weapon-characteristic-modifier",
-          "stat": "damage",
-          "operation": "add",
-          "value": {
-            "equalTo": "yield-points-spent-on-activation"
-          },
-          "target": {
-            "subject": "bearer",
-            "weaponType": "ranged",
-            "quantifier": "all"
-          },
-          "expiry": {
-            "event": "phase-end"
+        "enhancement": {
+          "type": "model",
+          "points": 5,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "LEAGUES OF VOTANN"
+                ]
+              }
+            ],
+            "requiredWargear": [
+              "Autoch-pattern combi-bolter"
+            ]
           }
         },
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Leagues of Votann"
-          ],
-          "excludedKeywords": []
+        "detail": {
+          "equipCondition": {
+            "requiredWeapon": "autoch-pattern-combi-bolter"
+          },
+          "trigger": {
+            "event": "unit-selected",
+            "action": "shoot",
+            "subject": "bearer-unit"
+          },
+          "limit": {
+            "count": 1,
+            "period": "battle"
+          },
+          "activationOptional": true,
+          "resourceSpend": {
+            "type": "yield-point",
+            "maximum": 3,
+            "payer": "own-player"
+          },
+          "effect": {
+            "type": "weapon-characteristic-modifier",
+            "stat": "damage",
+            "operation": "add",
+            "value": {
+              "equalTo": "yield-points-spent-on-activation"
+            },
+            "target": {
+              "subject": "bearer",
+              "weaponType": "ranged",
+              "quantifier": "all"
+            },
+            "expiry": {
+              "event": "phase-end"
+            }
+          }
         }
       }
     }

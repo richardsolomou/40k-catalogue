@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Wreckas",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "1 CP, in your Shooting phase, when you pick one of your ORKS TRANSPORT units to shoot; that unit is the target. For the rest of that phase, ranged attacks it makes with weapons chosen for its Firing Deck get +1 to Hit rolls.",
     "summarySpans": [
       {
@@ -43,11 +49,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-shoot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ORKS",
+              "TRANSPORT"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Wreckas",
           "when": {
             "phase": "shooting",

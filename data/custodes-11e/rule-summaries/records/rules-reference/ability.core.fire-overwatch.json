@@ -15,6 +15,12 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent"
+    },
     "summary": "As your opponent finishes their Movement phase, choose one of your units that is unengaged and lacks TITANIC. It shoots with Snap Shooting. The usual once-per-phase limit from Using Stratagems applies.",
     "summarySpans": [
       {
@@ -71,39 +77,55 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "core-stratagem",
-        "cost": {
-          "cp": 1
-        },
-        "category": "Core Stratagem",
-        "when": {
-          "turn": "opponent",
-          "phase": "movement",
-          "point": "end-of-phase"
-        },
-        "target": {
-          "count": 1,
-          "side": "friendly",
-          "unitStates": {
-            "engaged": false
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
           },
-          "excludedKeywords": [
-            "TITANIC"
-          ]
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "excludedKeywords": [
+              "TITANIC"
+            ],
+            "conditions": [
+              "unengaged"
+            ]
+          }
         },
-        "effect": {
-          "action": "shoot",
-          "mode": "snap-shooting",
-          "modeRule": "15.09"
-        },
-        "frequency": {
-          "printedOnRecord": null,
-          "general": {
-            "rule": "15.01",
-            "limit": "once-per-phase",
-            "scope": "same Stratagem"
+        "detail": {
+          "kind": "core-stratagem",
+          "when": {
+            "turn": "opponent",
+            "phase": "movement",
+            "point": "end-of-phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "unitStates": {
+              "engaged": false
+            },
+            "excludedKeywords": [
+              "TITANIC"
+            ]
+          },
+          "effect": {
+            "action": "shoot",
+            "mode": "snap-shooting",
+            "modeRule": "15.09"
+          },
+          "frequency": {
+            "printedOnRecord": null,
+            "general": {
+              "rule": "15.01",
+              "limit": "once-per-phase",
+              "scope": "same Stratagem"
+            }
           }
         }
       }

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Explorator Maniple",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In the Fight phase your ADEPTUS MECHANICUS unit may extend its upcoming Consolidation from 3 to 6 inches. The unit must end the move in range of your Acquisition marker. The Stratagem is unavailable to units within 3 inches of any enemy unit.",
     "summarySpans": [
       {
@@ -40,10 +47,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS MECHANICUS"
+            ]
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "turn": "either",

@@ -55,42 +55,49 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "TECH-PRIEST"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "select-extra-rule-option",
-            "target": "own-player",
-            "optionType": "Benediction",
-            "count": 1,
-            "exclude": "choice-at-start-of-first-battle-round",
-            "optional": true
-          },
-          {
-            "type": "grant-rule-option",
-            "target": "bearer-unit",
-            "rule": "Benedictions of the Omnissiah",
-            "option": "chosen-extra-benediction",
-            "additive": true,
-            "duration": "until-start-of-next-own-command-phase"
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "TECH-PRIEST"
+                ]
+              }
+            ]
           }
-        ],
-        "trigger": {
-          "phase": "command",
-          "owner": "own-player",
-          "point": "start"
         },
-        "usage": {
-          "limit": "once-per-battle"
+        "detail": {
+          "effects": [
+            {
+              "type": "select-extra-rule-option",
+              "target": "own-player",
+              "optionType": "Benediction",
+              "count": 1,
+              "exclude": "choice-at-start-of-first-battle-round",
+              "optional": true
+            },
+            {
+              "type": "grant-rule-option",
+              "target": "bearer-unit",
+              "rule": "Benedictions of the Omnissiah",
+              "option": "chosen-extra-benediction",
+              "additive": true,
+              "duration": "until-start-of-next-own-command-phase"
+            }
+          ],
+          "trigger": {
+            "phase": "command",
+            "owner": "own-player",
+            "point": "start"
+          },
+          "usage": {
+            "limit": "once-per-battle"
+          }
         }
       }
     }

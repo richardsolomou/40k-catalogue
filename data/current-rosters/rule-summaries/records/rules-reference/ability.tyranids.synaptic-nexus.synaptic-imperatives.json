@@ -62,69 +62,72 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "round-start"
-        },
-        "selection": {
-          "count": 1,
-          "optional": true,
-          "usesPerOptionPerBattle": 1
-        },
-        "scope": {
-          "owner": "friendly",
-          "allOf": [
-            "TYRANIDS"
-          ],
-          "range": {
-            "type": "synapse-range",
-            "origin": {
-              "owner": "friendly",
-              "allOf": [
-                "SYNAPSE"
-              ]
+        "detail": {
+          "trigger": {
+            "event": "round-start"
+          },
+          "selection": {
+            "count": 1,
+            "optional": true,
+            "usesPerOptionPerBattle": 1
+          },
+          "scope": {
+            "owner": "friendly",
+            "allOf": [
+              "TYRANIDS"
+            ],
+            "range": {
+              "type": "synapse-range",
+              "origin": {
+                "owner": "friendly",
+                "allOf": [
+                  "SYNAPSE"
+                ]
+              },
+              "quantifier": "any"
+            }
+          },
+          "expires": {
+            "event": "round-end"
+          },
+          "options": [
+            {
+              "name": "Synaptic Augmentation",
+              "effect": {
+                "type": "invulnerable-save-grant",
+                "threshold": 5,
+                "recipientLevel": "model"
+              }
             },
-            "quantifier": "any"
-          }
-        },
-        "expires": {
-          "event": "round-end"
-        },
-        "options": [
-          {
-            "name": "Synaptic Augmentation",
-            "effect": {
-              "type": "invulnerable-save-grant",
-              "threshold": 5,
-              "recipientLevel": "model"
+            {
+              "name": "Surging Vitality",
+              "effect": {
+                "type": "roll-modifier",
+                "rolls": [
+                  "advance",
+                  "charge"
+                ],
+                "recipientLevel": "unit",
+                "operation": "add",
+                "value": 1
+              }
+            },
+            {
+              "name": "Goaded to Slaughter",
+              "effect": {
+                "type": "roll-modifier",
+                "roll": "hit",
+                "attackType": "melee",
+                "recipientLevel": "model",
+                "operation": "add",
+                "value": 1
+              }
             }
-          },
-          {
-            "name": "Surging Vitality",
-            "effect": {
-              "type": "roll-modifier",
-              "rolls": [
-                "advance",
-                "charge"
-              ],
-              "recipientLevel": "unit",
-              "operation": "add",
-              "value": 1
-            }
-          },
-          {
-            "name": "Goaded to Slaughter",
-            "effect": {
-              "type": "roll-modifier",
-              "roll": "hit",
-              "attackType": "melee",
-              "recipientLevel": "model",
-              "operation": "add",
-              "value": 1
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

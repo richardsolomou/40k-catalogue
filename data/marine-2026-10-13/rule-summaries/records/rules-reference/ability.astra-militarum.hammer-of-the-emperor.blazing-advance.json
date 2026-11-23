@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Hammer of the Emperor",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in your Movement phase, right after one of your SQUADRON units Advances, on that unit. For the rest of the turn, having Advanced does not stop it from shooting.",
     "citations": [
       {
@@ -25,11 +32,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "SQUADRON"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Hammer of the Emperor",
           "when": {
             "turn": "own",

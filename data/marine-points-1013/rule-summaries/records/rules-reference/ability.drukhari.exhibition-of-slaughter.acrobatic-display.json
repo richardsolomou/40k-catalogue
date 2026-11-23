@@ -15,6 +15,12 @@
     "ruleType": "stratagem",
     "group": "Exhibition of Slaughter",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent"
+    },
     "summary": "When a shooting enemy targets your WYCH CULT unit in the opposing Shooting phase, give that unit a 5+ invulnerable save.",
     "summarySpans": [
       {
@@ -55,27 +61,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Shooting",
-          "turn": "active player is opponent",
-          "event": "enemy targets friendly unit"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "WYCH CULT"
+            ]
+          }
         },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": "WYCH CULT"
-        },
-        "effect": {
-          "type": "save grant",
-          "save": "invulnerable",
-          "threshold": 5,
-          "recipient": "target"
-        },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Shooting",
+            "turn": "active player is opponent",
+            "event": "enemy targets friendly unit"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": "WYCH CULT"
+          },
+          "effect": {
+            "type": "save grant",
+            "save": "invulnerable",
+            "threshold": 5,
+            "recipient": "target"
+          },
+          "restrictions": []
+        }
       }
     }
   }

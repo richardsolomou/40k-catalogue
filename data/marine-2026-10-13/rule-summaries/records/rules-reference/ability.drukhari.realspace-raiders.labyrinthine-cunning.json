@@ -47,54 +47,59 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "ARCHON"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "choose-resource-option",
-            "recipient": "your CP pool",
-            "actor": "you",
-            "optional": true,
-            "timing": {
-              "phase": "Command",
-              "at": "start",
-              "side": "you"
-            },
-            "condition": "bearer on battlefield",
-            "selectCount": 1,
-            "options": [
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
               {
-                "spend": {
-                  "amount": 1,
-                  "resource": "Pain token"
-                },
-                "gainCP": 1
-              },
-              {
-                "roll": {
-                  "count": 1,
-                  "sides": 6,
-                  "minimum": 4
-                },
-                "onSuccess": {
-                  "gainCP": 1
-                },
-                "onFailure": "no gain"
+                "keywords": [
+                  "ARCHON"
+                ]
               }
             ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "your CP pool",
+              "actor": "you",
+              "optional": true,
+              "timing": {
+                "phase": "Command",
+                "at": "start",
+                "side": "you"
+              },
+              "condition": "bearer on battlefield",
+              "selectCount": 1,
+              "options": [
+                {
+                  "spend": {
+                    "amount": 1,
+                    "resource": "Pain token"
+                  },
+                  "gainCP": 1
+                },
+                {
+                  "roll": {
+                    "count": 1,
+                    "sides": 6,
+                    "minimum": 4
+                  },
+                  "onSuccess": {
+                    "gainCP": 1
+                  },
+                  "onFailure": "no gain"
+                }
+              ],
+              "kind": "choose-resource-option"
+            }
+          ]
+        }
       }
     }
   }

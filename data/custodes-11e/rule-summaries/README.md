@@ -9,9 +9,11 @@ Every summary is original wording, checked against the official sources it cites
 | `rules-reference` | 5,918 | 5,758 | 160 |
 | `mission-rules` | 236 | 236 | 0 |
 
-5,993 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02; 1 record that no app row carries cites only the dated Games Workshop page that prints it. 745 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
+5,993 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02; 1 record that no app row carries cites only the dated Games Workshop page that prints it. 743 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-FAQs and links also name 449 units, 46 detachments, 0 pieces of wargear and 1 publication. They are identity entries of the `rosters` and `publications` categories, which are retained: their records still come from the app build.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 788 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`.
+
+FAQs, links and Enhancement eligibility also name 494 units, 46 detachments, 0 pieces of wargear and 1 publication. They are identity entries of the `rosters` and `publications` categories, which are retained: their records still come from the app build.
 
 ## Retired
 
@@ -281,7 +283,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `adeptus-custodes.vigilator-squad.deft-parry`
 - `ability` `adeptus-custodes.witchseeker-squad.sanctified-flames`
 
-### The Stratagem has no CP cost (39)
+### The Stratagem has no CP cost (35)
 
 - `ability` `adeptus-custodes.aquilan-shield.manoeuvre-and-fire`
 - `ability` `adeptus-custodes.aquilan-shield.tip-of-the-talon`
@@ -308,14 +310,10 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `adeptus-custodes.honoured-companions.avenge-the-fallen`
 - `ability` `adeptus-custodes.honoured-companions.swift-as-the-eagle`
 - `ability` `adeptus-custodes.lions-of-the-emperor.fury-of-the-emperor`
-- `ability` `adeptus-custodes.lions-of-the-emperor.unleash-the-lions`
 - `ability` `adeptus-custodes.lions-of-the-emperor.vigil-unending`
 - `ability` `adeptus-custodes.might-of-the-moritoi.honoured-interred`
 - `ability` `adeptus-custodes.might-of-the-moritoi.unceasing-onslaught`
 - `ability` `adeptus-custodes.might-of-the-moritoi.unstoppable-momentum`
-- `ability` `adeptus-custodes.null-maiden-vigil.anathema-blademastery`
-- `ability` `adeptus-custodes.null-maiden-vigil.psy-chaff-volley`
-- `ability` `adeptus-custodes.null-maiden-vigil.purgation-sweep`
 - `ability` `adeptus-custodes.shadowkeepers.grim-responsibility`
 - `ability` `adeptus-custodes.shadowkeepers.indomitable-guardians`
 - `ability` `adeptus-custodes.shadowkeepers.no-escape`
@@ -374,6 +372,16 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `faq` `codex-adeptus-custodes.errata.talons-of-the-emperor-detachment-taloned-pincer-stratagem`
 - `faq` `codex-adeptus-custodes.faq.radiant-mantle`
 - `faq` `imperial-armour-adeptus-custodes.errata.ares-gunship-infernus-firebombs-ability`
+
+### The summary or typed facts repeat a run of the official wording and await a redraft (7)
+
+- `ability` `adeptus-custodes.aquilon-terminators-with-solarite-power-gauntlets.dread-foe`
+- `ability` `adeptus-custodes.caladius-annihilator-grav-tank.advanced-firepower`
+- `ability` `adeptus-custodes.caladius-grav-tank.destructor-optics`
+- `ability` `adeptus-custodes.gyrfalcon-jetbike-sodality.death-blow`
+- `ability` `adeptus-custodes.pallas-grav-attack.mobile-hunter`
+- `ability` `adeptus-custodes.venatari-with-kinetic-destroyers.take-wing`
+- `ability` `adeptus-custodes.venatari-with-verutum-lances.take-wing`
 
 ### The rule's text is not yet tied to an official source (6)
 

@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Black Spear Task Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent"
+    },
     "summary": "As the enemy Fight phase ends, pick an unengaged friendly ADEPTUS ASTARTES INFANTRY unit and transfer it to Strategic Reserves. If it has Kill Team, it gains Deep Strike until your next Movement phase finishes.",
     "summarySpans": [
       {
@@ -76,10 +82,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "unengaged"
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

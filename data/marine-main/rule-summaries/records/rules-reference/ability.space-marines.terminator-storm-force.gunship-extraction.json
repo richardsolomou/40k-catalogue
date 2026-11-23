@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Terminator Storm Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent"
+    },
     "summary": "Spend 1 CP as the opposing player's Fight phase ends, picking one of your ADEPTUS ASTARTES TERMINATOR units that is unengaged. Put that unit into strategic reserves.",
     "citations": [
       {
@@ -25,10 +31,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "TERMINATOR"
+            ],
+            "conditions": [
+              "unengaged"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Terminator Storm Force",
           "trigger": {
             "windows": [

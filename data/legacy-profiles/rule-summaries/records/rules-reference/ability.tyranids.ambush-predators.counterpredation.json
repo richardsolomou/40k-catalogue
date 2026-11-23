@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Ambush Predators",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "1 CP, in the Fight phase of either turn, when you pick a VON RYAN'S LEAPERS, DEATHLEAPER, LICTOR or NEUROLICTOR unit of yours to fight; that unit is the target. For the rest of that phase, its attacks against a hidden unit get +1 Strength and +1 AP.",
     "summarySpans": [
       {
@@ -35,11 +41,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "DEATHLEAPER"
+                ]
+              },
+              {
+                "keywords": [
+                  "LICTOR"
+                ]
+              },
+              {
+                "keywords": [
+                  "NEUROLICTOR"
+                ]
+              },
+              {
+                "keywords": [
+                  "VON RYAN’S LEAPERS"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Ambush Predators",
           "when": {
             "phase": "fight",

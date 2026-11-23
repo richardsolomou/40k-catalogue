@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Scintillating Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "At the end of the opposing Fight phase, pick a LEGIONES DAEMONICA TZEENTCH unit outside enemy Engagement Range. You can spend 1 Flux token to pick up to two such units instead, including engaged units. Move each chosen unit off the battlefield into Strategic Reserves.",
     "summarySpans": [
       {
@@ -64,26 +71,46 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "end of opposing Fight phase"
-        ],
-        "target": {
-          "unit": "LEGIONES DAEMONICA TZEENTCH",
-          "count": 1,
-          "withinEnemyEngagementRange": false,
-          "replacement": {
-            "fluxTokens": 1,
-            "maxUnits": 2,
-            "maySelectEngaged": true
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "TZEENTCH"
+            ],
+            "conditions": [
+              "not-in-engagement-range"
+            ]
           }
         },
-        "effect": {
-          "transfer": "battlefield to Strategic Reserves"
-        },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "end of opposing Fight phase"
+          ],
+          "target": {
+            "unit": "LEGIONES DAEMONICA TZEENTCH",
+            "count": 1,
+            "withinEnemyEngagementRange": false,
+            "replacement": {
+              "fluxTokens": 1,
+              "maxUnits": 2,
+              "maySelectEngaged": true
+            }
+          },
+          "effect": {
+            "transfer": "battlefield to Strategic Reserves"
+          },
+          "restrictions": []
+        }
       }
     }
   }

@@ -67,54 +67,57 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "move-type",
-        "ruleNumber": "18.04",
-        "name": "Disembark Move",
-        "effectRef": "03.02",
-        "eligibleIfAll": [
-          "embarked-in-TRANSPORT-on-battlefield",
-          "did-not-embark-this-phase",
-          "TRANSPORT-no-advance-or-fall-back-this-phase"
-        ],
-        "setupDistanceInches": {
-          "Rapid Disembark": 3,
-          "Tactical Disembark": 3,
-          "Combat Disembark": 6
-        },
-        "modes": [
-          {
-            "name": "Rapid Disembark",
-            "requiredIf": "TRANSPORT-made-normal-or-ingress-move-this-phase",
-            "whileMoving": "follow-TRANSPORT-ingress-rules-if-ingress-this-turn",
-            "after": {
-              "eligibleToDeclareCharge": false,
-              "until": "end-of-turn"
-            }
+        "detail": {
+          "kind": "move-type",
+          "ruleNumber": "18.04",
+          "name": "Disembark Move",
+          "effectRef": "03.02",
+          "eligibleIfAll": [
+            "embarked-in-TRANSPORT-on-battlefield",
+            "did-not-embark-this-phase",
+            "TRANSPORT-no-advance-or-fall-back-this-phase"
+          ],
+          "setupDistanceInches": {
+            "Rapid Disembark": 3,
+            "Tactical Disembark": 3,
+            "Combat Disembark": 6
           },
-          {
-            "name": "Tactical Disembark",
-            "requiredIf": "otherwise-TRANSPORT-stationary-or-not-yet-selected-and-setup-possible",
-            "after": {
-              "selectToMove": [
-                "normal-move",
-                "advance-move"
-              ]
+          "modes": [
+            {
+              "name": "Rapid Disembark",
+              "requiredIf": "TRANSPORT-made-normal-or-ingress-move-this-phase",
+              "whileMoving": "follow-TRANSPORT-ingress-rules-if-ingress-this-turn",
+              "after": {
+                "eligibleToDeclareCharge": false,
+                "until": "end-of-turn"
+              }
+            },
+            {
+              "name": "Tactical Disembark",
+              "requiredIf": "otherwise-TRANSPORT-stationary-or-not-yet-selected-and-setup-possible",
+              "after": {
+                "selectToMove": [
+                  "normal-move",
+                  "advance-move"
+                ]
+              }
+            },
+            {
+              "name": "Combat Disembark",
+              "requiredIf": "otherwise",
+              "before": "hazard-roll-per-model",
+              "whileMoving": "may-be-engaged-with-enemies-engaged-with-TRANSPORT",
+              "after": {
+                "battleShocked": true,
+                "eligibleToDeclareCharge": false,
+                "until": "end-of-turn"
+              }
             }
-          },
-          {
-            "name": "Combat Disembark",
-            "requiredIf": "otherwise",
-            "before": "hazard-roll-per-model",
-            "whileMoving": "may-be-engaged-with-enemies-engaged-with-TRANSPORT",
-            "after": {
-              "battleShocked": true,
-              "eligibleToDeclareCharge": false,
-              "until": "end-of-turn"
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

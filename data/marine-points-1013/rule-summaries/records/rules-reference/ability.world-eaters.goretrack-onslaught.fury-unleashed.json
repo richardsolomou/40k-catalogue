@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Goretrack Onslaught",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "After an enemy finishes firing in the opponent’s Shooting phase, pick one of your World Eaters Rhino models hit by the attacker and still on one wound or more. Pick a single embarked Khorne Berzerkers unit in that Rhino. It can get out via a Disembark move, then follow up with a Surge move. The second move has a D6+2″ cap. A unit cannot receive both Fury Unleashed and Unrelenting Advance during one phase.",
     "summarySpans": [
       {
@@ -66,10 +73,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "model",
+            "keywords": [
+              "WORLD EATERS",
+              "RHINO"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Goretrack Onslaught",
           "trigger": {
             "windows": [

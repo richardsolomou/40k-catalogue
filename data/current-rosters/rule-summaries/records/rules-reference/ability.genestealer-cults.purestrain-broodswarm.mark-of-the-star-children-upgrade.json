@@ -53,43 +53,53 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "unit",
-          "match": "all",
-          "keywords": [
-            "Purestrain Genestealers"
-          ],
-          "anyOf": [],
-          "excludes": [],
-          "equipment": null,
-          "characterOnly": false,
-          "equipableByNonCharacter": true
-        },
-        "effects": [
-          {
-            "recipient": "upgrade unit",
-            "operation": "modify-characteristics",
-            "modifiers": {
-              "T": 1
-            }
-          },
-          {
-            "recipient": "upgrade unit",
-            "operation": "set-characteristic",
-            "characteristic": "Sv",
-            "target": 4,
-            "comparison": "at-least"
-          },
-          {
-            "recipient": "upgrade unit melee attacks",
-            "operation": "modify-characteristics",
-            "modifiers": {
-              "S": 1
-            }
+        "enhancement": {
+          "type": "upgrade",
+          "points": 30,
+          "perRoster": 3,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "GENESTEALER CULTS"
+                ],
+                "unit": {
+                  "kind": "unit",
+                  "id": "genestealer-cults.purestrain-genestealers"
+                }
+              }
+            ],
+            "nonCharacters": true
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "upgrade unit",
+              "modifiers": {
+                "T": 1
+              },
+              "kind": "modify-characteristics"
+            },
+            {
+              "recipient": "upgrade unit",
+              "characteristic": "Sv",
+              "target": 4,
+              "comparison": "at-least",
+              "kind": "set-characteristic"
+            },
+            {
+              "recipient": "upgrade unit melee attacks",
+              "modifiers": {
+                "S": 1
+              },
+              "kind": "modify-characteristics"
+            }
+          ]
+        }
       }
     }
   }

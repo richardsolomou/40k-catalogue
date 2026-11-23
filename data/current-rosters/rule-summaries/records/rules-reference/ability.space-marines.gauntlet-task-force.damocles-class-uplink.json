@@ -24,42 +24,57 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "enhancement",
-        "detachment": "Gauntlet Task Force",
-        "pointsCost": 15,
-        "eligibility": {
-          "scope": "model",
-          "keywordsAll": [
-            "CAPTAIN"
-          ]
-        },
-        "effects": [
-          {
-            "kind": "activate-combat-doctrine",
-            "choose": 1,
-            "select": {
-              "side": "friendly",
-              "count": 1,
-              "keywordsAll": [
-                "ADEPTUS ASTARTES",
-                "INFANTRY"
-              ],
-              "withinInchesOf": "the TRANSPORT the bearer unit is embarked in",
-              "rangeInches": 6
-            },
-            "expires": "end-of-phase",
-            "durationBasis": "core 01.02.02 persisting rules effects"
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "CAPTAIN"
+                ]
+              },
+              {
+                "unit": {
+                  "kind": "unit",
+                  "id": "space-marines.captain"
+                }
+              }
+            ]
           }
-        ],
-        "usage": {
-          "window": {
-            "phase": "movement",
-            "turn": "own"
-          },
-          "condition": "bearer unit embarked within a TRANSPORT",
-          "optional": true
+        },
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Gauntlet Task Force",
+          "effects": [
+            {
+              "kind": "activate-combat-doctrine",
+              "choose": 1,
+              "select": {
+                "side": "friendly",
+                "count": 1,
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ],
+                "withinInchesOf": "the TRANSPORT the bearer unit is embarked in",
+                "rangeInches": 6
+              },
+              "expires": "end-of-phase",
+              "durationBasis": "core 01.02.02 persisting rules effects"
+            }
+          ],
+          "usage": {
+            "window": {
+              "phase": "movement",
+              "turn": "own"
+            },
+            "condition": "bearer unit embarked within a TRANSPORT",
+            "optional": true
+          }
         }
       }
     }

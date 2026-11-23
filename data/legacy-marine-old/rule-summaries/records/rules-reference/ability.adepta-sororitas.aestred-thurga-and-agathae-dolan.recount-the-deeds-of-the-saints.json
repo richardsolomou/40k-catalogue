@@ -52,48 +52,51 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-unit",
-        "effects": [
-          {
-            "condition": {
-              "all": [
-                "this-unit-leading-a-unit",
-                {
-                  "thisUnitContains": "Agathae Dolan"
-                }
-              ]
+        "detail": {
+          "source": "this-unit",
+          "effects": [
+            {
+              "condition": {
+                "all": [
+                  "this-unit-leading-a-unit",
+                  {
+                    "thisUnitContains": "Agathae Dolan"
+                  }
+                ]
+              },
+              "trigger": {
+                "event": "destroy-unit",
+                "actor": "led-unit",
+                "targetSide": "enemy",
+                "frequency": "each-time"
+              },
+              "effect": {
+                "recipient": "you",
+                "quantity": 1,
+                "kind": "gain-miracle-dice"
+              }
             },
-            "trigger": {
-              "event": "destroy-unit",
-              "actor": "led-unit",
-              "targetSide": "enemy",
-              "frequency": "each-time"
-            },
-            "effect": {
-              "operation": "gain-miracle-dice",
-              "recipient": "you",
-              "quantity": 1
-            }
-          },
-          {
-            "trigger": {
-              "event": "model-destroyed",
-              "model": "Agathae Dolan",
-              "owner": "this-unit"
-            },
-            "effect": {
-              "operation": "gain-miracle-dice",
-              "recipient": "you",
-              "quantity": {
-                "count": 1,
-                "sides": 3,
-                "additive": 0
+            {
+              "trigger": {
+                "event": "model-destroyed",
+                "model": "Agathae Dolan",
+                "owner": "this-unit"
+              },
+              "effect": {
+                "recipient": "you",
+                "quantity": {
+                  "count": 1,
+                  "sides": 3,
+                  "additive": 0
+                },
+                "kind": "gain-miracle-dice"
               }
             }
-          }
-        ]
+          ]
+        }
       }
     }
   }

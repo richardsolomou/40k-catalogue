@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Lords of Dread",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "epic-deed"
+    },
     "summary": "Epic Deed, 2 CP, used in the opposing player's Shooting phase or in the Fight phase once an enemy unit has picked its targets. Choose one of your CHAOS KNIGHTS CHARACTERS that at least one of those attacks is aimed at. For the rest of the phase, reduce by 1 the Damage characteristic of any attack allocated to one of that unit's models.",
     "citations": [
       {
@@ -25,12 +33,30 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "CHAOS KNIGHTS",
+              "CHARACTER"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Lords of Dread",
-          "category": "Epic Deed",
           "trigger": {
             "turn": "either",
             "phases": [

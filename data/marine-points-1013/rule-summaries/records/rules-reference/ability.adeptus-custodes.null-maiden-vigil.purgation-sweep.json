@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Null Maiden Vigil",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "In your Shooting phase, spend 1 CP on one WITCHSEEKERS unit of yours that has not shot yet this phase. While the phase lasts, its models' Torrent weapons get +1 Attacks; when such a weapon aims at a unit that is PSYKER or Battle-shocked during this phase, it gets +2 Attacks instead.",
     "summarySpans": [
       {
@@ -58,12 +65,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "WITCHSEEKERS"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Null Maiden Vigil",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

@@ -42,61 +42,64 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "core-rule",
-        "individualRule": {
-          "affectedModels": "recipient-model-only",
-          "examples": [
-            "Enhancement",
-            "wargear"
-          ]
-        },
-        "unitRule": {
-          "affectedModels": "entire-attached-unit",
-          "duration": "while-source-survives"
-        },
-        "sourceDuration": [
-          {
+        "detail": {
+          "kind": "core-rule",
+          "individualRule": {
+            "affectedModels": "recipient-model-only",
+            "examples": [
+              "Enhancement",
+              "wargear"
+            ]
+          },
+          "unitRule": {
+            "affectedModels": "entire-attached-unit",
+            "duration": "while-source-survives"
+          },
+          "sourceDuration": [
+            {
+              "sourceUnitKeywords": [
+                "LEADER",
+                "SUPPORT"
+              ],
+              "keywordMatch": "any",
+              "endsWhen": "last-model-of-source-unit-destroyed"
+            },
+            {
+              "sourceUnitKeywords": [
+                "BODYGUARD"
+              ],
+              "endsWhen": "last-model-of-source-unit-destroyed"
+            },
+            {
+              "source": "individual-model",
+              "endsWhen": "that-model-destroyed",
+              "examples": [
+                "Enhancement",
+                "wargear"
+              ]
+            }
+          ],
+          "attackException": {
+            "trigger": "last-source-model-destroyed-by-an-attack",
+            "endsAfter": "attacking-unit-finishes-its-attacks",
+            "sequenceRuleId": "572e8b5e-8c4d-49a4-9cd6-3ed4d2b28ad6"
+          },
+          "whileLeadingAfterBodyguardLoss": {
             "sourceUnitKeywords": [
               "LEADER",
               "SUPPORT"
             ],
             "keywordMatch": "any",
-            "endsWhen": "last-model-of-source-unit-destroyed"
+            "startedBattleAttached": true,
+            "keepWhileLeadingAbilities": true
           },
-          {
-            "sourceUnitKeywords": [
-              "BODYGUARD"
-            ],
-            "endsWhen": "last-model-of-source-unit-destroyed"
-          },
-          {
-            "source": "individual-model",
-            "endsWhen": "that-model-destroyed",
-            "examples": [
-              "Enhancement",
-              "wargear"
-            ]
+          "revivalPanel": {
+            "destroyedSourceStopsGrantingBenefit": true,
+            "restoresBenefitWhenSourceReturnsToAttachedUnit": true
           }
-        ],
-        "attackException": {
-          "trigger": "last-source-model-destroyed-by-an-attack",
-          "endsAfter": "attacking-unit-finishes-its-attacks",
-          "sequenceRuleId": "572e8b5e-8c4d-49a4-9cd6-3ed4d2b28ad6"
-        },
-        "whileLeadingAfterBodyguardLoss": {
-          "sourceUnitKeywords": [
-            "LEADER",
-            "SUPPORT"
-          ],
-          "keywordMatch": "any",
-          "startedBattleAttached": true,
-          "keepWhileLeadingAbilities": true
-        },
-        "revivalPanel": {
-          "destroyedSourceStopsGrantingBenefit": true,
-          "restoresBenefitWhenSourceReturnsToAttachedUnit": true
         }
       }
     }

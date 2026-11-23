@@ -14,6 +14,16 @@
     "ruleType": "stratagem",
     "group": "Bastions of Tyranny",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "1 CP, usable in any phase as one of your KNIGHT TYRANT units suffers a mortal wound, targeting that unit. It gains Feel No Pain 5+ versus mortal wounds. This lasts for the rest of that phase.",
     "citations": [
       {
@@ -25,12 +35,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-suffered-mortal-wound"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "KNIGHT TYRANT"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Bastions of Tyranny",
-          "category": null,
           "trigger": {
             "turn": "either",
             "phases": [

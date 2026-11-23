@@ -24,44 +24,63 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "enhancement": {
-          "detachment": "Recon Element",
-          "pointsCost": 20,
+          "type": "model",
+          "points": 20,
           "eligibility": {
-            "scope": "model",
-            "keywordsAll": [
-              "ASTRA MILITARUM",
-              "INFANTRY"
-            ]
-          },
-          "effects": [
-            {
-              "trigger": {
-                "enemyKeywordsAny": [
-                  "INFANTRY",
-                  "MOUNTED"
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY"
                 ],
-                "event": "ends-normal-advance-charge-or-fall-back-move",
-                "withinInchesOfBearerUnit": 8
-              },
-              "roll": {
-                "dice": "D6",
-                "successOn": "4+"
-              },
-              "onSuccess": {
-                "status": "stunned",
-                "until": "start-of-your-next-turn",
-                "whileStunned": {
-                  "hitRollModifier": {
-                    "direction": "subtract",
-                    "amount": 1
+                "factionKeywords": [
+                  "ASTRA MILITARUM"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
+          "enhancement": {
+            "detachment": "Recon Element",
+            "pointsCost": 20,
+            "eligibility": {
+              "scope": "model",
+              "keywordsAll": [
+                "ASTRA MILITARUM",
+                "INFANTRY"
+              ]
+            },
+            "effects": [
+              {
+                "trigger": {
+                  "enemyKeywordsAny": [
+                    "INFANTRY",
+                    "MOUNTED"
+                  ],
+                  "event": "ends-normal-advance-charge-or-fall-back-move",
+                  "withinInchesOfBearerUnit": 8
+                },
+                "roll": {
+                  "dice": "D6",
+                  "successOn": "4+"
+                },
+                "onSuccess": {
+                  "status": "stunned",
+                  "until": "start-of-your-next-turn",
+                  "whileStunned": {
+                    "hitRollModifier": {
+                      "direction": "subtract",
+                      "amount": 1
+                    }
                   }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

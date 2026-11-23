@@ -40,44 +40,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "items": [
-          {
-            "kind": "choose-unit",
-            "window": {
-              "at": "turn-start",
-              "turn": "own"
+        "detail": {
+          "items": [
+            {
+              "kind": "choose-unit",
+              "window": {
+                "at": "turn-start",
+                "turn": "own"
+              },
+              "choice": {
+                "owner": "enemy",
+                "count": 1,
+                "location": "battlefield",
+                "priorityCriteria": [
+                  {
+                    "kind": "within-range",
+                    "of": "objectives"
+                  },
+                  {
+                    "kind": "destroyed-units",
+                    "victimOwner": "friendly",
+                    "minimum": 1,
+                    "window": "previous-turn"
+                  }
+                ],
+                "fallback": "any-enemy-unit-on-battlefield-if-no-priority-target"
+              }
             },
-            "choice": {
-              "owner": "enemy",
-              "count": 1,
-              "location": "battlefield",
-              "priorityCriteria": [
-                {
-                  "kind": "within-range",
-                  "of": "objectives"
-                },
-                {
-                  "kind": "destroyed-units",
-                  "victimOwner": "friendly",
-                  "minimum": 1,
-                  "window": "previous-turn"
-                }
-              ],
-              "fallback": "any-enemy-unit-on-battlefield-if-no-priority-target"
+            {
+              "kind": "designate",
+              "target": "chosen-unit",
+              "designation": "condemned",
+              "expires": {
+                "at": "turn-start",
+                "turn": "next-own"
+              }
             }
-          },
-          {
-            "kind": "designate",
-            "target": "chosen-unit",
-            "designation": "condemned",
-            "expires": {
-              "at": "turn-start",
-              "turn": "next-own"
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

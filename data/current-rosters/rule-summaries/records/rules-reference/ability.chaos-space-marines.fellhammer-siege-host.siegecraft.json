@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Fellhammer Siege-host",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "As the opponent’s Charge phase begins, pick one HERETIC ASTARTES unit. Through phase end, subtract 2 from an enemy charge roll if the charging unit includes your chosen unit among its charge targets.",
     "summarySpans": [
       {
@@ -40,10 +47,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "HERETIC ASTARTES"
+            ]
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "turn": "opponent",

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Biosanctic Broodsurge",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In the Fight phase, pick a friendly unit with PURESTRAIN GENESTEALERS, ABERRANTS or BIOPHAGUS that still awaits selection to fight. For this phase, its models can Pile In or Consolidate with a 6\" cap in place of 3\". They may skip closing on the nearest enemy model if they finish as near as possible to the nearest enemy unit.",
     "summarySpans": [
       {
@@ -66,10 +73,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ABERRANTS"
+                ]
+              },
+              {
+                "keywords": [
+                  "BIOPHAGUS"
+                ]
+              },
+              {
+                "keywords": [
+                  "PURESTRAIN GENESTEALERS"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

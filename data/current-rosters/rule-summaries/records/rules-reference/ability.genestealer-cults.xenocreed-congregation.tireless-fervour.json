@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Xenocreed Congregation",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in your Charge phase on a unit of NEOPHYTE HYBRIDS, ACOLYTE HYBRIDS or HYBRID METAMORPHS that has yet to declare a charge. That unit may declare a charge despite having Advanced or Fallen Back this turn. At its declaration, you may invoke the second part to reroll its charge roll. If you invoke it, end the move in engagement with an enemy unit that a friendly CHARACTER unit is also engaging.",
     "summarySpans": [
       {
@@ -87,10 +94,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ACOLYTE HYBRIDS"
+                ]
+              },
+              {
+                "keywords": [
+                  "HYBRID METAMORPHS"
+                ]
+              },
+              {
+                "keywords": [
+                  "NEOPHYTE HYBRIDS"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "phase": "charge",

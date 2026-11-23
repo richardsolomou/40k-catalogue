@@ -68,37 +68,50 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Infantry"
-          ],
-          "anyOf": [
-            "Big Mek",
-            "Warboss"
-          ],
-          "excludes": [],
-          "equipment": null,
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "recipient": "bearer",
-            "operation": "grant-ability",
-            "ability": "Infiltrators",
-            "condition": "bearer part of attached unit"
-          },
-          {
-            "recipient": "bearer",
-            "operation": "grant-ability",
-            "ability": "Stealth",
-            "condition": "bearer part of attached unit"
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "BIG MEK"
+                ]
+              },
+              {
+                "keywords": [
+                  "INFANTRY",
+                  "WARBOSS"
+                ]
+              },
+              {
+                "unit": {
+                  "kind": "unit",
+                  "id": "orks.big-mek"
+                }
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer",
+              "ability": "Infiltrators",
+              "condition": "bearer part of attached unit",
+              "kind": "grant-ability"
+            },
+            {
+              "recipient": "bearer",
+              "ability": "Stealth",
+              "condition": "bearer part of attached unit",
+              "kind": "grant-ability"
+            }
+          ]
+        }
       }
     }
   }

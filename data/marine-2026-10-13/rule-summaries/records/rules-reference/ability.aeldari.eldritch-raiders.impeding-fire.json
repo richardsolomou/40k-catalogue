@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Eldritch Raiders",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "opponent",
+      "type": "wargear"
+    },
     "summary": "As the opposing Charge phase begins, pick one of your units with STARFANG, RANGERS or SHROUD RUNNERS. Choose a non-TITANIC enemy that unit can see from no farther than 36″. The enemy takes −2 on all Charge rolls for the phase.",
     "summarySpans": [
       {
@@ -63,41 +70,71 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Charge",
-          "turn": "active player is opponent",
-          "event": "phase opens"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "keywords": {
-            "anyOf": [
-              "RANGERS",
-              "SHROUD RUNNERS",
-              "STARFANG"
-            ]
-          }
-        },
-        "effect": {
-          "type": "roll modifier",
-          "roll": "Charge",
-          "amount": -2,
-          "until": "phase ends",
-          "recipient": {
-            "side": "enemy",
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
             "count": 1,
-            "withinInches": 36,
-            "visibleTo": "friendly selection",
-            "excludedKeywords": [
-              "TITANIC"
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "RANGERS"
+                ]
+              },
+              {
+                "keywords": [
+                  "SHROUD RUNNERS"
+                ]
+              },
+              {
+                "keywords": [
+                  "STARFANG"
+                ]
+              }
             ]
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Charge",
+            "turn": "active player is opponent",
+            "event": "phase opens"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywords": {
+              "anyOf": [
+                "RANGERS",
+                "SHROUD RUNNERS",
+                "STARFANG"
+              ]
+            }
+          },
+          "effect": {
+            "type": "roll modifier",
+            "roll": "Charge",
+            "amount": -2,
+            "until": "phase ends",
+            "recipient": {
+              "side": "enemy",
+              "count": 1,
+              "withinInches": 36,
+              "visibleTo": "friendly selection",
+              "excludedKeywords": [
+                "TITANIC"
+              ]
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

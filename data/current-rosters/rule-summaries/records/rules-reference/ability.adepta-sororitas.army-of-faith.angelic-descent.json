@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Army of Faith",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "At the opponent’s Fight phase end, pick a unit with ADEPTA SORORITAS JUMP PACK. Every enemy must be outside its Engagement Range. Move the selected unit from the battlefield into Strategic Reserves.",
     "summarySpans": [
       {
@@ -56,10 +63,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "restricted": true,
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTA SORORITAS",
+              "JUMP PACK"
+            ]
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "turn": "opponent",

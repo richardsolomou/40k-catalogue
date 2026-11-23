@@ -39,41 +39,49 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Heretic Astartes"
-          ],
-          "excludes": []
-        },
-        "trigger": {
-          "event": "phase-start",
-          "phase": "command",
-          "turn": "own"
-        },
-        "condition": "bearer-on-battlefield",
-        "effect": {
-          "dice": "D6",
-          "bonus": {
-            "amount": 1,
-            "condition": {
-              "subject": "bearer",
-              "whollyWithin": {
-                "inches": 12,
-                "of": "opponent-deployment-zone"
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "HERETIC ASTARTES"
+                ]
               }
-            }
+            ]
+          }
+        },
+        "detail": {
+          "trigger": {
+            "event": "phase-start",
+            "phase": "command",
+            "turn": "own"
           },
-          "comparison": "at-least",
-          "threshold": 5,
-          "success": {
-            "type": "gain-resource",
-            "recipient": "own-player",
-            "pool": "CP",
-            "amount": 1
+          "condition": "bearer-on-battlefield",
+          "effect": {
+            "dice": "D6",
+            "bonus": {
+              "amount": 1,
+              "condition": {
+                "subject": "bearer",
+                "whollyWithin": {
+                  "inches": 12,
+                  "of": "opponent-deployment-zone"
+                }
+              }
+            },
+            "comparison": "at-least",
+            "threshold": 5,
+            "success": {
+              "type": "gain-resource",
+              "recipient": "own-player",
+              "pool": "CP",
+              "amount": 1
+            }
           }
         }
       }

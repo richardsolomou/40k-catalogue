@@ -31,42 +31,45 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "effect": {
-          "type": "sequence",
-          "steps": [
-            {
-              "type": "ability-grant",
-              "target": "this-unit",
-              "modifier": {
-                "ability": "stealth"
-              }
-            },
-            {
-              "type": "conditional",
-              "condition": {
-                "type": "attack-is",
-                "parameters": {
-                  "attack_type": "melee"
+        "detail": {
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "ability-grant",
+                "target": "this-unit",
+                "modifier": {
+                  "ability": "stealth"
                 }
               },
-              "effect": {
-                "type": "roll-modifier",
-                "target": "attacker",
-                "modifier": {
-                  "roll": "hit",
-                  "operation": "subtract",
-                  "value": 1
+              {
+                "type": "conditional",
+                "condition": {
+                  "type": "attack-is",
+                  "parameters": {
+                    "attack_type": "melee"
+                  }
+                },
+                "effect": {
+                  "type": "roll-modifier",
+                  "target": "attacker",
+                  "modifier": {
+                    "roll": "hit",
+                    "operation": "subtract",
+                    "value": 1
+                  }
                 }
               }
-            }
-          ]
-        },
-        "scope": {
-          "duration": "permanent"
-        },
-        "behavior": "passive"
+            ]
+          },
+          "scope": {
+            "duration": "permanent"
+          },
+          "behavior": "passive"
+        }
       }
     }
   }

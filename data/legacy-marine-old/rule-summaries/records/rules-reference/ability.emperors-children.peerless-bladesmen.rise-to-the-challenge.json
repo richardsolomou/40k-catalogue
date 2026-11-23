@@ -50,43 +50,54 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "phase-end",
-          "phase": "fight",
-          "owner": "either"
-        },
-        "condition": {
-          "subject": "bearer",
-          "state": "within-engagement-range",
-          "reference": "enemy-models"
-        },
-        "limit": {
-          "count": 1,
-          "period": "battle"
-        },
-        "effects": [
-          {
-            "type": "extra-fight",
-            "subject": "bearer",
-            "optional": true
-          },
-          {
-            "type": "choose-linked-ability",
-            "rule": "exquisite-swordsmanship",
-            "count": 1,
-            "optional": true,
-            "scope": "bearer-attacks-in-extra-fight"
+        "enhancement": {
+          "type": "model",
+          "points": 30,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY"
+                ],
+                "factionKeywords": [
+                  "EMPEROR’S CHILDREN"
+                ]
+              }
+            ]
           }
-        ],
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Infantry",
-            "Emperor’s Children"
-          ],
-          "excludedKeywords": []
+        },
+        "detail": {
+          "trigger": {
+            "event": "phase-end",
+            "phase": "fight",
+            "owner": "either"
+          },
+          "condition": {
+            "subject": "bearer",
+            "state": "within-engagement-range",
+            "reference": "enemy-models"
+          },
+          "limit": {
+            "count": 1,
+            "period": "battle"
+          },
+          "effects": [
+            {
+              "type": "extra-fight",
+              "subject": "bearer",
+              "optional": true
+            },
+            {
+              "type": "choose-linked-ability",
+              "rule": "exquisite-swordsmanship",
+              "count": 1,
+              "optional": true,
+              "scope": "bearer-attacks-in-extra-fight"
+            }
+          ]
         }
       }
     }

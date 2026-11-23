@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Covenite Coterie",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 2 CP in the Fight phase of either turn on a HAEMONCULUS COVENS unit of yours that has not yet fought this phase. For the rest of the phase, its models' attacks against a Battle-shocked enemy unit have [DEVASTATING WOUNDS].",
     "citations": [
       {
@@ -25,10 +32,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "HAEMONCULUS COVENS"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Covenite Coterie",
           "type": "Strategic Ploy",
           "windows": [

@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Bridgehead Strike",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "Spend 1 CP in your Shooting phase, once a MILITARUM TEMPESTUS unit of yours has shot, on that unit. Pick an enemy unit that at least one of those ranged attacks hit: for the rest of that phase, ranged attacks by your MILITARUM TEMPESTUS units against it have [IGNORES COVER].",
     "citations": [
       {
@@ -25,11 +31,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "MILITARUM TEMPESTUS"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Bridgehead Strike",
           "when": {
             "turn": "own",

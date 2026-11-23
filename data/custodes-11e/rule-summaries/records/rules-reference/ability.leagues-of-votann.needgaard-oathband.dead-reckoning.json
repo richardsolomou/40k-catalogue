@@ -31,32 +31,40 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Leagues of Votann"
-          ],
-          "excludes": []
+        "enhancement": {
+          "type": "model",
+          "points": 10,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "LEAGUES OF VOTANN"
+                ]
+              }
+            ]
+          }
         },
-        "trigger": {
-          "event": "turn-end",
-          "turn": "either-player"
-        },
-        "condition": {
-          "allOf": [
-            "bearer-on-battlefield",
-            "own-player-spent-zero-YP-this-turn"
-          ]
-        },
-        "optional": true,
-        "effect": {
-          "type": "gain-resource",
-          "recipient": "own-player",
-          "pool": "YP",
-          "amount": 1
+        "detail": {
+          "trigger": {
+            "event": "turn-end",
+            "turn": "either-player"
+          },
+          "condition": {
+            "allOf": [
+              "bearer-on-battlefield",
+              "own-player-spent-zero-YP-this-turn"
+            ]
+          },
+          "optional": true,
+          "effect": {
+            "type": "gain-resource",
+            "recipient": "own-player",
+            "pool": "YP",
+            "amount": 1
+          }
         }
       }
     }

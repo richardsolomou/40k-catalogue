@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Mercurial Host",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "In the enemy Movement phase, react when an enemy unit completes a move of one of these types: Fall Back, Advance or Normal Move. Pick a friendly EMPEROR’S CHILDREN unit up to 8\" from it at move end. BEASTS and VEHICLES are ineligible. Your pick may make a Normal Move capped at 6\".",
     "summarySpans": [
       {
@@ -82,10 +89,30 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "EMPEROR’S CHILDREN"
+            ],
+            "excludedKeywords": [
+              "BEASTS",
+              "VEHICLE"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "windows": [

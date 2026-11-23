@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Cult of Blood",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP. Use it in the opposing player's Shooting phase, or in any Fight phase, as soon as an enemy unit has picked its targets, on a JAKHALS or GOREMONGERS unit of yours that was chosen as a target for at least one of those attacks. Your unit's models have Feel No Pain 6+ for the rest of the phase, or Feel No Pain 5+ instead while your unit has a WORLD EATERS MONSTER unit of yours within 6\" of it or a WORLD EATERS TITANIC unit of yours within 9\" of it.",
     "summarySpans": [
       {
@@ -36,11 +44,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "JAKHALS"
+                ]
+              },
+              {
+                "keywords": [
+                  "GOREMONGERS"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Cult of Blood",
           "trigger": {
             "windows": [

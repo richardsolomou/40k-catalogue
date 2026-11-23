@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Huron’s Marauders",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "In your Command phase, pick a DAMNED unit to get a single benefit that expires as your next turn begins. Increase its models’ Save by 1, or improve the Ballistic Skill of their ranged weapons by 1, or give those weapons 1 more Attack.",
     "summarySpans": [
       {
@@ -40,10 +47,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DAMNED"
+            ]
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "turn": "your",

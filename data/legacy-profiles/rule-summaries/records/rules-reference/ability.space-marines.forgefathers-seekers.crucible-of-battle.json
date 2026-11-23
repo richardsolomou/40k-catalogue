@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Forgefather's Seekers",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "In your Shooting phase or either Fight phase, select the Adeptus Astartes infantry unit when it is picked to attack an enemy within 6 inches. You may reroll its hit and wound rolls of 1.",
     "summarySpans": [
       {
@@ -57,10 +64,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-attack"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "",
           "trigger": {
             "turn": "either",
@@ -85,13 +108,13 @@
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "hit",
               "result": 1,
               "optional": true
             },
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "wound",
               "result": 1,
               "optional": true

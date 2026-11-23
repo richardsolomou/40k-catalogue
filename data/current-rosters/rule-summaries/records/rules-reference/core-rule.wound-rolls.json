@@ -39,87 +39,90 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "attack-sequence-step",
-        "step": 2,
-        "of": "05.00",
-        "roll": {
-          "per": "hit",
-          "dice": "1D6"
-        },
-        "evaluation": "first-matching-row",
-        "rows": [
-          {
-            "order": 1,
-            "if": {
-              "unmodifiedRoll": 1
-            },
-            "result": "fail"
+        "detail": {
+          "kind": "attack-sequence-step",
+          "step": 2,
+          "of": "05.00",
+          "roll": {
+            "per": "hit",
+            "dice": "1D6"
           },
-          {
-            "order": 2,
-            "if": {
-              "unmodifiedRoll": 6
+          "evaluation": "first-matching-row",
+          "rows": [
+            {
+              "order": 1,
+              "if": {
+                "unmodifiedRoll": 1
+              },
+              "result": "fail"
             },
-            "result": "critical-wound"
-          },
-          {
-            "order": 3,
-            "if": {
-              "rollAtLeast": "required-result"
+            {
+              "order": 2,
+              "if": {
+                "unmodifiedRoll": 6
+              },
+              "result": "critical-wound"
             },
-            "result": "wound"
+            {
+              "order": 3,
+              "if": {
+                "rollAtLeast": "required-result"
+              },
+              "result": "wound"
+            },
+            {
+              "order": 4,
+              "if": "any-other-result",
+              "result": "fail"
+            }
+          ],
+          "requiredResult": [
+            {
+              "atLeast": 2,
+              "strengthToToughnessRatio": {
+                "minInclusive": 2
+              }
+            },
+            {
+              "atLeast": 3,
+              "strengthToToughnessRatio": {
+                "minExclusive": 1,
+                "maxExclusive": 2
+              }
+            },
+            {
+              "atLeast": 4,
+              "strengthToToughnessRatio": {
+                "equalTo": 1
+              }
+            },
+            {
+              "atLeast": 5,
+              "strengthToToughnessRatio": {
+                "minExclusive": 0.5,
+                "maxExclusive": 1
+              }
+            },
+            {
+              "atLeast": 6,
+              "strengthToToughnessRatio": {
+                "maxInclusive": 0.5
+              }
+            }
+          ],
+          "diceValuesSource": {
+            "pdf": "dice glyph images (read from rendered crops, see glyphs)",
+            "gdc": "digits"
           },
-          {
-            "order": 4,
-            "if": "any-other-result",
-            "result": "fail"
+          "gdcOnly": {
+            "bodyguardToughnessClause": true,
+            "printedAt": "19.02",
+            "classification": "reminder of printed 19.02",
+            "adopted": false
           }
-        ],
-        "requiredResult": [
-          {
-            "atLeast": 2,
-            "strengthToToughnessRatio": {
-              "minInclusive": 2
-            }
-          },
-          {
-            "atLeast": 3,
-            "strengthToToughnessRatio": {
-              "minExclusive": 1,
-              "maxExclusive": 2
-            }
-          },
-          {
-            "atLeast": 4,
-            "strengthToToughnessRatio": {
-              "equalTo": 1
-            }
-          },
-          {
-            "atLeast": 5,
-            "strengthToToughnessRatio": {
-              "minExclusive": 0.5,
-              "maxExclusive": 1
-            }
-          },
-          {
-            "atLeast": 6,
-            "strengthToToughnessRatio": {
-              "maxInclusive": 0.5
-            }
-          }
-        ],
-        "diceValuesSource": {
-          "pdf": "dice glyph images (read from rendered crops, see glyphs)",
-          "gdc": "digits"
-        },
-        "gdcOnly": {
-          "bodyguardToughnessClause": true,
-          "printedAt": "19.02",
-          "classification": "reminder of printed 19.02",
-          "adopted": false
         }
       }
     }

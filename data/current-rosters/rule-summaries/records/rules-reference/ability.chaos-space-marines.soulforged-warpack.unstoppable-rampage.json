@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Soulforged Warpack",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement",
+        "charge"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP. Use it in your own Movement or Charge phase on a HERETIC ASTARTES DAEMON VEHICLE or VASHTORR THE ARKIFANE unit of yours that has not yet been picked to move or charge in that phase. Until the phase ends, during any Normal, Advance or Charge move by it, it may pass through terrain features horizontally, treating them as absent.",
     "citations": [
       {
@@ -25,11 +33,37 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "HERETIC ASTARTES",
+                  "VEHICLE"
+                ]
+              },
+              {
+                "keywords": [
+                  "VASHTORR THE ARKIFANE"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-move-or-charge"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Soulforged Warpack",
           "trigger": {
             "windows": [

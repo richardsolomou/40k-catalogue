@@ -78,52 +78,60 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [],
-          "anyOf": [
-            "Sorcerer",
-            "Exalted Sorcerer"
-          ],
-          "excludes": [],
-          "equipment": null,
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "recipient": "chosen friendly SEKHETAR ROBOTS unit",
-            "operation": "heal",
-            "ability": "Soul Bound",
-            "actor": "controlling player",
-            "optional": true,
-            "select": 1,
-            "rangeInches": 3,
-            "rangeFrom": "bearer",
-            "wounds": "D3+1",
-            "timing": {
-              "phase": "your Movement phase",
-              "event": "bearer unit moves",
-              "at": [
-                "start",
-                "end"
-              ]
-            }
-          },
-          {
-            "recipient": "bearer",
-            "operation": "grant-ability",
-            "ability": "Lone Operative",
-            "sourceAbility": "Kine‑shielded Guardians",
-            "whileWithin": {
-              "inches": 3,
-              "of": "friendly SEKHETAR ROBOTS unit"
-            }
+        "enhancement": {
+          "type": "model",
+          "points": 30,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "EXALTED SORCERER"
+                ]
+              },
+              {
+                "keywords": [
+                  "SORCERER"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "chosen friendly SEKHETAR ROBOTS unit",
+              "ability": "Soul Bound",
+              "actor": "controlling player",
+              "optional": true,
+              "select": 1,
+              "rangeInches": 3,
+              "rangeFrom": "bearer",
+              "wounds": "D3+1",
+              "timing": {
+                "phase": "your Movement phase",
+                "event": "bearer unit moves",
+                "at": [
+                  "start",
+                  "end"
+                ]
+              },
+              "kind": "heal"
+            },
+            {
+              "recipient": "bearer",
+              "ability": "Lone Operative",
+              "sourceAbility": "Kine‑shielded Guardians",
+              "whileWithin": {
+                "inches": 3,
+                "of": "friendly SEKHETAR ROBOTS unit"
+              },
+              "kind": "grant-ability"
+            }
+          ]
+        }
       }
     }
   }

@@ -54,49 +54,62 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "Adeptus Astartes",
-            "Terminator",
-            "Captain"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "override-stratagem-reuse",
-            "recipient": "bearer unit",
-            "actor": "you",
-            "optional": true,
-            "stratagems": [
-              "Rapid Ingress",
-              "Heroic Intervention"
-            ],
-            "limit": {
-              "count": 1,
-              "period": "battle round",
-              "sharedBy": "army"
-            },
-            "phaseAllowance": {
-              "priorUsesDoNotPreventThisUse": true,
-              "thisUseDoesNotPreventOtherUnitsUsingIt": true
-            },
-            "cost": {
-              "stat": "CP",
-              "adjustment": {
-                "operation": "subtract",
-                "amount": 1
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "CAPTAIN",
+                  "TERMINATOR"
+                ],
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              },
+              {
+                "unit": {
+                  "kind": "unit",
+                  "id": "space-marines.captain-in-terminator-armour"
+                }
               }
-            }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer unit",
+              "actor": "you",
+              "optional": true,
+              "stratagems": [
+                "Rapid Ingress",
+                "Heroic Intervention"
+              ],
+              "limit": {
+                "count": 1,
+                "period": "battle round",
+                "sharedBy": "army"
+              },
+              "phaseAllowance": {
+                "priorUsesDoNotPreventThisUse": true,
+                "thisUseDoesNotPreventOtherUnitsUsingIt": true
+              },
+              "cost": {
+                "stat": "CP",
+                "adjustment": {
+                  "operation": "subtract",
+                  "amount": 1
+                }
+              },
+              "kind": "override-stratagem-reuse"
+            }
+          ]
+        }
       }
     }
   }

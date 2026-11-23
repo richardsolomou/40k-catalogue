@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Luminen Auto-Choir",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own"
+    },
     "summary": "In your Movement phase, when one of your ELECTRO-PRIESTS Battleclade units is picked for an Advance move, spend 1 CP on that ELECTRO-PRIESTS unit. Advancing this way does not count against its eligibility to charge.",
     "summarySpans": [
       {
@@ -53,10 +59,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-advance"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ELECTRO-PRIESTS"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Luminen Auto-Choir",
           "trigger": {
             "windows": [

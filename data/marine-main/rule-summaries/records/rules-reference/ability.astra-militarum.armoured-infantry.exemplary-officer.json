@@ -52,38 +52,43 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "INFANTRY",
-            "OFFICER"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "extend-order",
-            "recipient": "selected other PLATOON units",
-            "actor": "you",
-            "issuer": "bearer",
-            "optional": true,
-            "trigger": "bearer issues Order to its own unit",
-            "selection": {
-              "maximum": 2,
-              "other": true,
-              "keyword": "PLATOON",
-              "withinInches": 3,
-              "measuredFrom": "bearer unit"
-            },
-            "order": "same as the triggering Order"
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY",
+                  "OFFICER"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "selected other PLATOON units",
+              "actor": "you",
+              "issuer": "bearer",
+              "optional": true,
+              "trigger": "bearer issues Order to its own unit",
+              "selection": {
+                "maximum": 2,
+                "other": true,
+                "keyword": "PLATOON",
+                "withinInches": 3,
+                "measuredFrom": "bearer unit"
+              },
+              "order": "same as the triggering Order",
+              "kind": "extend-order"
+            }
+          ]
+        }
       }
     }
   }

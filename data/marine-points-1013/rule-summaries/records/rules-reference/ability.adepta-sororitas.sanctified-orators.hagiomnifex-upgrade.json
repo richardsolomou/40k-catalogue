@@ -24,49 +24,64 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "enhancement-upgrade",
-        "detachment": "Sanctified Orators",
-        "pointsCost": 25,
-        "eligibility": {
-          "keywordsAll": [
-            "ADEPTA SORORITAS",
-            "CHARACTER"
-          ],
-          "excludedUnitKeywords": [
-            "PENITENT"
-          ]
+        "enhancement": {
+          "type": "upgrade",
+          "points": 25,
+          "perRoster": 3,
+          "outsideLimit": true,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "CHARACTER"
+                ],
+                "factionKeywords": [
+                  "ADEPTA SORORITAS"
+                ]
+              }
+            ],
+            "excludedKeywords": [
+              "PENITENT"
+            ],
+            "nonCharacters": true
+          }
         },
-        "usage": {
-          "limit": "once-per-turn-per-unit",
-          "trigger": "start-of-any-phase",
-          "choose": 1,
-          "duration": "that-phase",
-          "durationBasis": "core 01.02.02 persisting rules effects"
-        },
-        "modes": {
-          "Rite of Revelation": {
-            "while": "this-unit-shooting",
-            "recipient": "enemy-units",
-            "detectionRangeInches": 6
+        "detail": {
+          "kind": "enhancement-upgrade",
+          "detachment": "Sanctified Orators",
+          "usage": {
+            "limit": "once-per-turn-per-unit",
+            "trigger": "start-of-any-phase",
+            "choose": 1,
+            "duration": "that-phase",
+            "durationBasis": "core 01.02.02 persisting rules effects"
           },
-          "Sermon of Intolerance": {
-            "recipient": "this-unit",
-            "battleShock": "auto-pass"
-          },
-          "Catechism of Raging Fervour": {
-            "recipient": "this-unit",
-            "moveInches": 1
-          },
-          "Psalm of Righteous Smiting": {
-            "recipient": "this-unit-attacks",
-            "strength": 1
-          },
-          "Chorus of Repudiation": {
-            "recipient": "attacks-targeting-this-unit",
-            "condition": "attack-S-greater-than-unit-T",
-            "woundRoll": -1
+          "modes": {
+            "Rite of Revelation": {
+              "while": "this-unit-shooting",
+              "recipient": "enemy-units",
+              "detectionRangeInches": 6
+            },
+            "Sermon of Intolerance": {
+              "recipient": "this-unit",
+              "battleShock": "auto-pass"
+            },
+            "Catechism of Raging Fervour": {
+              "recipient": "this-unit",
+              "moveInches": 1
+            },
+            "Psalm of Righteous Smiting": {
+              "recipient": "this-unit-attacks",
+              "strength": 1
+            },
+            "Chorus of Repudiation": {
+              "recipient": "attacks-targeting-this-unit",
+              "condition": "attack-S-greater-than-unit-T",
+              "woundRoll": -1
+            }
           }
         }
       }

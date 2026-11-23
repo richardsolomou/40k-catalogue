@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Outlander Claw",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP, in the Movement phase of your opponent's turn, right after an enemy unit finishes a Normal move, Advance move or Fall Back move. Then one ATALAN JACKALS or ACHILLES RIDGERUNNERS unit of yours no more than 8″ from that enemy unit may move up to 6″ as a Normal move.",
     "summarySpans": [
       {
@@ -43,11 +50,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ACHILLES RIDGERUNNERS"
+                ]
+              },
+              {
+                "keywords": [
+                  "ATALAN JACKALS"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Outlander Claw",
           "when": {
             "phase": "movement",

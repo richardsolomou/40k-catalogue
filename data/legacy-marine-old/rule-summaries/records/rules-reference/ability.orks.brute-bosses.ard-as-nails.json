@@ -50,58 +50,61 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "scope": {
-          "factionId": "0b30f1e3-1e5c-4823-afa1-07951433a270",
-          "faction": "Orks",
-          "detachmentId": "0f071f29-4547-4912-b020-d667768633b4",
-          "detachment": "Brute Bosses",
-          "uniqueTags": [],
-          "sourceId": "0f071f29-4547-4912-b020-d667768633b4:ard-as-nails",
-          "cardType": "detachmentRule",
-          "cardEdition": "40k-11e"
-        },
-        "trigger": {
-          "event": "model-destroyed",
-          "subject": {
-            "owner": "friendly",
-            "level": "model",
-            "allOf": [
-              "Warboss"
-            ]
-          }
-        },
-        "condition": {
-          "type": "not-selected-to-fight",
-          "subject": "destroyed-model-unit",
-          "phase": "triggering"
-        },
-        "roll": {
-          "dice": "D6",
-          "count": 1,
-          "threshold": 3,
-          "addIf": {
-            "value": 1,
+        "detail": {
+          "scope": {
+            "factionId": "0b30f1e3-1e5c-4823-afa1-07951433a270",
+            "faction": "Orks",
+            "detachmentId": "0f071f29-4547-4912-b020-d667768633b4",
+            "detachment": "Brute Bosses",
+            "uniqueTags": [],
+            "sourceId": "0f071f29-4547-4912-b020-d667768633b4:ard-as-nails",
+            "cardType": "detachmentRule",
+            "cardEdition": "40k-11e"
+          },
+          "trigger": {
+            "event": "model-destroyed",
+            "subject": {
+              "owner": "friendly",
+              "level": "model",
+              "allOf": [
+                "Warboss"
+              ]
+            }
+          },
+          "condition": {
+            "type": "not-selected-to-fight",
             "subject": "destroyed-model-unit",
-            "designation": "riled up"
-          }
-        },
-        "effect": {
-          "type": "fight-on-death",
-          "target": "destroyed-model",
-          "fight": "with-own-unit",
-          "removal": {
-            "earliestOf": [
-              {
-                "event": "unit-finished-fighting",
-                "subject": "destroyed-model-unit"
-              },
-              {
-                "event": "phase-ended",
-                "phase": "triggering"
-              }
-            ]
+            "phase": "triggering"
+          },
+          "roll": {
+            "dice": "D6",
+            "count": 1,
+            "threshold": 3,
+            "addIf": {
+              "value": 1,
+              "subject": "destroyed-model-unit",
+              "designation": "riled up"
+            }
+          },
+          "effect": {
+            "type": "fight-on-death",
+            "target": "destroyed-model",
+            "fight": "with-own-unit",
+            "removal": {
+              "earliestOf": [
+                {
+                  "event": "unit-finished-fighting",
+                  "subject": "destroyed-model-unit"
+                },
+                {
+                  "event": "phase-ended",
+                  "phase": "triggering"
+                }
+              ]
+            }
           }
         }
       }

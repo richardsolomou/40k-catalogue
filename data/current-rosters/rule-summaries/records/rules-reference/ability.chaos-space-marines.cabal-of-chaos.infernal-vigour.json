@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Cabal of Chaos",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own"
+    },
     "summary": "Stratagem, 1 CP. Use it in your Command phase on one friendly HERETIC ASTARTES unit that is a PSYKER or DAEMON unit, other than a KHORNE unit. The target heals: it regains D3+1 lost wounds.",
     "citations": [
       {
@@ -25,11 +31,38 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "HERETIC ASTARTES",
+                  "PSYKER"
+                ]
+              },
+              {
+                "keywords": [
+                  "HERETIC ASTARTES",
+                  "DAEMON"
+                ]
+              }
+            ],
+            "excludedKeywords": [
+              "KHORNE"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Cabal of Chaos",
           "trigger": {
             "windows": [

@@ -36,36 +36,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "source": "this-model",
-        "actor": "controlling-player",
-        "trigger": {
-          "event": "deployment-completed",
-          "by": "both-players"
-        },
-        "optional": true,
-        "effect": {
-          "action": "redeploy",
-          "selection": [
-            {
-              "entity": "unit",
-              "relation": "this-models-unit",
-              "count": 1
-            },
-            {
-              "entity": "unit",
-              "relation": "other",
-              "side": "friendly",
-              "keyword": "KROOT",
-              "count": 1
+        "detail": {
+          "source": "this-model",
+          "actor": "controlling-player",
+          "trigger": {
+            "event": "deployment-completed",
+            "by": "both-players"
+          },
+          "optional": true,
+          "effect": {
+            "action": "redeploy",
+            "selection": [
+              {
+                "entity": "unit",
+                "relation": "this-models-unit",
+                "count": 1
+              },
+              {
+                "entity": "unit",
+                "relation": "other",
+                "side": "friendly",
+                "keyword": "KROOT",
+                "count": 1
+              }
+            ],
+            "alternative": {
+              "action": "place-in-strategic-reserves",
+              "selection": "any-of-the-redeploying-units",
+              "optional": true,
+              "ignore": "number-of-units-already-in-strategic-reserves"
             }
-          ],
-          "alternative": {
-            "action": "place-in-strategic-reserves",
-            "selection": "any-of-the-redeploying-units",
-            "optional": true,
-            "ignore": "number-of-units-already-in-strategic-reserves"
           }
         }
       }

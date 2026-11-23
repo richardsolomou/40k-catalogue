@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Scintillating Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Once an enemy has picked its targets in either Fight phase, select a friendly LEGIONES DAEMONICA TZEENTCH unit assigned at least one of those attacks. Roll a D6. You may spend 1 Flux to roll it again and take the new result. Through the rest of the phase, attacks directed at your unit fail if their final unmodified Hit roll, after rerolls, equals that number. This applies to hits that would be Critical Hits as well. For example, if the first D6 shows 2 and the Flux reroll gives 6, it is the 6 that defeats matching attacks.",
     "summarySpans": [
       {
@@ -47,41 +54,62 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": "Fight",
-          "turn": "either",
-          "trigger": "after enemy chooses targets"
-        },
-        "target": {
-          "ownership": "friendly",
-          "count": 1,
-          "keyword": "LEGIONES DAEMONICA TZEENTCH",
-          "selectedByTriggeringEnemyAttack": true
-        },
-        "effect": {
-          "roll": "D6",
-          "optionalReroll": {
-            "resource": "Flux",
-            "cost": 1,
-            "useNewResult": true
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
           },
-          "expiry": "phase end",
-          "attackScope": "every attack against the selected friendly unit",
-          "failurePredicate": {
-            "compare": "unmodified Hit roll after any attack rerolls",
-            "match": "final stratagem D6 face",
-            "overridesCriticalHits": true
-          },
-          "example": {
-            "firstRoll": 2,
-            "reroll": 6,
-            "effectiveFailingFace": 6
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "TZEENTCH"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": "Fight",
+            "turn": "either",
+            "trigger": "after enemy chooses targets"
+          },
+          "target": {
+            "ownership": "friendly",
+            "count": 1,
+            "keyword": "LEGIONES DAEMONICA TZEENTCH",
+            "selectedByTriggeringEnemyAttack": true
+          },
+          "effect": {
+            "roll": "D6",
+            "optionalReroll": {
+              "resource": "Flux",
+              "cost": 1,
+              "useNewResult": true
+            },
+            "expiry": "phase end",
+            "attackScope": "every attack against the selected friendly unit",
+            "failurePredicate": {
+              "compare": "unmodified Hit roll after any attack rerolls",
+              "match": "final stratagem D6 face",
+              "overridesCriticalHits": true
+            },
+            "example": {
+              "firstRoll": 2,
+              "reroll": 6,
+              "effectiveFailingFace": 6
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Green Tide",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own"
+    },
     "summary": "1 CP, in your Movement phase, when you pick one of your BOYZ or BEAST SNAGGA BOYZ units to move; that unit is the target. Its Advance rolls get +2 for the rest of that phase.",
     "summarySpans": [
       {
@@ -43,11 +49,33 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-move"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "BEAST SNAGGA BOYZ"
+                ]
+              },
+              {
+                "keywords": [
+                  "BOYZ"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Green Tide",
           "when": {
             "phase": "movement",

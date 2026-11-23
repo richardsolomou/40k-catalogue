@@ -14,6 +14,16 @@
     "ruleType": "stratagem",
     "group": "Wrath of the Doomed",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "In any phase, mark an enemy unit when it wipes out your Death Company unit. The enemy is hated for the rest of the battle, giving friendly Death Company attacks against it +1 to Wound rolls.",
     "summarySpans": [
       {
@@ -51,10 +61,23 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-destroyed"
+          },
+          "target": {
+            "triggering": true,
+            "side": "enemy",
+            "entity": "unit",
+            "more": true
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

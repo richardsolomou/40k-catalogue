@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Hexwarp Thrallband",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in your Shooting phase and pick one of your THOUSAND SONS PSYKER units that is wholly within the Flow of Magic of your army and is not yet chosen to shoot in this phase. For the rest of the phase, the ranged weapons its models carry gain [IGNORES COVER]. Once your unit has shot, choose one enemy unit that at least one of those attacks hit; for the rest of the phase, that unit's models get no Benefit of Cover.",
     "summarySpans": [
       {
@@ -36,10 +43,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "THOUSAND SONS",
+              "PSYKER"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Hexwarp Thrallband",
           "type": "Strategic Ploy",
           "windows": [

@@ -14,6 +14,12 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own"
+    },
     "summary": "Spend 1 CP in your Command phase's Battle-shock step, right before one of your units makes a Battle-shock roll, choosing that unit. That roll is passed automatically. It can be used only once per battle. The card's phase field says Charge phase while its timing names the Command phase's Battle-shock step, so it does not settle when it is used.",
     "summarySpans": [
       {
@@ -43,36 +49,45 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "core-stratagem",
-        "category": "Core Stratagem",
-        "when": {
-          "turn": "yours",
-          "timingText": {
-            "phase": "command",
-            "step": "battle-shock",
-            "point": "just-before-battle-shock-roll"
+        "stratagem": {
+          "limit": "battle",
+          "when": {
+            "unresolved": "not typed yet; see the summary"
           },
-          "cardPhaseField": [
-            "charge"
-          ],
-          "openPoint": "phase field and timing text name different phases"
+          "target": {
+            "triggering": true,
+            "entity": "unit"
+          }
         },
-        "target": {
-          "count": 1,
-          "subject": "the-unit-being-tested",
-          "side": "friendly"
-        },
-        "effect": {
-          "roll": "battle-shock",
-          "result": "passed-automatically"
-        },
-        "frequency": {
-          "printedOnRecord": "once-per-battle"
-        },
-        "cost": {
-          "cp": 1
+        "detail": {
+          "kind": "core-stratagem",
+          "when": {
+            "turn": "yours",
+            "timingText": {
+              "phase": "command",
+              "step": "battle-shock",
+              "point": "just-before-battle-shock-roll"
+            },
+            "cardPhaseField": [
+              "charge"
+            ],
+            "openPoint": "phase field and timing text name different phases"
+          },
+          "target": {
+            "count": 1,
+            "subject": "the-unit-being-tested",
+            "side": "friendly"
+          },
+          "effect": {
+            "roll": "battle-shock",
+            "result": "passed-automatically"
+          },
+          "frequency": {
+            "printedOnRecord": "once-per-battle"
+          }
         }
       }
     }

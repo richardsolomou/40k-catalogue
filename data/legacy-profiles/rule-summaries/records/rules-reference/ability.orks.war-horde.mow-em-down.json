@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "War Horde",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "In the Fight phase, use this as you choose a friendly Orks Vehicle to fight after it charged this turn. Walker units are excluded. Give its melee attacks Cleave 1. For an attack that already has Cleave, use +1 to its existing value instead, such as Cleave 1 increasing to Cleave 2.",
     "summarySpans": [
       {
@@ -81,10 +87,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ORKS",
+              "VEHICLE"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

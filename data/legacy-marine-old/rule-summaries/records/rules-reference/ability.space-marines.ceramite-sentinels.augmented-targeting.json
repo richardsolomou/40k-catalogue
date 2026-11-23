@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Ceramite Sentinels",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "When you select a Adeptus Astartes unit to attack in your Shooting phase or either Fight phase, choose one ability for its attacks. Pick SUSTAINED HITS 1 or LETHAL HITS. An entrenched unit gets the pair.",
     "summarySpans": [
       {
@@ -71,10 +78,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "type": "",
           "trigger": {
             "turn": "either",

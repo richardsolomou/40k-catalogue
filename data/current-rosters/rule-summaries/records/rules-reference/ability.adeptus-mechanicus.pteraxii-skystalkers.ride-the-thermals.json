@@ -24,42 +24,45 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "unit-ability",
-        "datasheet": "Pteraxii Skystalkers",
-        "trigger": {
-          "phase": "shooting",
-          "turn": "own",
-          "event": "after-unit-has-shot"
-        },
-        "condition": {
-          "notWithinEngagementRange": true
-        },
-        "optional": true,
-        "chooseOne": [
-          {
-            "kind": "normal-move",
-            "maxInches": 6
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Pteraxii Skystalkers",
+          "trigger": {
+            "phase": "shooting",
+            "turn": "own",
+            "event": "after-unit-has-shot"
           },
-          {
-            "kind": "normal-move",
-            "maxInches": 12,
-            "requires": {
-              "allModelsEndWhollyWithinInches": 6,
-              "of": {
-                "side": "friendly",
-                "keywordsAll": [
-                  "ADEPTUS MECHANICUS",
-                  "BATTLELINE"
-                ]
+          "condition": {
+            "notWithinEngagementRange": true
+          },
+          "optional": true,
+          "chooseOne": [
+            {
+              "kind": "normal-move",
+              "maxInches": 6
+            },
+            {
+              "kind": "normal-move",
+              "maxInches": 12,
+              "requires": {
+                "allModelsEndWhollyWithinInches": 6,
+                "of": {
+                  "side": "friendly",
+                  "keywordsAll": [
+                    "ADEPTUS MECHANICUS",
+                    "BATTLELINE"
+                  ]
+                }
               }
             }
+          ],
+          "afterwards": {
+            "cannotCharge": true,
+            "duration": "turn"
           }
-        ],
-        "afterwards": {
-          "cannotCharge": true,
-          "duration": "turn"
         }
       }
     }

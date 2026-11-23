@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Hallowed Martyrs",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "epic-deed"
+    },
     "summary": "Spend 1 CP immediately after one of your ADEPTA SORORITAS CHARACTER models is destroyed in any phase of either turn. You may discard 1 to 3 Miracle dice. At phase end, return the model unengaged, as near as you can to its death location. It forms a separate unit with Starting Strength 1, even if it previously belonged to an Attached unit. Roll a D3 and add one for every die discarded. The result is the model’s remaining wounds, capped at its starting wounds. Saint Celestine is ineligible. Each Character can be chosen only once in a battle.",
     "summarySpans": [
       {
@@ -59,62 +70,82 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cost": {
-          "commandPoints": 1
-        },
-        "activation": {
-          "phase": "any",
-          "turn": "either",
-          "event": "model-just-destroyed"
-        },
-        "target": {
-          "controller": "you",
-          "entity": "model",
-          "count": 1,
-          "allKeywords": [
-            "ADEPTA SORORITAS",
-            "CHARACTER"
-          ],
-          "eventSubject": true,
-          "mayTargetDestroyedModel": true
-        },
-        "effect": {
-          "discard": {
-            "resource": "miracle-dice",
-            "optional": true,
-            "chosenCount": {
-              "min": 1,
-              "max": 3
-            },
-            "declineCount": 0
+        "stratagem": {
+          "limit": "phase",
+          "perTarget": "battle",
+          "restricted": true,
+          "when": {
+            "at": "phase"
           },
-          "return": {
-            "recipient": "target-model",
-            "timing": "end-of-triggering-phase",
-            "destination": "battlefield",
-            "placementCriteria": {
-              "all": [
-                "unengaged",
-                "nearest-legal-position-to-destruction-site"
-              ]
-            },
-            "attachedUnitMembership": false,
-            "separateUnit": true,
-            "startingStrength": 1
-          },
-          "woundsRemaining": {
-            "recipient": "returned-model",
-            "operation": "set",
-            "baseRoll": "D3",
-            "increasePerMiracleDieDiscarded": 1,
-            "maximum": "target-model-starting-wounds"
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "model",
+            "keywords": [
+              "ADEPTA SORORITAS",
+              "CHARACTER"
+            ],
+            "conditions": [
+              "just-destroyed"
+            ]
           }
         },
-        "restrictions": {
-          "excludedModel": "Saint Celestine",
-          "oncePerBattlePerCharacter": true
+        "detail": {
+          "activation": {
+            "phase": "any",
+            "turn": "either",
+            "event": "model-just-destroyed"
+          },
+          "target": {
+            "controller": "you",
+            "entity": "model",
+            "count": 1,
+            "allKeywords": [
+              "ADEPTA SORORITAS",
+              "CHARACTER"
+            ],
+            "eventSubject": true,
+            "mayTargetDestroyedModel": true
+          },
+          "effect": {
+            "discard": {
+              "resource": "miracle-dice",
+              "optional": true,
+              "chosenCount": {
+                "min": 1,
+                "max": 3
+              },
+              "declineCount": 0
+            },
+            "return": {
+              "recipient": "target-model",
+              "timing": "end-of-triggering-phase",
+              "destination": "battlefield",
+              "placementCriteria": {
+                "all": [
+                  "unengaged",
+                  "nearest-legal-position-to-destruction-site"
+                ]
+              },
+              "attachedUnitMembership": false,
+              "separateUnit": true,
+              "startingStrength": 1
+            },
+            "woundsRemaining": {
+              "recipient": "returned-model",
+              "operation": "set",
+              "baseRoll": "D3",
+              "increasePerMiracleDieDiscarded": 1,
+              "maximum": "target-model-starting-wounds"
+            }
+          },
+          "restrictions": {
+            "excludedModel": "Saint Celestine",
+            "oncePerBattlePerCharacter": true
+          }
         }
       }
     }

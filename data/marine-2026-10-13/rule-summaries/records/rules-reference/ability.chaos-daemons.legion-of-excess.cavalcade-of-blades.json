@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Legion of Excess",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Use this after finishing a Charge Move in your Charge phase with LEGIONES DAEMONICA SLAANESH. Pick an enemy the charger now has in Engagement Range. Throw one D6, or six dice for a MONSTER. For each die of at least 4, the enemy takes a mortal wound.",
     "summarySpans": [
       {
@@ -68,31 +75,48 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "your Charge phase",
-          "after friendly Charge Move ends"
-        ],
-        "target": {
-          "unit": "LEGIONES DAEMONICA SLAANESH",
-          "binding": "charging unit"
-        },
-        "effect": {
-          "enemy": {
-            "count": 1,
-            "within": "Engagement Range of target"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-ended-charge"
           },
-          "dice": {
-            "die": "D6",
-            "normalCount": 1,
-            "monsterCount": 6
-          },
-          "threshold": "4+",
-          "mortalWoundsPerSuccess": 1
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "SLAANESH"
+            ]
+          }
         },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "your Charge phase",
+            "after friendly Charge Move ends"
+          ],
+          "target": {
+            "unit": "LEGIONES DAEMONICA SLAANESH",
+            "binding": "charging unit"
+          },
+          "effect": {
+            "enemy": {
+              "count": 1,
+              "within": "Engagement Range of target"
+            },
+            "dice": {
+              "die": "D6",
+              "normalCount": 1,
+              "monsterCount": 6
+            },
+            "threshold": "4+",
+            "mortalWoundsPerSuccess": 1
+          },
+          "restrictions": []
+        }
       }
     }
   }

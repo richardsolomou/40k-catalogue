@@ -57,38 +57,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "psychicLevel": 1,
-        "trigger": "own-movement-phase",
-        "actor": "owning-unit",
-        "optional": true,
-        "requires": {
-          "battleShocked": false
-        },
-        "psychicRoll": {
-          "dice": "D6",
-          "onNatural": {
-            "value": 1,
-            "effect": "owning-unit-becomes-battle-shocked"
-          }
-        },
-        "effect": {
-          "effects": [
-            {
-              "operation": "place-owning-unit-in-strategic-reserves"
-            },
-            {
-              "operation": "grant-core-ability",
-              "abilityId": "deep-strike",
-              "recipient": "owning-unit"
+        "detail": {
+          "psychicLevel": 1,
+          "trigger": "own-movement-phase",
+          "actor": "owning-unit",
+          "optional": true,
+          "requires": {
+            "battleShocked": false
+          },
+          "psychicRoll": {
+            "dice": "D6",
+            "onNatural": {
+              "value": 1,
+              "effect": "owning-unit-becomes-battle-shocked"
             }
-          ]
-        },
-        "usage": {
-          "count": 1,
-          "period": "battle-round",
-          "scope": "army"
+          },
+          "effect": {
+            "effects": [
+              {
+                "kind": "place-owning-unit-in-strategic-reserves"
+              },
+              {
+                "abilityId": "deep-strike",
+                "recipient": "owning-unit",
+                "kind": "grant-core-ability"
+              }
+            ]
+          },
+          "usage": {
+            "count": 1,
+            "period": "battle-round",
+            "scope": "army"
+          }
         }
       }
     }

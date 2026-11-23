@@ -42,38 +42,52 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "requiresCharacter": true,
-          "anyKeywords": [
-            "DARK APOSTLE",
-            "DAMNED"
-          ]
+        "enhancement": {
+          "type": "model",
+          "points": 30,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "DAMNED"
+                ]
+              },
+              {
+                "keywords": [
+                  "DARK APOSTLE"
+                ]
+              }
+            ]
+          }
         },
-        "condition": {
-          "unit": "bearer-unit",
-          "quantifier": "every",
-          "test": "has-keyword",
-          "keyword": "DAMNED",
-          "exclude": [
-            {
-              "role": "bearer"
-            },
-            {
-              "model": "Dark Disciples",
-              "unit": "bearer-unit"
-            }
-          ]
-        },
-        "effect": {
-          "operation": "reroll",
-          "optional": true,
-          "recipient": "bearer-unit",
-          "rolls": [
-            "advance",
-            "charge"
-          ]
+        "detail": {
+          "condition": {
+            "unit": "bearer-unit",
+            "quantifier": "every",
+            "test": "has-keyword",
+            "keyword": "DAMNED",
+            "exclude": [
+              {
+                "role": "bearer"
+              },
+              {
+                "model": "Dark Disciples",
+                "unit": "bearer-unit"
+              }
+            ]
+          },
+          "effect": {
+            "optional": true,
+            "recipient": "bearer-unit",
+            "rolls": [
+              "advance",
+              "charge"
+            ],
+            "kind": "re-roll"
+          }
         }
       }
     }

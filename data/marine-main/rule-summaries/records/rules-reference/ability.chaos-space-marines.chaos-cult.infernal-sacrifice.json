@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Chaos Cult",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP. Use it in any Fight phase on one DAMNED unit of yours that has not yet fought in this phase. The unit may make a Desperate Pact. Having done so, it takes D3 mortal wounds on top of any it takes for failing that pact's Leadership test, and for the rest of the phase its models' melee weapons get +1 Attacks; if the unit passed that Leadership test, those weapons also get +1 Strength for the rest of the phase.",
     "citations": [
       {
@@ -25,11 +32,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Battle Tactic",
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DAMNED"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Chaos Cult",
           "trigger": {
             "windows": [

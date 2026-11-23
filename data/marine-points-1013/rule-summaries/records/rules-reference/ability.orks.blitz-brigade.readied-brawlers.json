@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Blitz Brigade",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own"
+    },
     "summary": "1 CP, in your Movement phase, once a WAGON unit of yours finishes a Normal move; that unit is the target. Any units embarked inside it are allowed an assault disembark move.",
     "summarySpans": [
       {
@@ -35,11 +41,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": null,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "WAGON"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Blitz Brigade",
           "when": {
             "phase": "movement",

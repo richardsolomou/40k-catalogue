@@ -31,30 +31,33 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "owner": "Chaplain Grimaldus",
-        "clauses": [
-          {
-            "trigger": {
-              "event": "model-destroyed",
-              "model": "Chaplain Grimaldus",
-              "scope": "this-unit"
+        "detail": {
+          "owner": "Chaplain Grimaldus",
+          "clauses": [
+            {
+              "trigger": {
+                "event": "model-destroyed",
+                "model": "Chaplain Grimaldus",
+                "scope": "this-unit"
+              },
+              "effect": {
+                "destroy": "every-remaining-Cenobyte-Servitor-model-in-this-unit"
+              }
             },
-            "effect": {
-              "destroy": "every-remaining-Cenobyte-Servitor-model-in-this-unit"
+            {
+              "transportCapacityPerModel": {
+                "model": "Cenobyte Servitor",
+                "value": 0
+              }
             }
-          },
-          {
-            "transportCapacityPerModel": {
-              "model": "Cenobyte Servitor",
-              "value": 0
-            }
+          ],
+          "authorityBoundary": {
+            "transportRulesDestination": "not-linked",
+            "claimsBeyondCard": "none"
           }
-        ],
-        "authorityBoundary": {
-          "transportRulesDestination": "not-linked",
-          "claimsBeyondCard": "none"
         }
       }
     }

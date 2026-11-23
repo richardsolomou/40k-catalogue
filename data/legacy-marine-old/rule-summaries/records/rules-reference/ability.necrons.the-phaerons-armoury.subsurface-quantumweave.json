@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "The Phaeron's Armoury",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Use when an enemy targets one of your NECRONS TITANIC units in the opposing Shooting phase or either Fight phase. Worsen the Armour Penetration of its attacks into that unit by 1, until that enemy finishes attacking.",
     "summarySpans": [
       {
@@ -48,35 +55,53 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": {
-          "phase": [
-            "Shooting",
-            "Fight"
-          ],
-          "turn": "opposing Shooting or either Fight",
-          "event": "enemy targets friendly unit"
-        },
-        "target": {
-          "side": "friendly",
-          "count": 1,
-          "binding": "triggering unit",
-          "keywords": "NECRONS TITANIC"
-        },
-        "effect": {
-          "type": "weapon characteristic modifier",
-          "attribute": "AP",
-          "change": "worsen",
-          "amount": 1,
-          "scope": {
-            "attacker": "triggering enemy",
-            "defender": "target"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
           },
-          "until": "triggering enemy completes attacks"
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "NECRONS",
+              "TITANIC",
+              "FLY"
+            ]
+          }
         },
-        "restrictions": []
+        "detail": {
+          "window": {
+            "phase": [
+              "Shooting",
+              "Fight"
+            ],
+            "turn": "opposing Shooting or either Fight",
+            "event": "enemy targets friendly unit"
+          },
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "binding": "triggering unit",
+            "keywords": "NECRONS TITANIC"
+          },
+          "effect": {
+            "type": "weapon characteristic modifier",
+            "attribute": "AP",
+            "change": "worsen",
+            "amount": 1,
+            "scope": {
+              "attacker": "triggering enemy",
+              "defender": "target"
+            },
+            "until": "triggering enemy completes attacks"
+          },
+          "restrictions": []
+        }
       }
     }
   }

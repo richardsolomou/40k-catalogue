@@ -49,48 +49,58 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Infantry",
-            "Genestealer Cults"
-          ],
-          "excludes": []
-        },
-        "trigger": {
-          "event": "selected-to-shoot",
-          "subject": {
-            "owner": "own-player",
-            "allOf": [
-              "ASTRA MILITARUM"
-            ],
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
             "anyOf": [
-              "INFANTRY",
-              "MOUNTED"
-            ],
-            "within": {
-              "inches": 9,
-              "of": "bearer"
-            }
+              {
+                "keywords": [
+                  "INFANTRY"
+                ],
+                "factionKeywords": [
+                  "GENESTEALER CULTS"
+                ]
+              }
+            ]
           }
         },
-        "usage": {
-          "limit": 1,
-          "per": "turn",
-          "scope": "bearer"
-        },
-        "optional": true,
-        "effect": {
-          "type": "modify-weapon-characteristic",
-          "recipient": "every-model-in-triggering-unit",
-          "weapons": "equipped-ranged",
-          "characteristic": "AP",
-          "operation": "improve",
-          "amount": 1,
-          "duration": "through-end-of-phase"
+        "detail": {
+          "trigger": {
+            "event": "selected-to-shoot",
+            "subject": {
+              "owner": "own-player",
+              "allOf": [
+                "ASTRA MILITARUM"
+              ],
+              "anyOf": [
+                "INFANTRY",
+                "MOUNTED"
+              ],
+              "within": {
+                "inches": 9,
+                "of": "bearer"
+              }
+            }
+          },
+          "usage": {
+            "limit": 1,
+            "per": "turn",
+            "scope": "bearer"
+          },
+          "optional": true,
+          "effect": {
+            "type": "modify-weapon-characteristic",
+            "recipient": "every-model-in-triggering-unit",
+            "weapons": "equipped-ranged",
+            "characteristic": "AP",
+            "operation": "improve",
+            "amount": 1,
+            "duration": "through-end-of-phase"
+          }
         }
       }
     }

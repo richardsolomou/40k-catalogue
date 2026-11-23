@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Spirit Conclave",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "During your Command phase, pick a unit with one of these keywords: WRAITHBLADES, WRAITHGUARD, WRAITHLORD. Also pick an ASURYANI PSYKER model. Treat the chosen wraith unit as being within 12 inches of that PSYKER when applying its Spirit Guides or Psychic Guidance abilities. This lasts until your next Command phase starts.",
     "summarySpans": [
       {
@@ -68,10 +75,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "WRAITHBLADES"
+                ]
+              },
+              {
+                "keywords": [
+                  "WRAITHGUARD"
+                ]
+              },
+              {
+                "keywords": [
+                  "WRAITHLORD"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "turn": "your",

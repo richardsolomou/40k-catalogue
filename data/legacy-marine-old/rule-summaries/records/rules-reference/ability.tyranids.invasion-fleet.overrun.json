@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Invasion Fleet",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP, in the Fight phase of either turn, just before one of your TYRANIDS units Consolidates; that unit is the target. Until the phase ends, whenever it Consolidates its models may go 3″ further, provided the unit can finish in Engagement Range of at least one enemy unit. If instead the unit is inside your army's Synapse Range and out of Engagement Range of all enemies, it may swap that Consolidation move for a Normal move covering no more than 6″.",
     "summarySpans": [
       {
@@ -43,11 +50,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "TYRANIDS"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Invasion Fleet",
           "when": {
             "phase": "fight",

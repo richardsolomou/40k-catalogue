@@ -62,45 +62,48 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "role": "aura",
-        "source": "this-model",
-        "trigger": {
-          "event": "phase",
-          "phase": "command",
-          "timing": "start",
-          "turn": "either-player"
-        },
-        "limit": {
-          "period": "battle",
-          "scope": "model",
-          "count": 1
-        },
-        "activationOptional": true,
-        "area": {
-          "comparison": "within",
-          "inclusive": true,
-          "distanceInches": 9,
-          "origin": "this-model",
-          "candidate": {
-            "entity": "unit",
-            "side": "enemy",
-            "requireAllKeywords": [],
-            "excludeAnyKeywords": []
-          }
-        },
-        "effect": {
-          "operation": "take-test",
-          "test": "battle-shock",
-          "optional": false,
-          "rollModifier": {
-            "operation": "subtract",
-            "amount": 1,
-            "override": {
-              "requiredKeyword": "PSYKER",
-              "amount": 2
+        "detail": {
+          "role": "aura",
+          "source": "this-model",
+          "trigger": {
+            "event": "phase",
+            "phase": "command",
+            "timing": "start",
+            "turn": "either-player"
+          },
+          "limit": {
+            "period": "battle",
+            "scope": "model",
+            "count": 1
+          },
+          "activationOptional": true,
+          "area": {
+            "comparison": "within",
+            "inclusive": true,
+            "distanceInches": 9,
+            "origin": "this-model",
+            "candidate": {
+              "entity": "unit",
+              "side": "enemy",
+              "requireAllKeywords": [],
+              "excludeAnyKeywords": []
             }
+          },
+          "effect": {
+            "test": "battle-shock",
+            "optional": false,
+            "rollModifier": {
+              "operation": "subtract",
+              "amount": 1,
+              "override": {
+                "requiredKeyword": "PSYKER",
+                "amount": 2
+              }
+            },
+            "kind": "take-test"
           }
         }
       }

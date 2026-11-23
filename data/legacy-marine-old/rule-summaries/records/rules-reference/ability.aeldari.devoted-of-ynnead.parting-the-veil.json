@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Devoted of Ynnead",
     "cp": 2,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 2 CP in the Fight phase of either turn, right after an enemy unit picks its targets, on a YNNARI unit of yours that it targeted with at least one attack. Until the phase ends, any model in your unit that is destroyed before it has fought this phase stays in play; it may fight once the enemy unit's attacks are all resolved, and is then removed.",
     "citations": [
       {
@@ -25,10 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 2,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "YNNARI"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Devoted of Ynnead",
           "type": "Strategic Ploy",
           "windows": [

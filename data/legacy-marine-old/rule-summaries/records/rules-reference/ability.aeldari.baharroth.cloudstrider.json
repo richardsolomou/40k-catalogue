@@ -24,38 +24,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "ability": {
-          "condition": "this-model-leading-a-unit",
-          "effects": [
-            {
-              "when": {
-                "turn": "opponent",
-                "timing": "end-of-turn"
+        "detail": {
+          "ability": {
+            "condition": "this-model-leading-a-unit",
+            "effects": [
+              {
+                "when": {
+                  "turn": "opponent",
+                  "timing": "end-of-turn"
+                },
+                "condition": "not-within-engagement-range",
+                "removeFromBattlefield": true,
+                "placeInto": "strategic-reserves",
+                "optional": true
               },
-              "condition": "not-within-engagement-range",
-              "removeFromBattlefield": true,
-              "placeInto": "strategic-reserves",
-              "optional": true
-            },
-            {
-              "trigger": "led-unit-set-up-with-deep-strike",
-              "when": {
-                "turn": "own",
-                "phase": "movement"
-              },
-              "optional": true,
-              "setUp": {
-                "anywhere": true,
-                "moreThanInchesHorizontallyFromEnemyModels": 6
-              },
-              "then": {
-                "cannotDeclareCharge": true,
-                "duration": "end-of-turn"
+              {
+                "trigger": "led-unit-set-up-with-deep-strike",
+                "when": {
+                  "turn": "own",
+                  "phase": "movement"
+                },
+                "optional": true,
+                "setUp": {
+                  "anywhere": true,
+                  "moreThanInchesHorizontallyFromEnemyModels": 6
+                },
+                "then": {
+                  "cannotDeclareCharge": true,
+                  "duration": "end-of-turn"
+                }
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

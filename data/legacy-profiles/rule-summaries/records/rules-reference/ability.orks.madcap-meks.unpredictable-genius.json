@@ -125,125 +125,128 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "target": {
-          "owner": "friendly",
-          "level": "unit",
-          "anyOf": [
-            "Big Mek",
-            "Mek Gunz",
-            "Morkanaut",
-            "Wazbom Blastajet"
-          ]
-        },
-        "trigger": {
-          "event": "target-selection",
-          "phase": "shooting",
-          "owner": "self"
-        },
-        "condition": {
-          "type": "single-enemy-target",
-          "attackType": "ranged",
-          "quantifier": "all"
-        },
-        "roll": {
-          "dice": "D6",
-          "count": 1
-        },
-        "effect": {
-          "type": "roll-table",
-          "results": [
-            {
-              "range": [
-                1
-              ],
-              "name": "Dat’s Weird",
-              "effect": {
-                "type": "set-invulnerable-save",
-                "threshold": 4,
-                "recipient": "attack-target",
-                "expires": {
-                  "event": "unit-finished-shooting",
-                  "subject": "triggering-unit"
-                }
-              }
-            },
-            {
-              "range": [
-                2,
-                3
-              ],
-              "name": "Hop Splat",
-              "selection": {
-                "owner": "enemy",
-                "level": "unit",
-                "count": 1,
-                "excludes": "attack-target",
-                "distance": {
-                  "maximum": 3,
-                  "unit": "inches",
-                  "from": "attack-target"
+        "detail": {
+          "target": {
+            "owner": "friendly",
+            "level": "unit",
+            "anyOf": [
+              "Big Mek",
+              "Mek Gunz",
+              "Morkanaut",
+              "Wazbom Blastajet"
+            ]
+          },
+          "trigger": {
+            "event": "target-selection",
+            "phase": "shooting",
+            "owner": "self"
+          },
+          "condition": {
+            "type": "single-enemy-target",
+            "attackType": "ranged",
+            "quantifier": "all"
+          },
+          "roll": {
+            "dice": "D6",
+            "count": 1
+          },
+          "effect": {
+            "type": "roll-table",
+            "results": [
+              {
+                "range": [
+                  1
+                ],
+                "name": "Dat’s Weird",
+                "effect": {
+                  "type": "set-invulnerable-save",
+                  "threshold": 4,
+                  "recipient": "attack-target",
+                  "expires": {
+                    "event": "unit-finished-shooting",
+                    "subject": "triggering-unit"
+                  }
                 }
               },
-              "effect": {
-                "type": "mortal-wounds",
-                "dice": "D3",
-                "count": 1,
-                "recipient": "selected-other-unit"
-              }
-            },
-            {
-              "range": [
-                4
-              ],
-              "name": "Seekerz",
-              "effect": {
-                "type": "roll-modifier",
-                "roll": "hit",
-                "operation": "add",
-                "value": 1,
-                "recipient": "triggering-attacks"
-              }
-            },
-            {
-              "range": [
-                5
-              ],
-              "name": "Lifted",
-              "recipient": "attack-target",
-              "expires": {
-                "event": "unit-finished-shooting",
-                "subject": "triggering-unit"
-              },
-              "effects": [
-                {
-                  "type": "keyword-grant",
-                  "keyword": "Fly"
+              {
+                "range": [
+                  2,
+                  3
+                ],
+                "name": "Hop Splat",
+                "selection": {
+                  "owner": "enemy",
+                  "level": "unit",
+                  "count": 1,
+                  "excludes": "attack-target",
+                  "distance": {
+                    "maximum": 3,
+                    "unit": "inches",
+                    "from": "attack-target"
+                  }
                 },
-                {
-                  "type": "deny-benefit-of-cover"
+                "effect": {
+                  "type": "mortal-wounds",
+                  "dice": "D3",
+                  "count": 1,
+                  "recipient": "selected-other-unit"
                 }
-              ]
-            },
-            {
-              "range": [
-                6
-              ],
-              "name": "Runtified",
-              "effect": {
-                "type": "stat-modifier",
-                "stat": "toughness",
-                "operation": "add",
-                "value": -1,
+              },
+              {
+                "range": [
+                  4
+                ],
+                "name": "Seekerz",
+                "effect": {
+                  "type": "roll-modifier",
+                  "roll": "hit",
+                  "operation": "add",
+                  "value": 1,
+                  "recipient": "triggering-attacks"
+                }
+              },
+              {
+                "range": [
+                  5
+                ],
+                "name": "Lifted",
                 "recipient": "attack-target",
                 "expires": {
                   "event": "unit-finished-shooting",
                   "subject": "triggering-unit"
+                },
+                "effects": [
+                  {
+                    "type": "keyword-grant",
+                    "keyword": "Fly"
+                  },
+                  {
+                    "type": "deny-benefit-of-cover"
+                  }
+                ]
+              },
+              {
+                "range": [
+                  6
+                ],
+                "name": "Runtified",
+                "effect": {
+                  "type": "stat-modifier",
+                  "stat": "toughness",
+                  "operation": "add",
+                  "value": -1,
+                  "recipient": "attack-target",
+                  "expires": {
+                    "event": "unit-finished-shooting",
+                    "subject": "triggering-unit"
+                  }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

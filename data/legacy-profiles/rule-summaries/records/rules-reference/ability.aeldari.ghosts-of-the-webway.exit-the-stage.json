@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Ghosts of the Webway",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP as the opposing player's Fight phase ends, on a HARLEQUINS unit of yours that is outside Engagement Range of every enemy unit. Lift that unit off the battlefield and add it to your Strategic Reserves.",
     "citations": [
       {
@@ -25,10 +32,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "HARLEQUINS"
+            ],
+            "conditions": [
+              "not-in-engagement-range"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Ghosts of the Webway",
           "type": "Strategic Ploy",
           "windows": [

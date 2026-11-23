@@ -58,71 +58,74 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "move-type",
-        "phase": "charge",
-        "chosenIn": "11.02",
-        "eligibility": {
-          "all": [
-            "declared-charge-this-phase"
-          ]
-        },
-        "maximumDistance": "charge-roll",
-        "effect": {
-          "action": "move",
-          "procedure": "03.00"
-        },
-        "beforeMoving": {
-          "selectChargeTargets": {
-            "count": {
-              "min": 1
-            },
-            "of": "enemy-units",
-            "within": [
-              {
-                "inches": 12,
-                "of": "your-unit"
+        "detail": {
+          "kind": "move-type",
+          "phase": "charge",
+          "chosenIn": "11.02",
+          "eligibility": {
+            "all": [
+              "declared-charge-this-phase"
+            ]
+          },
+          "maximumDistance": "charge-roll",
+          "effect": {
+            "action": "move",
+            "procedure": "03.00"
+          },
+          "beforeMoving": {
+            "selectChargeTargets": {
+              "count": {
+                "min": 1
               },
-              {
-                "distance": "maximum-distance",
-                "of": "your-unit"
-              }
-            ],
-            "lasts": "until-end-of-this-move"
-          }
-        },
-        "whileMoving": [
-          {
-            "order": 1,
-            "each": "model",
-            "must": "end-move-closer-to-at-least-one-charge-target",
-            "ifAble": false
+              "of": "enemy-units",
+              "within": [
+                {
+                  "inches": 12,
+                  "of": "your-unit"
+                },
+                {
+                  "distance": "maximum-distance",
+                  "of": "your-unit"
+                }
+              ],
+              "lasts": "until-end-of-this-move"
+            }
           },
-          {
-            "order": 2,
-            "each": "model",
-            "must": "end-move-within-1-inch-of-at-least-one-charge-target",
-            "ifAble": true
+          "whileMoving": [
+            {
+              "order": 1,
+              "each": "model",
+              "must": "end-move-closer-to-at-least-one-charge-target",
+              "ifAble": false
+            },
+            {
+              "order": 2,
+              "each": "model",
+              "must": "end-move-within-1-inch-of-at-least-one-charge-target",
+              "ifAble": true
+            },
+            {
+              "order": 3,
+              "each": "model",
+              "must": "end-move-engaged-with-at-least-one-charge-target",
+              "ifAble": true
+            }
+          ],
+          "afterMoving": {
+            "mustBeEngagedWith": "all-charge-targets",
+            "mustNotBeEngagedWith": "enemy-units-that-are-not-charge-targets",
+            "grants": {
+              "ability": "Fights First",
+              "to": "each-model-in-unit",
+              "until": "end-of-turn",
+              "ruleNumber": "24.13"
+            }
           },
-          {
-            "order": 3,
-            "each": "model",
-            "must": "end-move-engaged-with-at-least-one-charge-target",
-            "ifAble": true
-          }
-        ],
-        "afterMoving": {
-          "mustBeEngagedWith": "all-charge-targets",
-          "mustNotBeEngagedWith": "enemy-units-that-are-not-charge-targets",
-          "grants": {
-            "ability": "Fights First",
-            "to": "each-model-in-unit",
-            "until": "end-of-turn",
-            "ruleNumber": "24.13"
-          }
-        },
-        "failureOutcomeStatedHere": false
+          "failureOutcomeStatedHere": false
+        }
       }
     }
   }

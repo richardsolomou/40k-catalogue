@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Hallowed Conclave",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in your Shooting phase, picking a GREY KNIGHTS INFANTRY unit of yours that has not yet been chosen to shoot in this phase. For the rest of the phase, storm bolters carried by its models gain both [PISTOL] and [TWIN-LINKED].",
     "citations": [
       {
@@ -25,10 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GREY KNIGHTS",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Hallowed Conclave",
           "trigger": {
             "windows": [
@@ -62,8 +87,7 @@
               "expires": "end-of-phase"
             }
           ],
-          "restrictions": [],
-          "category": "Strategic Ploy"
+          "restrictions": []
         }
       }
     }

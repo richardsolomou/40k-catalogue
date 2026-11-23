@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Bully Boyz",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "In the Fight phase, use this when an enemy chooses your Meganobz/Nobz as its target. For each destroyed model while that unit still awaits selection to fight, roll a D6. Add 1 if the unit is riled up. A 4+ keeps the model until the unit finishes fighting or the phase ends, whichever is earlier.",
     "summarySpans": [
       {
@@ -50,10 +56,33 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "MEGANOBZ"
+                ]
+              },
+              {
+                "keywords": [
+                  "NOBZ"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

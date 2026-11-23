@@ -44,46 +44,51 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "keywords": [
-            "INFANTRY",
-            "OFFICER"
-          ],
-          "anyOf": [],
-          "equipment": null,
-          "excludes": [],
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "operation": "retain-objective-control",
-            "recipient": "objective marker you control",
-            "actor": "you",
-            "timing": {
-              "phase": "Command",
-              "at": "end",
-              "side": "you"
-            },
-            "condition": {
-              "anyOf": [
-                "bearer unit within objective range",
-                "TRANSPORT carrying bearer unit within objective range"
-              ]
-            },
-            "continuesWithoutFriendlyModelsInRange": true,
-            "expires": {
-              "event": "opponent controls that marker",
-              "at": [
-                "start of any turn",
-                "end of any turn"
-              ]
-            }
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "INFANTRY",
+                  "OFFICER"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "objective marker you control",
+              "actor": "you",
+              "timing": {
+                "phase": "Command",
+                "at": "end",
+                "side": "you"
+              },
+              "condition": {
+                "anyOf": [
+                  "bearer unit within objective range",
+                  "TRANSPORT carrying bearer unit within objective range"
+                ]
+              },
+              "continuesWithoutFriendlyModelsInRange": true,
+              "expires": {
+                "event": "opponent controls that marker",
+                "at": [
+                  "start of any turn",
+                  "end of any turn"
+                ]
+              },
+              "kind": "retain-objective-control"
+            }
+          ]
+        }
       }
     }
   }

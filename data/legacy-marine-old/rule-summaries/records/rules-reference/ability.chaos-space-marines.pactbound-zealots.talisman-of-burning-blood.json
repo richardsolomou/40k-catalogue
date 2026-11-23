@@ -62,45 +62,54 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "KHORNE",
-            "HERETIC ASTARTES"
-          ],
-          "excludes": [],
-          "characterOnly": true
-        },
-        "effects": [
-          {
-            "type": "modify-profile",
-            "target": "bearer-melee-weapons",
-            "stats": {
-              "Attacks": 1,
-              "Strength": 1
-            }
-          },
-          {
-            "type": "replace-profile-bonuses",
-            "target": "bearer-melee-weapons",
-            "stats": [
-              "Attacks",
-              "Strength"
-            ],
-            "sharedValueRoll": {
-              "dice": "D3",
-              "count": 1
-            },
-            "duration": "until-end-of-triggering-phase",
-            "requires": {
-              "event": "bearer-unit-makes-dark-pact",
-              "leadershipTest": "passes"
-            }
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "KHORNE"
+                ],
+                "factionKeywords": [
+                  "HERETIC ASTARTES"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "type": "modify-profile",
+              "target": "bearer-melee-weapons",
+              "stats": {
+                "Attacks": 1,
+                "Strength": 1
+              }
+            },
+            {
+              "type": "replace-profile-bonuses",
+              "target": "bearer-melee-weapons",
+              "stats": [
+                "Attacks",
+                "Strength"
+              ],
+              "sharedValueRoll": {
+                "dice": "D3",
+                "count": 1
+              },
+              "duration": "until-end-of-triggering-phase",
+              "requires": {
+                "event": "bearer-unit-makes-dark-pact",
+                "leadershipTest": "passes"
+              }
+            }
+          ]
+        }
       }
     }
   }

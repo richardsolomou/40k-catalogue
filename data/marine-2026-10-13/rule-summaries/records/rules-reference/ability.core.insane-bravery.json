@@ -15,6 +15,12 @@
     "ruleType": "core-stratagem",
     "group": "Core",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own"
+    },
     "summary": "Use it during the Battle-shock step in your Command phase, just ahead of a Battle-shock roll for one of your units, targeting that unit. That roll counts as passed with no dice needed. You can use it once per battle.",
     "summarySpans": [
       {
@@ -50,35 +56,44 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "kind": "core-stratagem",
-        "category": "Core Stratagem",
-        "when": {
-          "turn": "yours",
-          "phase": "command",
-          "step": "battle-shock",
-          "point": "just-before-battle-shock-roll"
-        },
-        "target": {
-          "count": 1,
-          "subject": "the-unit-being-tested",
-          "side": "friendly"
-        },
-        "effect": {
-          "roll": "battle-shock",
-          "result": "passed-automatically"
-        },
-        "frequency": {
-          "printedOnRecord": "once-per-battle",
-          "general": {
-            "rule": "15.01",
-            "limit": "once-per-phase",
-            "scope": "same Stratagem"
+        "stratagem": {
+          "limit": "battle",
+          "when": {
+            "unresolved": "not typed yet; see the summary"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit"
           }
         },
-        "cost": {
-          "cp": 1
+        "detail": {
+          "kind": "core-stratagem",
+          "when": {
+            "turn": "yours",
+            "phase": "command",
+            "step": "battle-shock",
+            "point": "just-before-battle-shock-roll"
+          },
+          "target": {
+            "count": 1,
+            "subject": "the-unit-being-tested",
+            "side": "friendly"
+          },
+          "effect": {
+            "roll": "battle-shock",
+            "result": "passed-automatically"
+          },
+          "frequency": {
+            "printedOnRecord": "once-per-battle",
+            "general": {
+              "rule": "15.01",
+              "limit": "once-per-phase",
+              "scope": "same Stratagem"
+            }
+          }
         }
       }
     }

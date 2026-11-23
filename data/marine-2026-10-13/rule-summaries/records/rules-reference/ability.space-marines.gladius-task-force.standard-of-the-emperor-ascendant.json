@@ -69,53 +69,63 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Ancient"
-          ],
-          "anyOf": [],
-          "excludes": [],
-          "equipment": null,
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "recipient": "bearer",
-            "operation": "modify-characteristics",
-            "modifiers": {
-              "OC": 1,
-              "Ld": 1
-            }
-          },
-          {
-            "recipient": "bearer",
-            "operation": "grant-ability",
-            "ability": "Feel No Pain",
-            "threshold": 5
-          },
-          {
-            "recipient": "bearer unit melee attacks",
-            "operation": "modify-characteristics",
-            "ability": "Ancient Exhortation",
-            "trigger": "bearer unit selected to fight",
-            "actor": "controlling player",
-            "optional": true,
-            "limit": {
-              "uses": 1,
-              "per": "battle",
-              "sharedBy": "army"
-            },
-            "modifiers": {
-              "A": 1
-            },
-            "expires": "end of phase"
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "ANCIENT"
+                ]
+              },
+              {
+                "unit": {
+                  "kind": "unit",
+                  "id": "space-marines.ancient"
+                }
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer",
+              "modifiers": {
+                "OC": 1,
+                "Ld": 1
+              },
+              "kind": "modify-characteristics"
+            },
+            {
+              "recipient": "bearer",
+              "ability": "Feel No Pain",
+              "threshold": 5,
+              "kind": "grant-ability"
+            },
+            {
+              "recipient": "bearer unit melee attacks",
+              "ability": "Ancient Exhortation",
+              "trigger": "bearer unit selected to fight",
+              "actor": "controlling player",
+              "optional": true,
+              "limit": {
+                "uses": 1,
+                "per": "battle",
+                "sharedBy": "army"
+              },
+              "modifiers": {
+                "A": 1
+              },
+              "expires": "end of phase",
+              "kind": "modify-characteristics"
+            }
+          ]
+        }
       }
     }
   }

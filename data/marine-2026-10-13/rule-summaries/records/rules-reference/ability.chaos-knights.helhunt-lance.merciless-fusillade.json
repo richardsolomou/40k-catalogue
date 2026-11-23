@@ -15,6 +15,14 @@
     "ruleType": "stratagem",
     "group": "Helhunt Lance",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "When your Shooting phase opens or a Fight phase begins, choose a TITANIC CHAOS KNIGHTS unit, or choose up to two with WAR DOG. Your choices must have yet to be picked to shoot or fight. Nominate one foe they are all eligible to attack. Any nominee attacking this phase has to direct every attack into that foe, gaining [SUSTAINED HITS 1] on those attacks.",
     "summarySpans": [
       {
@@ -69,39 +77,57 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "start of your Shooting phase or either Fight phase"
-        ],
-        "target": {
-          "options": [
-            {
-              "unit": "TITANIC CHAOS KNIGHTS",
-              "count": 1
-            },
-            {
-              "unit": "WAR DOG",
-              "maxCount": 2
-            }
-          ],
-          "selectedToShootOrFightThisPhase": false
-        },
-        "effect": {
-          "enemy": {
-            "count": 1,
-            "mustBeEligibleFor": "each nominated friendly unit"
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
           },
-          "expiry": "phase end",
-          "attackOption": {
-            "selectedTo": "shoot or fight",
-            "targetWithAllAttacks": "one nominated enemy only",
-            "grantOnThoseAttacks": "sustained-hits",
-            "value": 1
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "TITANIC",
+              "CHAOS KNIGHTS"
+            ],
+            "more": true
           }
         },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "start of your Shooting phase or either Fight phase"
+          ],
+          "target": {
+            "options": [
+              {
+                "unit": "TITANIC CHAOS KNIGHTS",
+                "count": 1
+              },
+              {
+                "unit": "WAR DOG",
+                "maxCount": 2
+              }
+            ],
+            "selectedToShootOrFightThisPhase": false
+          },
+          "effect": {
+            "enemy": {
+              "count": 1,
+              "mustBeEligibleFor": "each nominated friendly unit"
+            },
+            "expiry": "phase end",
+            "attackOption": {
+              "selectedTo": "shoot or fight",
+              "targetWithAllAttacks": "one nominated enemy only",
+              "grantOnThoseAttacks": "sustained-hits",
+              "value": 1
+            }
+          },
+          "restrictions": []
+        }
       }
     }
   }

@@ -24,34 +24,37 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": "own-command-phase",
-        "selection": {
-          "side": "friendly",
-          "count": 1,
-          "maximumInches": 6,
-          "origin": "owning-model",
-          "requiredKeywords": [
-            "ORKS",
-            "INFANTRY"
-          ]
-        },
-        "choice": {
-          "effects": [
-            {
-              "operation": "heal",
-              "wounds": 3,
-              "recipient": "selected-unit"
-            },
-            {
-              "operation": "revive",
-              "count": 1,
-              "modelKeyword": "CHARACTER",
-              "recipient": "model-in-selected-unit",
-              "requires": "each-surviving-model-in-selected-unit-at-full-wounds"
-            }
-          ]
+        "detail": {
+          "trigger": "own-command-phase",
+          "selection": {
+            "side": "friendly",
+            "count": 1,
+            "maximumInches": 6,
+            "origin": "owning-model",
+            "requiredKeywords": [
+              "ORKS",
+              "INFANTRY"
+            ]
+          },
+          "choice": {
+            "effects": [
+              {
+                "wounds": 3,
+                "recipient": "selected-unit",
+                "kind": "heal"
+              },
+              {
+                "count": 1,
+                "modelKeyword": "CHARACTER",
+                "recipient": "model-in-selected-unit",
+                "requires": "each-surviving-model-in-selected-unit-at-full-wounds",
+                "kind": "revive"
+              }
+            ]
+          }
         }
       }
     }

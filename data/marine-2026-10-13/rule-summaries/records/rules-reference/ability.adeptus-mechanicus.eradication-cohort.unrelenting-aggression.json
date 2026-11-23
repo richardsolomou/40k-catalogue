@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Eradication Cohort",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in your Movement phase once an ADEPTUS MECHANICUS unit of yours Falls Back; that unit is the target. For the rest of the turn it may shoot despite having Fallen Back. A SKITARII unit may instead shoot and also declare a charge this turn.",
     "citations": [
       {
@@ -25,12 +32,25 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-fell-back"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS MECHANICUS"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Eradication Cohort",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {

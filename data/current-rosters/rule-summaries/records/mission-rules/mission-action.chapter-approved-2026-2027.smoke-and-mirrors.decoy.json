@@ -89,53 +89,56 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "starts": {
-          "player": "acting-player",
-          "phase": "shooting"
-        },
-        "eligibleUnit": {
-          "side": "friendly",
-          "countPerStart": 1,
-          "position": {
-            "relation": "within-range",
-            "selector": "objective",
-            "exclude": "own-home-objective",
-            "excludeState": "decoyed"
-          }
-        },
-        "useLimit": {
-          "starts": "unlimited",
-          "distinctSelectorsAmongStarts": {
-            "window": "same-phase",
-            "selector": "objective"
-          }
-        },
-        "completes": {
-          "window": "end-of-own-turn",
-          "requires": {
-            "subject": "acting-unit",
-            "predicate": "controls",
-            "object": "selected-objective"
-          }
-        },
-        "effects": [
-          {
-            "kind": "mark-objective",
-            "objective": "selected-objective",
-            "state": "decoyed"
+        "detail": {
+          "starts": {
+            "player": "acting-player",
+            "phase": "shooting"
           },
-          {
-            "kind": "place-operation-marker",
-            "count": 1,
-            "owner": "acting-player",
+          "eligibleUnit": {
+            "side": "friendly",
+            "countPerStart": 1,
             "position": {
               "relation": "within-range",
-              "selector": "selected-objective"
+              "selector": "objective",
+              "exclude": "own-home-objective",
+              "excludeState": "decoyed"
             }
-          }
-        ]
+          },
+          "useLimit": {
+            "starts": "unlimited",
+            "distinctSelectorsAmongStarts": {
+              "window": "same-phase",
+              "selector": "objective"
+            }
+          },
+          "completes": {
+            "window": "end-of-own-turn",
+            "requires": {
+              "subject": "acting-unit",
+              "predicate": "controls",
+              "object": "selected-objective"
+            }
+          },
+          "effects": [
+            {
+              "kind": "mark-objective",
+              "objective": "selected-objective",
+              "state": "decoyed"
+            },
+            {
+              "kind": "place-operation-marker",
+              "count": 1,
+              "owner": "acting-player",
+              "position": {
+                "relation": "within-range",
+                "selector": "selected-objective"
+              }
+            }
+          ]
+        }
       }
     }
   }

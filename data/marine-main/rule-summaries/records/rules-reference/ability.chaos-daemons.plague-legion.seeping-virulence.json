@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Plague Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP. Use it in the Fight phase of either player's turn. Choose one of your LEGIONES DAEMONICA NURGLE units that has not yet been picked to fight this phase. For the rest of the phase, its models' attacks score a Critical Hit whenever the unmodified Hit roll is 5+.",
     "citations": [
       {
@@ -25,12 +32,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "NURGLE"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Plague Legion",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

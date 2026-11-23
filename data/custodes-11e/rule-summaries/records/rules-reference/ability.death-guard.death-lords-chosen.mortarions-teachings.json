@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Death Lord’s Chosen",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Spend 1 CP in your Shooting phase and pick one of your TERMINATOR units that is not yet chosen to shoot in this phase. For the rest of the phase, the ranged weapons its models carry gain both [ASSAULT] and [HEAVY].",
     "summarySpans": [
       {
@@ -45,10 +52,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "TERMINATOR"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Death Lord’s Chosen",
           "type": "Strategic Ploy",
           "windows": [

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Lions of the Emperor",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "In your Command phase, spend 1 CP on a unit of yours on the battlefield that has the ALLARUS CUSTODIANS keyword or the AQUILON CUSTODIANS keyword. It splits so that every model becomes a unit of its own, and each new unit starts with a Starting Strength value of 1.",
     "summarySpans": [
       {
@@ -50,12 +57,35 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ALLARUS CUSTODIANS"
+                ]
+              },
+              {
+                "keywords": [
+                  "AQUILON CUSTODIANS"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Lions of the Emperor",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {

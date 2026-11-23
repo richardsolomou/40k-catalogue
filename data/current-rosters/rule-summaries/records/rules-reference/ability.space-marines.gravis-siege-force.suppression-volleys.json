@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Gravis Siege Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own"
+    },
     "summary": "Spend 1 CP in your Shooting phase once a GRAVIS unit of yours has finished shooting; that unit is the target. Pick one enemy unit that those attacks hit; it has to take a battle-shock roll at -1.",
     "citations": [
       {
@@ -25,10 +31,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-shot"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "GRAVIS"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Gravis Siege Force",
           "trigger": {
             "windows": [

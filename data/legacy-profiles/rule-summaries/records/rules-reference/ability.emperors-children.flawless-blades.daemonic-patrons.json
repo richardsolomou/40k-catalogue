@@ -44,38 +44,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "actor": "datasheet-unit",
-        "trigger": {
-          "phase": "Fight",
-          "turnOwner": "either",
-          "event": "selected to fight",
-          "perSelection": true
-        },
-        "activation": {
-          "optional": true,
-          "kind": "invoke-daemonic-patrons"
-        },
-        "effect": {
-          "while": "activated this phase",
-          "actor": "models-in-unit",
-          "attackKind": "all",
-          "unmodifiedWoundAtLeast": 3,
-          "result": "Critical Wound",
-          "expires": "phase end"
-        },
-        "penalty": {
+        "detail": {
+          "actor": "datasheet-unit",
           "trigger": {
             "phase": "Fight",
             "turnOwner": "either",
-            "edge": "end"
+            "event": "selected to fight",
+            "perSelection": true
           },
-          "requiresActivationThisPhase": true,
-          "ifEnemyModelsDestroyedBySourceUnitAttacksThisPhase": 0,
-          "destroy": {
-            "count": 1,
-            "recipient": "source-unit-model"
+          "activation": {
+            "optional": true,
+            "kind": "invoke-daemonic-patrons"
+          },
+          "effect": {
+            "while": "activated this phase",
+            "actor": "models-in-unit",
+            "attackKind": "all",
+            "unmodifiedWoundAtLeast": 3,
+            "result": "Critical Wound",
+            "expires": "phase end"
+          },
+          "penalty": {
+            "trigger": {
+              "phase": "Fight",
+              "turnOwner": "either",
+              "edge": "end"
+            },
+            "requiresActivationThisPhase": true,
+            "ifEnemyModelsDestroyedBySourceUnitAttacksThisPhase": 0,
+            "destroy": {
+              "count": 1,
+              "recipient": "source-unit-model"
+            }
           }
         }
       }

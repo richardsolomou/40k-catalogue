@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Abhuman Auxiliaries",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "In either Fight phase or the enemy Shooting phase, react when an enemy targets a friendly Ogryn Squad or Bullgryn Squad that is in range of an objective. Use this on that squad. Its incoming enemy attacks have AP worsened by 1 until the triggering enemy unit has attacked.",
     "summarySpans": [
       {
@@ -67,10 +74,34 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "BULLGRYN SQUAD"
+                ]
+              },
+              {
+                "keywords": [
+                  "OGRYN SQUAD"
+                ]
+              }
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "",
           "trigger": {
             "windows": [

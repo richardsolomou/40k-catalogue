@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Kabalite Cartel",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in your Shooting phase on one of your units that has the HAND OF THE ARCHON keyword or the KABALITE WARRIORS keyword, provided it has yet to shoot in this phase. For the rest of the phase, the ranged weapons of its models have their Armour Penetration and Ballistic Skill improved by 1.",
     "citations": [
       {
@@ -25,10 +32,36 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "KABALITE WARRIORS"
+                ]
+              },
+              {
+                "keywords": [
+                  "HAND OF THE ARCHON"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Kabalite Cartel",
           "type": "Battle Tactic",
           "windows": [

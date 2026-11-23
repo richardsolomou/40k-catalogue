@@ -54,49 +54,52 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "role": "psychic",
-        "source": "this-model",
-        "trigger": {
-          "event": "phase",
-          "phase": "shooting",
-          "turn": "opponent-turn",
-          "timing": "start"
-        },
-        "optional": true,
-        "effect": {
-          "operation": "roll-and-branch",
-          "dice": {
-            "count": 1,
-            "sides": 6,
-            "additive": 0
+        "detail": {
+          "role": "psychic",
+          "source": "this-model",
+          "trigger": {
+            "event": "phase",
+            "phase": "shooting",
+            "turn": "opponent-turn",
+            "timing": "start"
           },
-          "branches": [
-            {
-              "comparison": "at-least",
-              "value": 2,
-              "effect": {
-                "operation": "grant-invulnerable-save",
-                "minimum": 4,
-                "recipient": "models-in-this-models-unit",
-                "duration": "until-end-of-triggering-phase"
-              }
+          "optional": true,
+          "effect": {
+            "dice": {
+              "count": 1,
+              "sides": 6,
+              "additive": 0
             },
-            {
-              "comparison": "less-than",
-              "value": 2,
-              "effect": {
-                "operation": "inflict-mortal-wounds",
-                "recipient": "this-models-unit",
-                "quantity": {
-                  "count": 1,
-                  "sides": 3,
-                  "additive": 0
+            "branches": [
+              {
+                "comparison": "at-least",
+                "value": 2,
+                "effect": {
+                  "minimum": 4,
+                  "recipient": "models-in-this-models-unit",
+                  "duration": "until-end-of-triggering-phase",
+                  "kind": "grant-invulnerable-save"
+                }
+              },
+              {
+                "comparison": "less-than",
+                "value": 2,
+                "effect": {
+                  "recipient": "this-models-unit",
+                  "quantity": {
+                    "count": 1,
+                    "sides": 3,
+                    "additive": 0
+                  },
+                  "kind": "inflict-mortal-wounds"
                 }
               }
-            }
-          ]
+            ],
+            "kind": "roll-and-branch"
+          }
         }
       }
     }

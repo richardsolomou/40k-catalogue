@@ -14,6 +14,14 @@
     "ruleType": "stratagem",
     "group": "Daemonic Incursion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP. Use it in your Shooting phase or in either player's Fight phase. Choose one of your LEGIONES DAEMONICA units that is yet to be picked to shoot or to fight this phase. For the rest of the phase, its models' weapons have their Armour Penetration improved by 1, and attacks with those weapons against a Battle-shocked unit may re-roll their Wound rolls.",
     "citations": [
       {
@@ -25,12 +33,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA"
+            ],
+            "conditions": [
+              "not-selected-to-shoot-or-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Daemonic Incursion",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

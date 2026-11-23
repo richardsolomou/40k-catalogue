@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Kabalite Cartel",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
     "summary": "In the Fight phase, react when an enemy picks its attacks’ targets. Of its targets, pick one of your units with either keyword: KABAL, BLADES FOR HIRE. Separately pick a friendly DRUKHARI unit without VEHICLE. Through phase end, when an attack would be allocated to a model in the first unit, measure Engagement Range from the attacking model to the second unit. If it is within range, skip the save. Use the attack’s Damage characteristic as the number of mortal wounds for the second unit.",
     "summarySpans": [
       {
@@ -71,10 +78,41 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "KABAL"
+                ]
+              },
+              {
+                "keywords": [
+                  "BLADES FOR HIRE"
+                ]
+              }
+            ],
+            "excludedKeywords": [
+              "VEHICLE"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "strategic-ploy",
           "trigger": {
             "windows": [

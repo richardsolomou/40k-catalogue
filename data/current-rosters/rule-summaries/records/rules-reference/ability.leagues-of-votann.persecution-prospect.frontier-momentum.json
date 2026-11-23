@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Persecution Prospect",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "Battle Tactic, 1 CP. Use it in your Movement phase. Choose one of your HERNKYN units that is yet to be picked to move this phase. If it Advances this phase, skip the Advance roll; its models instead get +6\" Move for the rest of the phase.",
     "citations": [
       {
@@ -25,12 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "HERNKYN"
+            ],
+            "conditions": [
+              "not-selected-to-move"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Persecution Prospect",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

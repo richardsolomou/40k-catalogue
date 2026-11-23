@@ -68,74 +68,83 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "event": "in-phase",
-          "phase": "command",
-          "owner": "self"
-        },
-        "branches": [
-          {
-            "condition": {
-              "subject": {
-                "side": "own-army",
-                "level": "unit-class",
-                "allKeywords": [
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
                   "DRUKHARI"
                 ]
-              },
-              "wagerState": "losing"
-            },
-            "optional": true,
-            "effects": [
-              {
-                "type": "resource-gain",
-                "resource": "pain-token",
-                "amount": 1,
-                "recipient": "own-player"
-              },
-              {
-                "type": "set-wager-winner",
-                "factionKeyword": "DRUKHARI",
-                "scope": "own-army"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "subject": {
-                "side": "own-army",
-                "level": "unit-class",
-                "allKeywords": [
-                  "DRUKHARI"
-                ]
-              },
-              "wagerState": "winning"
-            },
-            "optional": true,
-            "effects": [
-              {
-                "type": "resource-spend",
-                "resource": "pain-token",
-                "amount": 1,
-                "payer": "own-player"
-              },
-              {
-                "type": "set-wager-winner",
-                "factionKeyword": "HARLEQUINS",
-                "scope": "own-army"
               }
             ]
           }
-        ],
-        "wagerRule": "Callous Competition",
-        "eligibility": {
-          "requiresCharacter": true,
-          "allKeywords": [
-            "Drukhari"
+        },
+        "detail": {
+          "trigger": {
+            "event": "in-phase",
+            "phase": "command",
+            "owner": "self"
+          },
+          "branches": [
+            {
+              "condition": {
+                "subject": {
+                  "side": "own-army",
+                  "level": "unit-class",
+                  "allKeywords": [
+                    "DRUKHARI"
+                  ]
+                },
+                "wagerState": "losing"
+              },
+              "optional": true,
+              "effects": [
+                {
+                  "type": "resource-gain",
+                  "resource": "pain-token",
+                  "amount": 1,
+                  "recipient": "own-player"
+                },
+                {
+                  "type": "set-wager-winner",
+                  "factionKeyword": "DRUKHARI",
+                  "scope": "own-army"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "subject": {
+                  "side": "own-army",
+                  "level": "unit-class",
+                  "allKeywords": [
+                    "DRUKHARI"
+                  ]
+                },
+                "wagerState": "winning"
+              },
+              "optional": true,
+              "effects": [
+                {
+                  "type": "resource-spend",
+                  "resource": "pain-token",
+                  "amount": 1,
+                  "payer": "own-player"
+                },
+                {
+                  "type": "set-wager-winner",
+                  "factionKeyword": "HARLEQUINS",
+                  "scope": "own-army"
+                }
+              ]
+            }
           ],
-          "excludedKeywords": []
+          "wagerRule": "Callous Competition"
         }
       }
     }

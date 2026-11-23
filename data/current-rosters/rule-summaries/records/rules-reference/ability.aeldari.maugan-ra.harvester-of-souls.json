@@ -24,34 +24,37 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "ability": {
-          "condition": "this-model-leading-a-unit",
-          "when": {
-            "turn": "own",
-            "phase": "shooting"
-          },
-          "trigger": "after-led-unit-selects-targets",
-          "requires": "all-attacks-target-one-unit",
-          "effects": [
-            {
-              "roll": "D6",
-              "for": [
-                "target-unit",
-                {
-                  "otherEnemyUnitsWithinInchesOfTarget": 3
-                }
-              ],
-              "threshold": "5+",
-              "onSuccess": "struck-by-explosive-debris"
+        "detail": {
+          "ability": {
+            "condition": "this-model-leading-a-unit",
+            "when": {
+              "turn": "own",
+              "phase": "shooting"
             },
-            {
-              "after": "led-unit-resolves-all-attacks-against-target",
-              "each": "struck-unit",
-              "mortalWounds": "D3"
-            }
-          ]
+            "trigger": "after-led-unit-selects-targets",
+            "requires": "all-attacks-target-one-unit",
+            "effects": [
+              {
+                "roll": "D6",
+                "for": [
+                  "target-unit",
+                  {
+                    "otherEnemyUnitsWithinInchesOfTarget": 3
+                  }
+                ],
+                "threshold": "5+",
+                "onSuccess": "struck-by-explosive-debris"
+              },
+              {
+                "after": "led-unit-resolves-all-attacks-against-target",
+                "each": "struck-unit",
+                "mortalWounds": "D3"
+              }
+            ]
+          }
         }
       }
     }

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Mont’ka",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
     "summary": "In your Shooting phase, pick a unit with T'AU EMPIRE INFANTRY that got out of a TRANSPORT earlier in the turn. Until this phase ends, each model can reroll its wound roll against its closest enemy unit.",
     "summarySpans": [
       {
@@ -53,10 +60,26 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "T’AU EMPIRE",
+              "INFANTRY"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "type": "battle-tactic",
           "trigger": {
             "turn": "your",
@@ -83,7 +106,7 @@
           },
           "effects": [
             {
-              "kind": "reroll",
+              "kind": "re-roll",
               "roll": "wound",
               "result": "any",
               "conditions": {

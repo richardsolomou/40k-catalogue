@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Final Day",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Strategic Ploy, 1 CP, as the Fight phase of your opponent's turn ends. Choose one TYRANIDS or GENESTEALER CULTS unit of yours that is out of Engagement Range of all enemy units. Lift it off the table; it goes into Strategic Reserves.",
     "summarySpans": [
       {
@@ -51,11 +58,36 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
-          "category": "Strategic Ploy",
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "GENESTEALER CULTS"
+                ]
+              },
+              {
+                "keywords": [
+                  "TYRANIDS"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-in-engagement-range"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Final Day",
           "when": {
             "phase": "fight",

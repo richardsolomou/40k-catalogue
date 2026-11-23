@@ -24,44 +24,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "effect": {
-          "type": "conditional",
-          "condition": {
-            "type": "attachment",
-            "parameters": {
-              "subject": "this-model",
-              "role": "leading"
+        "detail": {
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "attachment",
+              "parameters": {
+                "subject": "this-model",
+                "role": "leading"
+              }
+            },
+            "effect": {
+              "type": "choice",
+              "options": [
+                {
+                  "type": "re-roll",
+                  "target": "this-unit",
+                  "modifier": {
+                    "roll": "charge",
+                    "result_scope": "any-result"
+                  }
+                },
+                {
+                  "type": "re-roll",
+                  "target": "this-unit",
+                  "modifier": {
+                    "roll": "advance",
+                    "result_scope": "any-result"
+                  }
+                }
+              ]
             }
           },
-          "effect": {
-            "type": "choice",
-            "options": [
-              {
-                "type": "re-roll",
-                "target": "this-unit",
-                "modifier": {
-                  "roll": "charge",
-                  "result_scope": "any-result"
-                }
-              },
-              {
-                "type": "re-roll",
-                "target": "this-unit",
-                "modifier": {
-                  "roll": "advance",
-                  "result_scope": "any-result"
-                }
-              }
-            ]
-          }
-        },
-        "scope": {
-          "duration": "permanent"
-        },
-        "optional": true,
-        "behavior": "activated"
+          "scope": {
+            "duration": "permanent"
+          },
+          "optional": true,
+          "behavior": "activated"
+        }
       }
     }
   }

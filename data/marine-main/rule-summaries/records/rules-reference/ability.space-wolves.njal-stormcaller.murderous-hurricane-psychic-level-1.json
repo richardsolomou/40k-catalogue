@@ -50,36 +50,39 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "trigger": {
-          "phase": "movement",
-          "turn": "controlling-player",
-          "optional": true,
-          "requiresOwningUnitNotBattleShocked": true
-        },
-        "psychicRoll": {
-          "level": 1,
-          "dice": 1,
-          "sides": 6,
-          "onResult": {
-            "value": 1,
-            "effect": "battle-shock-owning-unit"
+        "detail": {
+          "trigger": {
+            "phase": "movement",
+            "turn": "controlling-player",
+            "optional": true,
+            "requiresOwningUnitNotBattleShocked": true
+          },
+          "psychicRoll": {
+            "level": 1,
+            "dice": 1,
+            "sides": 6,
+            "onResult": {
+              "value": 1,
+              "effect": "battle-shock-owning-unit"
+            }
+          },
+          "selection": {
+            "count": 1,
+            "side": "enemy",
+            "entity": "unit",
+            "visible": true,
+            "maxDistanceInches": 12,
+            "afterAnyRoll": true
+          },
+          "effect": {
+            "action": "snap-shooting-attacks",
+            "recipient": "selected-enemy-unit",
+            "expires": "end-of-triggering-movement-phase",
+            "kind": "prohibit"
           }
-        },
-        "selection": {
-          "count": 1,
-          "side": "enemy",
-          "entity": "unit",
-          "visible": true,
-          "maxDistanceInches": 12,
-          "afterAnyRoll": true
-        },
-        "effect": {
-          "operation": "prohibit",
-          "action": "snap-shooting-attacks",
-          "recipient": "selected-enemy-unit",
-          "expires": "end-of-triggering-movement-phase"
         }
       }
     }

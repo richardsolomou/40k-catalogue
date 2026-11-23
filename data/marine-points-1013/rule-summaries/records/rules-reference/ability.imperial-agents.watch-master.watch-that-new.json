@@ -60,44 +60,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "owner": "Watch Master",
-        "clauses": [
-          {
-            "trigger": {
-              "event": "battle-round-start",
-              "battleRound": 1
+        "detail": {
+          "owner": "Watch Master",
+          "clauses": [
+            {
+              "trigger": {
+                "event": "battle-round-start",
+                "battleRound": 1
+              },
+              "selection": {
+                "relationship": "enemy",
+                "maxCount": 1,
+                "optional": true,
+                "designation": "hunted"
+              }
             },
-            "selection": {
-              "relationship": "enemy",
-              "maxCount": 1,
-              "optional": true,
-              "designation": "hunted"
-            }
-          },
-          {
-            "appliesTo": "attacks by this unit that target its hunted",
-            "reroll": {
-              "roll": "wound",
-              "values": [
-                1
-              ],
-              "optional": true
-            }
-          },
-          {
-            "trigger": {
-              "event": "hunted-destroyed"
+            {
+              "appliesTo": "attacks by this unit that target its hunted",
+              "reroll": {
+                "roll": "wound",
+                "values": [
+                  1
+                ],
+                "optional": true
+              }
             },
-            "selection": {
-              "relationship": "enemy",
-              "maxCount": 1,
-              "optional": true,
-              "designation": "hunted"
+            {
+              "trigger": {
+                "event": "hunted-destroyed"
+              },
+              "selection": {
+                "relationship": "enemy",
+                "maxCount": 1,
+                "optional": true,
+                "designation": "hunted"
+              }
             }
-          }
-        ]
+          ]
+        }
       }
     }
   }

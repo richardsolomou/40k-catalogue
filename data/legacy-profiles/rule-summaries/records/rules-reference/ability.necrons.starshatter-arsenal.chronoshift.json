@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Starshatter Arsenal",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "1 CP, in your Movement phase. Choose one NECRONS MOUNTED or NECRONS VEHICLE unit of yours, other than a TITANIC unit, that has not yet been picked to move in this phase. For the rest of this phase, if that unit Advances, skip its Advance roll and instead give its models +6″ to their Move characteristic.",
     "citations": [
       {
@@ -25,10 +32,42 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "NECRONS",
+                  "VEHICLE"
+                ]
+              },
+              {
+                "keywords": [
+                  "NECRONS",
+                  "MOUNTED"
+                ]
+              }
+            ],
+            "excludedKeywords": [
+              "TITANIC"
+            ],
+            "conditions": [
+              "not-selected-to-move"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Starshatter Arsenal",
           "when": [
             {

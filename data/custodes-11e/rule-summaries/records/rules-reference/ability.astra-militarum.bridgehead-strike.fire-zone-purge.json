@@ -74,77 +74,80 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "scope": {
-          "factionId": "9b847488-9663-48dc-b819-08ab93ac4382",
-          "faction": "Astra Militarum",
-          "detachmentId": "aae77907-0898-4c11-8a9e-a866a3e67456",
-          "detachment": "Bridgehead Strike",
-          "uniqueTags": [],
-          "sourceId": "aae77907-0898-4c11-8a9e-a866a3e67456:fire-zone-purge",
-          "cardType": "detachmentRule",
-          "cardEdition": "40k-11e"
-        },
-        "effects": [
-          {
-            "condition": {
-              "type": "army-warlord-matches",
-              "target": {
-                "owner": "friendly",
-                "level": "model",
-                "allOf": [
-                  "Militarum Tempestus",
-                  "Officer"
-                ]
-              }
-            },
-            "target": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Tempestus Scions"
-              ]
-            },
-            "effects": [
-              {
-                "type": "keyword-grant",
-                "keyword": "Battleline"
-              },
-              {
-                "type": "stat-modifier",
-                "stat": "objective-control",
-                "operation": "add",
-                "value": 1
-              }
-            ]
+        "detail": {
+          "scope": {
+            "factionId": "9b847488-9663-48dc-b819-08ab93ac4382",
+            "faction": "Astra Militarum",
+            "detachmentId": "aae77907-0898-4c11-8a9e-a866a3e67456",
+            "detachment": "Bridgehead Strike",
+            "uniqueTags": [],
+            "sourceId": "aae77907-0898-4c11-8a9e-a866a3e67456:fire-zone-purge",
+            "cardType": "detachmentRule",
+            "cardEdition": "40k-11e"
           },
-          {
-            "trigger": {
-              "event": "selected-to-shoot",
-              "actor": {
+          "effects": [
+            {
+              "condition": {
+                "type": "army-warlord-matches",
+                "target": {
+                  "owner": "friendly",
+                  "level": "model",
+                  "allOf": [
+                    "Militarum Tempestus",
+                    "Officer"
+                  ]
+                }
+              },
+              "target": {
                 "owner": "friendly",
                 "level": "unit",
                 "allOf": [
-                  "Militarum Tempestus"
+                  "Tempestus Scions"
                 ]
+              },
+              "effects": [
+                {
+                  "type": "keyword-grant",
+                  "keyword": "Battleline"
+                },
+                {
+                  "type": "stat-modifier",
+                  "stat": "objective-control",
+                  "operation": "add",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "trigger": {
+                "event": "selected-to-shoot",
+                "actor": {
+                  "owner": "friendly",
+                  "level": "unit",
+                  "allOf": [
+                    "Militarum Tempestus"
+                  ]
+                }
+              },
+              "condition": {
+                "type": "unit-set-up",
+                "turn": "triggering",
+                "subject": "selected-unit"
+              },
+              "effect": {
+                "type": "roll-modifier",
+                "roll": "hit",
+                "operation": "add",
+                "value": 1,
+                "attackType": "ranged",
+                "target": "selected-unit"
               }
-            },
-            "condition": {
-              "type": "unit-set-up",
-              "turn": "triggering",
-              "subject": "selected-unit"
-            },
-            "effect": {
-              "type": "roll-modifier",
-              "roll": "hit",
-              "operation": "add",
-              "value": 1,
-              "attackType": "ranged",
-              "target": "selected-unit"
             }
-          }
-        ]
+          ]
+        }
       }
     }
   }

@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Tacticus Firestorm Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "During your Shooting phase or either Fight phase, use this as you pick a friendly Tacticus unit to attack. Choose Sustained Hits 1 against targets without Monster or Vehicle, or Lethal Hits against targets with either keyword.",
     "summarySpans": [
       {
@@ -66,10 +73,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-attack"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "TACTICUS"
+            ]
+          }
+        },
+        "detail": {
           "trigger": {
             "windows": [
               {

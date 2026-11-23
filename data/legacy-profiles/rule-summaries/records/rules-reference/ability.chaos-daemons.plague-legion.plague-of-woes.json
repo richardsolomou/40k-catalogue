@@ -15,6 +15,13 @@
     "ruleType": "stratagem",
     "group": "Plague Legion",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
     "summary": "Before nominating Melancholic Miasma targets in the opposing Command phase, choose one of your units with LEGIONES DAEMONICA NURGLE. When that phase closes and the Miasma tests are done, require a Battle-shock test from a different enemy no farther than 9\" from your chosen unit.",
     "summarySpans": [
       {
@@ -63,28 +70,48 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "cp": 1,
-        "window": [
-          "opposing Command phase",
-          "before choosing Melancholic Miasma targets"
-        ],
-        "target": {
-          "unit": "LEGIONES DAEMONICA NURGLE",
-          "count": 1
-        },
-        "effect": {
-          "timing": "after tests from Melancholic Miasma",
-          "enemy": {
-            "count": 1,
-            "otherThan": "enemy tested by the detachment rule",
-            "maxDistanceInches": 9
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
           },
-          "requires": "Battle-shock test",
-          "expiry": "phase end"
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "NURGLE"
+            ]
+          }
         },
-        "restrictions": []
+        "detail": {
+          "window": [
+            "opposing Command phase",
+            "before choosing Melancholic Miasma targets"
+          ],
+          "target": {
+            "unit": "LEGIONES DAEMONICA NURGLE",
+            "count": 1
+          },
+          "effect": {
+            "timing": "after tests from Melancholic Miasma",
+            "enemy": {
+              "count": 1,
+              "otherThan": "enemy tested by the detachment rule",
+              "maxDistanceInches": 9
+            },
+            "requires": "Battle-shock test",
+            "expiry": "phase end"
+          },
+          "restrictions": []
+        }
       }
     }
   }

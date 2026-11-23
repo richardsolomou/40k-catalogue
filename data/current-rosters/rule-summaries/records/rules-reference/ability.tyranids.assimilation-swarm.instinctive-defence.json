@@ -52,47 +52,55 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Tyranids"
-          ],
-          "excludes": []
-        },
-        "condition": {
-          "subject": "bearer",
-          "within": {
-            "inches": 6,
-            "of": "one-or-more-friendly-HARVESTER-units"
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "TYRANIDS"
+                ]
+              }
+            ]
           }
         },
-        "effects": [
-          {
-            "trigger": {
-              "event": "use-stratagem-to-target",
-              "actor": "own-player",
-              "recipient": "this-unit",
-              "stratagems": [
-                "Heroic Intervention"
-              ]
-            },
-            "effect": {
-              "type": "modify-cp-cost",
-              "operation": "subtract",
-              "amount": 1,
-              "use": "triggering-use"
+        "detail": {
+          "condition": {
+            "subject": "bearer",
+            "within": {
+              "inches": 6,
+              "of": "one-or-more-friendly-HARVESTER-units"
             }
           },
-          {
-            "type": "grant-core-ability",
-            "recipient": "every-model-in-bearers-unit",
-            "ability": "fights-first",
-            "duration": "while-condition-holds"
-          }
-        ]
+          "effects": [
+            {
+              "trigger": {
+                "event": "use-stratagem-to-target",
+                "actor": "own-player",
+                "recipient": "this-unit",
+                "stratagems": [
+                  "Heroic Intervention"
+                ]
+              },
+              "effect": {
+                "type": "modify-cp-cost",
+                "operation": "subtract",
+                "amount": 1,
+                "use": "triggering-use"
+              }
+            },
+            {
+              "type": "grant-core-ability",
+              "recipient": "every-model-in-bearers-unit",
+              "ability": "fights-first",
+              "duration": "while-condition-holds"
+            }
+          ]
+        }
       }
     }
   }

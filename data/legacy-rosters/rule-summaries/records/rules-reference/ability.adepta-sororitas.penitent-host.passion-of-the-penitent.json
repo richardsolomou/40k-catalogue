@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Penitent Host",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "Spend 1 CP in any Fight phase on one PENITENT unit in your army that hasn't yet been picked to fight this phase. For the rest of the phase, whenever a PENITENT model in that unit attacks in melee, an unmodified 5+ on its Hit roll counts as a Critical Hit if it succeeds.",
     "citations": [
       {
@@ -25,12 +32,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "PENITENT"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Penitent Host",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

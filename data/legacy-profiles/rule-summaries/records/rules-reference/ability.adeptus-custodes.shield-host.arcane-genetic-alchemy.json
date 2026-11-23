@@ -14,6 +14,17 @@
     "ruleType": "stratagem",
     "group": "Shield Host",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "battle-tactic"
+    },
     "summary": "In any phase, right after a mortal wound is allocated to one of your ADEPTUS CUSTODES models that is not an ANATHEMA PSYKANA model, spend 1 CP on that model's unit. While the phase lasts, its models have Feel No Pain 4+ against mortal wounds.",
     "summarySpans": [
       {
@@ -53,12 +64,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "model",
+            "keywords": [
+              "ADEPTUS CUSTODES"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
           "detachment": "Shield Host",
-          "category": "Battle Tactic",
           "trigger": {
             "windows": [
               {

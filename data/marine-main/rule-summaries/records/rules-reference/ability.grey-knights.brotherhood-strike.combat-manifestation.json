@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Brotherhood Strike",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "epic-deed"
+    },
     "summary": "Spend 1 CP in your Movement phase, picking a GREY KNIGHTS unit of yours that is arriving through the Deep Strike ability in this phase. You may place it at any spot further than 6″ (measured horizontally) from every enemy unit, but it cannot declare a charge for the rest of the turn.",
     "citations": [
       {
@@ -25,10 +32,27 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GREY KNIGHTS"
+            ],
+            "conditions": [
+              "arriving-by-deep-strike"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Brotherhood Strike",
           "trigger": {
             "windows": [
@@ -60,8 +84,7 @@
               "expires": "end-of-turn"
             }
           ],
-          "restrictions": [],
-          "category": "Epic Deed"
+          "restrictions": []
         }
       }
     }

@@ -58,49 +58,54 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "eligibility": {
-          "scope": "model",
-          "match": "all",
-          "keywords": [
-            "Aeldari Psyker"
-          ],
-          "anyOf": [],
-          "excludes": [],
-          "equipment": null,
-          "characterOnly": true,
-          "equipableByNonCharacter": false
-        },
-        "effects": [
-          {
-            "recipient": "bearer",
-            "operation": "grant-ability",
-            "ability": "Lone Operative",
-            "whileWithin": {
-              "inches": 3,
-              "of": "friendly Aeldari Vehicle unit"
-            }
-          },
-          {
-            "recipient": "chosen friendly Aeldari Vehicle model",
-            "operation": "heal",
-            "optional": true,
-            "actor": "controlling player",
-            "wounds": "D3",
-            "select": 1,
-            "rangeInches": 3,
-            "rangeFrom": "bearer",
-            "timing": {
-              "phase": "your Movement phase",
-              "event": "bearer unit moves",
-              "at": [
-                "start",
-                "end"
-              ]
-            }
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "anyOf": [
+              {
+                "keywords": [
+                  "AELDARI",
+                  "PSYKER"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "detail": {
+          "effects": [
+            {
+              "recipient": "bearer",
+              "ability": "Lone Operative",
+              "whileWithin": {
+                "inches": 3,
+                "of": "friendly Aeldari Vehicle unit"
+              },
+              "kind": "grant-ability"
+            },
+            {
+              "recipient": "chosen friendly Aeldari Vehicle model",
+              "optional": true,
+              "actor": "controlling player",
+              "wounds": "D3",
+              "select": 1,
+              "rangeInches": 3,
+              "rangeFrom": "bearer",
+              "timing": {
+                "phase": "your Movement phase",
+                "event": "bearer unit moves",
+                "at": [
+                  "start",
+                  "end"
+                ]
+              },
+              "kind": "heal"
+            }
+          ]
+        }
       }
     }
   }

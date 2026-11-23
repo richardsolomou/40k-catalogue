@@ -64,44 +64,47 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
-        "owner": "Sagittarum Custodians",
-        "clauses": [
-          {
-            "trigger": {
-              "turn": "own",
-              "phase": "shooting",
-              "event": "after-this-unit-has-shot"
+        "detail": {
+          "owner": "Sagittarum Custodians",
+          "clauses": [
+            {
+              "trigger": {
+                "turn": "own",
+                "phase": "shooting",
+                "event": "after-this-unit-has-shot"
+              },
+              "selection": {
+                "relationship": "enemy",
+                "count": 1,
+                "optional": false,
+                "excludesAnyKeyword": [
+                  "MONSTER",
+                  "VEHICLE"
+                ],
+                "requires": "hit by at least one of those attacks"
+              },
+              "effect": {
+                "grantState": {
+                  "state": "suppressed",
+                  "expires": "start-of-your-next-turn",
+                  "while": "this unit is on the battlefield"
+                }
+              }
             },
-            "selection": {
-              "relationship": "enemy",
-              "count": 1,
-              "optional": false,
-              "excludesAnyKeyword": [
-                "MONSTER",
-                "VEHICLE"
-              ],
-              "requires": "hit by at least one of those attacks"
-            },
-            "effect": {
-              "grantState": {
-                "state": "suppressed",
-                "expires": "start-of-your-next-turn",
-                "while": "this unit is on the battlefield"
+            {
+              "state": "suppressed",
+              "appliesTo": "attacks by models in a suppressed unit",
+              "modifier": {
+                "roll": "hit",
+                "operation": "subtract",
+                "value": 1
               }
             }
-          },
-          {
-            "state": "suppressed",
-            "appliesTo": "attacks by models in a suppressed unit",
-            "modifier": {
-              "roll": "hit",
-              "operation": "subtract",
-              "value": 1
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   }

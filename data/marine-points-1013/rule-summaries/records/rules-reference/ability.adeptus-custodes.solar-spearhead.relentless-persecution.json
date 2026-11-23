@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Solar Spearhead",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "In your Movement phase, right after one of your ADEPTUS CUSTODES VEHICLE units Advances, spend 1 CP on it. For the rest of the turn it can shoot despite having Advanced; if it has the WALKER keyword, it can instead shoot and also declare a charge despite having Advanced.",
     "summarySpans": [
       {
@@ -45,12 +52,28 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS CUSTODES",
+              "VEHICLE"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Solar Spearhead",
-          "category": "Strategic Ploy",
           "trigger": {
             "windows": [
               {

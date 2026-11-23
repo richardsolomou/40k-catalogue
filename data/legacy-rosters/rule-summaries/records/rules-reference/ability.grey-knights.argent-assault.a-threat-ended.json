@@ -14,6 +14,12 @@
     "ruleType": "stratagem",
     "group": "Argent Assault",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any"
+    },
     "summary": "Spend 1 CP in the Fight phase of either turn as a PALADIN SQUAD unit of yours is chosen to fight; that unit is the target. Its melee attacks gain [PRECISION].",
     "citations": [
       {
@@ -25,10 +31,24 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-selected-to-fight"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "PALADIN SQUAD"
+            ]
+          }
+        },
+        "detail": {
           "detachment": "Argent Assault",
           "trigger": {
             "windows": [

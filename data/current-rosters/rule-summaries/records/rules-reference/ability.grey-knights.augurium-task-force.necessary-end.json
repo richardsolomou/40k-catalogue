@@ -14,6 +14,13 @@
     "ruleType": "stratagem",
     "group": "Augurium Task Force",
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "epic-deed"
+    },
     "summary": "In either Fight phase, react immediately when an enemy chooses a friendly GREY KNIGHTS INFANTRY unit as an attack target. For the rest of that phase, roll 1D6 whenever one of its models dies before it has fought. Compare the result with the battle round number. A higher result delays removal. Once the attacker has resolved its attacks, the model can fight and is then removed.",
     "summarySpans": [
       {
@@ -48,10 +55,29 @@
       }
     ],
     "facts": {
-      "format": "catalogue-core-facts",
+      "format": "vs-data-facts",
+      "version": "1",
       "fields": {
         "stratagem": {
-          "cpCost": 1,
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "GREY KNIGHTS",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
           "type": "epic-deed",
           "trigger": {
             "windows": [

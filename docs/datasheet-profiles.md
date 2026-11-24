@@ -23,7 +23,7 @@ A stat line's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two
 | `toughness`, `wounds`, `strength` | A positive integer. |
 | `save`, `leadership` | A roll: `3` means 3+. |
 | `objectiveControl` | A non-negative integer, or `null` when the datasheet prints none. |
-| `invulnerableSave` | `{ "roll": n }`, with `against: "ranged"` or `against: "melee"` when it applies only to ranged or only to melee attacks, and `conditional: true` when another rule of the datasheet says when it applies. A conditional save may carry a `summary` of when it applies, such as `Only while this model is within 6″ of an objective marker.`, in the [summary grammar](rule-summaries.md#summary-text) without links. |
+| `invulnerableSave` | `{ "roll": n }`, with `against: "ranged"` or `against: "melee"` when it applies only to ranged or only to melee attacks, and `conditional: true` when another rule of the datasheet says when it applies. A unit with one save against ranged and another against melee attacks has a list of two, each with its `against`. A conditional save may carry a `summary` of when it applies, such as `Only while this model is within 6″ of an objective marker.`, in the [summary grammar](rule-summaries.md#summary-text) without links. |
 | `baseSize` | `"hull"`, `{ "diameter": mm }`, or `{ "length": mm, "width": mm }` for an oval, each optionally `approximate` or `flying`. |
 | `range` | Inches as a positive integer, or `"melee"`. |
 | `attacks`, `damage` | A positive integer, or dice written as `D6`, `2D3` or `D6+1`. |
@@ -59,7 +59,7 @@ A profile's `unit` bounds what else it may name. Its `models` must belong to tha
 - Every ID a record names is current in the release and appears in its identity entry's `references`, so a release's `dependsOn` lists the roster category.
 - The local references above hold, and no unit attaches to itself.
 - A required characteristic is either stated or a gap, never both.
-- An invulnerable save's `summary` parses with the summary grammar and has no links.
+- A list of invulnerable saves names each kind of attack once, and each save's `summary` parses with the summary grammar and has no links.
 - When a unit has several unit profiles, each names its models or has a `models` gap, and no model has two profiles.
 - A unit has at most one attachment and one transport record. A transport can state one replacement pool for each wargear ID.
 

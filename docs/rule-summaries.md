@@ -24,6 +24,8 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 - Where the phases' turns differ, such as your opponent's Shooting phase or either player's Fight phase, `windows` gives each phase its `turn`, as `[{ phase, turn }]` in the order of `phases`, and `turn` is `any`.
 - `type` is left out where the official source gives the Stratagem none; it is never inferred.
 
+A `unit-ability` several factions print on the same datasheet with the same text, such as the Chaos Land Raider's Damaged rule in each Chaos faction, can be one record for all of them. Its identity entry then references the `unit` entry of each faction's datasheet it applies to, by `{ kind: "unit", id }`, so an app joins the rule to every one of those units without matching names or IDs.
+
 A clarification the core rules number beneath a rule, such as 01.02.06 under Units and Models, is a `core-rule` whose `parent` is that rule, by `{ kind: "core-rule", id }`. The parent is current, is a reference of the clarification's identity entry, and has no parent of its own.
 
 `pack` and `publication` are display names. `card` is `primary` or `secondary`. An award scores `vp` victory points, up to `max` where the card caps it.

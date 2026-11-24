@@ -218,5 +218,21 @@ test("an invulnerable save summary cannot link to a record", () => {
 
 test("only a conditional invulnerable save has a summary", () => {
   const found = invulnerableSummary({ summary: "Only against ranged attacks." });
-  assert.deepEqual(found, [`unit-profile:${PYRE_LORD} data/invulnerableSave must have property conditional when property summary is present`]);
+  assert.ok(found.includes(`unit-profile:${PYRE_LORD} data/invulnerableSave must have property conditional when property summary is present`), found.join("\n"));
+});
+
+const invulnerableSaves = (saves: object[]) => errors((_, recs) => (record(recs, "unit-profile", PYRE_LORD).data.invulnerableSave = saves));
+
+test("a unit may have one invulnerable save against ranged attacks and another against melee", () => {
+  assert.deepEqual(invulnerableSaves([{ roll: 6, against: "ranged" }, { roll: 4, against: "melee" }]), []);
+});
+
+test("a list of invulnerable saves names each kind of attack once", () => {
+  const found = invulnerableSaves([{ roll: 6, against: "melee" }, { roll: 4, against: "melee" }]);
+  assert.deepEqual(found, [`unit-profile:${PYRE_LORD} has more than one invulnerable save against melee attacks`]);
+});
+
+test("each save in a list of invulnerable saves names the attacks it applies to", () => {
+  const found = invulnerableSaves([{ roll: 6, against: "ranged" }, { roll: 4 }]);
+  assert.ok(found.includes(`unit-profile:${PYRE_LORD} data/invulnerableSave/1 must have required property 'against'`), found.join("\n"));
 });

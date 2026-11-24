@@ -6,12 +6,12 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,041 | 6,028 | 13 |
+| `rules-reference` | 6,760 | 6,751 | 9 |
 | `mission-rules` | 285 | 263 | 22 |
 
-Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02. 364 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,303 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02; 575 records that no app row carries cite only the dated Games Workshop page that prints it. 136 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 939 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2349, `grants` 318, `weaponAbilities` 100, `reminder` 2119, `reserves` 1, `invulnerableSave` 94, `upgradesWeapon` 21, `roster` 65, `attachment` 48, `references` 984 (3,920 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2365, `grants` 321, `weaponAbilities` 100, `reminder` 2119, `reserves` 1, `invulnerableSave` 94, `upgradesWeapon` 21, `roster` 65, `attachment` 48, `references` 984 (3,933 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,117 stat lines and 5,172 weapon profiles, and the `legacy-profiles` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 341 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-profiles-legends` snapshot, the costs of 331 of them from the Munitorum Field Manual's Legends section. 322 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (33 of them with options left out, listed below), and their weapon profiles name that wargear.
 
@@ -31,6 +31,34 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 - `faq` `codex-necrons.errata.ophydian-destroyers-tunnelling-horrors-ability-2`, replaced by Necrons Faction Pack: Version 1.3, page 30
 - `faq` `imperial-armour-grey-knights.errata.grey-knights-thunderhawk-gunship`, replaced by Grey Knights Faction Pack: Version 1.2, page 7; Grey Knights Faction Pack: Version 1.2, page 8
 - `faq` `index-chaos-daemons.errata.feculent-gnarlmaw-screamers-skull-altar-keywords`, replaced by Chaos Daemons Faction Pack: Version 1.2, page 61; Chaos Daemons Faction Pack: Version 1.2, page 87; Chaos Daemons Faction Pack: Version 1.2, page 37
+
+4 roster entries the previous release published are retired: wargear bundles and options the roster definitions now key by their counts, with new IDs.
+
+## Absent
+
+21 BSData abilities that this version's official sources do not print on the datasheet BSData gives them to are entries with `absent: true`, no record and, where no other entry holds it, the BSData ID as an alias.
+
+- `ability` `dark-angels.deathwing-knights.attached-unit`
+- `ability` `dark-angels.deathwing-terminator-squad.attached-unit`
+- `ability` `dark-angels.inner-circle-companions.attached-unit`
+- `ability` `dark-angels.lazarus.keeper-of-the-unseen-ritual`
+- `ability` `dark-angels.ravenwing-black-knights.attached-unit`
+- `ability` `imperial-agents.aquila-kill-team.attached-unit`
+- `ability` `imperial-agents.corvus-blackstar.infernum-halo-launcher`
+- `ability` `imperial-agents.deathwatch-kill-team.astartes-shield`
+- `ability` `imperial-agents.watch-master.rites-of-battle`
+- `ability` `space-marines.captain-on-bike.relic-shield`
+- `ability` `space-marines.captain-on-bike.swift-assault`
+- `ability` `space-marines.drop-pod.combat-disembarkation`
+- `ability` `space-marines.eliminator-squad.3-detection-range`
+- `ability` `space-marines.gladiator-reaper.rotating-death`
+- `ability` `space-marines.gladiator-valiant.ferocious-assault`
+- `ability` `space-marines.impulsor.assault-vehicle`
+- `ability` `space-marines.invader-atvs.outrider-escort`
+- `ability` `space-marines.invictor-tactical-warsuit.combat-support`
+- `ability` `space-marines.land-raider-excelsior.assault-ramp`
+- `ability` `space-marines.repulsor.emergency-combat-embarkation`
+- `ability` `space-marines.rhino.self-repair`
 
 ## Unresolved
 
@@ -57,19 +85,67 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `core.sustained-hits-1-non-monster-vehicle`
 - `ability` `core.sustained-hits-2-non-monster-vehicle`
 
-### The rule has no finished draft for this version (4)
+### A Crucible datasheet, printed only in the Crucible of Champions book, which no official source in reach carries: an entry for its provisional abilities and its faction's (59)
 
-- `ability` `shared.land-raider-crusader.damaged`
-- `ability` `shared.land-raider-redeemer.damaged`
-- `ability` `shared.land-raider.damaged`
-- `ability` `shared.stormraven-gunship.damaged`
-
-### The rule's text differs between the factions that share it (4)
-
-- `ability` `shared.land-raider-crusader.damaged`
-- `ability` `shared.land-raider-redeemer.damaged`
-- `ability` `shared.land-raider.damaged`
-- `ability` `shared.stormraven-gunship.damaged`
+- `unit` `adepta-sororitas.inspiring-devotee`
+- `unit` `adepta-sororitas.militant-commander`
+- `unit` `adepta-sororitas.reliquant-knight`
+- `unit` `adeptus-mechanicus.cohort-commander`
+- `unit` `adeptus-mechanicus.ironstrider-alpha`
+- `unit` `adeptus-mechanicus.magos`
+- `unit` `aeldari-2.craftworld-warleader`
+- `unit` `aeldari-2.ghost-warrior`
+- `unit` `aeldari-2.skyrunner`
+- `unit` `astra-militarum.augmented-bone-ead`
+- `unit` `astra-militarum.front-line-commander`
+- `unit` `astra-militarum.sentinel-commander`
+- `unit` `chaos-daemons.daemonic-charioteer`
+- `unit` `chaos-daemons.daemonic-herald`
+- `unit` `chaos-daemons.immortal-champion`
+- `unit` `chaos-space-marines.exalted-champion-2`
+- `unit` `chaos-space-marines.sorcerous-champion`
+- `unit` `chaos-space-marines.soul-forge-tyrant`
+- `unit` `death-guard.plague-lord`
+- `unit` `death-guard.plague-sorcerer`
+- `unit` `death-guard.tri-lobe-vectors`
+- `unit` `drukhari.archtormentor`
+- `unit` `drukhari.flesh-crafter`
+- `unit` `emperors-children.champion-of-excess`
+- `unit` `emperors-children.excruciator`
+- `unit` `emperors-children.flawless-champion`
+- `unit` `genestealer-cults.cult-guerrilla`
+- `unit` `genestealer-cults.cult-insurrectionist`
+- `unit` `genestealer-cults.voice-of-the-patriarch`
+- `unit` `grey-knights.champion-of-titan`
+- `unit` `grey-knights.dreadknight-champion`
+- `unit` `grey-knights.venerable-daemon-slayer`
+- `unit` `imperial-agents.deathwatch-agent`
+- `unit` `imperial-agents.enthroned-agent`
+- `unit` `imperial-agents.martial-agent`
+- `unit` `leagues-of-votann.kinhost-commander`
+- `unit` `leagues-of-votann.living-ancestor`
+- `unit` `leagues-of-votann.steeljack-elder`
+- `unit` `necrons.dynastic-conqueror`
+- `unit` `necrons.hyperscientist`
+- `unit` `necrons.triarchal-overseer`
+- `unit` `orks.hordeboss`
+- `unit` `orks.upstart-gretchin`
+- `unit` `orks.warphead`
+- `unit` `space-marines.champion-of-the-chapter`
+- `unit` `space-marines.librarius-adept`
+- `unit` `space-marines.venerable-battle-brother`
+- `unit` `tau-empire.battlesuit-veteran`
+- `unit` `tau-empire.kinband-champion`
+- `unit` `tau-empire.shasnel`
+- `unit` `thousand-sons.brayherd-chieftain`
+- `unit` `thousand-sons.brayherd-shaman`
+- `unit` `thousand-sons.magister`
+- `unit` `tyranids.macro-organism`
+- `unit` `tyranids.node-organism`
+- `unit` `tyranids.prime-organism`
+- `unit` `world-eaters.bloodcult-champion`
+- `unit` `world-eaters.butcherlord`
+- `unit` `world-eaters.eight-blessed-lord`
 
 ### A Combat Patrol mission card, whose summary is not drafted yet (22)
 
@@ -117,6 +193,14 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `unit` `space-marines.fire-raptor-gunship`
 - `unit` `tau-empire.aunva`
 - `unit` `unaligned-forces.imperial-fortress-walls`
+
+### A datasheet no official source in reach prints: an entry for its provisional abilities and its faction's (5)
+
+- `unit` `orks.da-red-gobbos-a-bomb-inable-snowman`
+- `unit` `orks.da-red-gobbos-tinboy`
+- `unit` `orks.grotmas-gitz`
+- `unit` `space-marines.chaplain-kastiel`
+- `unit` `space-marines.judiciar-xacharus`
 
 ### A datasheet this version's app build no longer prints, last printed in build 946: an entry for the rules bound here as that build gives them (3)
 

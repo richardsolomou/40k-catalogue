@@ -11,6 +11,11 @@ export type Gap = { field: string; reason: "no-target" | "unrepresentable" };
 export type Roll = number;
 /** A fixed amount, or dice such as `D6`, `2D3` or `D6+1`. */
 export type Amount = number | string;
+/**
+ * `against` limits the save to ranged or melee attacks; `conditional` means another rule of the datasheet sets when it
+ * applies, and `summary` says when, in the rule summary grammar without links.
+ */
+export type InvulnerableSave = { roll: Roll; against?: "ranged" | "melee"; conditional?: true; summary?: string };
 export type BaseSize = "hull" | { diameter: number; approximate?: true; flying?: true } | { length: number; width: number; approximate?: true; flying?: true };
 /** A profile with neither `models` nor a model gap applies to the whole unit. `null` means the datasheet gives no value. */
 export type UnitProfileData = {
@@ -22,11 +27,8 @@ export type UnitProfileData = {
   wounds?: number;
   leadership?: Roll;
   objectiveControl?: number | null;
-  /**
-   * `against` limits the save to ranged or melee attacks; `conditional` means another rule of the datasheet sets when it
-   * applies, and `summary` says when, in the rule summary grammar without links.
-   */
-  invulnerableSave?: { roll: Roll; against?: "ranged" | "melee"; conditional?: true; summary?: string };
+  /** One save, or a list with a different save against ranged and against melee attacks, each naming its `against`. */
+  invulnerableSave?: InvulnerableSave | InvulnerableSave[];
   baseSize?: BaseSize;
   gaps?: Gap[];
 };
@@ -176,8 +178,12 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
       if (new Set(gear).size !== gear.length) errors.push(`${at} has multiple capacities for the same wargear`);
     }
     for (const target of [...(data.leads ?? []), ...(data.supports ?? [])]) if (target === data.unit) errors.push(`${at} attaches unit:${target} to itself`);
-    const summary = (data as UnitProfileData).invulnerableSave?.summary;
-    if (summary !== undefined) {
+    const saves = [(data as UnitProfileData).invulnerableSave ?? []].flat();
+    for (const against of ["ranged", "melee"]) {
+      if (saves.length > 1 && saves.filter((s) => s.against === against).length > 1) errors.push(`${at} has more than one invulnerable save against ${against} attacks`);
+    }
+    for (const { summary } of saves) {
+      if (summary === undefined) continue;
       const parsed = parseSummary(summary);
       if (!parsed.ok) errors.push(`${at} invulnerable save summary ${parsed.error}`);
       else if (summaryLinks(parsed.blocks).length > 0) errors.push(`${at} invulnerable save summary has a link`);

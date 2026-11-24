@@ -24,6 +24,18 @@
         }
       }
     },
+    "invulnerable-save": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["roll"],
+      "dependentRequired": { "summary": ["conditional"] },
+      "properties": {
+        "roll": { "$ref": "#/$defs/roll" },
+        "against": { "enum": ["ranged", "melee"] },
+        "conditional": { "const": true },
+        "summary": { "$ref": "#/$defs/text", "description": "When the save applies, as Markdown in the rule summary grammar without links; validateProfiles parses it." }
+      }
+    },
     "unit-profile": {
       "type": "object",
       "additionalProperties": false,
@@ -44,16 +56,9 @@
         "leadership": { "$ref": "#/$defs/roll" },
         "objectiveControl": { "oneOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }] },
         "invulnerableSave": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["roll"],
-          "dependentRequired": { "summary": ["conditional"] },
-          "properties": {
-            "roll": { "$ref": "#/$defs/roll" },
-            "against": { "enum": ["ranged", "melee"] },
-            "conditional": { "const": true },
-            "summary": { "$ref": "#/$defs/text", "description": "When the save applies, as Markdown in the rule summary grammar without links; validateProfiles parses it." }
-          }
+          "if": { "type": "array" },
+          "then": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/invulnerable-save", "type": "object", "required": ["against"] } },
+          "else": { "$ref": "#/$defs/invulnerable-save" }
         },
         "baseSize": {
           "oneOf": [

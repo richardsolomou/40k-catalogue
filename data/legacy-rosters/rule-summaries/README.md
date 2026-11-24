@@ -6,10 +6,10 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,765 | 6,756 | 9 |
+| `rules-reference` | 6,787 | 6,778 | 9 |
 | `mission-rules` | 285 | 263 | 22 |
 
-6,307 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30; 575 records that no app row carries cite only the dated Games Workshop page that prints it. 137 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 939 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,328 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30; 576 records that no app row carries cite only the dated Games Workshop page that prints it. 137 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 940 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2366, `grants` 322, `weaponAbilities` 100, `reminder` 2119, `reserves` 1, `invulnerableSave` 94, `upgradesWeapon` 21, `roster` 65, `attachment` 48, `references` 984 (3,933 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
@@ -143,6 +143,30 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `mission-card` `combat-patrol.slay-the-oppressors`
 - `mission-card` `combat-patrol.strike-from-on-high`
 - `mission-card` `combat-patrol.uphold-your-vows`
+
+### A Detachment this version's app build no longer prints, last printed in build 946: an entry for the rules bound here as that build gives them (21)
+
+- `detachment` `blood-angels.legacy-of-grace`
+- `detachment` `blood-angels.liberator-assault-group`
+- `detachment` `blood-angels.rage-cursed-onslaught`
+- `detachment` `blood-angels.the-angelic-host`
+- `detachment` `blood-angels.the-lost-brethren`
+- `detachment` `dark-angels.company-of-hunters`
+- `detachment` `dark-angels.dark-age-arsenal`
+- `detachment` `dark-angels.interrogation-conclave`
+- `detachment` `dark-angels.lions-blade-task-force`
+- `detachment` `dark-angels.unforgiven-task-force`
+- `detachment` `space-marines.1st-company-task-force`
+- `detachment` `space-marines.anvil-siege-force`
+- `detachment` `space-marines.bastion-task-force`
+- `detachment` `space-marines.firestorm-assault-force`
+- `detachment` `space-marines.fulguris-task-force`
+- `detachment` `space-marines.headhunter-task-force`
+- `detachment` `space-marines.librarius-conclave`
+- `detachment` `space-marines.orbital-assault-force`
+- `detachment` `space-marines.subversion-assets`
+- `detachment` `space-marines.vanguard-spearhead`
+- `detachment` `space-marines.vengeful-hosts`
 
 ### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (19)
 

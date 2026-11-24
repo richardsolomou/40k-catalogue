@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.librarius-conclave.psychic-disciplines",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Librarius Conclave",
+    "summary": "Your **ADEPTUS ASTARTES PSYKER** units share one of these **Psychic Disciplines**, chosen afresh as each battle round begins and kept for that round:\n\n- **Biomancy Discipline:** the unit's Move is 2\" higher.\n- **Divination Discipline:** **Hit rolls** of 1 and **Wound rolls** of 1 may be re-rolled for its attacks.\n- **Pyromancy Discipline:** its ranged attacks get +1 AP, provided the target is an enemy unit no more than 12\" from it.\n- **Telekinesis Discipline:** the Strength of each ranged attack aimed at it is reduced by 1.\n- **Telepathy Discipline:** you may have its attacks disregard any BS, WS or Hit roll modifier.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "detachment-rule",
+          "detachment": "Librarius Conclave",
+          "when": {
+            "step": "start-of-battle-round"
+          },
+          "duration": "end-of-battle-round",
+          "recipients": {
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "PSYKER"
+            ]
+          },
+          "choose": 1,
+          "options": [
+            {
+              "name": "Biomancy Discipline",
+              "characteristicModifiers": [
+                {
+                  "characteristic": "M",
+                  "deltaInches": 2
+                }
+              ]
+            },
+            {
+              "name": "Divination Discipline",
+              "rerolls": [
+                {
+                  "roll": "hit",
+                  "values": [
+                    1
+                  ]
+                },
+                {
+                  "roll": "wound",
+                  "values": [
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Pyromancy Discipline",
+              "attackType": "ranged",
+              "condition": {
+                "targetSide": "enemy",
+                "targetWithinInches": 12
+              },
+              "characteristicModifiers": [
+                {
+                  "characteristic": "AP",
+                  "delta": 1
+                }
+              ]
+            },
+            {
+              "name": "Telekinesis Discipline",
+              "incomingRangedAttacks": {
+                "characteristicModifiers": [
+                  {
+                    "characteristic": "S",
+                    "subtract": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Telepathy Discipline",
+              "ignoreModifiersTo": [
+                "BS",
+                "WS",
+                "hit-roll"
+              ],
+              "optional": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

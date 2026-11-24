@@ -6,10 +6,10 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,823 | 6,341 | 482 |
+| `rules-reference` | 6,845 | 6,363 | 482 |
 | `mission-rules` | 285 | 263 | 22 |
 
-5,870 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02; 599 records that no app row carries cite only the dated Games Workshop page that prints it. 135 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 916 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
+5,891 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02; 600 records that no app row carries cite only the dated Games Workshop page that prints it. 135 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 917 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 763 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2108, `grants` 293, `weaponAbilities` 86, `reminder` 1905, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 61, `attachment` 39, `references` 709 (3,484 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 

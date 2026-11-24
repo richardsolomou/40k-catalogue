@@ -47,7 +47,13 @@
           "type": "object",
           "additionalProperties": false,
           "required": ["roll"],
-          "properties": { "roll": { "$ref": "#/$defs/roll" }, "against": { "const": "ranged" }, "conditional": { "const": true } }
+          "dependentRequired": { "summary": ["conditional"] },
+          "properties": {
+            "roll": { "$ref": "#/$defs/roll" },
+            "against": { "enum": ["ranged", "melee"] },
+            "conditional": { "const": true },
+            "summary": { "$ref": "#/$defs/text", "description": "When the save applies, as Markdown in the rule summary grammar without links; validateProfiles parses it." }
+          }
         },
         "baseSize": {
           "oneOf": [

@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.stormlance-task-force.ride-hard-ride-fast",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Stormlance Task Force",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.stormlance-task-force"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "battle-tactic"
+    },
+    "summary": "Use it in your opponent's Shooting phase, right after an enemy unit picks its targets. Pick 1 **ADEPTUS ASTARTES MOUNTED** or **ADEPTUS ASTARTES FLY VEHICLE** unit of yours that is a target of any of those attacks.\n\nUntil the phase ends, attacks aimed at that unit get -1 to the **Wound roll**.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "FLY",
+                  "VEHICLE"
+                ]
+              }
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "detail": {
+          "detachment": "Stormlance Task Force",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "just after an enemy unit has selected its targets"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              [
+                "ADEPTUS ASTARTES",
+                "MOUNTED"
+              ],
+              [
+                "ADEPTUS ASTARTES",
+                "FLY",
+                "VEHICLE"
+              ]
+            ],
+            "targetedByThatEnemyUnitsAttacks": true
+          },
+          "effects": [
+            {
+              "attacksTargetingUnit": true,
+              "roll": "wound",
+              "delta": -1
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

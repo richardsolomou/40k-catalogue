@@ -1,6 +1,7 @@
 import { Ajv2020 } from "ajv/dist/2020.js";
 import { resolve, validateRelease, type Entry, type Ref, type Release } from "../catalogue-identity/identity.ts";
 import type { CatalogueRecord } from "../catalogue-releases/catalogue.ts";
+import { links as summaryLinks, parseSummary } from "../rule-summaries/markdown.ts";
 import schema from "./profiles.v1.schema.json" with { type: "json" };
 
 // Mirrors profiles.v1.schema.json, which is the contract consumers rely on.
@@ -21,8 +22,11 @@ export type UnitProfileData = {
   wounds?: number;
   leadership?: Roll;
   objectiveControl?: number | null;
-  /** `against: "ranged"` limits the save to ranged attacks; `conditional` means another rule of the datasheet sets when it applies. */
-  invulnerableSave?: { roll: Roll; against?: "ranged"; conditional?: true };
+  /**
+   * `against` limits the save to ranged or melee attacks; `conditional` means another rule of the datasheet sets when it
+   * applies, and `summary` says when, in the rule summary grammar without links.
+   */
+  invulnerableSave?: { roll: Roll; against?: "ranged" | "melee"; conditional?: true; summary?: string };
   baseSize?: BaseSize;
   gaps?: Gap[];
 };
@@ -172,6 +176,12 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
       if (new Set(gear).size !== gear.length) errors.push(`${at} has multiple capacities for the same wargear`);
     }
     for (const target of [...(data.leads ?? []), ...(data.supports ?? [])]) if (target === data.unit) errors.push(`${at} attaches unit:${target} to itself`);
+    const summary = (data as UnitProfileData).invulnerableSave?.summary;
+    if (summary !== undefined) {
+      const parsed = parseSummary(summary);
+      if (!parsed.ok) errors.push(`${at} invulnerable save summary ${parsed.error}`);
+      else if (summaryLinks(parsed.blocks).length > 0) errors.push(`${at} invulnerable save summary has a link`);
+    }
   }
 
   const byKind = Map.groupBy([...byKey].sort(([a], [b]) => (a < b ? -1 : 1)), ([at]) => at.slice(0, at.indexOf(":")) as ProfileKind);

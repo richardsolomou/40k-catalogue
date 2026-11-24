@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.saga-of-the-beastslayer.thunderous-pursuit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Saga of the Beastslayer",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-wolves.saga-of-the-beastslayer"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
+    "summary": "Use it in your opponent's Movement phase, right after an enemy unit finishes a **Normal move**, **Advance move** or **Fall Back move**. Pick 1 **ADEPTUS ASTARTES** unit of yours within 8\" of the enemy unit that moved and outside **Engagement Range** of all enemy units.\n\nIt may then move up to D6\" as a Normal move, or up to 6\" if it is a **SPACE WOLVES INFANTRY** or **THUNDERWOLF CAVALRY** unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-ended-move"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
+          "detachment": "Saga of the Beastslayer",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "movement",
+              "timing": "just after an enemy unit finishes a Normal, Advance or Fall Back move"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "withinInchesOfThatEnemyUnit": 8,
+            "notWithinEngagementRange": true
+          },
+          "effects": [
+            {
+              "normalMove": {
+                "upToInches": "D6"
+              },
+              "dice": "D6",
+              "sides": 6
+            },
+            {
+              "ifKeywordsAny": [
+                [
+                  "SPACE WOLVES",
+                  "INFANTRY"
+                ],
+                [
+                  "THUNDERWOLF CAVALRY"
+                ]
+              ],
+              "normalMove": {
+                "upToInches": 6
+              },
+              "replaces": "the D6\" move"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

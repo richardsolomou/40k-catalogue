@@ -47,7 +47,11 @@
       "required": ["summary", "citations"],
       "properties": {
         "summary": { "$ref": "#/$defs/text", "description": "Markdown limited to the summary grammar in docs/rule-summaries.md; validateSummaries parses it." },
-        "citations": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/citation" } },
+        "citations": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/citation" } },
+        "provisional": {
+          "const": true,
+          "description": "Written with no official source in reach to check it against; replaced once an official source prints the rule. A provisional summary has no citations."
+        },
         "interpretation": {
           "type": "array",
           "minItems": 1,
@@ -69,7 +73,10 @@
             "fields": { "type": "object" }
           }
         }
-      }
+      },
+      "if": { "required": ["provisional"] },
+      "then": { "properties": { "citations": { "type": "array", "maxItems": 0 } } },
+      "else": { "properties": { "citations": { "type": "array", "minItems": 1 } } }
     },
     "ability": {
       "type": "object",
@@ -112,7 +119,8 @@
       "properties": {
         "document": { "$ref": "#/$defs/text" },
         "section": { "$ref": "#/$defs/text" },
-        "ruleNumber": { "$ref": "#/$defs/text" }
+        "ruleNumber": { "$ref": "#/$defs/text" },
+        "parent": { "$ref": "#/$defs/ref" }
       }
     },
     "keyword": {

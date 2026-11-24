@@ -506,3 +506,34 @@ test("a weighted option group member counts each selection that many times", () 
   if (!validated.ok) assert.fail(validated.errors.join("\n"));
   assert.deepEqual(codes(validated.definitions, legal12), ["0 option-group-count"]);
 });
+
+// Flame Wardens first fielded as ten, one Warden carrying a cinder cannon.
+const withDefaults = (cannons: number, wardens = 9, referenced = true) => {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "unit", WARDENS).data, { defaults: { [`${WARDENS}.cannon`]: { "synthetic.cinder-cannon": cannons } }, defaultModels: { [WARDEN]: wardens } });
+  if (referenced) {
+    identity.entries.find((e) => e.id === WARDENS)!.references!.push({ kind: "wargear", id: "synthetic.cinder-cannon" }, { kind: "model", id: WARDEN });
+  }
+  return validateDefinitions(identity, records);
+};
+
+test("a unit states the selections and model counts it is first fielded with", () => {
+  const result = withDefaults(1);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  assert.deepEqual(result.definitions.get("unit", WARDENS)!.data.defaults, { [`${WARDENS}.cannon`]: { "synthetic.cinder-cannon": 1 } });
+});
+
+test("default selections checkRoster refuses fail validation", () => {
+  const result = withDefaults(3);
+  assert.ok(!result.ok && result.errors.some((e) => e.startsWith(`unit:${WARDENS} defaults are not a legal fielding:`)), JSON.stringify(result));
+});
+
+test("default model counts outside the unit's sizes fail validation", () => {
+  const result = withDefaults(1, 7);
+  assert.ok(!result.ok && result.errors.some((e) => e.startsWith(`unit:${WARDENS} defaults are not a legal fielding:`)), JSON.stringify(result));
+});
+
+test("default selections must be referenced by the unit's identity entry", () => {
+  const result = withDefaults(1, 9, false);
+  assert.ok(!result.ok && result.errors.includes(`unit:${WARDENS} names model:${WARDEN} but its identity entry does not reference it`), JSON.stringify(result));
+});

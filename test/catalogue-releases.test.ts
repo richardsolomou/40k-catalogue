@@ -242,6 +242,19 @@ test("a record for a retired entry blocks the release", () => {
   assert.deepEqual(errors(dir), ["records/missions/hammer.json: mission-layout:synthetic.layout.hammer is retired in identity.json"]);
 });
 
+test("an absent entry is neither counted nor unresolved", () => {
+  const dir = input("1.1");
+  edit(join(dir, "identity.json"), (value) => value.entries.push({ kind: "wargear", id: "synthetic.void-blade", name: "Void Blade", absent: true }));
+  const rosters = category(build(dir, "0.3.0", first()), "rosters");
+  assert.deepEqual([rosters.entries, rosters.unresolved], [category(second(), "rosters").entries, category(second(), "rosters").unresolved]);
+});
+
+test("a record for an absent entry blocks the release", () => {
+  const dir = input("1.0");
+  edit(join(dir, "identity.json"), (value) => (value.entries.find((e: { id: string }) => e.id === "synthetic.chain-glaive").absent = true));
+  assert.deepEqual(errors(dir), ["records/rosters/chain-glaive.json: wargear:synthetic.chain-glaive is absent in identity.json"]);
+});
+
 test("a record in the wrong category blocks the release", () => {
   const dir = input("1.0");
   renameSync(join(dir, "records/terrain/ruins-a.json"), join(dir, "records/missions/ruins-a.json"));

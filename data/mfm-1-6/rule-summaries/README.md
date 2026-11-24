@@ -6,12 +6,12 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,184 | 6,183 | 1 |
+| `rules-reference` | 6,747 | 6,746 | 1 |
 | `mission-rules` | 291 | 267 | 24 |
 
-6,275 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 175 records that no app row carries cite only the dated Games Workshop page that prints it. 1,281 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,411 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 478 records that no app row carries cite only the dated Games Workshop page that prints it. 124 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 1,584 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2505, `grants` 324, `weaponAbilities` 98, `reminder` 2142, `reserves` 1, `invulnerableSave` 105, `upgradesWeapon` 23, `roster` 69, `attachment` 48, `references` 990 (4,106 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2511, `grants` 324, `weaponAbilities` 107, `reminder` 2142, `reserves` 1, `invulnerableSave` 105, `upgradesWeapon` 23, `roster` 69, `attachment` 48, `references` 1050 (4,110 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,061 units with roster definitions (1,312 wargear options), 1,121 stat lines and 5,177 weapon profiles, and the `mfm-1-6` points snapshot of 1,060 units, 256 Detachments and 817 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 337 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `mfm-1-6-legends` snapshot, the costs of 327 of them from the Munitorum Field Manual's Legends section. 321 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (32 of them with options left out, listed below), and their weapon profiles name that wargear.
 
@@ -42,6 +42,68 @@ Active entries without a record, by reason. An entry with several reasons is lis
 ### Neither a datasheet or rule of the app build in force nor a dated publisher page carries the rule, so it has no official citation yet (1)
 
 - `ability` `adeptus-custodes.aleya.daughter-of-the-abyss`
+
+### A Crucible datasheet, printed only in the Crucible of Champions book, which no official source in reach carries: an entry for its provisional abilities and its faction's (59)
+
+- `unit` `adepta-sororitas.inspiring-devotee`
+- `unit` `adepta-sororitas.militant-commander`
+- `unit` `adepta-sororitas.reliquant-knight`
+- `unit` `adeptus-mechanicus.cohort-commander`
+- `unit` `adeptus-mechanicus.ironstrider-alpha`
+- `unit` `adeptus-mechanicus.magos`
+- `unit` `aeldari-2.craftworld-warleader`
+- `unit` `aeldari-2.ghost-warrior`
+- `unit` `aeldari-2.skyrunner`
+- `unit` `astra-militarum.augmented-bone-ead`
+- `unit` `astra-militarum.front-line-commander`
+- `unit` `astra-militarum.sentinel-commander`
+- `unit` `chaos-daemons.daemonic-charioteer`
+- `unit` `chaos-daemons.daemonic-herald`
+- `unit` `chaos-daemons.immortal-champion`
+- `unit` `chaos-space-marines.exalted-champion-2`
+- `unit` `chaos-space-marines.sorcerous-champion`
+- `unit` `chaos-space-marines.soul-forge-tyrant`
+- `unit` `death-guard.plague-lord`
+- `unit` `death-guard.plague-sorcerer`
+- `unit` `death-guard.tri-lobe-vectors`
+- `unit` `drukhari.archtormentor`
+- `unit` `drukhari.flesh-crafter`
+- `unit` `emperors-children.champion-of-excess`
+- `unit` `emperors-children.excruciator`
+- `unit` `emperors-children.flawless-champion`
+- `unit` `genestealer-cults.cult-guerrilla`
+- `unit` `genestealer-cults.cult-insurrectionist`
+- `unit` `genestealer-cults.voice-of-the-patriarch`
+- `unit` `grey-knights.champion-of-titan`
+- `unit` `grey-knights.dreadknight-champion`
+- `unit` `grey-knights.venerable-daemon-slayer`
+- `unit` `imperial-agents.deathwatch-agent`
+- `unit` `imperial-agents.enthroned-agent`
+- `unit` `imperial-agents.martial-agent`
+- `unit` `leagues-of-votann.kinhost-commander`
+- `unit` `leagues-of-votann.living-ancestor`
+- `unit` `leagues-of-votann.steeljack-elder`
+- `unit` `necrons.dynastic-conqueror`
+- `unit` `necrons.hyperscientist`
+- `unit` `necrons.triarchal-overseer`
+- `unit` `orks.hordeboss`
+- `unit` `orks.upstart-gretchin`
+- `unit` `orks.warphead`
+- `unit` `space-marines.champion-of-the-chapter`
+- `unit` `space-marines.librarius-adept`
+- `unit` `space-marines.venerable-battle-brother`
+- `unit` `tau-empire.battlesuit-veteran`
+- `unit` `tau-empire.kinband-champion`
+- `unit` `tau-empire.shasnel`
+- `unit` `thousand-sons.brayherd-chieftain`
+- `unit` `thousand-sons.brayherd-shaman`
+- `unit` `thousand-sons.magister`
+- `unit` `tyranids.macro-organism`
+- `unit` `tyranids.node-organism`
+- `unit` `tyranids.prime-organism`
+- `unit` `world-eaters.bloodcult-champion`
+- `unit` `world-eaters.butcherlord`
+- `unit` `world-eaters.eight-blessed-lord`
 
 ### A Combat Patrol mission card, whose summary is not drafted yet (24)
 

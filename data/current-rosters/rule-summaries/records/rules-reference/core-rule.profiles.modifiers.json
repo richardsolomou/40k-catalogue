@@ -1,0 +1,200 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "profiles.modifiers",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 3 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "02. Datasheets",
+    "ruleNumber": "02.02.01",
+    "parent": {
+      "kind": "core-rule",
+      "id": "profiles"
+    },
+    "summary": "A modifier is a rule that changes a roll, a characteristic or another value, which is then ‘modified’. A +N improves a characteristic by N and a -N worsens it by N.\n\nAll modifiers stack. Modify a value, such as a characteristic, dice roll or distance, in this order:\n\n1. Change or replace it with any value a rule sets; a characteristic set to ‘0’, ‘-’ or an asterisk this way takes no further modifiers (skip steps 2 to 5).\n2. Multiply.\n3. Add.\n4. Divide.\n5. Subtract.\n6. Round fractions up.\n\nUnless stated otherwise, characteristics of ‘-’, an asterisk or ‘N/A’ are never modified, changing a model’s **WS** or **BS** changes it on every weapon the model has, and after all modifiers:\n\n- **M** and **Range** are at least 1\".\n- **T**, **A**, **S** and **D** are at least 1.\n- **Sv** and **InSv** are no better than 2+.\n- **Ld** is between 5+ and 8+.\n- **OC** is at least 0 and can’t become ‘-’.\n- **WS** and **BS** are between 2+ and 6+.\n- **AP** is 0 at worst.\n\nImproving and worsening:\n\n- **WS**, **BS**, **Sv** and **Ld**: improving lowers the number before the ‘+’ by the amount, and worsening raises it.\n- **AP**: improving subtracts the amount, and reducing or worsening adds it, but never past 0.\n- Characteristics without a ‘+’ or ‘-’: improving adds the amount, and worsening subtracts it.\n\nFor dice rolls:\n\n- Modify after any re-rolls; an ‘unmodified’ roll is the result after re-rolls and before modifiers.\n- A result may be modified beyond the die’s highest face, such as above 6 on a D6; one below 1 becomes 1.\n- A **hit roll** or **wound roll** takes a net modifier of at most +1 or -1: a total of -2 or worse counts as -1, and +2 or better as +1.\n- A **charge roll** result of 13 or more becomes 12.\n\nOther limits after all modifiers:\n\n- **Detection range** and **[Lone Operative](vsdata:core-ability/lone-operative)** stay between 9\" and 30\".\n- A Stratagem’s CP cost rises by at most 1 and never drops below 0.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "clarification",
+          "ruleNumber": "02.02.01",
+          "ruleNumberParts": [
+            2,
+            2,
+            1
+          ],
+          "modifier": {
+            "plusN": "improve-by-N",
+            "minusN": "worsen-by-N",
+            "examples": [
+              {
+                "characteristic": "AP",
+                "from": -2,
+                "improveBy": 1,
+                "to": -3
+              },
+              {
+                "characteristic": "Sv",
+                "from": "3+",
+                "worsenBy": 1,
+                "to": "4+"
+              }
+            ]
+          },
+          "cumulative": true,
+          "order": [
+            {
+              "step": 1,
+              "op": "set-or-replace",
+              "noFurtherModifiersIfSetTo": [
+                "0",
+                "-",
+                "*"
+              ],
+              "skipsSteps": [
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "step": 2,
+              "op": "multiply"
+            },
+            {
+              "step": 3,
+              "op": "add"
+            },
+            {
+              "step": 4,
+              "op": "divide"
+            },
+            {
+              "step": 5,
+              "op": "subtract"
+            },
+            {
+              "step": 6,
+              "op": "round-fractions-up"
+            }
+          ],
+          "unlessOtherwiseStated": true,
+          "neverModified": [
+            "-",
+            "*",
+            "N/A"
+          ],
+          "modelSkillModifierAppliesToEachWeapon": [
+            "WS",
+            "BS"
+          ],
+          "bounds": {
+            "M-minInches": 1,
+            "T-min": 1,
+            "Sv-forbiddenAtOrBetter": "1+",
+            "InSv-forbiddenAtOrBetter": "1+",
+            "Ld-forbiddenAtOrBetter": "4+",
+            "Ld-forbiddenAtOrWorse": "9+",
+            "OC-min": 0,
+            "OC-dashForbidden": true,
+            "range-minInches": 1,
+            "A-min": 1,
+            "WS-forbiddenAtOrBetter": "1+",
+            "WS-forbiddenAtOrWorse": "7+",
+            "BS-forbiddenAtOrBetter": "1+",
+            "BS-forbiddenAtOrWorse": "7+",
+            "S-min": 1,
+            "AP-worst": 0,
+            "D-min": 1
+          },
+          "improveWorsen": {
+            "WS-BS-Sv-Ld": {
+              "improve": "subtract-from-target-number",
+              "worsen": "add-to-target-number",
+              "example": {
+                "WS": "3+",
+                "by": 1,
+                "improved": "2+",
+                "worsened": "4+"
+              }
+            },
+            "AP": {
+              "improve": "subtract",
+              "reduceOrWorsen": "add-to-maximum-zero",
+              "examples": [
+                {
+                  "from": -1,
+                  "by": 1,
+                  "improved": -2,
+                  "worsened": 0
+                },
+                {
+                  "from": 0,
+                  "by": 1,
+                  "improved": -1,
+                  "worsened": 0
+                }
+              ]
+            },
+            "others": {
+              "improve": "add",
+              "worsen": "subtract",
+              "example": {
+                "characteristic": "S",
+                "improveBy": 1
+              }
+            }
+          },
+          "diceRolls": {
+            "modifyAfterRerolls": true,
+            "unmodified": "after-rerolls-before-modifiers",
+            "mayExceedDieMaximum": true,
+            "exampleDie": "D6",
+            "exampleMaximum": 6,
+            "minimumResult": 1,
+            "hitAndWound": {
+              "maxNetModifier": 1,
+              "atOrWorseThan": -2,
+              "becomes": -1,
+              "atOrBetterThan": 2,
+              "becomesPositive": 1
+            },
+            "charge": {
+              "maximum": 12,
+              "atLeast": 13,
+              "becomes": 12
+            }
+          },
+          "otherLimits": {
+            "detectionRangeAndLoneOperative": {
+              "bestInches": 9,
+              "worstInches": 30
+            },
+            "stratagemCp": {
+              "maxIncrease": 1,
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

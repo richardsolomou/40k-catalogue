@@ -11,7 +11,7 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 | Category | Kind | `data` beside the common fields |
 | --- | --- | --- |
 | `rules-reference` | `ability` | `ruleType`, optional `group`, for a Stratagem or Enhancement an optional `detachment`, and for a Stratagem `cp` and optional `stratagem` timing. |
-| `rules-reference` | `core-rule` | `document`, optional `section` and `ruleNumber`. |
+| `rules-reference` | `core-rule` | `document`, optional `section`, `ruleNumber` and `parent`. |
 | `rules-reference` | `core-ability`, `weapon-ability` | `parameterized: true` when the keyword takes values, such as Sustained Hits X. |
 | `rules-reference` | `faq` | `publication`, `amends`, optional `amendsUnlisted`. |
 | `mission-rules` | `mission-card` | `pack` and `card`. A card that prints no rules text beyond its awards and actions has `text: "none"` and a `reason` in place of `summary` (see [rules without text](#rules-without-text)). |
@@ -23,6 +23,8 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 - `phases` are `command`, `movement`, `shooting`, `charge`, `fight` and `end-of-turn`, the end of a turn after its Fight phase. A Stratagem usable in any phase lists all six, so it differs from one that names the five phases.
 - Where the phases' turns differ, such as your opponent's Shooting phase or either player's Fight phase, `windows` gives each phase its `turn`, as `[{ phase, turn }]` in the order of `phases`, and `turn` is `any`.
 - `type` is left out where the official source gives the Stratagem none; it is never inferred.
+
+A clarification the core rules number beneath a rule, such as 01.02.06 under Units and Models, is a `core-rule` whose `parent` is that rule, by `{ kind: "core-rule", id }`. The parent is current, is a reference of the clarification's identity entry, and has no parent of its own.
 
 `pack` and `publication` are display names. `card` is `primary` or `secondary`. An award scores `vp` victory points, up to `max` where the card caps it.
 
@@ -36,8 +38,9 @@ The record's display name is its identity entry's `name`.
 | `citations` | The official sources the summary was checked against, described below. |
 | `interpretation` | Open questions the summary's reading rests on, each as `{ question }`. The summary states the reading the project chose. Show the flag so players know the source leaves the point open. |
 | `facts` | Optional typed facts as `{ format, version, fields }`. |
+| `provisional` | `true` when no official source in reach prints the rule, so the summary was written without one to check it against and `citations` is empty. Show the flag so players know the summary is unchecked; a later release replaces the summary, with citations, once an official source prints the rule. |
 
-The record's `source` locates the printed rule, so it is the publisher document where there is one, else the app build. A record that adapts upstream data carries an `attribution`, as any [catalogue record](catalogue-releases.md#inputs) can.
+The record's `source` locates the printed rule, so it is the publisher document where there is one, else the app build. A provisional record's `source` names the official publication that prints the rule, with page `n/a`, since it was not checked against it. A record that adapts upstream data carries an `attribution`, as any [catalogue record](catalogue-releases.md#inputs) can.
 
 ## Rules without text
 

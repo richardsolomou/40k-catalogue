@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "death-guard.great-unclean-one.nurgles-rot",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Great Unclean One",
+    "summary": "As your Movement phase ends, this model may pick 1 enemy unit that is within 12\" of it. That unit is rotted until your next Movement phase starts, and while rotted its models get -1 Toughness.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "end-of-phase"
+            },
+            "optional": true,
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "withinInches": 12
+            },
+            "state": "rotted",
+            "until": "start of your next Movement phase",
+            "effects": [
+              {
+                "whileState": "rotted",
+                "characteristic": "Toughness",
+                "delta": -1,
+                "models": "in-unit"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

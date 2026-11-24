@@ -147,7 +147,7 @@ export function buildCatalogueRelease(
       const k = key(value);
       if (categoryOf.get(value.kind) !== entry.name) errors.push(`${where}: ${value.kind} does not belong to ${entry.name}`);
       const identityEntry = entryByKey.get(k);
-      const status = identityEntry ? (identityEntry.retired ? "retired" : "current") : resolve(identity, value).status;
+      const status = identityEntry ? (identityEntry.retired ? "retired" : identityEntry.absent ? "absent" : "current") : resolve(identity, value).status;
       if (status !== "current") errors.push(`${where}: ${k} is ${status} in ${IDENTITY}`);
       if (!sameVersion(value.rulesVersion, identity.rulesVersion)) errors.push(`${where}: rules version differs from ${IDENTITY}`);
       if (records.has(k)) errors.push(`${where}: duplicates ${k}`);
@@ -166,7 +166,7 @@ export function buildCatalogueRelease(
   files.set(IDENTITY, canonicalJson({ ...identity, entries: [...identity.entries].sort(byKey) }));
   for (const [, { category, record }] of records) files.set(recordPath(category, record), canonicalJson(record));
 
-  const active = identity.entries.filter((e) => !e.retired);
+  const active = identity.entries.filter((e) => !e.retired && !e.absent);
   const categories = declared.map(({ name, status, kinds, sources }): Category => {
     const owned = active.filter((e) => kinds.includes(e.kind)).map(({ kind, id }) => ({ kind, id })).sort(byKey);
     const own = status === "included" ? owned.filter((ref) => records.has(key(ref))) : [];

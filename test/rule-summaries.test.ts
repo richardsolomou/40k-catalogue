@@ -93,6 +93,47 @@ test("a catalogue record's attribution must be complete", () => {
   assert.deepEqual(result.ok ? [] : result.errors, [`records/rules-reference/ability.${OATH.id}.json: /attribution must have required property 'licence'`]);
 });
 
+test("a provisional summary has no citations", () => {
+  assert.deepEqual(
+    errors((_, recs) => Object.assign(data(recs, "ability", OATH.id), { provisional: true, citations: [] })),
+    [],
+  );
+});
+
+test("a provisional summary cannot cite a source it was not checked against", () => {
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).provisional = true)).includes(`ability:${OATH.id} data/citations must NOT have more than 0 items`));
+});
+
+test("a summary that is not provisional cites an official source", () => {
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).citations = [])).includes(`ability:${OATH.id} data/citations must NOT have fewer than 1 items`));
+});
+
+const CLARIFICATION = "synthetic.shooting-phase.selecting-targets";
+
+test("a clarification's parent is another core rule", () => {
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "core-rule", CLARIFICATION).parent = { kind: "core-rule", id: CLARIFICATION })),
+    [`core-rule:${CLARIFICATION} parent must be another core-rule`],
+  );
+});
+
+test("a clarification's parent is a reference of its identity entry", () => {
+  assert.deepEqual(
+    errors((id) => (id.entries.find((e) => e.id === CLARIFICATION)!.references = [])),
+    [`core-rule:${CLARIFICATION} parent core-rule:synthetic.shooting-phase is not a reference of its identity entry`],
+  );
+});
+
+test("a clarification's parent has no parent of its own", () => {
+  assert.deepEqual(
+    errors((id, recs) => {
+      data(recs, "core-rule", "synthetic.shooting-phase").parent = { kind: "core-rule", id: CLARIFICATION };
+      id.entries.find((e) => e.id === "synthetic.shooting-phase")!.references = [{ kind: "core-rule", id: CLARIFICATION }];
+    }),
+    [`core-rule:synthetic.shooting-phase parent core-rule:${CLARIFICATION} has a parent of its own`, `core-rule:${CLARIFICATION} parent core-rule:synthetic.shooting-phase has a parent of its own`],
+  );
+});
+
 test("a Stratagem needs its CP cost", () => {
   assert.deepEqual(
     errors((_, recs) => delete data(recs, "ability", VOLLEY).cp),

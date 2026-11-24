@@ -27,7 +27,7 @@ The build fails when:
 - the identity release or a record fails validation, or the categories do not match their schema
 - a kind belongs to two categories or none, or a category is declared twice
 - a record sits under a retained or undeclared category, or under a category that does not own its kind
-- a record's entry is missing, an alias, or retired, its rules version differs from the identity's, or two records name the same entry
+- a record's entry is missing, an alias, retired, or absent, its rules version differs from the identity's, or two records name the same entry
 - an included category has no records
 
 ## Layout
@@ -61,7 +61,7 @@ Each category lists:
 | `name`, `kinds`, `sources` | As declared in `categories.json`. |
 | `status` | `complete`, `partial`, or `retained`. |
 | `statusBefore` | The status in the previous release, or `null`. |
-| `entries` | The number of active identity entries of the category's kinds. |
+| `entries` | The number of active identity entries of the category's kinds, which leaves out retired and absent ones. |
 | `records` | The `kind`, `id`, `path`, and `sha256` of each record, in kind and ID order. |
 | `unresolved` | Active entries of an included category that have no record. |
 | `unresolvedReferences` | References from this category's records to entries of an included category that have no record. |

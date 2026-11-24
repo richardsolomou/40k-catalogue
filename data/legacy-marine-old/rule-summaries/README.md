@@ -6,14 +6,14 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 5,923 | 5,385 | 538 |
+| `rules-reference` | 6,033 | 5,489 | 544 |
 | `mission-rules` | 285 | 263 | 22 |
 
 Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02. 317 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 752 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2062, `grants` 288, `weaponAbilities` 77, `reminder` 1903, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 60, `attachment` 39, `references` 677 (3,443 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 752 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2066, `grants` 288, `weaponAbilities` 85, `reminder` 1903, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 60, `attachment` 39, `references` 708 (3,446 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
-The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,107 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 780 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it, and names the 316 cards it prints that this version has no entry for in `stratagemsUnlisted` and `enhancementsUnlisted`. 353 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 343 of them from the Munitorum Field Manual's Legends section. 336 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (35 of them with options left out, listed below), and their weapon profiles name that wargear.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,107 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 781 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it, and names the 369 cards it prints that this version publishes no record for in `stratagemsUnlisted` and `enhancementsUnlisted`. 353 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 343 of them from the Munitorum Field Manual's Legends section. 336 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (35 of them with options left out, listed below), and their weapon profiles name that wargear.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
@@ -27,6 +27,25 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 
 - `faq` `codex-chaos-knights.errata.iconoclast-fiefdom-detachment-preserve-the-idols-stratagem-target`, replaced by Chaos Knights Faction Pack: Version 1.2, page 4
 - `faq` `codex-chaos-knights.errata.knight-abominant-volkite-combustor-weapon`, replaced by Chaos Knights Faction Pack: Version 1.2, page 25
+
+## Absent
+
+14 Detachments that third-party lists for this version name but the app build in force does not print are entries with `absent: true` and no record. Each answers to the ID those lists give it as an alias.
+
+- `detachment` `black-templars.fist-of-the-god-emperor` (Fist of the God-Emperor)
+- `detachment` `deathwatch.deathwatch-support` (Deathwatch Support)
+- `detachment` `space-marines.assault-brethren` (Assault Brethren)
+- `detachment` `space-marines.devastator-brethren` (Devastator Brethren)
+- `detachment` `space-marines.gauntlet-task-force` (Gauntlet Task Force)
+- `detachment` `space-marines.gravis-linebreaker-force` (Gravis Linebreaker Force)
+- `detachment` `space-marines.gravis-siege-force` (Gravis Siege Force)
+- `detachment` `space-marines.ironclad-champions` (Ironclad Champions)
+- `detachment` `space-marines.phobos-shadow-force` (Phobos Shadow Force)
+- `detachment` `space-marines.phobos-shock-force` (Phobos Shock Force)
+- `detachment` `space-marines.tactical-brethren` (Tactical Brethren)
+- `detachment` `space-marines.tacticus-attack-force` (Tacticus Attack Force)
+- `detachment` `space-marines.tacticus-firestorm-force` (Tacticus Firestorm Force)
+- `detachment` `space-marines.terminator-storm-force` (Terminator Storm Force)
 
 ## Unresolved
 
@@ -1045,7 +1064,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.vindicator.damaged`
 - `ability` `space-marines.whirlwind.damaged`
 
-### The rule has no finished draft for this version (16)
+### The rule has no finished draft for this version (22)
 
 - `ability` `deathwatch.corvus-blackstar.auspex-array.shared`
 - `ability` `shared.land-raider-crusader.assault-ramp`
@@ -1062,6 +1081,12 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.impulsor.transport.shared`
 - `ability` `space-marines.repulsor-executioner.transport.shared`
 - `ability` `space-marines.repulsor.transport.shared`
+- `core-rule` `dice.ignoring-roll-modifiers`
+- `core-rule` `dice.modifying-dice-rolls`
+- `core-rule` `inflict-damage.modifying-damage`
+- `core-rule` `moving-units.random-movement`
+- `core-rule` `profiles.characteristic-modifiers-and-modified-characteristics`
+- `core-rule` `units-and-models.describing-units`
 - `faq` `codex-emperors-children.faq.carnival-of-excess`
 
 ### The rule's text differs between the factions that share it (15)

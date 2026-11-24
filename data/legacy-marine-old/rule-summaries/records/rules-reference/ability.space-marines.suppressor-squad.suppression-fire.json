@@ -1,0 +1,54 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.suppressor-squad.suppression-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Suppressor Squad",
+    "summary": "In your Shooting phase, once this unit has finished shooting, pick 1 enemy unit that at least 1 of this unit's accelerator autocannon attacks hit. That enemy unit becomes suppressed:\n\n- it stays suppressed until your next turn starts, and only while this unit remains on the battlefield\n- attacks by models in a suppressed unit get -1 to their **Hit rolls**",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "after this unit has shot"
+            },
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitBy": "accelerator autocannon attacks of this unit"
+            },
+            "state": "suppressed",
+            "effect": {
+              "attacksBy": "models in the suppressed unit",
+              "roll": "hit",
+              "subtract": 1
+            },
+            "duration": "until your next turn begins, as long as this unit is still on the battlefield"
+          }
+        }
+      }
+    }
+  }
+}

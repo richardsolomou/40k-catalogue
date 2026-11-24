@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "deathwatch.deathwatch-terminator-squad.terminatus-assault",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Deathwatch Terminator Squad",
+    "summary": "This unit's **Charge rolls** may be re-rolled. Each time it finishes a **Charge move**, every enemy unit it is within **Engagement Range** of takes a Battle-shock test, at -1 if that enemy unit has neither the **IMPERIUM** nor the **CHAOS** keyword.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "ability": {
+            "effects": [
+              {
+                "reroll": "charge",
+                "rollsMadeFor": "this unit"
+              },
+              {
+                "trigger": "each time this unit ends a Charge move",
+                "select": {
+                  "side": "enemy",
+                  "scope": "each unit",
+                  "withinEngagementRangeOf": "this unit"
+                },
+                "battleShockTest": true,
+                "testModifier": {
+                  "subtract": 1,
+                  "if": {
+                    "keywordsNone": [
+                      "IMPERIUM",
+                      "CHAOS"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "cardPrintsOtherText": {
+            "effect": "enemy units engaged after the charge make a battle-shock roll, -1 for non-IMPERIUM/CHAOS units"
+          }
+        }
+      }
+    }
+  }
+}

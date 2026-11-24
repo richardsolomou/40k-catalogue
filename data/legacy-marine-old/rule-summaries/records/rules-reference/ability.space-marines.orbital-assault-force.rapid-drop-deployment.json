@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.orbital-assault-force.rapid-drop-deployment",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Orbital Assault Force",
+    "summary": "**[Deep Strike](vsdata:core-ability/deep-strike)** goes to the models of **ADEPTUS ASTARTES** units you pick as the Declare Battle Formations step starts. **TITANIC** units cannot be picked, and battle size caps how many you may pick:\n\n- Incursion: 2\n- Strike Force: 3\n- Onslaught: 4\n\nAttacks by an **ADEPTUS ASTARTES** model of yours may re-roll **Wound rolls** of 1 during the turn it was placed on the battlefield, and also **Hit rolls** of 1 if it left a **DROP POD** by disembarking in that turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "detachment-rule",
+          "detachment": "Orbital Assault Force",
+          "when": {
+            "step": "start-of-declare-battle-formations"
+          },
+          "select": {
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "excludedKeywords": [
+              "TITANIC"
+            ],
+            "maxByBattleSize": {
+              "Incursion": 2,
+              "Strike Force": 3,
+              "Onslaught": 4
+            }
+          },
+          "grantsCoreAbility": "Deep Strike",
+          "attacks": {
+            "attackerKeywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              {
+                "condition": "set-up-on-battlefield-this-turn",
+                "rerolls": [
+                  {
+                    "roll": "wound",
+                    "values": [
+                      1
+                    ]
+                  }
+                ]
+              },
+              {
+                "condition": "disembarked-from-drop-pod-this-turn",
+                "rerolls": [
+                  {
+                    "roll": "hit",
+                    "values": [
+                      1
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

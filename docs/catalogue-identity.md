@@ -16,7 +16,7 @@ An identity release lists every entry published in one revision of a rules versi
 | `entries[].name` | Display name in that rules version. |
 | `entries[].aliases` | Other IDs of the same kind that resolve to this entry. |
 | `entries[].retired` | Present when the entry no longer applies. `replacedBy` lists the active entries of the same kind that take its place, or is empty. Optional `sources` name the publications that retired it, each with a `title` and a `page` or `url`, such as the document that supersedes an FAQ. |
-| `entries[].absent` | `true` when the rules version does not have the entity, though other sources for that version name it, such as a third-party list of detachments taken from a later app build. The entry keeps the entity's ID and carries the IDs those sources use as `aliases`, so a consumer can match and drop it. It has no record. |
+| `entries[].absent` | `true` when the rules version does not have the entity, though other sources for that version name it, such as a third-party list of detachments taken from a later app build. The entry keeps the entity's ID and carries the IDs those sources use as `aliases`, so a consumer can match and drop it. An absent `ability` references the unit or detachment those sources give it to, and one those sources name without an ID is matched by that reference and its `name`. It has no record. |
 | `entries[].references` | The entries this one depends on, each as `{ "kind", "id" }`. |
 
 An entry is identified by its kind and ID together, and an ID is unique within its kind. A reference names both, so a roster option refers to its unit and its wargear, and a mission to its layout, without guessing the kind from the ID.

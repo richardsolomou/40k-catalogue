@@ -11,7 +11,7 @@ Every summary is original wording, checked against the official sources it cites
 
 6,303 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02; 575 records that no app row carries cite only the dated Games Workshop page that prints it. 136 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 939 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2365, `grants` 321, `weaponAbilities` 100, `reminder` 2119, `reserves` 1, `invulnerableSave` 94, `upgradesWeapon` 21, `roster` 65, `attachment` 48, `references` 984 (3,933 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2366, `grants` 322, `weaponAbilities` 100, `reminder` 2119, `reserves` 1, `invulnerableSave` 94, `upgradesWeapon` 21, `roster` 65, `attachment` 48, `references` 984 (3,933 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,117 stat lines and 5,172 weapon profiles, and the `legacy-profiles` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 341 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-profiles-legends` snapshot, the costs of 331 of them from the Munitorum Field Manual's Legends section. 322 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (33 of them with options left out, listed below), and their weapon profiles name that wargear.
 
@@ -31,34 +31,6 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 - `faq` `codex-necrons.errata.ophydian-destroyers-tunnelling-horrors-ability-2`, replaced by Necrons Faction Pack: Version 1.3, page 30
 - `faq` `imperial-armour-grey-knights.errata.grey-knights-thunderhawk-gunship`, replaced by Grey Knights Faction Pack: Version 1.2, page 7; Grey Knights Faction Pack: Version 1.2, page 8
 - `faq` `index-chaos-daemons.errata.feculent-gnarlmaw-screamers-skull-altar-keywords`, replaced by Chaos Daemons Faction Pack: Version 1.2, page 61; Chaos Daemons Faction Pack: Version 1.2, page 87; Chaos Daemons Faction Pack: Version 1.2, page 37
-
-4 roster entries the previous release published are retired: wargear bundles and options the roster definitions now key by their counts, with new IDs.
-
-## Absent
-
-21 BSData abilities that this version's official sources do not print on the datasheet BSData gives them to are entries with `absent: true`, no record and, where no other entry holds it, the BSData ID as an alias.
-
-- `ability` `dark-angels.deathwing-knights.attached-unit`
-- `ability` `dark-angels.deathwing-terminator-squad.attached-unit`
-- `ability` `dark-angels.inner-circle-companions.attached-unit`
-- `ability` `dark-angels.lazarus.keeper-of-the-unseen-ritual`
-- `ability` `dark-angels.ravenwing-black-knights.attached-unit`
-- `ability` `imperial-agents.aquila-kill-team.attached-unit`
-- `ability` `imperial-agents.corvus-blackstar.infernum-halo-launcher`
-- `ability` `imperial-agents.deathwatch-kill-team.astartes-shield`
-- `ability` `imperial-agents.watch-master.rites-of-battle`
-- `ability` `space-marines.captain-on-bike.relic-shield`
-- `ability` `space-marines.captain-on-bike.swift-assault`
-- `ability` `space-marines.drop-pod.combat-disembarkation`
-- `ability` `space-marines.eliminator-squad.3-detection-range`
-- `ability` `space-marines.gladiator-reaper.rotating-death`
-- `ability` `space-marines.gladiator-valiant.ferocious-assault`
-- `ability` `space-marines.impulsor.assault-vehicle`
-- `ability` `space-marines.invader-atvs.outrider-escort`
-- `ability` `space-marines.invictor-tactical-warsuit.combat-support`
-- `ability` `space-marines.land-raider-excelsior.assault-ramp`
-- `ability` `space-marines.repulsor.emergency-combat-embarkation`
-- `ability` `space-marines.rhino.self-repair`
 
 ## Unresolved
 

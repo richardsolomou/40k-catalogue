@@ -14,7 +14,7 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 | `rules-reference` | `core-rule` | `document`, optional `section` and `ruleNumber`. |
 | `rules-reference` | `core-ability`, `weapon-ability` | `parameterized: true` when the keyword takes values, such as Sustained Hits X. |
 | `rules-reference` | `faq` | `publication`, `amends`, optional `amendsUnlisted`. |
-| `mission-rules` | `mission-card` | `pack` and `card`. |
+| `mission-rules` | `mission-card` | `pack` and `card`. A card that prints no rules text beyond its awards and actions has `text: "none"` and a `reason` in place of `summary` (see [rules without text](#rules-without-text)). |
 | `mission-rules` | `mission-award` | `pack`, `card`, `vp` and optional `max`. |
 | `mission-rules` | `mission-action`, `mission-twist` | `pack`. |
 
@@ -38,6 +38,10 @@ The record's display name is its identity entry's `name`.
 | `facts` | Optional typed facts as `{ format, version, fields }`. |
 
 The record's `source` locates the printed rule, so it is the publisher document where there is one, else the app build. A record that adapts upstream data carries an `attribution`, as any [catalogue record](catalogue-releases.md#inputs) can.
+
+## Rules without text
+
+A mission card whose rules are only its awards and actions, each with a record of its own, has no text to summarise. Its record is complete without one: `text` is `"none"`, `reason` says why in plain words, and `citations` name the source that prints the card. It has no `summary`, `interpretation` or `facts`. Show the card's awards and actions in its place.
 
 ## Summary text
 

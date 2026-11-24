@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Chaos Predator Destructor",
-    "summary": "When the Predator makes a ranged attack, check for earlier hits on the target in the same phase. To qualify, the hit must come from a **THOUSAND SONS PSYKER** in your army using a Doombolt Ritual psychic attack. If the target took such a hit and has neither the **MONSTER** nor the **VEHICLE** keyword, add 1 Strength and improve AP by 1 for the Predator’s attack.",
+    "summary": "Each ranged attack this model makes against a unit other than **MONSTERS** and **VEHICLES** improves its Strength and Armour Penetration by 1, if that unit was hit this phase by at least 1 Psychic Attack from a **THOUSAND SONS PSYKER** model of yours (Doombolt Ritual included).",
     "citations": [
       {
         "type": "app",
@@ -28,12 +28,12 @@
       "version": "1",
       "fields": {
         "combat": {
-          "unresolved": "Withheld as a class: independent reviews found 9 of 157 sampled combat readings of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
+          "unresolved": "Withheld as a class: the last two independent reviews found 7 of 300 sampled combat readings of unit abilities wrong or partly wrong, not under the 2% this reading may ship with."
         },
         "detail": {
           "trigger": {
             "event": "make attack",
-            "actor": "owner model",
+            "actor": "this model",
             "weaponClass": "ranged"
           },
           "target": {
@@ -44,8 +44,8 @@
             ],
             "requiresEarlierHit": {
               "countAtLeast": 1,
-              "type": "psychic attack",
-              "ritual": "Doombolt",
+              "type": "Psychic Attack",
+              "includes": "Doombolt Ritual",
               "modelKeywords": [
                 "THOUSAND SONS",
                 "PSYKER"
@@ -55,9 +55,9 @@
             }
           },
           "effect": {
-            "attackStatModifiers": {
+            "improveCharacteristics": {
               "Strength": 1,
-              "Armour Penetration improvement": 1
+              "Armour Penetration": 1
             }
           }
         }

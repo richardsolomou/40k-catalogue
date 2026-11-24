@@ -40,7 +40,7 @@ for (const version of versions) {
 
   test(`CommonMark reads every ${version} summary as the strict parser does`, () => {
     const differ = records()
-      .filter((r) => SUMMARY_KINDS.has(r.kind))
+      .filter((r) => SUMMARY_KINDS.has(r.kind) && (r.data as { text?: string }).text !== "none")
       .filter((r) => {
         const { summary } = r.data as { summary: string };
         const parsed = parseSummary(summary);

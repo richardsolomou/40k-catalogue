@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Wolf Guard Battle Leader",
-    "summary": "Check this trigger during the [Fight phase](vsdata:core-rule/fight-phase). Roll a D6 if the Wolf Guard Battle Leader is destroyed and the Wolf Guard Battle Leader’s unit still awaits its fight activation. A 2+ keeps the destroyed model in play to fight on the same activation as the Wolf Guard Battle Leader’s unit. If they have yet to fight when the phase closes, fight then. Remove the destroyed model once it has fought.",
+    "summary": "If this model is **destroyed** during the [Fight phase](vsdata:core-rule/fight-phase) while its unit is yet to be **selected to fight** in this phase, roll a D6. On a 2+, leave the model on the battlefield, then remove it at whichever of these comes first:\n\n- its unit has fought\n- the phase ends",
     "citations": [
       {
         "type": "app",
@@ -28,7 +28,19 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "unresolved": "An independent review against the official text found this reading wrong or incomplete; it stays withheld until a fix is reviewed again."
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "fight",
+              "turn": "any"
+            },
+            {
+              "at": "phase-end",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ],
+          "whileDestroyed": true
         },
         "detail": {
           "activation": {
@@ -46,8 +58,11 @@
           },
           "effect": {
             "delayRemoval": true,
-            "fightWithItsUnitOrAtPhaseEnd": true,
-            "removeAfterFighting": true
+            "removeAt": [
+              "after its unit has fought",
+              "end of the phase"
+            ],
+            "removeAtWhicheverFirst": true
           }
         }
       }

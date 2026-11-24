@@ -135,6 +135,31 @@ for (const [name, [change, error]] of Object.entries(invalid)) {
   });
 }
 
+// Kindled Vow listing one Stratagem, whose rule summary entry the identity holds unless `listed` is false.
+const listingCards = (referenced: boolean, listed = true) => {
+  const { identity, records } = input("1.2");
+  const stratagem = "synthetic.kindled-vow.flare-up";
+  if (listed) identity.entries.push({ kind: "ability", id: stratagem, name: "Flare Up" });
+  if (referenced) identity.entries.find((e) => e.id === "synthetic.kindled-vow")!.references!.push({ kind: "ability", id: stratagem });
+  Object.assign(find(records, "detachment", "synthetic.kindled-vow").data, { stratagems: [stratagem], enhancements: [], enhancementsUnlisted: ["Smouldering Crown"] });
+  return validateDefinitions(identity, records);
+};
+
+test("a detachment lists the rule summaries of its cards", () => {
+  const result = listingCards(true);
+  assert.ok(result.ok, JSON.stringify(result));
+});
+
+test("a detachment's card must be referenced by its identity entry", () => {
+  const result = listingCards(false);
+  assert.ok(!result.ok && result.errors.includes("detachment:synthetic.kindled-vow names ability:synthetic.kindled-vow.flare-up but its identity entry does not reference it"), JSON.stringify(result));
+});
+
+test("a detachment's card must be a current entry", () => {
+  const result = listingCards(false, false);
+  assert.ok(!result.ok && result.errors.includes("detachment:synthetic.kindled-vow names ability:synthetic.kindled-vow.flare-up, which is not a current entry"), JSON.stringify(result));
+});
+
 test("a legal roster has no problems", () => {
   assert.deepEqual(codes(v11, legal11), []);
 });

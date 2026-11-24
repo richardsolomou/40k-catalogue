@@ -7,15 +7,14 @@
     "update": "Space Marines codex · 3 Oct 2026"
   },
   "source": {
-    "title": "Core Rules",
-    "page": "24",
-    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=24"
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "document": "Core Rules",
     "section": "06. Other Concepts",
     "ruleNumber": "06.02",
-    "summary": "Resolve normal damage first when an attack also inflicts mortal wounds. Each mortal wound costs one wound without a save. Excess can carry over to another model unless the rule limits it to one model. [Feel No Pain](vsdata:core-ability/feel-no-pain) can still prevent these losses.",
+    "summary": "A unit's controlling player resolves each **mortal wound** it suffers 1 at a time, until all are inflicted or the unit is **destroyed**. For each:\n\n1. Select Model: pick by the first choice below that applies.\n2. Resolve Damage: that model loses 1 wound and is destroyed if this leaves it with 0.\n\nThe choices, in order:\n\n- a non-**CHARACTER** model that has lost wounds\n- otherwise any non-**CHARACTER** model\n- otherwise a **CHARACTER** model that has lost wounds\n- otherwise any **CHARACTER** model\n\nNo save is made. If attacks inflict both normal damage and mortal wounds, resolve all the normal damage first. Normal damage comes from the D characteristic of a weapon; mortal wounds an attack inflicts alongside it are part of that attack.",
     "citations": [
       {
         "type": "app",
@@ -23,12 +22,6 @@
         "appVersion": "2.7.1",
         "dataBuild": 972,
         "releaseDate": "2026-10-02"
-      },
-      {
-        "type": "publisher",
-        "title": "Core Rules",
-        "page": "24",
-        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=24"
       }
     ],
     "facts": {
@@ -36,11 +29,62 @@
       "version": "1",
       "fields": {
         "detail": {
-          "resolutionOrder": "after normal damage from attacks",
+          "kind": "mortal-wounds",
+          "ruleNumber": "06.02",
+          "actor": "controlling-player",
+          "resolve": "each-mortal-wound-separately",
+          "stopWhen": [
+            "all-inflicted",
+            "unit-destroyed"
+          ],
           "saves": "none",
-          "damagePerMortalWound": 1,
-          "excess": "carries over unless the inflicting rule limits allocation to one model",
-          "feelNoPain": "applies, including mortal-only Feel No Pain"
+          "steps": [
+            {
+              "order": 1,
+              "name": "Select Model",
+              "firstMatch": [
+                {
+                  "keywordsNone": [
+                    "CHARACTER"
+                  ],
+                  "lostWounds": true
+                },
+                {
+                  "keywordsNone": [
+                    "CHARACTER"
+                  ]
+                },
+                {
+                  "keywordsAll": [
+                    "CHARACTER"
+                  ],
+                  "lostWounds": true
+                },
+                {
+                  "keywordsAll": [
+                    "CHARACTER"
+                  ]
+                }
+              ]
+            },
+            {
+              "order": 2,
+              "name": "Resolve Damage",
+              "woundsLost": 1,
+              "destroyedAtRemainingWounds": 0
+            }
+          ],
+          "withNormalDamage": {
+            "order": [
+              "normal-damage",
+              "mortal-wounds"
+            ]
+          },
+          "normalDamage": {
+            "ruleNumber": "06.02.01",
+            "source": "weapon-D-characteristic",
+            "mortalWoundsFromAttackArePartOfThatAttack": true
+          }
         }
       }
     }

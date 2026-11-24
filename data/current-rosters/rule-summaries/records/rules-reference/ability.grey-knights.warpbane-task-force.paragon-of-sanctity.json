@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "grey-knights.warpbane-task-force"
     },
-    "summary": "This enhancement requires **GREY KNIGHTS** on the bearer. You have one optional use per battle, at the opening of any phase. Pick one **GREY KNIGHTS** unit from your army that the bearer can see at a distance of at most 18″. The chosen unit counts as inside the [Hallowed Ground](vsdata:ability/grey-knights.warpbane-task-force.hallowed-ground) of your army through phase end.",
+    "summary": "For a **GREY KNIGHTS** model. Once per battle, as any phase starts, the bearer may pick 1 **GREY KNIGHTS** unit of yours within 18\" of it and **visible** to it. Until that phase ends, that unit counts as being in the [Hallowed Ground](vsdata:ability/grey-knights.warpbane-task-force.hallowed-ground) of your army.",
     "citations": [
       {
         "type": "app",
@@ -55,32 +55,26 @@
           ]
         },
         "detail": {
-          "trigger": {
-            "event": "phase-start",
-            "phase": "any"
-          },
-          "usage": {
-            "limit": 1,
-            "per": "battle",
-            "scope": "bearer"
-          },
-          "optional": true,
-          "select": {
-            "count": 1,
-            "recipient": "friendly GREY KNIGHTS unit",
-            "visibleTo": "bearer",
-            "within": {
-              "inches": 18,
-              "of": "bearer"
+          "kind": "enhancement",
+          "detachment": "Warpbane Task Force",
+          "effects": [
+            {
+              "usage": "once-per-battle",
+              "timing": "start-of-any-phase",
+              "optional": true,
+              "select": {
+                "side": "friendly",
+                "count": 1,
+                "keywordsAll": [
+                  "GREY KNIGHTS"
+                ],
+                "withinInches": 18,
+                "visibleToBearer": true
+              },
+              "effect": "counts-as-within-own-army-hallowed-ground",
+              "duration": "end-of-phase"
             }
-          },
-          "effect": {
-            "type": "counts-as-in-region",
-            "region": "Hallowed Ground",
-            "owner": "own-army",
-            "recipient": "selected-unit",
-            "duration": "through-end-of-phase"
-          }
+          ]
         }
       }
     }

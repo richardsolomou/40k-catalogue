@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Defiler",
-    "summary": "As the opponent’s [Movement phase](vsdata:core-rule/movement-phase) ends, the Defiler can pick an enemy that arrived on the battlefield that phase within 12″ of it. It may shoot at that unit as its sole eligible target, or try to charge it. It must finish a charge against that enemy unit. A successful roll grants no Charge Bonus to the Defiler’s unit that turn.",
+    "summary": "As the [Movement phase](vsdata:core-rule/movement-phase) of your opponent's turn ends, you may pick 1 enemy unit placed on the battlefield that phase 12\" or less from this model. It can then do one of the following:\n\n- Shoot at the picked unit, if that unit is an eligible target for it.\n- Declare a charge against the picked unit. This unit must finish its **charge move engaged** with that unit, and gets no Charge bonus this turn even if the charge succeeds.",
     "citations": [
       {
         "type": "app",
@@ -28,7 +28,13 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
+          "timings": [
+            {
+              "at": "phase-end",
+              "phase": "movement",
+              "turn": "opponent"
+            }
+          ]
         },
         "detail": {
           "trigger": {
@@ -45,12 +51,13 @@
           "options": [
             {
               "shoot": true,
-              "soleEligibleTarget": true
+              "target": "selected unit",
+              "onlyIfEligibleTarget": true
             },
             {
               "charge": true,
-              "mustEndChargeAgainstChosenEnemy": true,
-              "noChargeBonusThatTurn": true
+              "mustEndChargeMoveEngagedWithSelectedUnit": true,
+              "noChargeBonusThisTurn": true
             }
           ]
         }

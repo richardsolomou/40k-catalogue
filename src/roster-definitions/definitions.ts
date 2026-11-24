@@ -15,7 +15,11 @@ type RosterBounds = { min?: number; max?: number };
 export type UnitLimit = RosterBounds & { keywords: string[]; detachments?: (RosterBounds & { detachment: string })[] };
 export type FactionData = { unitLimits?: UnitLimit[] };
 export type BattleSizeData = { points: number };
-export type DetachmentData = { faction: string };
+/**
+ * `stratagems` and `enhancements` list the rule summary entries (kind `ability`) of every card the version gives the
+ * detachment; a card it prints without an entry is named in `stratagemsUnlisted` or `enhancementsUnlisted`.
+ */
+export type DetachmentData = { faction: string; stratagems?: string[]; enhancements?: string[]; stratagemsUnlisted?: string[]; enhancementsUnlisted?: string[] };
 /** An `upgrade` may be taken by several units; other enhancements once per roster. */
 export type EnhancementData = { detachment: string; upgrade?: true; keywords?: { all?: string[]; none?: string[] } };
 /** The first of `limits` for the roster's battle size whose `when` holds replaces `perRoster`. */
@@ -220,6 +224,15 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       const target = key(ref.kind, ref.id);
       if (!byKey.has(target)) errors.push(`${at} names ${target}, which has no record`);
       else if (!entry.references?.some((r) => r.kind === ref.kind && r.id === ref.id)) errors.push(`${at} names ${target} but its identity entry does not reference it`);
+    }
+    // A detachment's cards are rule summaries, outside the roster category, so they need a current entry, not a record.
+    if (kind === "detachment") {
+      const { stratagems = [], enhancements = [] } = definition.data as DetachmentData;
+      for (const id of [...stratagems, ...enhancements]) {
+        const target = key("ability", id);
+        if (!entries.get(target) || entries.get(target)!.retired) errors.push(`${at} names ${target}, which is not a current entry`);
+        else if (!entry.references?.some((r) => r.kind === "ability" && r.id === id)) errors.push(`${at} names ${target} but its identity entry does not reference it`);
+      }
     }
   }
 

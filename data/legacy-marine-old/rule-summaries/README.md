@@ -6,14 +6,14 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,033 | 5,489 | 544 |
+| `rules-reference` | 6,061 | 5,525 | 536 |
 | `mission-rules` | 285 | 263 | 22 |
 
 Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02. 317 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 752 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2068, `grants` 288, `weaponAbilities` 85, `reminder` 1903, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 60, `attachment` 39, `references` 708 (3,446 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 763 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2069, `grants` 288, `weaponAbilities` 85, `reminder` 1905, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 60, `attachment` 39, `references` 708 (3,448 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
-The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,107 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 781 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it, and names the 369 cards it prints that this version publishes no record for in `stratagemsUnlisted` and `enhancementsUnlisted`. 353 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 343 of them from the Munitorum Field Manual's Legends section. 336 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (35 of them with options left out, listed below), and their weapon profiles name that wargear.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,108 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 791 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it, and names the 339 cards it prints that this version publishes no record for in `stratagemsUnlisted` and `enhancementsUnlisted`. 357 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 347 of them from the Munitorum Field Manual's Legends section. 337 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (36 of them with options left out, listed below), and their weapon profiles name that wargear.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
@@ -51,7 +51,7 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 
 Active entries without a record, by reason. An entry with several reasons is listed under each.
 
-### The rule's text first appears in an app build released after the update's cutoff, and no official source dated before the cutoff prints it (393)
+### The rule's text first appears in an app build released after the update's cutoff, and no official source dated before the cutoff prints it (391)
 
 - `ability` `black-templars.castellan.vehement-aggression`
 - `ability` `black-templars.chaplain-grimaldus.faithful-cenobytes`
@@ -133,7 +133,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `deathwatch.black-spear-task-force.hellfire-rounds`
 - `ability` `deathwatch.black-spear-task-force.mission-tactics`
 - `ability` `deathwatch.black-spear-task-force.osseus-key-aura`
-- `ability` `deathwatch.black-spear-task-force.the-thief-of-secrets`
 - `ability` `deathwatch.black-spear-task-force.the-tome-of-ectoclades`
 - `ability` `deathwatch.deathwatch-terminator-squad.terminatus-assault`
 - `ability` `deathwatch.indomitor-kill-team.indomitor-doctrines`
@@ -288,7 +287,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.marneus-calgar.codex-adept`
 - `ability` `space-marines.marneus-calgar.master-tactician`
 - `ability` `space-marines.marneus-calgar.thunderhawk-insertion`
-- `ability` `space-marines.medusas-wrath.master-of-the-machine-war`
 - `ability` `space-marines.medusas-wrath.methodical-brutality`
 - `ability` `space-marines.phobos-shadow-force.execute-and-redeploy`
 - `ability` `space-marines.phobos-shadow-force.shadow-masters`
@@ -447,7 +445,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `weapon-ability` `sustained-hits-1-non-monster-vehicle`
 - `weapon-ability` `sustained-hits-2-non-monster-vehicle`
 
-### Neither a datasheet or rule of the app build in force nor a dated publisher page carries the rule, so it has no official citation yet (282)
+### Neither a datasheet or rule of the app build in force nor a dated publisher page carries the rule, so it has no official citation yet (280)
 
 - `ability` `black-templars.chaplain-grimaldus.faithful-cenobytes`
 - `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
@@ -485,7 +483,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `dark-angels.lion-eljonson.the-watchers`
 - `ability` `dark-angels.wrath-of-the-rock.in-sacrifice-victory`
 - `ability` `dark-angels.wrath-of-the-rock.knights-of-iron`
-- `ability` `deathwatch.black-spear-task-force.the-thief-of-secrets`
 - `ability` `deathwatch.deathwatch-veterans.storm-shield`
 - `ability` `deathwatch.decimus-kill-team.storm-shield`
 - `ability` `deathwatch.veteran-recruits`
@@ -615,7 +612,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.marneus-calgar.thunderhawk-insertion`
 - `ability` `space-marines.mastodon.damaged`
 - `ability` `space-marines.mastodon.inviolable-transport`
-- `ability` `space-marines.medusas-wrath.master-of-the-machine-war`
 - `ability` `space-marines.medusas-wrath.methodical-brutality`
 - `ability` `space-marines.medusas-wrath.spirits-of-iron`
 - `ability` `space-marines.outrider-squad.full-throttle-assault`
@@ -732,7 +728,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `weapon-ability` `sustained-hits-1-non-monster-vehicle`
 - `weapon-ability` `sustained-hits-2-non-monster-vehicle`
 
-### The summary is still generated from upstream structured data and awaits a redraft in original wording (156)
+### The summary is still generated from upstream structured data and awaits a redraft in original wording (155)
 
 - `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
 - `ability` `black-templars.fist-of-the-god-emperor.oathbound-exemplar`
@@ -761,7 +757,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `deathwatch.black-spear-task-force.armour-of-contempt`
 - `ability` `deathwatch.black-spear-task-force.hellfire-rounds`
 - `ability` `deathwatch.black-spear-task-force.osseus-key-aura`
-- `ability` `deathwatch.black-spear-task-force.the-thief-of-secrets`
 - `ability` `deathwatch.black-spear-task-force.the-tome-of-ectoclades`
 - `ability` `deathwatch.watch-captain-artemis.tactical-instinct`
 - `ability` `emperors-children.frenzied-host.frantic-focus`
@@ -1064,7 +1059,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.vindicator.damaged`
 - `ability` `space-marines.whirlwind.damaged`
 
-### The rule has no finished draft for this version (22)
+### The rule has no finished draft for this version (16)
 
 - `ability` `deathwatch.corvus-blackstar.auspex-array.shared`
 - `ability` `shared.land-raider-crusader.assault-ramp`
@@ -1081,12 +1076,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.impulsor.transport.shared`
 - `ability` `space-marines.repulsor-executioner.transport.shared`
 - `ability` `space-marines.repulsor.transport.shared`
-- `core-rule` `dice.ignoring-roll-modifiers`
-- `core-rule` `dice.modifying-dice-rolls`
-- `core-rule` `inflict-damage.modifying-damage`
-- `core-rule` `moving-units.random-movement`
-- `core-rule` `profiles.characteristic-modifiers-and-modified-characteristics`
-- `core-rule` `units-and-models.describing-units`
 - `faq` `codex-emperors-children.faq.carnival-of-excess`
 
 ### The rule's text differs between the factions that share it (15)
@@ -1171,7 +1160,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `mission-card` `combat-patrol.strike-from-on-high`
 - `mission-card` `combat-patrol.uphold-your-vows`
 
-### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (16)
+### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (19)
 
 - `unit` `astra-militarum.death-korps-grenadier-squad`
 - `unit` `astra-militarum.hells-last`
@@ -1180,10 +1169,13 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `unit` `astra-militarum.regimental-attaches`
 - `unit` `astra-militarum.rein-and-raus`
 - `unit` `chaos-space-marines.gellerpox-infected`
+- `unit` `imperial-agents.fortis-kill-team`
+- `unit` `imperial-agents.indomitor-kill-team`
 - `unit` `imperial-agents.inquisitor-eisenhorn`
 - `unit` `imperial-agents.inquisitor-ostromandeus`
 - `unit` `imperial-agents.kill-team-cassius`
 - `unit` `imperial-agents.proteus-kill-team`
+- `unit` `imperial-agents.spectrus-kill-team`
 - `unit` `necrons.night-shroud`
 - `unit` `space-marines.bike-squad`
 - `unit` `space-marines.fire-raptor-gunship`
@@ -1218,12 +1210,16 @@ Options a source gives that are not stated: from the app build, structures the r
 - `dark-angels.deathwing-command-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `dark-angels.deathwing-strikemaster`: option not typed: its choices did not read as wargear (Legends PDF)
 - `drukhari.grotesques`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `imperial-agents.deathwatch-terminator-squad`: option not typed: its choices did not read as wargear (Legends PDF)
+- `imperial-agents.fortis-kill-team`: a model's default equipment not read (Legends PDF)
+- `imperial-agents.indomitor-kill-team`: a model's default equipment not read (Legends PDF)
 - `imperial-agents.inquisitor-eisenhorn`: default equipment not read (Legends PDF)
 - `imperial-agents.inquisitor-in-terminator-armour`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `imperial-agents.inquisitor-in-terminator-armour`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `imperial-agents.inquisitor-ostromandeus`: a model's default equipment not read (Legends PDF)
 - `imperial-agents.kill-team-cassius`: default equipment not read (Legends PDF)
 - `imperial-agents.proteus-kill-team`: a model's default equipment not read (Legends PDF)
+- `imperial-agents.spectrus-kill-team`: a model's default equipment not read (Legends PDF)
 - `necrons.night-shroud`: default equipment not read (Legends PDF)
 - `necrons.tomb-citadel-walls`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-marines.assault-squad-with-jump-packs`: option not typed: its wording is none of the typed forms (Legends PDF)

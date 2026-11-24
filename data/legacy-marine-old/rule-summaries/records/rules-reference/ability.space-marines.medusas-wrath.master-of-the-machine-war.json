@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.medusas-wrath.master-of-the-machine-war",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Ironstorm Spearhead",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.ironstorm-spearhead"
+    },
+    "summary": "For an **ADEPTUS ASTARTES** model. In your Command phase, this model can pick 1 **ADEPTUS ASTARTES VEHICLE** model of yours within 6\" of it. Until your next Command phase starts, that **VEHICLE** may shoot even after Advancing or Falling Back that turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "basis": "app-eligibility-rows",
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              }
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Ironstorm Spearhead",
+          "effects": [
+            {
+              "when": {
+                "turn": "own",
+                "phase": "command"
+              },
+              "select": {
+                "side": "friendly",
+                "count": 1,
+                "scope": "model",
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "VEHICLE"
+                ],
+                "withinInches": 6,
+                "of": "bearer"
+              },
+              "eligibleToShootAfter": [
+                "advance",
+                "fall-back"
+              ],
+              "duration": "until the start of your next Command phase"
+            }
+          ],
+          "cardPrintsOtherText": {
+            "name": "Master of the Machine War",
+            "detachment": "Medusa's Wrath",
+            "pointsCost": 25,
+            "when": "Movement phase",
+            "withinInches": 6,
+            "effect": "a visible ADEPTUS ASTARTES VEHICLE unit gets the devastator or tactical doctrine until your next Command phase"
+          }
+        }
+      }
+    }
+  }
+}

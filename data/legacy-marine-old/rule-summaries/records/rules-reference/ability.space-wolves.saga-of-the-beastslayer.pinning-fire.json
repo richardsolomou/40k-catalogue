@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.saga-of-the-beastslayer.pinning-fire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Saga of the Beastslayer",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-wolves.saga-of-the-beastslayer"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
+    "summary": "Use it in your Shooting phase. Pick 1 **ADEPTUS ASTARTES** unit of yours that has not yet been picked to shoot this phase. After it has shot this phase, pick 1 enemy **CHARACTER**, **MONSTER** or **VEHICLE** unit that any of its attacks hit.\n\nThat unit is pinned until your next Shooting phase starts: its models' Move characteristic drops by 2\" and its **Charge rolls** get -2.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
+          "detachment": "Saga of the Beastslayer",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "notSelectedToShootThisPhase": true
+          },
+          "effects": [
+            {
+              "after": "the unit has shot this phase",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsAny": [
+                  "CHARACTER",
+                  "MONSTER",
+                  "VEHICLE"
+                ],
+                "hitByThoseAttacks": true
+              },
+              "state": "pinned",
+              "duration": "until the start of your next Shooting phase",
+              "whilePinned": {
+                "moveInches": {
+                  "subtract": 2
+                },
+                "chargeRoll": {
+                  "subtract": 2
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

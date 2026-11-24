@@ -34,17 +34,69 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "weaponAbilities": [
+          {
+            "ability": "LETHAL HITS",
+            "attacks": [
+              "ranged"
+            ],
+            "to": "army",
+            "keywords": [
+              "CORPUSCARII"
+            ]
+          }
+        ],
         "combat": {
-          "applies": {
-            "target": {
-              "anyOf": [
-                [
-                  "CORPUSCARII"
-                ]
-              ]
-            }
-          },
           "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "LETHAL HITS"
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "kind": "stated",
+                      "label": "After it has fought"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "LETHAL HITS"
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "regainWounds": {
+                        "dice": 1,
+                        "sides": 3,
+                        "bonus": 0
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker",
+                "defender"
+              ]
+            },
             {
               "choices": [
                 {
@@ -66,8 +118,132 @@
               ]
             },
             {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "stated",
+                      "label": "After it has fought"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "regainWounds": {
+                        "dice": 1,
+                        "sides": 3,
+                        "bonus": 0
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "defender"
+              ]
+            },
+            {
               "choices": [],
               "default": 0
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "CORPUSCARII"
+                      ]
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "LETHAL HITS"
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "FULGURITE"
+                      ]
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "After it has fought"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "regainWounds": {
+                        "dice": 1,
+                        "sides": 3,
+                        "bonus": 0
+                      }
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "CORPUSCARII"
+                      ]
+                    },
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "FULGURITE"
+                      ]
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "After it has fought"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "LETHAL HITS"
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "regainWounds": {
+                        "dice": 1,
+                        "sides": 3,
+                        "bonus": 0
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker",
+                "defender"
+              ]
             },
             {
               "choices": [
@@ -104,18 +280,58 @@
                   "unitHas": "CORPUSCARII"
                 },
                 "yes": 1,
-                "no": 2
+                "no": 4
+              },
+              {
+                "ask": {
+                  "unitHas": "FULGURITE"
+                },
+                "yes": 2,
+                "no": 3
               },
               {
                 "reading": 0
               },
               {
                 "reading": 1
+              },
+              {
+                "ask": {
+                  "unitHas": "FULGURITE"
+                },
+                "yes": 5,
+                "no": 6
+              },
+              {
+                "reading": 2
+              },
+              {
+                "reading": 3
               }
             ],
             [
               {
-                "reading": 2
+                "reading": 4
+              }
+            ],
+            [
+              {
+                "reading": 5
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "unitHas": "CORPUSCARII"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 1
+              },
+              {
+                "reading": 3
               }
             ]
           ],
@@ -132,10 +348,10 @@
             "aura.one.unknown": 1,
             "aura.many.known": 0,
             "aura.many.unknown": 1,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 1,
+            "stratagem-shooting.one.known": 3,
+            "stratagem-shooting.one.unknown": 2,
+            "stratagem-shooting.many.known": 3,
+            "stratagem-shooting.many.unknown": 2,
             "stratagem-fight.one.known": 0,
             "stratagem-fight.one.unknown": 1,
             "stratagem-fight.many.known": 0,

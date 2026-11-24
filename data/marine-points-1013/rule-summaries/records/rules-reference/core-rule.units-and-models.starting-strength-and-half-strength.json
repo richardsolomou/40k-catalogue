@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "units-and-models.starting-strength-and-half-strength",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "01. Core Concepts",
+    "ruleNumber": "01.02.01",
+    "parent": {
+      "kind": "core-rule",
+      "id": "units-and-models"
+    },
+    "summary": "A unit’s **starting strength** is its number of models as battle round 1 begins; for an **attached unit**, that count includes every model in it.\n\nWhat a unit’s strength is called depends on that number:\n\n- At 2 or more, compare the models left with it: fewer is **below starting strength**, exactly half is **half-strength**, fewer than half is **below half-strength**.\n- At 1, compare the model’s remaining wounds with its W characteristic the same way.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "clarification",
+          "ruleNumber": "01.02.01",
+          "ruleNumberParts": [
+            1,
+            2,
+            1
+          ],
+          "startingStrength": {
+            "value": "model-count",
+            "measuredAt": "start-of-battle-round",
+            "battleRound": 1,
+            "attachedUnit": "every-model-in-attached-unit"
+          },
+          "bands": [
+            {
+              "startingStrength": 1,
+              "compare": "remaining-wounds",
+              "reference": "W"
+            },
+            {
+              "startingStrengthAtLeast": 2,
+              "compare": "remaining-models",
+              "reference": "starting-strength"
+            }
+          ],
+          "terms": {
+            "belowStartingStrength": "< reference",
+            "halfStrength": "= reference / 2",
+            "belowHalfStrength": "< reference / 2"
+          },
+          "example": {
+            "leaderModels": 1,
+            "bodyguardModels": 5,
+            "startingStrength": 6,
+            "destroyedForHalfStrength": 3,
+            "destroyedForBelowHalfStrength": 4,
+            "allBodyguardDestroyed": "leader-below-half-strength-at-full-wounds"
+          }
+        }
+      }
+    }
+  }
+}

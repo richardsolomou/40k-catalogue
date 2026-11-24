@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "set-up.setting-up-large-models",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "03. Moving",
+    "ruleNumber": "03.02.02",
+    "parent": {
+      "kind": "core-rule",
+      "id": "set-up"
+    },
+    "summary": "When a model is too large to meet its set-up restrictions:\n\n- During deployment: if its base can’t physically fit entirely inside your deployment zone, place it touching your battlefield edge.\n- From **strategic reserves**: if its base can’t fit wholly within the set distance of the edge, place it touching any battlefield edge.\n- Disembarking: if it can’t be placed wholly within 3\" of the **TRANSPORT** (usually because it measures over 3\" in every direction), place it so its base is within 1\" of the base or hull of the **TRANSPORT**, while **engaged** with no enemy unit.\n\nIn the turn a model is placed touching an edge this way, its unit can’t make a **Normal move**, **Advance move**, **Fall Back move** or **Charge move**, or make ranged attacks; from strategic reserves, this does not apply to **AIRCRAFT** models.\n\nModels such as **AIRCRAFT** whose wings or other parts reach well past their base may overhang the deployment zone or a battlefield edge if they can’t be set up otherwise, but:\n\n- in deployment, the base has to stay entirely inside the deployment zone\n- from strategic reserves, they have to be over 8\" from every enemy unit",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "clarification",
+          "ruleNumber": "03.02.02",
+          "ruleNumberParts": [
+            3,
+            2,
+            2
+          ],
+          "trigger": "model-too-large-for-set-up-restrictions",
+          "deployment": {
+            "ifBaseCannotFit": "wholly-within-own-deployment-zone",
+            "place": "touching-own-battlefield-edge",
+            "overhang": {
+              "allowedIfNoOtherWay": true,
+              "baseWhollyWithinZone": true
+            }
+          },
+          "strategicReserves": {
+            "ifBaseCannotFit": "wholly-within-required-edge-distance",
+            "place": "touching-any-battlefield-edge",
+            "overhang": {
+              "allowedIfNoOtherWay": true,
+              "enemyDistanceMoreThanInches": 8
+            }
+          },
+          "setUpTurnRestrictions": {
+            "cannot": [
+              "normal-move",
+              "advance-move",
+              "fall-back-move",
+              "charge-move",
+              "ranged-attacks"
+            ],
+            "strategicReservesExcludes": "AIRCRAFT"
+          },
+          "disembark": {
+            "normalWhollyWithinInches": 3,
+            "oversizeLargerThanInches": 3,
+            "fallbackBaseWithinInches": 1,
+            "of": "TRANSPORT-base-or-hull",
+            "unengaged": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -14,7 +14,7 @@
     "document": "Core Rules",
     "section": "01. Core Concepts",
     "ruleNumber": "01.02",
-    "summary": "A unit is 1 or more models that move and fight together, and a model’s base is part of the model. Your units and models are friendly, your opponent’s are enemy, and a rule naming neither affects both. An effect on a unit applies to all its models.\n\nStrength:\n\n- **Starting strength** is a unit’s model count as battle round 1 starts, counting attached models; a unit added mid-battle counts when added.\n- At starting strength 2 or more, compare the models left with it: fewer is **below starting strength**, exactly half is **half-strength**, fewer than half is **below half-strength**.\n- At starting strength 1, compare the model’s remaining wounds with its W the same way.\n\nHow long effects last:\n\n- A persisting effect on a unit placed in **strategic reserves** or embarked in a **TRANSPORT** is noted and runs its full duration once the unit is back on the battlefield.\n- A rule with no stated duration that names when it triggers, such as ‘In the Shooting phase’, lasts only for that period.\n- Any other rule or effect given to a unit with no stated duration lasts only for the phase it was given in.\n\nModels a rule adds to a unit, or revives, resurrects or returns to it:\n\n- never take it past its starting strength\n- come from its **destroyed** models, unless they are added\n- unless stated otherwise, have full W and the wargear and enhancements they began the battle with\n- on the battlefield, go in **coherency** with unit models that began the phase there, **engaged** only with enemy units already engaged with that unit\n- for a unit inside a **TRANSPORT**, embark with it if there is room, and are otherwise destroyed without triggering rules for a model being destroyed\n\nA revived leader or support model rejoins its **attached unit** if possible.\n\nA unit embarked in a **TRANSPORT** or in strategic reserves is off the battlefield:\n\n- It can’t see or be seen by other units, and no distances are measured to or from it except for its own abilities, so nothing needing visibility or range can pick it.\n- It still uses its other rules and is still affected by rules that pick a unit from its army or affect a whole army.\n- Its controller takes **battle-shock rolls** for it in each of their Command phases while it is **battle-shocked** or at half-strength or below.\n\nSplitting units:\n\n- Models already split can’t be split again.\n- Split into 2 units as equal in size as possible, noting which models form each.\n- A split before the battle sets each new unit’s starting strength to its own model count.\n- If a stated split size can’t be met, such as with attached Leader or Support models, use the even split.\n\nOther definitions:\n\n- An ‘other’ model or unit is any but the one with the rule or one it already named, even a copy of the same datasheet.\n- A descriptor such as **TERMINATOR**, hidden or battle-shocked fits a unit if at least 1 of its models fits it, but gives a rule to every model only if the rule says it gives it to the unit.\n- ‘A’ unit, model or object means 1 or more.\n- Tokens are never models; move one aside if a model needs its space.\n- ‘All types of model’ covers friendly and enemy models with any keywords, such as **MONSTER** or **VEHICLE**.\n- To replace a model, mark the point under its base centre (central axis for **FRAME**) and put the new model’s base centre or axis over it; if that would put it on another model or over the battlefield edge, place it as near that point as possible.",
+    "summary": "A unit is 1 or more models that move and fight together, and a model’s base is part of the model. Your units and models are friendly, your opponent’s are enemy, and a rule naming neither affects both. An effect on a unit applies to all its models.",
     "citations": [
       {
         "type": "app",
@@ -43,83 +43,7 @@
             "enemy": "opponent-army",
             "unqualified": "either-army"
           },
-          "startingStrength": {
-            "value": "model-count",
-            "measuredAt": "opening-of-first-battle-round",
-            "includesAttachedModels": true,
-            "addedUnitMeasuredAt": "addition-to-army",
-            "splitBeforeBattleMeasuredPerResult": true
-          },
-          "strengthChecks": {
-            "startedWithOne": {
-              "current": "remaining-wounds",
-              "reference": "W"
-            },
-            "startedWithMoreThanOne": {
-              "current": "surviving-model-count",
-              "reference": "starting-strength"
-            },
-            "belowStarting": "< reference",
-            "atHalf": "= reference / 2",
-            "belowHalf": "< reference / 2"
-          },
-          "persistingEffects": {
-            "preservedThrough": [
-              "embarkation",
-              "strategic-reserves"
-            ],
-            "until": "stated-duration-ends",
-            "fallback": [
-              "during-specified-trigger-period",
-              "during-phase-of-application"
-            ]
-          },
-          "addingModels": {
-            "maximum": "starting-strength",
-            "reviveSource": "destroyed-model-of-unit",
-            "defaultEquipment": "battle-start-wargear-and-enhancements",
-            "defaultWounds": "full",
-            "coherencyWith": "unit-models-on-battlefield-at-phase-start",
-            "engagementLimitedTo": "enemy-units-already-engaging-this-unit",
-            "attachedLeaderOrSupport": "return-to-attached-unit-if-possible",
-            "embarkedUnit": {
-              "capacityFree": "return-embarked",
-              "capacityFull": "destroyed-without-destruction-triggers"
-            }
-          },
-          "offBattlefield": {
-            "when": [
-              "embarked",
-              "in-strategic-reserves"
-            ],
-            "measureToOtherUnits": false,
-            "visibilityBetweenUnits": false,
-            "rangeException": "own-abilities",
-            "army'sRulesStillApplyWhenEligible": true,
-            "commandPhaseBattleShockIf": [
-              "already-battle-shocked",
-              "at-or-below-half-strength"
-            ]
-          },
-          "identity": {
-            "other": "distinct-instance-even-if-same-datasheet",
-            "unquantifiedSingular": "one-or-more",
-            "allTypes": "either-army-any-keywords"
-          },
-          "splitting": {
-            "maySubdivideSameModelsOnce": true,
-            "tryEqualHalvesForTwo": true,
-            "recordComposition": true,
-            "impossibleSpecifiedSizes": "use-general-split-instruction"
-          },
-          "descriptor": {
-            "qualifiesIf": "at-least-one-qualifying-model",
-            "inheritsAcrossModelsOnlyWhen": "rule-confers-it-on-unit"
-          },
-          "tokens": {
-            "countAsModels": false,
-            "canRepositionToPermitMovement": true
-          }
+          "unitEffectsApplyTo": "every-model-in-unit"
         }
       }
     }

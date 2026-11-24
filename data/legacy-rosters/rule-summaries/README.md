@@ -6,12 +6,12 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 5,931 | 5,918 | 13 |
+| `rules-reference` | 6,041 | 6,022 | 19 |
 | `mission-rules` | 285 | 263 | 22 |
 
 Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30. 364 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2343, `grants` 318, `weaponAbilities` 91, `reminder` 2119, `reserves` 1, `invulnerableSave` 94, `upgradesWeapon` 21, `roster` 65, `attachment` 48, `references` 926 (3,916 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2349, `grants` 318, `weaponAbilities` 100, `reminder` 2119, `reserves` 1, `invulnerableSave` 94, `upgradesWeapon` 21, `roster` 65, `attachment` 48, `references` 984 (3,920 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,116 stat lines and 5,172 weapon profiles, and the `legacy-rosters` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 337 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-rosters-legends` snapshot, the costs of 327 of them from the Munitorum Field Manual's Legends section. 321 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (32 of them with options left out, listed below), and their weapon profiles name that wargear.
 
@@ -36,6 +36,19 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 
 Active entries without a record, by reason. An entry with several reasons is listed under each.
 
+### The rule has no finished draft for this version (10)
+
+- `ability` `shared.land-raider-crusader.damaged`
+- `ability` `shared.land-raider-redeemer.damaged`
+- `ability` `shared.land-raider.damaged`
+- `ability` `shared.stormraven-gunship.damaged`
+- `core-rule` `dice.ignoring-roll-modifiers`
+- `core-rule` `dice.modifying-dice-rolls`
+- `core-rule` `inflict-damage.modifying-damage`
+- `core-rule` `moving-units.random-movement`
+- `core-rule` `profiles.characteristic-modifiers-and-modified-characteristics`
+- `core-rule` `units-and-models.describing-units`
+
 ### A rule known only by name, which the catalogue links to its keyword's definition only in the current rules version (9)
 
 - `ability` `core.conversion`
@@ -56,13 +69,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `core.precision`
 - `ability` `core.sustained-hits-1-non-monster-vehicle`
 - `ability` `core.sustained-hits-2-non-monster-vehicle`
-
-### The rule has no finished draft for this version (4)
-
-- `ability` `shared.land-raider-crusader.damaged`
-- `ability` `shared.land-raider-redeemer.damaged`
-- `ability` `shared.land-raider.damaged`
-- `ability` `shared.stormraven-gunship.damaged`
 
 ### The rule's text differs between the factions that share it (4)
 

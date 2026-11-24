@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "core-rule",
+  "id": "profiles.random-characteristics",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "Space Marines codex · 12 Oct 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "document": "Core Rules",
+    "section": "02. Datasheets",
+    "ruleNumber": "02.02.03",
+    "parent": {
+      "kind": "core-rule",
+      "id": "profiles"
+    },
+    "summary": "A random characteristic is rolled when it is needed:\n\n- **M**: when the unit is **selected to move**, roll the dice shown once for the whole unit’s move.\n- **A**: roll for each weapon separately as its attacks are generated in the [Resolve Attacks](vsdata:core-rule/resolve-attacks) step, then group any **identical attacks** together.\n- **D**: each time an attack with the weapon inflicts damage, its controlling player rolls once the opposing player has picked the target unit’s model to allocate it to; that roll is a **damage roll**.\n- A value after an operator in **D**, as the +1 in D6+1, belongs to D and is not a modifier.\n- Any other characteristic: roll for each model or weapon each time it is needed.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "clarification",
+          "ruleNumber": "02.02.03",
+          "ruleNumberParts": [
+            2,
+            2,
+            3
+          ],
+          "M": {
+            "rolledWhen": "selected-to-move",
+            "scope": "whole-unit"
+          },
+          "A": {
+            "rolledWhen": "generating-attacks",
+            "stepRef": "04.03",
+            "stepRefParts": [
+              4,
+              3
+            ],
+            "scope": "each-weapon",
+            "identicalAttacks": "group-after-rolling"
+          },
+          "D": {
+            "rolledWhen": "after-opposing-player-selects-model-for-allocation",
+            "roller": "controlling-player",
+            "scope": "each-attack-inflicting-damage",
+            "rollName": "damage roll",
+            "operatorValue": {
+              "example": "D6+1",
+              "isModifier": false
+            }
+          },
+          "others": "roll-per-model-or-weapon-each-time-needed"
+        }
+      }
+    }
+  }
+}

@@ -199,3 +199,24 @@ test("a transport's Firing Deck is a positive number of models", () => {
   const result = validateProfiles(id, recs);
   assert.deepEqual(result.ok ? [] : result.errors, [`transport-profile:${WARDENS} data/firingDeck must be >= 1`]);
 });
+
+const PYRE_LORD = `${UNIT}.pyre-lord.pyre-lord`;
+const invulnerableSummary = (save: object) => errors((_, recs) => (record(recs, "unit-profile", PYRE_LORD).data.invulnerableSave = { roll: 4, ...save }));
+
+test("an invulnerable save may apply only to melee attacks", () => {
+  assert.deepEqual(invulnerableSummary({ against: "melee" }), []);
+});
+
+test("a conditional invulnerable save may summarise when it applies", () => {
+  assert.deepEqual(invulnerableSummary({ conditional: true, summary: "Only while this model is within 6\" of an **objective marker**." }), []);
+});
+
+test("an invulnerable save summary cannot link to a record", () => {
+  const found = invulnerableSummary({ conditional: true, summary: `Only while [Ember Ward](vsdata:ability/${UNIT}.ember-ward) is active.` });
+  assert.deepEqual(found, [`unit-profile:${PYRE_LORD} invulnerable save summary has a link`]);
+});
+
+test("only a conditional invulnerable save has a summary", () => {
+  const found = invulnerableSummary({ summary: "Only against ranged attacks." });
+  assert.deepEqual(found, [`unit-profile:${PYRE_LORD} data/invulnerableSave must have property conditional when property summary is present`]);
+});

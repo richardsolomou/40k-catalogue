@@ -3,6 +3,7 @@ import { resolve, validateRelease, type Ref, type Release } from "../catalogue-i
 import type { CatalogueRecord } from "../catalogue-releases/catalogue.ts";
 import v1Schema from "./definitions.v1.schema.json" with { type: "json" };
 import v2Schema from "./definitions.v2.schema.json" with { type: "json" };
+import { checkRoster } from "./roster.ts";
 
 // Mirrors definitions.v2.schema.json, which is the contract consumers rely on. Version 1 data is read into the same
 // shape: its wargear lists become counts of one each, which is what version 1 meant by them.
@@ -41,6 +42,10 @@ export type UnitData = {
   enhancements?: false;
   /** Wargear the unit carries that none of its models does. */
   wargear?: Counts;
+  /** The selections the unit takes when first fielded, by option ID, where its models of one kind start with different wargear. */
+  defaults?: Record<string, Counts>;
+  /** Its model counts when first fielded, where they differ from its models' `min`. */
+  defaultModels?: Record<string, number>;
 };
 export type Bounds = { min: number; max: number };
 /** Each selection of a member's choices counts `weight` (default 1) towards the group's maximum. */
@@ -145,6 +150,9 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
         ...refs("model", unit.optionGroups?.flatMap((group) => (group.carrier ? [group.carrier] : []))),
         ...refs("roster-option", unit.optionGroups?.flatMap((group) => group.options.map((member) => member.option))),
         ...refs("wargear", unit.optionGroups?.flatMap((group) => group.options.flatMap((member) => member.choices ?? []))),
+        ...refs("roster-option", Object.keys(unit.defaults ?? {})),
+        ...refs("wargear", Object.values(unit.defaults ?? {}).flatMap((counts) => Object.keys(counts))),
+        ...refs("model", Object.keys(unit.defaultModels ?? {})),
       ];
     }
     case "model":
@@ -365,5 +373,17 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     if (reached.has(wargear.id)) errors.push(`wargear:${wargear.id} includes itself`);
   }
 
-  return errors.length > 0 ? { ok: false, errors } : { ok: true, definitions: { identity, formatVersion, get, all, modelsOf, optionsOf } };
+  if (errors.length > 0) return { ok: false, errors };
+  const definitions: Definitions = { identity, formatVersion, get, all, modelsOf, optionsOf };
+  // A unit's first fielding must be one checkRoster accepts; roster-wide limits are not the unit's to meet.
+  for (const unit of all("unit")) {
+    const { defaults, defaultModels } = unit.data;
+    if (!defaults && !defaultModels) continue;
+    const detachment = all("detachment").find((d) => d.data.faction === unit.data.faction)?.id ?? "";
+    const roster = { faction: unit.data.faction, detachment, units: [{ unit: unit.id, ...(defaultModels ? { models: defaultModels } : {}), ...(defaults ? { options: defaults } : {}) }] };
+    for (const problem of checkRoster(definitions, roster)) {
+      if (problem.unit === 0 && problem.code !== "roster-limit" && problem.code !== "unit-limit") errors.push(`unit:${unit.id} defaults are not a legal fielding: ${problem.message}`);
+    }
+  }
+  return errors.length > 0 ? { ok: false, errors } : { ok: true, definitions };
 }

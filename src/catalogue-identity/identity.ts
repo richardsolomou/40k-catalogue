@@ -12,6 +12,8 @@ export type Entry = {
   aliases?: string[];
   /** `sources` names the publications that retired the entry, such as the document superseding an FAQ. */
   retired?: { replacedBy: string[]; sources?: Source[] };
+  /** The rules version does not have the entity, though sources for it name the entity by the entry's ID or aliases. */
+  absent?: true;
   references?: Ref[];
 };
 export type Release = { formatVersion: 1; rulesVersion: RulesVersion; revision: number; entries: Entry[] };
@@ -20,6 +22,7 @@ export type Resolution =
   | { status: "current"; entry: Entry }
   | { status: "aliased"; entry: Entry }
   | { status: "retired"; entry: Entry; replacedBy: Entry[] }
+  | { status: "absent"; entry: Entry }
   | { status: "missing" };
 
 export type ReleaseValidation = { ok: true; release: Release } | { ok: false; errors: string[] };
@@ -57,15 +60,19 @@ function releaseErrors(release: Release): string[] {
   });
 
   release.entries.forEach((entry, i) => {
+    if (entry.absent && entry.retired) errors.push(`/entries/${i} is both absent and retired`);
     for (const id of entry.retired?.replacedBy ?? []) {
       const target = byId.get(key(entry.kind, id));
       if (!target) errors.push(`/entries/${i} is replaced by missing ${key(entry.kind, id)}`);
       else if (target.retired) errors.push(`/entries/${i} is replaced by retired ${key(entry.kind, id)}`);
+      else if (target.absent) errors.push(`/entries/${i} is replaced by absent ${key(entry.kind, id)}`);
     }
+    const active = !entry.retired && !entry.absent;
     for (const ref of entry.references ?? []) {
       const k = key(ref.kind, ref.id);
       const target = byId.get(k);
-      if (target && target.retired && !entry.retired) errors.push(`/entries/${i} refers to retired ${k}`);
+      if (target && target.retired && active) errors.push(`/entries/${i} refers to retired ${k}`);
+      else if (target && target.absent && active) errors.push(`/entries/${i} refers to absent ${k}`);
       else if (!target && aliasOf.has(k)) errors.push(`/entries/${i} refers to alias ${k} instead of ${key(ref.kind, aliasOf.get(k)!.id)}`);
       else if (!target) errors.push(`/entries/${i} refers to missing ${k}`);
     }
@@ -90,6 +97,7 @@ export function historyErrors(releases: Release[]): string[] {
         const where = versionName(next.rulesVersion);
         if (found.status === "missing") errors.push(`${where} drops ${k}`);
         else if (entry.retired && found.status !== "retired") errors.push(`${where} reuses retired ${k}`);
+        else if (!entry.retired && !entry.absent && found.status === "absent") errors.push(`${where} turns ${k} absent`);
         else if (id !== entry.id && found.status === "current") errors.push(`${where} turns alias ${k} into its own entry`);
       }
     }
@@ -105,6 +113,7 @@ export function resolve(release: Release, ref: Ref): Resolution {
     const replacedBy = entry.retired.replacedBy.map((id) => ofKind.find((e) => e.id === id)!);
     return { status: "retired", entry, replacedBy };
   }
+  if (entry.absent) return { status: "absent", entry };
   return { status: entry.id === ref.id ? "current" : "aliased", entry };
 }
 

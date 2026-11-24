@@ -22,10 +22,12 @@ const lanceUpgrade = { kind: "roster-option", id: "synthetic.warden-squad.lance-
 const chainglaive = { kind: "wargear", id: "synthetic.chainglaive" };
 
 const expectedErrors: Record<string, string> = {
+  "absent-and-retired": "/entries/0 is both absent and retired",
   "alias-reuses-id": "/entries/0 alias wargear:synthetic.chainglaive is already in use",
   "duplicate-id": "/entries/1 duplicates unit:synthetic.warden-squad",
   "invalid-id": `/entries/0/id must match pattern "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"`,
   "missing-reference": "/entries/0 refers to missing mission-layout:synthetic.layout.crossfire",
+  "reference-to-absent": "/entries/1 refers to absent unit:synthetic.siege-wardens",
   "reference-to-alias": "/entries/1 refers to alias wargear:synthetic.chainglaive instead of wargear:synthetic.chain-glaive",
   "reference-to-retired": "/entries/1 refers to retired mission-layout:synthetic.layout.crossfire",
   "reference-to-wrong-kind": "/entries/1 refers to missing wargear:synthetic.pulse-lance",
@@ -86,6 +88,11 @@ test("an alias resolves to its canonical entry", () => {
   assert.equal(found.status === "aliased" && found.entry.id, "synthetic.chain-glaive");
 });
 
+test("an absent entry resolves as absent by the ID another source gives it", () => {
+  const found = resolve(v11, { kind: "unit", id: "other-list.siege-wardens" });
+  assert.equal(found.status === "absent" && found.entry.id, "synthetic.iron-choir.siege-wardens");
+});
+
 test("a reference resolves only within its kind", () => {
   assert.deepEqual(resolve(v11, { kind: "wargear", id: squad.id }), { status: "missing" });
 });
@@ -121,6 +128,13 @@ test("a history may not reuse a retired ID for an active entry", () => {
   later.rulesVersion = { edition: "synthetic", update: "1.2" };
   later.entries.find((e) => e.id === crossfire.id)!.retired = undefined;
   assert.ok(historyErrors([v10, v11, later]).includes("synthetic 1.2 reuses retired mission-layout:synthetic.layout.crossfire"));
+});
+
+test("a history may not make an active entry absent", () => {
+  const later = clone(v11);
+  later.rulesVersion = { edition: "synthetic", update: "1.2" };
+  later.entries.find((e) => e.id === squad.id)!.absent = true;
+  assert.ok(historyErrors([v10, v11, later]).includes("synthetic 1.2 turns unit:synthetic.iron-choir.warden-squad absent"));
 });
 
 test("a history may not turn an alias into its own entry", () => {

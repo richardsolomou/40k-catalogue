@@ -16,6 +16,7 @@ An identity release lists every entry published in one revision of a rules versi
 | `entries[].name` | Display name in that rules version. |
 | `entries[].aliases` | Other IDs of the same kind that resolve to this entry. |
 | `entries[].retired` | Present when the entry no longer applies. `replacedBy` lists the active entries of the same kind that take its place, or is empty. Optional `sources` name the publications that retired it, each with a `title` and a `page` or `url`, such as the document that supersedes an FAQ. |
+| `entries[].absent` | `true` when the rules version does not have the entity, though other sources for that version name it, such as a third-party list of detachments taken from a later app build. The entry keeps the entity's ID and carries the IDs those sources use as `aliases`, so a consumer can match and drop it. It has no record. |
 | `entries[].references` | The entries this one depends on, each as `{ "kind", "id" }`. |
 
 An entry is identified by its kind and ID together, and an ID is unique within its kind. A reference names both, so a roster option refers to its unit and its wargear, and a mission to its layout, without guessing the kind from the ID.
@@ -24,7 +25,7 @@ Within one release:
 
 - Kind and ID pairs are unique, and an alias does not reuse an ID or another alias of its kind.
 - Every reference and every `replacedBy` ID names an entry in the same release by its ID, not an alias.
-- An active entry refers only to active entries. A retired entry keeps its old references.
+- An entry is active when it is neither retired nor absent, and never both. An active entry refers only to active entries. A retired entry keeps its old references.
 - `replacedBy` names active entries, so resolving a replacement takes one step. When a successor is retired later, point the original entry at the newest successors.
 
 ## Selecting a rules version
@@ -44,6 +45,7 @@ Across releases, each release keeps every ID and alias its predecessor published
 - An ID stays an ID, becomes an alias of a merged entry, or is retired. It is never dropped.
 - A retired ID stays retired and is never reused for a new entity.
 - An alias stays an alias. It never becomes an entry of its own.
+- An active entry never becomes absent; retire it instead. An absent entry may become active when the entity enters a later rules version.
 
 ## Resolving a reference
 
@@ -54,6 +56,7 @@ Resolving a reference in a release gives one of:
 | `current` | The ID names an active entry. |
 | `aliased` | The ID is an alias. Use the canonical entry's ID from now on. |
 | `retired` | The entry no longer applies. Choose among `replacedBy`, or keep reading the reference in its saved rules version. |
+| `absent` | The rules version does not have the entity. Drop the reference or read it under a rules version that has the entity. |
 | `missing` | The release has no entry of that kind with that ID. In a valid history this means the reference was never published. |
 
 ## Consumer mappings and upgrades

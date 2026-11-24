@@ -12,7 +12,7 @@
   },
   "data": {
     "parameterized": true,
-    "summary": "This melee weapon makes X extra attacks for every five models in the target unit, counted before the bearer's unit attacks.",
+    "summary": "**[CLEAVE X]**: if all of this weapon's attacks target 1 unit, gather X extra attack dice per 5 models that unit had at the Select Targets step, rounded down.",
     "citations": [
       {
         "type": "app",
@@ -27,14 +27,26 @@
       "version": "1",
       "fields": {
         "detail": {
-          "appliesTo": "melee weapon",
+          "appliesTo": "weapon",
+          "form": "[CLEAVE X]",
           "parameter": {
-            "X": "integer 1-10"
+            "X": "extra attack dice per 5 target models"
+          },
+          "condition": {
+            "singleTargetForAllAttacksOfWeapon": true
           },
           "effect": {
-            "extraAttacks": "X",
-            "per": 5,
-            "counted": "target models at the start of the attacks"
+            "extraAttackDice": "X",
+            "perModels": 5,
+            "counted": "models in the target unit at the Select Targets step",
+            "rounding": "down"
+          },
+          "example": {
+            "profile": "[CLEAVE 1]",
+            "attacksCharacteristic": 3,
+            "targetModels": 16,
+            "extraAttackDice": 3,
+            "totalAttackDice": 6
           }
         }
       }

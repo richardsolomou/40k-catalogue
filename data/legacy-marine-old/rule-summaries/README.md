@@ -6,14 +6,14 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 5,923 | 5,383 | 540 |
-| `mission-rules` | 285 | 236 | 49 |
+| `rules-reference` | 5,923 | 5,385 | 538 |
+| `mission-rules` | 285 | 263 | 22 |
 
-Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02. 515 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
+Every record cites the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02. 317 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 752 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2055, `grants` 302, `weaponAbilities` 77, `reminder` 1902, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 60, `attachment` 39, `references` 677 (3,439 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 752 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2062, `grants` 288, `weaponAbilities` 77, `reminder` 1903, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 60, `attachment` 39, `references` 677 (3,443 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
-The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,107 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 780 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. 353 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 343 of them from the Munitorum Field Manual's Legends section. 336 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (35 of them with options left out, listed below), and their weapon profiles name that wargear.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,107 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 780 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it, and names the 316 cards it prints that this version has no entry for in `stratagemsUnlisted` and `enhancementsUnlisted`. 353 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 343 of them from the Munitorum Field Manual's Legends section. 336 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (35 of them with options left out, listed below), and their weapon profiles name that wargear.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
@@ -959,7 +959,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-wolves.saga-of-the-great-wolf.fangs-of-the-pack`
 - `ability` `space-wolves.saga-of-the-great-wolf.wolf-totems`
 
-### The summary or typed facts repeat a run of the official wording and await a redraft (52)
+### The summary or typed facts repeat a run of the official wording and await a redraft (50)
 
 - `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
 - `ability` `black-templars.vow-sworn-crusaders.dread-crusaders`
@@ -976,8 +976,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `deathwatch.black-spear-task-force.the-tome-of-ectoclades`
 - `ability` `imperial-agents.veiled-blade-elimination-force.ensnaring-trap`
 - `ability` `imperial-agents.watch-master.strategic-acumen`
-- `ability` `orks.beastboss-on-squigosaur.keep-huntin-once-per-battle-round-per-army`
-- `ability` `orks.beastboss.keep-huntin-once-per-battle-round-per-army`
 - `ability` `space-marines.aethon-shaan.master-of-shadows`
 - `ability` `space-marines.ancient-in-terminator-armour.raise-the-banner`
 - `ability` `space-marines.ancient.raise-the-banner`
@@ -1122,36 +1120,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 ### The FAQ's question and answer are not both captured (1)
 
 - `faq` `codex-emperors-children.faq.carnival-of-excess`
-
-### The card prints no rules beyond its awards, which have their own records (27)
-
-- `mission-card` `chapter-approved-2026-2027.assassination`
-- `mission-card` `chapter-approved-2026-2027.battlefield-dominance`
-- `mission-card` `chapter-approved-2026-2027.centre-ground`
-- `mission-card` `chapter-approved-2026-2027.death-trap`
-- `mission-card` `chapter-approved-2026-2027.delaying-action`
-- `mission-card` `chapter-approved-2026-2027.destroyers-wrath`
-- `mission-card` `chapter-approved-2026-2027.determined-acquisition`
-- `mission-card` `chapter-approved-2026-2027.display-of-might`
-- `mission-card` `chapter-approved-2026-2027.extract-relic`
-- `mission-card` `chapter-approved-2026-2027.gather-intel`
-- `mission-card` `chapter-approved-2026-2027.immovable-object`
-- `mission-card` `chapter-approved-2026-2027.inescapable-dominion`
-- `mission-card` `chapter-approved-2026-2027.meatgrinder`
-- `mission-card` `chapter-approved-2026-2027.no-prisoners`
-- `mission-card` `chapter-approved-2026-2027.outmanoeuvre`
-- `mission-card` `chapter-approved-2026-2027.overwhelming-force`
-- `mission-card` `chapter-approved-2026-2027.purge-and-secure`
-- `mission-card` `chapter-approved-2026-2027.reconnaissance-sweep`
-- `mission-card` `chapter-approved-2026-2027.sabotage`
-- `mission-card` `chapter-approved-2026-2027.search-and-scour`
-- `mission-card` `chapter-approved-2026-2027.secure-asset`
-- `mission-card` `chapter-approved-2026-2027.secure-no-mans-land`
-- `mission-card` `chapter-approved-2026-2027.smoke-and-mirrors`
-- `mission-card` `chapter-approved-2026-2027.triangulation`
-- `mission-card` `chapter-approved-2026-2027.unstoppable-force`
-- `mission-card` `chapter-approved-2026-2027.vanguard-operation`
-- `mission-card` `chapter-approved-2026-2027.vital-link`
 
 ### A Combat Patrol mission card, whose summary is not drafted yet (22)
 

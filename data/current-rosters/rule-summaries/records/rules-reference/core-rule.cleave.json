@@ -7,15 +7,14 @@
     "update": "Space Marines codex · 3 Oct 2026"
   },
   "source": {
-    "title": "Core Rules",
-    "page": "79",
-    "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=79"
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "document": "Core Rules",
     "section": "24. Core Abilities",
     "ruleNumber": "24.06",
-    "summary": "This melee weapon makes X extra attacks for every five models in the target unit, counted before the bearer's unit attacks.",
+    "summary": "Each time you gather a **[[CLEAVE X]](vsdata:weapon-ability/cleave)** weapon's **[attack dice](vsdata:core-rule/resolve-attacks)**, if all its attacks target a single unit, add X dice per 5 models in that unit at the [Select Targets](vsdata:core-rule/select-targets) step, rounded down.",
     "citations": [
       {
         "type": "app",
@@ -23,12 +22,6 @@
         "appVersion": "2.7.1",
         "dataBuild": 972,
         "releaseDate": "2026-10-02"
-      },
-      {
-        "type": "publisher",
-        "title": "Core Rules",
-        "page": "79",
-        "url": "https://assets.warhammer-community.com/eng_01-06_warhammer40k_new40k_core_rules-was6fbu1ix-hfewhmxyiy.pdf#page=79"
       }
     ],
     "facts": {
@@ -36,14 +29,25 @@
       "version": "1",
       "fields": {
         "detail": {
-          "appliesTo": "melee weapon",
-          "effect": {
-            "counted": "target models at the start of the attacks",
-            "extraAttacks": "X",
-            "per": 5
+          "kind": "weapon-ability",
+          "form": "[CLEAVE X]",
+          "appliesTo": "weapon",
+          "trigger": "each time attack dice are gathered for the weapon",
+          "condition": {
+            "allOfWeaponsAttacksTargetOneUnit": true
           },
-          "parameter": {
-            "X": "integer 1-10"
+          "effect": {
+            "addAttackDice": "X",
+            "perModels": 5,
+            "countedAt": "Select Targets step",
+            "rounding": "down"
+          },
+          "example": {
+            "form": "[CLEAVE 1]",
+            "attacksCharacteristic": 3,
+            "targetModels": 16,
+            "extraDice": 3,
+            "totalDice": 6
           }
         }
       }

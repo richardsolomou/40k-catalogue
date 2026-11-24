@@ -28,6 +28,14 @@
         "$ref": "#/$defs/text"
       }
     },
+    "names": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
     "count": {
       "type": "integer",
       "minimum": 0
@@ -252,12 +260,38 @@
         "formatVersion",
         "faction"
       ],
+      "dependentRequired": {
+        "stratagems": [
+          "enhancements"
+        ],
+        "enhancements": [
+          "stratagems"
+        ],
+        "stratagemsUnlisted": [
+          "stratagems"
+        ],
+        "enhancementsUnlisted": [
+          "enhancements"
+        ]
+      },
       "properties": {
         "formatVersion": {
           "$ref": "#/$defs/version"
         },
         "faction": {
           "$ref": "#/$defs/id"
+        },
+        "stratagems": {
+          "$ref": "#/$defs/ids"
+        },
+        "enhancements": {
+          "$ref": "#/$defs/ids"
+        },
+        "stratagemsUnlisted": {
+          "$ref": "#/$defs/names"
+        },
+        "enhancementsUnlisted": {
+          "$ref": "#/$defs/names"
         }
       }
     },

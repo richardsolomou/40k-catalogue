@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Trazyn the Infinite",
-    "summary": "At the beginning of your [Command phase](vsdata:core-rule/command-phase), you may pick a friendly **NECRONS INFANTRY CHARACTER** other than Trazyn who is on the battlefield. **EPIC HERO** and **SKORPEKH LORD** models are excluded. Destroy the chosen model without resolving rules that trigger on its destruction. Put Trazyn in that position with full wounds. He inherits command of any unit the casualty led.",
+    "summary": "With this model on the battlefield, as your [Command phase](vsdata:core-rule/command-phase) starts you may pick 1 other **NECRONS INFANTRY CHARACTER** model of yours on the battlefield, other than **EPIC HERO** and **SKORPEKH LORD** models.\n\nThe picked model is **destroyed** without resolving any rules triggered by its destruction, and this model takes its place with full wounds. If the picked model led a unit, this model replaces it as that unit's Leader.",
     "citations": [
       {
         "type": "app",
@@ -28,15 +28,22 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
         },
         "detail": {
           "actor": "Trazyn the Infinite",
           "trigger": "start of own Command phase",
+          "condition": "this model is on the battlefield",
           "optional": true,
           "target": {
             "count": 1,
-            "otherThan": "Trazyn",
+            "otherThan": "this model",
             "side": "friendly",
             "keywords": [
               "NECRONS",
@@ -52,9 +59,9 @@
           "effect": {
             "destroySelectedModel": true,
             "doNotTriggerRulesForItsDestruction": true,
-            "putTrazynInItsPlace": true,
+            "putThisModelInItsPlace": true,
             "wounds": "full",
-            "ifTargetWasLeading": "Trazyn joins its unit as Leader"
+            "ifTargetWasLeading": "this model attaches to that unit as its Leader"
           }
         }
       }

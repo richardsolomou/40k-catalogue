@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Subterranean Assault",
-    "summary": "Reroll [hit rolls](vsdata:core-rule/hit-rolls) of 1 for each attacking **TYRANIDS** model in your army. Each time your **BURROWER** unit deploys from Reserves onto the battlefield, put down a Tunnel marker 40 mm across. Place it no farther than 1\" from the arrival and over 3\" away horizontally from all opponents’ units. You may use a Tunnel marker to bring a unit in from Reserves during Reinforcements in your [Movement phase](vsdata:core-rule/movement-phase). Set it up entirely within the marker’s 9\" radius and over 6\" away horizontally from enemy units. An enemy model ending any move 3\" or less from the marker removes it. **AIRCRAFT** never remove it this way.",
+    "summary": "Attacks by **TYRANIDS** models in your army re-roll **[Hit rolls](vsdata:core-rule/hit-rolls)** of 1.\n\nTunnel Markers work as follows:\n\n- When a **BURROWER** unit of yours arrives from Reserves, put a 40mm round Tunnel Marker anywhere more than 3\" horizontally from every enemy unit and within 1\" of that **BURROWER** unit.\n- During your [Movement phase](vsdata:core-rule/movement-phase)'s Reinforcements step, a unit you set up from Reserves may instead go more than 6\" horizontally from every enemy unit, wholly within 9\" of a Tunnel Marker of yours.\n- An enemy model (not **AIRCRAFT**) that ends any move within 3\" of a Tunnel Marker of yours removes that marker.",
     "citations": [
       {
         "type": "app",
@@ -28,7 +28,286 @@
       "version": "1",
       "fields": {
         "combat": {
-          "unresolved": "Withheld as a class: independent reviews found 2 of 31 sampled combat readings of Detachment rules wrong or partly wrong, above the 2% this reading may ship with."
+          "applies": {
+            "target": {
+              "anyOf": [
+                [
+                  "TYRANIDS"
+                ]
+              ]
+            }
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitReroll": "ones"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "modelKeywords": [
+                        "TYRANIDS"
+                      ],
+                      "rolls": {
+                        "hitReroll": "ones"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "hitReroll": "ones"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "modelKeywords": [
+                        "TYRANIDS"
+                      ],
+                      "rolls": {
+                        "hitReroll": "ones"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitReroll": "ones"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "modelKeywords": [
+                        "TYRANIDS"
+                      ],
+                      "rolls": {
+                        "hitReroll": "ones"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "ask": {
+                  "everyModelHas": "TYRANIDS"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 0
+              },
+              {
+                "ask": {
+                  "unitHas": "TYRANIDS"
+                },
+                "yes": 3,
+                "no": 4
+              },
+              {
+                "reading": 1
+              },
+              {
+                "reading": 2
+              }
+            ],
+            [
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "everyModelHas": "TYRANIDS"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 3
+              },
+              {
+                "ask": {
+                  "unitHas": "TYRANIDS"
+                },
+                "yes": 3,
+                "no": 4
+              },
+              {
+                "reading": 4
+              },
+              {
+                "reading": 2
+              }
+            ],
+            [
+              {
+                "reading": 4
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "everyModelHas": "TYRANIDS"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 5
+              },
+              {
+                "ask": {
+                  "unitHas": "TYRANIDS"
+                },
+                "yes": 3,
+                "no": 4
+              },
+              {
+                "reading": 6
+              },
+              {
+                "reading": 2
+              }
+            ],
+            [
+              {
+                "reading": 6
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 1,
+            "own.many.known": 0,
+            "own.many.unknown": 1,
+            "leading.one.known": 0,
+            "leading.one.unknown": 1,
+            "leading.many.known": 0,
+            "leading.many.unknown": 1,
+            "aura.one.known": 0,
+            "aura.one.unknown": 1,
+            "aura.many.known": 0,
+            "aura.many.unknown": 1,
+            "stratagem-shooting.one.known": 2,
+            "stratagem-shooting.one.unknown": 3,
+            "stratagem-shooting.many.known": 2,
+            "stratagem-shooting.many.unknown": 3,
+            "stratagem-fight.one.known": 4,
+            "stratagem-fight.one.unknown": 5,
+            "stratagem-fight.many.known": 4,
+            "stratagem-fight.many.unknown": 5,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 1,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 1,
+            "army.one.known": 0,
+            "army.one.unknown": 1,
+            "army.many.known": 0,
+            "army.many.unknown": 1
+          }
         },
         "references": [
           {

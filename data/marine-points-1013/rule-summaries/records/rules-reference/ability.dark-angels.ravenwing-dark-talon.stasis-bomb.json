@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Ravenwing Dark Talon",
-    "summary": "When the enemy [Fight phase](vsdata:core-rule/fight-phase) finishes, choose one enemy unit the Ravenwing Dark Talon can see no farther than 24″ away, excluding **AIRCRAFT**. Until the enemy’s next [Movement phase](vsdata:core-rule/movement-phase) ends, roll one D6 whenever that unit is picked to move. Skip the roll if it Remains Stationary. On 1–4 it takes D3 [mortal wounds](vsdata:core-rule/mortal-wounds) and moves 2″ less. On 5–6 it takes 2D3 [mortal wounds](vsdata:core-rule/mortal-wounds) and moves 3″ less.",
+    "summary": "As the opposing player’s [Fight phase](vsdata:core-rule/fight-phase) ends, pick 1 enemy unit **visible** to this unit and within 24\" of it, excluding **AIRCRAFT** and **[Lone Operative](vsdata:core-ability/lone-operative)** units. That unit counts as **slowed** until the opposing player’s next [Movement phase](vsdata:core-rule/movement-phase) ends.\n\nWhile **slowed**, each time it is **selected to move** in that Movement phase, roll 1 D6 unless it **remains stationary**:\n\n- 1–4: it takes D3 **[mortal wounds](vsdata:core-rule/mortal-wounds)** and its Move characteristic is reduced by 2\"\n- 5–6: it takes 2D3 [mortal wounds](vsdata:core-rule/mortal-wounds) and its Move characteristic is reduced by 3\"",
     "citations": [
       {
         "type": "app",
@@ -28,10 +28,21 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
+          "timings": [
+            {
+              "at": "phase-end",
+              "phase": "fight",
+              "turn": "opponent"
+            },
+            {
+              "at": "phase-start",
+              "phase": "movement",
+              "turn": "opponent"
+            }
+          ]
         },
         "combat": {
-          "unresolved": "Withheld as a class: independent reviews found 9 of 157 sampled combat readings of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
+          "unresolved": "Withheld as a class: the last two independent reviews found 8 of 300 sampled combat readings of unit abilities wrong or partly wrong, not under the 2% this reading may ship with."
         },
         "references": [
           {
@@ -48,19 +59,24 @@
           }
         ],
         "detail": {
-          "actor": "Ravenwing Dark Talon unit",
-          "trigger": "end of opponent Fight phase",
+          "actor": "this unit",
+          "trigger": "end of opponent's Fight phase",
           "target": {
             "count": 1,
             "side": "enemy",
             "visible": true,
             "withinInches": 24,
-            "excludes": "AIRCRAFT"
+            "excludes": [
+              "AIRCRAFT",
+              "Lone Operative"
+            ]
           },
+          "state": "slowed",
+          "until": "end of opponent's next Movement phase",
           "effect": {
-            "when": "target selected to move",
-            "unless": "target Remains Stationary",
-            "until": "end of opponent next Movement phase",
+            "phase": "opponent's Movement phase",
+            "when": "slowed unit selected to move",
+            "unless": "it remains stationary",
             "roll": "one D6",
             "branches": [
               {
@@ -71,7 +87,7 @@
                   4
                 ],
                 "mortalWounds": "D3",
-                "moveInchesLess": 2
+                "moveCharacteristicReductionInches": 2
               },
               {
                 "results": [
@@ -79,7 +95,7 @@
                   6
                 ],
                 "mortalWounds": "2D3",
-                "moveInchesLess": 3
+                "moveCharacteristicReductionInches": 3
               }
             ]
           }

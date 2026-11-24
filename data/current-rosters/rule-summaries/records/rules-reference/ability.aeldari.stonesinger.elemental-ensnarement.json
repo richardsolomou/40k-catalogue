@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Stonesinger",
-    "summary": "The Stonesinger’s unit can cast as your [Fight phase](vsdata:core-rule/fight-phase) closes, provided it is clear of Battle-shock. Roll a D6. A 1 Battle-shocks the Stonesinger’s unit. Choose a visible enemy **MONSTER** or **VEHICLE** within 18″ of the Stonesinger’s unit, excluding **TITANIC** units. Pin the target. The effect expires when your next turn starts. This reduces Move by 2″ and prevents further applications of Pinned while active.",
+    "summary": "As your [Fight phase](vsdata:core-rule/fight-phase) ends, you may use Elemental Ensnarement if this unit isn’t **battle-shocked**. If you do:\n\n1. Roll 1 D6. A 1 makes this unit battle-shocked.\n2. Pick 1 enemy **MONSTER** or **VEHICLE** unit, other than a **TITANIC** unit, that is **visible** to this unit and within 18\" of it. It is **ensnared** until your next turn starts.\n\nWhile **ensnared**, a unit subtracts 2\" from its Move characteristic and cannot be **pinned**.",
     "citations": [
       {
         "type": "app",
@@ -28,7 +28,13 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
+          "timings": [
+            {
+              "at": "phase-end",
+              "phase": "fight",
+              "turn": "own"
+            }
+          ]
         },
         "detail": {
           "activation": {
@@ -36,17 +42,17 @@
             "side": "own",
             "timing": "end",
             "optional": true,
-            "requiresOwnerUnitNotBattleShocked": true
+            "requiresThisUnitNotBattleShocked": true
           },
           "roll": {
             "die": "D6",
-            "ownerBattleShockOn": 1
+            "thisUnitBattleShockedOn": 1
           },
           "target": {
             "count": 1,
             "side": "enemy",
             "visible": true,
-            "rangeInchesFromOwnerUnit": 18,
+            "withinInchesOfThisUnit": 18,
             "keywordsAny": [
               "MONSTER",
               "VEHICLE"
@@ -54,10 +60,10 @@
             "excludedKeyword": "TITANIC"
           },
           "effect": {
-            "status": "Pinned",
-            "until": "start of next own turn",
-            "MoveInchesDecrease": 2,
-            "cannotBePinnedAgainWhileActive": true
+            "status": "ensnared",
+            "until": "start of your next turn",
+            "moveCharacteristicReductionInches": 2,
+            "cannotBePinned": true
           }
         }
       }

@@ -43,6 +43,16 @@ test("the synthetic summaries validate and list the FAQ that amends a rule", () 
   assert.deepEqual(result.summaries.amendedBy(OATH).map((faq) => faq.id), [ERRATA]);
 });
 
+test("a mission card with no text of its own validates as complete without a summary", () => {
+  const card = (recs: CatalogueRecord[]) => data(recs, "mission-card", "synthetic-pack.hold-the-pyre");
+  const none = { text: "none", reason: "The card prints no rules text beyond its awards and actions." };
+  assert.deepEqual(errors((_, recs) => { const d = card(recs); delete d.summary; Object.assign(d, none); }), []);
+});
+
+test("a mission card cannot carry both a summary and the no-text marker", () => {
+  assert.ok(errors((_, recs) => Object.assign(data(recs, "mission-card", "synthetic-pack.hold-the-pyre"), { text: "none", reason: "None." })).length > 0);
+});
+
 test("rules reference and mission rules build as categories, with undrafted entries unresolved", () => {
   const files = build();
   assert.ok(files.has("schema/rule-summaries/summaries.v2.schema.json"));

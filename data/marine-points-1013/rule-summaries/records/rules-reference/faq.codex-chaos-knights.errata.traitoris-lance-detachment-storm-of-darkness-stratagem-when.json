@@ -18,7 +18,7 @@
         "id": "chaos-knights.traitoris-lance.storm-of-darkness"
       }
     ],
-    "summary": "Use **[Storm of Darkness](vsdata:ability/chaos-knights.traitoris-lance.storm-of-darkness)** as soon as an enemy unit selects targets in the opposing Shooting phase or in either Fight phase. Apply a −1 modifier to Hit rolls for attacks against the chosen unit until the attacker resolves its attacks.",
+    "summary": "Use [Storm of Darkness](vsdata:ability/chaos-knights.traitoris-lance.storm-of-darkness) right after an enemy unit picks its targets in your opponent's Shooting phase or in either Fight phase. The chosen unit has **[Stealth](vsdata:core-ability/stealth)**, and melee attacks that target it get -1 to their **Hit rolls**.",
     "citations": [
       {
         "type": "app",
@@ -54,13 +54,20 @@
                   }
                 ]
               },
-              "effect": {
-                "kind": "roll-modifier",
-                "roll": "hit",
-                "amount": -1,
-                "onlyAttacksAgainst": "selected-unit",
-                "expires": "attacker-finishes-attacks"
-              },
+              "effect": [
+                {
+                  "action": "grant-unit-ability",
+                  "recipient": "selected-unit",
+                  "ability": "stealth"
+                },
+                {
+                  "kind": "roll-modifier",
+                  "roll": "hit",
+                  "amount": -1,
+                  "onlyAttacksAgainst": "selected-unit",
+                  "attackType": "melee"
+                }
+              ],
               "targetQid": "ability:chaos-knights.traitoris-lance.storm-of-darkness",
               "kind": "replace-stratagem-fields"
             },

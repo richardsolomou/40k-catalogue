@@ -156,9 +156,19 @@
         "max": { "type": "integer", "minimum": 1 }
       }
     },
+    "no-text": {
+      "type": "object",
+      "required": ["text", "reason", "citations"],
+      "properties": {
+        "text": { "const": "none", "description": "The official source prints no rules text for this rule beyond its parts, which have records of their own." },
+        "reason": { "$ref": "#/$defs/text" },
+        "citations": { "$ref": "#/$defs/summary/properties/citations" },
+        "summary": false
+      }
+    },
     "mission-card": {
       "type": "object",
-      "$ref": "#/$defs/summary",
+      "oneOf": [{ "$ref": "#/$defs/summary" }, { "$ref": "#/$defs/no-text" }],
       "unevaluatedProperties": false,
       "required": ["pack", "card"],
       "properties": { "pack": { "$ref": "#/$defs/text" }, "card": { "$ref": "#/$defs/card" } }

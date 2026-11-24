@@ -14,7 +14,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Canoptek Acanthrites",
-    "summary": "Once this unit has shot in your Shooting phase, pick one enemy unit that took at least one hit from those attacks. For the rest of the phase, when a friendly NECRONS model attacks that unit and scores a Critical Wound, that attack has its Armour Penetration improved by 1.",
+    "summary": "Once this unit has shot in your Shooting phase, pick one enemy unit that took at least one hit from those attacks. For the rest of the phase, when a friendly **NECRONS** model attacks that unit and scores a **Critical Wound**, that attack has its Armour Penetration improved by 1.",
     "citations": [
       {
         "type": "publisher",
@@ -59,10 +59,7 @@
           "readings": [
             {
               "choices": [],
-              "default": 0,
-              "roles": [
-                "attacker"
-              ]
+              "default": 0
             },
             {
               "choices": [
@@ -98,12 +95,6 @@
                   "conditions": [
                     {
                       "kind": "selected-target"
-                    },
-                    {
-                      "kind": "for-units",
-                      "keywords": [
-                        "NECRONS"
-                      ]
                     }
                   ],
                   "effects": [
@@ -113,6 +104,9 @@
                         "ranged"
                       ],
                       "condition": "critical-wound",
+                      "modelKeywords": [
+                        "NECRONS"
+                      ],
                       "characteristic": {
                         "name": "armour-penetration",
                         "add": -1
@@ -136,13 +130,23 @@
             [
               {
                 "ask": {
-                  "unitHas": "NECRONS"
+                  "everyModelHas": "NECRONS"
                 },
                 "yes": 1,
                 "no": 2
               },
               {
                 "reading": 1
+              },
+              {
+                "ask": {
+                  "unitHas": "NECRONS"
+                },
+                "yes": 3,
+                "no": 4
+              },
+              {
+                "reading": 2
               },
               {
                 "reading": 0
@@ -171,10 +175,10 @@
             "stratagem-shooting.one.unknown": 2,
             "stratagem-shooting.many.known": 1,
             "stratagem-shooting.many.unknown": 2,
-            "stratagem-fight.one.known": 1,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 1,
-            "stratagem-fight.many.unknown": 2,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
             "stratagem-both.one.known": 1,
             "stratagem-both.one.unknown": 2,
             "stratagem-both.many.known": 1,

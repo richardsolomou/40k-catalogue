@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "death-guard.tallyband-summoners"
     },
-    "summary": "Whenever a **PLAGUE LEGIONS** unit is tested for [Battle-shock](vsdata:core-rule/battle-shock) 12″ or closer to the bearer, apply a +1 bonus to its roll. On a pass, one of its models recovers lost wounds, up to D3. A passing **BATTLELINE** unit may get back up to D3 of its destroyed models in place of healing.",
+    "summary": "For a **MALIGNANT PLAGUECASTER**. Whenever a **PLAGUE LEGIONS** unit is tested for [Battle-shock](vsdata:core-rule/battle-shock) 12\" or closer to the bearer, that test gets +1. If the test is passed:\n\n- 1 of its models regains lost wounds, up to D3\n- a **BATTLELINE** unit may instead return as many as D3 **destroyed** models to it",
     "citations": [
       {
         "type": "app",
@@ -46,30 +46,34 @@
           }
         },
         "detail": {
-          "trigger": {
-            "event": "battle-shock-test",
-            "quantifier": "each",
-            "unitKeyword": "PLAGUE LEGIONS",
-            "maxDistanceInches": 12,
-            "distanceFrom": "bearer"
-          },
-          "testModifier": 1,
-          "onPass": {
-            "default": {
-              "effect": "regain-lost-wounds",
-              "unit": "testing-unit",
-              "models": 1,
-              "upTo": "D3"
-            },
-            "alternative": {
-              "optional": true,
-              "replaces": "regain-lost-wounds",
-              "unit": "testing-unit",
-              "requiresUnitKeyword": "BATTLELINE",
-              "effect": "return-destroyed-models",
-              "upTo": "D3"
+          "kind": "enhancement",
+          "detachment": "Tallyband Summoners",
+          "effects": [
+            {
+              "trigger": "battle-shock-test",
+              "select": {
+                "keywordsAll": [
+                  "PLAGUE LEGIONS"
+                ],
+                "withinInches": 12,
+                "of": "bearer"
+              },
+              "testModifier": 1,
+              "onPass": {
+                "regainLostWounds": {
+                  "models": 1,
+                  "upTo": "D3"
+                },
+                "ifBattleline": {
+                  "optional": true,
+                  "instead": true,
+                  "returnDestroyedModels": {
+                    "upTo": "D3"
+                  }
+                }
+              }
             }
-          }
+          ]
         }
       }
     }

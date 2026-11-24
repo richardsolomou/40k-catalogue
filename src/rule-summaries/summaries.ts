@@ -49,7 +49,9 @@ export type KeywordData = SummaryData & { parameterized?: true };
 /** `amendsUnlisted` names targets the catalogue has no entry for yet, by the kind they will have. */
 export type FaqData = SummaryData & { publication: string; amends: Ref[]; amendsUnlisted?: { kind: string; name: string }[] };
 export type MissionAwardData = SummaryData & { pack: string; card: Card; vp: number; max?: number };
-export type MissionCardData = SummaryData & { pack: string; card: Card };
+/** A rule the official source prints no text for beyond its parts, such as a mission card whose rules are its awards and actions. */
+export type NoTextData = { text: "none"; reason: string; citations: Citation[] };
+export type MissionCardData = (SummaryData | NoTextData) & { pack: string; card: Card };
 export type PackRuleData = SummaryData & { pack: string };
 
 type DataOf = {
@@ -157,6 +159,7 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
     if (byKey.has(at)) errors.push(`${at} has more than one record`);
     const summary = { kind: record.kind as SummaryKind, id: record.id, name: entry.name, data: record.data as SummaryData };
     byKey.set(at, summary as Summary);
+    if ((record.data as { text?: string }).text === "none") continue;
 
     if (summary.kind === "ability") {
       const { ruleType, cp, stratagem, detachment } = summary.data as AbilityData;

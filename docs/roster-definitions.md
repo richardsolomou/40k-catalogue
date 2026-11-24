@@ -14,7 +14,7 @@ Every record's `data` carries `"formatVersion": 2`. Records without it are forma
 | --- | --- | --- |
 | `faction` | optional `unitLimits` | The faction exists in this rules version. Each of `unitLimits` bounds how many units holding all its `keywords` a roster of the faction holds. |
 | `battle-size` | `points` | A battle size a roster can be built for, and its points limit. |
-| `detachment` | `faction` | The faction the detachment belongs to. |
+| `detachment` | `faction`, optional `stratagems` and `enhancements`, with optional `stratagemsUnlisted` and `enhancementsUnlisted` | The faction the detachment belongs to and, where listed, every Stratagem and Enhancement this rules version gives it: `stratagems` and `enhancements` name their [rule summary](rule-summaries.md) entries (kind `ability`), and the `Unlisted` fields name, as printed, the cards the version has no entry for. A record with the lists is complete for that version, so a consumer takes no card from another version. |
 | `enhancement` | `detachment`, optional `upgrade`, optional `keywords.all` and `keywords.none` | Offered by that detachment to units holding every `all` keyword and no `none` keyword. An `upgrade` may be taken by several units; any other enhancement once per roster. |
 | `unit` | `faction`, `keywords`, `sizes`, optional `conditionalKeywords`, `compositions`, `modelGroups`, `optionGroups`, `perRoster`, `limits`, `legends`, `enhancements: false`, `wargear` | `sizes` lists every model count the unit may field. `wargear` counts what the unit carries that none of its models does, such as a support turret, and options without a `carrier` may replace it. `modelGroups` bounds the sum of counts of its named model IDs, and `optionGroups` the selections several of its options take together. `perRoster` caps its copies, and the first of `limits` for the roster's `battleSize` whose condition holds replaces it. A `perRoster` of 0 means no roster may hold the unit, as when it enters play only through another unit's rule. `enhancements: false` bars a unit that the keyword rules would otherwise admit. |
 | `model` | `unit`, `min`, `max`, `wargear`, optional `bySize` | A kind of model in the unit, how many of it the unit fields, and how many of each wargear ID each one carries by default, as `{ <wargear ID>: count }`. A `bySize` row gives its bounds at one total squad size. |
@@ -61,6 +61,7 @@ A model loadout that a source writes as separate model entries, one per weapon, 
 
 - Every record uses the identity release's rules version, its entry is current, and an entry has at most one record.
 - Every ID a record's data names has a record of the right kind and appears in the identity entry's `references`, so a release's `dependsOn` and `unresolvedReferences` see every join.
+- Every ID in a detachment's `stratagems` and `enhancements` is a current `ability` entry that the detachment's identity entry references.
 - Every unit has at least one model, and every size lies between its models' summed minimums and maximums at that size.
 - Every shared model group includes at least two distinct models that belong to its unit.
 - Every option group names only options of its own unit, with only choices those options offer, and no choice of an option twice. A group of format version 1 names at least two options.

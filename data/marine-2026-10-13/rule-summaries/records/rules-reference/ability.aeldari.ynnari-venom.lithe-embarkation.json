@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Ynnari Venom",
-    "summary": "When the [Fight phase](vsdata:core-rule/fight-phase) ends, an empty Ynnari Venom can take aboard one eligible unit of up to 6 models. Choose a friendly unit with both **YNNARI** and **INFANTRY**. The entire unit must be within 6″ of the Venom. The unit can board from enemy [Engagement Range](vsdata:core-rule/engagement-range) even on a turn when it already left this Venom.",
+    "summary": "At the end of either player's [Fight phase](vsdata:core-rule/fight-phase), if no models are embarked in this **TRANSPORT**, you may pick 1 **YNNARI INFANTRY** unit of yours that:\n\n- only has models from units named in the Transport ability of this unit\n- has no more than 6 models\n- lies wholly within 6\" of the **TRANSPORT**\n\nIf the picked unit is outside the **[Engagement Range](vsdata:core-rule/engagement-range)** of every enemy unit, it may embark in this **TRANSPORT**, even if it disembarked earlier in the turn from this **TRANSPORT**.",
     "citations": [
       {
         "type": "app",
@@ -28,7 +28,13 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "unresolved": "Withheld as a class: independent reviews found 4 of 86 sampled reminders of unit abilities wrong or partly wrong, above the 2% this reading may ship with."
+          "timings": [
+            {
+              "at": "phase-end",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ]
         },
         "detail": {
           "actor": "Ynnari Venom",
@@ -42,10 +48,11 @@
               "YNNARI",
               "INFANTRY"
             ],
+            "onlyModelsFromUnitsListedInTransportSection": true,
             "maxModels": 6,
             "whollyWithinInches": 6,
             "from": "owning transport",
-            "mayEmbarkFromEnemyEngagementRange": true,
+            "mayEmbarkFromEnemyEngagementRange": false,
             "disembarkedFromThisTransportThisTurn": "allowed"
           }
         }

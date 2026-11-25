@@ -365,11 +365,12 @@ No official source in reach prints a base size for these datasheets, so their st
 - `unaligned-forces.wall-of-martyrs-defence-emplacement`
 - `unaligned-forces.wall-of-martyrs-defence-line`
 
-### No base size: Warhammer Legends datasheets no guide lists (21)
+### No base size: Warhammer Legends datasheets no guide lists (22)
 
 No official source in reach prints their base size, so their stat lines carry a `no-source` gap.
 
 - `adeptus-mechanicus.x-101`
+- `astra-militarum.death-korps-grenadier-squad`
 - `chaos-daemons.tormentbringer-on-exalted-seeker-chariot`
 - `orks.attack-fighta`
 - `orks.big-gunz`
@@ -391,11 +392,10 @@ No official source in reach prints their base size, so their stat lines carry a 
 - `orks.squiggoth`
 - `orks.ufthak-blackhawk`
 
-### No base size: sizes the format cannot attribute (2)
+### No base size: sizes the format cannot attribute (1)
 
 A source prints sizes for models or wargear the unit's roster definition does not type, so their stat lines carry an `unrepresentable` gap.
 
-- `astra-militarum.death-korps-grenadier-squad`
 - `imperial-agents.spectrus-kill-team`
 
 ## Retired

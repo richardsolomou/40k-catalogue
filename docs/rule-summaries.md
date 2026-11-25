@@ -10,7 +10,7 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 
 | Category | Kind | `data` beside the common fields |
 | --- | --- | --- |
-| `rules-reference` | `ability` | `ruleType`, optional `group`, for a Stratagem or Enhancement an optional `detachment`, and for a Stratagem `cp` and optional `stratagem` timing. |
+| `rules-reference` | `ability` | `ruleType`, optional `group`, for a Stratagem or Enhancement an optional `detachment`, and for a Stratagem `cp`, optional `stratagem` timing and optional `parts`. |
 | `rules-reference` | `core-rule` | `document`, optional `section`, `ruleNumber`, `order`, `anchor`, `parent` and `stratagem`. |
 | `rules-reference` | `core-ability`, `weapon-ability` | `parameterized: true` when the keyword takes values, such as Sustained Hits X. |
 | `rules-reference` | `faq` | `publication`, `amends`, optional `amendsUnlisted`. |
@@ -23,6 +23,8 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 - `phases` are `command`, `movement`, `shooting`, `charge`, `fight` and `end-of-turn`, the end of a turn after its Fight phase. A Stratagem usable in any phase lists all six, so it differs from one that names the five phases.
 - Where the phases' turns differ, such as your opponent's Shooting phase or either player's Fight phase, `windows` gives each phase its `turn`, as `[{ phase, turn }]` in the order of `phases`, and `turn` is `any`.
 - `type` is left out where the official source gives the Stratagem none; it is never inferred.
+
+A Stratagem's `parts` are its `when`, `target`, `effect` and optional `restrictions`, the four parts the official app gives it, each [summary text](#summary-text) that opens with a paragraph. Its `summary` is then `stratagemSummary(parts)`: the parts in that order, separated by a blank line, each opening with its bold label, such as `**When:**`. Show the parts where an app lays them out, or the summary as one block.
 
 A `unit-ability` several factions print on the same datasheet with the same text, such as the Chaos Land Raider's Damaged rule in each Chaos faction, can be one record for all of them. Its identity entry then references the `unit` entry of each faction's datasheet it applies to, by `{ kind: "unit", id }`, so an app joins the rule to every one of those units without matching names or IDs.
 
@@ -63,7 +65,7 @@ A mission card whose rules are only its awards and actions, each with a record o
 - **Links.** `[text](vsdata:<kind>/<id>)` names a catalogue entry by its identity `kind` and `id` in the record's rules version. A rule may link its own name. No other link scheme is allowed.
 - **Nothing else.** No headings, quotes, code, HTML, images, tables, italics, strikethrough, escapes, entities, bare URLs or indentation. Lines carry no leading or trailing whitespace, and literal square brackets, such as `[ASSAULT]`, are plain text unless they form a link.
 
-A summary typically opens with a short lead sentence, then lists the parallel parts of the rule, such as steps, options or conditions, one per item.
+A summary typically opens with a short lead sentence, then lists the parallel parts of the rule, such as steps, options or conditions, one per item. A faction rule's summary also follows the [summary house style](summary-style.md).
 
 `parseSummary(summary)` returns the blocks, each line as a list of text, bold and link parts, or the first thing the grammar does not allow. `plain(summary)` removes bold and link markup and keeps the layout: paragraphs separated by a blank line, a paragraph's lines and a list's items by a line break, and each item's marker.
 
@@ -95,7 +97,8 @@ Identity entries without a record are listed as `unresolved`, and their category
 - Every record uses the identity release's rules version, its entry is current, and an entry has at most one record.
 - The summary parses with the [summary text](#summary-text) grammar.
 - Every rule a summary links to or an FAQ amends is current and appears in the identity entry's `references`, so a release's `dependsOn` and `unresolvedReferences` include it. A summary may link its own rule's name without a reference.
-- A Stratagem has a `cp` cost, and no other ability has a cost or Stratagem timing.
+- A Stratagem has a `cp` cost, and no other ability has a cost, Stratagem timing or Stratagem parts.
+- A Stratagem's parts each parse with the summary text grammar and open with a paragraph, and its summary is them joined.
 - A Stratagem's `windows` give each of its `phases` in order, with turns that differ, and its `turn` is `any`.
 - Only a Stratagem or Enhancement names a `detachment`, which is current and appears in its identity entry's `references`.
 - No two core rules of one `document` share an `order` or an `anchor`, and a core rule's `stratagem` is a current core Stratagem in its identity entry's `references`.

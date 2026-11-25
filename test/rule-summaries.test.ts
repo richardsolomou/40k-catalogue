@@ -7,7 +7,7 @@ import { test } from "node:test";
 import type { Release } from "../src/catalogue-identity/identity.ts";
 import { buildCatalogueRelease, type CatalogueRecord, type Manifest } from "../src/catalogue-releases/catalogue.ts";
 import type { ReleaseFiles } from "../src/releases/release.ts";
-import { parseSummary, plain, validateSummaries } from "../src/rule-summaries/summaries.ts";
+import { parseSummary, plain, stratagemSummary, validateSummaries } from "../src/rule-summaries/summaries.ts";
 import { commonmark } from "./commonmark.ts";
 
 const fixtures = fileURLToPath(new URL("../fixtures/rule-summaries/", import.meta.url));
@@ -191,8 +191,37 @@ test("a Stratagem needs its CP cost", () => {
 test("only a Stratagem has a CP cost", () => {
   assert.deepEqual(
     errors((_, recs) => (data(recs, "ability", OATH.id).cp = 1)),
-    [`ability:${OATH.id} is not a Stratagem but has a CP cost or Stratagem timing`],
+    [`ability:${OATH.id} is not a Stratagem but has a CP cost, Stratagem timing or Stratagem parts`],
   );
+});
+
+test("only a Stratagem has parts", () => {
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "ability", OATH.id).parts = data(recs, "ability", VOLLEY).parts)),
+    [`ability:${OATH.id} is not a Stratagem but has a CP cost, Stratagem timing or Stratagem parts`],
+  );
+});
+
+test("a Stratagem's summary is its parts joined", () => {
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "ability", VOLLEY).parts.target = "One **INFANTRY** or **CHARACTER** unit of yours.")),
+    [`ability:${VOLLEY} summary is not its Stratagem parts joined`],
+  );
+});
+
+test("a Stratagem's parts are joined in order, each after its bold label", () => {
+  assert.equal(
+    stratagemSummary({ when: "W.", target: "T.", effect: "E.", restrictions: "R." }),
+    "**When:** W.\n\n**Target:** T.\n\n**Effect:** E.\n\n**Restrictions:** R.",
+  );
+});
+
+test("a Stratagem part follows the summary grammar", () => {
+  assert.ok(errors((_, recs) => (data(recs, "ability", VOLLEY).parts.effect = "The unit gets _hot_.")).includes(`ability:${VOLLEY} parts/effect block 1 uses markup outside the summary grammar (_)`));
+});
+
+test("a Stratagem part opens with a paragraph", () => {
+  assert.ok(errors((_, recs) => (data(recs, "ability", VOLLEY).parts.effect = "- one\n- two")).includes(`ability:${VOLLEY} parts/effect does not open with a paragraph`));
 });
 
 test("a Stratagem's Detachment is a reference of its identity entry", () => {

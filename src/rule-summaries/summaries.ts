@@ -23,6 +23,8 @@ export type SummaryData = {
   provisional?: true;
   facts?: Facts;
 };
+/** Each part is summary text that opens with a paragraph. */
+export type StratagemParts = { when: string; target: string; effect: string; restrictions?: string };
 /** `end-of-turn` is a turn's end, after its Fight phase. */
 type Phase = "command" | "movement" | "shooting" | "charge" | "fight" | "end-of-turn";
 type Turn = "own" | "opponent" | "any";
@@ -34,6 +36,8 @@ export type AbilityData = SummaryData & {
   detachment?: Ref;
   /** Required for Stratagems and absent otherwise, like `stratagem`. */
   cp?: number;
+  /** A Stratagem's parts as the official app gives them; its `summary` is `stratagemSummary(parts)`. */
+  parts?: StratagemParts;
   /** `windows` gives each phase its turn where the phases' turns differ; `turn` is then `any`. */
   stratagem?: {
     phases: Phase[];
@@ -126,6 +130,15 @@ function combatErrors(combat: CombatFacts): string[] {
 }
 const key = ({ kind, id }: Ref) => `${kind}:${id}`;
 const STRATAGEMS = new Set<AbilityData["ruleType"]>(["stratagem", "core-stratagem"]);
+const PART_LABELS = { when: "When", target: "Target", effect: "Effect", restrictions: "Restrictions" } as const;
+
+/** A Stratagem's summary: its parts in order, each a paragraph that opens with its bold label. */
+export function stratagemSummary(parts: StratagemParts): string {
+  return (Object.keys(PART_LABELS) as (keyof StratagemParts)[])
+    .filter((part) => parts[part] !== undefined)
+    .map((part) => `**${PART_LABELS[part]}:** ${parts[part]}`)
+    .join("\n\n");
+}
 
 /**
  * Validates rule summary records against the identity release of their rules version. Every rule a
@@ -166,10 +179,18 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
     if ((record.data as { text?: string }).text === "none") continue;
 
     if (summary.kind === "ability") {
-      const { ruleType, cp, stratagem, detachment } = summary.data as AbilityData;
+      const { ruleType, cp, stratagem, detachment, parts } = summary.data as AbilityData;
       if (STRATAGEMS.has(ruleType)) {
         if (cp === undefined) errors.push(`${at} is a Stratagem with no CP cost`);
-      } else if (cp !== undefined || stratagem) errors.push(`${at} is not a Stratagem but has a CP cost or Stratagem timing`);
+      } else if (cp !== undefined || stratagem || parts) errors.push(`${at} is not a Stratagem but has a CP cost, Stratagem timing or Stratagem parts`);
+      if (parts && STRATAGEMS.has(ruleType)) {
+        for (const [part, text] of Object.entries(parts)) {
+          const parsed = parseSummary(text);
+          if (!parsed.ok) errors.push(`${at} parts/${part} ${parsed.error}`);
+          else if (!("paragraph" in parsed.blocks[0]!)) errors.push(`${at} parts/${part} does not open with a paragraph`);
+        }
+        if (summary.data.summary !== stratagemSummary(parts)) errors.push(`${at} summary is not its Stratagem parts joined`);
+      }
       const { phases = [], turn, windows } = stratagem ?? {};
       if (windows && (windows.map((w) => w.phase).join() !== phases.join() || turn !== "any" || new Set(windows.map((w) => w.turn)).size < 2))
         errors.push(`${at} Stratagem windows must give each of its phases, in order, turns that differ, with turn any`);

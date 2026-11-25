@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.anvil-siege-force.fleet-commander",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Anvil Siege Force",
+    "summary": "Once per battle, the bearer can call down a strike along a line between markers. Only a **CAPTAIN** model may take it.\n\n1. As one of your Shooting phases begins, you may mark any point on the battlefield.\n2. As your next Shooting phase begins, add a second marker up to 12\" from the first marker's centre, then join their centres with a straight line.\n3. Each unit the line goes over or through takes D3 **[mortal wounds](vsdata:core-rule/mortal-wounds)** if a D6 rolled for it shows 3+.\n4. Take both markers away.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Anvil Siege Force",
+          "effects": [
+            {
+              "usage": {
+                "perBattle": 1,
+                "optional": true
+              },
+              "steps": [
+                {
+                  "when": {
+                    "turn": "own",
+                    "phase": "shooting",
+                    "timing": "start-of-phase"
+                  },
+                  "action": "place a marker on any point of the battlefield"
+                },
+                {
+                  "when": {
+                    "turn": "own",
+                    "phase": "shooting",
+                    "timing": "start-of-phase",
+                    "which": "the next one"
+                  },
+                  "action": "place a second marker",
+                  "withinInches": 12,
+                  "of": "the centre of the first marker",
+                  "then": "draw a straight line between the two markers' centres"
+                },
+                {
+                  "roll": {
+                    "dice": "D6",
+                    "per": "each unit the line passes over or through",
+                    "success": "3+",
+                    "onSuccess": {
+                      "mortalWounds": "D3"
+                    }
+                  }
+                },
+                {
+                  "action": "remove both markers"
+                }
+              ]
+            }
+          ],
+          "lastPrinted": {
+            "dataBuild": 946,
+            "note": "Build 963, in force at this version's cutoff, no longer prints the Anvil Siege Force Detachment; this rule is as build 946, the last to print it, gives it."
+          }
+        }
+      }
+    }
+  }
+}

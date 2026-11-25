@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.vanguard-spearhead.execute-and-redeploy",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Vanguard Spearhead",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.vanguard-spearhead"
+    },
+    "summary": "After shooting in your Shooting phase, the bearer's unit may make a **Normal move** of 6\" at most, provided no enemy unit is within **Engagement Range** of it. Only a **PHOBOS** model may take it.\n\nA unit that makes this move cannot declare a charge for the rest of the turn, and this can never give the unit a second move in the same Shooting phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "basis": "app-eligibility-rows",
+            "anyOf": [
+              {
+                "keywords": [
+                  "PHOBOS"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Vanguard Spearhead",
+          "effects": [
+            {
+              "when": {
+                "turn": "own",
+                "phase": "shooting"
+              },
+              "trigger": "after the bearer's unit has shot",
+              "optional": true,
+              "condition": "no enemy unit is in Engagement Range of the bearer's unit",
+              "move": {
+                "type": "normal",
+                "upToInches": 6
+              },
+              "then": {
+                "notEligibleToDeclareCharge": true,
+                "duration": "end-of-turn"
+              },
+              "limit": "the unit cannot move more than once in your Shooting phase through this"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

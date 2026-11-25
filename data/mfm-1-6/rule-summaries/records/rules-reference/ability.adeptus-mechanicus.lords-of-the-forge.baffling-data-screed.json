@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.lords-of-the-forge.baffling-data-screed",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Lords of the Forge",
+    "summary": "Each time you select this unit to shoot in your Shooting phase, if it is not **battle-shocked** at that moment, you may roll a D6. On a 2+, pick one result:\n\n- an enemy **VEHICLE** unit no more than 12\" away from this unit takes a **battle-shock roll** at -1, and each unit can be picked for this at most once a turn\n- the ranged attacks this unit makes as it shoots do not stop it from being **hidden**",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.0",
+        "dataBuild": 981,
+        "releaseDate": "2026-10-14"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "detachment-rule-part",
+          "detachment": "Lords of the Forge",
+          "partOf": "War-form Mantles",
+          "when": {
+            "turn": "own",
+            "phase": "shooting",
+            "trigger": "this-unit-selected-to-shoot"
+          },
+          "condition": {
+            "notBattleShocked": true
+          },
+          "optional": true,
+          "roll": {
+            "dice": "D6",
+            "count": 1,
+            "successOn": 2
+          },
+          "chooseOne": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsAll": [
+                  "VEHICLE"
+                ],
+                "withinInches": 12
+              },
+              "effect": {
+                "battleShockRoll": true,
+                "rollModifier": -1,
+                "subtract": 1
+              },
+              "limit": "each unit once per turn"
+            },
+            {
+              "effect": {
+                "rangedAttacksDoNotPreventHidden": true
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

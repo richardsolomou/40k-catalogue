@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.unforgiven-task-force.shroud-of-heroes",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Unforgiven Task Force",
+    "detachment": {
+      "kind": "detachment",
+      "id": "dark-angels.unforgiven-task-force"
+    },
+    "summary": "The bearer can return to the battle, but only once per battle across your army. Only an **ADEPTUS ASTARTES** model may take it.\n\nWhen the bearer is **destroyed**, roll a D6 as that phase ends. On a 2+, set it up again, **unengaged**, as near as it can be to the spot where it fell:\n\n- it stays outside any **attached unit**\n- its unit's **starting strength** is 1\n- it comes back with 3 wounds, or at full wounds if it was **battle-shocked** when destroyed",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "basis": "app-eligibility-rows",
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Unforgiven Task Force",
+          "effects": [
+            {
+              "usage": {
+                "perBattle": 1,
+                "perArmy": true
+              },
+              "trigger": "the bearer is destroyed",
+              "when": {
+                "timing": "end-of-phase"
+              },
+              "roll": {
+                "dice": "D6",
+                "success": "2+",
+                "onSuccess": {
+                  "setUp": "unengaged, as close as possible to where it was destroyed",
+                  "attached": false,
+                  "unitStartingStrength": 1,
+                  "woundsRemaining": 3,
+                  "ifBattleShockedWhenDestroyed": {
+                    "woundsRemaining": "full"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

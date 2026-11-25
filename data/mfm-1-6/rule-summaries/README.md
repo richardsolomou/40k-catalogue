@@ -6,10 +6,10 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,888 | 6,888 | 0 |
-| `mission-rules` | 291 | 267 | 24 |
+| `rules-reference` | 6,899 | 6,899 | 0 |
+| `mission-rules` | 291 | 291 | 0 |
 
-6,435 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 583 records that no app row carries cite only the dated Games Workshop page that prints it. 137 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 1,688 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,469 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 583 records that no app row carries cite only the dated Games Workshop page that prints it. 138 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 1,688 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2520, `grants` 329, `weaponAbilities` 107, `reminder` 2142, `reserves` 1, `invulnerableSave` 105, `upgradesWeapon` 23, `roster` 69, `attachment` 48, `references` 1056 (4,117 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
@@ -34,6 +34,12 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 - `faq` `codex-tyranids.errata.the-swarmlord-abilities-malign-presence`, replaced by Tyranids Faction Pack: Version 1.3, page 20
 - `faq` `imperial-armour-grey-knights.errata.grey-knights-thunderhawk-gunship`, replaced by Grey Knights Faction Pack: Version 1.2, page 7; Grey Knights Faction Pack: Version 1.2, page 8
 - `faq` `index-chaos-daemons.errata.feculent-gnarlmaw-screamers-skull-altar-keywords`, replaced by Chaos Daemons Faction Pack: Version 1.2, page 61; Chaos Daemons Faction Pack: Version 1.2, page 87; Chaos Daemons Faction Pack: Version 1.2, page 37
+
+## Absent
+
+1 BSData ability that this version's official sources do not print on the datasheet BSData gives them to is an entry with `absent: true`, no record and, where no other entry holds it, the BSData ID as an alias.
+
+- `ability` `imperial-agents.eversor-assassin.intra-neural-biotech`
 
 ## Unresolved
 
@@ -100,33 +106,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `unit` `world-eaters.bloodcult-champion`
 - `unit` `world-eaters.butcherlord`
 - `unit` `world-eaters.eight-blessed-lord`
-
-### A Combat Patrol mission card, whose summary is not drafted yet (24)
-
-- `mission-card` `combat-patrol.architects-of-agony`
-- `mission-card` `combat-patrol.cult-ritual`
-- `mission-card` `combat-patrol.defenders-of-the-golden-throne-2`
-- `mission-card` `combat-patrol.defenders-of-the-golden-throne`
-- `mission-card` `combat-patrol.duff-em-up`
-- `mission-card` `combat-patrol.encircle-and-destroy`
-- `mission-card` `combat-patrol.expansionary-campaign`
-- `mission-card` `combat-patrol.for-cadia`
-- `mission-card` `combat-patrol.for-the-kindred`
-- `mission-card` `combat-patrol.grandiose-slaughter`
-- `mission-card` `combat-patrol.honour-the-chapter`
-- `mission-card` `combat-patrol.indescriminate-butchery`
-- `mission-card` `combat-patrol.inexorable-conquest`
-- `mission-card` `combat-patrol.inquisitorial-sanction`
-- `mission-card` `combat-patrol.on-holy-ground`
-- `mission-card` `combat-patrol.open-the-way`
-- `mission-card` `combat-patrol.outflank-and-encircle`
-- `mission-card` `combat-patrol.prepare-the-way`
-- `mission-card` `combat-patrol.purification`
-- `mission-card` `combat-patrol.seize-their-strongholds`
-- `mission-card` `combat-patrol.shatter-the-veil`
-- `mission-card` `combat-patrol.slay-the-oppressors`
-- `mission-card` `combat-patrol.strike-from-on-high`
-- `mission-card` `combat-patrol.uphold-your-vows`
 
 ### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (19)
 

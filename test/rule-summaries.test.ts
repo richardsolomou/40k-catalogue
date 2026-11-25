@@ -134,6 +134,53 @@ test("a clarification's parent has no parent of its own", () => {
   );
 });
 
+test("a core rule's order is unique in its document", () => {
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "core-rule", CLARIFICATION).order = 1)),
+    [`core-rule:${CLARIFICATION} order 1 is core-rule:synthetic.shooting-phase's in Synthetic Core Rules`],
+  );
+});
+
+test("a core rule's anchor is unique in its document", () => {
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "core-rule", CLARIFICATION).anchor = "3.01")),
+    [`core-rule:${CLARIFICATION} anchor 3.01 is core-rule:synthetic.shooting-phase's in Synthetic Core Rules`],
+  );
+});
+
+test("rules of different documents may share an order and an anchor", () => {
+  assert.deepEqual(
+    errors((_, recs) => Object.assign(data(recs, "core-rule", CLARIFICATION), { document: "Synthetic Event Guide", order: 1, anchor: "3.01" })),
+    [],
+  );
+});
+
+const FLARE_UP = "synthetic.flare-up";
+
+test("a core rule's printed Stratagem is a reference of its identity entry", () => {
+  assert.deepEqual(
+    errors((id) => delete id.entries.find((e) => e.id === FLARE_UP)!.references),
+    [`core-rule:${FLARE_UP} prints ability:synthetic.core.flare-up but its identity entry does not reference it`],
+  );
+});
+
+test("a core rule's printed Stratagem is a core Stratagem", () => {
+  assert.deepEqual(
+    errors((id, recs) => {
+      data(recs, "core-rule", FLARE_UP).stratagem = { kind: "ability", id: VOLLEY };
+      id.entries.find((e) => e.id === FLARE_UP)!.references!.push({ kind: "ability", id: VOLLEY });
+    }),
+    [`core-rule:${FLARE_UP} prints ability:${VOLLEY}, which is not a core Stratagem`],
+  );
+});
+
+test("a core rule's printed Stratagem is current", () => {
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "core-rule", FLARE_UP).stratagem = { kind: "ability", id: "synthetic.core.missing" })),
+    [`core-rule:${FLARE_UP} prints ability:synthetic.core.missing, which is not current in the identity release`],
+  );
+});
+
 test("a Stratagem needs its CP cost", () => {
   assert.deepEqual(
     errors((_, recs) => delete data(recs, "ability", VOLLEY).cp),

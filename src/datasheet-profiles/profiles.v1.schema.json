@@ -111,7 +111,33 @@
         "unit": { "$ref": "#/$defs/id" },
         "leads": { "$ref": "#/$defs/ids" },
         "supports": { "$ref": "#/$defs/ids" },
+        "conditional": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/conditional-attachment" } },
         "gaps": { "$ref": "#/$defs/gaps" }
+      }
+    },
+    "keyword": { "type": "string", "pattern": "^[^\\s\\p{Ll}](?:[^\\p{Ll}]*[^\\s\\p{Ll}])?$", "description": "A keyword as printed in capitals." },
+    "conditional-attachment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role"],
+      "anyOf": [{ "required": ["units"] }, { "required": ["keywords"] }],
+      "properties": {
+        "role": { "enum": ["leads", "supports"] },
+        "units": { "$ref": "#/$defs/ids" },
+        "keywords": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/keyword" } },
+        "when": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "faction": { "$ref": "#/$defs/id" },
+            "detachment": { "$ref": "#/$defs/id" },
+            "withoutDetachment": { "$ref": "#/$defs/id" },
+            "withUnit": { "$ref": "#/$defs/id" },
+            "withoutUnit": { "$ref": "#/$defs/id" }
+          }
+        },
+        "shared": { "$ref": "#/$defs/keyword" }
       }
     },
     "selectors": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/text" } },

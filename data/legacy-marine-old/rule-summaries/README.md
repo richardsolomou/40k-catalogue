@@ -11,7 +11,7 @@ Every summary is original wording, checked against the official sources it cites
 
 6,026 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02; 605 records that no app row carries cite only the dated Games Workshop page that prints it. 136 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 922 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 835 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2110, `grants` 293, `weaponAbilities` 86, `reminder` 1906, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 61, `options` 0, `attachment` 39, `references` 716 (3,488 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 835 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it, or a Warhammer Legends ability's PDF page: `combat` 2406, `grants` 326, `weaponAbilities` 112, `reminder` 2023, `reserves` 1, `invulnerableSave` 95, `upgradesWeapon` 19, `roster` 25, `options` 13, `attachment` 43, `references` 718 (3,878 records with at least one). 383 Crucible and Warhammer Legends abilities that no app row prints and no Legends page is read for take their blocks from BSData's community catalogue ([richardsolomou/wh40k-11e](https://github.com/richardsolomou/wh40k-11e)) for the same ability, which the record's BSData alias names. A record whose rule none of these prints has none; treat what its summary describes as not calculated.
 
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,108 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 862 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it, and names the 261 cards it prints that this version publishes no record for in `stratagemsUnlisted` and `enhancementsUnlisted`. 357 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 347 of them from the Munitorum Field Manual's Legends section. 337 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (36 of them with options left out, listed below), and their weapon profiles name that wargear.
 
@@ -433,6 +433,11 @@ A source prints sizes for models or wargear the unit's roster definition does no
 - `detachment` `space-marines.tacticus-attack-force` (Tacticus Attack Force)
 - `detachment` `space-marines.tacticus-firestorm-force` (Tacticus Firestorm Force)
 - `detachment` `space-marines.terminator-storm-force` (Terminator Storm Force)
+
+2 BSData abilities that this version's official sources do not print on the datasheet BSData gives them to are entries with `absent: true`, no record and, where no other entry holds it, the BSData ID as an alias.
+
+- `ability` `dark-angels.lazarus.keeper-of-the-unseen-ritual`
+- `ability` `space-marines.venerable-dreadnought.wisdom-of-the-ancients-aura`
 
 ## Unresolved
 
@@ -1343,9 +1348,8 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-wolves.saga-of-the-great-wolf.fangs-of-the-pack`
 - `ability` `space-wolves.saga-of-the-great-wolf.wolf-totems`
 
-### The summary or typed facts repeat a run of the official wording and await a redraft (49)
+### The summary or typed facts repeat a run of the official wording and await a redraft (43)
 
-- `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
 - `ability` `black-templars.vow-sworn-crusaders.dread-crusaders`
 - `ability` `black-templars.vow-sworn-crusaders.for-the-emperors-honour`
 - `ability` `black-templars.vow-sworn-crusaders.incendiary-animus`
@@ -1354,9 +1358,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `blood-angels.blood-angels-captain.strategic-acumen`
 - `ability` `dark-angels.wrath-of-the-rock.tempered-in-battle-aura`
 - `ability` `deathwatch.black-spear-task-force.adaptive-tactics`
-- `ability` `deathwatch.black-spear-task-force.armour-of-contempt`
 - `ability` `deathwatch.black-spear-task-force.hellfire-rounds`
-- `ability` `deathwatch.black-spear-task-force.osseus-key-aura`
 - `ability` `deathwatch.black-spear-task-force.the-tome-of-ectoclades`
 - `ability` `imperial-agents.veiled-blade-elimination-force.ensnaring-trap`
 - `ability` `imperial-agents.watch-master.strategic-acumen`
@@ -1378,13 +1380,10 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.inceptor-squad.parabolic-jetleap`
 - `ability` `space-marines.ironclad-champions.artificer-sarcophagus-upgrade`
 - `ability` `space-marines.kayvaan-shrike.echo-of-the-ravenspire`
-- `ability` `space-marines.lieutenant-in-phobos-armour.demi-company-commander-once-per-turn-per-unit`
-- `ability` `space-marines.lieutenant.demi-company-commander-once-per-turn-per-unit`
 - `ability` `space-marines.marneus-calgar.master-tactician`
 - `ability` `space-marines.phobos-shadow-force.execute-and-redeploy`
 - `ability` `space-marines.phobos-shock-force.vanguard-ambushers`
 - `ability` `space-marines.roboute-guilliman.author-of-the-codex`
-- `ability` `space-marines.roboute-guilliman.leader-of-astartes`
 - `ability` `space-marines.storm-speeder-thunderstrike.shattered-defences`
 - `ability` `space-marines.tacticus-firestorm-force.tempered-in-battle-aura`
 - `ability` `space-marines.vanguard-veteran-squad-with-jump-packs.vanguard-assault`
@@ -1634,3 +1633,4 @@ Options a source gives that are not stated: from the app build, structures the r
 - `unaligned-forces.aegis-defence-line-with-weapon-emplacement`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `unaligned-forces.castellum-stronghold`: option not typed: its choices did not read as wargear (Legends PDF)
 - `unaligned-forces.imperial-fortress-walls`: default equipment not typed (Legends PDF)
+- chaos-space-marines allies that take the roster's faction keyword in place of their own

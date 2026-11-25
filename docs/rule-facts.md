@@ -107,6 +107,8 @@ Keyword values are written in capitals. A **selector** is a keyword, keywords pr
 
 **`roster`**: what the rule adds to an army list's capabilities. `addsUnits` lists units it adds to the army during the battle: the `unit` by name, the `trigger` (`shooting` for a unit that makes one instead of shooting, `kill` for one made when it destroys a model) and whether one unit with the ability may use it per turn (`shared`). `movement` lists moves it allows: `advance-and-charge`, or `surge-after-enemy-shooting` for a surge move after an enemy unit's attacks destroy one of its models.
 
+**`options`**: the named options a rule has a player pick, and how many a unit can have at once. `offered` lists the kinds of option the rule offers, by their plural as printed (`Orders`, `Plagues`); the options themselves are the `option` choices of its `combat` block. `allowances` lists what the rule lets a unit have beyond the core rules' limit for a kind of option (`options`, as printed): be affected by up to `limit` different ones at once, gain `extra` more in addition to any others, or also be affected by the option named `also` whenever it is given one of that kind. `whileLeading: true` when an allowance holds only while the bearer is leading a unit.
+
 **`attachment`**: the units a Leader text lets its bearer join (`units`, by name as printed), `requiresLeader` when only a unit that already has a Leader can take it, and `substitutes`: units a Leader that can join them may join this unit instead. A datasheet's own Leader units are its [attachment profile](datasheet-profiles.md); this block holds what other rules add.
 
 **`references`**: the rules the rule's text names, as `{ kind, id }`. They are also the record's identity references.

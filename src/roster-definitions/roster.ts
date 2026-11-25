@@ -12,7 +12,7 @@ export type RosterUnit = {
   warlord?: string;
   allegiance?: string;
 };
-/** A roster names its one detachment as `detachment`, or one to three as `detachments`. */
+/** A roster names one to three detachments, as `detachment`, `detachments`, or both, which it holds together. */
 export type Roster = { faction: string; detachment?: string; detachments?: string[]; battleSize?: string; units: RosterUnit[] };
 export type CheckOptions = { points?: PointsSnapshot };
 
@@ -51,6 +51,8 @@ export type ProblemCode =
   | "detachment-group"
   | "roster-points"
   | "detachment-points"
+  | "detachment-count"
+  | "detachment-repeated"
   | "allegiance-missing"
   | "allegiance-choice"
   | "allegiance-requires"
@@ -58,9 +60,10 @@ export type ProblemCode =
 /** `unit` is the position in the roster, absent for the roster as a whole. */
 export type Problem = { code: ProblemCode; unit?: number; message: string };
 
-/** The roster's detachments: its `detachments`, or its `detachment` alone. */
+/** The roster's detachments: its `detachment` with its `detachments`, keeping any `detachments` repeats for the checker. */
 export function rosterDetachments(roster: Roster): string[] {
-  return roster.detachments ?? (roster.detachment === undefined ? [] : [roster.detachment]);
+  const listed = roster.detachments ?? [];
+  return roster.detachment === undefined || listed.includes(roster.detachment) ? listed : [roster.detachment, ...listed];
 }
 
 /** Every catalogue reference a roster holds, for `checkUpgrade` before reading it under another release. */
@@ -136,7 +139,9 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
   const faction = current("faction", roster.faction) ? definitions.get("faction", roster.faction)!.data : undefined;
   const own = new Set([roster.faction, ...(faction?.parent ? [faction.parent] : [])]);
   const detachmentIds = rosterDetachments(roster);
-  const detachments = detachmentIds.filter((id) => current("detachment", id)).map((id) => definitions.get("detachment", id)!);
+  if (detachmentIds.length === 0 || detachmentIds.length > 3) rosterProblem("detachment-count", `a roster has one to three detachments, has ${detachmentIds.length}`);
+  for (const [i, id] of detachmentIds.entries()) if (detachmentIds.indexOf(id) < i) rosterProblem("detachment-repeated", `detachment:${id} is listed more than once`);
+  const detachments = [...new Set(detachmentIds)].filter((id) => current("detachment", id)).map((id) => definitions.get("detachment", id)!);
   const groups = new Map<string, string>();
   for (const detachment of detachments) {
     if (faction && !own.has(detachment.data.faction)) rosterProblem("detachment-faction", `detachment:${detachment.id} is not a ${roster.faction} detachment`);
@@ -161,7 +166,6 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
   const copies = new Map<string, number>();
   const enhancements = new Set<string>();
   let enhancementCount = 0;
-  let enhancementPoints = 0;
   const unitLimits = (faction?.unitLimits ?? []).map((limit) => {
     const row = limit.detachments?.find((d) => detachmentIds.includes(d.detachment)) ?? limit;
     return { keywords: limit.keywords, min: row.min, max: row.max, count: 0 };
@@ -297,11 +301,12 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       if (enhancements.has(enhancement.id) && !enhancement.data.upgrade) add("enhancement-repeated", `${enhancement.name} is already taken`);
       enhancements.add(enhancement.id);
       if (!enhancement.data.upgrade && ++enhancementCount === (size?.enhancements ?? Infinity) + 1) add("enhancement-limit", `a roster takes at most ${size!.enhancements} enhancements`);
-      const detachmentFaction = definitions.get("detachment", enhancement.data.detachment)?.data.faction ?? "";
-      enhancementPoints += price({ kind: "enhancement", faction: detachmentFaction, detachment: enhancement.data.detachment, enhancement: enhancement.id });
     }
 
+    const enhancement = picked.enhancement ? definitions.get("enhancement", picked.enhancement) : undefined;
+    const enhancementFaction = enhancement ? (definitions.get("detachment", enhancement.data.detachment)?.data.faction ?? "") : "";
     costs[i] =
+      (enhancement ? price({ kind: "enhancement", faction: enhancementFaction, detachment: enhancement.data.detachment, enhancement: enhancement.id }) : 0) +
       price({ kind: "unit", faction: unit.data.faction, unit: unit.id, models: total, copy: copies.get(unit.id)! }) +
       Object.values(picked.options ?? {})
         .flatMap((chosen) => Object.entries(chosen))
@@ -328,9 +333,9 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       if (counted > limit.max) rosterProblem("ally-limit", `a roster holds at most ${limit.max} allied ${limit.keywords.join(" ")} units, has ${counted}`);
     }
     if (ally.oneLimit) {
-      const sets = (ally.limits ?? []).map((l) => l.keywords);
+      const sets = (ally.limits ?? []).filter((l) => l.battleSize === battleSize).map((l) => l.keywords);
       const under = units.filter((i) => sets.some((set) => holdsAll(keywordsAt[i]!, set)));
-      if (!sets.some((set) => under.every((i) => holdsAll(keywordsAt[i]!, set)))) rosterProblem("ally-limit", "allied units fall under one of their limits only");
+      if (sets.length > 0 && !sets.some((set) => under.every((i) => holdsAll(keywordsAt[i]!, set)))) rosterProblem("ally-limit", "allied units fall under one of their limits only");
     }
   });
   for (const detachment of detachments) {
@@ -348,7 +353,7 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
     }
   }
   if (options.points && size) {
-    const total = costs.reduce((sum, n) => sum + n, 0) + enhancementPoints;
+    const total = costs.reduce((sum, n) => sum + n, 0);
     if (total > size.points) rosterProblem("roster-points", `a roster costs at most ${size.points} points, costs ${total}`);
     const dp = detachments.reduce((sum, d) => sum + price({ kind: "detachment", faction: d.data.faction, detachment: d.id }), 0);
     if (size.detachmentPoints !== undefined && dp > size.detachmentPoints) rosterProblem("detachment-points", `detachments cost at most ${size.detachmentPoints} detachment points, cost ${dp}`);

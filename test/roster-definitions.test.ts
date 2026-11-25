@@ -588,6 +588,10 @@ const construction: Record<string, [Roster, string[]]> = {
   "more allied units with a keyword than their limit": [incursion([{ unit: WRAITHS }, { unit: ORACLE }]), ["- ally-limit"]],
   "an allied unit its limit frees": [incursion([{ unit: WARDENS }, { unit: WRAITHS }, { unit: ORACLE }]), []],
   "allied units under two limits of an entry with one": [incursion([{ unit: WRAITHS }, { unit: BEAST }]), ["- ally-limit"]],
+  "no detachment": [incursion([{ unit: LORD }], []), ["- detachment-count"]],
+  "four detachments": [{ ...incursion([{ unit: DRONES }, { unit: SEER, warlord: `${SEER}.seer` }], [ASH_PACT, RITE, SWORN]), detachment: KINDLED }, ["- detachment-count", "- detachment-group"]],
+  "one detachment twice": [incursion([{ unit: LORD }], [KINDLED, KINDLED]), ["- detachment-repeated"]],
+  "a detachment besides its listed ones": [{ ...incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT]), detachment: KINDLED }, []],
   "an enhancement on an allied unit": [incursion([{ unit: ORACLE, enhancement: SIGIL }]), ["0 ally-enhancement"]],
 };
 
@@ -620,6 +624,21 @@ test("detachments over their battle size's detachment points report detachment-p
   assert.deepEqual(priced(incursion([{ unit: DRONES }, { unit: SEER, warlord: `${SEER}.seer` }], [KINDLED, ASH_PACT, RITE])), ["- detachment-points"]);
 });
 
+test("an allied unit's enhancement counts towards its entry's points", () => {
+  assert.deepEqual(priced(incursion([{ unit: DRONES }, { ...IMP, enhancement: BRAND }], [ASH_PACT, KINDLED])), ["- ally-points"]);
+});
+
+test("a unit limit may name a detachment of the faction's parent", () => {
+  const { identity, records } = input("1.2");
+  (find(records, "faction", EH).data as any).unitLimits[0].detachments.push({ detachment: RITE, max: 2 });
+  identity.entries.find((e) => e.id === EH)!.references!.push({ kind: "detachment", id: RITE });
+  assert.ok(validateDefinitions(identity, records).ok);
+});
+
+test("allied units in a roster without a battle size fall under no limit", () => {
+  assert.deepEqual(codes(v12, { faction: EH, detachment: KINDLED, units: [{ unit: WRAITHS }, { unit: BEAST }] }), []);
+});
+
 test("allied units over their entry's points report ally-points", () => {
   assert.deepEqual(priced(incursion([{ unit: DRONES }, IMP, IMP], [ASH_PACT])), ["- ally-points"]);
 });
@@ -641,7 +660,17 @@ const invalidConstruction: Record<string, [(records: CatalogueRecord[], identity
     },
     `faction:${EH} names unit:${WRAITHS} but its identity entry does not reference it`,
   ],
-  "an ally limit for a battle size with no record": [(r) => (ally(r).points[0].battleSize = "synthetic.onslaught"), `faction:${EH} names battle-size:synthetic.onslaught, which has no record`],
+  "an ally limit for a battle size with no record": [(r) => (ally(r).limits[0].battleSize = "synthetic.onslaught"), `faction:${EH} names battle-size:synthetic.onslaught, which has no record`],
+  "an ally points cap for a battle size with no record": [(r) => (ally(r).points[0].battleSize = "synthetic.onslaught"), `faction:${EH} names battle-size:synthetic.onslaught, which has no record`],
+  "an ally entry requiring another faction's detachment": [
+    (r, identity) => {
+      (find(r, "detachment", SWORN).data as any).faction = "synthetic.smoke-kin";
+      identity.entries.find((e) => e.id === SWORN)!.references!.push({ kind: "faction", id: "synthetic.smoke-kin" });
+      (find(r, "faction", EH).data as any).allies[0].detachments = [SWORN];
+      identity.entries.find((e) => e.id === EH)!.references!.push({ kind: "detachment", id: SWORN });
+    },
+    `faction:${EH} allies/0 names detachment:${SWORN}, which belongs to another faction`,
+  ],
   "one limit without limits": [(r) => delete ally(r).limits, `faction:${EH} data/allies/1 must have property limits when property oneLimit is present`],
   "a granted warlord that is not a model": [
     (r) => ((find(r, "detachment", SWORN).data as any).warlords = [LORD]),

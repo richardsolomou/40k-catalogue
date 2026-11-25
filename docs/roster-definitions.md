@@ -65,9 +65,9 @@ A faction's `allies` entries let its roster hold units beyond its own and its pa
 | Field | Meaning |
 | --- | --- |
 | `detachments` | The roster holds the units only while one of its detachments is one of these. |
-| `points` | `[{ battleSize, max }]`: the units together cost at most `max` points at that battle size. |
+| `points` | `[{ battleSize, max }]`: the units together cost at most `max` points at that battle size, counting their wargear and enhancements. |
 | `limits` | `[{ keywords, battleSize, max, free }]`: at most `max` of the units holding every keyword. Each optional `free` row `{ keywords, per }` stops a unit holding its `keywords` from counting, one for each unit in the roster holding every `per` keyword. |
-| `oneLimit` | `true`: the roster takes units under one of the entry's `limits` keyword sets only. |
+| `oneLimit` | `true`: the roster takes units under one of the keyword sets of the entry's `limits` for its battle size only. A roster without a battle size has no such limits. |
 | `enhancements` | `true`: the units may take the roster's enhancements. Otherwise they may not. |
 
 A unit belongs to the first entry that offers it and whose `detachments`, if any, include one of the roster's. That entry's `points`, `limits` and `enhancements` then apply to it, and count only the units that belong to it. An entry may offer the faction's own or its parent's units, as when some of a faction's units are only allowed with one detachment and under a points cap; those units then follow the entry. A unit that no entry offers is legal when it belongs to the roster's faction or its parent and neither the faction nor one of the roster's detachments excludes it.
@@ -95,7 +95,7 @@ A unit's `allegiances` entries offer it a choice of one of `choices`, which are 
 - An option group scaled per carrier names a carrier of its unit, and only such a group names one.
 - Every composition names only its unit's models, and every unit size fits at least one composition.
 - A unit sets at most one limit per battle size and condition, and no limit after one without a condition for the same battle size, which would never apply. Each list of `bySize` bounds has at most one row per size and uses the unit's declared sizes.
-- A faction's unit limits name only its own detachments, each once, and no `min` above its `max`.
+- A faction's unit limits name only its own or its parent's detachments, each once, and no `min` above its `max`. Its ally entries' `detachments` are its own or its parent's.
 - A detachment's allegiance limits have no `min` above their `max`.
 - A faction's `parent` is another faction with no parent of its own.
 - A unit's allegiance `requires` names only choices of its own entry and wargear the unit's models, the unit itself or its options carry, and no `when` in its `limits` names an allegiance.
@@ -112,7 +112,7 @@ Each earlier 11th-edition input of a current release line (`data/<version>/rule-
 
 ## Saved rosters
 
-A saved roster names a `faction`, its `detachment` or one to three `detachments`, an optional `battleSize`, and its `units`. Each unit gives its `unit` ID, its model counts by model ID, its taken wargear as `{ <option ID>: { <wargear ID>: count } }`, an optional `enhancement` and `allegiance`, and, for the warlord's unit, the warlord's model ID as `warlord`. An omitted model count uses its base `min`. The checker then applies the bounds for the sum of those counts. Wargear a unit keeps by default is not listed.
+A saved roster names a `faction`, one to three detachments as `detachment`, `detachments`, or both, which it then holds together, an optional `battleSize`, and its `units`. Each unit gives its `unit` ID, its model counts by model ID, its taken wargear as `{ <option ID>: { <wargear ID>: count } }`, an optional `enhancement` and `allegiance`, and, for the warlord's unit, the warlord's model ID as `warlord`. An omitted model count uses its base `min`. The checker then applies the bounds for the sum of those counts. Wargear a unit keeps by default is not listed.
 
 `checkRoster(definitions, roster, { points })` checks the constraints this format supports. The optional [points snapshot](points.md) prices the roster for the points checks; an item it does not price costs nothing, and `pointsGaps` below lists those. It reports problems in roster order, each with a `code`, the unit's position, and a message:
 
@@ -121,6 +121,7 @@ A saved roster names a `faction`, its `detachment` or one to three `detachments`
 | `not-current` | An ID that is aliased, retired or missing in this release. |
 | `missing-definition` | A current ID with no definition in the supplied records. |
 | `detachment-faction`, `unit-faction` | A detachment or unit from a faction other than the roster's or its parent, and not offered by an ally entry. |
+| `detachment-count`, `detachment-repeated` | No detachment or more than three, or one listed twice. |
 | `detachment-group` | Two detachments sharing a `group`. |
 | `unit-excluded` | A unit the faction or one of the roster's detachments excludes. |
 | `unit-model`, `model-count`, `unit-size` | A model, or a warlord, from another unit, a model count outside its bounds, or a total outside `sizes`. |

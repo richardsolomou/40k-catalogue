@@ -326,6 +326,11 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
   };
 
   for (const faction of all("faction")) {
+    const ownDetachment = (at: string, id: string) => {
+      const detachment = get("detachment", id);
+      if (detachment && detachment.data.faction !== faction.id && detachment.data.faction !== faction.data.parent) errors.push(`${at} names detachment:${id}, which belongs to another faction`);
+    };
+    for (const [i, ally] of (faction.data.allies ?? []).entries()) for (const id of ally.detachments ?? []) ownDetachment(`faction:${faction.id} allies/${i}`, id);
     for (const [i, limit] of (faction.data.unitLimits ?? []).entries()) {
       const path = `faction:${faction.id} unitLimits/${i}`;
       checkRosterBounds(path, limit);
@@ -334,8 +339,7 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
         checkRosterBounds(`${path} detachment:${row.detachment}`, row);
         if (seen.has(row.detachment)) errors.push(`${path} names detachment:${row.detachment} more than once`);
         seen.add(row.detachment);
-        const detachment = get("detachment", row.detachment);
-        if (detachment && detachment.data.faction !== faction.id) errors.push(`${path} names detachment:${row.detachment}, which belongs to another faction`);
+        ownDetachment(path, row.detachment);
       }
     }
   }

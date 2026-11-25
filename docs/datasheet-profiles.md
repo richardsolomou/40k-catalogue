@@ -51,7 +51,7 @@ A profile's `baseSize` is one base, or one of these forms built from bases:
 | `{ "size": base, "withWargear": [{ "wargear": [ID, ...], "size": base }] }` | Models carrying any of an entry's wargear stand on its `size`; other models on the first `size`. Each base here may also be alternatives. | Rangers on 25mm, a Rangers model with an arquebus on a 60 × 35.5mm oval |
 | `{ "byModel": [{ "models": [ID, ...], "size": ... }] }` | Each entry's models stand on its `size`, which may be any form above. The entries name every model the profile describes exactly once. | A leader on 32mm and the rest on 28.5mm |
 
-`baseSizeSource` names where the base size is printed, in a record's `source` shape, when that is not the record's own `source`, as when a profile read from the app takes its base from a base size guide.
+`baseSizeSource` names where the base size is printed, in a record's `source` shape, when that is not the record's own `source`, as when a profile read from the app takes its base from a base size guide. Where no official source prints a datasheet's base size, its profiles carry VS Data's own, with no `baseSizeSource`, and the input's README lists the datasheet.
 
 ## Transport capacity
 
@@ -65,7 +65,7 @@ Use a `capacity` gap when the complete transport capacity cannot be represented 
 
 ## Gaps
 
-A gap is `{ "field", "reason" }`. `unrepresentable` means the source prints a value this format has no form for, such as an invulnerable save that differs by model, and the field is left out. `no-source` means no official source in reach prints the value, as with a base size for a datasheet no base size guide lists. `no-target` means the source names something no catalogue ID identifies: a weapon whose wargear the unit neither carries nor offers, a unit profile that matches none of the unit's models, or an attachment target with no unit. An attachment keeps the targets that resolve and adds one `no-target` gap for each that does not. A converter records a gap instead of choosing a nearby value or target.
+A gap is `{ "field", "reason" }`. `unrepresentable` means the source prints a value this format has no form for, such as an invulnerable save that differs by model, and the field is left out. `no-source` means no official source in reach prints the value and VS Data gives none of its own. `no-target` means the source names something no catalogue ID identifies: a weapon whose wargear the unit neither carries nor offers, a unit profile that matches none of the unit's models, or an attachment target with no unit. An attachment keeps the targets that resolve and adds one `no-target` gap for each that does not. A converter records a gap instead of choosing a nearby value or target.
 
 ## Local and qualified references
 
@@ -92,7 +92,7 @@ Profiles follow the [identity rules](catalogue-identity.md). A characteristic ch
 
 ## MFM 1.6
 
-The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds a `profiles` category built from the official app's data build: a unit profile for each distinct stat line of every datasheet outside Combat Patrol, a weapon profile for each profile of every weapon a unit carries or may take, attachments, and a transport profile for each transport, with its capacity typed from the app's Transport rule and its Firing Deck. Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs; a weapon profile names its wargear wherever the sheet's loadout is typed. Base sizes are the app's; where the app prints none it types, they come from the Base Size Guide in the Event Companion in force at the cutoff, cited in `baseSizeSource`. Legends PDFs print no base size, so a Legends datasheet has one only where an earlier guide listed it while it was a matched-play unit. The input's README gives the counts and every gap.
+The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds a `profiles` category built from the official app's data build: a unit profile for each distinct stat line of every datasheet outside Combat Patrol, a weapon profile for each profile of every weapon a unit carries or may take, attachments, and a transport profile for each transport, with its capacity typed from the app's Transport rule and its Firing Deck. Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs; a weapon profile names its wargear wherever the sheet's loadout is typed. Base sizes are the app's; where the app prints none it types, they come from the Base Size Guide in the Event Companion in force at the cutoff, cited in `baseSizeSource`. Legends PDFs print no base size, so a Legends datasheet takes the newest earlier guide that listed it while it was a matched-play unit, and otherwise VS Data's own size. The input's README gives the counts and every gap.
 
 ## Earlier rules versions
 

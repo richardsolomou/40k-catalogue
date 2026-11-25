@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { test } from "node:test";
 import { checkUpgrade, historyErrors, type Release } from "../src/catalogue-identity/identity.ts";
 import { buildCatalogueRelease, type CatalogueRecord, type Manifest } from "../src/catalogue-releases/catalogue.ts";
-import { validateProfiles } from "../src/datasheet-profiles/profiles.ts";
+import { canAttach, validateProfiles, type AttachmentData, type ConditionalAttachment } from "../src/datasheet-profiles/profiles.ts";
 
 const fixtures = new URL("../fixtures/", import.meta.url);
 const json = (path: string): any => JSON.parse(readFileSync(new URL(path, fixtures), "utf8"));
@@ -235,4 +235,89 @@ test("a list of invulnerable saves names each kind of attack once", () => {
 test("each save in a list of invulnerable saves names the attacks it applies to", () => {
   const found = invulnerableSaves([{ roll: 6, against: "ranged" }, { roll: 4 }]);
   assert.ok(found.includes(`unit-profile:${PYRE_LORD} data/invulnerableSave/1 must have required property 'against'`), found.join("\n"));
+});
+
+const KINDLER = `${UNIT}.the-kindler`;
+const DRONES = `${UNIT}.ash-drones`;
+const VOW = "synthetic.kindled-vow";
+const conditionalAttachment = (entry: Omit<ConditionalAttachment, "role">): AttachmentData => ({ unit: KINDLER, conditional: [{ role: "leads", ...entry }] });
+const leadsWardens = (entry: Omit<ConditionalAttachment, "role">, ...contexts: Parameters<typeof canAttach>[3][]) =>
+  contexts.map((context) => canAttach(conditionalAttachment(entry), "leads", WARDENS, context));
+
+test("an unconditional attachment holds in any roster", () => {
+  assert.equal(canAttach(profiles("1.1").of("attachment", KINDLER)[0]!.data, "leads", WARDENS), true);
+});
+
+test("a conditional entry applies only to its own role", () => {
+  assert.equal(canAttach(conditionalAttachment({ units: [WARDENS] }), "supports", WARDENS), false);
+});
+
+test("a conditional entry may name its targets by keyword", () => {
+  const found = leadsWardens({ keywords: ["INFANTRY", "BATTLELINE"] }, { keywords: { [WARDENS]: ["Infantry", "Battleline"] } }, { keywords: { [WARDENS]: ["INFANTRY"] } });
+  assert.deepEqual(found, [true, false]);
+});
+
+test("a conditional entry may hold only for one faction", () => {
+  const found = leadsWardens({ units: [WARDENS], when: { faction: "synthetic.ember-host" } }, { faction: "synthetic.ember-host" }, { faction: "synthetic.ash-court" });
+  assert.deepEqual(found, [true, false]);
+});
+
+test("a conditional entry may need any of a roster's detachments", () => {
+  const found = leadsWardens({ units: [WARDENS], when: { detachment: VOW } }, { detachments: ["synthetic.ash-pact", VOW] }, { detachments: ["synthetic.ash-pact"] });
+  assert.deepEqual(found, [true, false]);
+});
+
+test("a conditional entry may bar a detachment", () => {
+  const found = leadsWardens({ units: [WARDENS], when: { withoutDetachment: VOW } }, {}, { detachments: [VOW] });
+  assert.deepEqual(found, [true, false]);
+});
+
+test("a conditional entry may need another unit in the roster", () => {
+  const found = leadsWardens({ units: [WARDENS], when: { withUnit: `${UNIT}.pyre-lord` } }, { units: [`${UNIT}.pyre-lord`] }, {});
+  assert.deepEqual(found, [true, false]);
+});
+
+test("a conditional entry may bar another unit from the roster", () => {
+  const found = leadsWardens({ units: [WARDENS], when: { withoutUnit: `${UNIT}.pyre-lord` } }, {}, { units: [`${UNIT}.pyre-lord`] });
+  assert.deepEqual(found, [true, false]);
+});
+
+test("a conditional entry may need a keyword both units hold", () => {
+  const found = leadsWardens(
+    { units: [WARDENS], shared: "MARK OF ASH" },
+    { keywords: { [KINDLER]: ["MARK OF ASH"], [WARDENS]: ["MARK OF ASH"] } },
+    { keywords: { [KINDLER]: ["MARK OF ASH"], [WARDENS]: ["MARK OF CINDER"] } },
+  );
+  assert.deepEqual(found, [true, false]);
+});
+
+const conditionalErrors = (conditional: object, ...references: { kind: string; id: string }[]) =>
+  errors((id, recs) => {
+    record(recs, "attachment", KINDLER).data.conditional = [{ role: "leads", ...conditional }];
+    entry(id, "attachment", KINDLER).references!.push(...references);
+  });
+
+test("a conditional entry names its targets", () => {
+  const found = conditionalErrors({ when: { detachment: VOW } });
+  assert.ok(found.includes(`attachment:${KINDLER} data/conditional/0 must have required property 'units'`), found.join("\n"));
+});
+
+test("a conditional entry's keywords are printed in capitals", () => {
+  const found = conditionalErrors({ keywords: ["Infantry"] });
+  assert.ok(found.some((e) => e.startsWith(`attachment:${KINDLER} data/conditional/0/keywords/0 must match pattern`)), found.join("\n"));
+});
+
+test("a conditional entry's condition names an ID its identity entry references", () => {
+  const found = conditionalErrors({ units: [DRONES], when: { withoutUnit: `${UNIT}.pyre-lord` } });
+  assert.deepEqual(found, [`attachment:${KINDLER} names unit:${UNIT}.pyre-lord but its identity entry does not reference it`]);
+});
+
+test("a conditional entry's detachment must be a detachment", () => {
+  const found = conditionalErrors({ units: [DRONES], when: { detachment: "synthetic.ember-host" } }, { kind: "faction", id: "synthetic.ember-host" });
+  assert.deepEqual(found, [`attachment:${KINDLER} names detachment:synthetic.ember-host, which is not current in the identity release`]);
+});
+
+test("a conditional entry cannot attach a unit to itself", () => {
+  const found = conditionalErrors({ units: [KINDLER] });
+  assert.deepEqual(found, [`attachment:${KINDLER} attaches unit:${KINDLER} to itself`]);
 });

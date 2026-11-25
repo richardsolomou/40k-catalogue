@@ -10,7 +10,7 @@ The [example profiles](../fixtures/datasheet-profiles/README.md) show how these 
 | --- | --- | --- |
 | `unit-profile` | `unit`, optional `models`, the unit characteristics, optional `gaps` | One stat line. With neither `models` nor a model gap, it describes every model of the unit. |
 | `weapon-profile` | `unit`, `wargear`, the weapon characteristics, optional `keywords` and `gaps` | One stat line of a weapon as this unit's datasheet prints it. A weapon with several modes has one profile per mode, all naming the same `wargear`. |
-| `attachment` | `unit`, optional `leads`, `supports` and `gaps` | The units this unit may join as a Leader (`leads`) or as a support attachment (`supports`). |
+| `attachment` | `unit`, optional `leads`, `supports`, `conditional` and `gaps` | The units this unit may join as a Leader (`leads`) or as a support attachment (`supports`) in any roster, and those it may join only in some rosters (`conditional`). |
 | `transport-profile` | `unit`, `capacity` or a capacity gap, optional `firingDeck` | The transport's alternative loads, passenger allowances, exceptions and equipment-dependent capacities, and its Firing Deck. |
 
 A stat line's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two datasheets can print different stat lines for wargear with the same ID. An attachment or transport profile uses its unit's ID.
@@ -32,6 +32,12 @@ A stat line's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two
 | `keywords` | Weapon keywords as printed, one per item, including any parameter such as `Rapid Fire 1`. |
 
 Unit profiles must state `movement`, `toughness`, `save`, `wounds`, `leadership` and `objectiveControl`, and weapon profiles `wargear`, `range`, `attacks`, `skill`, `strength`, `armourPenetration` and `damage`, unless a gap names the field.
+
+## Conditional attachments
+
+Each `conditional` entry gives a `role`, `leads` or `supports`, and names its targets: the units in `units` and any unit holding every keyword in `keywords`. An entry has `units`, `keywords` or both. It applies where the roster meets its optional `when` and both units hold its optional `shared` keyword. A `when` holds for a roster of its `faction` that includes its `detachment` and its `withUnit`, and includes neither its `withoutDetachment` nor its `withoutUnit`. Each field it omits holds for any roster. Keywords are written in capitals, as printed.
+
+`canAttach(attachment, role, target, context)` answers whether the attachment's unit may join `target` in `role`. The optional `context` gives the roster's `faction` ID, its `detachments` and `units` as lists of IDs, and `keywords`, each unit's keywords by unit ID, compared ignoring case. A field it omits is empty: a roster of no faction with no detachments, units or keywords.
 
 ## Transport capacity
 
@@ -63,7 +69,7 @@ A profile's `unit` bounds what else it may name. Its `models` must belong to tha
 - When a unit has several unit profiles, each names its models or has a `models` gap, and no model has two profiles.
 - A unit has at most one attachment and one transport record. A transport can state one replacement pool for each wargear ID.
 
-`profiles.of(kind, unit)` lists a unit's records of one kind, and `profiles.attachedBy(unit, role)` lists the units that may lead or support it.
+`profiles.of(kind, unit)` lists a unit's records of one kind, and `profiles.attachedBy(unit, role)` lists the units whose `leads` or `supports` name it.
 
 ## Versioning
 

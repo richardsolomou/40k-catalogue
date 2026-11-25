@@ -45,8 +45,21 @@ export type WeaponProfileData = {
   keywords?: string[];
   gaps?: Gap[];
 };
-/** The units this unit may join as a Leader or as a support attachment. */
-export type AttachmentData = { unit: string; leads?: string[]; supports?: string[]; gaps?: Gap[] };
+/**
+ * Units this unit may join while a roster condition holds: those in `units` or holding every one of `keywords`, where
+ * the roster meets `when` and both units hold `shared`.
+ */
+export type ConditionalAttachment = {
+  role: "leads" | "supports";
+  units?: string[];
+  keywords?: string[];
+  when?: { faction?: string; detachment?: string; withoutDetachment?: string; withUnit?: string; withoutUnit?: string };
+  shared?: string;
+};
+/** The units this unit may join as a Leader (`leads`) or as a support attachment (`supports`), and those it may join only in some rosters. */
+export type AttachmentData = { unit: string; leads?: string[]; supports?: string[]; conditional?: ConditionalAttachment[]; gaps?: Gap[] };
+/** The roster an attachment is asked about; an omitted field is empty. `keywords` gives units' keywords by unit ID. */
+export type AttachmentContext = { faction?: string; detachments?: string[]; units?: string[]; keywords?: Record<string, string[]> };
 
 type TransportPool = { limit: number; count: "models" | "units"; selectors: string[]; maxWounds?: number };
 export type TransportProfileData = {
@@ -72,7 +85,7 @@ export type Profiles = {
   all<K extends ProfileKind>(kind: K): Profile<K>[];
   /** Records of a kind that describe a unit, in ID order. */
   of<K extends ProfileKind>(kind: K, unit: string): Profile<K>[];
-  /** Units whose attachment records name `unit` as one they lead or support, in ID order. */
+  /** Units whose attachment records name `unit` in `leads` or `supports`, in ID order; conditional entries need {@link canAttach}. */
   attachedBy(unit: string, role: "leads" | "supports"): string[];
 };
 
@@ -96,7 +109,38 @@ function namedRefs(kind: ProfileKind, data: any): Ref[] {
   if (kind === "unit-profile") return [...unit, ...refs("model", data.models)];
   if (kind === "weapon-profile") return [...unit, ...refs("wargear", data.wargear ? [data.wargear] : [])];
   if (kind === "transport-profile") return [...unit, ...refs("wargear", (data as TransportProfileData).capacity?.whenEquipped?.map(({ wargear }) => wargear))];
-  return [...unit, ...refs("unit", [...(data.leads ?? []), ...(data.supports ?? [])])];
+  const conditional: ConditionalAttachment[] = data.conditional ?? [];
+  return [
+    ...unit,
+    ...refs("unit", [...(data.leads ?? []), ...(data.supports ?? [])]),
+    ...conditional.flatMap(({ units = [], when = {} }) => [
+      ...refs("unit", [...units, ...[when.withUnit, when.withoutUnit].filter((id) => id !== undefined)]),
+      ...refs("faction", [when.faction].filter((id) => id !== undefined)),
+      ...refs("detachment", [when.detachment, when.withoutDetachment].filter((id) => id !== undefined)),
+    ]),
+  ];
+}
+
+/**
+ * Whether the attachment's unit may join `target` in `role` within the roster `context`: unconditionally through
+ * `leads` or `supports`, or through a conditional entry whose targets, roster condition and shared keyword all hold.
+ * Keywords compare ignoring case.
+ */
+export function canAttach(attachment: AttachmentData, role: "leads" | "supports", target: string, context: AttachmentContext = {}): boolean {
+  if (attachment[role]?.includes(target)) return true;
+  const { faction, detachments = [], units = [] } = context;
+  const holds = (unit: string, keyword: string) => (context.keywords?.[unit] ?? []).some((k) => k.toUpperCase() === keyword.toUpperCase());
+  return (attachment.conditional ?? []).some(
+    ({ role: entryRole, units: named, keywords, when = {}, shared }) =>
+      entryRole === role &&
+      (named?.includes(target) || (keywords !== undefined && keywords.every((k) => holds(target, k)))) &&
+      (when.faction === undefined || when.faction === faction) &&
+      (when.detachment === undefined || detachments.includes(when.detachment)) &&
+      (when.withoutDetachment === undefined || !detachments.includes(when.withoutDetachment)) &&
+      (when.withUnit === undefined || units.includes(when.withUnit)) &&
+      (when.withoutUnit === undefined || !units.includes(when.withoutUnit)) &&
+      (shared === undefined || (holds(attachment.unit, shared) && holds(target, shared))),
+  );
 }
 
 /**
@@ -177,7 +221,8 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
       const gear = (data as TransportProfileData).capacity?.whenEquipped?.map(({ wargear }) => wargear) ?? [];
       if (new Set(gear).size !== gear.length) errors.push(`${at} has multiple capacities for the same wargear`);
     }
-    for (const target of [...(data.leads ?? []), ...(data.supports ?? [])]) if (target === data.unit) errors.push(`${at} attaches unit:${target} to itself`);
+    const targets = [...(data.leads ?? []), ...(data.supports ?? []), ...((data as AttachmentData).conditional ?? []).flatMap((c) => c.units ?? [])];
+    for (const target of targets) if (target === data.unit) errors.push(`${at} attaches unit:${target} to itself`);
     const saves = [(data as UnitProfileData).invulnerableSave ?? []].flat();
     for (const against of ["ranged", "melee"]) {
       if (saves.length > 1 && saves.filter((s) => s.against === against).length > 1) errors.push(`${at} has more than one invulnerable save against ${against} attacks`);

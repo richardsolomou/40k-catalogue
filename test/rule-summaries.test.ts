@@ -420,6 +420,14 @@ test("an effect can change Wounds, regain wounds, cap mortal wounds and re-roll 
   assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = more)), []);
 });
 
+test("mortal wounds can roll one die per point of a model's Toughness", () => {
+  const more = structuredClone(EFFECTS);
+  Object.assign(more.fields.combat.readings[0]!.choices![0]!.effects[0] as Record<string, unknown>, {
+    mortalWounds: { timing: "before", rolls: 1, perToughness: true, max: 6, outcomes: [{ min: 5, max: 6, damage: { dice: 0, sides: 6, bonus: 1 } }] },
+  });
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = more)), []);
+});
+
 test("an allowance for a kind of option names exactly one way it widens it", () => {
   const options = (allowance: object) => ({ format: "vs-data-facts", version: "1", fields: { options: { offered: ["Orders"], allowances: [allowance] } } });
   assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = options({ options: "Orders", limit: 2, whileLeading: true }))), []);

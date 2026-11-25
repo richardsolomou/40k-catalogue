@@ -27,7 +27,7 @@ export function indexNames(files: readonly LocalisationFile[]): NameIndex {
   for (const { language, entries } of files) {
     for (const entry of entries) {
       const known = entities.get(`${entry.kind}:${entry.id}`);
-      if (known && (known.kind !== entry.kind || known.name !== entry.name)) {
+      if (known && known.name !== entry.name) {
         throw new Error(`${entry.kind} ${entry.id} is named "${known.name}" in one file and "${entry.name}" in another`);
       }
       entities.set(`${entry.kind}:${entry.id}`, entry);

@@ -6,7 +6,7 @@ import { historyErrors, resolve, validateRelease, type Ref, type Release, type R
 import profilesSchema from "../datasheet-profiles/profiles.v1.schema.json" with { type: "json" };
 import localisationSchema from "../localisation/localisation.v1.schema.json" with { type: "json" };
 import { releaseErrors } from "../localisation/release.ts";
-import { validateLocalisation } from "../localisation/validate.ts";
+import { validateLocalisation, type LocalisationFile } from "../localisation/validate.ts";
 import missionPackSchema from "../mission-packs/mission-pack.v1.schema.json" with { type: "json" };
 import pointsHistorySchema from "../points/history.v1.schema.json" with { type: "json" };
 import pointsSchema from "../points/points.v1.schema.json" with { type: "json" };
@@ -163,7 +163,7 @@ export function buildCatalogueRelease(
     if (![...records.values()].some((r) => r.category === name)) errors.push(`records/${name}: an included category needs records`);
   }
 
-  const localisation = new Map<string, { language: string; value: object; entries: number }>();
+  const localisation = new Map<string, { language: string; value: LocalisationFile; entries: number }>();
   const localisationDir = top.some((e) => e.name === "localisation" && e.isDirectory()) ? sortedDir(join(dir, "localisation")) : [];
   for (const file of localisationDir) {
     const where = `localisation/${file.name}`;
@@ -189,7 +189,11 @@ export function buildCatalogueRelease(
   // Entry order carries no meaning in the identity contract, so it must not change the bytes.
   files.set(IDENTITY, canonicalJson({ ...identity, entries: [...identity.entries].sort(byKey) }));
   for (const [, { category, record }] of records) files.set(recordPath(category, record), canonicalJson(record));
-  for (const [path, { value }] of localisation) files.set(path, canonicalJson(value));
+  for (const [path, { value }] of localisation) {
+    // Entry order carries no meaning in the localisation contract either.
+    const { entries } = value as LocalisationFile;
+    files.set(path, canonicalJson({ ...value, entries: [...entries].sort(byKey) }));
+  }
 
   const active = identity.entries.filter((e) => !e.retired && !e.absent);
   const categories = declared.map(({ name, status, kinds, sources }): Category => {
@@ -242,7 +246,14 @@ export function buildCatalogueRelease(
     schemas: [...SCHEMAS.keys()].map((path) => ({ path, sha256: sha256(files.get(path)!) })),
     identity: { path: IDENTITY, sha256: sha256(files.get(IDENTITY)!) },
     ...(localisation.size > 0
-      ? { localisation: [...localisation].map(([path, { language, entries }]) => ({ language, path, sha256: sha256(files.get(path)!), entries })) }
+      ? {
+          localisation: [...localisation.values()]
+            .sort((a, b) => (a.language < b.language ? -1 : 1))
+            .map(({ language, entries }) => {
+              const path = localisationPath(language);
+              return { language, path, sha256: sha256(files.get(path)!), entries };
+            }),
+        }
       : {}),
     categories,
   };

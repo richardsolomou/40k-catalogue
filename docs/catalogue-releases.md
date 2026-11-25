@@ -108,7 +108,7 @@ It verifies the unpacked previous release first, writes the new release to `<out
 node src/catalogue-releases/cli.ts verify <release-dir>
 ```
 
-Verification checks the manifest schema, that the release holds exactly the listed files with their checksums, that record paths match their kind and ID, that categories and records are in order, and that retained categories list no records. Like the mechanics check, it does not re-run validation, so later changes never invalidate a published release.
+Verification checks the manifest schema, that the release holds exactly the listed files with their checksums, that record paths match their kind and ID and localisation paths their language, that categories, records and localisation files are in order, and that retained categories list no records. Like the mechanics check, it does not re-run validation, so later changes never invalidate a published release.
 
 ## Upgrading
 

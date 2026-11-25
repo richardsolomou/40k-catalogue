@@ -182,6 +182,19 @@ test("a localisation file must be named for its language", () => {
   assert.deepEqual(errors(localised((file) => (file.language = "es"))), ["localisation/fr.json: names language es"]);
 });
 
+test("a regional language is listed after its base language and the release verifies", () => {
+  const dir = localised();
+  const regional = JSON.parse(readFileSync(join(dir, "localisation", "fr.json"), "utf8"));
+  writeFileSync(join(dir, "localisation", "fr-CA.json"), JSON.stringify({ ...regional, language: "fr-CA" }));
+  const files = build(dir);
+  assert.deepEqual([manifest(files).localisation!.map((file) => file.language), verifyCatalogueRelease(written(files))], [["fr", "fr-CA"], []]);
+});
+
+test("the order of localised entries does not change the archive", () => {
+  const reversed = localised((file) => file.entries.reverse());
+  assert.equal(build(reversed).get("localisation/fr.json"), build(localised()).get("localisation/fr.json"));
+});
+
 test("verification rejects changed localised names", () => {
   const dir = written(build(localised()));
   writeFileSync(join(dir, "localisation/fr.json"), "{}\n");

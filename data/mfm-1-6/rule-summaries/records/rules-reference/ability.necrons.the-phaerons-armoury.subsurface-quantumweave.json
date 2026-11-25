@@ -36,7 +36,7 @@
         }
       ]
     },
-    "summary": "Use when an enemy targets 1 of your **NECRONS TITANIC** units in the opposing [Shooting phase](vsdata:core-rule/shooting-phase) or either [Fight phase](vsdata:core-rule/fight-phase). Worsen the Armour Penetration of its attacks into that unit by 1, until that enemy finishes attacking.",
+    "summary": "Use it in your opponent's Shooting phase or either player's Fight phase, the moment an enemy unit selects a **NECRONS TITANIC FLY** unit of yours as a target. Attacks targeting your unit get −1 **AP** until the enemy unit finishes its attacks.",
     "citations": [
       {
         "type": "app",
@@ -217,32 +217,39 @@
           }
         },
         "detail": {
-          "window": {
-            "phase": [
-              "Shooting",
-              "Fight"
-            ],
-            "turn": "opposing Shooting or either Fight",
-            "event": "enemy targets friendly unit"
-          },
+          "detachment": "The Phaeron's Armoury",
+          "type": null,
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "when-an-enemy-unit-targets-the-unit"
+            },
+            {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "when-an-enemy-unit-targets-the-unit"
+            }
+          ],
           "target": {
             "side": "friendly",
             "count": 1,
-            "binding": "triggering unit",
-            "keywords": "NECRONS TITANIC"
+            "keywordsAll": [
+              "NECRONS",
+              "TITANIC",
+              "FLY"
+            ],
+            "sameAs": "targeted-unit"
           },
-          "effect": {
-            "type": "weapon characteristic modifier",
-            "attribute": "AP",
-            "change": "worsen",
-            "amount": 1,
-            "scope": {
-              "attacker": "triggering enemy",
-              "defender": "target"
-            },
-            "until": "triggering enemy completes attacks"
-          },
-          "restrictions": []
+          "effects": [
+            {
+              "characteristic": "AP",
+              "operation": "subtract",
+              "amount": 1,
+              "attacks": "targeting-target-unit"
+            }
+          ],
+          "duration": "until-that-enemy-unit-has-attacked"
         }
       }
     }

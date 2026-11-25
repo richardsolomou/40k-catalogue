@@ -25,7 +25,7 @@
       ],
       "turn": "opponent"
     },
-    "summary": "As the opposing [Charge phase](vsdata:core-rule/charge-phase) finishes, pick an **engaged** **REGIMENT** unit. For every foe it is engaged with, throw a separate D6. On 2 or better, deal D6 **[mortal wounds](vsdata:core-rule/mortal-wounds)** to that foe. After resolving those rolls the **REGIMENT** takes D3 [mortal wounds](vsdata:core-rule/mortal-wounds).",
+    "summary": "As your opponent's Charge phase ends, pick 1 **engaged** **REGIMENT** unit of yours. For every enemy unit engaged with it, roll 1 D6: if it rolls 2+, that enemy unit takes D6 **mortal wounds**. Afterwards, 3D3 mortal wounds are inflicted on your own unit.",
     "citations": [
       {
         "type": "app",
@@ -70,28 +70,38 @@
           }
         ],
         "detail": {
-          "window": [
-            "end of opposing Charge phase"
+          "detachment": "Bridgehead Strike",
+          "type": null,
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "charge",
+              "timing": "end-of-phase"
+            }
           ],
           "target": {
-            "unit": "REGIMENT",
+            "side": "friendly",
             "count": 1,
+            "keywordsAll": [
+              "REGIMENT"
+            ],
             "engaged": true
           },
-          "effect": {
-            "enemyRolls": {
-              "die": "D6",
-              "per": "enemy unit engaged with the target",
-              "threshold": "2+",
+          "effects": [
+            {
+              "per": "enemy-unit-engaged-with-target",
+              "roll": "D6",
+              "success": "2+",
               "mortalWounds": "D6"
             },
-            "then": {
-              "subject": "friendly target",
-              "mortalWounds": "D3",
-              "conditional": false
+            {
+              "then": true,
+              "subject": "target-unit",
+              "mortalWounds": "3D3",
+              "diceCount": 3,
+              "dieSides": 3
             }
-          },
-          "restrictions": []
+          ]
         }
       }
     }

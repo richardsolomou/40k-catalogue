@@ -25,7 +25,7 @@
       "turn": "any",
       "type": "strategic-ploy"
     },
-    "summary": "In either [Fight phase](vsdata:core-rule/fight-phase), choose a **KROOT** unit that killed an enemy model this phase. Force each enemy within 6\" to test for Battle-shock. Apply a −1 penalty if it’s **below Half-strength**. A unit tested this way can skip that test in its next [Command phase](vsdata:core-rule/command-phase).",
+    "summary": "Use it in either player's Fight phase on 1 **KROOT** unit of yours that has destroyed at least 1 enemy unit during this phase.\n\nWhen your opponent's next Command phase comes, every enemy unit 6\" or less from that unit takes a Battle-shock test, at −1 if it is Below Half-strength. Each enemy unit tested this way is spared every other Battle-shock test that phase.",
     "citations": [
       {
         "type": "app",
@@ -64,41 +64,37 @@
           ]
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ]
-          },
+          "detachment": "Kroot Hunting Pack",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "KROOT"
             ],
-            "eligibility": "destroyed-one-or-more-enemy-models-this-phase"
+            "destroyedEnemyUnitsThisPhaseAtLeast": 1
           },
           "effects": [
             {
-              "action": "force-battle-shock-test",
-              "actor": "target-unit",
-              "recipient": "each-nearby-enemy-unit",
-              "distance": {
-                "unit": "inch",
-                "amount": 6,
-                "from": "target-unit",
-                "comparator": "at-most"
-              },
-              "waives": "required-battle-shock-test-in-tested-units-next-command-phase",
+              "when": "your-opponents-next-command-phase",
+              "subject": "each-enemy-unit-within-range-of-target-unit",
+              "withinInches": 6,
+              "forcedTest": "battle-shock",
               "modifier": {
                 "operation": "subtract",
                 "amount": 1,
                 "condition": "tested-unit-below-half-strength"
               }
+            },
+            {
+              "subject": "enemy-units-affected",
+              "exemptFrom": "other-battle-shock-tests-in-that-phase"
             }
           ]
         }

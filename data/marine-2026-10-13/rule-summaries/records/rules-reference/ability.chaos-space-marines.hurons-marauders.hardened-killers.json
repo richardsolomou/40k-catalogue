@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "battle-tactic"
     },
-    "summary": "In your [Command phase](vsdata:core-rule/command-phase), pick a **DAMNED** unit to get a single benefit that expires as your next turn begins. Increase its models’ Save by 1, or improve the Ballistic Skill of their ranged weapons by 1, or give those weapons 1 more Attack.",
+    "summary": "Use it in your Command phase on 1 **DAMNED** unit of yours. Pick 1 benefit, which lasts until your next turn starts:\n\n- its models' ranged weapons improve their Ballistic Skill by 1\n- its models' **[[RAPID FIRE]](vsdata:weapon-ability/rapid-fire)** weapons improve their Attacks by 1\n- its models improve their Save by 1",
     "citations": [
       {
         "type": "app",
@@ -185,47 +185,43 @@
           }
         },
         "detail": {
-          "type": "battle-tactic",
-          "trigger": {
-            "turn": "your",
-            "phases": [
-              "command"
-            ],
-            "event": "phase-window"
-          },
+          "detachment": "Huron’s Marauders",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "command"
+            }
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "DAMNED"
             ]
           },
           "effects": [
             {
-              "kind": "choose-one",
-              "options": [
+              "chooseOne": [
                 {
-                  "kind": "improve-characteristic",
-                  "characteristic": "save",
-                  "subject": "selected-unit-models",
-                  "steps": 1
+                  "improve": "ballistic-skill",
+                  "weapons": "ranged",
+                  "by": 1
                 },
                 {
-                  "kind": "improve-characteristic",
-                  "characteristic": "ballistic-skill",
-                  "subject": "selected-unit-ranged-weapons",
-                  "steps": 1
+                  "improve": "attacks",
+                  "weapons": "weapon-ability:rapid-fire",
+                  "by": 1
                 },
                 {
-                  "kind": "modify-characteristic",
-                  "characteristic": "attacks",
-                  "subject": "selected-unit-ranged-weapons",
-                  "amount": 1
+                  "improve": "save",
+                  "subject": "target-unit-models",
+                  "by": 1
                 }
               ]
             }
           ],
-          "duration": "start-of-your-next-turn"
+          "duration": "until-start-of-your-next-turn"
         }
       }
     }

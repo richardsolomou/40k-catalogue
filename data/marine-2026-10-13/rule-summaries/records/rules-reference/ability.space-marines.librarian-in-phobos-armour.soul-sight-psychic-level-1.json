@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Librarian in Phobos Armour",
-    "summary": "The Phobos Librarian’s unit can attempt Soul Sight in your Shooting phase by rolling a D6. On 1, it becomes **[Battle-shocked](vsdata:core-rule/battle-shock)**. On success, pick one **visible** enemy unit. The Librarian’s unit gets **[[IGNORES COVER]](vsdata:weapon-ability/ignores-cover)** on ranged attacks against that enemy.",
+    "summary": "During your Shooting phase, when this unit isn't **battle-shocked**, you may roll 1 D6 for it as a **psychic roll**. If you do:\n\n- a 1 leaves this unit battle-shocked\n- pick 1 **visible** enemy unit, and until the phase ends every ranged attack aimed at it has **[[IGNORES COVER]](vsdata:weapon-ability/ignores-cover)**",
     "citations": [
       {
         "type": "app",
@@ -108,51 +108,36 @@
           }
         ],
         "detail": {
-          "role": "psychic-spell",
-          "psychicLevel": 1,
-          "source": "this-unit",
-          "trigger": {
-            "event": "phase",
-            "phase": "shooting",
-            "turn": "your-turn",
-            "timing": "during"
-          },
-          "optional": true,
-          "effect": {
-            "dice": {
-              "count": 1,
-              "sides": 6,
-              "additive": 0
+          "ability": {
+            "datasheet": "Librarian in Phobos Armour",
+            "window": {
+              "turn": "own",
+              "phase": "shooting"
             },
-            "branches": [
+            "condition": "this-unit-not-battle-shocked",
+            "optional": true,
+            "roll": {
+              "kind": "psychic",
+              "dice": 1,
+              "die": "D6"
+            },
+            "effects": [
               {
-                "comparison": "at-least",
-                "value": 2,
-                "effect": {
-                  "target": {
-                    "side": "enemy",
-                    "count": 1,
-                    "visible": true
-                  },
-                  "gameplayGrant": {
-                    "label": "IGNORES COVER",
-                    "recipient": "ranged-attacks-by-this-unit-targeting-selected-unit",
-                    "kind": "grant-ability"
-                  },
-                  "kind": "select-and-grant"
-                }
+                "onRoll": 1,
+                "applyState": "battle-shocked",
+                "subject": "this-unit"
               },
               {
-                "comparison": "less-than",
-                "value": 2,
-                "effect": {
-                  "condition": "battle-shocked",
-                  "recipient": "this-unit",
-                  "kind": "apply-condition"
-                }
+                "select": {
+                  "side": "enemy",
+                  "count": 1,
+                  "visible": true
+                },
+                "grant": "weapon-ability:ignores-cover",
+                "attacks": "ranged-attacks-targeting-selected-unit"
               }
             ],
-            "kind": "roll-and-branch"
+            "duration": "end-of-phase"
           }
         }
       }

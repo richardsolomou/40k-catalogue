@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "As your [Movement phase](vsdata:core-rule/movement-phase) closes, pick a **DEATH GUARD VEHICLE** and a **terrain feature** it can see up to 24″ away. Until your next turn begins, a **visible** enemy is [Afflicted](vsdata:ability/death-guard.nurgles-gift-aura) while no farther than 3″ from the feature. Use the vehicle’s sight.",
+    "summary": "As your Movement phase ends, pick 1 **DEATH GUARD VEHICLE** unit of yours and 1 terrain feature that is visible to it and within 24\" of it. Until your next turn starts, any enemy unit within 3\" of the chosen feature is [Afflicted](vsdata:ability/death-guard.nurgles-gift-aura).",
     "citations": [
       {
         "type": "app",
@@ -64,56 +64,39 @@
           ]
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "your"
-              }
-            ],
-            "event": "phase-end"
-          },
+          "detachment": "Mortarion’s Hammer",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "end-of-phase"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "DEATH GUARD",
               "VEHICLE"
             ]
           },
           "effects": [
             {
-              "action": "select-terrain-feature",
-              "recipient": "one-terrain-feature",
-              "visibleTo": "target-unit",
-              "distance": {
-                "unit": "inch",
-                "amount": 24,
-                "fromEntity": "target-unit",
-                "comparator": "at-most"
+              "select": {
+                "entity": "terrain-feature",
+                "count": 1,
+                "withinInches": 24,
+                "visibleToTarget": true
               }
             },
             {
-              "action": "apply-state",
-              "state": "afflicted",
-              "recipient": {
-                "owner": "opponent",
-                "entity": "unit",
-                "distance": {
-                  "unit": "inch",
-                  "amount": 3,
-                  "fromEntity": "chosen-terrain",
-                  "comparator": "at-most"
-                },
-                "visibleTo": "target-unit"
-              },
-              "duration": {
-                "until": "start-of-your-next-turn"
-              }
+              "applyState": "afflicted",
+              "subject": "enemy-units-within-range-of-selected-terrain-feature",
+              "withinInches": 3
             }
-          ]
+          ],
+          "duration": "until-start-of-your-next-turn"
         }
       }
     }

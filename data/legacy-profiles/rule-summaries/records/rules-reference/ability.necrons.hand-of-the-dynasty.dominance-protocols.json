@@ -24,7 +24,7 @@
       ],
       "turn": "own"
     },
-    "summary": "Use it in your own Command phase. Choose 1 **IMMORTALS** unit of yours. It gets +1 OC until this turn is over.",
+    "summary": "Use it in either player's Command phase on an **IMMORTALS** unit of yours. For the rest of that turn, add 1 to its **OC**.",
     "citations": [
       {
         "type": "app",
@@ -205,27 +205,33 @@
         },
         "detail": {
           "detachment": "Hand of the Dynasty",
-          "when": [
+          "type": null,
+          "windows": [
             {
-              "phase": "command",
-              "turn": "own"
+              "turn": "either",
+              "phase": "command"
             }
           ],
           "target": {
-            "count": 1,
             "side": "friendly",
+            "count": 1,
             "keywordsAll": [
-              "Immortals"
+              "IMMORTALS"
             ]
           },
           "effects": [
             {
-              "kind": "objective-control-modifier",
-              "value": 1
+              "characteristic": "OC",
+              "operation": "add",
+              "amount": 1,
+              "subject": "target-unit"
             }
           ],
-          "restrictions": [],
-          "duration": "end-of-turn"
+          "duration": "end-of-turn",
+          "cardPrintsOtherText": {
+            "turnTag": "your",
+            "note": "the When line names the Command phase without 'your', so it is typed for either turn"
+          }
         }
       }
     }

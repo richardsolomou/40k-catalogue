@@ -30,9 +30,10 @@ export type Pairing = { friendly: string; opposition: string; deployments: strin
 /** `aliases` are other IDs of the same member, such as the IDs another data source uses for it. */
 type Aliased = { aliases?: string[] };
 export type Primary = Aliased & { id: string; name: string; source: Source; pairings: Pairing[]; detachment?: string; awards: Award[] };
-/** `ifNoEnemy`: the redraw is allowed only while no enemy model or unit on the battlefield has at least `min` of the characteristic. */
+/** `ifNoEnemy`: the card may be swapped only while no enemy model or unit on the battlefield has at least `min` of the characteristic. */
 export type NoEnemy = { entity: "model" | "unit"; characteristic: "wounds" | "starting-strength"; min: number };
-export type WhenDrawn = { action: "redraw"; required: boolean; untilRound?: number; ifActive?: string; ifNoEnemy?: NoEnemy };
+/** `redraw` shuffles the drawn card back into the deck and draws another; `discard` discards it and draws another. */
+export type WhenDrawn = { action: "redraw" | "discard"; required: boolean; untilRound?: number; ifActive?: string; ifNoEnemy?: NoEnemy };
 export type Secondary = Aliased & { id: string; name: string; source: Source; modes: Mode[]; awards: Award[]; whenDrawn?: OrUnresolved<WhenDrawn> };
 export type Twist = Aliased & { id: string; name: string; source: Source; changesPrimary: boolean; effect: OrUnresolved<{ summary: string }> };
 /** `perRoundExcludesBattleEnd`: what is scored at the battle end counts against `perBattle` but not `perRound`. */

@@ -30,7 +30,7 @@
       "turn": "any",
       "type": "battle-tactic"
     },
-    "summary": "At any phase start, pick your **REGIMENT** and a friendly **SQUADRON** it can see within 6″. Choose an active [Order](vsdata:ability/astra-militarum.voice-of-command) on either unit. The other unit gains the same [Order](vsdata:ability/astra-militarum.voice-of-command) for the rest of the phase.",
+    "summary": "As any phase starts, pick 1 **REGIMENT** unit of yours and 1 **SQUADRON** unit of yours within 6\" of it and visible to it. Until the phase ends, every Order affecting either unit also affects the other.",
     "citations": [
       {
         "type": "app",
@@ -69,55 +69,41 @@
           ]
         },
         "detail": {
-          "type": "battle-tactic",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "any",
-                "turn": "either"
-              }
-            ],
-            "event": "start-of-any-phase"
-          },
-          "target": [
+          "detachment": "Combined Arms",
+          "type": "Battle Tactic",
+          "windows": [
             {
-              "owner": "your-army",
-              "entity": "unit",
-              "count": 1,
-              "keywords": [
-                "REGIMENT"
-              ],
-              "bind": "first"
-            },
-            {
-              "owner": "your-army",
-              "entity": "unit",
-              "count": 1,
-              "keywords": [
-                "SQUADRON"
-              ],
-              "bind": "second",
-              "distance": {
-                "unit": "inch",
-                "amount": 6,
-                "comparator": "at-most",
-                "fromEntity": "first"
-              },
-              "visibleTo": "first"
+              "turn": "either",
+              "phase": "any",
+              "timing": "start-of-phase"
             }
           ],
+          "target": {
+            "side": "friendly",
+            "units": [
+              {
+                "count": 1,
+                "keywordsAll": [
+                  "REGIMENT"
+                ]
+              },
+              {
+                "count": 1,
+                "keywordsAll": [
+                  "SQUADRON"
+                ],
+                "withinInches": 6,
+                "visibleTo": "the-REGIMENT-unit"
+              }
+            ]
+          },
           "effects": [
             {
-              "action": "share-order",
-              "count": 1,
-              "source": "either-selected-unit",
-              "fromActiveOrders": true,
-              "recipient": "other-selected-unit",
-              "duration": {
-                "until": "end-of-this-phase"
-              }
+              "ordersShared": "both-ways",
+              "between": "the-two-target-units"
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

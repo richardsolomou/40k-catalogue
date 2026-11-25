@@ -25,7 +25,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "As the opponent’s [Charge phase](vsdata:core-rule/charge-phase) begins, pick 1 **HERETIC ASTARTES** unit. Through phase end, subtract 2 from an enemy **charge roll** if the charging unit includes your chosen unit among its charge targets.",
+    "summary": "As your opponent's Charge phase starts, choose 1 **HERETIC ASTARTES** unit of yours. For the rest of the phase, whenever an enemy unit picks it as a charge target, that Charge roll gets −2; this doesn't stack with other penalties to that roll.",
     "citations": [
       {
         "type": "app",
@@ -63,27 +63,29 @@
           ]
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "turn": "opponent",
-            "phases": [
-              "charge"
-            ],
-            "event": "phase-start"
-          },
+          "detachment": "Fellhammer Siege-host",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "charge",
+              "timing": "start-of-phase"
+            }
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "HERETIC ASTARTES"
             ]
           },
           "effects": [
             {
-              "kind": "modifier",
-              "stat": "charge-roll",
-              "amount": -2,
-              "subject": "enemy-charge-including-selected-unit-as-target"
+              "roll": "charge",
+              "on": "each-enemy-charge-that-selects-target-unit",
+              "operation": "subtract",
+              "amount": 2,
+              "cumulativeWithOtherNegativeModifiers": false
             }
           ],
           "duration": "end-of-phase"

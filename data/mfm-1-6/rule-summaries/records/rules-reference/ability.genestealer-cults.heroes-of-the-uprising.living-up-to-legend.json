@@ -36,7 +36,7 @@
         }
       ]
     },
-    "summary": "When a friendly unit’s attacks destroy an enemy **CHARACTER** model in your [Shooting phase](vsdata:core-rule/shooting-phase) or either [Fight phase](vsdata:core-rule/fight-phase), select the attacker. Friendly **GENESTEALER CULTS** stop being **[Battle-shocked](vsdata:core-rule/battle-shock)** if **visible** to the attacker and no more than 12″ from it.",
+    "summary": "Use it in either player's Fight phase or your own Shooting phase, after a **KILLER** unit of yours has attacked and those attacks wiped out an enemy unit or killed an enemy **CHARACTER** model. Every **visible** **battle-shocked** **GENESTEALER CULTS** unit of yours within 12\" of that unit stops being battle-shocked.",
     "citations": [
       {
         "type": "app",
@@ -89,31 +89,45 @@
           }
         ],
         "detail": {
-          "window": {
-            "phase": [
-              "Shooting",
-              "Fight"
-            ],
-            "turn": "your Shooting or either Fight",
-            "event": "friendly attacks destroy enemy CHARACTER model"
-          },
+          "detachment": "Heroes of the Uprising",
+          "type": null,
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "after-the-unit-has-attacked"
+            },
+            {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "after-the-unit-has-attacked"
+            }
+          ],
           "target": {
             "side": "friendly",
             "count": 1,
-            "binding": "triggering unit",
-            "keywords": null
+            "keywordsAll": [
+              "KILLER"
+            ],
+            "sameAs": "attacking-unit",
+            "destroyedEnemyUnitOrEnemyCharacterModel": true
           },
-          "effect": {
-            "type": "clear Battle-shock",
-            "recipient": {
-              "side": "friendly",
-              "quantity": "all",
-              "keywords": "GENESTEALER CULTS",
-              "withinInches": 12,
-              "visibleTo": "target"
+          "effects": [
+            {
+              "select": {
+                "side": "friendly",
+                "count": "all",
+                "keywordsAll": [
+                  "GENESTEALER CULTS"
+                ],
+                "battleShocked": true,
+                "visible": true,
+                "withinInches": 12,
+                "of": "target-unit"
+              },
+              "removeState": "battle-shocked"
             }
-          },
-          "restrictions": []
+          ]
         }
       }
     }

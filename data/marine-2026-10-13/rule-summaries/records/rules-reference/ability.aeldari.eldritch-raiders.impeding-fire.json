@@ -25,7 +25,7 @@
       "turn": "opponent",
       "type": "wargear"
     },
-    "summary": "As the opposing [Charge phase](vsdata:core-rule/charge-phase) begins, pick 1 of your units with **STARFANG**, **RANGERS** or **SHROUD RUNNERS**. Choose a non-**TITANIC** enemy that unit can see from no farther than 36″. The enemy takes −2 on all **[Charge rolls](vsdata:core-rule/charge-step)** for the phase.",
+    "summary": "As your opponent's Charge phase starts, choose 1 **RANGERS**, **SHROUD RUNNERS** or **STARFANG** unit of yours and 1 enemy unit (not **TITANIC**) visible to it and within 36\". For the rest of the phase, that enemy's Charge rolls get −2; this doesn't stack with other penalties to that roll.",
     "citations": [
       {
         "type": "app",
@@ -77,38 +77,43 @@
           ]
         },
         "detail": {
-          "window": {
-            "phase": "Charge",
-            "turn": "active player is opponent",
-            "event": "phase opens"
-          },
+          "detachment": "Eldritch Raiders",
+          "type": "Wargear",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "charge",
+              "timing": "start-of-phase"
+            }
+          ],
           "target": {
             "side": "friendly",
             "count": 1,
-            "keywords": {
-              "anyOf": [
-                "RANGERS",
-                "SHROUD RUNNERS",
-                "STARFANG"
-              ]
-            }
+            "keywordsAny": [
+              "RANGERS",
+              "SHROUD RUNNERS",
+              "STARFANG"
+            ]
           },
-          "effect": {
-            "type": "roll modifier",
-            "roll": "Charge",
-            "amount": -2,
-            "until": "phase ends",
-            "recipient": {
-              "side": "enemy",
-              "count": 1,
-              "withinInches": 36,
-              "visibleTo": "friendly selection",
-              "excludedKeywords": [
-                "TITANIC"
-              ]
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsNone": [
+                  "TITANIC"
+                ],
+                "visibleToTarget": true,
+                "withinInches": 36
+              },
+              "roll": "charge",
+              "on": "each-charge-the-selected-enemy-declares",
+              "operation": "subtract",
+              "amount": 2,
+              "cumulativeWithOtherNegativeModifiers": false
             }
-          },
-          "restrictions": []
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

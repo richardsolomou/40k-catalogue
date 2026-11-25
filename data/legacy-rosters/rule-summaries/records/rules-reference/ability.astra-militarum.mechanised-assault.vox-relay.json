@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "wargear"
     },
-    "summary": "In your Command phase, choose a friendly **INFANTRY OFFICER** unit riding in a Transport. For the rest of that phase, the unit may issue Orders while embarked. Friendly recipients with **ASTRA MILITARUM** can receive an Order at any distance from its Transport. **TITANIC** recipients are ineligible.",
+    "summary": "Use it in your Command phase on 1 **INFANTRY OFFICER** unit of yours embarked within a **TRANSPORT**, despite it being embarked.\n\nUntil the phase ends, it can issue Orders while off the battlefield, and its Orders may also reach any **ASTRA MILITARUM TRANSPORT** unit of yours (not **TITANIC**), at any distance to or from its own **TRANSPORT**.",
     "citations": [
       {
         "type": "app",
@@ -66,42 +66,42 @@
         },
         "detail": {
           "detachment": "Mechanised Assault",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "command",
-                "turn": "own"
-              }
-            ]
-          },
+          "type": "Wargear",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "command"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "controller": "friendly",
+            "side": "friendly",
             "count": 1,
-            "allKeywords": [
-              "OFFICER",
-              "INFANTRY"
+            "keywordsAll": [
+              "INFANTRY",
+              "OFFICER"
             ],
-            "condition": "embarked-in-transport",
-            "eligibleWhileEmbarked": true
+            "embarkedWithin": "TRANSPORT",
+            "usableWhileEmbarked": true
           },
           "effects": [
             {
-              "action": "permit-issuing-orders-while-embarked",
-              "recipient": "chosen-unit",
-              "duration": "through-phase-end",
-              "orderRecipients": {
-                "controller": "friendly",
-                "allKeywords": [
-                  "ASTRA MILITARUM"
+              "mayIssueOrdersWhileNotOnBattlefield": true
+            },
+            {
+              "mayIssueOrdersTo": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "ASTRA MILITARUM",
+                  "TRANSPORT"
                 ],
-                "excludeKeywords": [
+                "keywordsNone": [
                   "TITANIC"
                 ]
               },
-              "ignoreDistanceFrom": "transport-carrying-chosen-unit"
+              "ignoreDistanceToAndFrom": "the-target-units-TRANSPORT"
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

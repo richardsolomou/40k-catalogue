@@ -25,7 +25,7 @@
       ],
       "turn": "any"
     },
-    "summary": "In the [Fight phase](vsdata:core-rule/fight-phase), once an enemy’s fight is over, nominate a **LEGIONES DAEMONICA** unit with both **CHARACTER** and **SLAANESH**. It must still be waiting for selection to fight. On your next fight selection, take this unit and treat it as having **[FIGHTS FIRST](vsdata:core-ability/fights-first)**.",
+    "summary": "Use it in either player's Fight phase, after an enemy unit finishes fighting. Pick 1 **LEGIONES DAEMONICA CHARACTER SLAANESH** unit of yours, not a **MONSTER**, that hasn't yet been picked to fight this phase. It has **[Fights First](vsdata:core-ability/fights-first)**, and you must pick it next to fight.",
     "citations": [
       {
         "type": "app",
@@ -97,24 +97,38 @@
           }
         ],
         "detail": {
-          "window": {
-            "phase": "Fight",
-            "turn": "either",
-            "event": "after enemy fights"
-          },
+          "detachment": "Lords of the Warp",
+          "type": null,
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "when-an-enemy-unit-has-fought"
+            }
+          ],
           "target": {
             "side": "friendly",
             "count": 1,
-            "keywords": "LEGIONES DAEMONICA CHARACTER SLAANESH",
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "CHARACTER",
+              "SLAANESH"
+            ],
+            "keywordsNone": [
+              "MONSTER"
+            ],
             "notSelectedToFightThisPhase": true
           },
-          "effect": {
-            "type": "compulsory next selection",
-            "when": "your next fight selection",
-            "recipient": "target",
-            "treatedAsHaving": "FIGHTS FIRST"
-          },
-          "restrictions": []
+          "effects": [
+            {
+              "grant": "core-ability:fights-first",
+              "subject": "target-unit"
+            },
+            {
+              "mustBeNextUnitSelectedToFight": true,
+              "subject": "target-unit"
+            }
+          ]
         }
       }
     }

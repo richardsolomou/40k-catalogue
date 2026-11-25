@@ -25,7 +25,7 @@
       "turn": "any",
       "type": "battle-tactic"
     },
-    "summary": "In either [Fight phase](vsdata:core-rule/fight-phase), pick a unit with **FLAYED ONES** or **DESTROYER CULT** immediately after it destroys an enemy unit. It must be at or above **Half-strength**. Trigger its [Reanimation Protocols](vsdata:ability/necrons.reanimation-protocols).",
+    "summary": "Use it in either player's Fight phase on 1 **DESTROYER CULT** or **FLAYED ONES** unit of yours that has just done either of these:\n\n- wiped out an enemy unit\n- left an enemy unit Below Half-strength when it had not been before\n\nIts [Reanimation Protocols](vsdata:ability/necrons.reanimation-protocols) are triggered.",
     "citations": [
       {
         "type": "app",
@@ -73,32 +73,30 @@
           ]
         },
         "detail": {
-          "type": "battle-tactic",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight"
-            ],
-            "event": "phase",
-            "window": {
-              "fight": "either"
+          "detachment": "Annihilation Legion",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "anyKeyword": [
+            "keywordsAny": [
               "DESTROYER CULT",
               "FLAYED ONES"
             ],
-            "belowHalfStrength": false,
-            "destroyedEnemyUnit": "immediate"
+            "anyOf": [
+              "just-destroyed-an-enemy-unit",
+              "just-caused-an-enemy-unit-not-below-half-strength-to-become-below-half-strength"
+            ]
           },
           "effects": [
             {
-              "kind": "activate-rule",
-              "rule": "reanimation-protocols",
-              "optional": false
+              "activate": "Reanimation Protocols",
+              "subject": "target-unit"
             }
           ]
         }

@@ -24,7 +24,7 @@
       ],
       "turn": "opponent"
     },
-    "summary": "Use it as the opposing player's [Shooting phase](vsdata:core-rule/shooting-phase) starts. Pick 1 friendly **ASTRA MILITARUM INFANTRY SMOKE** unit. For the rest of the phase, an attack's target gets the **[Benefit of Cover](vsdata:core-rule/benefit-of-cover)** against it when:\n\n- The attack targets your unit.\n- 1 or more of your unit's models keep the target from being **fully visible** to the attacker.",
+    "summary": "As your opponent's Shooting phase starts, choose 1 **ASTRA MILITARUM INFANTRY SMOKE** unit of yours. Until the phase ends, an attack's target is given the **[benefit of cover](vsdata:core-rule/benefit-of-cover)** for that attack if either:\n\n- your unit is the attack's target\n- because of models from your unit, the target is not **fully visible** from the attacking model",
     "citations": [
       {
         "type": "app",
@@ -130,35 +130,35 @@
           }
         ],
         "detail": {
-          "window": {
-            "phase": "Shooting",
-            "turn": "opponent",
-            "at": "start"
-          },
+          "detachment": "Designation Force",
+          "type": null,
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "start-of-phase"
+            }
+          ],
           "target": {
+            "side": "friendly",
             "count": 1,
-            "ownership": "friendly",
-            "allKeywords": [
+            "keywordsAll": [
               "ASTRA MILITARUM",
               "INFANTRY",
               "SMOKE"
             ]
           },
-          "effect": {
-            "scope": "per attack",
-            "grant": "Benefit of Cover",
-            "recipient": "attack target",
-            "qualifyingRecipients": [
-              {
-                "isSelectedUnit": true
-              },
-              {
-                "visibilityFromAttackingModel": "not fully visible",
-                "cause": "one or more models of the selected unit"
-              }
-            ]
-          },
-          "restrictions": []
+          "effects": [
+            {
+              "grant": "benefit-of-cover",
+              "subject": "attack-target",
+              "anyOf": [
+                "attack-targets-target-unit",
+                "attack-target-not-fully-visible-to-attacking-model-because-of-target-unit-models"
+              ]
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

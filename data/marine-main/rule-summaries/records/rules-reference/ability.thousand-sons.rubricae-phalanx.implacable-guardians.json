@@ -25,7 +25,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "Immediately after an enemy picks its targets in their [Shooting phase](vsdata:core-rule/shooting-phase), choose a **RUBRIC MARINES PSYKER** unit among those targets. Through the rest of the phase, subtract 1 Damage from each attack allocated to a **PSYKER** model in that unit.",
+    "summary": "Use it in your opponent's Shooting phase, right after an enemy unit selects its targets, on 1 **RUBRIC MARINES PSYKER** unit of yours targeted by 1 or more of those attacks. Until the phase ends, any attack allocated to any of its non-**PSYKER** models has 1 less Damage.",
     "citations": [
       {
         "type": "app",
@@ -128,41 +128,36 @@
           }
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "turn": "opponent",
-            "phases": [
-              "shooting"
-            ],
-            "event": "enemy-targets-selected",
-            "proximity": "immediate",
-            "window": {
-              "shooting": "opponent"
+          "detachment": "Rubricae Phalanx",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "just-after-an-enemy-unit-has-selected-its-targets"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "RUBRIC MARINES PSYKER"
+            "keywordsAll": [
+              "RUBRIC MARINES",
+              "PSYKER"
             ],
-            "targetedBy": "at-least-one-of-triggering-enemy-attacks"
+            "targetedByAttackingUnit": true
           },
           "effects": [
             {
-              "kind": "modifier",
-              "subject": "allocated-attack",
               "characteristic": "damage",
-              "delta": -1,
-              "conditions": {
-                "recipientKeyword": "PSYKER",
-                "recipientBelongsTo": "selected-unit"
-              }
+              "operation": "subtract",
+              "amount": 1,
+              "attacks": "allocated-to-target-unit-models",
+              "excludingModelsWith": [
+                "PSYKER"
+              ]
             }
           ],
-          "duration": {
-            "until": "end-of-phase"
-          }
+          "duration": "end-of-phase"
         }
       }
     }

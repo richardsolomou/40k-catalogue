@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "At [Movement phase](vsdata:core-rule/movement-phase) end on your turn, choose a friendly **ASTRA MILITARUM** unit. Exclude Reserves arrivals from that phase. The pick may make a **[Normal Move](vsdata:core-rule/normal-move)** capped at D6 inches.",
+    "summary": "As your Movement phase ends, pick 1 **ASTRA MILITARUM** unit of yours that neither Remained Stationary nor arrived from Reserves this phase. It is allowed a Normal move, to a maximum of D6\".",
     "citations": [
       {
         "type": "app",
@@ -64,39 +64,30 @@
           ]
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "your"
-              }
-            ],
-            "event": "end-of-phase"
-          },
+          "detachment": "Armoured Infantry",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "end-of-phase"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "ASTRA MILITARUM"
             ],
-            "didNotArriveFromReserves": "this-phase"
+            "remainedStationaryThisPhase": false,
+            "arrivedFromReservesThisPhase": false
           },
           "effects": [
             {
-              "kind": "optional-move",
-              "recipient": "target-unit",
-              "moveType": "normal",
-              "distanceCap": {
-                "kind": "die",
-                "sides": 6,
-                "count": 1,
-                "unit": "inch"
+              "normalMove": {
+                "maxInches": "D6"
               },
-              "duration": {
-                "until": "resolution"
-              }
+              "optional": true
             }
           ]
         }

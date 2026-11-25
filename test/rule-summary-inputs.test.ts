@@ -57,6 +57,20 @@ for (const version of versions) {
     }
   });
 
+  test(`every ${version} mission pack swaps a drawn card the way its card's facts do`, () => {
+    const cards = new Map(records().filter((r) => r.kind === "mission-card").map((r) => [r.id, r.data as any]));
+    const differ = records()
+      .filter((r) => r.kind === "mission-pack")
+      .flatMap((r) => (r.data as any).secondaries)
+      .filter((secondary) => secondary.whenDrawn?.action)
+      .filter((secondary) => {
+        const operations = cards.get(secondary.id)?.facts?.fields?.detail?.operations ?? [];
+        const discards = operations.some((operation: { kind: string }) => operation.kind === "discard");
+        return (secondary.whenDrawn.action === "discard") !== discards;
+      });
+    assert.deepEqual(differ.map((secondary) => secondary.id), []);
+  });
+
   test(`every ${version} datasheet profile, roster definition and points snapshot validates`, () => {
     const all = records();
     const identity = json(join(summaries, "identity.json"));

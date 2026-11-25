@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "battle-tactic"
     },
-    "summary": "Use it in your [Charge phase](vsdata:core-rule/charge-phase) right after a **LEGIONES DAEMONICA SLAANESH** unit of yours ends a **[Charge Move](vsdata:core-rule/charge-move)**; that unit is the target.\n\nPick an enemy unit in its **[Engagement Range](vsdata:core-rule/engagement-range)** and roll a D6 per model of your unit in Engagement Range of the chosen enemy unit, or 6 D6 if the target is a **MONSTER** unit. Each 4+ inflicts 1 **mortal wound** on the enemy unit.",
+    "summary": "In your Charge phase, immediately after a **LEGIONES DAEMONICA SLAANESH** unit of yours finishes a Charge move, pick 1 enemy unit in Engagement Range of it.\n\nRoll 1 D6 for every model of your unit in Engagement Range of the picked unit, or 6 D6 when that unit of yours is a **MONSTER**; each 4+ deals 1 **mortal wound** to the picked enemy unit.",
     "citations": [
       {
         "type": "app",
@@ -64,28 +64,40 @@
           ]
         },
         "detail": {
-          "window": [
-            "your Charge phase",
-            "after friendly Charge Move ends"
+          "detachment": "Legion of Excess",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "charge",
+              "timing": "just-after-the-unit-ends-a-charge-move"
+            }
           ],
           "target": {
-            "unit": "LEGIONES DAEMONICA SLAANESH",
-            "binding": "charging unit"
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "SLAANESH"
+            ],
+            "sameAs": "unit-that-charged"
           },
-          "effect": {
-            "enemy": {
-              "count": 1,
-              "within": "Engagement Range of target"
-            },
-            "dice": {
-              "die": "D6",
-              "perModel": "target-unit models within Engagement Range of the chosen enemy unit",
-              "monsterCount": 6
-            },
-            "threshold": "4+",
-            "mortalWoundsPerSuccess": 1
-          },
-          "restrictions": []
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "withinEngagementRangeOf": "target-unit"
+              },
+              "dice": {
+                "die": "D6",
+                "per": "target-unit-model-within-engagement-range-of-selected-enemy",
+                "insteadIfTargetIsMonster": 6
+              },
+              "success": "4+",
+              "mortalWoundsPerSuccess": 1
+            }
+          ]
         }
       }
     }

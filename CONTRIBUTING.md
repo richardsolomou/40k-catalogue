@@ -24,9 +24,14 @@ pnpm lint:md
 
 ## Editing released data
 
-Edit records, identity entries and categories in `data/<version>/rule-summaries/` directly. Updates converted from the official sources arrive as pull requests that change only the records whose source changed since the last update, so an edit made here is kept. When a source changes a record that was also edited here, the update keeps the edit and lists the record as a conflict to settle in review.
+Edit records, identity entries and categories in `data/<version>/rule-summaries/` directly, keeping to the [rules records](#rules-records) guidance and the [identity history rules](docs/catalogue-identity.md#when-an-id-changes): an ID is never dropped or reused. Updates converted from the official sources arrive as pull requests that change only the records whose source changed since the last update, so an edit made here is kept. When a source changes a record that was also edited here, the update keeps the edit and lists the record as a conflict to settle in review.
 
-Two kinds of file are generated from other records, so edit the record they come from instead: `localisation/*.json` follows the identity entries, and a mission pack's award criteria and twist effects follow their `mission-rules` records.
+Two kinds of file are generated, so a direct edit to them is replaced by the next update:
+
+- `localisation/*.json` takes each entry's name from `identity.json` and its names in each language from the official app. Correct a name in `identity.json`.
+- A mission pack's award criteria and twist effects repeat the summaries of its `mission-award` and `mission-twist` records. Edit those records.
+
+Each release publishes a new catalogue revision, and a build that repeats a released revision fails. Raise `revision` in `identity.json` above the latest release's when an edit is to ship without a converted update.
 
 ## Reporting a gap
 

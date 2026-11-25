@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.armoured-speartip.machine-wrath",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Armoured Speartip",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.armoured-speartip"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight",
+        "end-of-turn"
+      ],
+      "turn": "any",
+      "type": "epic-deed"
+    },
+    "summary": "Use it in any phase, right after one of your **HEAVY TRANSPORT** units with **[Deadly Demise](vsdata:core-ability/deadly-demise)** is **destroyed**, provided its **Deadly Demise** roll was a 6; that destroyed unit is the target. Before its **Deadly Demise** is resolved, and ahead of any Emergency Disembarkation by units embarked within it, it can make a **Normal move** or a **Fall Back move**. During that move:\n\n- it can cross enemy models that are not **MONSTERS** or **VEHICLES**\n- it can come within **Engagement Range** of those models but must end outside it\n- every **Desperate Escape test** it takes counts as passed",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
+          },
+          "target": {
+            "unresolved": "not typed yet; see the summary"
+          }
+        },
+        "detail": {
+          "detachment": "Armoured Speartip",
+          "type": "Epic Deed",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "any",
+              "timing": "right after a HEAVY TRANSPORT of yours with Deadly Demise is destroyed"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "keywordsAll": [
+              "HEAVY TRANSPORT"
+            ],
+            "theDestroyedUnit": true,
+            "condition": {
+              "deadlyDemiseRoll": 6
+            },
+            "usableAlthoughDestroyed": true
+          },
+          "effects": [
+            {
+              "move": [
+                "normal",
+                "fall-back"
+              ],
+              "before": [
+                "its Deadly Demise ability is resolved",
+                "embarked units perform an Emergency Disembarkation"
+              ],
+              "moveThroughEnemyModels": {
+                "excludeKeywords": [
+                  "MONSTER",
+                  "VEHICLE"
+                ]
+              },
+              "mayMoveWithinEngagementRange": true,
+              "cannotEndWithinEngagementRange": true,
+              "desperateEscapeTestsAutoPassed": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

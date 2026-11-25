@@ -6,14 +6,14 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,871 | 6,389 | 482 |
-| `mission-rules` | 285 | 263 | 22 |
+| `rules-reference` | 6,961 | 6,482 | 479 |
+| `mission-rules` | 285 | 285 | 0 |
 
-5,917 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02; 600 records that no app row carries cite only the dated Games Workshop page that prints it. 135 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 917 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,026 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02; 605 records that no app row carries cite only the dated Games Workshop page that prints it. 136 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 922 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 763 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2108, `grants` 293, `weaponAbilities` 86, `reminder` 1905, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 61, `attachment` 39, `references` 716 (3,485 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 835 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2110, `grants` 293, `weaponAbilities` 86, `reminder` 1906, `reserves` 1, `invulnerableSave` 83, `upgradesWeapon` 19, `roster` 61, `attachment` 39, `references` 716 (3,488 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
-The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,108 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 791 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it, and names the 339 cards it prints that this version publishes no record for in `stratagemsUnlisted` and `enhancementsUnlisted`. 357 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 347 of them from the Munitorum Field Manual's Legends section. 337 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (36 of them with options left out, listed below), and their weapon profiles name that wargear.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,108 stat lines and 5,126 weapon profiles, and the `legacy-marine-old` points snapshot of 1,047 units, 270 Detachments and 862 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it, and names the 261 cards it prints that this version publishes no record for in `stratagemsUnlisted` and `enhancementsUnlisted`. 357 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-marine-old-legends` snapshot, the costs of 347 of them from the Munitorum Field Manual's Legends section. 337 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (36 of them with options left out, listed below), and their weapon profiles name that wargear.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
@@ -51,7 +51,7 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 
 Active entries without a record, by reason. An entry with several reasons is listed under each.
 
-### The rule's text first appears in an app build released after the update's cutoff, and no official source dated before the cutoff prints it (385)
+### The rule's text first appears in an app build released after the update's cutoff, and no official source dated before the cutoff prints it (382)
 
 - `ability` `black-templars.castellan.vehement-aggression`
 - `ability` `black-templars.chaplain-grimaldus.faithful-cenobytes`
@@ -162,7 +162,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.assault-brethren.assault-mastery`
 - `ability` `space-marines.assault-brethren.furious-assault-upgrade`
 - `ability` `space-marines.assault-brethren.imperiums-sword`
-- `ability` `space-marines.assault-intercessor-squad.targeted-intercession`
 - `ability` `space-marines.ballistus-dreadnought.ballistus-strike`
 - `ability` `space-marines.blade-of-ultramar.armour-of-contempt`
 - `ability` `space-marines.blade-of-ultramar.courage-and-honour`
@@ -214,7 +213,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.eliminator-squad.chameleoline-cloaks`
 - `ability` `space-marines.eliminator-squad.special-issue-optics-and-ammunition`
 - `ability` `space-marines.eradicator-squad-with-heavy-bolters.overlapping-destruction`
-- `ability` `space-marines.eradicator-squad-with-melta-rifles.total-obliteration`
 - `ability` `space-marines.falchion.titan-killer`
 - `ability` `space-marines.forgefathers-seekers.adamantine-mantle`
 - `ability` `space-marines.forgefathers-seekers.blazing-earth`
@@ -224,7 +222,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.forgefathers-seekers.vulkans-quest`
 - `ability` `space-marines.forgefathers-seekers.wrath-and-ruin`
 - `ability` `space-marines.gauntlet-task-force.linebreaker-onslaught`
-- `ability` `space-marines.gladius-task-force.adept-of-the-codex`
 - `ability` `space-marines.gladius-task-force.codex-discipline`
 - `ability` `space-marines.gladius-task-force.laurels-of-triumph`
 - `ability` `space-marines.gladius-task-force.standard-of-the-emperor-ascendant`
@@ -439,7 +436,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `weapon-ability` `sustained-hits-1-non-monster-vehicle`
 - `weapon-ability` `sustained-hits-2-non-monster-vehicle`
 
-### Neither a datasheet or rule of the app build in force nor a dated publisher page carries the rule, so it has no official citation yet (279)
+### Neither a datasheet or rule of the app build in force nor a dated publisher page carries the rule, so it has no official citation yet (278)
 
 - `ability` `black-templars.chaplain-grimaldus.faithful-cenobytes`
 - `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
@@ -532,7 +529,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.eliminator-squad.chameleoline-cloaks`
 - `ability` `space-marines.eliminator-squad.special-issue-optics-and-ammunition`
 - `ability` `space-marines.eradicator-squad-with-heavy-bolters.overlapping-destruction`
-- `ability` `space-marines.eradicator-squad-with-melta-rifles.total-obliteration`
 - `ability` `space-marines.falchion.damaged`
 - `ability` `space-marines.falchion.titan-killer`
 - `ability` `space-marines.forgefathers-seekers.forged-in-fire`
@@ -721,7 +717,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `weapon-ability` `sustained-hits-1-non-monster-vehicle`
 - `weapon-ability` `sustained-hits-2-non-monster-vehicle`
 
-### The summary is still generated from upstream structured data and awaits a redraft in original wording (152)
+### The summary is still generated from upstream structured data and awaits a redraft in original wording (149)
 
 - `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
 - `ability` `black-templars.fist-of-the-god-emperor.oathbound-exemplar`
@@ -766,7 +762,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.assault-brethren.assault-mastery`
 - `ability` `space-marines.assault-brethren.furious-assault-upgrade`
 - `ability` `space-marines.assault-brethren.imperiums-sword`
-- `ability` `space-marines.assault-intercessor-squad.targeted-intercession`
 - `ability` `space-marines.ballistus-dreadnought.ballistus-strike`
 - `ability` `space-marines.bladeguard-ancient.deeds-of-legend`
 - `ability` `space-marines.bladeguard-ancient.raise-the-banner`
@@ -793,8 +788,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.devastator-brethren.master-forged-firearms`
 - `ability` `space-marines.eliminator-squad.chameleoline-cloaks`
 - `ability` `space-marines.eradicator-squad-with-heavy-bolters.overlapping-destruction`
-- `ability` `space-marines.eradicator-squad-with-melta-rifles.total-obliteration`
-- `ability` `space-marines.gladius-task-force.adept-of-the-codex`
 - `ability` `space-marines.gravis-linebreaker-force.indefatigable-fortitude`
 - `ability` `space-marines.gravis-linebreaker-force.relentless-advance`
 - `ability` `space-marines.gravis-siege-force.immovable-conquerors-upgrade`
@@ -963,7 +956,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-wolves.saga-of-the-great-wolf.fangs-of-the-pack`
 - `ability` `space-wolves.saga-of-the-great-wolf.wolf-totems`
 
-### The summary or typed facts repeat a run of the official wording and await a redraft (50)
+### The summary or typed facts repeat a run of the official wording and await a redraft (49)
 
 - `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
 - `ability` `black-templars.vow-sworn-crusaders.dread-crusaders`
@@ -983,7 +976,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `space-marines.aethon-shaan.master-of-shadows`
 - `ability` `space-marines.ancient-in-terminator-armour.raise-the-banner`
 - `ability` `space-marines.ancient.raise-the-banner`
-- `ability` `space-marines.assault-intercessor-squad.targeted-intercession`
 - `ability` `space-marines.bladeguard-ancient.deeds-of-legend`
 - `ability` `space-marines.bladeguard-ancient.raise-the-banner`
 - `ability` `space-marines.captain-in-gravis-armour.refuse-to-yield`
@@ -1154,31 +1146,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `unit` `world-eaters.bloodcult-champion`
 - `unit` `world-eaters.butcherlord`
 - `unit` `world-eaters.eight-blessed-lord`
-
-### A Combat Patrol mission card, whose summary is not drafted yet (22)
-
-- `mission-card` `combat-patrol.architects-of-agony`
-- `mission-card` `combat-patrol.cult-ritual`
-- `mission-card` `combat-patrol.defenders-of-the-golden-throne-2`
-- `mission-card` `combat-patrol.duff-em-up`
-- `mission-card` `combat-patrol.encircle-and-destroy`
-- `mission-card` `combat-patrol.expansionary-campaign`
-- `mission-card` `combat-patrol.for-cadia`
-- `mission-card` `combat-patrol.for-the-kindred`
-- `mission-card` `combat-patrol.grandiose-slaughter`
-- `mission-card` `combat-patrol.honour-the-chapter`
-- `mission-card` `combat-patrol.indescriminate-butchery`
-- `mission-card` `combat-patrol.inexorable-conquest`
-- `mission-card` `combat-patrol.inquisitorial-sanction`
-- `mission-card` `combat-patrol.on-holy-ground`
-- `mission-card` `combat-patrol.outflank-and-encircle`
-- `mission-card` `combat-patrol.prepare-the-way`
-- `mission-card` `combat-patrol.purification`
-- `mission-card` `combat-patrol.seize-their-strongholds`
-- `mission-card` `combat-patrol.shatter-the-veil`
-- `mission-card` `combat-patrol.slay-the-oppressors`
-- `mission-card` `combat-patrol.strike-from-on-high`
-- `mission-card` `combat-patrol.uphold-your-vows`
 
 ### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (19)
 

@@ -6,10 +6,10 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,813 | 6,804 | 9 |
-| `mission-rules` | 285 | 263 | 22 |
+| `rules-reference` | 6,898 | 6,889 | 9 |
+| `mission-rules` | 285 | 285 | 0 |
 
-6,354 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30; 576 records that no app row carries cite only the dated Games Workshop page that prints it. 137 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 940 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,454 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30; 582 records that no app row carries cite only the dated Games Workshop page that prints it. 138 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 946 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2366, `grants` 322, `weaponAbilities` 100, `reminder` 2119, `reserves` 1, `invulnerableSave` 94, `upgradesWeapon` 21, `roster` 65, `attachment` 48, `references` 991 (3,934 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
@@ -31,6 +31,13 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 - `faq` `codex-necrons.errata.ophydian-destroyers-tunnelling-horrors-ability-2`, replaced by Necrons Faction Pack: Version 1.3, page 30
 - `faq` `imperial-armour-grey-knights.errata.grey-knights-thunderhawk-gunship`, replaced by Grey Knights Faction Pack: Version 1.2, page 7; Grey Knights Faction Pack: Version 1.2, page 8
 - `faq` `index-chaos-daemons.errata.feculent-gnarlmaw-screamers-skull-altar-keywords`, replaced by Chaos Daemons Faction Pack: Version 1.2, page 61; Chaos Daemons Faction Pack: Version 1.2, page 87; Chaos Daemons Faction Pack: Version 1.2, page 37
+
+## Absent
+
+2 BSData abilities that this version's official sources do not print on the datasheet BSData gives them to are entries with `absent: true`, no record and, where no other entry holds it, the BSData ID as an alias.
+
+- `ability` `space-marines.assault-intercessor-squad.shock-assault`
+- `ability` `space-marines.librarian.mental-fortress-psychic`
 
 ## Unresolved
 
@@ -119,32 +126,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `unit` `world-eaters.butcherlord`
 - `unit` `world-eaters.eight-blessed-lord`
 
-### A Combat Patrol mission card, whose summary is not drafted yet (22)
-
-- `mission-card` `combat-patrol.architects-of-agony`
-- `mission-card` `combat-patrol.cult-ritual`
-- `mission-card` `combat-patrol.defenders-of-the-golden-throne-2`
-- `mission-card` `combat-patrol.duff-em-up`
-- `mission-card` `combat-patrol.encircle-and-destroy`
-- `mission-card` `combat-patrol.expansionary-campaign`
-- `mission-card` `combat-patrol.for-cadia`
-- `mission-card` `combat-patrol.for-the-kindred`
-- `mission-card` `combat-patrol.grandiose-slaughter`
-- `mission-card` `combat-patrol.honour-the-chapter`
-- `mission-card` `combat-patrol.indescriminate-butchery`
-- `mission-card` `combat-patrol.inexorable-conquest`
-- `mission-card` `combat-patrol.inquisitorial-sanction`
-- `mission-card` `combat-patrol.on-holy-ground`
-- `mission-card` `combat-patrol.outflank-and-encircle`
-- `mission-card` `combat-patrol.prepare-the-way`
-- `mission-card` `combat-patrol.purification`
-- `mission-card` `combat-patrol.seize-their-strongholds`
-- `mission-card` `combat-patrol.shatter-the-veil`
-- `mission-card` `combat-patrol.slay-the-oppressors`
-- `mission-card` `combat-patrol.strike-from-on-high`
-- `mission-card` `combat-patrol.uphold-your-vows`
-
-### A Detachment this version's app build no longer prints, last printed in build 946: an entry for the rules bound here as that build gives them (21)
+### A Detachment this version's app build no longer prints, last printed in build 946: an entry for the rules bound here as that build gives them (22)
 
 - `detachment` `blood-angels.legacy-of-grace`
 - `detachment` `blood-angels.liberator-assault-group`
@@ -158,6 +140,7 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `detachment` `dark-angels.unforgiven-task-force`
 - `detachment` `space-marines.1st-company-task-force`
 - `detachment` `space-marines.anvil-siege-force`
+- `detachment` `space-marines.armoured-speartip`
 - `detachment` `space-marines.bastion-task-force`
 - `detachment` `space-marines.firestorm-assault-force`
 - `detachment` `space-marines.fulguris-task-force`

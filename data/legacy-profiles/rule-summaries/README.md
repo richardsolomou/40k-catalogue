@@ -6,10 +6,10 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,787 | 6,778 | 9 |
-| `mission-rules` | 285 | 263 | 22 |
+| `rules-reference` | 6,793 | 6,784 | 9 |
+| `mission-rules` | 285 | 285 | 0 |
 
-6,329 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02; 576 records that no app row carries cite only the dated Games Workshop page that prints it. 136 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 940 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,351 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02; 581 records that no app row carries cite only the dated Games Workshop page that prints it. 137 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 945 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2366, `grants` 322, `weaponAbilities` 100, `reminder` 2119, `reserves` 1, `invulnerableSave` 94, `upgradesWeapon` 21, `roster` 65, `attachment` 48, `references` 991 (3,934 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
 
@@ -118,31 +118,6 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `unit` `world-eaters.bloodcult-champion`
 - `unit` `world-eaters.butcherlord`
 - `unit` `world-eaters.eight-blessed-lord`
-
-### A Combat Patrol mission card, whose summary is not drafted yet (22)
-
-- `mission-card` `combat-patrol.architects-of-agony`
-- `mission-card` `combat-patrol.cult-ritual`
-- `mission-card` `combat-patrol.defenders-of-the-golden-throne-2`
-- `mission-card` `combat-patrol.duff-em-up`
-- `mission-card` `combat-patrol.encircle-and-destroy`
-- `mission-card` `combat-patrol.expansionary-campaign`
-- `mission-card` `combat-patrol.for-cadia`
-- `mission-card` `combat-patrol.for-the-kindred`
-- `mission-card` `combat-patrol.grandiose-slaughter`
-- `mission-card` `combat-patrol.honour-the-chapter`
-- `mission-card` `combat-patrol.indescriminate-butchery`
-- `mission-card` `combat-patrol.inexorable-conquest`
-- `mission-card` `combat-patrol.inquisitorial-sanction`
-- `mission-card` `combat-patrol.on-holy-ground`
-- `mission-card` `combat-patrol.outflank-and-encircle`
-- `mission-card` `combat-patrol.prepare-the-way`
-- `mission-card` `combat-patrol.purification`
-- `mission-card` `combat-patrol.seize-their-strongholds`
-- `mission-card` `combat-patrol.shatter-the-veil`
-- `mission-card` `combat-patrol.slay-the-oppressors`
-- `mission-card` `combat-patrol.strike-from-on-high`
-- `mission-card` `combat-patrol.uphold-your-vows`
 
 ### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (19)
 

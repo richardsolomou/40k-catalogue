@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.gladius-task-force.adept-of-the-codex",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Gladius Task Force",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.gladius-task-force"
+    },
+    "summary": "As your Command phase begins, with the bearer on the battlefield, you can pick the Tactical Doctrine of [Combat Doctrines](vsdata:ability/space-marines.combat-doctrines) for just the bearer's unit in place of choosing a Combat Doctrine for your army.\n\nThat Doctrine then stays active for that unit until your next Command phase begins, even if your army has already had it active earlier in the battle. Only a **CAPTAIN** model may take it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "basis": "app-eligibility-rows",
+            "anyOf": [
+              {
+                "keywords": [
+                  "CAPTAIN"
+                ]
+              }
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Gladius Task Force",
+          "effects": [
+            {
+              "when": {
+                "turn": "own",
+                "phase": "command",
+                "timing": "start-of-phase"
+              },
+              "condition": "the bearer is on the battlefield",
+              "insteadOf": "choosing an army-wide Combat Doctrine",
+              "select": {
+                "combatDoctrine": "Tactical Doctrine",
+                "activeFor": "the bearer's unit only"
+              },
+              "duration": "until-start-of-your-next-command-phase",
+              "evenIf": "that Combat Doctrine was already selected for your army this battle"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -81,7 +81,7 @@ A profile's `unit` bounds what else it may name. Its `models` must belong to tha
 - A required characteristic is either stated or a gap, never both.
 - A list of invulnerable saves names each kind of attack once, and each save's `summary` parses with the summary grammar and has no links.
 - When a unit has several unit profiles, each names its models or has a `models` gap, and no model has two profiles.
-- A base size by model gives each model the profile describes (its `models`, else every model of its unit) exactly one base size and names no other model. A model or wargear a base size names follows the local reference rules above, and no wargear item is named twice in one base size.
+- A base size by model gives each model the profile describes (its `models`, else every model of its unit) exactly one base size and names no other model. A model or wargear a base size names follows the local reference rules above, and no wargear item is named twice in one model's base size.
 - A unit has at most one attachment and one transport record. A transport can state one replacement pool for each wargear ID.
 
 `profiles.of(kind, unit)` lists a unit's records of one kind, and `profiles.attachedBy(unit, role)` lists the units whose `leads` or `supports` name it.

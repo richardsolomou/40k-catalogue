@@ -25,7 +25,7 @@ export type EquippedBase = BaseChoice | { size: BaseChoice; withWargear: { warge
 /** A profile's base size, for every model it describes or for each of its models. */
 export type BaseSize = EquippedBase | { byModel: { models: string[]; size: EquippedBase }[] };
 /** Where a value was printed, as a record's `source` gives it. */
-export type Source = { title: string; page?: string; url?: string };
+export type Source = { title: string; page?: string; url?: string; revision?: string };
 /** A profile with neither `models` nor a model gap applies to the whole unit. `null` means the datasheet gives no value. */
 export type UnitProfileData = {
   unit: string;

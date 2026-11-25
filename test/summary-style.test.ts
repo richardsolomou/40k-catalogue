@@ -34,7 +34,7 @@ test("a Stratagem's When part opens with whose phase it is", () => {
 });
 
 test("a Stratagem's When part can name any phase", () => {
-  const parts = { when: "Any phase, after an enemy unit selects its targets.", target: "One unit of yours.", effect: "The unit gets -1 to Wound against it." };
+  const parts = { when: "Any phase, after an enemy unit selects its targets.", target: "A unit of yours.", effect: "The unit gets -1 to Wound against it." };
   assert.deepEqual(styleIssues(stratagem(parts)), []);
 });
 
@@ -51,7 +51,7 @@ test("a duration follows the effect it bounds", () => {
 });
 
 test("a duration after a Stratagem's label is still first", () => {
-  const parts = { when: "Your Shooting phase.", target: "One unit of yours.", effect: "For the rest of the phase, the unit gets +1 to Hit." };
+  const parts = { when: "Your Shooting phase.", target: "A unit of yours.", effect: "For the rest of the phase, the unit gets +1 to Hit." };
   assert.deepEqual(styleIssues(stratagem(parts)), ["duration-first"]);
 });
 
@@ -81,7 +81,7 @@ test("a report lists the records breaking each rule", () => {
 });
 
 test("a Stratagem's When part may use a curly apostrophe", () => {
-  assert.deepEqual(styleIssues(stratagem({ when: "Opponent’s Shooting phase, after an enemy unit has shot.", target: "One unit of yours.", effect: "The unit gets -1 to Wound against it." })), []);
+  assert.deepEqual(styleIssues(stratagem({ when: "Opponent’s Shooting phase, after an enemy unit has shot.", target: "A unit of yours.", effect: "The unit gets -1 to Wound against it." })), []);
 });
 
 test("a Stratagem's When part names a phase, not just any sentence with the word", () => {
@@ -89,11 +89,11 @@ test("a Stratagem's When part names a phase, not just any sentence with the word
 });
 
 test("a Stratagem's When part says Opponent's, not your opponent's", () => {
-  assert.deepEqual(styleIssues(stratagem({ when: "Your opponent's Shooting phase, as it ends.", target: "One unit of yours.", effect: "The unit gets +1 OC." })), ["stratagem-when"]);
+  assert.deepEqual(styleIssues(stratagem({ when: "Your opponent's Shooting phase, as it ends.", target: "A unit of yours.", effect: "The unit gets +1 OC." })), ["stratagem-when"]);
 });
 
 test("a Stratagem's When part can be the end of a turn", () => {
-  assert.deepEqual(styleIssues(stratagem({ when: "Either player's turn, as it ends.", target: "One unit of yours.", effect: "The unit gets +1 OC." })), []);
+  assert.deepEqual(styleIssues(stratagem({ when: "Either player's turn, as it ends.", target: "A unit of yours.", effect: "The unit gets +1 OC." })), []);
 });
 
 test("only a unit's own Damaged rule opens with its range of wounds", () => {
@@ -126,4 +126,20 @@ test("a usage limit in brackets is reported", () => {
 
 test("a summary outside the grammar is reported rather than thrown", () => {
   assert.deepEqual(styleIssues(ability("Gets _hot_.")), ["invalid-summary"]);
+});
+
+test("a Stratagem's Target part does not open with a count word", () => {
+  assert.deepEqual(styleIssues(stratagem({ when: "Your Command phase.", target: "One **INFANTRY** unit of yours.", effect: "The unit gets +1 OC." })), ["stratagem-target"]);
+});
+
+test("a Stratagem's Target part writes a count above one in digits", () => {
+  assert.deepEqual(styleIssues(stratagem({ when: "Your Command phase.", target: "Up to two **INFANTRY** units of yours.", effect: "The units get +1 OC." })), ["stratagem-target"]);
+});
+
+test("a Stratagem's Target part can name a count in digits", () => {
+  assert.deepEqual(styleIssues(stratagem({ when: "Your Command phase.", target: "Up to 2 **INFANTRY** units of yours.", effect: "The units get +1 OC." })), []);
+});
+
+test("a name that opens with a number word is not a count", () => {
+  assert.deepEqual(styleIssues(stratagem({ when: "Your Command phase.", target: "**ONE EYE** of yours.", effect: "The model gets +1 OC." })), []);
 });

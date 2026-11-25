@@ -5,7 +5,7 @@ import type { AbilityData, StratagemParts } from "./summaries.ts";
 const KINDS = new Set(["ability", "weapon-ability"]);
 const STRATAGEMS = new Set(["stratagem", "core-stratagem"]);
 
-// Phrasings the phrasebook replaces, checked outside names: bold spans and link text are game terms or names.
+// Phrasings the phrasebook replaces, checked outside names.
 const REPLACED: [string, RegExp][] = [
   ["each-time", /\b(?:each|every) time\b/i],
   ["just-after", /\b(?:just|right|immediately) after\b/i],
@@ -42,8 +42,13 @@ const REPLACED: [string, RegExp][] = [
 const DURATION_FIRST =
   /(?:^|[.!?:]\s+|\n(?:- |\d+\. )?)(?:Once per (?:battle|turn|phase), )?(?:For the rest of the (?:phase|turn|battle)|Until (?:your|the end of|the start of))\b/i;
 const WHEN = /^(?:(?:Your|Opponent's|Either player's) (?:(?:Command|Movement|Shooting|Charge|Fight) phase|turn)|Any phase)\b/;
+// A count word opening a Target part repeats the official text's own opening; "A" and digits do not.
+const TARGET_COUNT = /^(?:Up to )?(?:one|two|three|four|five|six|seven|eight|nine|ten)\b/i;
 const DAMAGED = /^With \d+-\d+ wounds left, /;
 const DAMAGED_ID = /^damaged\b/;
+
+// A summary's text without its names: bold spans and link text are game terms or names.
+const unnamed = (summary: string) => summary.replace(/\[[^\]]*\]\([^)]*\)/g, " ").replace(/\*\*[^*]*\*\*/g, " ");
 
 export type StyleRecord = { kind: string; id: string; data: unknown };
 
@@ -54,22 +59,24 @@ export function styleIssues(record: StyleRecord): string[] {
   if (typeof data.summary !== "string") return [];
   const issues: string[] = [];
   const apostrophes = (s: string) => s.replace(/’/g, "'");
-  let text: string, when: string | undefined;
+  let text: string, when: string | undefined, target: string | undefined;
   try {
     text = apostrophes(plain(data.summary));
     when = data.parts && apostrophes(plain(data.parts.when));
+    target = data.parts && plain(data.parts.target) && unnamed(data.parts.target).trim();
   } catch {
     return ["invalid-summary"];
   }
   if (STRATAGEMS.has(data.ruleType)) {
     if (when === undefined) issues.push("stratagem-parts");
     else if (!WHEN.test(when)) issues.push("stratagem-when");
+    if (target !== undefined && TARGET_COUNT.test(target)) issues.push("stratagem-target");
   }
   if (data.ruleType === "enhancement" && !text.startsWith("Bearer: ")) issues.push("enhancement-bearer");
   if (data.ruleType === "unit-ability" && DAMAGED_ID.test(record.id.split(".").at(-1)!) && !DAMAGED.test(text)) issues.push("damaged-opening");
   if (DURATION_FIRST.test(text)) issues.push("duration-first");
-  const unnamed = apostrophes(data.summary).replace(/\[[^\]]*\]\([^)]*\)/g, " ").replace(/\*\*[^*]*\*\*/g, " ");
-  for (const [name, pattern] of REPLACED) if (pattern.test(unnamed)) issues.push(`phrasing/${name}`);
+  const prose = unnamed(apostrophes(data.summary));
+  for (const [name, pattern] of REPLACED) if (pattern.test(prose)) issues.push(`phrasing/${name}`);
   return issues;
 }
 

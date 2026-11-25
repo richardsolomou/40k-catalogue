@@ -5,8 +5,8 @@ import { links as summaryLinks, parseSummary } from "../rule-summaries/markdown.
 import schema from "./profiles.v1.schema.json" with { type: "json" };
 
 // Mirrors profiles.v1.schema.json, which is the contract consumers rely on.
-/** A field the source states but the record cannot: its target has no ID, or its value has no form here. */
-export type Gap = { field: string; reason: "no-target" | "unrepresentable" };
+/** A field the record leaves out: no official source prints it, its target has no ID, or its value has no form here. */
+export type Gap = { field: string; reason: "no-source" | "no-target" | "unrepresentable" };
 /** A roll of this value or more, so `3` means 3+. */
 export type Roll = number;
 /** A fixed amount, or dice such as `D6`, `2D3` or `D6+1`. */
@@ -16,7 +16,16 @@ export type Amount = number | string;
  * applies, and `summary` says when, in the rule summary grammar without links.
  */
 export type InvulnerableSave = { roll: Roll; against?: "ranged" | "melee"; conditional?: true; summary?: string };
-export type BaseSize = "hull" | { diameter: number; approximate?: true; flying?: true } | { length: number; width: number; approximate?: true; flying?: true };
+/** One base: none (`hull`), one of no standard size (`unique`), round, oval, or a flying base whose size is not printed. */
+export type Base = "hull" | "unique" | { diameter: number; approximate?: true; flying?: true } | { length: number; width: number; approximate?: true; flying?: true } | { flyingBase: "large" | "small" };
+/** A base, or the bases the source lists without saying which model takes which. */
+export type BaseChoice = Base | { alternatives: Base[] };
+/** A base, replaced by another for models that carry any of some wargear. */
+export type EquippedBase = BaseChoice | { size: BaseChoice; withWargear: { wargear: string[]; size: BaseChoice }[] };
+/** A profile's base size, for every model it describes or for each of its models. */
+export type BaseSize = EquippedBase | { byModel: { models: string[]; size: EquippedBase }[] };
+/** Where a value was printed, as a record's `source` gives it. */
+export type Source = { title: string; page?: string; url?: string };
 /** A profile with neither `models` nor a model gap applies to the whole unit. `null` means the datasheet gives no value. */
 export type UnitProfileData = {
   unit: string;
@@ -30,6 +39,8 @@ export type UnitProfileData = {
   /** One save, or a list with a different save against ranged and against melee attacks, each naming its `against`. */
   invulnerableSave?: InvulnerableSave | InvulnerableSave[];
   baseSize?: BaseSize;
+  /** The source that prints the base size, where it is not the record's own source. */
+  baseSizeSource?: Source;
   gaps?: Gap[];
 };
 /** `skill` is the ballistic or weapon skill; `null` means the weapon makes no hit roll. */
@@ -99,6 +110,13 @@ const REQUIRED: Record<ProfileKind, string[]> = {
   "transport-profile": ["capacity"],
 };
 
+/** The models and wargear a base size names. */
+function baseRefs(size: BaseSize | undefined): Ref[] {
+  if (!size || typeof size !== "object") return [];
+  if ("byModel" in size) return size.byModel.flatMap((entry) => [...entry.models.map((id) => ({ kind: "model", id })), ...baseRefs(entry.size)]);
+  return "withWargear" in size ? size.withWargear.flatMap((entry) => entry.wargear.map((id) => ({ kind: "wargear", id }))) : [];
+}
+
 const ajv = new Ajv2020({ allErrors: true }).addSchema(schema);
 const checkData = new Map(KINDS.map((kind) => [kind, ajv.getSchema(`${schema.$id}#/$defs/${kind}`)!]));
 const key = (kind: string, id: string) => `${kind}:${id}`;
@@ -106,7 +124,7 @@ const key = (kind: string, id: string) => `${kind}:${id}`;
 function namedRefs(kind: ProfileKind, data: any): Ref[] {
   const refs = (k: string, ids: string[] = []) => ids.map((id) => ({ kind: k, id }));
   const unit = refs("unit", [data.unit]);
-  if (kind === "unit-profile") return [...unit, ...refs("model", data.models)];
+  if (kind === "unit-profile") return [...unit, ...refs("model", data.models), ...baseRefs(data.baseSize)];
   if (kind === "weapon-profile") return [...unit, ...refs("wargear", data.wargear ? [data.wargear] : [])];
   if (kind === "transport-profile") return [...unit, ...refs("wargear", (data as TransportProfileData).capacity?.whenEquipped?.map(({ wargear }) => wargear))];
   const conditional: ConditionalAttachment[] = data.conditional ?? [];
@@ -195,6 +213,12 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
   // A Set visits members added while iterating it, so this adds what carried bundles include at any depth, each once.
   for (const carried of unitWargear.values()) for (const id of carried) for (const included of refsOf(entries.get(key("wargear", id)), "wargear")) carried.add(included);
 
+  const unitModels = new Map<string, string[]>();
+  for (const entry of identity.entries) {
+    if (entry.kind !== "model" || entry.retired) continue;
+    for (const unit of refsOf(entry, "unit")) unitModels.set(unit, [...(unitModels.get(unit) ?? []), entry.id]);
+  }
+
   for (const [at, profile] of byKey) {
     const kind = at.slice(0, at.indexOf(":")) as ProfileKind;
     const entry = entries.get(at)!;
@@ -219,6 +243,7 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
     for (const model of data.models ?? []) {
       if (!refsOf(entries.get(key("model", model)), "unit").includes(data.unit)) errors.push(`${at} names model:${model}, which belongs to another unit`);
     }
+    if (kind === "unit-profile") errors.push(...baseSizeErrors(at, data as UnitProfileData, unitModels.get(data.unit) ?? []));
     if (kind === "transport-profile") {
       const gear = (data as TransportProfileData).capacity?.whenEquipped?.map(({ wargear }) => wargear) ?? [];
       if (new Set(gear).size !== gear.length) errors.push(`${at} has multiple capacities for the same wargear`);
@@ -270,4 +295,31 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
       attachedBy: (unit, role) => (attached.get(`${role}:${unit}`) ?? []).map((link) => link.unit).toSorted(),
     },
   };
+}
+
+/**
+ * A base size by model names each model the profile describes (its `models`, else every model of its unit) exactly
+ * once, and no other; a base by wargear names each item once.
+ */
+function baseSizeErrors(at: string, data: UnitProfileData, unitModels: string[]): string[] {
+  const size = data.baseSize;
+  if (!size || typeof size !== "object") return [];
+  const errors: string[] = [];
+  const wargearOnce = (equipped: EquippedBase) => {
+    const items = typeof equipped === "object" && "withWargear" in equipped ? equipped.withWargear.flatMap((entry) => entry.wargear) : [];
+    for (const id of new Set(items)) if (items.indexOf(id) !== items.lastIndexOf(id)) errors.push(`${at} gives wargear:${id} more than one base size`);
+  };
+  if (!("byModel" in size)) {
+    wargearOnce(size);
+    return errors;
+  }
+  const scope = data.models ?? unitModels;
+  const named = size.byModel.flatMap((entry) => entry.models);
+  for (const id of new Set(named)) {
+    if (named.indexOf(id) !== named.lastIndexOf(id)) errors.push(`${at} gives model:${id} more than one base size`);
+    if (!scope.includes(id)) errors.push(`${at} gives a base size to model:${id}, which the profile does not describe`);
+  }
+  for (const id of scope) if (!named.includes(id)) errors.push(`${at} gives no base size to model:${id}`);
+  for (const entry of size.byModel) wargearOnce(entry.size);
+  return errors;
 }

@@ -48,9 +48,9 @@ Where the app and the guide in force differ, the app's size is published (20 sta
 - `space-marines.chaplain-in-terminator-armour`: app 50mm, guide 40mm
 - `space-marines.chaplain-with-jump-pack`: app 40mm, guide 32mm
 
-### No base size: Warhammer Legends datasheets no guide lists (330)
+### VS Data's own base sizes (312)
 
-No official source in reach prints their base size, so their stat lines carry a `no-source` gap.
+No official source in reach prints a base size for these datasheets, so their stat lines take VS Data's own, with no `baseSizeSource`.
 
 - `adepta-sororitas.battle-sanctum`
 - `adepta-sororitas.celestian-sacresant-aveline`
@@ -59,7 +59,6 @@ No official source in reach prints their base size, so their stat lines carry a 
 - `adepta-sororitas.repressor`
 - `adeptus-mechanicus.secutarii-hoplites`
 - `adeptus-mechanicus.secutarii-peltasts`
-- `adeptus-mechanicus.x-101`
 - `aeldari-2.amallyn-shadowguide`
 - `aeldari-2.autarch-skyrunner`
 - `aeldari-2.bonesinger`
@@ -83,6 +82,10 @@ No official source in reach prints their base size, so their stat lines carry a 
 - `aeldari-2.wasp-assault-walker`
 - `aeldari-2.webway-gate`
 - `aeldari-2.wraithseer`
+- `aeldari.clanblade`
+- `aeldari.dragon-knights`
+- `aeldari.leystalker`
+- `aeldari.stonesinger`
 - `astra-militarum.aquila-lander`
 - `astra-militarum.arkurian-stormhammer`
 - `astra-militarum.armageddon-pattern-medusa`
@@ -93,7 +96,6 @@ No official source in reach prints their base size, so their stat lines carry a 
 - `astra-militarum.ciaphas-cain`
 - `astra-militarum.colossus`
 - `astra-militarum.crassus`
-- `astra-militarum.death-korps-grenadier-squad`
 - `astra-militarum.death-rider-commissar`
 - `astra-militarum.dominus-armoured-siege-bombard`
 - `astra-militarum.earthshaker-carriage-battery`
@@ -167,7 +169,6 @@ No official source in reach prints their base size, so their stat lines carry a 
 - `chaos-daemons.scabeiathrax-the-bloated`
 - `chaos-daemons.seeker-chariot`
 - `chaos-daemons.spined-chaos-beast`
-- `chaos-daemons.tormentbringer-on-exalted-seeker-chariot`
 - `chaos-daemons.zarakynel`
 - `chaos-space-marines.blood-slaughterer`
 - `chaos-space-marines.chaos-deimos-predator`
@@ -239,26 +240,7 @@ No official source in reach prints their base size, so their stat lines carry a 
 - `necrons.tesseract-ark`
 - `necrons.tomb-citadel-walls`
 - `necrons.vargard-obyron`
-- `orks.attack-fighta`
-- `orks.big-gunz`
-- `orks.big-mek-on-warbike`
-- `orks.big-mek-with-kustom-force-field`
-- `orks.chinork-warkopta`
-- `orks.da-red-gobbo`
-- `orks.deff-rolla-battle-fortress`
-- `orks.deffkoptas-with-big-shootas`
-- `orks.fighta-bommer`
-- `orks.grot-bomm-launcha`
-- `orks.kannonwagon`
-- `orks.kill-krusha`
-- `orks.mega-dread`
-- `orks.meka-dread`
 - `orks.mekboy-workshop`
-- `orks.nobz-on-warbikes`
-- `orks.painboy-on-warbike`
-- `orks.skorchas`
-- `orks.squiggoth`
-- `orks.ufthak-blackhawk`
 - `space-marines.ancient-on-bike`
 - `space-marines.apothecary-on-bike`
 - `space-marines.assault-squad`
@@ -383,19 +365,37 @@ No official source in reach prints their base size, so their stat lines carry a 
 - `unaligned-forces.wall-of-martyrs-defence-emplacement`
 - `unaligned-forces.wall-of-martyrs-defence-line`
 
-### No base size: datasheets neither the app nor the guide in force sizes (4)
+### No base size: Warhammer Legends datasheets no guide lists (21)
 
-The app build prints no base size and the guide dated before the cutoff does not list them, so their stat lines carry a `no-source` gap.
+No official source in reach prints their base size, so their stat lines carry a `no-source` gap.
 
-- `aeldari.clanblade`
-- `aeldari.dragon-knights`
-- `aeldari.leystalker`
-- `aeldari.stonesinger`
+- `adeptus-mechanicus.x-101`
+- `chaos-daemons.tormentbringer-on-exalted-seeker-chariot`
+- `orks.attack-fighta`
+- `orks.big-gunz`
+- `orks.big-mek-on-warbike`
+- `orks.big-mek-with-kustom-force-field`
+- `orks.chinork-warkopta`
+- `orks.da-red-gobbo`
+- `orks.deff-rolla-battle-fortress`
+- `orks.deffkoptas-with-big-shootas`
+- `orks.fighta-bommer`
+- `orks.grot-bomm-launcha`
+- `orks.kannonwagon`
+- `orks.kill-krusha`
+- `orks.mega-dread`
+- `orks.meka-dread`
+- `orks.nobz-on-warbikes`
+- `orks.painboy-on-warbike`
+- `orks.skorchas`
+- `orks.squiggoth`
+- `orks.ufthak-blackhawk`
 
-### No base size: sizes the format cannot attribute (1)
+### No base size: sizes the format cannot attribute (2)
 
 A source prints sizes for models or wargear the unit's roster definition does not type, so their stat lines carry an `unrepresentable` gap.
 
+- `astra-militarum.death-korps-grenadier-squad`
 - `imperial-agents.spectrus-kill-team`
 
 ## Retired

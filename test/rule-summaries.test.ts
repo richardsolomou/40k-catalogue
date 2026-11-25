@@ -372,3 +372,12 @@ test("an effect can change Wounds, regain wounds, cap mortal wounds and re-roll 
   });
   assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = more)), []);
 });
+
+test("an allowance for a kind of option names exactly one way it widens it", () => {
+  const options = (allowance: object) => ({ format: "vs-data-facts", version: "1", fields: { options: { offered: ["Orders"], allowances: [allowance] } } });
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = options({ options: "Orders", limit: 2, whileLeading: true }))), []);
+  assert.deepEqual(
+    errors((_, recs) => (data(recs, "ability", OATH.id).facts = options({ options: "Orders", limit: 2, extra: 1 }))),
+    [`ability:${OATH.id} facts/options/allowances/0 must match exactly one schema in oneOf`, `ability:${OATH.id} facts/options must match "else" schema`],
+  );
+});

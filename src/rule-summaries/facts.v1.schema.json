@@ -283,6 +283,20 @@
             "$ref": "#/$defs/roster"
           }
         },
+        "options": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/options"
+          }
+        },
         "attachment": {
           "if": {
             "type": "object",
@@ -423,6 +437,20 @@
           },
           "else": {
             "$ref": "#/$defs/roster"
+          }
+        },
+        "options": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/options"
           }
         },
         "attachment": {
@@ -2107,6 +2135,20 @@
             "$ref": "#/$defs/roster"
           }
         },
+        "options": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/options"
+          }
+        },
         "attachment": {
           "if": {
             "type": "object",
@@ -2140,6 +2182,68 @@
         },
         "detail": {
           "$ref": "#/$defs/detail"
+        }
+      }
+    },
+    "options": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "offered": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "allowances": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "options"
+            ],
+            "oneOf": [
+              {
+                "required": [
+                  "limit"
+                ]
+              },
+              {
+                "required": [
+                  "extra"
+                ]
+              },
+              {
+                "required": [
+                  "also"
+                ]
+              }
+            ],
+            "properties": {
+              "options": {
+                "$ref": "#/$defs/text"
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": 2
+              },
+              "extra": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "also": {
+                "$ref": "#/$defs/text"
+              },
+              "whileLeading": {
+                "const": true
+              }
+            }
+          }
         }
       }
     }

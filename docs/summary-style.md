@@ -38,7 +38,7 @@ A Stratagem is written as the four parts the app gives it, in this order:
 
 | Part | Holds | Form |
 | --- | --- | --- |
-| When | The phase and the moment the Stratagem is used. | Whose phase and its name, then the moment after a comma, such as "Your Shooting phase, as one of your **EMBER HOST** units is **selected to shoot**." Whose phase is "Your", "Opponent's" or "Either player's", or "Any phase". The moment is "as it begins", "as it ends", or the event that triggers it. |
+| When | The phase and the moment the Stratagem is used. | Whose phase and its name, then the moment after a comma, such as "Your Shooting phase, as one of your **EMBER HOST** units is **selected to shoot**." Whose phase is "Your", "Opponent's" or "Either player's", or "Any phase". The moment is "as it begins", "as it ends", or the event that triggers it. The end of a turn is "Your turn, as it ends", with whose turn it is. |
 | Target | What the Stratagem targets. | "One **KEYWORD** unit of yours", with any condition, or "That **KEYWORD** unit" for the unit the When part names. |
 | Effect | What happens. | As a datasheet ability, with "the unit" or "the model" as the target's subject. |
 | Restrictions | Limits and exclusions beyond the core rules' once per phase. | Left out when the Stratagem has none. |
@@ -106,7 +106,7 @@ Distances are digits and a straight double quote, such as `6"`. Dice are "a D6",
 
 ## Checking
 
-`styleIssues(record)` in [src/rule-summaries/style.ts](../src/rule-summaries/style.ts) names the rules of this style a summary breaks, and `styleReport(records)` lists the records breaking each one. It finds what a pattern can: a Stratagem without its parts or whose When part does not open with whose phase it is, an Enhancement that does not open with its bearer, a Damaged rule that does not open with its range of wounds, a duration before its effect, and the phrasings the phrasebook replaces outside bold and linked names. A review still reads every summary for the rest.
+`styleIssues(record)` in [src/rule-summaries/style.ts](../src/rule-summaries/style.ts) names the rules of this style a summary breaks, and `styleReport(records)` lists the records breaking each one. It finds what a pattern can: a Stratagem without its parts or whose When part does not open with whose phase or turn it is, an Enhancement that does not open with its bearer, a unit's Damaged rule that does not open with its range of wounds, a duration before its effect, and those phrasings the phrasebook replaces that `REPLACED` in that file lists, outside bold and linked names. A summary outside the [summary text](rule-summaries.md#summary-text) grammar is reported as `invalid-summary`. A review still reads every summary for the rest of the style.
 
 ```sh
 pnpm style data/mfm-1-6/rule-summaries/records

@@ -26,15 +26,24 @@ const REPLACED: [string, RegExp][] = [
   ["roll-modifier", /\broll modifier\b/i],
   ["is-the-target", /\bwhen (?:this|that|the) unit is the target\b/i],
   ["until-phase-end", /\buntil (?:the )?phase end\b/i],
+  ["until-the-end-of", /\buntil the end of the (?:phase|turn|battle)\b/i],
+  ["limit-in-brackets", /\(once per (?:battle|turn|phase|battle round)\b/i],
+  ["inches-word", /\d+ inch(?:es)?\b/i],
+  ["is-dealt", /\bis dealt\b/i],
+  ["is-added-to", /\bis added to\b/i],
+  ["falls-by", /\bfalls by\b/i],
   ["next-command-phase-starts", /\buntil your (?:opponent's )?next Command phase (?:starts|begins)\b/i],
   ["phase-opens", /\bphase opens\b|\bphase is over\b|\bturn finishes\b/i],
   ["inch-sign", /″/],
   ["dash-range", /\d–\d/],
 ];
-// A duration opening a sentence, list item or Stratagem part, where it belongs after the effect.
-const DURATION_FIRST = /(?:^|[.!?:]\s+|\n(?:- |\d+\. )?)(?:For the rest of the (?:phase|turn|battle)|Until (?:your|the end of|the start of))\b/;
-const WHEN = /^(?:(?:Your|Opponent's|Either player's)\b[^.]*\b(?:phase|turn)\b|Any phase\b)/;
+// A duration opening a sentence, list item, named part or Stratagem part, or straight after its usage limit, where it
+// belongs after the effect.
+const DURATION_FIRST =
+  /(?:^|[.!?:]\s+|\n(?:- |\d+\. )?)(?:Once per (?:battle|turn|phase), )?(?:For the rest of the (?:phase|turn|battle)|Until (?:your|the end of|the start of))\b/i;
+const WHEN = /^(?:(?:Your|Opponent's|Either player's) (?:(?:Command|Movement|Shooting|Charge|Fight) phase|turn)|Any phase)\b/;
 const DAMAGED = /^With \d+-\d+ wounds left, /;
+const DAMAGED_ID = /^damaged\b/;
 
 export type StyleRecord = { kind: string; id: string; data: unknown };
 
@@ -44,15 +53,22 @@ export function styleIssues(record: StyleRecord): string[] {
   const data = record.data as AbilityData & { parts?: StratagemParts };
   if (typeof data.summary !== "string") return [];
   const issues: string[] = [];
-  const text = plain(data.summary);
+  const apostrophes = (s: string) => s.replace(/’/g, "'");
+  let text: string, when: string | undefined;
+  try {
+    text = apostrophes(plain(data.summary));
+    when = data.parts && apostrophes(plain(data.parts.when));
+  } catch {
+    return ["invalid-summary"];
+  }
   if (STRATAGEMS.has(data.ruleType)) {
-    if (!data.parts) issues.push("stratagem-parts");
-    else if (!WHEN.test(plain(data.parts.when))) issues.push("stratagem-when");
+    if (when === undefined) issues.push("stratagem-parts");
+    else if (!WHEN.test(when)) issues.push("stratagem-when");
   }
   if (data.ruleType === "enhancement" && !text.startsWith("Bearer: ")) issues.push("enhancement-bearer");
-  if (record.kind === "ability" && record.id.split(".").at(-1) === "damaged" && !DAMAGED.test(text)) issues.push("damaged-opening");
+  if (data.ruleType === "unit-ability" && DAMAGED_ID.test(record.id.split(".").at(-1)!) && !DAMAGED.test(text)) issues.push("damaged-opening");
   if (DURATION_FIRST.test(text)) issues.push("duration-first");
-  const unnamed = data.summary.replace(/\[[^\]]*\]\([^)]*\)/g, " ").replace(/\*\*[^*]*\*\*/g, " ");
+  const unnamed = apostrophes(data.summary).replace(/\[[^\]]*\]\([^)]*\)/g, " ").replace(/\*\*[^*]*\*\*/g, " ");
   for (const [name, pattern] of REPLACED) if (pattern.test(unnamed)) issues.push(`phrasing/${name}`);
   return issues;
 }

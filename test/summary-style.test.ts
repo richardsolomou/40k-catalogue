@@ -79,3 +79,51 @@ test("a report lists the records breaking each rule", () => {
   const report = styleReport([ability("Each time this unit attacks, it may re-roll 1s to Hit.")]);
   assert.deepEqual(report.issues, { "phrasing/each-time": ["ability:synthetic.ember-host.test"], "phrasing/may": ["ability:synthetic.ember-host.test"] });
 });
+
+test("a Stratagem's When part may use a curly apostrophe", () => {
+  assert.deepEqual(styleIssues(stratagem({ when: "Opponent’s Shooting phase, after an enemy unit has shot.", target: "One unit of yours.", effect: "The unit gets -1 to Wound against it." })), []);
+});
+
+test("a Stratagem's When part names a phase, not just any sentence with the word", () => {
+  assert.deepEqual(styleIssues(stratagem({ when: "Your unit is **selected to shoot** in the Shooting phase.", target: "That unit.", effect: "The unit gets +1 to Hit." })), ["stratagem-when"]);
+});
+
+test("a Stratagem's When part says Opponent's, not your opponent's", () => {
+  assert.deepEqual(styleIssues(stratagem({ when: "Your opponent's Shooting phase, as it ends.", target: "One unit of yours.", effect: "The unit gets +1 OC." })), ["stratagem-when"]);
+});
+
+test("a Stratagem's When part can be the end of a turn", () => {
+  assert.deepEqual(styleIssues(stratagem({ when: "Either player's turn, as it ends.", target: "One unit of yours.", effect: "The unit gets +1 OC." })), []);
+});
+
+test("only a unit's own Damaged rule opens with its range of wounds", () => {
+  assert.deepEqual(styleIssues({ ...ability("Damaged X: below X wounds, the model gets -1 to Hit.", { ruleType: "core-ability" }), id: "synthetic.core.damaged" }), []);
+});
+
+test("a Damaged rule named with its range of wounds is checked", () => {
+  assert.deepEqual(styleIssues({ ...ability("This model gets -1 to Hit below 5 wounds."), id: "synthetic.ember-host.pyre-engine.damaged-1-4-wounds-remaining" }), ["damaged-opening"]);
+});
+
+test("a duration after a named part's colon is first", () => {
+  assert.deepEqual(styleIssues(ability("**Ember Ward**: for the rest of the battle, this unit gets +1 to Hit.")), ["duration-first"]);
+});
+
+test("a duration after a usage limit is first", () => {
+  assert.deepEqual(styleIssues(ability("Once per battle, until your next Command phase, this unit gets +1 to Hit.")), ["duration-first"]);
+});
+
+test("a duration written to the end of the phase is reported", () => {
+  assert.deepEqual(styleIssues(ability("This unit gets +1 to Hit until the end of the phase.")), ["phrasing/until-the-end-of"]);
+});
+
+test("a distance in inches written as a word is reported", () => {
+  assert.deepEqual(styleIssues(ability("This unit gets +1 OC while up to 6 inches from an objective marker.")), ["phrasing/inches-word"]);
+});
+
+test("a usage limit in brackets is reported", () => {
+  assert.deepEqual(styleIssues(ability("(Once per battle) This unit gets +1 OC.")), ["phrasing/limit-in-brackets"]);
+});
+
+test("a summary outside the grammar is reported rather than thrown", () => {
+  assert.deepEqual(styleIssues(ability("Gets _hot_.")), ["invalid-summary"]);
+});

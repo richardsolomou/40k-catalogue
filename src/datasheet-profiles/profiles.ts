@@ -127,6 +127,8 @@ function namedRefs(kind: ProfileKind, data: any): Ref[] {
  * Keywords compare ignoring case.
  */
 export function canAttach(attachment: AttachmentData, role: "leads" | "supports", target: string, context: AttachmentContext = {}): boolean {
+  // A unit never joins itself, whichever entry names it, as validation insists for entries that name units.
+  if (target === attachment.unit) return false;
   if (attachment[role]?.includes(target)) return true;
   const { faction, detachments = [], units = [] } = context;
   const holds = (unit: string, keyword: string) => (context.keywords?.[unit] ?? []).some((k) => k.toUpperCase() === keyword.toUpperCase());
@@ -223,6 +225,10 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
     }
     const targets = [...(data.leads ?? []), ...(data.supports ?? []), ...((data as AttachmentData).conditional ?? []).flatMap((c) => c.units ?? [])];
     for (const target of targets) if (target === data.unit) errors.push(`${at} attaches unit:${target} to itself`);
+    for (const [index, { when }] of ((data as AttachmentData).conditional ?? []).entries()) {
+      if (when?.detachment !== undefined && when.detachment === when.withoutDetachment) errors.push(`${at} conditional ${index} needs and excludes detachment:${when.detachment}`);
+      if (when?.withUnit !== undefined && when.withUnit === when.withoutUnit) errors.push(`${at} conditional ${index} needs and excludes unit:${when.withUnit}`);
+    }
     const saves = [(data as UnitProfileData).invulnerableSave ?? []].flat();
     for (const against of ["ranged", "melee"]) {
       if (saves.length > 1 && saves.filter((s) => s.against === against).length > 1) errors.push(`${at} has more than one invulnerable save against ${against} attacks`);

@@ -287,8 +287,9 @@ test("a conditional entry may need a keyword both units hold", () => {
     { units: [WARDENS], shared: "MARK OF ASH" },
     { keywords: { [KINDLER]: ["MARK OF ASH"], [WARDENS]: ["MARK OF ASH"] } },
     { keywords: { [KINDLER]: ["MARK OF ASH"], [WARDENS]: ["MARK OF CINDER"] } },
+    { keywords: { [KINDLER]: ["MARK OF CINDER"], [WARDENS]: ["MARK OF ASH"] } },
   );
-  assert.deepEqual(found, [true, false]);
+  assert.deepEqual(found, [true, false, false]);
 });
 
 const conditionalErrors = (conditional: object, ...references: { kind: string; id: string }[]) =>
@@ -296,6 +297,16 @@ const conditionalErrors = (conditional: object, ...references: { kind: string; i
     record(recs, "attachment", KINDLER).data.conditional = [{ role: "leads", ...conditional }];
     entry(id, "attachment", KINDLER).references!.push(...references);
   });
+
+test("a unit named by keyword never joins itself", () => {
+  const attachment = conditionalAttachment({ keywords: ["INFANTRY"] });
+  assert.equal(canAttach(attachment, "leads", KINDLER, { keywords: { [KINDLER]: ["INFANTRY"] } }), false);
+});
+
+test("a conditional entry cannot need and exclude the same detachment", () => {
+  const found = conditionalErrors({ units: [WARDENS], when: { detachment: VOW, withoutDetachment: VOW } }, { kind: "detachment", id: VOW });
+  assert.ok(found.some((e) => e.includes(`needs and excludes detachment:${VOW}`)), found.join("\n"));
+});
 
 test("a conditional entry names its targets", () => {
   const found = conditionalErrors({ when: { detachment: VOW } });

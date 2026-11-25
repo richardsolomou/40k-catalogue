@@ -35,7 +35,7 @@
         }
       ]
     },
-    "summary": "When an enemy targets your **ADEPTUS ASTARTES** unit in its [Shooting phase](vsdata:core-rule/shooting-phase) or either [Fight phase](vsdata:core-rule/fight-phase), incoming **[wound rolls](vsdata:core-rule/wound-rolls)** take a -1 penalty if the attack’**s** Strength exceeds the defender’**s** Toughness or if the defender is **entrenched**.",
+    "summary": "Use it in your opponent's Shooting phase or either player's Fight phase, the moment an enemy unit selects an **ADEPTUS ASTARTES** unit of yours, other than a **MONSTER** or **VEHICLE**, as a target. Pick 1 of these; for the rest of the phase it applies to attacks targeting your unit:\n\n- attacks with a Strength above your unit's Toughness get −1 to their Wound rolls\n- only while your unit is **entrenched**, every such attack gets −1 to its Wound roll",
     "citations": [
       {
         "type": "app",
@@ -298,48 +298,51 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
-            ],
-            "event": "enemy-targets-selected",
-            "window": {
-              "shooting": "opponent",
-              "fight": "either"
+          "detachment": "Ceramite Sentinels",
+          "type": null,
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "when-an-enemy-unit-targets-the-unit"
+            },
+            {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "when-an-enemy-unit-targets-the-unit"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "ADEPTUS ASTARTES"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "keywordsNone": [
+              "MONSTER",
+              "VEHICLE"
+            ],
+            "sameAs": "targeted-unit"
           },
           "effects": [
             {
-              "kind": "modifier",
-              "subject": "attacks",
-              "characteristic": "wound-roll",
-              "delta": -1,
-              "conditions": {
-                "attacks": "against-selected-unit",
-                "anyOf": [
-                  {
-                    "comparison": {
-                      "left": "attack-strength",
-                      "operator": "greater-than",
-                      "right": "target-toughness"
-                    }
-                  },
-                  {
-                    "selectedUnitState": "entrenched"
-                  }
-                ]
-              }
+              "chooseOne": [
+                {
+                  "roll": "wound",
+                  "delta": -1,
+                  "attacks": "targeting-target-unit",
+                  "condition": "attack-strength-greater-than-target-toughness"
+                },
+                {
+                  "roll": "wound",
+                  "delta": -1,
+                  "attacks": "targeting-target-unit",
+                  "condition": "target-unit-entrenched"
+                }
+              ]
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

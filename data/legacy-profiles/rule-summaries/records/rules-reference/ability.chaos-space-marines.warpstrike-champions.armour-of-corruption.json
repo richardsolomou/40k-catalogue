@@ -25,7 +25,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "Use it in either player's [Fight phase](vsdata:core-rule/fight-phase), right after an enemy unit selects its targets. Pick 1 **HERETIC ASTARTES TERMINATOR**, **OBLITERATORS** or **MUTILATORS** unit of yours that at least 1 of those attacks targets.\n\nUntil the turn ends, reduce the Damage characteristic of each attack allocated to 1 of your unit's models by 1. You cannot use this Stratagem and [Empyric Dislocation](vsdata:ability/chaos-space-marines.warpstrike-champions.empyric-dislocation) on the same unit in 1 phase.",
+    "summary": "In the Fight phase of either turn, immediately after an enemy unit's targets are picked, choose 1 **HERETIC ASTARTES TERMINATOR**, **OBLITERATORS** or **MUTILATORS** unit of yours targeted by 1 or more of those attacks. Until that turn ends, every attack allocated to any of its models has 1 less Damage.\n\nA unit can't be the target of both this and [Empyric Dislocation](vsdata:ability/chaos-space-marines.warpstrike-champions.empyric-dislocation) in 1 phase.",
     "citations": [
       {
         "type": "app",
@@ -168,34 +168,43 @@
           }
         },
         "detail": {
-          "window": [
-            "Fight phase",
-            "after enemy selects targets"
+          "detachment": "Warpstrike Champions",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "just-after-an-enemy-unit-has-selected-its-targets"
+            }
           ],
           "target": {
-            "anyOf": [
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
               "HERETIC ASTARTES TERMINATOR",
               "OBLITERATORS",
               "MUTILATORS"
             ],
-            "count": 1,
-            "selectedBy": "attacking unit"
+            "targetedByAttackingUnit": true
           },
-          "effect": {
-            "per": "attack allocated to target",
-            "damageModifier": -1,
-            "expiry": "turn end"
-          },
+          "effects": [
+            {
+              "characteristic": "damage",
+              "operation": "subtract",
+              "amount": 1,
+              "attacks": "allocated-to-target-unit-models"
+            }
+          ],
+          "duration": "end-of-turn",
           "restrictions": [
             {
-              "group": [
-                "Empyric Dislocation",
-                "Armour of Corruption"
-              ],
-              "sameUnit": true,
-              "mutuallyExclusiveWithin": "phase"
+              "notSameUnitSamePhaseAs": "Empyric Dislocation"
             }
-          ]
+          ],
+          "cardPrintsOtherText": {
+            "turnTag": "opponents",
+            "note": "the When line names the Fight phase without 'your opponent's', so it is typed for either turn"
+          }
         }
       }
     }

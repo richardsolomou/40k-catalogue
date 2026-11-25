@@ -25,7 +25,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "Pick 1 of your **EMPEROR’S CHILDREN CHARACTER** units outside combat once an enemy that targeted it finishes firing in its [Shooting phase](vsdata:core-rule/shooting-phase). The chosen unit may **[Surge move](vsdata:core-rule/surge-move)** up to D6″. If you chose your [Favoured Champions](vsdata:ability/emperors-children.slaaneshs-chosen.internal-rivalries), you may reroll the distance die.",
+    "summary": "In your opponent's Shooting phase, once an enemy unit has finished shooting, use this if that enemy unit targeted an **unengaged** **EMPEROR’S CHILDREN CHARACTER** unit of yours this phase.\n\nThat unit may make a **surge move** with a D6\" maximum. Unless it is the Favoured Champions of your army, you may re-roll that D6.",
     "citations": [
       {
         "type": "app",
@@ -74,46 +74,36 @@
           }
         ],
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "opponent"
-              }
-            ],
-            "event": "after-enemy-unit-shoots"
-          },
+          "detachment": "Slaanesh’s Chosen",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "after-an-enemy-unit-that-targeted-the-unit-has-shot"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "EMPEROR’S CHILDREN",
               "CHARACTER"
             ],
-            "binding": "friendly-unengaged-unit-targeted-by-that-enemy",
-            "state": "unengaged"
+            "unengaged": true,
+            "targetedThisPhaseBy": "the-enemy-unit-that-shot"
           },
           "effects": [
             {
-              "action": "permit-move",
-              "move": "surge",
-              "recipient": "target-unit",
-              "optional": true,
-              "distance": {
-                "unit": "inch",
-                "maximum": {
-                  "dice": "D6"
-                }
-              }
+              "surgeMove": {
+                "maxInches": "D6"
+              },
+              "optional": true
             },
             {
-              "action": "reroll",
-              "roll": "surge-distance",
-              "recipient": "target-unit",
-              "condition": "target-unit-is-your-armys-favoured-champions",
-              "optional": true
+              "reroll": "surge-move-distance",
+              "optional": true,
+              "condition": "target-unit-is-not-your-armys-favoured-champions"
             }
           ]
         }

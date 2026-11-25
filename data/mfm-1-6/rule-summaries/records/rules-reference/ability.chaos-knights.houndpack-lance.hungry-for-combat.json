@@ -25,7 +25,7 @@
       "turn": "any",
       "type": "battle-tactic"
     },
-    "summary": "As either [Fight phase](vsdata:core-rule/fight-phase) begins, pick 2 **WAR DOG** units **engaged** with a shared enemy. For that phase’s remainder their attacks must target that enemy. Score a **critical hit** on 5+ before modifiers.",
+    "summary": "As either player's Fight phase starts, pick at least 2 **WAR DOG** units of yours that are all within Engagement Range of one enemy unit, then pick 1 enemy unit in Engagement Range of those units.\n\nFor the rest of the phase, their models may attack only that enemy unit, and unmodified Hit rolls of 5+ are Critical Hits for their attacks.",
     "citations": [
       {
         "type": "app",
@@ -141,32 +141,42 @@
           }
         },
         "detail": {
-          "type": "battle-tactic",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight"
-            ],
-            "event": "phase-start"
-          },
+          "detachment": "Houndpack Lance",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "start-of-phase"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "count": 2,
-            "keywords": [
+            "side": "friendly",
+            "countAtLeast": 2,
+            "keywordsAll": [
               "WAR DOG"
             ],
-            "condition": "both-in-engagement-range-of-same-enemy-unit"
+            "allWithinEngagementRangeOfSameEnemyUnit": true
           },
           "effects": [
             {
-              "kind": "limit-attack-targets",
-              "onlyTarget": "shared-engaged-enemy-unit"
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "withinEngagementRangeOf": "target-units"
+              }
             },
             {
-              "kind": "critical-hit-threshold",
-              "roll": "unmodified-hit",
-              "minimum": 5,
-              "onlyTarget": "shared-engaged-enemy-unit"
+              "attackTargetsLimitedTo": "selected-enemy-unit",
+              "subject": "target-unit-models"
+            },
+            {
+              "criticalHit": {
+                "roll": "hit",
+                "unmodified": true,
+                "minimum": 5
+              },
+              "subject": "target-unit-models"
             }
           ],
           "duration": "end-of-phase"

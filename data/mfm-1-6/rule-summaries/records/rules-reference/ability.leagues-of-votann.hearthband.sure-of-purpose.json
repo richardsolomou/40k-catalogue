@@ -26,7 +26,7 @@
       "turn": "any",
       "type": "strategic-ploy"
     },
-    "summary": "During the [Fight phase](vsdata:core-rule/fight-phase), pick 1 of your **LEAGUES OF VOTANN** units already **selected to fight**. The phase’s **[Pile-In Move](vsdata:core-rule/pile-in-move)** and **[Consolidation Move](vsdata:core-rule/consolidation-move)** caps for each model in that unit are 6″ instead of 3″.",
+    "summary": "Use it in either player's Fight phase on 1 **LEAGUES OF VOTANN** unit of yours not yet picked to fight in this phase. Until the phase ends, any Pile-in move or Consolidation move made by a model in it can go up to 6\" rather than 3\".",
     "citations": [
       {
         "type": "app",
@@ -73,29 +73,34 @@
           ]
         },
         "detail": {
-          "window": {
-            "phase": "Fight",
-            "turn": "either",
-            "event": "during phase"
-          },
+          "detachment": "Hearthband",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
           "target": {
             "side": "friendly",
             "count": 1,
-            "keywords": "LEAGUES OF VOTANN",
-            "selectedToFightThisPhase": true
-          },
-          "effect": {
-            "type": "movement limits",
-            "moves": [
-              "Pile-In Move",
-              "Consolidation Move"
+            "keywordsAll": [
+              "LEAGUES OF VOTANN"
             ],
-            "maximumInches": 6,
-            "replacesMaximumInches": 3,
-            "recipient": "each model in selected unit",
-            "until": "phase ends"
+            "notSelectedToFightThisPhase": true
           },
-          "restrictions": []
+          "effects": [
+            {
+              "moves": [
+                "pile-in",
+                "consolidate"
+              ],
+              "maxInches": 6,
+              "insteadOfInches": 3,
+              "subject": "each-target-unit-model"
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

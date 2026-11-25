@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "At the opening of your [Command phase](vsdata:core-rule/command-phase), choose an **INFANTRY OFFICER** model. Through phase end, it may issue an Order to eligible units with **INFANTRY REGIMENT** in Order range. The Order is Move! Move! Move!, and there is no limit on the number of recipients.",
+    "summary": "As your Command phase starts, pick 1 **INFANTRY OFFICER** model of yours.\n\nUntil the phase ends, any Move! Move! Move! Order that model issues may go to as many eligible **INFANTRY REGIMENT** units of yours as you like, at any range from it.",
     "citations": [
       {
         "type": "app",
@@ -64,36 +64,37 @@
           ]
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "turn": "your",
-            "phases": [
-              "command"
-            ],
-            "event": "phase-start"
-          },
+          "detachment": "Siege Regiment",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "command",
+              "timing": "start-of-phase"
+            }
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "INFANTRY OFFICER"
-            ],
-            "subject": "model"
+            "entity": "model",
+            "keywordsAll": [
+              "INFANTRY",
+              "OFFICER"
+            ]
           },
           "effects": [
             {
-              "kind": "issue-order",
               "order": "Move! Move! Move!",
-              "subject": "selected-model",
               "recipients": {
-                "keywords": [
-                  "INFANTRY REGIMENT"
+                "side": "friendly",
+                "keywordsAll": [
+                  "INFANTRY",
+                  "REGIMENT"
                 ],
                 "eligible": true,
-                "inOrderRange": true,
-                "limit": "any-number"
+                "count": "any"
               },
-              "optional": true
+              "ignoreRange": true
             }
           ],
           "duration": "end-of-phase"

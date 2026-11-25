@@ -25,7 +25,7 @@
       ],
       "turn": "own"
     },
-    "summary": "As your [Shooting phase](vsdata:core-rule/shooting-phase) opens, pick 1 of your **ASTRA MILITARUM INFANTRY** units. Each **visible** enemy no more than 6″ from it has +3″ **Detection Range** while it satisfies both conditions.",
+    "summary": "As your Shooting phase starts, pick 1 **SCOUT SENTINEL** or **ASTRA MILITARUM INFANTRY** unit of yours. For the rest of that phase, any **visible** enemy unit 6\" or less from your unit has its **detection range** raised by 3\" while it stays there.",
     "citations": [
       {
         "type": "app",
@@ -64,27 +64,41 @@
           ]
         },
         "detail": {
-          "window": {
-            "phase": "Shooting",
-            "turn": "active player is you",
-            "event": "phase opens"
-          },
+          "detachment": "Designation Force",
+          "type": null,
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "start-of-phase"
+            }
+          ],
           "target": {
             "side": "friendly",
             "count": 1,
-            "keywords": "ASTRA MILITARUM INFANTRY"
+            "keywordsAnyOf": [
+              [
+                "SCOUT SENTINEL"
+              ],
+              [
+                "ASTRA MILITARUM",
+                "INFANTRY"
+              ]
+            ]
           },
-          "effect": {
-            "type": "conditional Detection Range modifier",
-            "recipient": "enemy unit",
-            "amountInches": 3,
-            "while": {
-              "visible": true,
-              "withinInches": 6,
-              "of": "friendly selection"
+          "effects": [
+            {
+              "subject": "each-visible-enemy-unit",
+              "while": {
+                "withinInches": 6,
+                "of": "target-unit"
+              },
+              "detectionRange": {
+                "addInches": 3
+              }
             }
-          },
-          "restrictions": []
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

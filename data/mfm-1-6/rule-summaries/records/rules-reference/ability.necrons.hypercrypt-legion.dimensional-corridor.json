@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "During your [Charge phase](vsdata:core-rule/charge-phase), choose 1 **NECRONS** unit set up this turn through a **MONOLITH**’s Eternity Gate. It becomes eligible to charge.",
+    "summary": "Use it in your Charge phase on 1 **NECRONS** unit of yours that was placed this turn by a **MONOLITH** model's [Eternity Gate](vsdata:ability/necrons.monolith.eternity-gate) ability, where that model was on the battlefield when the turn began. It may declare a charge this phase.",
     "citations": [
       {
         "type": "app",
@@ -64,38 +64,35 @@
           ]
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "turn": "your",
-            "phases": [
-              "charge"
-            ],
-            "event": "phase",
-            "window": {
-              "charge": "your"
+          "detachment": "Hypercrypt Legion",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "charge"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "NECRONS"
             ],
-            "setup": {
-              "using": "eternity-gate",
-              "byKeywords": [
+            "setUpThisTurnUsing": {
+              "ability": "Eternity Gate",
+              "ofModelWith": [
                 "MONOLITH"
               ],
-              "window": "this-turn"
+              "thatModelStartedTurnOnBattlefield": true
             }
           },
           "effects": [
             {
-              "kind": "eligibility",
-              "activity": "charge",
-              "eligible": true
+              "eligibleToCharge": true,
+              "subject": "target-unit"
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

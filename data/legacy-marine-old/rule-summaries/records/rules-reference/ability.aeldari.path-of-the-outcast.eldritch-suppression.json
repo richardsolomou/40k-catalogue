@@ -24,7 +24,7 @@
       ],
       "turn": "own"
     },
-    "summary": "After friendly **RANGERS** or **SHROUD RUNNERS** shoot in your [Shooting phase](vsdata:core-rule/shooting-phase), choose an enemy they hit. If the chosen enemy survived, it takes a −1 penalty on a **[Battle-shock Roll](vsdata:core-rule/battle-shock)** it must make now.",
+    "summary": "Use it in your Shooting phase after a **RANGERS** or **SHROUD RUNNERS** unit of yours has shot. Pick 1 enemy unit that those ranged attacks hit; it makes a **battle-shock roll**, at −1 if those attacks destroyed any of its models.",
     "citations": [
       {
         "type": "app",
@@ -77,34 +77,39 @@
           }
         ],
         "detail": {
-          "window": {
-            "phase": "Shooting",
-            "turn": "active player is you",
-            "event": "after friendly shooting"
-          },
+          "detachment": "Path of the Outcast",
+          "type": null,
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "after-the-unit-has-shot"
+            }
+          ],
           "target": {
             "side": "friendly",
             "count": 1,
-            "binding": "triggering unit",
-            "keywords": {
-              "anyOf": [
-                "RANGERS",
-                "SHROUD RUNNERS"
-              ]
+            "keywordsAny": [
+              "RANGERS",
+              "SHROUD RUNNERS"
+            ],
+            "sameAs": "unit-that-shot"
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "hitByThoseRangedAttacks": true
+              },
+              "forcedRoll": "battle-shock",
+              "modifier": {
+                "operation": "subtract",
+                "amount": 1,
+                "condition": "modelDestroyedByThoseAttacks"
+              }
             }
-          },
-          "effect": {
-            "type": "forced roll",
-            "recipient": {
-              "side": "enemy",
-              "count": 1,
-              "hitBy": "triggering shooting"
-            },
-            "condition": "recipient survived",
-            "roll": "Battle-shock",
-            "amount": -1
-          },
-          "restrictions": []
+          ]
         }
       }
     }

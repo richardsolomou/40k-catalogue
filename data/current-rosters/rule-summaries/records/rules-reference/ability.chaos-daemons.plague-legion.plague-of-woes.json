@@ -25,7 +25,7 @@
       "turn": "opponent",
       "type": "strategic-ploy"
     },
-    "summary": "Before nominating [Melancholic Miasma](vsdata:ability/chaos-daemons.plague-legion.melancholic-miasma) targets in the opposing [Command phase](vsdata:core-rule/command-phase), choose 1 of your units with **LEGIONES DAEMONICA NURGLE**. When that phase closes and the Miasma tests are done, require a [Battle-shock test](vsdata:core-rule/battle-shock) from a different enemy no farther than 9\" from your chosen unit.",
+    "summary": "Use it in your opponent's Command phase before you pick any targets for your [Melancholic Miasma](vsdata:ability/chaos-daemons.plague-legion.melancholic-miasma) Detachment rule. Pick 1 **LEGIONES DAEMONICA NURGLE** unit of yours.\n\nUntil the phase ends, right after any Battle-shock test that rule forces on an enemy unit, pick a different enemy unit 9\" or less from your unit; it too takes a Battle-shock test.",
     "citations": [
       {
         "type": "app",
@@ -67,25 +67,37 @@
           ]
         },
         "detail": {
-          "window": [
-            "opposing Command phase",
-            "before choosing Melancholic Miasma targets"
+          "detachment": "Plague Legion",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "command",
+              "timing": "before-selecting-melancholic-miasma-targets"
+            }
           ],
           "target": {
-            "unit": "LEGIONES DAEMONICA NURGLE",
-            "count": 1
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "NURGLE"
+            ]
           },
-          "effect": {
-            "timing": "after tests from Melancholic Miasma",
-            "enemy": {
-              "count": 1,
-              "otherThan": "enemy tested by the detachment rule",
-              "maxDistanceInches": 9
-            },
-            "requires": "Battle-shock test",
-            "expiry": "phase end"
-          },
-          "restrictions": []
+          "effects": [
+            {
+              "trigger": "after-an-enemy-unit-takes-a-battle-shock-test-from-melancholic-miasma",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "otherThan": "the-unit-that-just-tested",
+                "withinInches": 9,
+                "of": "target-unit"
+              },
+              "forcedTest": "battle-shock"
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

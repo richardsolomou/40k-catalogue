@@ -24,7 +24,7 @@
       ],
       "turn": "own"
     },
-    "summary": "As your [Shooting phase](vsdata:core-rule/shooting-phase) begins, choose a friendly unit in a **terrain feature**. Enemy units in that same **terrain area** get +6″ **Detection Range**.",
+    "summary": "As your Shooting phase starts, pick 1 **NEOPHYTE HYBRIDS** unit of yours within a **terrain area**. For the rest of that phase, each enemy unit inside that same terrain area adds 6\" to its **detection range**.",
     "citations": [
       {
         "type": "app",
@@ -63,23 +63,32 @@
           ]
         },
         "detail": {
-          "window": {
-            "phase": "Shooting",
-            "turn": "active player is you",
-            "event": "phase opens"
-          },
+          "detachment": "Xenocult Masses",
+          "type": null,
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "start-of-phase"
+            }
+          ],
           "target": {
             "side": "friendly",
             "count": 1,
-            "keywords": null,
-            "within": "terrain area"
+            "keywordsAll": [
+              "NEOPHYTE HYBRIDS"
+            ],
+            "withinTerrainArea": true
           },
-          "effect": {
-            "type": "Detection Range modifier",
-            "recipient": "enemy units within same terrain area",
-            "amountInches": 6
-          },
-          "restrictions": []
+          "effects": [
+            {
+              "subject": "enemy-units-within-that-terrain-area",
+              "detectionRange": {
+                "addInches": 6
+              }
+            }
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

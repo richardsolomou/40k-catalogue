@@ -25,7 +25,7 @@
       "turn": "any",
       "type": "strategic-ploy"
     },
-    "summary": "In either [Fight phase](vsdata:core-rule/fight-phase), pick a **LEAGUES OF VOTANN** unit you have yet to choose to fight. Until the phase closes, each of its models may [Consolidate](vsdata:core-rule/consolidation-move) up to 6 inches, replacing the usual 3-inch limit.",
+    "summary": "Use it in either player's Fight phase on 1 **LEAGUES OF VOTANN** unit of yours not yet picked to fight this phase. For the rest of the phase, whenever it Piles In or Consolidates, the limit for each of its models is 6\", not 3\".",
     "citations": [
       {
         "type": "app",
@@ -66,30 +66,31 @@
           ]
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight"
-            ],
-            "event": "phase-window"
-          },
+          "detachment": "Dêlve Assault Shift",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
+            "keywordsAll": [
               "LEAGUES OF VOTANN"
             ],
-            "notYetSelectedToFight": true
+            "notSelectedToFightThisPhase": true
           },
           "effects": [
             {
-              "kind": "move",
-              "subject": "each-selected-unit-model",
-              "move": "consolidation",
-              "optional": true,
-              "maximumInches": 6,
-              "replacesMaximumInches": 3
+              "moves": [
+                "pile-in",
+                "consolidate"
+              ],
+              "maxInches": 6,
+              "insteadOfInches": 3,
+              "subject": "each-target-unit-model"
             }
           ],
           "duration": "end-of-phase"

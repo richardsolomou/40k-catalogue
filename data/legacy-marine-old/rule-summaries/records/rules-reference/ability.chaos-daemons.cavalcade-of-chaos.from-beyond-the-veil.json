@@ -24,7 +24,7 @@
       ],
       "turn": "own"
     },
-    "summary": "Use it at the end of your Movement phase; this is allowed even in the first battle round. Pick a **LEGIONES DAEMONICA** **MOUNTED** unit of yours that is in **Strategic Reserves**: it may make an **Ingress Move**.",
+    "summary": "As either player's Movement phase ends, pick 1 **LEGIONES DAEMONICA MOUNTED** unit of yours in **strategic reserves**; it may make an **ingress move**. It can be used from the beginning of the battle.",
     "citations": [
       {
         "type": "app",
@@ -78,25 +78,33 @@
         ],
         "detail": {
           "detachment": "Cavalcade of Chaos",
-          "window": {
-            "turn": "own",
-            "phase": "movement",
-            "timing": "end-of-phase",
-            "availableFrom": "start of the battle"
-          },
+          "type": null,
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "movement",
+              "timing": "end-of-phase"
+            }
+          ],
           "target": {
             "side": "friendly",
             "count": 1,
             "keywordsAll": [
-              "LEGIONES DAEMONICA MOUNTED"
+              "LEGIONES DAEMONICA",
+              "MOUNTED"
             ],
-            "location": "Strategic Reserves"
+            "in": "strategic-reserves"
           },
-          "effect": {
-            "mayMake": "Ingress Move"
-          },
+          "effects": [
+            {
+              "ingressMove": true,
+              "optional": true
+            }
+          ],
+          "usableFrom": "start-of-the-battle",
           "cardPrintsOtherText": {
-            "cpCost": 2
+            "turnTag": "your",
+            "note": "the When line names the end of the Movement phase without 'your', so it is typed for either turn"
           }
         }
       }

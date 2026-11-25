@@ -26,7 +26,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "Right after your **THOUSAND SONS PSYKER** unit Falls Back, it can still shoot this turn. If it finished wholly inside its [Flow of Magic](vsdata:ability/thousand-sons.hexwarp-thrallband.flow-of-magic), it can also charge this turn.",
+    "summary": "Use it in your Movement phase, right after a **THOUSAND SONS PSYKER** unit of yours Falls Back. Until the turn ends, that unit is eligible to shoot, or to declare a charge, though it Fell Back.\n\nIf, when targeted, it is wholly within the [Flow of Magic](vsdata:ability/thousand-sons.hexwarp-thrallband.flow-of-magic) of your army, it may instead do both until the turn ends.",
     "citations": [
       {
         "type": "app",
@@ -71,41 +71,36 @@
           ]
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "your"
-              }
-            ],
-            "event": "immediately-after-friendly-unit-falls-back"
-          },
+          "detachment": "Hexwarp Thrallband",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "just-after-the-unit-falls-back"
+            }
+          ],
           "target": {
-            "fromTrigger": "unit-that-fell-back",
-            "keywords": [
-              "THOUSAND SONS PSYKER"
-            ]
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "THOUSAND SONS",
+              "PSYKER"
+            ],
+            "sameAs": "unit-that-fell-back"
           },
           "effects": [
             {
-              "action": "allow-shooting-despite-falling-back",
-              "recipient": "target-unit",
-              "duration": {
-                "until": "end-of-this-turn"
-              }
+              "eligibleDespiteFallingBack": "shoot-or-declare-charge",
+              "subject": "target-unit"
             },
             {
-              "action": "allow-declaring-charge-despite-falling-back",
-              "recipient": "target-unit",
-              "duration": {
-                "until": "end-of-this-turn"
-              },
-              "condition": {
-                "afterMove": "target-unit-wholly-within-flow-of-magic"
-              }
+              "eligibleDespiteFallingBack": "shoot-and-declare-charge",
+              "subject": "target-unit",
+              "condition": "wholly-within-flow-of-magic-when-targeted"
             }
-          ]
+          ],
+          "duration": "end-of-turn"
         }
       }
     }

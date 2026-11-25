@@ -25,7 +25,7 @@
       "turn": "own",
       "type": "strategic-ploy"
     },
-    "summary": "In your [Shooting phase](vsdata:core-rule/shooting-phase), pick 1 of your units with the **T’AU EMPIRE INFANTRY** keywords, excluding **KROOT**. Pick an enemy it hit, excluding **MONSTERS** and **VEHICLES**. Apply −2 to the enemy’s Move and **Charge rolls** through the close of the opponent’s following turn.",
+    "summary": "Use it in your Shooting phase on 1 **T’AU EMPIRE INFANTRY** unit of yours (not **KROOT**) that has just shot, plus 1 enemy unit (neither **MONSTERS** nor **VEHICLES**) hit by at least 1 of those attacks.\n\nUntil your opponent's following turn is over, the enemy unit becomes shaken: its Move characteristic is reduced by 2, and its Advance and Charge rolls get −2.",
     "citations": [
       {
         "type": "app",
@@ -68,62 +68,57 @@
           ]
         },
         "detail": {
-          "type": "strategic-ploy",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "your"
-              }
-            ]
-          },
+          "detachment": "Mont’ka",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "after-the-unit-has-shot"
+            }
+          ],
           "target": {
-            "selection": [
-              {
-                "owner": "your-army",
-                "entity": "unit",
-                "count": 1,
-                "keywords": [
-                  "T’AU EMPIRE INFANTRY"
-                ],
-                "excludingKeywords": [
-                  "KROOT"
-                ]
-              },
-              {
-                "owner": "opponent",
-                "entity": "unit",
-                "count": 1,
-                "excludingKeywords": [
-                  "MONSTERS",
-                  "VEHICLES"
-                ],
-                "eligibility": "hit-at-least-once-by-selected-friendly-unit"
-              }
-            ]
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "T’AU EMPIRE",
+              "INFANTRY"
+            ],
+            "keywordsNone": [
+              "KROOT"
+            ],
+            "hasJustShot": true
           },
           "effects": [
             {
-              "action": "modify-characteristic",
-              "recipient": "selected-enemy-unit-models",
-              "characteristic": "move",
-              "operation": "subtract",
-              "amount": 2,
-              "duration": {
-                "until": "end-of-opponents-next-turn"
-              }
-            },
-            {
-              "action": "modify-roll",
-              "recipient": "selected-enemy-unit",
-              "roll": "charge",
-              "operation": "subtract",
-              "amount": 2,
-              "duration": {
-                "until": "end-of-opponents-next-turn"
-              }
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsNone": [
+                  "MONSTERS",
+                  "VEHICLES"
+                ],
+                "hitByThoseAttacksAtLeast": 1
+              },
+              "applyState": "shaken",
+              "stateEffects": [
+                {
+                  "characteristic": "move",
+                  "operation": "subtract",
+                  "amount": 2
+                },
+                {
+                  "rolls": [
+                    "advance",
+                    "charge"
+                  ],
+                  "operation": "subtract",
+                  "amount": 2
+                }
+              ]
             }
-          ]
+          ],
+          "duration": "until-end-of-opponents-next-turn"
         }
       }
     }

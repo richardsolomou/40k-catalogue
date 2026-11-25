@@ -24,7 +24,7 @@ A stat line's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two
 | `save`, `leadership` | A roll: `3` means 3+. |
 | `objectiveControl` | A non-negative integer, or `null` when the datasheet prints none. |
 | `invulnerableSave` | `{ "roll": n }`, with `against: "ranged"` or `against: "melee"` when it applies only to ranged or only to melee attacks, and `conditional: true` when another rule of the datasheet says when it applies. A unit with one save against ranged and another against melee attacks has a list of two, each with its `against`. A conditional save may carry a `summary` of when it applies, such as `Only while this model is within 6″ of an objective marker.`, in the [summary grammar](rule-summaries.md#summary-text) without links. |
-| `baseSize` | `"hull"`, `{ "diameter": mm }`, or `{ "length": mm, "width": mm }` for an oval, each optionally `approximate` or `flying`. |
+| `baseSize` | The base each model stands on, described [below](#base-sizes). |
 | `range` | Inches as a positive integer, or `"melee"`. |
 | `attacks`, `damage` | A positive integer, or dice written as `D6`, `2D3` or `D6+1`. |
 | `skill` | The ballistic or weapon skill as a roll, or `null` when the weapon makes no hit roll. |
@@ -39,6 +39,20 @@ Each `conditional` entry gives a `role`, `leads` or `supports`, and names its ta
 
 `canAttach(attachment, role, target, context)` answers whether the attachment's unit may join `target` in `role`. The optional `context` gives the roster's `faction` ID, its `detachments` and `units` as lists of IDs, and `keywords`, each unit's keywords by unit ID, compared ignoring case. A field it omits is empty: a roster of no faction with no detachments, units or keywords.
 
+## Base sizes
+
+One base is `"hull"` for a model without a base, measured to its hull; `"unique"` for a model on no base of standard size, whose base players agree on; `{ "diameter": mm }` for a round base; `{ "length": mm, "width": mm }` for an oval; or `{ "flyingBase": "large" }` or `{ "flyingBase": "small" }` for a flying base the source names without a size. A round or oval base may be `approximate` or `flying`.
+
+A profile's `baseSize` is one base, or one of these forms built from bases:
+
+| Form | Meaning | Example |
+| --- | --- | --- |
+| `{ "alternatives": [base, ...] }` | The source lists these bases for the profile's models without saying which model takes which. | `{ "alternatives": [{ "diameter": 32 }, { "diameter": 40 }] }` |
+| `{ "size": base, "withWargear": [{ "wargear": [ID, ...], "size": base }] }` | Models carrying any of an entry's wargear stand on its `size`; other models on the first `size`. Each base here may also be alternatives. | Rangers on 25mm, a Rangers model with an arquebus on a 60 × 35.5mm oval |
+| `{ "byModel": [{ "models": [ID, ...], "size": ... }] }` | Each entry's models stand on its `size`, which may be any form above. The entries name every model the profile describes exactly once. | A leader on 32mm and the rest on 28.5mm |
+
+`baseSizeSource` names where the base size is printed, in a record's `source` shape, when that is not the record's own `source`, as when a profile read from the app takes its base from a base size guide.
+
 ## Transport capacity
 
 Each `loads` entry is one way to load the transport. Each consists of one or more pools, and eligible passengers may occupy those pools at the same time. A pool gives its `limit`, whether it `count`s models or units, its `selectors` and an optional `maxWounds`. A selector is a keyword or a phrase formed by consecutive keywords. A passenger can match any selector in the list.
@@ -51,7 +65,7 @@ Use a `capacity` gap when the complete transport capacity cannot be represented 
 
 ## Gaps
 
-A gap is `{ "field", "reason" }`. `unrepresentable` means the source prints a value this format has no form for, such as an invulnerable save that differs by model, and the field is left out. `no-target` means the source names something no catalogue ID identifies: a weapon whose wargear the unit neither carries nor offers, a unit profile that matches none of the unit's models, or an attachment target with no unit. An attachment keeps the targets that resolve and adds one `no-target` gap for each that does not. A converter records a gap instead of choosing a nearby value or target.
+A gap is `{ "field", "reason" }`. `unrepresentable` means the source prints a value this format has no form for, such as an invulnerable save that differs by model, and the field is left out. `no-source` means no official source in reach prints the value, as with a base size for a datasheet no base size guide lists. `no-target` means the source names something no catalogue ID identifies: a weapon whose wargear the unit neither carries nor offers, a unit profile that matches none of the unit's models, or an attachment target with no unit. An attachment keeps the targets that resolve and adds one `no-target` gap for each that does not. A converter records a gap instead of choosing a nearby value or target.
 
 ## Local and qualified references
 
@@ -67,6 +81,7 @@ A profile's `unit` bounds what else it may name. Its `models` must belong to tha
 - A required characteristic is either stated or a gap, never both.
 - A list of invulnerable saves names each kind of attack once, and each save's `summary` parses with the summary grammar and has no links.
 - When a unit has several unit profiles, each names its models or has a `models` gap, and no model has two profiles.
+- A base size by model gives each model the profile describes (its `models`, else every model of its unit) exactly one base size and names no other model. A model or wargear a base size names follows the local reference rules above, and no wargear item is named twice in one model's base size.
 - A unit has at most one attachment and one transport record. A transport can state one replacement pool for each wargear ID.
 
 `profiles.of(kind, unit)` lists a unit's records of one kind, and `profiles.attachedBy(unit, role)` lists the units whose `leads` or `supports` name it.
@@ -77,7 +92,7 @@ Profiles follow the [identity rules](catalogue-identity.md). A characteristic ch
 
 ## MFM 1.6
 
-The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds a `profiles` category built from the official app's data build: a unit profile for each distinct stat line of every datasheet outside Combat Patrol, a weapon profile for each profile of every weapon a unit carries or may take, attachments, and a transport profile for each transport, with its capacity typed from the app's Transport rule and its Firing Deck. Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs; a weapon profile names its wargear wherever the sheet's loadout is typed. The input's README gives the counts and every gap.
+The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds a `profiles` category built from the official app's data build: a unit profile for each distinct stat line of every datasheet outside Combat Patrol, a weapon profile for each profile of every weapon a unit carries or may take, attachments, and a transport profile for each transport, with its capacity typed from the app's Transport rule and its Firing Deck. Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs; a weapon profile names its wargear wherever the sheet's loadout is typed. Base sizes are the app's; where the app prints none it types, they come from the Base Size Guide in the Event Companion in force at the cutoff, cited in `baseSizeSource`. Legends PDFs print no base size, so a Legends datasheet has one only where an earlier guide listed it while it was a matched-play unit. The input's README gives the counts and every gap.
 
 ## Earlier rules versions
 

@@ -181,7 +181,8 @@ test("an unknown gap field cannot stand in for a profile field", () => {
 test("several unit profiles each need models or a gap for them", () => {
   const found = errors((id, recs) => {
     delete record(recs, "unit-profile", `${WARDENS}.warden`).data.models;
-    entry(id, "unit-profile", `${WARDENS}.warden`).references = [{ kind: "unit", id: WARDENS }];
+    const warden = entry(id, "unit-profile", `${WARDENS}.warden`);
+    warden.references = warden.references!.filter((r) => r.kind !== "model");
   });
   assert.deepEqual(found, [`unit:${WARDENS} has 2 unit profiles, so each needs models or a gap for them`]);
 });
@@ -331,4 +332,84 @@ test("a conditional entry's detachment must be a detachment", () => {
 test("a conditional entry cannot attach a unit to itself", () => {
   const found = conditionalErrors({ units: [KINDLER] });
   assert.deepEqual(found, [`attachment:${KINDLER} attaches unit:${KINDLER} to itself`]);
+});
+
+const WARDEN = `${WARDENS}.warden`;
+const LEADER = `${WARDENS}.leader`;
+const baseSize = (size: unknown, refs: { kind: string; id: string }[] = []) =>
+  errors((id, recs) => {
+    record(recs, "unit-profile", WARDEN).data.baseSize = size;
+    entry(id, "unit-profile", WARDEN).references!.push(...refs);
+  });
+/** The wardens' two models under one profile, sized by model. */
+const byModel = (entries: object[]) =>
+  errors((id, recs) => {
+    recs.splice(recs.indexOf(record(recs, "unit-profile", `${WARDENS}.warden-leader`)), 1);
+    id.entries.splice(id.entries.indexOf(entry(id, "unit-profile", `${WARDENS}.warden-leader`)), 1);
+    Object.assign(record(recs, "unit-profile", WARDEN).data, { models: [WARDEN, LEADER], baseSize: { byModel: entries } });
+    entry(id, "unit-profile", WARDEN).references!.push({ kind: "model", id: LEADER });
+  });
+
+test("a base size may differ by model", () => {
+  assert.deepEqual(byModel([{ models: [LEADER], size: { diameter: 40 } }, { models: [WARDEN], size: { diameter: 32 } }]), []);
+});
+
+test("a base size by model gives every model of the profile a size", () => {
+  assert.deepEqual(byModel([{ models: [LEADER], size: { diameter: 40 } }, { models: [LEADER], size: { diameter: 32 } }]), [
+    `unit-profile:${WARDEN} gives model:${LEADER} more than one base size`,
+    `unit-profile:${WARDEN} gives no base size to model:${WARDEN}`,
+  ]);
+});
+
+test("a base size by model sizes only the profile's models", () => {
+  const found = errors((id, recs) => {
+    record(recs, "unit-profile", WARDEN).data.baseSize = { byModel: [{ models: [WARDEN], size: { diameter: 32 } }, { models: [LEADER], size: { diameter: 40 } }] };
+    entry(id, "unit-profile", WARDEN).references!.push({ kind: "model", id: LEADER });
+  });
+  assert.deepEqual(found, [`unit-profile:${WARDEN} gives a base size to model:${LEADER}, which the profile does not describe`]);
+});
+
+test("a base size by wargear names wargear its unit carries or offers", () => {
+  const found = baseSize({ size: { diameter: 32 }, withWargear: [{ wargear: ["synthetic.ember-staff"], size: { diameter: 40 } }] }, [{ kind: "wargear", id: "synthetic.ember-staff" }]);
+  assert.deepEqual(found, [`unit-profile:${WARDEN} names wargear:synthetic.ember-staff, which unit:${WARDENS} neither carries nor offers`]);
+});
+
+test("a base size names its wargear in the identity entry's references", () => {
+  const found = errors((id, recs) => {
+    const warden = entry(id, "unit-profile", WARDEN);
+    warden.references = warden.references!.filter((r) => r.kind !== "wargear");
+  });
+  assert.deepEqual(found, [`unit-profile:${WARDEN} names wargear:synthetic.cinder-cannon but its identity entry does not reference it`]);
+});
+
+test("unattributed alternatives list distinct bases", () => {
+  assert.deepEqual(baseSize({ alternatives: [{ diameter: 32 }, { flyingBase: "small" }] }), []);
+  assert.ok(baseSize({ alternatives: [{ diameter: 32 }, { diameter: 32 }] }).some((e) => e.startsWith(`unit-profile:${WARDEN} data/baseSize`)));
+});
+
+test("a base size's source needs a base size", () => {
+  const found = errors((_, recs) => {
+    const data = record(recs, "unit-profile", WARDEN).data;
+    delete data.baseSize;
+    data.gaps = [{ field: "baseSize", reason: "no-source" }];
+  });
+  assert.ok(found.includes(`unit-profile:${WARDEN} data must have property baseSize when property baseSizeSource is present`), found.join("\n"));
+});
+
+test("a base size no official source prints is a no-source gap", () => {
+  const found = errors((id, recs) => {
+    const data = record(recs, "unit-profile", WARDEN).data;
+    delete data.baseSize;
+    delete data.baseSizeSource;
+    data.gaps = [{ field: "baseSize", reason: "no-source" }];
+    const warden = entry(id, "unit-profile", WARDEN);
+    warden.references = warden.references!.filter((r) => r.kind !== "wargear");
+  });
+  assert.deepEqual(found, []);
+});
+
+test("a base size by wargear gives each item one size", () => {
+  const cannon = "synthetic.cinder-cannon";
+  const found = baseSize({ size: { diameter: 32 }, withWargear: [{ wargear: [cannon], size: { diameter: 40 } }, { wargear: [cannon], size: { diameter: 50 } }] });
+  assert.deepEqual(found, [`unit-profile:${WARDEN} gives wargear:${cannon} more than one base size`]);
 });

@@ -20,9 +20,100 @@
         "required": ["field", "reason"],
         "properties": {
           "field": { "type": "string", "pattern": "^[a-z][a-zA-Z]*$" },
-          "reason": { "enum": ["no-target", "unrepresentable"] }
+          "reason": { "enum": ["no-source", "no-target", "unrepresentable"] }
         }
       }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "anyOf": [{ "required": ["page"] }, { "required": ["url"] }],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "page": { "$ref": "#/$defs/text" },
+        "url": { "type": "string", "pattern": "^https://\\S+$" },
+        "revision": { "$ref": "#/$defs/text" }
+      }
+    },
+    "base": {
+      "oneOf": [
+        { "enum": ["hull", "unique"] },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["diameter"],
+          "properties": { "diameter": { "type": "number", "exclusiveMinimum": 0 }, "approximate": { "const": true }, "flying": { "const": true } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["length", "width"],
+          "properties": {
+            "length": { "type": "number", "exclusiveMinimum": 0 },
+            "width": { "type": "number", "exclusiveMinimum": 0 },
+            "approximate": { "const": true },
+            "flying": { "const": true }
+          }
+        },
+        { "type": "object", "additionalProperties": false, "required": ["flyingBase"], "properties": { "flyingBase": { "enum": ["large", "small"] } } }
+      ]
+    },
+    "base-choice": {
+      "oneOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["alternatives"],
+          "properties": { "alternatives": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/base" } } }
+        }
+      ]
+    },
+    "base-equipped": {
+      "oneOf": [
+        { "$ref": "#/$defs/base-choice" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["size", "withWargear"],
+          "properties": {
+            "size": { "$ref": "#/$defs/base-choice" },
+            "withWargear": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["wargear", "size"],
+                "properties": { "wargear": { "$ref": "#/$defs/ids" }, "size": { "$ref": "#/$defs/base-choice" } }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "base-size": {
+      "oneOf": [
+        { "$ref": "#/$defs/base-equipped" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["byModel"],
+          "properties": {
+            "byModel": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["models", "size"],
+                "properties": { "models": { "$ref": "#/$defs/ids" }, "size": { "$ref": "#/$defs/base-equipped" } }
+              }
+            }
+          }
+        }
+      ]
     },
     "invulnerable-save": {
       "type": "object",
@@ -40,6 +131,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": ["unit"],
+      "dependentRequired": { "baseSizeSource": ["baseSize"] },
       "properties": {
         "unit": { "$ref": "#/$defs/id" },
         "models": { "$ref": "#/$defs/ids" },
@@ -60,28 +152,8 @@
           "then": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/invulnerable-save", "type": "object", "required": ["against"] } },
           "else": { "$ref": "#/$defs/invulnerable-save" }
         },
-        "baseSize": {
-          "oneOf": [
-            { "const": "hull" },
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["diameter"],
-              "properties": { "diameter": { "type": "number", "exclusiveMinimum": 0 }, "approximate": { "const": true }, "flying": { "const": true } }
-            },
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["length", "width"],
-              "properties": {
-                "length": { "type": "number", "exclusiveMinimum": 0 },
-                "width": { "type": "number", "exclusiveMinimum": 0 },
-                "approximate": { "const": true },
-                "flying": { "const": true }
-              }
-            }
-          ]
-        },
+        "baseSize": { "$ref": "#/$defs/base-size" },
+        "baseSizeSource": { "$ref": "#/$defs/source", "description": "The source that prints the base size, where it is not the record's own source." },
         "gaps": { "$ref": "#/$defs/gaps" }
       }
     },

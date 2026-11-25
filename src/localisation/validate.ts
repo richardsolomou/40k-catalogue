@@ -3,7 +3,7 @@ import { Ajv2020 } from "ajv/dist/2020.js";
 import schema from "./localisation.v1.schema.json" with { type: "json" };
 import { normalizeName } from "./normalize.ts";
 
-export type Kind = "faction" | "detachment" | "enhancement" | "unit" | "wargear" | "disposition";
+export type Kind = "faction" | "detachment" | "enhancement" | "ability" | "unit" | "model" | "wargear" | "disposition";
 export type Alias = { name: string; use: "spelling" } | { name: string; use: "historical"; until: string };
 export type Entry = { id: string; kind: Kind; name: string; display?: string; aliases?: Alias[] };
 
@@ -36,9 +36,11 @@ function entryErrors(file: LocalisationFile): string[] {
   const errors: string[] = [];
   const firstIndex = new Map<string, number>();
   file.entries.forEach((entry, i) => {
-    const earlier = firstIndex.get(entry.id);
+    // Kinds have separate ID spaces: a piece of wargear and its ability can share an ID.
+    const key = `${entry.kind}:${entry.id}`;
+    const earlier = firstIndex.get(key);
     if (earlier !== undefined) errors.push(`/entries/${i}/id repeats the id of /entries/${earlier}`);
-    else firstIndex.set(entry.id, i);
+    else firstIndex.set(key, i);
 
     const seen = new Set([normalizeName(entry.name), ...(entry.display ? [normalizeName(entry.display)] : [])]);
     entry.aliases?.forEach((alias, j) => {

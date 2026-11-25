@@ -13,6 +13,7 @@ A release is built from one tracked directory:
 | `identity.json` | An identity release: rules version, catalogue revision, and every entry. |
 | `categories.json` | Every category, with its `name`, the identity `kinds` it owns, its `sources`, and a `status` of `included` or `retained`. |
 | `records/<category>/<name>.json` | One record for an entry of an included category. |
+| `localisation/<language>.json` | Optional [localised names](localisation.md) in one language, for entries of the identity. |
 | `README.md` | Optional review notes, left out of the artifact. |
 
 Each identity kind belongs to exactly one category. An included category holds records in this repository. A retained category holds no records and gives a `revision` for each source, such as a commit or an archive version.
@@ -29,6 +30,7 @@ The build fails when:
 - a record sits under a retained or undeclared category, or under a category that does not own its kind
 - a record's entry is missing, an alias, retired, or absent, its rules version differs from the identity's, or two records name the same entry
 - an included category has no records
+- a localisation file is not named `<language>.json` for the language it gives, fails [validation](localisation.md#validation), or fails [`releaseErrors`](localisation.md#checking-a-file-against-a-release) against the identity
 
 ## Layout
 
@@ -39,6 +41,7 @@ The build fails when:
 | `schema/catalogue-identity/release.v1.schema.json` | The identity schema. |
 | `schema/catalogue-releases/*.schema.json` | The record, manifest, and shared definition schemas. |
 | `records/<category>/<kind>/<id>.json` | One record. |
+| `localisation/<language>.json` | One language's localised names. |
 
 Builds follow the [mechanics release rules](releases.md#repeatable-builds): canonical JSON, files in path order, and an uncompressed `.tar` with fixed metadata. Input file names, entry order, key order, and formatting do not affect the output, so the same commit always gives the same bytes.
 
@@ -52,6 +55,7 @@ Builds follow the [mechanics release rules](releases.md#repeatable-builds): cano
 | `rulesVersion`, `revision` | The identity release's rules version and catalogue revision. |
 | `previous` | The release this one follows: its `release`, `rulesVersion`, `revision`, and the SHA-256 of its `manifest.json`. `null` for the first release. |
 | `schemas`, `identity` | The `path` and `sha256` of each schema and of `identity.json`. |
+| `localisation` | Each localisation file in language order: its `language`, `path`, `sha256` and number of `entries`. Absent when the release has none. |
 | `categories` | One entry per category in name order, described below. |
 
 Each category lists:
@@ -104,7 +108,7 @@ It verifies the unpacked previous release first, writes the new release to `<out
 node src/catalogue-releases/cli.ts verify <release-dir>
 ```
 
-Verification checks the manifest schema, that the release holds exactly the listed files with their checksums, that record paths match their kind and ID, that categories and records are in order, and that retained categories list no records. Like the mechanics check, it does not re-run validation, so later changes never invalidate a published release.
+Verification checks the manifest schema, that the release holds exactly the listed files with their checksums, that record paths match their kind and ID and localisation paths their language, that categories, records and localisation files are in order, and that retained categories list no records. Like the mechanics check, it does not re-run validation, so later changes never invalidate a published release.
 
 ## Upgrading
 

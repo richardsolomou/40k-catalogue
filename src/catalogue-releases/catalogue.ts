@@ -5,6 +5,8 @@ import identitySchema from "../catalogue-identity/release.v1.schema.json" with {
 import { historyErrors, resolve, validateRelease, type Ref, type Release, type RulesVersion } from "../catalogue-identity/identity.ts";
 import profilesSchema from "../datasheet-profiles/profiles.v1.schema.json" with { type: "json" };
 import localisationSchema from "../localisation/localisation.v1.schema.json" with { type: "json" };
+import { releaseErrors } from "../localisation/release.ts";
+import { validateLocalisation, type LocalisationFile } from "../localisation/validate.ts";
 import missionPackSchema from "../mission-packs/mission-pack.v1.schema.json" with { type: "json" };
 import pointsHistorySchema from "../points/history.v1.schema.json" with { type: "json" };
 import pointsSchema from "../points/points.v1.schema.json" with { type: "json" };
@@ -55,6 +57,7 @@ export type Manifest = {
   previous: { release: string; rulesVersion: RulesVersion; revision: number; manifest: string } | null;
   schemas: FileRef[];
   identity: FileRef;
+  localisation?: (FileRef & { language: string; entries: number })[];
   categories: Category[];
 };
 export type Build = { ok: true; files: ReleaseFiles } | { ok: false; errors: string[] };
@@ -86,9 +89,11 @@ const key = ({ kind, id }: Ref) => `${kind}:${id}`;
 const byKey = (a: Ref, b: Ref) => (key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0);
 const byPath = ([a]: [string, string], [b]: [string, string]) => (a < b ? -1 : 1);
 const recordPath = (category: string, { kind, id }: Ref) => `records/${category}/${kind}/${id}.json`;
+const localisationPath = (language: string) => `localisation/${language}.json`;
 
 // Builds a catalogue release from a directory holding `identity.json`, `categories.json`, an optional
-// `README.md`, and `records/<category>/<name>.json` for each included category. `previous` is the
+// `README.md`, `records/<category>/<name>.json` for each included category, and optional
+// `localisation/<language>.json` files checked against the identity. `previous` is the
 // verified file set of the release this one follows; its changes are reported in the manifest. The
 // output depends only on those contents, never on file order, key order, formatting, or the machine.
 export function buildCatalogueRelease(
@@ -98,7 +103,7 @@ export function buildCatalogueRelease(
   const errors: string[] = [];
   const top = sortedDir(dir);
   for (const entry of top) {
-    const allowed = entry.isFile() ? ["README.md", IDENTITY, "categories.json"] : entry.isDirectory() ? ["records"] : [];
+    const allowed = entry.isFile() ? ["README.md", IDENTITY, "categories.json"] : entry.isDirectory() ? ["records", "localisation"] : [];
     if (!allowed.includes(entry.name)) errors.push(`${entry.name}: not a catalogue input`);
   }
 
@@ -158,6 +163,25 @@ export function buildCatalogueRelease(
     if (![...records.values()].some((r) => r.category === name)) errors.push(`records/${name}: an included category needs records`);
   }
 
+  const localisation = new Map<string, { language: string; value: LocalisationFile; entries: number }>();
+  const localisationDir = top.some((e) => e.name === "localisation" && e.isDirectory()) ? sortedDir(join(dir, "localisation")) : [];
+  for (const file of localisationDir) {
+    const where = `localisation/${file.name}`;
+    const language = file.name.replace(/\.json$/, "");
+    if (!file.isFile() || where !== localisationPath(language)) {
+      errors.push(`${where}: not a localisation file`);
+      continue;
+    }
+    const result = validateLocalisation(readJson(join(dir, where), where, errors));
+    if (!result.ok) {
+      errors.push(...result.errors.map((e) => `${where}: ${e}`));
+      continue;
+    }
+    if (result.file.language !== language) errors.push(`${where}: names language ${result.file.language}`);
+    errors.push(...releaseErrors(result.file, identity).map((e) => `${where}: ${e}`));
+    localisation.set(where, { language, value: result.file, entries: result.file.entries.length });
+  }
+
   const before = previous && previousRelease(previous, identity, release, declared, errors);
   if (errors.length > 0) return { ok: false, errors: errors.sort() };
 
@@ -165,6 +189,11 @@ export function buildCatalogueRelease(
   // Entry order carries no meaning in the identity contract, so it must not change the bytes.
   files.set(IDENTITY, canonicalJson({ ...identity, entries: [...identity.entries].sort(byKey) }));
   for (const [, { category, record }] of records) files.set(recordPath(category, record), canonicalJson(record));
+  for (const [path, { value }] of localisation) {
+    // Entry order carries no meaning in the localisation contract either.
+    const { entries } = value as LocalisationFile;
+    files.set(path, canonicalJson({ ...value, entries: [...entries].sort(byKey) }));
+  }
 
   const active = identity.entries.filter((e) => !e.retired && !e.absent);
   const categories = declared.map(({ name, status, kinds, sources }): Category => {
@@ -216,6 +245,16 @@ export function buildCatalogueRelease(
       : null,
     schemas: [...SCHEMAS.keys()].map((path) => ({ path, sha256: sha256(files.get(path)!) })),
     identity: { path: IDENTITY, sha256: sha256(files.get(IDENTITY)!) },
+    ...(localisation.size > 0
+      ? {
+          localisation: [...localisation.values()]
+            .sort((a, b) => (a.language < b.language ? -1 : 1))
+            .map(({ language, entries }) => {
+              const path = localisationPath(language);
+              return { language, path, sha256: sha256(files.get(path)!), entries };
+            }),
+        }
+      : {}),
     categories,
   };
   if (!checkManifest(manifest)) return { ok: false, errors: schemaErrors(MANIFEST, checkManifest.errors) };
@@ -304,6 +343,11 @@ export function verifyCatalogueRelease(dir: string): string[] {
 
   const listed: FileRef[] = [...manifest.schemas, manifest.identity];
   if (manifest.identity.path !== IDENTITY) errors.push(`/identity/path must be ${IDENTITY}`);
+  manifest.localisation?.forEach((file, i) => {
+    if (file.path !== localisationPath(file.language)) errors.push(`/localisation/${i}/path must be ${localisationPath(file.language)}`);
+    if (i > 0 && manifest.localisation![i - 1].language >= file.language) errors.push(`/localisation/${i} is not in ascending language order`);
+    listed.push(file);
+  });
   manifest.categories.forEach((category, i) => {
     if (i > 0 && manifest.categories[i - 1].name >= category.name) errors.push(`/categories/${i} is not in ascending name order`);
     if (category.status === "retained") {

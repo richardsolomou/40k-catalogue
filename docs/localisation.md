@@ -19,14 +19,16 @@ Each entry has:
 | Field | Meaning |
 | --- | --- |
 | `id` | The entity's catalogue ID. The resolver returns it unchanged. |
-| `kind` | `faction`, `detachment`, `enhancement`, `unit`, `wargear`, or `disposition`. |
+| `kind` | `faction`, `detachment`, `ability`, `enhancement`, `unit`, `model`, `wargear`, or `disposition`. |
 | `name` | The catalogue's own name, so a reviewer can check the entry and an app keyed on names can join it. |
 | `display` | The one name to show in this language. |
 | `aliases` | Names to accept on import but never show. `use` is `spelling` for another current spelling, such as one a list builder prints, or `historical` with `until` naming the update that retired it. |
 
-Display names and aliases are separate so an app never shows an import-only spelling. An ID must keep the same kind and catalogue name in every file; indexing files that disagree fails.
+Display names and aliases are separate so an app never shows an import-only spelling. An entity, a kind and ID, must keep the same catalogue name in every file; indexing files that disagree fails. Kinds have separate ID spaces, as in the identity, so a piece of wargear and the ability it gives can share an ID.
 
-Entry IDs are [catalogue identity](catalogue-identity.md) IDs, and `kind` names the identity kind, so an entry is the release entry with that kind and ID. An app with its own IDs can use them in its own files, but then cannot check them against a release.
+Entry IDs are [catalogue identity](catalogue-identity.md) IDs, and `kind` names the identity kind, so an entry is the release entry with that kind and ID. An Enhancement is an identity `ability`. `enhancement` and `disposition` are for an app with its own IDs, which can use them in its own files but then cannot check them against a release.
+
+A [catalogue release](catalogue-releases.md) can carry one file per language under `localisation/`, each checked against the release's identity when it is built.
 
 ## Checking a file against a release
 
@@ -45,7 +47,7 @@ An empty result means every ID the resolver can return is published in that rele
 
 A query can narrow the lookup by `language`, by `kinds`, and by `ids`, the set of IDs that make sense where the name was read, such as one faction's datasheets. Narrowing is how an app settles an ambiguity; the resolver never guesses.
 
-`idsWithin(release, ref)` builds a scope from a faction, detachment or unit and its owned entries. A faction scope includes its units and detachments. A detachment scope includes its enhancements. A unit scope includes wargear carried or offered by its models and options. Cross-faction relationships do not add another book's units to the scope. An app that allows allies can look up names in their books separately. A regional tag falls back to its base language, so `fr-CA` reads `fr` files. A lookup without a language searches every loaded language.
+`idsWithin(release, ref)` builds a scope from a faction, detachment or unit and its owned entries. A faction scope includes its units and detachments. A detachment scope includes its enhancements and the abilities that name it. A unit scope includes wargear carried or offered by its models and options. Cross-faction relationships do not add another book's units to the scope. An app that allows allies can look up names in their books separately. A regional tag falls back to its base language, so `fr-CA` reads `fr` files. A lookup without a language searches every loaded language.
 
 Matching runs in two tiers. The first compares normalized names: compatibility forms folded, typographic quotes and dashes made plain, whitespace collapsed, space before `:;!?` dropped, and case folded without a locale. Only if nothing matches, the second also removes accents from Latin, Greek, and Cyrillic letters. Marks in other scripts stay, because a Japanese voicing mark makes a different word. Looser matching, such as plural endings or word order, depends on the language and belongs in the consuming app.
 
@@ -53,7 +55,7 @@ A historical alias always resolves and its hit says `historical`, so lists writt
 
 ## Validation
 
-Besides the schema, validation rejects a repeated ID and an alias that repeats a name the entry already answers to. It reports each name that two entities of the same kind share as an ambiguity rather than an error, since real languages do give two things one name. Historical names that a current name overrides are not reported.
+Besides the schema, validation rejects a repeated kind and ID and an alias that repeats a name the entry already answers to. It reports each name that two entities of the same kind share as an ambiguity rather than an error, since real languages do give two things one name. Historical names that a current name overrides are not reported.
 
 ## Local checks
 

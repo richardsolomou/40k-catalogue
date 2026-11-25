@@ -204,7 +204,7 @@ test("only a Stratagem has parts", () => {
 
 test("a Stratagem's summary is its parts joined", () => {
   assert.deepEqual(
-    errors((_, recs) => (data(recs, "ability", VOLLEY).parts.target = "One **INFANTRY** or **CHARACTER** unit of yours.")),
+    errors((_, recs) => (data(recs, "ability", VOLLEY).parts.target = "An **INFANTRY** or **CHARACTER** unit of yours.")),
     [`ability:${VOLLEY} summary is not its Stratagem parts joined`],
   );
 });

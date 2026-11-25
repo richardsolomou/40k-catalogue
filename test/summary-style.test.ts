@@ -135,3 +135,11 @@ test("a Stratagem's Target part does not open with a count word", () => {
 test("a Stratagem's Target part writes a count above one in digits", () => {
   assert.deepEqual(styleIssues(stratagem({ when: "Your Command phase.", target: "Up to two **INFANTRY** units of yours.", effect: "The units get +1 OC." })), ["stratagem-target"]);
 });
+
+test("a Stratagem's Target part can name a count in digits", () => {
+  assert.deepEqual(styleIssues(stratagem({ when: "Your Command phase.", target: "Up to 2 **INFANTRY** units of yours.", effect: "The units get +1 OC." })), []);
+});
+
+test("a name that opens with a number word is not a count", () => {
+  assert.deepEqual(styleIssues(stratagem({ when: "Your Command phase.", target: "**ONE EYE** of yours.", effect: "The model gets +1 OC." })), []);
+});

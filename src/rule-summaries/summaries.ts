@@ -43,8 +43,12 @@ export type AbilityData = SummaryData & {
     oncePerPhase?: true;
   };
 };
-/** `parent` is the rule a numbered clarification sits under, such as 01.02.06 under Units and Models. */
-export type CoreRuleData = SummaryData & { document: string; section?: string; ruleNumber?: string; parent?: Ref };
+/**
+ * `parent` is the rule a numbered clarification sits under, such as 01.02.06 under Units and Models. `order` is the
+ * rule's reading position in its document and `anchor` its permanent address there, each unique per document.
+ * `stratagem` is the core Stratagem the rule prints, whose own record carries its CP cost.
+ */
+export type CoreRuleData = SummaryData & { document: string; section?: string; ruleNumber?: string; order?: number; anchor?: string; parent?: Ref; stratagem?: Ref };
 export type KeywordData = SummaryData & { parameterized?: true };
 /** `amendsUnlisted` names targets the catalogue has no entry for yet, by the kind they will have. */
 export type FaqData = SummaryData & { publication: string; amends: Ref[]; amendsUnlisted?: { kind: string; name: string }[] };
@@ -183,6 +187,12 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
       else if (!target || target.retired) errors.push(`${at} parent ${key(parent)} is not current in the identity release`);
       else if (!entry.references?.some((r) => key(r) === key(parent))) errors.push(`${at} parent ${key(parent)} is not a reference of its identity entry`);
     }
+    const printed = summary.kind === "core-rule" ? (summary.data as CoreRuleData).stratagem : undefined;
+    if (printed) {
+      const target = entries.get(key(printed));
+      if (!target || target.retired) errors.push(`${at} prints ${key(printed)}, which is not current in the identity release`);
+      else if (!entry.references?.some((r) => key(r) === key(printed))) errors.push(`${at} prints ${key(printed)} but its identity entry does not reference it`);
+    }
     const { summary: text, facts } = summary.data;
     const parsed = parseSummary(text);
     if (!parsed.ok) errors.push(`${at} summary ${parsed.error}`);
@@ -216,10 +226,21 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
     }
   }
 
-  // A clarification's parent is a rule of its own, never another clarification: one level.
+  // A clarification's parent is a rule of its own, never another clarification: one level. A document's rules each
+  // hold their own reading position and address, and a printed Stratagem is a core Stratagem.
+  const held = new Map<string, string>();
   for (const [at, s] of byKey) {
-    const parent = s.kind === "core-rule" ? (s.data as CoreRuleData).parent : undefined;
+    if (s.kind !== "core-rule") continue;
+    const { document, order, anchor, parent, stratagem } = s.data as CoreRuleData;
     if (parent && key(parent) !== at && (byKey.get(key(parent))?.data as CoreRuleData | undefined)?.parent) errors.push(`${at} parent ${key(parent)} has a parent of its own`);
+    for (const [field, value] of [["order", order], ["anchor", anchor]] as const) {
+      if (value === undefined) continue;
+      const slot = JSON.stringify([document, field, value]);
+      if (held.has(slot)) errors.push(`${at} ${field} ${value} is ${held.get(slot)}'s in ${document}`);
+      else held.set(slot, at);
+    }
+    const ruleType = stratagem && (byKey.get(key(stratagem))?.data as AbilityData | undefined)?.ruleType;
+    if (ruleType && ruleType !== "core-stratagem") errors.push(`${at} prints ${key(stratagem!)}, which is not a core Stratagem`);
   }
   if (errors.length > 0) return { ok: false, errors };
   const faqs = [...byKey.values()].filter((s): s is Summary<"faq"> => s.kind === "faq").sort((a, b) => (a.id < b.id ? -1 : 1));

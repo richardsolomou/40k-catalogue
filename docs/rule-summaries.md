@@ -11,7 +11,7 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 | Category | Kind | `data` beside the common fields |
 | --- | --- | --- |
 | `rules-reference` | `ability` | `ruleType`, optional `group`, for a Stratagem or Enhancement an optional `detachment`, and for a Stratagem `cp` and optional `stratagem` timing. |
-| `rules-reference` | `core-rule` | `document`, optional `section`, `ruleNumber` and `parent`. |
+| `rules-reference` | `core-rule` | `document`, optional `section`, `ruleNumber`, `order`, `anchor`, `parent` and `stratagem`. |
 | `rules-reference` | `core-ability`, `weapon-ability` | `parameterized: true` when the keyword takes values, such as Sustained Hits X. |
 | `rules-reference` | `faq` | `publication`, `amends`, optional `amendsUnlisted`. |
 | `mission-rules` | `mission-card` | `pack` and `card`. A card that prints no rules text beyond its awards and actions has `text: "none"` and a `reason` in place of `summary` (see [rules without text](#rules-without-text)). |
@@ -27,6 +27,10 @@ The [MFM 1.6 input](../data/mfm-1-6/rule-summaries/README.md) holds the summarie
 A `unit-ability` several factions print on the same datasheet with the same text, such as the Chaos Land Raider's Damaged rule in each Chaos faction, can be one record for all of them. Its identity entry then references the `unit` entry of each faction's datasheet it applies to, by `{ kind: "unit", id }`, so an app joins the rule to every one of those units without matching names or IDs.
 
 A clarification the core rules number beneath a rule, such as 01.02.06 under Units and Models, is a `core-rule` whose `parent` is that rule, by `{ kind: "core-rule", id }`. The parent is current, is a reference of the clarification's identity entry, and has no parent of its own.
+
+A core rule's `order` is its reading position in its `document`, a positive integer no other rule of the document holds: sections in the order the document prints them, rules in each section in order, and each numbered clarification directly after its parent. Sort a document's records by `order` to lay out its outline; numbers can skip where an entry has no record. `anchor` is the rule's permanent address in its document, unique within it: its `ruleNumber` where it prints one, else the slug of its name (lower case, each run of other characters as one hyphen), with `-2`, `-3` and so on for a later rule whose address an earlier rule of the document already holds, such as `09.07.01-2`. Anchors follow the identity rules: a rule keeps its anchor when it is renamed or renumbered, and no other rule of the document takes it.
+
+A core rule that prints a core Stratagem names it in `stratagem`, by `{ kind: "ability", id }`, so an app reads its CP cost and timing from that record. The Stratagem is current, is a reference of the rule's identity entry, and where it has a record, that record's `ruleType` is `core-stratagem`.
 
 `pack` and `publication` are display names. `card` is `primary` or `secondary`. An award scores `vp` victory points, up to `max` where the card caps it.
 
@@ -94,6 +98,7 @@ Identity entries without a record are listed as `unresolved`, and their category
 - A Stratagem has a `cp` cost, and no other ability has a cost or Stratagem timing.
 - A Stratagem's `windows` give each of its `phases` in order, with turns that differ, and its `turn` is `any`.
 - Only a Stratagem or Enhancement names a `detachment`, which is current and appears in its identity entry's `references`.
+- No two core rules of one `document` share an `order` or an `anchor`, and a core rule's `stratagem` is a current core Stratagem in its identity entry's `references`.
 - `vs-data-facts` facts match the shape for the record's kind, with award rounds in ascending order, and `vs-data-mechanic` facts validate as a mechanic record.
 
 ## Versioning
@@ -102,4 +107,4 @@ Summaries follow the [identity rules](catalogue-identity.md). A rewording or cor
 
 ## Fixtures
 
-[fixtures/rule-summaries](../fixtures/rule-summaries) is a catalogue release input for an invented faction and mission pack, with one record of each kind, an FAQ amending an army rule and an unlisted detachment, an interpretation flag, an attributed record, mechanic facts, a retired FAQ and an undrafted entry. [test/rule-summaries.test.ts](../test/rule-summaries.test.ts) validates it, builds it as a release and covers the rules above.
+[fixtures/rule-summaries](../fixtures/rule-summaries) is a catalogue release input for an invented faction and mission pack, with one record of each kind, a core rule that prints a core Stratagem, an FAQ amending an army rule and an unlisted detachment, an interpretation flag, an attributed record, mechanic facts, a retired FAQ and an undrafted entry. [test/rule-summaries.test.ts](../test/rule-summaries.test.ts) validates it, builds it as a release and covers the rules above.

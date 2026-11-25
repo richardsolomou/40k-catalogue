@@ -9,8 +9,11 @@ import { checkRoster } from "./roster.ts";
 // shape: its wargear lists become counts of one each, which is what version 1 meant by them.
 /** How many of each wargear ID. */
 export type Counts = Record<string, number>;
-/** Holds when the roster's faction and detachment are the ones named and one of its units has the named warlord model. */
-export type When = { faction?: string; detachment?: string; warlord?: string };
+/**
+ * Holds when the roster's faction is the one named, one of its detachments is, and one of its units has the named
+ * warlord model. `allegiance` holds only in a unit's conditional keywords, for a unit that took that allegiance.
+ */
+export type When = { faction?: string; detachment?: string; warlord?: string; allegiance?: string };
 type RosterBounds = { min?: number; max?: number };
 /** How many units holding every keyword a roster of the faction may hold; a detachment's row replaces the faction's bounds. */
 export type UnitLimit = RosterBounds & { keywords: string[]; detachments?: (RosterBounds & { detachment: string })[] };
@@ -47,9 +50,14 @@ export type DetachmentData = {
   requiredWarlords?: string[];
   /** A keyword two of a roster's detachments may not share. */
   group?: string;
+  /** How many units of a roster with this detachment take one of `allegiances`. */
+  allegianceLimits?: (RosterBounds & { allegiances: string[] })[];
 };
 /** An `upgrade` may be taken by several units; other enhancements once per roster. */
 export type EnhancementData = { detachment: string; upgrade?: true; keywords?: { all?: string[]; none?: string[] } };
+/** A choice the unit takes from `choices`, in a roster with `detachment` where named; `requires` maps a choice to wargear the unit must carry. */
+export type AllegianceOffer = { choices: string[]; required?: true; detachment?: string; requires?: Record<string, string> };
+export type AllegianceData = Record<string, never>;
 /** The first of `limits` for the roster's battle size whose `when` holds replaces `perRoster`. */
 export type Limit = { battleSize: string; perRoster: number; when?: When };
 /** `enhancements: false` bars a unit that the keyword rules would otherwise admit. */
@@ -67,6 +75,7 @@ export type UnitData = {
   limits?: Limit[];
   legends?: true;
   enhancements?: false;
+  allegiances?: AllegianceOffer[];
   /** Wargear the unit carries that none of its models does. */
   wargear?: Counts;
   /** The selections the unit takes when first fielded, by option ID, where its models of one kind start with different wargear. */
@@ -111,6 +120,7 @@ type DataOf = {
   model: ModelData;
   "roster-option": OptionData;
   wargear: WargearData;
+  allegiance: AllegianceData;
 };
 export type DefinitionKind = keyof DataOf;
 export type Definition<K extends DefinitionKind = DefinitionKind> = { id: string; name: string; data: DataOf[K] };
@@ -129,17 +139,19 @@ export type Definitions = {
 
 export type DefinitionsValidation = { ok: true; definitions: Definitions } | { ok: false; errors: string[] };
 
-export const KINDS: DefinitionKind[] = ["faction", "battle-size", "detachment", "enhancement", "unit", "model", "roster-option", "wargear"];
+export const KINDS: DefinitionKind[] = ["faction", "battle-size", "detachment", "enhancement", "unit", "model", "roster-option", "wargear", "allegiance"];
 
-// Limits on what a roster holds as a whole, which a unit's own first fielding cannot be held to.
-const ROSTER_WIDE = new Set(["roster-limit", "unit-limit", "unit-excluded", "ally-detachment", "ally-limit"]);
+// Problems a unit's first fielding cannot be held to: limits on the roster as a whole, and the allegiance it is yet to choose.
+const ROSTER_WIDE = new Set(["roster-limit", "unit-limit", "unit-excluded", "ally-detachment", "ally-limit", "allegiance-missing"]);
 
 export function modelBounds(model: ModelCountBounds, size: number): Bounds {
   return model.bySize?.find((bounds) => bounds.size === size) ?? model;
 }
 
 const ajv = new Ajv2020({ allErrors: true }).addSchema(v1Schema).addSchema(v2Schema);
-const checkers = (schema: { $id: string }) => new Map(KINDS.map((kind) => [kind, ajv.getSchema(`${schema.$id}#/$defs/${kind}`)!]));
+// Version 1 has no allegiance kind, so its map leaves that kind out.
+const checkers = (schema: { $id: string }) =>
+  new Map(KINDS.map((kind) => [kind, ajv.getSchema(`${schema.$id}#/$defs/${kind}`)] as const).filter((pair): pair is [DefinitionKind, NonNullable<(typeof pair)[1]>] => pair[1] !== undefined));
 const checkData = { 1: checkers(v1Schema), 2: checkers(v2Schema) };
 
 const counted = (ids: string[] | undefined) => ids && Object.fromEntries(ids.map((id) => [id, 1]));
@@ -155,6 +167,7 @@ const whenRefs = (when: When | undefined): Ref[] => [
   ...(when?.faction ? [{ kind: "faction", id: when.faction }] : []),
   ...(when?.detachment ? [{ kind: "detachment", id: when.detachment }] : []),
   ...(when?.warlord ? [{ kind: "model", id: when.warlord }] : []),
+  ...(when?.allegiance ? [{ kind: "allegiance", id: when.allegiance }] : []),
 ];
 
 // Every ID a record's data names, with the kind it must resolve to.
@@ -179,6 +192,7 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
         ...refs("faction", [detachment.faction]),
         ...refs("unit", detachment.excludedUnits),
         ...refs("model", [...(detachment.warlords ?? []), ...(detachment.requiredWarlords ?? [])]),
+        ...refs("allegiance", detachment.allegianceLimits?.flatMap((l) => l.allegiances)),
       ];
     }
     case "enhancement":
@@ -199,6 +213,9 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
         ...refs("roster-option", Object.keys(unit.defaults ?? {})),
         ...refs("wargear", Object.values(unit.defaults ?? {}).flatMap((counts) => Object.keys(counts))),
         ...refs("model", Object.keys(unit.defaultModels ?? {})),
+        ...refs("allegiance", unit.allegiances?.flatMap((offer) => offer.choices)),
+        ...refs("detachment", unit.allegiances?.flatMap((offer) => (offer.detachment ? [offer.detachment] : []))),
+        ...refs("wargear", unit.allegiances?.flatMap((offer) => Object.values(offer.requires ?? {}))),
       ];
     }
     case "model":
@@ -323,6 +340,10 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     }
   }
 
+  for (const detachment of all("detachment")) {
+    for (const [i, limit] of (detachment.data.allegianceLimits ?? []).entries()) checkRosterBounds(`detachment:${detachment.id} allegianceLimits/${i}`, limit);
+  }
+  const includes = (id: string) => Object.keys(get("wargear", id)?.data.includes ?? {});
   for (const faction of all("faction")) {
     const { parent } = faction.data;
     if (parent === faction.id) errors.push(`faction:${faction.id} names itself as its parent`);
@@ -371,6 +392,16 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       if (group.carrier) ownModel(path, group.carrier, unit.id);
       if (group.bySize) checkSizeBounds(`${path} bySize`, group.bySize, unit.id);
     }
+    if (unit.data.limits?.some((l) => l.when?.allegiance)) errors.push(`${at} limits name an allegiance, which holds only in conditional keywords`);
+    // Everything the unit can carry: its models' and its own wargear, its options' choices, and what bundles include.
+    const carried = new Set([...models.flatMap((m) => Object.keys(m.data.wargear)), ...Object.keys(unit.data.wargear ?? {}), ...optionsOf(unit.id).flatMap((o) => o.data.choices)]);
+    for (const id of carried) for (const inner of includes(id)) carried.add(inner);
+    for (const [i, offer] of (unit.data.allegiances ?? []).entries()) {
+      for (const [choice, wargear] of Object.entries(offer.requires ?? {})) {
+        if (!offer.choices.includes(choice)) errors.push(`${at} allegiances/${i} requires allegiance:${choice}, which it does not offer`);
+        if (!carried.has(wargear)) errors.push(`${at} allegiances/${i} requires wargear:${wargear}, which the unit cannot carry`);
+      }
+    }
     const always = new Set<string>();
     const seenLimits = new Set<string>();
     for (const limit of unit.data.limits ?? []) {
@@ -416,7 +447,6 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       if (choose.min > 0 || bySize?.some(({ min }) => min > 0)) errors.push(`${at} requires another option but has a minimum`);
     }
   }
-  const includes = (id: string) => Object.keys(get("wargear", id)?.data.includes ?? {});
   for (const wargear of all("wargear")) {
     const held = Object.values(wargear.data.includes ?? { [wargear.id]: 2 }).reduce((sum, n) => sum + n, 0);
     if (held < 2) errors.push(`wargear:${wargear.id} includes fewer than two items`);

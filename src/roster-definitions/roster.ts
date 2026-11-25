@@ -3,13 +3,14 @@ import { lookupPoints, type Miss } from "../points/lookup.ts";
 import type { PointsSnapshot } from "../points/snapshot.ts";
 import { modelBounds, type Definition, type DefinitionKind, type Definitions, type Per, type UnitData, type When } from "./definitions.ts";
 
-/** A saved list in catalogue IDs: model counts by model ID, wargear counts by option ID, and the warlord's model ID. */
+/** A saved list in catalogue IDs: model counts by model ID, wargear counts by option ID, the warlord's model ID, and the allegiance taken. */
 export type RosterUnit = {
   unit: string;
   models?: Record<string, number>;
   options?: Record<string, Record<string, number>>;
   enhancement?: string;
   warlord?: string;
+  allegiance?: string;
 };
 /** A roster names its one detachment as `detachment`, or one to three as `detachments`. */
 export type Roster = { faction: string; detachment?: string; detachments?: string[]; battleSize?: string; units: RosterUnit[] };
@@ -49,7 +50,11 @@ export type ProblemCode =
   | "ally-enhancement"
   | "detachment-group"
   | "roster-points"
-  | "detachment-points";
+  | "detachment-points"
+  | "allegiance-missing"
+  | "allegiance-choice"
+  | "allegiance-requires"
+  | "allegiance-limit";
 /** `unit` is the position in the roster, absent for the roster as a whole. */
 export type Problem = { code: ProblemCode; unit?: number; message: string };
 
@@ -70,6 +75,7 @@ export function rosterRefs(roster: Roster): Ref[] {
       ...Object.entries(u.options ?? {}).flatMap(([id, counts]) => [{ kind: "roster-option", id }, ...Object.keys(counts).map((w) => ({ kind: "wargear", id: w }))]),
       ...(u.enhancement ? [{ kind: "enhancement", id: u.enhancement }] : []),
       ...(u.warlord ? [{ kind: "model", id: u.warlord }] : []),
+      ...(u.allegiance ? [{ kind: "allegiance", id: u.allegiance }] : []),
     ]),
   ];
 }
@@ -87,19 +93,23 @@ export function optionBounds(option: Definition<"roster-option">, total: number,
   return { min: choose.min * n, max: choose.max * n };
 }
 
-/** Whether a condition holds for the roster: its faction, one of its detachments, and a unit naming that warlord model. */
-export function holds(when: When | undefined, roster: Roster): boolean {
+/**
+ * Whether a condition holds for the roster: its faction, one of its detachments, a unit naming that warlord model, and,
+ * for one unit's condition, the `allegiance` that unit took.
+ */
+export function holds(when: When | undefined, roster: Roster, allegiance?: string): boolean {
   if (!when) return true;
   return (
+    (when.allegiance === undefined || when.allegiance === allegiance) &&
     (when.faction === undefined || when.faction === roster.faction) &&
     (when.detachment === undefined || rosterDetachments(roster).includes(when.detachment)) &&
     (when.warlord === undefined || roster.units.some((u) => u.warlord === when.warlord))
   );
 }
 
-/** A unit's keywords in this roster: its own and every conditional keyword whose condition holds. */
-export function unitKeywords(unit: UnitData, roster: Roster): string[] {
-  return [...new Set([...unit.keywords, ...(unit.conditionalKeywords ?? []).filter((c) => holds(c.when, roster)).flatMap((c) => c.keywords)])];
+/** A unit's keywords in this roster: its own and every conditional keyword whose condition holds, given the allegiance it took. */
+export function unitKeywords(unit: UnitData, roster: Roster, allegiance?: string): string[] {
+  return [...new Set([...unit.keywords, ...(unit.conditionalKeywords ?? []).filter((c) => holds(c.when, roster, allegiance)).flatMap((c) => c.keywords)])];
 }
 
 const holdsAll = (keywords: string[], wanted: string[]) => wanted.every((k) => keywords.includes(k));
@@ -161,7 +171,7 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
     const add = (code: ProblemCode, message: string) => problems.push({ code, unit: i, message });
     if (!current("unit", picked.unit, i)) return;
     const unit = definitions.get("unit", picked.unit)!;
-    const keywords = unitKeywords(unit.data, roster);
+    const keywords = unitKeywords(unit.data, roster, picked.allegiance);
     keywordsAt[i] = keywords;
     const entry = entryOf(unit.id);
     const offered = allies.filter((a) => a.units.includes(unit.id));
@@ -265,6 +275,17 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       if (taken > most) add("option-group-count", `${group.options.map(({ option }) => `roster-option:${option}`).join(", ")} together take at most ${most}, have ${taken}`);
     }
 
+    const offers = (unit.data.allegiances ?? []).filter((offer) => !offer.detachment || detachmentIds.includes(offer.detachment));
+    if (picked.allegiance === undefined) {
+      if (offers.some((offer) => offer.required)) add("allegiance-missing", `${unit.name} needs an allegiance`);
+    } else if (current("allegiance", picked.allegiance, i)) {
+      const allegiance = picked.allegiance;
+      const offer = offers.find((o) => o.choices.includes(allegiance));
+      const needed = offer?.requires?.[allegiance];
+      if (!offer) add("allegiance-choice", `${unit.name} cannot take allegiance:${allegiance}`);
+      else if (needed && !((carried(definitions, unit, counts, picked).get(needed) ?? 0) > 0)) add("allegiance-requires", `allegiance:${allegiance} needs ${unit.name} to carry wargear:${needed}`);
+    }
+
     if (picked.enhancement && current("enhancement", picked.enhancement, i)) {
       const enhancement = definitions.get("enhancement", picked.enhancement)!;
       if (!detachmentIds.includes(enhancement.data.detachment)) add("enhancement-detachment", `${enhancement.name} belongs to another detachment`);
@@ -312,6 +333,14 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       if (!sets.some((set) => under.every((i) => holdsAll(keywordsAt[i]!, set)))) rosterProblem("ally-limit", "allied units fall under one of their limits only");
     }
   });
+  for (const detachment of detachments) {
+    for (const { allegiances, min, max } of detachment.data.allegianceLimits ?? []) {
+      const count = roster.units.filter((u) => u.allegiance !== undefined && allegiances.includes(u.allegiance)).length;
+      if (count < (min ?? 0) || count > (max ?? Infinity)) {
+        rosterProblem("allegiance-limit", `${detachment.name} needs ${min ?? 0}-${max ?? "any"} units with ${allegiances.map((a) => `allegiance:${a}`).join(", ")}, has ${count}`);
+      }
+    }
+  }
   if (warlords === 0) {
     for (const detachment of detachments) {
       const required = detachment.data.requiredWarlords;
@@ -325,6 +354,25 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
     if (size.detachmentPoints !== undefined && dp > size.detachmentPoints) rosterProblem("detachment-points", `detachments cost at most ${size.detachmentPoints} detachment points, cost ${dp}`);
   }
   return problems;
+}
+
+/** How many of each wargear the unit carries: its models' and its own, changed by the options it takes, with bundles expanded. */
+function carried(definitions: Definitions, unit: Definition<"unit">, counts: Map<string, number>, picked: RosterUnit): Map<string, number> {
+  const held = new Map<string, number>();
+  const carry = (id: string, n: number) => {
+    held.set(id, (held.get(id) ?? 0) + n);
+    for (const [inner, k] of Object.entries(definitions.get("wargear", id)?.data.includes ?? {})) carry(inner, n * k);
+  };
+  for (const model of definitions.modelsOf(unit.id)) for (const [id, n] of Object.entries(model.data.wargear)) carry(id, n * (counts.get(model.id) ?? 0));
+  for (const [id, n] of Object.entries(unit.data.wargear ?? {})) carry(id, n);
+  for (const option of definitions.optionsOf(unit.id)) {
+    for (const [id, n] of Object.entries(picked.options?.[option.id] ?? {})) {
+      if (!(n > 0)) continue;
+      carry(id, n);
+      for (const [replaced, k] of Object.entries(option.data.replaces ?? {})) carry(replaced, -n * k);
+    }
+  }
+  return held;
 }
 
 /** A printed unit with its total model count and, when present, its complete breakdown by model name. */

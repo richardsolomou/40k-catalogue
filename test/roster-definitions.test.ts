@@ -553,6 +553,10 @@ const ORACLE = "synthetic.smoke-kin.smoke-oracle";
 const points12 = (validateSnapshot(json("points-1.2.json")) as { snapshot: PointsSnapshot }).snapshot;
 const incursion = (units: Roster["units"], detachments = [KINDLED]): Roster => ({ faction: EH, detachments, battleSize: "synthetic.incursion", units });
 const priced = (roster: Roster) => checkRoster(v12, roster, { points: points12 }).map((p) => `${p.unit ?? "-"} ${p.code}`);
+const BLAZE = `${EH}.blaze-oath`;
+const SMOKE = `${EH}.smoke-oath`;
+const RITE_ALLEGIANCE = `${EH}.ash-rite`;
+const IMP = { unit: IMPS, allegiance: BLAZE };
 const PACK_UNIT = { unit: PACK, models: { [`${PACK}.hunter`]: 3, [`${PACK}.hound`]: 3 } };
 
 test("a roster may list its detachments", () => {
@@ -579,8 +583,8 @@ const construction: Record<string, [Roster, string[]]> = {
   "an allied warlord its detachment allows": [incursion([{ unit: ORACLE, warlord: `${ORACLE}.oracle` }], [SWORN]), []],
   "a warlord its detachment does not require": [incursion([{ unit: LORD, warlord: LORD_MODEL }], [KINDLED, RITE]), ["0 warlord-required"]],
   "no warlord where a detachment requires one": [incursion([{ unit: SEER }], [KINDLED, RITE]), ["- warlord-required"]],
-  "an own unit outside the detachment its entry requires": [incursion([{ unit: IMPS }]), ["0 ally-detachment"]],
-  "an own unit in the detachment its entry requires": [incursion([{ unit: DRONES }, { unit: IMPS }], [ASH_PACT]), []],
+  "an own unit outside the detachment its entry requires": [incursion([IMP]), ["0 ally-detachment"]],
+  "an own unit in the detachment its entry requires": [incursion([{ unit: DRONES }, IMP], [ASH_PACT]), []],
   "more allied units with a keyword than their limit": [incursion([{ unit: WRAITHS }, { unit: ORACLE }]), ["- ally-limit"]],
   "an allied unit its limit frees": [incursion([{ unit: WARDENS }, { unit: WRAITHS }, { unit: ORACLE }]), []],
   "allied units under two limits of an entry with one": [incursion([{ unit: WRAITHS }, { unit: BEAST }]), ["- ally-limit"]],
@@ -617,7 +621,7 @@ test("detachments over their battle size's detachment points report detachment-p
 });
 
 test("allied units over their entry's points report ally-points", () => {
-  assert.deepEqual(priced(incursion([{ unit: DRONES }, { unit: IMPS }, { unit: IMPS }], [ASH_PACT])), ["- ally-points"]);
+  assert.deepEqual(priced(incursion([{ unit: DRONES }, IMP, IMP], [ASH_PACT])), ["- ally-points"]);
 });
 
 const ally = (records: CatalogueRecord[]) => (find(records, "faction", EH).data as any).allies[1];
@@ -650,6 +654,63 @@ const invalidConstruction: Record<string, [(records: CatalogueRecord[], identity
 };
 
 for (const [name, [change, error]] of Object.entries(invalidConstruction)) {
+  test(`definitions with ${name} fail with: ${error}`, () => {
+    const { identity, records } = input("1.2");
+    change(records, identity);
+    const result = validateDefinitions(identity, records);
+    assert.ok(!result.ok && result.errors.includes(error), JSON.stringify(result));
+  });
+}
+
+const allegiances: Record<string, [Roster, string[]]> = {
+  "a unit without the allegiance it must take": [incursion([{ unit: DRONES }, { unit: IMPS }], [ASH_PACT]), ["1 allegiance-missing"]],
+  "an allegiance its unit does not offer": [incursion([{ unit: DRONES }, { unit: IMPS, allegiance: RITE_ALLEGIANCE }], [ASH_PACT]), ["1 allegiance-choice"]],
+  "an allegiance offered only with another detachment": [incursion([{ unit: DRONES, allegiance: RITE_ALLEGIANCE }]), ["0 allegiance-choice"]],
+  "an allegiance without the wargear it needs": [incursion([{ unit: DRONES }, { unit: IMPS, allegiance: SMOKE }], [ASH_PACT]), ["1 allegiance-requires"]],
+  "an allegiance with the wargear it needs": [incursion([{ unit: DRONES }, { unit: IMPS, allegiance: SMOKE, options: { [`${IMPS}.maul`]: { "synthetic.ember-maul": 1 } } }], [ASH_PACT]), []],
+  // Ash Rite makes each Drone a Character, so the second also passes Ash Pact's one Character.
+  "more allegiances than a detachment allows": [
+    incursion([{ unit: DRONES, allegiance: RITE_ALLEGIANCE }, { unit: DRONES, allegiance: RITE_ALLEGIANCE }], [ASH_PACT, KINDLED]),
+    ["1 unit-limit", "- allegiance-limit"],
+  ],
+  "an enhancement an allegiance's keyword opens": [incursion([{ unit: DRONES, allegiance: RITE_ALLEGIANCE, enhancement: SIGIL }], [ASH_PACT, KINDLED]), []],
+  "an enhancement without the allegiance that opens it": [incursion([{ unit: DRONES, enhancement: SIGIL }], [ASH_PACT, KINDLED]), ["0 enhancement-keywords"]],
+};
+
+for (const [name, [roster, expected]] of Object.entries(allegiances)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(v12, roster), expected);
+  });
+}
+
+test("a roster's references include each unit's allegiance", () => {
+  assert.deepEqual(rosterRefs(incursion([IMP])).filter((r) => r.kind === "allegiance"), [{ kind: "allegiance", id: BLAZE }]);
+});
+
+const offer = (records: CatalogueRecord[]) => (find(records, "unit", IMPS).data as any).allegiances[0];
+const invalidAllegiances: Record<string, [(records: CatalogueRecord[], identity: Release) => void, string]> = {
+  "an allegiance requirement for a choice its offer lacks": [
+    (r) => (offer(r).requires = { [RITE_ALLEGIANCE]: "synthetic.ember-maul" }),
+    `unit:${IMPS} allegiances/0 requires allegiance:${RITE_ALLEGIANCE}, which it does not offer`,
+  ],
+  "an allegiance requirement for wargear the unit cannot carry": [
+    (r, identity) => {
+      offer(r).requires = { [SMOKE]: "synthetic.ward-shield" };
+      identity.entries.find((e) => e.id === IMPS)!.references!.push({ kind: "wargear", id: "synthetic.ward-shield" });
+    },
+    `unit:${IMPS} allegiances/0 requires wargear:synthetic.ward-shield, which the unit cannot carry`,
+  ],
+  "an allegiance limit with its minimum above its maximum": [
+    (r) => ((find(r, "detachment", ASH_PACT).data as any).allegianceLimits[0].min = 2),
+    `detachment:${ASH_PACT} allegianceLimits/0 min is above max`,
+  ],
+  "an allegiance in a roster-wide condition": [
+    (r) => ((find(r, "unit", DRONES).data as any).limits[0].when = { allegiance: RITE_ALLEGIANCE }),
+    `unit:${DRONES} limits name an allegiance, which holds only in conditional keywords`,
+  ],
+};
+
+for (const [name, [change, error]] of Object.entries(invalidAllegiances)) {
   test(`definitions with ${name} fail with: ${error}`, () => {
     const { identity, records } = input("1.2");
     change(records, identity);

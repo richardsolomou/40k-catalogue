@@ -6,12 +6,12 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,899 | 6,899 | 0 |
+| `rules-reference` | 6,898 | 6,898 | 0 |
 | `mission-rules` | 291 | 291 | 0 |
 
-6,469 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 583 records that no app row carries cite only the dated Games Workshop page that prints it. 138 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 1,688 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,469 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 582 records that no app row carries cite only the dated Games Workshop page that prints it. 138 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 1,687 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it: `combat` 2520, `grants` 329, `weaponAbilities` 107, `reminder` 2142, `reserves` 1, `invulnerableSave` 105, `upgradesWeapon` 23, `roster` 69, `options` 0, `attachment` 48, `references` 1056 (4,117 records with at least one). A record whose rule no app row prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it, or a Warhammer Legends ability's PDF page: `combat` 2719, `grants` 361, `weaponAbilities` 129, `reminder` 2240, `reserves` 1, `invulnerableSave` 119, `upgradesWeapon` 23, `roster` 28, `options` 13, `attachment` 52, `references` 1060 (4,410 records with at least one). 186 Crucible and Warhammer Legends abilities that no app row prints and no Legends page is read for take their blocks from BSData's community catalogue ([richardsolomou/wh40k-11e](https://github.com/richardsolomou/wh40k-11e)) for the same ability, which the record's BSData alias names. A record whose rule none of these prints has none; treat what its summary describes as not calculated.
 
 The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,061 units with roster definitions (1,312 wargear options), 1,122 stat lines and 5,177 weapon profiles, and the `mfm-1-6` points snapshot of 1,060 units, 256 Detachments and 817 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the BSData entry IDs it stands for as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 341 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `mfm-1-6-legends` snapshot, the costs of 331 of them from the Munitorum Field Manual's Legends section. 322 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (33 of them with options left out, listed below), and their weapon profiles name that wargear.
 
@@ -413,6 +413,17 @@ A source prints sizes for models or wargear the unit's roster definition does no
 - `faq` `imperial-armour-grey-knights.errata.grey-knights-thunderhawk-gunship`, replaced by Grey Knights Faction Pack: Version 1.2, page 7; Grey Knights Faction Pack: Version 1.2, page 8
 - `faq` `index-chaos-daemons.errata.feculent-gnarlmaw-screamers-skull-altar-keywords`, replaced by Chaos Daemons Faction Pack: Version 1.2, page 61; Chaos Daemons Faction Pack: Version 1.2, page 87; Chaos Daemons Faction Pack: Version 1.2, page 37
 
+1 rule entry the previous release published are retired: rules the build in force no longer prints as these records, such as a Warhammer Legends datasheet's rule where the build prints that datasheet and its own record is the rule.
+
+## Absent
+
+4 BSData abilities that this version's official sources do not print on the datasheet BSData gives them to are entries with `absent: true`, no record and, where no other entry holds it, the BSData ID as an alias.
+
+- `ability` `emperors-children.fulgrim.serpentine`
+- `ability` `imperial-agents.eversor-assassin.intra-neural-biotech`
+- `ability` `tyranids.the-swarmlord.lord-of-deceit-aura`
+- `ability` `tyranids.toxicrene.damaged-1-5-wounds-remaining`
+
 ## Unresolved
 
 Active entries without a record, by reason. An entry with several reasons is listed under each.
@@ -580,3 +591,4 @@ Options a source gives that are not stated: from the app build, structures the r
 - `unaligned-forces.aegis-defence-line-with-weapon-emplacement`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `unaligned-forces.castellum-stronghold`: option not typed: its choices did not read as wargear (Legends PDF)
 - `unaligned-forces.imperial-fortress-walls`: default equipment not typed (Legends PDF)
+- chaos-space-marines allies that take the roster's faction keyword in place of their own

@@ -3,15 +3,18 @@ import { lookupPoints, type Miss } from "../points/lookup.ts";
 import type { PointsSnapshot } from "../points/snapshot.ts";
 import { modelBounds, type Definition, type DefinitionKind, type Definitions, type Per, type UnitData, type When } from "./definitions.ts";
 
-/** A saved list in catalogue IDs: model counts by model ID, wargear counts by option ID, and the warlord's model ID. */
+/** A saved list in catalogue IDs: model counts by model ID, wargear counts by option ID, the warlord's model ID, and the allegiance taken. */
 export type RosterUnit = {
   unit: string;
   models?: Record<string, number>;
   options?: Record<string, Record<string, number>>;
   enhancement?: string;
   warlord?: string;
+  allegiance?: string;
 };
-export type Roster = { faction: string; detachment: string; battleSize?: string; units: RosterUnit[] };
+/** A roster names one to three detachments, as `detachment`, `detachments`, or both, which it holds together. */
+export type Roster = { faction: string; detachment?: string; detachments?: string[]; battleSize?: string; units: RosterUnit[] };
+export type CheckOptions = { points?: PointsSnapshot };
 
 export type ProblemCode =
   | "not-current"
@@ -36,15 +39,38 @@ export type ProblemCode =
   | "enhancement-repeated"
   | "roster-limit"
   | "unit-limit"
-  | "warlord-repeated";
+  | "warlord-repeated"
+  | "warlord-ineligible"
+  | "warlord-required"
+  | "enhancement-limit"
+  | "unit-excluded"
+  | "ally-detachment"
+  | "ally-points"
+  | "ally-limit"
+  | "ally-enhancement"
+  | "detachment-group"
+  | "roster-points"
+  | "detachment-points"
+  | "detachment-count"
+  | "detachment-repeated"
+  | "allegiance-missing"
+  | "allegiance-choice"
+  | "allegiance-requires"
+  | "allegiance-limit";
 /** `unit` is the position in the roster, absent for the roster as a whole. */
 export type Problem = { code: ProblemCode; unit?: number; message: string };
+
+/** The roster's detachments: its `detachment` with its `detachments`, keeping any `detachments` repeats for the checker. */
+export function rosterDetachments(roster: Roster): string[] {
+  const listed = roster.detachments ?? [];
+  return roster.detachment === undefined || listed.includes(roster.detachment) ? listed : [roster.detachment, ...listed];
+}
 
 /** Every catalogue reference a roster holds, for `checkUpgrade` before reading it under another release. */
 export function rosterRefs(roster: Roster): Ref[] {
   return [
     { kind: "faction", id: roster.faction },
-    { kind: "detachment", id: roster.detachment },
+    ...rosterDetachments(roster).map((id) => ({ kind: "detachment", id })),
     ...(roster.battleSize ? [{ kind: "battle-size", id: roster.battleSize }] : []),
     ...roster.units.flatMap((u) => [
       { kind: "unit", id: u.unit },
@@ -52,6 +78,7 @@ export function rosterRefs(roster: Roster): Ref[] {
       ...Object.entries(u.options ?? {}).flatMap(([id, counts]) => [{ kind: "roster-option", id }, ...Object.keys(counts).map((w) => ({ kind: "wargear", id: w }))]),
       ...(u.enhancement ? [{ kind: "enhancement", id: u.enhancement }] : []),
       ...(u.warlord ? [{ kind: "model", id: u.warlord }] : []),
+      ...(u.allegiance ? [{ kind: "allegiance", id: u.allegiance }] : []),
     ]),
   ];
 }
@@ -69,23 +96,32 @@ export function optionBounds(option: Definition<"roster-option">, total: number,
   return { min: choose.min * n, max: choose.max * n };
 }
 
-/** Whether a condition holds for the roster: its faction, its detachment, and a unit naming that warlord model. */
-export function holds(when: When | undefined, roster: Roster): boolean {
+/**
+ * Whether a condition holds for the roster: its faction, one of its detachments, a unit naming that warlord model, and,
+ * for one unit's condition, the `allegiance` that unit took.
+ */
+export function holds(when: When | undefined, roster: Roster, allegiance?: string): boolean {
   if (!when) return true;
   return (
+    (when.allegiance === undefined || when.allegiance === allegiance) &&
     (when.faction === undefined || when.faction === roster.faction) &&
-    (when.detachment === undefined || when.detachment === roster.detachment) &&
+    (when.detachment === undefined || rosterDetachments(roster).includes(when.detachment)) &&
     (when.warlord === undefined || roster.units.some((u) => u.warlord === when.warlord))
   );
 }
 
-/** A unit's keywords in this roster: its own and every conditional keyword whose condition holds. */
-export function unitKeywords(unit: UnitData, roster: Roster): string[] {
-  return [...new Set([...unit.keywords, ...(unit.conditionalKeywords ?? []).filter((c) => holds(c.when, roster)).flatMap((c) => c.keywords)])];
+/** A unit's keywords in this roster: its own and every conditional keyword whose condition holds, given the allegiance it took. */
+export function unitKeywords(unit: UnitData, roster: Roster, allegiance?: string): string[] {
+  return [...new Set([...unit.keywords, ...(unit.conditionalKeywords ?? []).filter((c) => holds(c.when, roster, allegiance)).flatMap((c) => c.keywords)])];
 }
 
-/** Every reason the roster is not legal under these definitions, in roster order. */
-export function checkRoster(definitions: Definitions, roster: Roster): Problem[] {
+const holdsAll = (keywords: string[], wanted: string[]) => wanted.every((k) => keywords.includes(k));
+
+/**
+ * Every reason the roster is not legal under these definitions, in roster order. With a points snapshot, it also
+ * checks the roster's points and detachment points against its battle size; an item the snapshot does not price costs nothing.
+ */
+export function checkRoster(definitions: Definitions, roster: Roster, options: CheckOptions = {}): Problem[] {
   const problems: Problem[] = [];
   const current = (kind: DefinitionKind, id: string, unit?: number) => {
     if (definitions.get(kind, id)) return true;
@@ -97,17 +133,41 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
     }
     return false;
   };
+  const rosterProblem = (code: ProblemCode, message: string) => problems.push({ code, message });
   const battleSize = roster.battleSize && current("battle-size", roster.battleSize) ? roster.battleSize : undefined;
-  if (current("faction", roster.faction) && current("detachment", roster.detachment)) {
-    if (definitions.get("detachment", roster.detachment)?.data.faction !== roster.faction) {
-      problems.push({ code: "detachment-faction", message: `detachment:${roster.detachment} is not a ${roster.faction} detachment` });
-    }
+  const size = battleSize ? definitions.get("battle-size", battleSize)!.data : undefined;
+  const faction = current("faction", roster.faction) ? definitions.get("faction", roster.faction)!.data : undefined;
+  const own = new Set([roster.faction, ...(faction?.parent ? [faction.parent] : [])]);
+  const detachmentIds = rosterDetachments(roster);
+  if (detachmentIds.length === 0 || detachmentIds.length > 3) rosterProblem("detachment-count", `a roster has one to three detachments, has ${detachmentIds.length}`);
+  for (const [i, id] of detachmentIds.entries()) if (detachmentIds.indexOf(id) < i) rosterProblem("detachment-repeated", `detachment:${id} is listed more than once`);
+  const detachments = [...new Set(detachmentIds)].filter((id) => current("detachment", id)).map((id) => definitions.get("detachment", id)!);
+  const groups = new Map<string, string>();
+  for (const detachment of detachments) {
+    if (faction && !own.has(detachment.data.faction)) rosterProblem("detachment-faction", `detachment:${detachment.id} is not a ${roster.faction} detachment`);
+    const { group } = detachment.data;
+    if (group === undefined) continue;
+    if (groups.has(group)) rosterProblem("detachment-group", `${detachment.name} shares ${group} with detachment:${groups.get(group)}`);
+    else groups.set(group, detachment.id);
   }
+  const excluded = new Set([...(faction?.excludedUnits ?? []), ...detachments.flatMap((d) => d.data.excludedUnits ?? [])]);
+  const granted = new Set(detachments.flatMap((d) => d.data.warlords ?? []));
+  const allies = faction?.allies ?? [];
+  // A unit belongs to the first entry that offers it under one of the roster's detachments, and only that entry counts it.
+  const entryOf = (unit: string) => allies.findIndex((a) => a.units.includes(unit) && (!a.detachments || a.detachments.some((d) => detachmentIds.includes(d))));
+  const members = allies.map(() => [] as number[]);
+  const keywordsAt: string[][] = [];
+  const costs: number[] = [];
+  const price = (ref: Parameters<typeof lookupPoints>[1]) => {
+    const found = options.points && lookupPoints(options.points, ref);
+    return found && found.ok ? found.points : 0;
+  };
 
   const copies = new Map<string, number>();
   const enhancements = new Set<string>();
-  const unitLimits = (definitions.get("faction", roster.faction)?.data.unitLimits ?? []).map((limit) => {
-    const row = limit.detachments?.find((d) => d.detachment === roster.detachment) ?? limit;
+  let enhancementCount = 0;
+  const unitLimits = (faction?.unitLimits ?? []).map((limit) => {
+    const row = limit.detachments?.find((d) => detachmentIds.includes(d.detachment)) ?? limit;
     return { keywords: limit.keywords, min: row.min, max: row.max, count: 0 };
   });
   const warlords = roster.units.filter((u) => u.warlord !== undefined).length;
@@ -115,10 +175,17 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
     const add = (code: ProblemCode, message: string) => problems.push({ code, unit: i, message });
     if (!current("unit", picked.unit, i)) return;
     const unit = definitions.get("unit", picked.unit)!;
-    const keywords = unitKeywords(unit.data, roster);
-    if (unit.data.faction !== roster.faction) add("unit-faction", `${unit.name} is not a ${roster.faction} unit`);
+    const keywords = unitKeywords(unit.data, roster, picked.allegiance);
+    keywordsAt[i] = keywords;
+    const entry = entryOf(unit.id);
+    const offered = allies.filter((a) => a.units.includes(unit.id));
+    if (entry >= 0) members[entry]!.push(i);
+    else if (offered.length > 0) {
+      add("ally-detachment", `${unit.name} needs one of ${offered.flatMap((a) => a.detachments ?? []).map((d) => `detachment:${d}`).join(", ")}`);
+    } else if (!own.has(unit.data.faction)) add("unit-faction", `${unit.name} is not a ${roster.faction} unit`);
+    if (excluded.has(unit.id)) add("unit-excluded", `${unit.name} is excluded from this roster`);
     copies.set(unit.id, (copies.get(unit.id) ?? 0) + 1);
-    const limit = unit.data.limits?.find((l) => l.battleSize === battleSize && holds(l.when, roster))?.perRoster ?? unit.data.perRoster;
+    const limit = unit.data.limits?.find((l) => l.battleSize === battleSize && holds(l.when, roster))?.perRoster ?? unit.data.perRoster ?? size?.duplicates;
     if (copies.get(unit.id) === (limit ?? Infinity) + 1) add("roster-limit", `${unit.name} is limited to ${limit} per roster`);
     for (const shared of unitLimits) {
       if (!shared.keywords.every((k) => keywords.includes(k))) continue;
@@ -131,8 +198,16 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
       if (current("model", id, i) && !models.some((m) => m.id === id)) add("unit-model", `model:${id} is not part of ${unit.name}`);
     }
     if (picked.warlord !== undefined) {
-      if (current("model", picked.warlord, i) && !models.some((m) => m.id === picked.warlord)) add("unit-model", `model:${picked.warlord} is not part of ${unit.name}`);
+      const warlord = picked.warlord;
+      const inUnit = models.some((m) => m.id === warlord);
+      if (current("model", warlord, i) && !inUnit) add("unit-model", `model:${warlord} is not part of ${unit.name}`);
       if (warlords > 1) add("warlord-repeated", "a roster has one warlord");
+      const character = keywords.some((k) => k.toUpperCase() === "CHARACTER");
+      if (inUnit && !granted.has(warlord) && (!character || offered.length > 0 || !own.has(unit.data.faction))) add("warlord-ineligible", `${unit.name} cannot hold the warlord`);
+      for (const detachment of detachments) {
+        const required = detachment.data.requiredWarlords;
+        if (inUnit && required && !required.includes(warlord)) add("warlord-required", `${detachment.name} needs one of ${required.map((m) => `model:${m}`).join(", ")} as warlord`);
+      }
     }
     const counts = new Map(models.map((m) => [m.id, picked.models && Object.hasOwn(picked.models, m.id) ? picked.models[m.id]! : m.data.min]));
     const total = [...counts.values()].reduce((sum, n) => sum + n, 0);
@@ -204,21 +279,105 @@ export function checkRoster(definitions: Definitions, roster: Roster): Problem[]
       if (taken > most) add("option-group-count", `${group.options.map(({ option }) => `roster-option:${option}`).join(", ")} together take at most ${most}, have ${taken}`);
     }
 
+    const offers = (unit.data.allegiances ?? []).filter((offer) => !offer.detachment || detachmentIds.includes(offer.detachment));
+    if (picked.allegiance === undefined) {
+      if (offers.some((offer) => offer.required)) add("allegiance-missing", `${unit.name} needs an allegiance`);
+    } else if (current("allegiance", picked.allegiance, i)) {
+      const allegiance = picked.allegiance;
+      const offer = offers.find((o) => o.choices.includes(allegiance));
+      const needed = offer?.requires?.[allegiance];
+      if (!offer) add("allegiance-choice", `${unit.name} cannot take allegiance:${allegiance}`);
+      else if (needed && !((carried(definitions, unit, counts, picked).get(needed) ?? 0) > 0)) add("allegiance-requires", `allegiance:${allegiance} needs ${unit.name} to carry wargear:${needed}`);
+    }
+
     if (picked.enhancement && current("enhancement", picked.enhancement, i)) {
       const enhancement = definitions.get("enhancement", picked.enhancement)!;
-      if (enhancement.data.detachment !== roster.detachment) add("enhancement-detachment", `${enhancement.name} belongs to another detachment`);
+      if (!detachmentIds.includes(enhancement.data.detachment)) add("enhancement-detachment", `${enhancement.name} belongs to another detachment`);
+      if (entry >= 0 && !allies[entry]!.enhancements) add("ally-enhancement", `${unit.name} cannot take enhancements`);
       const { all = [], none = [] } = enhancement.data.keywords ?? {};
       if (unit.data.enhancements === false || !all.every((k) => keywords.includes(k)) || none.some((k) => keywords.includes(k))) {
         add("enhancement-keywords", `${unit.name} cannot take ${enhancement.name}`);
       }
       if (enhancements.has(enhancement.id) && !enhancement.data.upgrade) add("enhancement-repeated", `${enhancement.name} is already taken`);
       enhancements.add(enhancement.id);
+      if (!enhancement.data.upgrade && ++enhancementCount === (size?.enhancements ?? Infinity) + 1) add("enhancement-limit", `a roster takes at most ${size!.enhancements} enhancements`);
     }
+
+    const enhancement = picked.enhancement ? definitions.get("enhancement", picked.enhancement) : undefined;
+    const enhancementFaction = enhancement ? (definitions.get("detachment", enhancement.data.detachment)?.data.faction ?? "") : "";
+    costs[i] =
+      (enhancement ? price({ kind: "enhancement", faction: enhancementFaction, detachment: enhancement.data.detachment, enhancement: enhancement.id }) : 0) +
+      price({ kind: "unit", faction: unit.data.faction, unit: unit.id, models: total, copy: copies.get(unit.id)! }) +
+      Object.values(picked.options ?? {})
+        .flatMap((chosen) => Object.entries(chosen))
+        .reduce((sum, [item, n]) => sum + n * price({ kind: "wargear", faction: unit.data.faction, unit: unit.id, item }), 0);
   });
   for (const shared of unitLimits) {
-    if (shared.count < (shared.min ?? 0)) problems.push({ code: "unit-limit", message: `a roster holds at least ${shared.min} ${shared.keywords.join(" ")} units, has ${shared.count}` });
+    if (shared.count < (shared.min ?? 0)) rosterProblem("unit-limit", `a roster holds at least ${shared.min} ${shared.keywords.join(" ")} units, has ${shared.count}`);
+  }
+  allies.forEach((ally, a) => {
+    const units = members[a]!;
+    const allyPoints = units.reduce((sum, i) => sum + costs[i]!, 0);
+    for (const row of ally.points ?? []) {
+      if (options.points && row.battleSize === battleSize && allyPoints > row.max) rosterProblem("ally-points", `allied units cost at most ${row.max} points, cost ${allyPoints}`);
+    }
+    for (const limit of ally.limits ?? []) {
+      if (limit.battleSize !== battleSize) continue;
+      const under = units.filter((i) => holdsAll(keywordsAt[i]!, limit.keywords));
+      const freed = new Set<number>();
+      for (const free of limit.free ?? []) {
+        const backing = keywordsAt.filter((k) => k && holdsAll(k, free.per)).length;
+        for (const i of under.filter((i) => !freed.has(i) && holdsAll(keywordsAt[i]!, free.keywords)).slice(0, backing)) freed.add(i);
+      }
+      const counted = under.length - freed.size;
+      if (counted > limit.max) rosterProblem("ally-limit", `a roster holds at most ${limit.max} allied ${limit.keywords.join(" ")} units, has ${counted}`);
+    }
+    if (ally.oneLimit) {
+      const sets = (ally.limits ?? []).filter((l) => l.battleSize === battleSize).map((l) => l.keywords);
+      const under = units.filter((i) => sets.some((set) => holdsAll(keywordsAt[i]!, set)));
+      if (sets.length > 0 && !sets.some((set) => under.every((i) => holdsAll(keywordsAt[i]!, set)))) rosterProblem("ally-limit", "allied units fall under one of their limits only");
+    }
+  });
+  for (const detachment of detachments) {
+    for (const { allegiances, min, max } of detachment.data.allegianceLimits ?? []) {
+      const count = roster.units.filter((u) => u.allegiance !== undefined && allegiances.includes(u.allegiance)).length;
+      if (count < (min ?? 0) || count > (max ?? Infinity)) {
+        rosterProblem("allegiance-limit", `${detachment.name} needs ${min ?? 0}-${max ?? "any"} units with ${allegiances.map((a) => `allegiance:${a}`).join(", ")}, has ${count}`);
+      }
+    }
+  }
+  if (warlords === 0) {
+    for (const detachment of detachments) {
+      const required = detachment.data.requiredWarlords;
+      if (required) rosterProblem("warlord-required", `${detachment.name} needs one of ${required.map((m) => `model:${m}`).join(", ")} as warlord`);
+    }
+  }
+  if (options.points && size) {
+    const total = costs.reduce((sum, n) => sum + n, 0);
+    if (total > size.points) rosterProblem("roster-points", `a roster costs at most ${size.points} points, costs ${total}`);
+    const dp = detachments.reduce((sum, d) => sum + price({ kind: "detachment", faction: d.data.faction, detachment: d.id }), 0);
+    if (size.detachmentPoints !== undefined && dp > size.detachmentPoints) rosterProblem("detachment-points", `detachments cost at most ${size.detachmentPoints} detachment points, cost ${dp}`);
   }
   return problems;
+}
+
+/** How many of each wargear the unit carries: its models' and its own, changed by the options it takes, with bundles expanded. */
+function carried(definitions: Definitions, unit: Definition<"unit">, counts: Map<string, number>, picked: RosterUnit): Map<string, number> {
+  const held = new Map<string, number>();
+  const carry = (id: string, n: number) => {
+    held.set(id, (held.get(id) ?? 0) + n);
+    for (const [inner, k] of Object.entries(definitions.get("wargear", id)?.data.includes ?? {})) carry(inner, n * k);
+  };
+  for (const model of definitions.modelsOf(unit.id)) for (const [id, n] of Object.entries(model.data.wargear)) carry(id, n * (counts.get(model.id) ?? 0));
+  for (const [id, n] of Object.entries(unit.data.wargear ?? {})) carry(id, n);
+  for (const option of definitions.optionsOf(unit.id)) {
+    for (const [id, n] of Object.entries(picked.options?.[option.id] ?? {})) {
+      if (!(n > 0)) continue;
+      carry(id, n);
+      for (const [replaced, k] of Object.entries(option.data.replaces ?? {})) carry(replaced, -n * k);
+    }
+  }
+  return held;
 }
 
 /** A printed unit with its total model count and, when present, its complete breakdown by model name. */

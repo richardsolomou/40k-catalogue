@@ -167,6 +167,9 @@
         },
         "warlord": {
           "$ref": "#/$defs/id"
+        },
+        "allegiance": {
+          "$ref": "#/$defs/id"
         }
       }
     },
@@ -233,6 +236,106 @@
               }
             }
           }
+        },
+        "parent": {
+          "$ref": "#/$defs/id"
+        },
+        "excludedUnits": {
+          "$ref": "#/$defs/choices"
+        },
+        "allies": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "units"
+            ],
+            "properties": {
+              "units": {
+                "$ref": "#/$defs/choices"
+              },
+              "detachments": {
+                "$ref": "#/$defs/choices"
+              },
+              "points": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "battleSize",
+                    "max"
+                  ],
+                  "properties": {
+                    "battleSize": {
+                      "$ref": "#/$defs/id"
+                    },
+                    "max": {
+                      "$ref": "#/$defs/count"
+                    }
+                  }
+                }
+              },
+              "limits": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "keywords",
+                    "battleSize",
+                    "max"
+                  ],
+                  "properties": {
+                    "keywords": {
+                      "$ref": "#/$defs/nonEmptyKeywords"
+                    },
+                    "battleSize": {
+                      "$ref": "#/$defs/id"
+                    },
+                    "max": {
+                      "$ref": "#/$defs/count"
+                    },
+                    "free": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "keywords",
+                          "per"
+                        ],
+                        "properties": {
+                          "keywords": {
+                            "$ref": "#/$defs/nonEmptyKeywords"
+                          },
+                          "per": {
+                            "$ref": "#/$defs/nonEmptyKeywords"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "oneLimit": {
+                "const": true
+              },
+              "enhancements": {
+                "const": true
+              }
+            },
+            "dependentRequired": {
+              "oneLimit": [
+                "limits"
+              ]
+            }
+          }
         }
       }
     },
@@ -250,6 +353,15 @@
         "points": {
           "type": "integer",
           "minimum": 1
+        },
+        "detachmentPoints": {
+          "$ref": "#/$defs/count"
+        },
+        "enhancements": {
+          "$ref": "#/$defs/count"
+        },
+        "duplicates": {
+          "$ref": "#/$defs/count"
         }
       }
     },
@@ -292,6 +404,56 @@
         },
         "enhancementsUnlisted": {
           "$ref": "#/$defs/names"
+        },
+        "dispositions": {
+          "$ref": "#/$defs/choices"
+        },
+        "excludedUnits": {
+          "$ref": "#/$defs/choices"
+        },
+        "warlords": {
+          "$ref": "#/$defs/choices"
+        },
+        "requiredWarlords": {
+          "$ref": "#/$defs/choices"
+        },
+        "group": {
+          "$ref": "#/$defs/text"
+        },
+        "allegianceLimits": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "allegiances"
+            ],
+            "anyOf": [
+              {
+                "required": [
+                  "min"
+                ]
+              },
+              {
+                "required": [
+                  "max"
+                ]
+              }
+            ],
+            "properties": {
+              "allegiances": {
+                "$ref": "#/$defs/choices"
+              },
+              "min": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "max": {
+                "$ref": "#/$defs/count"
+              }
+            }
+          }
         }
       }
     },
@@ -535,6 +697,38 @@
           "additionalProperties": {
             "$ref": "#/$defs/count"
           }
+        },
+        "allegiances": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "choices"
+            ],
+            "properties": {
+              "choices": {
+                "$ref": "#/$defs/choices"
+              },
+              "required": {
+                "const": true
+              },
+              "detachment": {
+                "$ref": "#/$defs/id"
+              },
+              "requires": {
+                "type": "object",
+                "minProperties": 1,
+                "propertyNames": {
+                  "$ref": "#/$defs/id"
+                },
+                "additionalProperties": {
+                  "$ref": "#/$defs/id"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -681,6 +875,29 @@
         },
         "includes": {
           "$ref": "#/$defs/someCounts"
+        }
+      }
+    },
+    "nonEmptyKeywords": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/keywords"
+        },
+        {
+          "type": "array",
+          "minItems": 1
+        }
+      ]
+    },
+    "allegiance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formatVersion"
+      ],
+      "properties": {
+        "formatVersion": {
+          "$ref": "#/$defs/version"
         }
       }
     }

@@ -14,13 +14,40 @@ export type When = { faction?: string; detachment?: string; warlord?: string };
 type RosterBounds = { min?: number; max?: number };
 /** How many units holding every keyword a roster of the faction may hold; a detachment's row replaces the faction's bounds. */
 export type UnitLimit = RosterBounds & { keywords: string[]; detachments?: (RosterBounds & { detachment: string })[] };
-export type FactionData = { unitLimits?: UnitLimit[] };
-export type BattleSizeData = { points: number };
+/** At most `max` of an entry's units holding every keyword; a `free` unit does not count while enough `per` units back it. */
+export type AllyLimit = { keywords: string[]; battleSize: string; max: number; free?: { keywords: string[]; per: string[] }[] };
+/** Units a roster may hold beyond its own and its parent's, under the entry's conditions. */
+export type Ally = {
+  units: string[];
+  detachments?: string[];
+  points?: { battleSize: string; max: number }[];
+  limits?: AllyLimit[];
+  oneLimit?: true;
+  enhancements?: true;
+};
+export type FactionData = { unitLimits?: UnitLimit[]; parent?: string; excludedUnits?: string[]; allies?: Ally[] };
+/** `duplicates` caps copies of a unit that has no `perRoster` or limit of its own. */
+export type BattleSizeData = { points: number; detachmentPoints?: number; enhancements?: number; duplicates?: number };
 /**
  * `stratagems` and `enhancements` list the rule summary entries (kind `ability`) of every card the version gives the
  * detachment; a card it prints without an entry is named in `stratagemsUnlisted` or `enhancementsUnlisted`.
  */
-export type DetachmentData = { faction: string; stratagems?: string[]; enhancements?: string[]; stratagemsUnlisted?: string[]; enhancementsUnlisted?: string[] };
+export type DetachmentData = {
+  faction: string;
+  stratagems?: string[];
+  enhancements?: string[];
+  stratagemsUnlisted?: string[];
+  enhancementsUnlisted?: string[];
+  /** Mission-pack force disposition IDs, outside the roster category. */
+  dispositions?: string[];
+  excludedUnits?: string[];
+  /** Models that may be the Warlord with this detachment though they otherwise could not. */
+  warlords?: string[];
+  /** The Warlord must be one of these models. */
+  requiredWarlords?: string[];
+  /** A keyword two of a roster's detachments may not share. */
+  group?: string;
+};
 /** An `upgrade` may be taken by several units; other enhancements once per roster. */
 export type EnhancementData = { detachment: string; upgrade?: true; keywords?: { all?: string[]; none?: string[] } };
 /** The first of `limits` for the roster's battle size whose `when` holds replaces `perRoster`. */
@@ -104,6 +131,9 @@ export type DefinitionsValidation = { ok: true; definitions: Definitions } | { o
 
 export const KINDS: DefinitionKind[] = ["faction", "battle-size", "detachment", "enhancement", "unit", "model", "roster-option", "wargear"];
 
+// Limits on what a roster holds as a whole, which a unit's own first fielding cannot be held to.
+const ROSTER_WIDE = new Set(["roster-limit", "unit-limit", "unit-excluded", "ally-detachment", "ally-limit"]);
+
 export function modelBounds(model: ModelCountBounds, size: number): Bounds {
   return model.bySize?.find((bounds) => bounds.size === size) ?? model;
 }
@@ -131,10 +161,26 @@ const whenRefs = (when: When | undefined): Ref[] => [
 function namedRefs(kind: DefinitionKind, data: any): Ref[] {
   const refs = (k: string, ids: string[] = []) => ids.map((id) => ({ kind: k, id }));
   switch (kind) {
-    case "faction":
-      return refs("detachment", (data as FactionData).unitLimits?.flatMap((l) => l.detachments?.map((d) => d.detachment) ?? []));
-    case "detachment":
-      return refs("faction", [data.faction]);
+    case "faction": {
+      const faction = data as FactionData;
+      const allies = faction.allies ?? [];
+      return [
+        ...refs("detachment", faction.unitLimits?.flatMap((l) => l.detachments?.map((d) => d.detachment) ?? [])),
+        ...refs("faction", faction.parent ? [faction.parent] : []),
+        ...refs("unit", faction.excludedUnits),
+        ...refs("unit", allies.flatMap((a) => a.units)),
+        ...refs("detachment", allies.flatMap((a) => a.detachments ?? [])),
+        ...refs("battle-size", allies.flatMap((a) => [...(a.points ?? []), ...(a.limits ?? [])].map((row) => row.battleSize))),
+      ];
+    }
+    case "detachment": {
+      const detachment = data as DetachmentData;
+      return [
+        ...refs("faction", [detachment.faction]),
+        ...refs("unit", detachment.excludedUnits),
+        ...refs("model", [...(detachment.warlords ?? []), ...(detachment.requiredWarlords ?? [])]),
+      ];
+    }
     case "enhancement":
       return refs("detachment", [data.detachment]);
     case "unit": {
@@ -277,6 +323,12 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     }
   }
 
+  for (const faction of all("faction")) {
+    const { parent } = faction.data;
+    if (parent === faction.id) errors.push(`faction:${faction.id} names itself as its parent`);
+    else if (parent && get("faction", parent)?.data.parent) errors.push(`faction:${faction.id} names faction:${parent}, which has a parent of its own`);
+  }
+
   for (const unit of all("unit")) {
     const at = key("unit", unit.id);
     const models = modelsOf(unit.id);
@@ -382,7 +434,7 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     const detachment = all("detachment").find((d) => d.data.faction === unit.data.faction)?.id ?? "";
     const roster = { faction: unit.data.faction, detachment, units: [{ unit: unit.id, ...(defaultModels ? { models: defaultModels } : {}), ...(defaults ? { options: defaults } : {}) }] };
     for (const problem of checkRoster(definitions, roster)) {
-      if (problem.unit === 0 && problem.code !== "roster-limit" && problem.code !== "unit-limit") errors.push(`unit:${unit.id} defaults are not a legal fielding: ${problem.message}`);
+      if (problem.unit === 0 && !ROSTER_WIDE.has(problem.code)) errors.push(`unit:${unit.id} defaults are not a legal fielding: ${problem.message}`);
     }
   }
   return errors.length > 0 ? { ok: false, errors } : { ok: true, definitions };

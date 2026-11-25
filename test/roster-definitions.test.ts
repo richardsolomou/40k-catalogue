@@ -537,3 +537,123 @@ test("default selections must be referenced by the unit's identity entry", () =>
   const result = withDefaults(1, 9, false);
   assert.ok(!result.ok && result.errors.includes(`unit:${WARDENS} names model:${WARDEN} but its identity entry does not reference it`), JSON.stringify(result));
 });
+
+// Army construction: a parent faction, allies, detachment lists, and battle-size limits.
+const EH = "synthetic.ember-host";
+const KINDLED = "synthetic.kindled-vow";
+const SWORN = "synthetic.sworn-vow";
+const RITE = "synthetic.court-rite";
+const KINDLER = `${EH}.the-kindler`;
+const IMPS = `${EH}.ash-imps`;
+const SEER = "synthetic.cinder-court.ash-seer";
+const GUARD = "synthetic.cinder-court.court-guard";
+const WRAITHS = "synthetic.smoke-kin.smoke-wraiths";
+const BEAST = "synthetic.smoke-kin.smoke-beast";
+const ORACLE = "synthetic.smoke-kin.smoke-oracle";
+const points12 = (validateSnapshot(json("points-1.2.json")) as { snapshot: PointsSnapshot }).snapshot;
+const incursion = (units: Roster["units"], detachments = [KINDLED]): Roster => ({ faction: EH, detachments, battleSize: "synthetic.incursion", units });
+const priced = (roster: Roster) => checkRoster(v12, roster, { points: points12 }).map((p) => `${p.unit ?? "-"} ${p.code}`);
+const PACK_UNIT = { unit: PACK, models: { [`${PACK}.hunter`]: 3, [`${PACK}.hound`]: 3 } };
+
+test("a roster may list its detachments", () => {
+  assert.deepEqual(codes(v12, { ...legal12, detachment: undefined, detachments: [KINDLED] }), []);
+});
+
+test("a roster's references include every detachment it lists", () => {
+  const refs = rosterRefs(incursion([], [ASH_PACT, KINDLED])).filter((r) => r.kind === "detachment").map((r) => r.id);
+  assert.deepEqual(refs, [ASH_PACT, KINDLED]);
+});
+
+const construction: Record<string, [Roster, string[]]> = {
+  "an enhancement from its second detachment": [incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), []],
+  "more enhancements than its battle size allows": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: KINDLER, enhancement: MANTLE }]), ["1 enhancement-limit"]],
+  "an upgrade beyond its battle size's enhancements": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: WARDENS, enhancement: BRAND }]), []],
+  "more copies than its battle size's duplicates": [incursion([{ unit: LORD }, { unit: LORD }, { unit: LORD }]), ["2 roster-limit"]],
+  "a unit of the parent faction": [incursion([{ unit: SEER }]), []],
+  "a unit the faction excludes": [incursion([{ unit: GUARD }]), ["0 unit-excluded"]],
+  "a unit a detachment excludes": [incursion([{ unit: DRONES }, { unit: COLOSSUS }], [ASH_PACT]), ["1 unit-excluded"]],
+  "a detachment of the parent faction": [incursion([{ unit: SEER, warlord: `${SEER}.seer` }], [KINDLED, RITE]), []],
+  "two detachments sharing a group": [incursion([{ unit: LORD }], [KINDLED, SWORN]), ["- detachment-group"]],
+  "a warlord without the Character keyword": [incursion([{ unit: WARDENS, warlord: WARDEN }]), ["0 warlord-ineligible"]],
+  "an allied warlord": [incursion([{ unit: ORACLE, warlord: `${ORACLE}.oracle` }]), ["0 warlord-ineligible"]],
+  "an allied warlord its detachment allows": [incursion([{ unit: ORACLE, warlord: `${ORACLE}.oracle` }], [SWORN]), []],
+  "a warlord its detachment does not require": [incursion([{ unit: LORD, warlord: LORD_MODEL }], [KINDLED, RITE]), ["0 warlord-required"]],
+  "no warlord where a detachment requires one": [incursion([{ unit: SEER }], [KINDLED, RITE]), ["- warlord-required"]],
+  "an own unit outside the detachment its entry requires": [incursion([{ unit: IMPS }]), ["0 ally-detachment"]],
+  "an own unit in the detachment its entry requires": [incursion([{ unit: DRONES }, { unit: IMPS }], [ASH_PACT]), []],
+  "more allied units with a keyword than their limit": [incursion([{ unit: WRAITHS }, { unit: ORACLE }]), ["- ally-limit"]],
+  "an allied unit its limit frees": [incursion([{ unit: WARDENS }, { unit: WRAITHS }, { unit: ORACLE }]), []],
+  "allied units under two limits of an entry with one": [incursion([{ unit: WRAITHS }, { unit: BEAST }]), ["- ally-limit"]],
+  "an enhancement on an allied unit": [incursion([{ unit: ORACLE, enhancement: SIGIL }]), ["0 ally-enhancement"]],
+};
+
+for (const [name, [roster, expected]] of Object.entries(construction)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(v12, roster), expected);
+  });
+}
+
+// 1080 points against Incursion's 1000.
+const overspent = incursion([
+  { unit: COLOSSUS },
+  { unit: COLOSSUS },
+  PACK_UNIT,
+  PACK_UNIT,
+  { unit: LORD, enhancement: SIGIL },
+  { unit: DRONES, models: { [`${DRONES}.drone`]: 3 } },
+  { unit: WARDENS, models: { [WARDEN]: 9 } },
+]);
+
+test("a roster over its battle size's points reports roster-points", () => {
+  assert.deepEqual(priced(overspent), ["- roster-points"]);
+});
+
+test("a roster's points are checked only against a points snapshot", () => {
+  assert.deepEqual(codes(v12, overspent), []);
+});
+
+test("detachments over their battle size's detachment points report detachment-points", () => {
+  assert.deepEqual(priced(incursion([{ unit: DRONES }, { unit: SEER, warlord: `${SEER}.seer` }], [KINDLED, ASH_PACT, RITE])), ["- detachment-points"]);
+});
+
+test("allied units over their entry's points report ally-points", () => {
+  assert.deepEqual(priced(incursion([{ unit: DRONES }, { unit: IMPS }, { unit: IMPS }], [ASH_PACT])), ["- ally-points"]);
+});
+
+const ally = (records: CatalogueRecord[]) => (find(records, "faction", EH).data as any).allies[1];
+const invalidConstruction: Record<string, [(records: CatalogueRecord[], identity: Release) => void, string]> = {
+  "a parent that has a parent": [
+    (r, identity) => {
+      (find(r, "faction", "synthetic.cinder-court").data as any).parent = "synthetic.smoke-kin";
+      identity.entries.find((e) => e.id === "synthetic.cinder-court")!.references = [{ kind: "faction", id: "synthetic.smoke-kin" }];
+    },
+    `faction:${EH} names faction:synthetic.cinder-court, which has a parent of its own`,
+  ],
+  "a faction its own parent": [(r) => ((find(r, "faction", EH).data as any).parent = EH), `faction:${EH} names itself as its parent`],
+  "an allied unit its identity entry omits": [
+    (_, identity) => {
+      const entry = identity.entries.find((e) => e.id === EH)!;
+      entry.references = entry.references!.filter((ref) => ref.id !== WRAITHS);
+    },
+    `faction:${EH} names unit:${WRAITHS} but its identity entry does not reference it`,
+  ],
+  "an ally limit for a battle size with no record": [(r) => (ally(r).points[0].battleSize = "synthetic.onslaught"), `faction:${EH} names battle-size:synthetic.onslaught, which has no record`],
+  "one limit without limits": [(r) => delete ally(r).limits, `faction:${EH} data/allies/1 must have property limits when property oneLimit is present`],
+  "a granted warlord that is not a model": [
+    (r) => ((find(r, "detachment", SWORN).data as any).warlords = [LORD]),
+    `detachment:${SWORN} names model:${LORD}, which has no record`,
+  ],
+  "an excluded unit its identity entry omits": [
+    (r) => (find(r, "detachment", ASH_PACT).data as any).excludedUnits.push(LORD),
+    `detachment:${ASH_PACT} names unit:${LORD} but its identity entry does not reference it`,
+  ],
+};
+
+for (const [name, [change, error]] of Object.entries(invalidConstruction)) {
+  test(`definitions with ${name} fail with: ${error}`, () => {
+    const { identity, records } = input("1.2");
+    change(records, identity);
+    const result = validateDefinitions(identity, records);
+    assert.ok(!result.ok && result.errors.includes(error), JSON.stringify(result));
+  });
+}

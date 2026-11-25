@@ -1,0 +1,80 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "leagues-of-votann.persecution-prospect.guerrilla-adepts",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.5"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Persecution Prospect",
+    "summary": "During your Shooting phase, right after being **selected to shoot**, this unit may pick 1 enemy unit other than **MONSTERS** and **VEHICLES**. Then:\n\n- For the rest of the phase, its models may attack no other unit, and may attack that one only while it is eligible to be targeted.\n- If at least 1 of those attacks hits it, that unit becomes assailed (a label other rules refer to) once they are resolved, lasting until your next Shooting phase starts.\n- A unit that was assailed already becomes pinned as well, for the same duration.\n- A pinned unit has -2\" Move and -2 to its **Charge rolls**.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.7.1",
+        "dataBuild": 972,
+        "releaseDate": "2026-10-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "detachment-rule-part",
+          "detachment": "Persecution Prospect",
+          "partOf": "Assailed From Every Angle",
+          "when": {
+            "turn": "own",
+            "phase": "shooting",
+            "timing": "just-after-selected-to-shoot"
+          },
+          "optional": true,
+          "select": {
+            "side": "enemy",
+            "count": 1,
+            "excludedKeywords": [
+              "MONSTERS",
+              "VEHICLES"
+            ]
+          },
+          "targetRestriction": {
+            "onlyThatUnit": true,
+            "onlyIfEligible": true,
+            "duration": "end-of-phase"
+          },
+          "onHit": {
+            "status": "assailed",
+            "duration": "until-start-of-your-next-shooting-phase",
+            "ifAlreadyAssailed": {
+              "status": "pinned"
+            }
+          },
+          "pinned": {
+            "characteristicModifiers": [
+              {
+                "characteristic": "M",
+                "deltaInches": -2,
+                "subtractInches": 2
+              }
+            ],
+            "rollModifiers": [
+              {
+                "roll": "charge",
+                "delta": -2,
+                "subtract": 2
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

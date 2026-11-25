@@ -142,6 +142,52 @@ test("verification rejects records listed under a retained category", () => {
   assert.ok(verifyCatalogueRelease(dir).includes("/categories/2 is retained but lists records"));
 });
 
+// The first input with French names for its faction, unit and one piece of wargear.
+function localised(change: (file: any) => void = () => {}): string {
+  const dir = input("1.0");
+  const file = {
+    formatVersion: 1,
+    language: "fr",
+    rulesVersion: { edition: "synthetic", update: "1.0" },
+    source: { title: "Synthetic names", reuse: "Invented for this project's tests." },
+    entries: [
+      { kind: "faction", id: "synthetic.iron-choir", name: "Iron Choir", display: "Chœur de Fer" },
+      { kind: "unit", id: "synthetic.iron-choir.warden-squad", name: "Warden Squad", display: "Escouade de Gardiens" },
+      { kind: "wargear", id: "synthetic.pulse-lance", name: "Pulse Lance", display: "Lance à impulsion", aliases: [{ name: "Lance pulsée", use: "spelling" }] },
+    ],
+  };
+  change(file);
+  mkdirSync(join(dir, "localisation"));
+  writeFileSync(join(dir, "localisation", "fr.json"), JSON.stringify(file));
+  return dir;
+}
+
+test("the manifest lists each language's names with their checksum", () => {
+  const files = build(localised());
+  assert.deepEqual(manifest(files).localisation, [
+    { language: "fr", path: "localisation/fr.json", sha256: createHash("sha256").update(files.get("localisation/fr.json")!).digest("hex"), entries: 3 },
+  ]);
+});
+
+test("a release without localised names lists none", () => {
+  assert.equal(manifest(build(input("1.0"))).localisation, undefined);
+});
+
+test("a localised entry the identity names differently blocks the release", () => {
+  const dir = localised((file) => (file.entries[1].name = "Warden Squads"));
+  assert.deepEqual(errors(dir), ['localisation/fr.json: /entries/1/name is "Warden Squads" but the release names unit synthetic.iron-choir.warden-squad "Warden Squad"']);
+});
+
+test("a localisation file must be named for its language", () => {
+  assert.deepEqual(errors(localised((file) => (file.language = "es"))), ["localisation/fr.json: names language es"]);
+});
+
+test("verification rejects changed localised names", () => {
+  const dir = written(build(localised()));
+  writeFileSync(join(dir, "localisation/fr.json"), "{}\n");
+  assert.deepEqual(verifyCatalogueRelease(dir), ["localisation/fr.json: checksum mismatch"]);
+});
+
 test("the manifest pins the release it follows", () => {
   const before = first();
   assert.deepEqual(manifest(build(input("1.1"), "0.3.0", before)).previous, {

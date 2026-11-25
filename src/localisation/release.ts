@@ -32,7 +32,7 @@ export function releaseErrors(file: LocalisationFile, release: Release): string[
  * options. Only ownership references determine the scope. Pass the result as a query's `ids`.
  */
 export function idsWithin(release: Release, ref: Ref): Set<string> {
-  const owners = new Map([["unit", "faction"], ["detachment", "faction"], ["enhancement", "detachment"], ["model", "unit"], ["roster-option", "unit"]]);
+  const owners = new Map([["unit", "faction"], ["detachment", "faction"], ["enhancement", "detachment"], ["ability", "detachment"], ["model", "unit"], ["roster-option", "unit"]]);
   const owned = new Map<string, Release["entries"]>();
   for (const entry of release.entries) {
     const ownerKind = owners.get(entry.kind);

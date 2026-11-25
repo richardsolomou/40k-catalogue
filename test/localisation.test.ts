@@ -140,9 +140,22 @@ test("a kind filter excludes entities of other kinds", () => {
   assert.equal(matched("Ost des Braises", { kinds: ["unit"] }), "unmatched");
 });
 
-test("an ID cannot change kind or catalogue name between files", () => {
+test("an entity cannot change catalogue name between files", () => {
   const renamed: LocalisationFile = { ...es, entries: [{ id: "ashen-wardens", kind: "faction", name: "Ash Wardens", display: "Guardianes" }] };
-  assert.throws(() => indexNames([fr, renamed]), /ashen-wardens is a faction named "Ashen Wardens"/);
+  assert.throws(() => indexNames([fr, renamed]), /faction ashen-wardens is named "Ashen Wardens"/);
+});
+
+test("entities of two kinds can share an ID", () => {
+  const shared: LocalisationFile = {
+    ...es,
+    entries: [
+      { id: "ashen-wardens.icon", kind: "wargear", name: "Icon", display: "Icono" },
+      { id: "ashen-wardens.icon", kind: "ability", name: "Icon", display: "Estandarte" },
+    ],
+  };
+  const result = validateLocalisation(shared);
+  assert.ok(result.ok);
+  assert.equal(indexNames([shared]).resolve("Estandarte").status, "matched");
 });
 
 const checkedRelease = validateRelease(json(new URL("release/", fixtures), "synthetic-update-3.json"));

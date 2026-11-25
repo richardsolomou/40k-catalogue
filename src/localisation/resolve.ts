@@ -15,8 +15,8 @@ export type Query = { language?: string; kinds?: readonly Kind[]; ids?: Readonly
 export type NameIndex = { languages: string[]; resolve(name: string, query?: Query): Resolution };
 
 /**
- * Indexes validated files, possibly from several sources and languages. An ID must keep the same kind and catalogue
- * name across every file, since entries for one entity in different files describe the same thing.
+ * Indexes validated files, possibly from several sources and languages. An entity, a kind and ID, must keep the same
+ * catalogue name across every file, since entries for one entity in different files describe the same thing.
  */
 export function indexNames(files: readonly LocalisationFile[]): NameIndex {
   const exact = new Map<string, Hit[]>();
@@ -26,11 +26,11 @@ export function indexNames(files: readonly LocalisationFile[]): NameIndex {
 
   for (const { language, entries } of files) {
     for (const entry of entries) {
-      const known = entities.get(entry.id);
+      const known = entities.get(`${entry.kind}:${entry.id}`);
       if (known && (known.kind !== entry.kind || known.name !== entry.name)) {
-        throw new Error(`${entry.id} is a ${known.kind} named "${known.name}" in one file and a ${entry.kind} named "${entry.name}" in another`);
+        throw new Error(`${entry.kind} ${entry.id} is named "${known.name}" in one file and "${entry.name}" in another`);
       }
-      entities.set(entry.id, entry);
+      entities.set(`${entry.kind}:${entry.id}`, entry);
       const names: [string, Via][] = [
         [entry.name, "name"],
         ...(entry.display ? [[entry.display, "display"] as [string, Via]] : []),
@@ -65,7 +65,7 @@ export function indexNames(files: readonly LocalisationFile[]): NameIndex {
 
       const [first, ...rest] = hits;
       if (!first) return { status: "unmatched" };
-      if (rest.some((hit) => hit.id !== first.id)) return { status: "ambiguous", hits };
+      if (rest.some((hit) => hit.id !== first.id || hit.kind !== first.kind)) return { status: "ambiguous", hits };
       return { status: "matched", id: first.id, kind: first.kind, hits };
     },
   };

@@ -42,11 +42,11 @@ A model or option can specify `bySize: [{ size, min, max }]` for sizes with thei
 
 A unit's `modelGroups` entries give `models`, `min`, `max` and optional `bySize`. The bound applies to the sum across its member IDs, for example when multiple equipment configurations fill the same kind of slot. Individual model bounds and the unit's total remain in force.
 
-A unit's `optionGroups` entries give `options` and `max`, and optionally `per`, `carrier` and `bySize`. Each member names an `option` of the unit and, optionally, the `choices` of it that count and a `weight` each of their selections counts for, as when a choice of two shrine tokens uses up two of a limit on tokens. One option may be named by several members with different choices. The group holds at most `max` of those selections, scaled by `per` like a cap, as when two options draw on one slot or offer the same weapon, or one model in three may take either of two weapons. A group scaled `"carrier"` names its `carrier` model, as when swaps on the same models exclude each other. A `bySize` row gives the group's absolute maximum at one size. Only selections the roster lists count, so wargear a unit keeps by default never fills a group, and a group has no minimum.
+A unit's `optionGroups` entries give `options` and `max`, and optionally `min`, `per`, `carrier` and `bySize`. Each member names an `option` of the unit and, optionally, the `choices` of it that count and a `weight` each of their selections counts for, as when a choice of two shrine tokens uses up two of a limit on tokens. One option may be named by several members with different choices. The group holds at least `min` and at most `max` of those selections, both scaled by `per` like a cap, as when two options draw on one slot or offer the same weapon, or one model in three may take either of two weapons. A group scaled `"carrier"` names its `carrier` model, as when swaps on the same models exclude each other. A `bySize` row gives the group's absolute maximum at one size. A `min` makes the unit fill the group, as when a walker must carry at least two heavy weapons from several options. Only selections the roster lists count, so wargear a unit keeps by default never fills a group.
 
 A unit's `compositions` are the ways it may field its models when model bounds alone would admit more, as when six models are either three and three or six and none. Each composition maps model IDs to `min` and `max`, and a model it omits fields none. The model counts must fit one composition as well as the models' own bounds and the unit's `sizes`.
 
-An option with `requires` is closed until the unit takes one of `requires.choices` from the option `requires.option`, as when a character may take a relic only after swapping its default weapon.
+An option with `requires` is closed until the unit takes one of `requires.choices` from the option `requires.option`, as when a character may take a relic only after swapping its default weapon. `requires` may instead list several such requirements, and the option opens only once every one holds, as when a weapon choice appears only after two earlier swaps.
 
 A unit's `defaults` and `defaultModels` state how it is first fielded, where its models alone cannot. `defaults` are selections in a saved roster unit's `options` shape, `{ <option ID>: { <wargear ID>: count } }`, given where models of one kind start with different wargear, as when one model in four carries a venom bolt: each model's `wargear` is then what those models start from, and the selections make up the rest. `defaultModels` gives model counts by model ID where the first fielding differs from the models' `min`, as when those minimums sum to less than the smallest size; a model it omits fields its `min`. Neither changes what a saved roster means: a roster lists every selection it takes, the defaults among them.
 
@@ -88,9 +88,9 @@ A unit's `allegiances` entries offer it a choice of one of `choices`, which are 
 - Every unit has at least one model, and every size lies between its models' summed minimums and maximums at that size.
 - Every shared model group includes at least two distinct models that belong to its unit.
 - Every option group names only options of its own unit, with only choices those options offer, and no choice of an option twice. A group of format version 1 names at least two options.
-- A model's `min` is no more than its `max`, and an option's `choose.min` no more than its `choose.max`.
+- A model's `min` is no more than its `max`, an option's `choose.min` no more than its `choose.max`, and an option group's `min` no more than its `max`.
 - An option's carrier belongs to its unit. It replaces no more of an item than one of its carriers carries, or for an option without one, than a model or the unit itself carries, and does not offer what it replaces.
-- An option caps only wargear it offers. It requires another option of the same unit and choices that option offers, and has no minimum.
+- An option caps only wargear it offers. Each of its requirements names another option of the same unit and choices that option offers, and an option with requirements has no minimum.
 - An option with `substitutes` is `uniform`, offers them, and offers a choice besides them.
 - An option group scaled per carrier names a carrier of its unit, and only such a group names one.
 - Every composition names only its unit's models, and every unit size fits at least one composition.
@@ -127,8 +127,8 @@ A saved roster names a `faction`, one to three detachments as `detachment`, `det
 | `unit-model`, `model-count`, `unit-size` | A model, or a warlord, from another unit, a model count outside its bounds, or a total outside `sizes`. |
 | `model-group-count`, `unit-composition` | The named models' combined count is outside their shared bounds, or the model counts fit none of the unit's compositions. |
 | `unit-option`, `option-choice`, `option-count`, `option-uniform` | An option from another unit, wargear the option does not offer, a selection count outside its scaled bounds, or a `uniform` option split between choices besides its substitutes or short of its maximum. |
-| `option-cap`, `option-unavailable` | More of some choices than a cap allows, or an option taken before the choice it `requires`. |
-| `option-group-count` | More selections across an option group's members than its `max`. |
+| `option-cap`, `option-unavailable` | More of some choices than a cap allows, or an option taken before a choice it `requires`. |
+| `option-group-count` | Fewer selections across an option group's members than its scaled `min`, or more than its `max`. |
 | `option-quantity` | A wargear choice with a negative, fractional or invalid count. |
 | `enhancement-detachment`, `enhancement-keywords`, `enhancement-repeated` | An enhancement from a detachment the roster does not have, on an ineligible unit, or taken twice when it is not an upgrade. |
 | `enhancement-limit` | More enhancements besides upgrades than the battle size's `enhancements`. |

@@ -1,7 +1,7 @@
 import { resolve, type Ref } from "../catalogue-identity/identity.ts";
 import { lookupPoints, type Miss } from "../points/lookup.ts";
 import type { PointsSnapshot } from "../points/snapshot.ts";
-import { modelBounds, type Definition, type DefinitionKind, type Definitions, type Per, type UnitData, type When } from "./definitions.ts";
+import { modelBounds, requirements, type Definition, type DefinitionKind, type Definitions, type Per, type UnitData, type When } from "./definitions.ts";
 
 /** A saved list in catalogue IDs: model counts by model ID, wargear counts by option ID, the warlord's model ID, and the allegiance taken. */
 export type RosterUnit = {
@@ -267,16 +267,20 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
         const capped = takenOf(option.id, cap.choices);
         if (capped > most) add("option-cap", `${option.name} takes at most ${most} of ${cap.choices.map((w) => `wargear:${w}`).join(", ")}, has ${capped}`);
       }
-      const { requires } = option.data;
-      if (requires && taken > 0 && takenOf(requires.option, requires.choices) === 0) {
-        add("option-unavailable", `${option.name} needs one of ${requires.choices.map((w) => `wargear:${w}`).join(", ")} from roster-option:${requires.option}`);
+      for (const requirement of requirements(option.data)) {
+        if (taken > 0 && takenOf(requirement.option, requirement.choices) === 0) {
+          add("option-unavailable", `${option.name} needs one of ${requirement.choices.map((w) => `wargear:${w}`).join(", ")} from roster-option:${requirement.option}`);
+        }
       }
     }
     for (const group of unit.data.optionGroups ?? []) {
       const taken = group.options.reduce((sum, { option, choices, weight = 1 }) => sum + weight * takenOf(option, choices), 0);
       const carriers = group.carrier ? (counts.get(group.carrier) ?? 0) : total;
       const most = group.bySize?.find(({ size }) => size === total)?.max ?? group.max * blocks(group.per, total, carriers);
-      if (taken > most) add("option-group-count", `${group.options.map(({ option }) => `roster-option:${option}`).join(", ")} together take at most ${most}, have ${taken}`);
+      const least = (group.min ?? 0) * blocks(group.per, total, carriers);
+      const members = group.options.map(({ option }) => `roster-option:${option}`).join(", ");
+      if (taken > most) add("option-group-count", `${members} together take at most ${most}, have ${taken}`);
+      else if (taken < least) add("option-group-count", `${members} together take at least ${least}, have ${taken}`);
     }
 
     const offers = (unit.data.allegiances ?? []).filter((offer) => !offer.detachment || detachmentIds.includes(offer.detachment));

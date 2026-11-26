@@ -84,8 +84,10 @@ export type UnitData = {
   defaultModels?: Record<string, number>;
 };
 export type Bounds = { min: number; max: number };
-/** Each selection of a member's choices counts `weight` (default 1) towards the group's maximum. */
-export type OptionGroup = { options: { option: string; choices?: string[]; weight?: number }[]; max: number; carrier?: string; per?: Per; bySize?: SizeMaximum[] };
+/** Each selection of a member's choices counts `weight` (default 1) towards the group's bounds. */
+export type OptionGroup = { options: { option: string; choices?: string[]; weight?: number }[]; min?: number; max: number; carrier?: string; per?: Per; bySize?: SizeMaximum[] };
+/** Holds once the unit takes one of `choices` from `option`. */
+export type Requirement = { option: string; choices: string[] };
 type SizeBounds = Bounds & { size: number };
 type SizeMaximum = { size: number; max: number };
 type ModelCountBounds = Bounds & { bySize?: SizeBounds[] };
@@ -106,8 +108,8 @@ export type OptionData = {
   choices: string[];
   /** Each cap limits how many of its `choices` the option takes together, scaled by its own `per`. */
   caps?: { choices: string[]; max: number; per?: Per; bySize?: SizeMaximum[] }[];
-  /** The option is closed unless another option of the unit has taken one of these choices. */
-  requires?: { option: string; choices: string[] };
+  /** The option is closed until every requirement holds. */
+  requires?: Requirement | Requirement[];
 };
 export type WargearData = { includes?: Counts };
 
@@ -224,8 +226,8 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
       return [
         ...refs("unit", [data.unit]),
         ...refs("model", data.carrier ? [data.carrier] : []),
-        ...refs("wargear", [...Object.keys(data.replaces ?? {}), ...data.choices, ...(data.requires?.choices ?? [])]),
-        ...refs("roster-option", data.requires ? [data.requires.option] : []),
+        ...refs("wargear", [...Object.keys(data.replaces ?? {}), ...data.choices, ...requirements(data).flatMap((r) => r.choices)]),
+        ...refs("roster-option", requirements(data).map((r) => r.option)),
       ];
     case "wargear":
       return refs("wargear", Object.keys(data.includes ?? {}));
@@ -395,6 +397,7 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       if ((group.per === "carrier") !== (group.carrier !== undefined)) errors.push(`${path} names a carrier exactly when it scales per carrier`);
       if (group.carrier) ownModel(path, group.carrier, unit.id);
       if (group.bySize) checkSizeBounds(`${path} bySize`, group.bySize, unit.id);
+      if ((group.min ?? 0) > group.max) errors.push(`${path} min is above max`);
     }
     if (unit.data.limits?.some((l) => l.when?.allegiance)) errors.push(`${at} limits name an allegiance, which holds only in conditional keywords`);
     // Everything the unit can carry: its models' and its own wargear, its options' choices, and what bundles include.
@@ -443,13 +446,13 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       for (const id of substitutes) if (!choices.includes(id)) errors.push(`${at} substitutes wargear:${id}, which it does not offer`);
       if (choices.every((id) => substitutes.includes(id))) errors.push(`${at} has no choice besides its substitutes`);
     }
-    if (requires) {
-      const required = get("roster-option", requires.option);
-      if (requires.option === option.id) errors.push(`${at} requires itself`);
-      else if (required && required.data.unit !== unit) errors.push(`${at} requires roster-option:${requires.option}, which belongs to another unit`);
-      for (const id of requires.choices) if (required && !required.data.choices.includes(id)) errors.push(`${at} requires wargear:${id}, which roster-option:${requires.option} does not offer`);
-      if (choose.min > 0 || bySize?.some(({ min }) => min > 0)) errors.push(`${at} requires another option but has a minimum`);
+    for (const requirement of requirements(option.data)) {
+      const required = get("roster-option", requirement.option);
+      if (requirement.option === option.id) errors.push(`${at} requires itself`);
+      else if (required && required.data.unit !== unit) errors.push(`${at} requires roster-option:${requirement.option}, which belongs to another unit`);
+      for (const id of requirement.choices) if (required && !required.data.choices.includes(id)) errors.push(`${at} requires wargear:${id}, which roster-option:${requirement.option} does not offer`);
     }
+    if (requires && (choose.min > 0 || bySize?.some(({ min }) => min > 0))) errors.push(`${at} requires another option but has a minimum`);
   }
   for (const wargear of all("wargear")) {
     const held = Object.values(wargear.data.includes ?? { [wargear.id]: 2 }).reduce((sum, n) => sum + n, 0);
@@ -473,3 +476,6 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
   }
   return errors.length > 0 ? { ok: false, errors } : { ok: true, definitions };
 }
+
+/** An option's requirements, each of which must hold before it opens. */
+export const requirements = (option: OptionData): Requirement[] => (option.requires === undefined ? [] : [option.requires].flat());

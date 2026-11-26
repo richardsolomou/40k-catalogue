@@ -93,6 +93,8 @@ Keyword values are written in capitals. A **selector** is a keyword, keywords pr
 | `conditional` | `true` when the rule attaches a further condition only the summary gives, such as a distance; apply the grant only once it holds. |
 | `against` | The attacks a granted Feel No Pain is limited to: `psychic-attacks`, `mortal-wounds` or both. |
 
+`keywords` lists the keywords the rule gives, each as `keyword` (in capitals) and `to`: the `bearer`, the `leader` attached to this unit, or the `unit`. It takes the same `whileAttached`, `counterpart`, `recipientKeywords` and `conditional` as an ability grant. A rule that gives a unit a keyword makes it match every selector that keyword is part of, as MOBILE or DAEMON.
+
 `grants.normalized` is the same statement read from the rule's text with its deployment abilities written out in full, where that reads differently; `null` when it states no grant.
 
 **`weaponAbilities`**: weapon abilities the rule adds to weapons. Each gives `ability` (a weapon keyword as printed, such as `LETHAL HITS` or `SUSTAINED HITS 1`), the `attacks` it covers (`ranged`, `melee` or both) and `to`: the `bearer`'s own weapons, the bearer's `own-unit`, the unit it is leading (`led-unit`), or units across the `army`, which must match one of `keywords` and none of `excludedKeywords`.

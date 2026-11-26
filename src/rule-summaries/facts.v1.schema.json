@@ -816,6 +816,41 @@
         }
       }
     },
+    "keyword-grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "keyword",
+        "to"
+      ],
+      "properties": {
+        "keyword": {
+          "$ref": "#/$defs/keyword"
+        },
+        "to": {
+          "enum": [
+            "bearer",
+            "leader",
+            "unit"
+          ]
+        },
+        "whileAttached": {
+          "const": true
+        },
+        "counterpart": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/keyword"
+          }
+        },
+        "recipientKeywords": {
+          "$ref": "#/$defs/selectors"
+        },
+        "conditional": {
+          "const": true
+        }
+      }
+    },
     "grant-statement": {
       "type": "object",
       "additionalProperties": false,
@@ -851,6 +886,12 @@
               "type": "null"
             }
           ]
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/keyword-grant"
+          }
         }
       }
     },

@@ -74,6 +74,7 @@ Each row is one idea and the one phrasing a summary uses for it. The last column
 | A trigger that can happen many times | "whenever" | "each time", "every time" |
 | A trigger that follows an event | "after" | "just after", "right after", "immediately after" |
 | A condition that holds for a time | "while" | "as long as", "when" for a condition |
+| A phase of either player's turn | "in either player's Fight phase", with the link covering whose phase it is | "in the Fight phase" |
 
 ### Players, units and choices
 
@@ -83,6 +84,7 @@ Each row is one idea and the one phrasing a summary uses for it. The last column
 | Choosing something | "pick" | "choose", "select", "nominate" (the core terms **selected to shoot**, **selected to fight** and selecting targets stay as they are) |
 | Something the player may do | "can" | "may", "is allowed to" |
 | A rule the player decides to use, with its effect | "can" on the effect, such as "you can make that use cost 1CP more" | a separate sentence that uses the rule before its effect |
+| A Detachment rule's limit on the army's Chapter | "Your army can contain **BLOOD ANGELS** units, and no **ADEPTUS ASTARTES** units of any other Chapter.", as the rule's last paragraph | a `Restrictions:` label, which is for Stratagems |
 | A limit on how often a rule is used | "Once per battle," or "Once per turn," at the start of the summary | the limit after the effect, or in brackets |
 
 ### Effects

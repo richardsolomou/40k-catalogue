@@ -85,7 +85,7 @@ test("a Stratagem's When part may use a curly apostrophe", () => {
 });
 
 test("a Stratagem's When part names a phase, not just any sentence with the word", () => {
-  assert.deepEqual(styleIssues(stratagem({ when: "Your unit is **selected to shoot** in the Shooting phase.", target: "That unit.", effect: "The unit gets +1 to Hit." })), ["stratagem-when"]);
+  assert.deepEqual(styleIssues(stratagem({ when: "Your unit is **selected to shoot** in your Shooting phase.", target: "That unit.", effect: "The unit gets +1 to Hit." })), ["stratagem-when"]);
 });
 
 test("a Stratagem's When part says Opponent's, not your opponent's", () => {
@@ -166,4 +166,20 @@ test("a multiple in number words is reported", () => {
 
 test("a value doubled is reported", () => {
   assert.deepEqual(styleIssues(ability("While this model leads a unit, its Attacks are doubled.")), ["phrasing/multiple-word"]);
+});
+
+test("a phase named without whose it is is reported", () => {
+  assert.deepEqual(styleIssues(ability("In the Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a linked phase named without whose it is is reported", () => {
+  assert.deepEqual(styleIssues(ability("In [the Fight phase](vsdata:core-rule/synthetic.fight-phase), this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase with whose it is stays in style", () => {
+  assert.deepEqual(styleIssues(ability("In [either player's Fight phase](vsdata:core-rule/synthetic.fight-phase), this unit gets +1 A.")), []);
+});
+
+test("the end of a named phase stays in style", () => {
+  assert.deepEqual(styleIssues(ability("This unit gets +1 A until the end of the Fight phase.")), []);
 });

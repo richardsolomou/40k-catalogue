@@ -47,6 +47,8 @@ const DURATION_FIRST =
 const WHEN = /^(?:(?:Your|Opponent's|Either player's) (?:(?:Command|Movement|Shooting|Charge|Fight) phase|turn)|Any phase)\b/;
 // A count word opening a Target part repeats the official text's own opening; "A" and digits do not.
 const TARGET_COUNT = /^(?:Up to )?(?:one|two|three|four|five|six|seven|eight|nine|ten)\b/i;
+// A phase is named with whose it is; a phase link's text is the timing, so this reads the text with its links.
+const WHOSE_PHASE = /\b(?:in|during) the (?:Command|Movement|Shooting|Charge|Fight) phase\b/i;
 const DAMAGED = /^With \d+-\d+ wounds left, /;
 const DAMAGED_ID = /^damaged\b/;
 
@@ -78,6 +80,7 @@ export function styleIssues(record: StyleRecord): string[] {
   if (data.ruleType === "enhancement" && !text.startsWith("Bearer: ")) issues.push("enhancement-bearer");
   if (data.ruleType === "unit-ability" && DAMAGED_ID.test(record.id.split(".").at(-1)!) && !DAMAGED.test(text)) issues.push("damaged-opening");
   if (DURATION_FIRST.test(text)) issues.push("duration-first");
+  if (WHOSE_PHASE.test(text)) issues.push("phrasing/whose-phase");
   const prose = unnamed(apostrophes(data.summary));
   for (const [name, pattern] of REPLACED) if (pattern.test(prose)) issues.push(`phrasing/${name}`);
   return issues;

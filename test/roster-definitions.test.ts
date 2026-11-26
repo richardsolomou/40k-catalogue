@@ -666,6 +666,28 @@ for (const [name, [roster, expected]] of Object.entries(withoutDetachments)) {
   });
 }
 
+// The Flame Wardens' leader is a Character, though the unit is not.
+const LEADER = `${WARDENS}.leader`;
+const characterLeader = () => {
+  const { identity, records } = input("1.2");
+  (find(records, "model", LEADER).data as any).keywords = ["Character"];
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+};
+
+const modelKeywords: Record<string, [Roster, string[]]> = {
+  "its Character model as warlord": [incursion([{ unit: WARDENS, warlord: LEADER }]), []],
+  "a model without the keyword as warlord": [incursion([{ unit: WARDENS, warlord: WARDEN }]), ["0 warlord-ineligible"]],
+  "an enhancement its Character model can bear": [incursion([{ unit: WARDENS, enhancement: MANTLE }]), []],
+};
+
+for (const [name, [roster, expected]] of Object.entries(modelKeywords)) {
+  test(`a unit with a Character model and ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(characterLeader(), roster), expected);
+  });
+}
+
 // 1080 points against Incursion's 1000.
 const overspent = incursion([
   { unit: COLOSSUS },

@@ -214,7 +214,7 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       const inUnit = models.some((m) => m.id === warlord);
       if (current("model", warlord, i) && !inUnit) add("unit-model", `model:${warlord} is not part of ${unit.name}`);
       if (warlords > 1) add("warlord-repeated", "a roster has one warlord");
-      const character = keywords.some((k) => k.toUpperCase() === "CHARACTER");
+      const character = [...keywords, ...(models.find((m) => m.id === warlord)?.data.keywords ?? [])].some((k) => k.toUpperCase() === "CHARACTER");
       if (inUnit && !granted.has(warlord) && (!character || offered.length > 0 || !own.has(unit.data.faction))) add("warlord-ineligible", `${unit.name} cannot hold the warlord`);
       for (const required of requiredWarlords) {
         if (inUnit && !required.models.includes(warlord)) add("warlord-required", `${required.name} needs one of ${required.models.map((m) => `model:${m}`).join(", ")} as warlord`);
@@ -310,7 +310,10 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       if (!detachmentIds.includes(enhancement.data.detachment)) add("enhancement-detachment", `${enhancement.name} belongs to another detachment`);
       if (entry >= 0 && !allies[entry]!.enhancements) add("ally-enhancement", `${unit.name} cannot take enhancements`);
       const { all = [], none = [] } = enhancement.data.keywords ?? {};
-      if (unit.data.enhancements === false || !all.every((k) => keywords.includes(k)) || none.some((k) => keywords.includes(k))) {
+      // A model of the unit bears it: one fielded model whose keywords, the unit's and its own, it allows.
+      const bearers = models.filter((m) => (counts.get(m.id) ?? 0) > 0).map((m) => [...keywords, ...(m.data.keywords ?? [])]);
+      const bears = (held: string[]) => all.every((k) => held.includes(k)) && !none.some((k) => held.includes(k));
+      if (unit.data.enhancements === false || !(bearers.length ? bearers : [keywords]).some(bears)) {
         add("enhancement-keywords", `${unit.name} cannot take ${enhancement.name}`);
       }
       if (enhancements.has(enhancement.id) && !enhancement.data.upgrade) add("enhancement-repeated", `${enhancement.name} is already taken`);

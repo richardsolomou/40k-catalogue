@@ -102,7 +102,8 @@ export type Requirement = { option: string; choices: string[] };
 type SizeBounds = Bounds & { size: number };
 type SizeMaximum = { size: number; max: number };
 type ModelCountBounds = Bounds & { bySize?: SizeBounds[] };
-export type ModelData = ModelCountBounds & { unit: string; wargear: Counts };
+/** `keywords` are those this model has beyond its unit's, as when a squad's leader is a Character. */
+export type ModelData = ModelCountBounds & { unit: string; wargear: Counts; keywords?: string[] };
 /** Scales a bound by each carrier model, or by every `models` models in the unit; absent means once per unit. */
 export type Per = "carrier" | { models: number };
 export type OptionData = {

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Ynnari Archon",
-    "summary": "The bearer’s invulnerable saves cannot be rerolled. Once the bearer fails a saving throw, it loses access to its invulnerable save for the rest of the battle.",
+    "summary": "The bearer’s invulnerable saving throws cannot be re-rolled. The first time one of them fails, the bearer loses its invulnerable save until the battle ends.",
     "citations": [
       {
         "type": "app",
@@ -70,18 +70,19 @@
           }
         },
         "detail": {
-          "actor": "bearer",
-          "effects": [
-            {
-              "roll": "invulnerable-save-for-bearer",
-              "kind": "prohibit-reroll"
-            },
-            {
-              "trigger": "bearer-first-failed-saving-throw",
-              "durationEnd": "battle-end",
-              "kind": "disable-invulnerable-save-for-bearer"
-            }
-          ]
+          "ability": {
+            "subject": "bearer",
+            "effects": [
+              {
+                "noReroll": "invulnerable-saving-throw"
+              },
+              {
+                "trigger": "first failed invulnerable saving throw",
+                "loses": "invulnerable save",
+                "duration": "end-of-battle"
+              }
+            ]
+          }
         }
       }
     }

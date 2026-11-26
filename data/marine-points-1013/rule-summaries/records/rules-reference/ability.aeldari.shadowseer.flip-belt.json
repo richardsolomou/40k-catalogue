@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Shadowseer",
-    "summary": "Ignore vertical distance for the entire bearer’s unit during its [Normal](vsdata:core-rule/normal-move), [Advance](vsdata:core-rule/advance-move), [Fall Back](vsdata:core-rule/fall-back) and **[Charge moves](vsdata:core-rule/charge-move)**.",
+    "summary": "During each **Normal move**, **Advance move**, **Fall Back move** or **Charge move** its unit makes, the bearer ignores vertical distance when measuring how far it can move.",
     "citations": [
       {
         "type": "app",
@@ -28,15 +28,22 @@
       "version": "1",
       "fields": {
         "detail": {
-          "subject": "bearer’s unit",
-          "effect": {
-            "ignoreDistance": "vertical",
-            "moves": [
-              "Normal",
-              "Advance",
-              "Fall Back",
-              "Charge"
-            ]
+          "ability": {
+            "datasheet": "Shadowseer",
+            "wargear": "Flip Belt",
+            "trigger": {
+              "bearersUnitMakes": [
+                "normal",
+                "advance",
+                "fall-back",
+                "charge"
+              ]
+            },
+            "subject": "bearer",
+            "effect": {
+              "ignoreVerticalDistance": true,
+              "for": "distance-the-bearer-can-move"
+            }
           }
         }
       }

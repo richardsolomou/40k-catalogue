@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Venatari with Verutum Lances",
-    "summary": "Once a phase across your army, you may target this unit with a Stratagem other than **[Rapid Ingress](vsdata:ability/core.rapid-ingress)** even after previous uses that phase. Its cost for this use is 1 CP lower. Other units keep their usual limits on using the same Stratagem that phase.",
+    "summary": "Once per phase for your army, this unit can be the target of **[Rapid Ingress](vsdata:ability/core.rapid-ingress)** even if that Stratagem was already used this phase. That use costs 1CP less, and it does not stop other units being targeted by it this phase.",
     "citations": [
       {
         "type": "app",
@@ -34,22 +34,24 @@
           }
         ],
         "detail": {
-          "actor": "controlling-player",
-          "recipient": "datasheet-unit",
-          "optional": true,
-          "usage": {
-            "count": 1,
-            "per": "phase",
-            "scope": "army"
-          },
-          "stratagemSelection": {
-            "exclude": [
-              "Rapid Ingress"
-            ],
-            "allowsRepeatInSamePhase": true
-          },
-          "cpCostModifier": -1,
-          "limitsOnOtherUnits": "unchanged"
+          "ability": {
+            "usage": {
+              "count": 1,
+              "per": "phase",
+              "scope": "army"
+            },
+            "optional": true,
+            "stratagem": "Rapid Ingress",
+            "ignoresOtherUsesThisPhase": true,
+            "effects": [
+              {
+                "cpCostDelta": -1
+              },
+              {
+                "blocksOtherUnitsThisPhase": false
+              }
+            ]
+          }
         }
       }
     }

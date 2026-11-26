@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "leagues-of-votann.persecution-prospect"
     },
-    "summary": "Model eligibility — **LEAGUES OF VOTANN**. [Shooting phase](vsdata:core-rule/shooting-phase) benefit after the unit containing this bearer has fired. Count each enemy unit it hit at least once for 1 YP, capped at 3 YP.",
+    "summary": "Bearer: **LEAGUES OF VOTANN** model.\n\nWhenever the bearer's unit finishes shooting in your Shooting phase, you get 1YP per assailed enemy unit that at least 1 of those attacks hit, up to a cap of 3YP.",
     "citations": [
       {
         "type": "app",
@@ -55,13 +55,20 @@
           ]
         },
         "detail": {
-          "trigger": "after the bearer’s unit has shot in your Shooting phase",
-          "effect": {
-            "resource": "YP",
-            "gainPerEnemyUnitHit": 1,
-            "qualifyingHits": "one or more attacks from that unit",
-            "maximumGain": 3
-          }
+          "kind": "enhancement",
+          "detachment": "Persecution Prospect",
+          "effects": [
+            {
+              "when": {
+                "turn": "own",
+                "phase": "shooting",
+                "timing": "after-bearer-unit-has-shot"
+              },
+              "gainYPPerUnit": 1,
+              "per": "assailed enemy unit hit by 1 or more of those attacks",
+              "maximumYP": 3
+            }
+          ]
         }
       }
     }

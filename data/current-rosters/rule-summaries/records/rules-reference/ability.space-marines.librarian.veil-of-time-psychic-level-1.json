@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Librarian",
-    "summary": "The Librarian’s unit may roll a D6 for Veil of Time when chosen to [Advance](vsdata:core-rule/advance-move). A 1 causes [Battle-shock](vsdata:core-rule/battle-shock). Success sets the **[Advance roll](vsdata:core-rule/advance-move)** to 6.",
+    "summary": "Whenever this unit is picked to **Advance** and is not **battle-shocked**, a D6 **psychic roll** can be made for it. If you roll it:\n\n- A 1 makes the unit battle-shocked.\n- Whatever the result, the unit can treat that **Advance roll** as a 6.",
     "citations": [
       {
         "type": "app",
@@ -34,41 +34,30 @@
           }
         ],
         "detail": {
-          "role": "psychic-spell",
-          "psychicLevel": 1,
-          "source": "this-unit",
-          "trigger": {
-            "event": "selected-to-move",
-            "move": "advance"
-          },
-          "optional": true,
-          "effect": {
-            "dice": {
-              "count": 1,
-              "sides": 6,
-              "additive": 0
+          "ability": {
+            "datasheet": "Librarian",
+            "psychicLevel": 1,
+            "trigger": "selected-to-advance",
+            "condition": "this-unit-not-battle-shocked",
+            "optional": true,
+            "roll": {
+              "kind": "psychic",
+              "dice": 1,
+              "die": "D6"
             },
-            "branches": [
+            "effects": [
               {
-                "comparison": "at-least",
-                "value": 2,
-                "effect": {
-                  "roll": "advance",
-                  "value": 6,
-                  "kind": "replace-roll"
-                }
+                "onRoll": 1,
+                "applyState": "battle-shocked",
+                "subject": "this-unit"
               },
               {
-                "comparison": "less-than",
-                "value": 2,
-                "effect": {
-                  "condition": "battle-shocked",
-                  "recipient": "this-unit",
-                  "kind": "apply-condition"
-                }
+                "setRoll": "advance",
+                "value": 6,
+                "optional": true,
+                "dependsOnResult": false
               }
-            ],
-            "kind": "roll-and-branch"
+            ]
           }
         }
       }

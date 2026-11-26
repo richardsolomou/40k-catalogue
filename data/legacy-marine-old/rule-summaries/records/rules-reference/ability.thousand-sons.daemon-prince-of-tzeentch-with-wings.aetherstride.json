@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Daemon Prince of Tzeentch with Wings",
-    "summary": "When you deploy this Daemon Prince via **[Deep Strike](vsdata:core-ability/deep-strike)** in your [Movement phase](vsdata:core-rule/movement-phase), you can set it up farther than 6″ from every enemy unit. Taking this option prevents it from declaring a charge that turn and grants Dark Blessing **[[SUSTAINED HITS D3]](vsdata:weapon-ability/sustained-hits)** for the remainder of that turn.",
+    "summary": "Psychic ability. In your Movement phase, whenever this model arrives through **[Deep Strike](vsdata:core-ability/deep-strike)**, it can make an aetherstride:\n\n- It can be placed anywhere more than 6\" horizontally from every enemy unit.\n- Its Dark Blessing gets **[[SUSTAINED HITS D3]](vsdata:weapon-ability/sustained-hits)** for the rest of the turn.\n- It can't declare a charge for the rest of the turn.",
     "citations": [
       {
         "type": "app",
@@ -276,24 +276,31 @@
           }
         },
         "detail": {
-          "actor": "Daemon Prince of Tzeentch with Wings",
-          "trigger": "set up on battlefield using Deep Strike in own Movement phase",
-          "optional": true,
-          "minimumEnemySeparation": {
-            "inches": 6,
-            "strictlyGreater": true,
-            "from": "every enemy unit"
-          },
-          "effects": [
-            {
-              "cannotDeclareCharge": "this turn"
+          "ability": {
+            "psychic": true,
+            "when": {
+              "turn": "own",
+              "phase": "movement"
             },
-            {
-              "weapon": "Dark Blessing",
-              "grant": "SUSTAINED HITS D3",
-              "expires": "end of this turn"
-            }
-          ]
+            "trigger": "set up using Deep Strike",
+            "optional": true,
+            "effects": [
+              {
+                "setUp": "anywhere",
+                "moreThanInchesHorizontally": 6,
+                "from": "all enemy units"
+              },
+              {
+                "weapon": "Dark Blessing",
+                "grant": "SUSTAINED HITS D3",
+                "duration": "end-of-turn"
+              },
+              {
+                "cannotDeclareCharge": true,
+                "duration": "end-of-turn"
+              }
+            ]
+          }
         }
       }
     }

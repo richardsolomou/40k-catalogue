@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Commissar Graves",
-    "summary": "After this unit finishes [charging](vsdata:core-rule/charge-move), you may choose one enemy unit in its **[Engagement Range](vsdata:core-rule/engagement-range)**. Use a D6 for **[mortal wounds](vsdata:core-rule/mortal-wounds)** to that unit. A 2–3 deals 3, a 4–5 deals D3 and a 6 deals D3+3.",
+    "summary": "After this unit's Charge move ends, you can pick 1 enemy unit in Engagement Range of it and roll a D6:\n\n- 2-3: that unit takes D3 mortal wounds\n- 4-5: that unit takes 3 mortal wounds\n- 6: that unit takes D3+3 mortal wounds",
     "citations": [
       {
         "type": "app",
@@ -137,39 +137,32 @@
           }
         },
         "detail": {
-          "actor": "controlling-player",
-          "source": "this-unit",
-          "trigger": "each-time-this-unit-ends-charge-move",
-          "selection": {
-            "side": "enemy",
-            "entity": "unit",
-            "origin": "this-unit",
-            "measure": "within-engagement-range",
-            "count": 1,
-            "optional": true
-          },
-          "die": "D6",
-          "recipient": "selected-enemy-unit",
-          "branches": [
-            {
-              "result": 1,
-              "mortalWounds": 0
+          "ability": {
+            "trigger": "this unit ends a Charge move",
+            "optional": true,
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "withinEngagementRange": true
             },
-            {
-              "min": 2,
-              "max": 3,
-              "mortalWounds": 3
-            },
-            {
-              "min": 4,
-              "max": 5,
-              "mortalWounds": "D3"
-            },
-            {
-              "result": 6,
-              "mortalWounds": "D3+3"
-            }
-          ]
+            "roll": "D6",
+            "results": [
+              {
+                "min": 2,
+                "max": 3,
+                "mortalWounds": "D3"
+              },
+              {
+                "min": 4,
+                "max": 5,
+                "mortalWounds": 3
+              },
+              {
+                "result": 6,
+                "mortalWounds": "D3+3"
+              }
+            ]
+          }
         }
       }
     }

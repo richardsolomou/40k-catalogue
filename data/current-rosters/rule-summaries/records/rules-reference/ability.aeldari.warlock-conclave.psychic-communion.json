@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Warlock Conclave",
-    "summary": "On selection to [shoot](vsdata:core-rule/shooting-phase), each **WARLOCK** in the unit provides a bonus through phase end. All other friendly models with **AELDARI PSYKER** within 6\" of that **WARLOCK** get +1 Strength on their Destructor. Cap the total bonus at +2.",
+    "summary": "Whenever you pick this unit to shoot, the Destructor of each **WARLOCK** model in it gets +1 A and +1 S for each other **AELDARI PSYKER** model of yours up to 6\" from that **WARLOCK**, capped at +2, for the rest of the phase.",
     "citations": [
       {
         "type": "app",
@@ -141,25 +141,34 @@
           }
         },
         "detail": {
-          "timing": "each shooting selection",
-          "recipients": {
+          "ability": {
+            "psychic": true,
+            "window": {
+              "timing": "when-selected-to-shoot"
+            },
             "per": "WARLOCK model in this unit",
-            "allEligible": true,
-            "other": true,
-            "friendlyModelKeywords": [
-              "AELDARI",
-              "PSYKER"
-            ],
-            "distanceInches": 6
-          },
-          "effect": {
             "weapon": "Destructor",
-            "characteristic": "Strength",
-            "modifierPerWarlock": 1,
-            "maximumModifier": 2,
-            "expires": "phase end"
-          },
-          "psychic": true
+            "effects": [
+              {
+                "characteristics": [
+                  "A",
+                  "S"
+                ],
+                "deltaPer": 1,
+                "per": {
+                  "otherFriendlyModels": true,
+                  "keywordsAll": [
+                    "AELDARI",
+                    "PSYKER"
+                  ],
+                  "withinInches": 6,
+                  "of": "that WARLOCK model"
+                },
+                "maximum": 2
+              }
+            ],
+            "duration": "end-of-phase"
+          }
         }
       }
     }

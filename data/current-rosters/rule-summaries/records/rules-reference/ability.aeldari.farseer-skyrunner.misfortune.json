@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Farseer Skyrunner",
-    "summary": "As your [Movement phase](vsdata:core-rule/movement-phase) closes, choose a **visible** enemy unit no farther than 18″ from this model. Its models take −1 on **[Wound rolls](vsdata:core-rule/wound-rolls)** until your next [Command phase](vsdata:core-rule/command-phase) begins. Misfortune is limited to one use each turn.",
+    "summary": "As your Movement phase ends, pick 1 enemy unit visible to this model and within 18\" of it. Until you begin your next Command phase, attacks made by models in that unit get -1 to Wound. Each enemy unit can be picked for this ability only once per turn.",
     "citations": [
       {
         "type": "app",
@@ -173,28 +173,30 @@
           }
         },
         "detail": {
-          "actor": "controlling-player",
-          "timing": "end-of-own-movement-phase",
-          "optional": false,
-          "selection": {
-            "count": 1,
-            "entity": "unit",
-            "side": "enemy",
-            "rangeInches": 18,
-            "origin": "this-model",
-            "visibleToOrigin": true
-          },
-          "duration": "until-start-of-next-own-command-phase",
-          "useLimit": {
-            "count": 1,
-            "period": "turn",
-            "scope": "player"
-          },
-          "effect": {
-            "actor": "model-in-selected-enemy-unit",
-            "trigger": "each-attack",
-            "roll": "wound",
-            "modifier": -1
+          "ability": {
+            "psychic": true,
+            "when": {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "end-of-phase"
+            },
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "withinInches": 18,
+              "visible": true
+            },
+            "effect": {
+              "roll": "wound",
+              "modifier": -1,
+              "attacker": "models in the selected unit",
+              "amount": 1
+            },
+            "duration": "until the start of your next Command phase",
+            "selectionLimit": {
+              "perUnit": 1,
+              "period": "turn"
+            }
           }
         }
       }

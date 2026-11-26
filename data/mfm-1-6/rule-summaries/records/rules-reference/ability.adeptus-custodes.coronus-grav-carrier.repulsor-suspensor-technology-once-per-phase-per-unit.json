@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Coronus Grav-Carrier",
-    "summary": "In the opposing [Shooting phase](vsdata:core-rule/shooting-phase), wait for an enemy unit to finish firing. If those attacks cost the unit itself any Wounds, this unit may respond with a **[Normal move](vsdata:core-rule/normal-move)** capped at D6″. Each unit may do this once per phase.",
+    "summary": "Once per phase, after an enemy unit shoots in your opponent's Shooting phase, if those attacks made this unit lose a wound and it is unengaged, it can move up to D6\" with a Normal move.",
     "citations": [
       {
         "type": "app",
@@ -43,29 +43,25 @@
           }
         ],
         "detail": {
-          "actor": "controlling-player",
-          "source": "datasheet-unit",
-          "recipient": "datasheet-unit",
-          "usage": {
-            "count": 1,
-            "per": "phase",
-            "scope": "unit"
-          },
-          "optional": true,
-          "trigger": {
-            "phase": "Shooting",
-            "turnOwner": "opponent",
-            "event": "enemy-unit-after-shooting"
-          },
-          "condition": {
-            "woundLossRecipient": "source-unit",
-            "minimumWoundsLost": 1,
-            "cause": "that enemy unit’s attacks"
-          },
-          "effect": {
-            "kind": "move",
-            "type": "Normal",
-            "maximumInches": "D6"
+          "ability": {
+            "usage": {
+              "count": 1,
+              "per": "phase",
+              "scope": "unit"
+            },
+            "when": {
+              "turn": "opponent",
+              "phase": "shooting"
+            },
+            "trigger": "an enemy unit has shot",
+            "condition": {
+              "lostWoundsFromThoseAttacksAtLeast": 1,
+              "unengaged": true
+            },
+            "effect": {
+              "move": "normal",
+              "maxInches": "D6"
+            }
           }
         }
       }

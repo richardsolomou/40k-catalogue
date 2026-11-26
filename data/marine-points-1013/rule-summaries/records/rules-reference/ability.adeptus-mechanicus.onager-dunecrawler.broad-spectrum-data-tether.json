@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Onager Dunecrawler",
-    "summary": "The data-tether’s bearer has **SMOKE**. When you use a [Stratagem](vsdata:core-rule/using-stratagems) on the bearer, roll a D6 and gain 1 CP on a 5+.",
+    "summary": "The bearer no longer has the **SMOKE** keyword. Whenever the bearer is the target of one of your Stratagems, roll a D6: a 5+ gives you 1CP.",
     "citations": [
       {
         "type": "app",
@@ -28,37 +28,25 @@
       "version": "1",
       "fields": {
         "detail": {
-          "source": "wargear-bearer",
-          "effects": [
-            {
-              "recipient": "bearer",
-              "effect": {
-                "label": "SMOKE",
-                "termType": "keyword",
-                "kind": "grant-ability"
-              }
-            },
-            {
-              "trigger": {
-                "event": "target-with-stratagem",
-                "actor": "controlling-player",
-                "recipient": "bearer",
-                "frequency": "each-occurrence"
+          "ability": {
+            "datasheet": "Onager Dunecrawler",
+            "wargear": "Broad spectrum data-tether",
+            "effects": [
+              {
+                "loseKeyword": "SMOKE",
+                "subject": "bearer"
               },
-              "roll": {
-                "dice": {
-                  "count": 1,
-                  "sides": 6
+              {
+                "trigger": "you-target-the-bearer-with-a-stratagem",
+                "roll": {
+                  "dice": 1,
+                  "die": "D6",
+                  "success": 5
                 },
-                "successMinimum": 5
-              },
-              "reward": {
-                "recipient": "controlling-player",
-                "amount": 1,
-                "kind": "gain-command-points"
+                "gainCP": 1
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

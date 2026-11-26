@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "chaos-daemons.scintillating-legion"
     },
-    "summary": "Model eligibility — **LEGIONES DAEMONICA** / **TZEENTCH**. During your [Command phase](vsdata:core-rule/command-phase), compare your Flux tokens with your opponent’s. A higher opposing total gives you one extra Flux token while the bearer remains on the battlefield.",
+    "summary": "Bearer: **LEGIONES DAEMONICA TZEENTCH** model.\n\nDuring your Command phase, you get 1 extra Flux token if your opponent has at least 1 Flux token and the bearer is still on the battlefield.",
     "citations": [
       {
         "type": "app",
@@ -58,22 +58,23 @@
           ]
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Scintillating Legion",
           "effects": [
             {
-              "type": "gain-resource",
-              "target": "own-player",
-              "resource": "Flux token",
-              "amount": 1,
-              "additional": true
+              "when": {
+                "turn": "own",
+                "phase": "command"
+              },
+              "conditions": [
+                "bearer on the battlefield",
+                {
+                  "opponentFluxTokensAtLeast": 1
+                }
+              ],
+              "gainFluxTokens": 1
             }
-          ],
-          "trigger": {
-            "event": "own-command-phase",
-            "conditions": [
-              "bearer-on-battlefield",
-              "opponent-has-more-flux-tokens-than-own-player"
-            ]
-          }
+          ]
         }
       }
     }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Horticulous Slimux",
-    "summary": "Horticulous Slimux adds the area **terrain feature** he occupies to your [Shadow of Chaos](vsdata:ability/chaos-daemons.the-shadow-of-chaos) during your Movement phase. This lasts through battle end.",
+    "summary": "As your Movement phase ends, if this model is inside an **AREA TERRAIN** feature, that feature counts as being in the [Shadow of Chaos](vsdata:ability/chaos-daemons.the-shadow-of-chaos) of your army for the rest of the battle.",
     "citations": [
       {
         "type": "app",
@@ -37,14 +37,20 @@
           ]
         },
         "detail": {
-          "trigger": {
-            "phase": "own-movement",
-            "condition": "owning-model-within-area-terrain-feature"
-          },
-          "recipient": "that-area-terrain-feature",
-          "durationEnd": "battle-end",
-          "ruleId": "ability:chaos-daemons.the-shadow-of-chaos",
-          "kind": "include-in-friendly-shadow-of-chaos"
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "end-of-phase"
+            },
+            "condition": {
+              "withinAreaTerrainFeatures": 1
+            },
+            "effect": {
+              "thatFeatureCountsAsWithin": "your army's Shadow of Chaos"
+            },
+            "duration": "end-of-battle"
+          }
         }
       }
     }

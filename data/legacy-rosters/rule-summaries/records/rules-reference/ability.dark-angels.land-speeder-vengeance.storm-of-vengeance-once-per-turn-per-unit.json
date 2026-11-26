@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Land Speeder Vengeance",
-    "summary": "When a **DARK ANGELS** ally is **destroyed** within a 6″ radius by an enemy unit, this unit may retaliate with [Normal Shooting](vsdata:core-rule/normal-shooting). The only eligible target is that enemy. This works once each turn during the opponent’s [Shooting phase](vsdata:core-rule/shooting-phase).",
+    "summary": "Once per turn, if attacks an enemy unit makes in your opponent's Shooting phase destroy a **DARK ANGELS** unit of yours up to 6\" from this unit, then after that enemy unit has finished shooting, this unit can shoot with **[Normal Shooting](vsdata:core-rule/normal-shooting)**, targeting only that enemy unit.",
     "citations": [
       {
         "type": "app",
@@ -47,30 +47,32 @@
           }
         ],
         "detail": {
-          "source": "this-unit",
-          "trigger": {
-            "phase": "shooting",
-            "turn": "opponent",
-            "event": "enemy-unit-destroys-friendly-unit",
-            "destroyedUnit": {
-              "allKeywords": [
-                "DARK ANGELS"
-              ],
-              "measure": "within",
-              "origin": "this-unit",
-              "rangeInches": 6
-            }
-          },
-          "limit": {
-            "count": 1,
-            "period": "turn",
-            "scope": "unit"
-          },
-          "effect": {
-            "action": "normal-shooting",
+          "ability": {
+            "usageLimit": {
+              "count": 1,
+              "period": "turn",
+              "scope": "unit"
+            },
+            "when": {
+              "turn": "opponent",
+              "phase": "shooting",
+              "trigger": "after an enemy unit has shot"
+            },
+            "condition": {
+              "thoseAttacksDestroyed": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "DARK ANGELS"
+                ],
+                "withinInches": 6,
+                "of": "this unit"
+              }
+            },
             "optional": true,
-            "recipient": "this-unit",
-            "onlyTarget": "destroying-enemy-unit"
+            "effect": {
+              "shoot": "normal shooting",
+              "onlyTarget": "that enemy unit"
+            }
           }
         }
       }

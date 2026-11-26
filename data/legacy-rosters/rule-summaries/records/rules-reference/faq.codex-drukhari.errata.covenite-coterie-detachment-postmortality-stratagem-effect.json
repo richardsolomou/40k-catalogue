@@ -18,7 +18,7 @@
         "id": "drukhari.covenite-coterie.postmortality"
       }
     ],
-    "summary": "With [Postmortality](vsdata:ability/drukhari.covenite-coterie.postmortality), spend one to three Pain tokens. At phase end, return the **destroyed** model as close to its death site as possible and outside enemy **Engagement Range**. It regains one wound per token. A model that died in an **Attached unit** returns on its own at **Starting Strength** 1.",
+    "summary": "Errata to the Effect of the Covenite Coterie [Postmortality](vsdata:ability/drukhari.covenite-coterie.postmortality) Stratagem:\n\n1. Spend 1 to 3 Pain tokens.\n2. As the phase ends, set the **destroyed** model back up **unengaged**, as near as it can be to the spot where it was destroyed.\n3. It has as many wounds left as the Pain tokens you spent.\n\nIts unit's **starting strength** is 1, and the model never belongs to an **attached** unit.",
     "citations": [
       {
         "type": "app",
@@ -36,31 +36,6 @@
           "faq": {
             "entryType": "errata",
             "publicationId": "ac31baaa-cd6b-40c0-9667-ad13cb87d2c4",
-            "typedMechanics": {
-              "sections": [
-                "effect"
-              ],
-              "effect": {
-                "cost": {
-                  "resource": "pain-token",
-                  "min": 1,
-                  "max": 3
-                },
-                "restore": {
-                  "subject": "selected-destroyed-model",
-                  "when": "phase-end",
-                  "placement": "as-close-as-possible-to-destruction-site",
-                  "outsideEnemyEngagementRange": true,
-                  "woundsRestored": "pain-tokens-spent",
-                  "ifDestroyedWhileAttached": {
-                    "separateUnit": true,
-                    "startingStrength": 1
-                  }
-                }
-              },
-              "targetQid": "ability:drukhari.covenite-coterie.postmortality",
-              "kind": "replace-stratagem-fields"
-            },
             "statedValues": [
               {
                 "kind": "minimum-pain-tokens",
@@ -71,10 +46,27 @@
                 "value": 3
               },
               {
-                "kind": "separate-starting-strength",
+                "kind": "starting-strength",
                 "value": 1
               }
-            ]
+            ],
+            "change": {
+              "stratagem": "Postmortality",
+              "detachment": "Covenite Coterie",
+              "section": "Effect",
+              "painTokens": {
+                "min": 1,
+                "max": 3
+              },
+              "setUp": {
+                "when": "end of phase",
+                "unengaged": true,
+                "position": "as close as possible to where it was destroyed"
+              },
+              "woundsRemaining": "Pain tokens spent",
+              "attached": false,
+              "startingStrength": 1
+            }
           }
         }
       }

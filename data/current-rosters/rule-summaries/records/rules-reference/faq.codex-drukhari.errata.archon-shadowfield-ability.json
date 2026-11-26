@@ -18,7 +18,7 @@
         "id": "drukhari.archon"
       }
     ],
-    "summary": "[Shadowfield](vsdata:ability/drukhari.archon.shadowfield) bars the Archon’s unit from rerolling that model’s saves. Losing a wound from a cause other than **mortal wounds** switches off the Archon’s invulnerable save for the battle’s remainder.",
+    "summary": "Errata to the Archon's [Shadowfield](vsdata:ability/drukhari.archon.shadowfield) ability:\n\n- while the Archon has an **invulnerable save**, no model in its unit can re-roll a **saving throw**\n- as soon as the Archon loses a wound to anything other than **mortal wounds**, it has no **invulnerable save** for the rest of the battle",
     "citations": [
       {
         "type": "app",
@@ -36,29 +36,19 @@
           "faq": {
             "entryType": "errata",
             "publicationId": "ac31baaa-cd6b-40c0-9667-ad13cb87d2c4",
-            "typedMechanics": {
-              "abilityQid": "ability:drukhari.archon.shadowfield",
-              "effect": {
-                "effects": [
-                  {
-                    "actor": "owning-unit",
-                    "roll": "saving-throw-for-owning-model",
-                    "kind": "prohibit-reroll"
-                  },
-                  {
-                    "trigger": {
-                      "event": "owning-model-loses-wound",
-                      "excludeCause": "mortal-wound"
-                    },
-                    "recipient": "owning-model",
-                    "durationEnd": "battle-end",
-                    "kind": "remove-invulnerable-save"
-                  }
-                ]
+            "statedValues": [],
+            "change": {
+              "rerollBan": {
+                "scope": "whole unit",
+                "rolls": "save",
+                "while": "Archon has an invulnerable save"
               },
-              "kind": "replace-ability"
-            },
-            "statedValues": []
+              "loseInvulnerable": {
+                "trigger": "Archon loses a wound",
+                "except": "mortal wounds",
+                "duration": "rest of battle"
+              }
+            }
           }
         }
       }

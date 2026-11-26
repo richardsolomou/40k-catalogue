@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Mek",
-    "summary": "At the end of your [Movement phase](vsdata:core-rule/movement-phase), the Mek can pick a friendly **ORKS VEHICLE** model no farther than 3″ away. **AIRCRAFT** and **TITANIC** models are excluded. The chosen model heals D3 wounds and gets +1 on **[Hit rolls](vsdata:core-rule/hit-rolls)** until your next [Movement phase](vsdata:core-rule/movement-phase) begins.",
+    "summary": "In your Movement phase, as this unit starts or finishes its move, you can pick 1 **ORKS VEHICLE** model of yours (not an **AIRCRAFT** or **TITANIC** model) up to 3\" from this model. The picked model:\n\n- **heals** D3 wounds\n- gets +1 to Hit for its attacks until your following Movement phase",
     "citations": [
       {
         "type": "app",
@@ -111,42 +111,44 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "phase": "Movement",
-            "step": "end",
-            "side": "own"
-          },
-          "optional": true,
-          "target": {
-            "count": 1,
-            "kind": "model",
-            "side": "friendly",
-            "requiresKeywords": [
-              "ORKS",
-              "VEHICLE"
-            ],
-            "withinInches": 3,
-            "origin": "owner model",
-            "excludedKeywords": [
-              "AIRCRAFT",
-              "TITANIC"
-            ]
-          },
-          "effects": [
-            {
-              "healWounds": "D3"
+          "ability": {
+            "datasheet": "Mek",
+            "window": {
+              "turn": "own",
+              "phase": "movement",
+              "timing": [
+                "start-of-this-unit-move",
+                "end-of-this-unit-move"
+              ]
             },
-            {
-              "roll": "Hit",
-              "add": 1,
-              "until": {
-                "phase": "Movement",
-                "side": "own",
-                "occurrence": "next",
-                "step": "start"
+            "optional": true,
+            "select": {
+              "side": "friendly",
+              "count": 1,
+              "scope": "model",
+              "keywordsAll": [
+                "ORKS",
+                "VEHICLE"
+              ],
+              "keywordsNone": [
+                "AIRCRAFT",
+                "TITANIC"
+              ],
+              "withinInches": 3,
+              "of": "this-model"
+            },
+            "effects": [
+              {
+                "heal": "D3"
+              },
+              {
+                "roll": "hit",
+                "delta": 1,
+                "attacks": "selected-model",
+                "duration": "until-start-of-your-next-movement-phase"
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

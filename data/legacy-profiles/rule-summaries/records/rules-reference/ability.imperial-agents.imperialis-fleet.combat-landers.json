@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "imperial-agents.imperialis-fleet"
     },
-    "summary": "Only a **VOIDFARERS** model can take this. When the step to Declare Battle Formations starts, you may pick up to three of your **VOIDFARERS** units; they gain **[Deep Strike](vsdata:core-ability/deep-strike)**. A **CHARACTER** attached to one of those units gains **[Deep Strike](vsdata:core-ability/deep-strike)** as well.",
+    "summary": "Bearer: **VOIDFARERS** model.\n\nAs Declare Battle Formations begins, you can give **[Deep Strike](vsdata:core-ability/deep-strike)** to as many as 3 **VOIDFARERS** units in your army.",
     "citations": [
       {
         "type": "app",
@@ -59,31 +59,22 @@
           ]
         },
         "detail": {
-          "enhancement": {
-            "detachment": "Imperialis Fleet",
-            "pointsCost": 10,
-            "eligibility": {
-              "scope": "model",
-              "keywordsAll": [
-                "VOIDFARERS"
-              ]
-            },
-            "effects": [
-              {
-                "timing": "start-of-declare-battle-formations",
-                "optional": true,
-                "select": {
-                  "side": "friendly",
-                  "upTo": 3,
-                  "keywordsAll": [
-                    "VOIDFARERS"
-                  ]
-                },
-                "grantsAbility": "Deep Strike",
-                "attachedCharacterAlsoGains": true
-              }
-            ]
-          }
+          "kind": "enhancement",
+          "detachment": "Imperialis Fleet",
+          "effects": [
+            {
+              "when": "start of the Declare Battle Formations step",
+              "select": {
+                "side": "friendly",
+                "countUpTo": 3,
+                "keywordsAll": [
+                  "VOIDFARERS"
+                ]
+              },
+              "grant": "core-ability:deep-strike",
+              "optional": true
+            }
+          ]
         }
       }
     }

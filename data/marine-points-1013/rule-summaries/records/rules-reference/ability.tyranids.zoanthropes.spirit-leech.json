@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Zoanthropes",
-    "summary": "If a foe up to 6″ from the Zoanthropes fails [Battle-shock](vsdata:core-rule/battle-shock), deal it D3 **[mortal wounds](vsdata:core-rule/mortal-wounds)**. One of the Zoanthropes recovers up to D3 wounds it has lost.",
+    "summary": "Aura (6\"): While a Neurothrope is part of this unit, whenever an enemy unit up to 6\" from this unit fails a **Battle-shock test**, it takes D3 **mortal wounds** and 1 model in this unit recovers as many as D3 lost wounds.",
     "citations": [
       {
         "type": "app",
@@ -28,43 +28,28 @@
       "version": "1",
       "fields": {
         "detail": {
-          "role": "aura-psychic",
-          "source": "this-unit",
-          "area": {
-            "origin": "this-unit",
-            "comparison": "within",
-            "inclusive": true,
-            "distanceInches": 6,
-            "side": "enemy"
-          },
-          "trigger": {
-            "event": "failed-test",
-            "test": "battle-shock",
-            "actor": "eligible-enemy-unit"
-          },
-          "effects": [
-            {
-              "recipient": "enemy-that-failed",
-              "quantity": {
-                "count": 1,
-                "sides": 3,
-                "additive": 0
-              },
-              "kind": "inflict-mortal-wounds"
+          "ability": {
+            "aura": true,
+            "psychic": true,
+            "condition": {
+              "thisUnitContains": "Neurothrope"
             },
-            {
-              "recipient": "one-model-in-this-unit",
-              "quantity": {
-                "comparison": "at-most",
-                "dice": {
-                  "count": 1,
-                  "sides": 3,
-                  "additive": 0
-                }
+            "trigger": {
+              "event": "enemy unit fails Battle-shock test",
+              "withinInches": 6,
+              "of": "this-unit"
+            },
+            "effects": [
+              {
+                "mortalWounds": "D3",
+                "subject": "that enemy unit"
               },
-              "kind": "regain-lost-wounds"
-            }
-          ]
+              {
+                "regainLostWoundsUpTo": "D3",
+                "subject": "1 model in this unit"
+              }
+            ]
+          }
         }
       }
     }

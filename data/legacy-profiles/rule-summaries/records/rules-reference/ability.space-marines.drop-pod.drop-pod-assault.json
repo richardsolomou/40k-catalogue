@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Drop Pod",
-    "summary": "Starting in **[Strategic reserves](vsdata:core-rule/strategic-reserves)** is mandatory for this transport. Its **[ingress move](vsdata:core-rule/ingress-move)** is allowed as early as your opening [Movement phase](vsdata:core-rule/movement-phase). On arrival, all passengers are required to exit via an [assault disembark move](vsdata:core-rule/assault-disembark-move). Leave over 8\" between each disembarking unit and every enemy unit.",
+    "summary": "This unit follows 3 deployment rules:\n\n- It always begins in **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**.\n- It can arrive with an **[Ingress Move](vsdata:core-rule/ingress-move)** even during your first Movement phase.\n- When it is set up, each unit embarked within it must make a [Disembark Move](vsdata:core-rule/disembark-move) or [Assault Disembark Move](vsdata:core-rule/assault-disembark-move) and be placed more than 8\" from every enemy unit.",
     "citations": [
       {
         "type": "app",
@@ -52,12 +52,21 @@
           }
         ],
         "detail": {
-          "start": "Strategic Reserves required",
-          "ingressAllowed": "own first Movement phase",
-          "passengers": {
-            "requiredMove": "Assault Disembark",
-            "minimumExclusiveEnemyDistanceInches": 8,
-            "referencePage": 157
+          "ability": {
+            "startsInStrategicReserves": true,
+            "ingressMove": {
+              "when": "your first Movement phase",
+              "optional": true
+            },
+            "onSetUp": {
+              "embarkedUnits": "all",
+              "mustMake": [
+                "disembark move",
+                "assault disembark move"
+              ],
+              "setUpMoreThanInchesFromEnemy": 8,
+              "referencePage": 157
+            }
           }
         }
       }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Reiver Squad",
-    "summary": "On a move, Reivers equipped with Grapnel Launchers can pass through models of every type. Leave vertical distance out of the distance travelled for those moves.",
+    "summary": "Whenever this unit moves, it can:\n\n- move through every type of model\n- leave out all vertical distance when measuring how far it has moved",
     "citations": [
       {
         "type": "app",
@@ -28,16 +28,21 @@
       "version": "1",
       "fields": {
         "detail": {
-          "condition": "owner unit equipped with Grapnel Launchers",
-          "trigger": "owner unit makes a move",
-          "effects": [
-            {
-              "movementPermission": "pass through all types of model"
-            },
-            {
-              "distanceCalculation": "ignore all vertical distance for the move"
-            }
-          ]
+          "ability": {
+            "datasheet": "Reiver Squad",
+            "wargear": "Grapnel Launchers",
+            "trigger": "this-unit-makes-a-move",
+            "appliesTo": "this-unit",
+            "optional": true,
+            "effects": [
+              {
+                "moveThrough": "all-model-types"
+              },
+              {
+                "ignoreVerticalDistance": true
+              }
+            ]
+          }
         }
       }
     }

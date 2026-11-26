@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Jain Zar",
-    "summary": "A unit led by Jain Zar skips the **[Advance roll](vsdata:core-rule/advance-move)**. Add 6″ to each model’s Move for that phase. When a model in the unit Advances, it may travel any fraction of the resulting maximum distance.",
+    "summary": "While this model leads a unit, whenever that unit Advances, skip the Advance roll. Instead, for the rest of the phase, its models get +6\" M, and each **[Advance Move](vsdata:core-rule/advance-move)** they make ignores vertical distance when working out how far the model can go.",
     "citations": [
       {
         "type": "app",
@@ -28,14 +28,23 @@
       "version": "1",
       "fields": {
         "detail": {
-          "condition": "owner model is leading a unit",
-          "trigger": "led unit Advances",
-          "effect": {
-            "skipAdvanceRoll": true,
-            "MoveBonusInches": 6,
-            "recipient": "each model in led unit",
-            "duration": "through phase end",
-            "moveUpToModelMove": true
+          "ability": {
+            "condition": "this model is leading a unit",
+            "trigger": "the led unit Advances",
+            "effects": [
+              {
+                "noAdvanceRoll": true
+              },
+              {
+                "characteristic": "M",
+                "modifierInches": 6,
+                "duration": "end-of-phase"
+              },
+              {
+                "advanceMoveIgnoresVerticalDistance": true,
+                "duration": "end-of-phase"
+              }
+            ]
           }
         }
       }

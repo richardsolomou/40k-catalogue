@@ -18,7 +18,7 @@
         "id": "adeptus-mechanicus.cybernetica-datasmith"
       }
     ],
-    "summary": "[Data-severed](vsdata:ability/adeptus-mechanicus.cybernetica-datasmith.data-severed) is an added ability for the Cybernetica Datasmith. With zero **KASTELAN ROBOT** models in its unit, that unit loses **VEHICLE** and gains **INFANTRY**.",
+    "summary": "Errata to the Cybernetica Datasmith:\n\n- Core abilities: **[Support](vsdata:core-ability/support)** replaces **[Leader](vsdata:core-ability/leader)**\n- Keywords: **VEHICLE** replaces **INFANTRY**\n- New ability [Data-severed](vsdata:ability/adeptus-mechanicus.cybernetica-datasmith.data-severed): while the unit has no **KASTELAN ROBOT** models, it loses **VEHICLE** and has **INFANTRY**",
     "citations": [
       {
         "type": "app",
@@ -37,52 +37,36 @@
             "entryType": "errata",
             "publicationId": "31cf0b5f-c858-4b3c-bcfb-a2721b043eec",
             "typedMechanics": {
-              "abilityQid": "ability:adeptus-mechanicus.cybernetica-datasmith.data-severed",
-              "effect": {
-                "effect": {
-                  "type": "conditional",
+              "operations": [
+                {
+                  "remove": "Leader",
+                  "add": "Support",
+                  "kind": "replace-core-ability"
+                },
+                {
+                  "remove": "INFANTRY",
+                  "add": "VEHICLE",
+                  "kind": "replace-keyword"
+                },
+                {
+                  "ability": "Data-severed",
                   "condition": {
-                    "type": "model-count",
-                    "parameters": {
-                      "subject": "this-unit",
-                      "keyword": "KASTELAN ROBOT",
-                      "max": 0
-                    }
+                    "modelsWithKeyword": "KASTELAN ROBOT",
+                    "count": 0
                   },
-                  "effect": {
-                    "type": "sequence",
-                    "steps": [
-                      {
-                        "type": "rule-state",
-                        "target": "this-unit",
-                        "modifier": {
-                          "direction": "suppressed",
-                          "rule_kind": "keyword",
-                          "rule": "VEHICLE"
-                        }
-                      },
-                      {
-                        "type": "keyword-grant",
-                        "target": "this-unit",
-                        "modifier": {
-                          "keywords": [
-                            "INFANTRY"
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                "scope": {
-                  "duration": "permanent"
-                },
-                "behavior": "passive"
-              },
-              "kind": "add-ability"
+                  "losesKeywords": [
+                    "VEHICLE"
+                  ],
+                  "gainsKeywords": [
+                    "INFANTRY"
+                  ],
+                  "kind": "add-ability"
+                }
+              ]
             },
             "statedValues": [
               {
-                "kind": "qualifying-robots-maximum",
+                "role": "kastelan-robot-models",
                 "value": 0
               }
             ]

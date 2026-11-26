@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Abaddon the Despoiler",
-    "summary": "[Leadership](vsdata:core-rule/leadership-rolls) tests and [Battle-shock tests](vsdata:core-rule/battle-shock) can each be re-rolled for a friendly unit with **HERETIC ASTARTES**. While this [Warmaster](vsdata:ability/chaos-space-marines.abaddon-the-despoiler.warmaster) option applies, measure up to 6″ from Abaddon.",
+    "summary": "Aura (6\"): Battle-shock and Leadership tests for **HERETIC ASTARTES** units of yours in range, other than **DAMNED** units, can be re-rolled.\n\nThis model has this aura only while [Warmaster](vsdata:ability/chaos-space-marines.abaddon-the-despoiler.warmaster) gives it.",
     "citations": [
       {
         "type": "app",
@@ -28,34 +28,25 @@
       "version": "1",
       "fields": {
         "detail": {
-          "role": "aura-option",
-          "activation": {
-            "event": "parent-option-active",
-            "parentAbility": "Warmaster"
-          },
-          "area": {
-            "comparison": "within",
-            "inclusive": true,
-            "distanceInches": 6,
-            "origin": "this-model",
-            "candidate": {
-              "entity": "unit",
+          "ability": {
+            "aura": true,
+            "rangeInches": 6,
+            "select": {
               "side": "friendly",
-              "requireAllKeywords": [
+              "keywordsAll": [
                 "HERETIC ASTARTES"
               ],
-              "excludeAnyKeywords": []
-            }
-          },
-          "effect": {
-            "rolls": [
+              "keywordsNone": [
+                "DAMNED"
+              ]
+            },
+            "reroll": [
               "leadership",
               "battle-shock"
             ],
             "optional": true,
-            "kind": "re-roll"
-          },
-          "recipient": "eligible-unit"
+            "activeWhile": "picked with Warmaster"
+          }
         }
       }
     }

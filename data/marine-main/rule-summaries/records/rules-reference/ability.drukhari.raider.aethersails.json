@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Raider",
-    "summary": "Pick one [Vanguard](vsdata:ability/drukhari.raider.vanguard-of-the-dark-city) option as your [Command phase](vsdata:core-rule/command-phase) begins. This option lasts until your next [Command phase](vsdata:core-rule/command-phase) starts. While the Raider carries any **DRUKHARI** unit, you may re-roll its [Advance](vsdata:core-rule/advance-move) and **[Charge rolls](vsdata:core-rule/charge-step)**.",
+    "summary": "While this model has 1 or more **DRUKHARI** units **embarked** in it, its **Advance rolls** and **Charge rolls** can be re-rolled.",
     "citations": [
       {
         "type": "app",
@@ -28,43 +28,29 @@
       "version": "1",
       "fields": {
         "detail": {
-          "activation": {
-            "parent": "Vanguard of the Dark City",
-            "actor": "controlling-player",
-            "recipient": "this-model",
-            "trigger": {
-              "turn": "own",
-              "phase": "command",
-              "timing": "start"
+          "ability": {
+            "datasheet": "Raider",
+            "condition": {
+              "embarkedUnits": {
+                "keywordsAll": [
+                  "DRUKHARI"
+                ],
+                "atLeast": 1
+              }
             },
-            "selection": {
-              "pool": "named-parent-options",
-              "minimum": 1,
-              "maximum": 1,
-              "selectedOptionRequired": true
-            },
-            "duration": "until-start-of-next-own-command-phase"
-          },
-          "condition": {
-            "embarkedIn": "this-model",
-            "entity": "unit",
-            "keyword": "DRUKHARI",
-            "minimum": 1
-          },
-          "effects": [
-            {
-              "roll": "advance",
-              "recipient": "this-model",
-              "optional": true,
-              "kind": "re-roll"
-            },
-            {
-              "roll": "charge",
-              "recipient": "this-model",
-              "optional": true,
-              "kind": "re-roll"
-            }
-          ]
+            "effects": [
+              {
+                "reroll": "advance",
+                "optional": true,
+                "subject": "this-model"
+              },
+              {
+                "reroll": "charge",
+                "optional": true,
+                "subject": "this-model"
+              }
+            ]
+          }
         }
       }
     }

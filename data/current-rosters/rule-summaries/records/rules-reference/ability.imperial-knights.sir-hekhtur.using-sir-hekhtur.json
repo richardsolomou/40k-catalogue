@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Sir Hekhtur",
-    "summary": "When Canis Rex is **destroyed**, resolve the arrival of Sir Hekhtur by Emergency Disembarkation as from a destroyed **TRANSPORT**. No Stratagem can target Sir Hekhtur. For destruction accounting, Canis Rex remains in play while Sir Hekhtur survives.",
+    "summary": "If the Canis Rex model of yours is destroyed, this model counts as disembarking from a **TRANSPORT** that was destroyed and must make an Emergency Disembarkation. Only Core Stratagems among yours can target Sir Hekhtur. Your Canis Rex unit counts as destroyed only once Sir Hekhtur is too.",
     "citations": [
       {
         "type": "app",
@@ -28,15 +28,22 @@
       "version": "1",
       "fields": {
         "detail": {
-          "trigger": "Canis Rex model destroyed",
-          "replacement": {
-            "model": "Sir Hekhtur",
-            "arrival": "Emergency Disembarkation as from a destroyed TRANSPORT"
-          },
-          "restriction": "Sir Hekhtur cannot be targeted by Stratagems",
-          "destructionAccounting": {
-            "unit": "Canis Rex",
-            "requires": "Sir Hekhtur destroyed"
+          "ability": {
+            "datasheet": "Sir Hekhtur",
+            "effects": [
+              {
+                "trigger": "canis-rex-model-destroyed",
+                "treatAs": "disembarking-from-destroyed-transport",
+                "mustPerform": "emergency-disembarkation"
+              },
+              {
+                "restriction": "not-targetable-by-your-stratagems",
+                "except": "core-stratagems"
+              },
+              {
+                "canisRexUnitDestroyedOnlyWhen": "sir-hekhtur-destroyed"
+              }
+            ]
           }
         }
       }

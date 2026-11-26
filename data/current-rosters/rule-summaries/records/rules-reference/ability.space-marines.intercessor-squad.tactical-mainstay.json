@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Intercessor Squad",
-    "summary": "This unit can begin an **[Action](vsdata:core-rule/actions)** while **Battle-shocked** and keeps its shooting eligibility when it starts one.",
+    "summary": "This unit has 2 exceptions to the Action rules:\n\n- It can still start an **[Action](vsdata:core-rule/actions)** while engaged or Battle-shocked.\n- After it starts an Action, it can still shoot.",
     "citations": [
       {
         "type": "app",
@@ -28,19 +28,19 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "datasheet-unit",
-          "effects": [
-            {
-              "kind": "exception",
-              "action": "start Action",
-              "ignoresRestriction": "Battle-shocked"
-            },
-            {
-              "kind": "preserve-eligibility",
-              "trigger": "starts Action",
-              "eligibility": "shoot"
-            }
-          ]
+          "ability": {
+            "effects": [
+              {
+                "eligibleToStartActionWhile": [
+                  "engaged",
+                  "battle-shocked"
+                ]
+              },
+              {
+                "startingActionDoesNotStopShooting": true
+              }
+            ]
+          }
         }
       }
     }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "The Red Terror",
-    "summary": "The Red Terror scores a **Critical Wound** whenever its unmodified **Wound roll** succeeds against a unit with **INFANTRY**, **MOUNTED** or **BEAST**. When one of the Red Terror’s attacks destroys a model with any of those keywords, the Red Terror heals D3+2 wounds at most per model killed.",
+    "summary": "Whenever this model attacks with its gaping maw against an **INFANTRY**, **MOUNTED** or **BEASTS** unit, a successful unmodified **Wound roll** counts as a **Critical Wound**.\n\nWhenever the gaping maw destroys an **INFANTRY**, **MOUNTED** or **BEASTS** model, this model recovers as many as D3+2 lost wounds.",
     "citations": [
       {
         "type": "app",
@@ -70,26 +70,30 @@
           }
         },
         "detail": {
-          "effects": [
-            {
-              "trigger": "owner attack against eligible unit",
-              "targetUnitKeywordsAny": [
-                "INFANTRY",
-                "MOUNTED",
-                "BEAST"
-              ],
-              "successfulUnmodifiedWoundRollBecomesCriticalWound": true
-            },
-            {
-              "trigger": "owner attack destroys eligible model",
-              "destroyedModelKeywordsAny": [
-                "INFANTRY",
-                "MOUNTED",
-                "BEAST"
-              ],
-              "recoverLostWoundsUpTo": "D3+2"
-            }
-          ]
+          "ability": {
+            "weapon": "gaping maw",
+            "effects": [
+              {
+                "when": "attack-with-weapon-targets-unit",
+                "targetKeywordsAny": [
+                  "INFANTRY",
+                  "MOUNTED",
+                  "BEASTS"
+                ],
+                "successfulUnmodifiedWoundRoll": "critical-wound"
+              },
+              {
+                "when": "weapon-destroys-model",
+                "destroyedKeywordsAny": [
+                  "INFANTRY",
+                  "MOUNTED",
+                  "BEASTS"
+                ],
+                "regainLostWoundsUpTo": "D3+2",
+                "subject": "this-model"
+              }
+            ]
+          }
         }
       }
     }

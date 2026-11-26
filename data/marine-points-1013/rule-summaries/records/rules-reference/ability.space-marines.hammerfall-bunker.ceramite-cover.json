@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Hammerfall Bunker",
-    "summary": "Against an attacking model to which this unit isn’t **[fully visible](vsdata:core-rule/visibility)**, apply the **[Benefit of Cover](vsdata:core-rule/benefit-of-cover)** for that attack.",
+    "summary": "Whenever an attacking model cannot fully see the unit its attack targets because this unit is in the way, that target is treated as having the **[Benefit of Cover](vsdata:core-rule/benefit-of-cover)** for the attack.",
     "citations": [
       {
         "type": "app",
@@ -107,14 +107,13 @@
           }
         ],
         "detail": {
-          "recipient": "this unit",
-          "trigger": "target of an attack",
-          "condition": {
-            "fullyVisibleToAttackingModel": false
-          },
-          "effect": {
-            "benefitOfCover": true,
-            "scope": "that attack"
+          "ability": {
+            "trigger": "this unit blocks the attacking model's full view of the attack's target",
+            "appliesTo": "the target unit",
+            "effect": {
+              "benefitOfCover": true,
+              "scope": "that attack"
+            }
           }
         }
       }

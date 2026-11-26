@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Krieg Heavy Weapons Squad",
-    "summary": "Roll a D6 whenever a Heavy Weapons Gunner dies. On 3+, leave the gunner in place until the attacker’s unit finishes its attacks. The gunner can then fire at that unit before you remove the gunner.",
+    "summary": "While this unit's Fire Coordinator model is still on the battlefield, whenever one of its Heavy Weapons Gunner models is destroyed, roll a D6. On a 3+, leave that model in play: after the attacking unit completes its attacks, it can shoot, then it is removed.",
     "citations": [
       {
         "type": "app",
@@ -28,19 +28,19 @@
       "version": "1",
       "fields": {
         "detail": {
-          "trigger": "heavy-weapons-gunner-destroyed",
-          "dice": {
-            "count": 1,
-            "sides": 6
-          },
-          "minimumResult": 3,
-          "effect": {
-            "recipient": "destroyed-model",
-            "deferRemoval": true,
-            "activation": "after-attacking-model-unit-finishes-making-its-attacks",
-            "optionalShot": true,
-            "shotTarget": "attacking-model-unit",
-            "removeAfterward": true
+          "ability": {
+            "condition": "the Fire Coordinator model is on the battlefield",
+            "trigger": "a Heavy Weapons Gunner model is destroyed",
+            "roll": {
+              "die": "D6",
+              "count": 1,
+              "success": 3
+            },
+            "effect": {
+              "notRemovedYet": true,
+              "mayShoot": "after the attacker's unit completes its attacks",
+              "thenRemoved": true
+            }
           }
         }
       }

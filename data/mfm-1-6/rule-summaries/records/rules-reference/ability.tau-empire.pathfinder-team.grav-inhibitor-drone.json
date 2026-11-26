@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Pathfinder Team",
-    "summary": "If an enemy unit includes the bearer’s unit among its Charge targets, subtract 2 from its **[Charge roll](vsdata:core-rule/charge-step)**. Apply the drone modifier only once.",
+    "summary": "Whenever an enemy unit picks the unit containing the bearer as a charge target, that unit's **Charge roll** gets -2. This doesn't combine with any other negative modifier to the roll.",
     "citations": [
       {
         "type": "app",
@@ -28,19 +28,14 @@
       "version": "1",
       "fields": {
         "detail": {
-          "source": "wargear-bearer",
-          "trigger": {
-            "event": "charge-target-selection",
-            "actor": "enemy-unit",
-            "includes": "bearers-unit"
-          },
-          "effect": {
-            "operation": "modify",
-            "characteristic": "charge-roll",
-            "amount": 2,
-            "direction": "decrease",
-            "recipient": "charging-unit",
-            "cumulative": false
+          "ability": {
+            "datasheet": "Pathfinder Team",
+            "wargear": "Grav-inhibitor Drone",
+            "trigger": "enemy-unit-selects-bearers-unit-as-charge-target",
+            "roll": "charge",
+            "delta": -2,
+            "cumulativeWithOtherNegativeModifiers": false,
+            "amount": 2
           }
         }
       }

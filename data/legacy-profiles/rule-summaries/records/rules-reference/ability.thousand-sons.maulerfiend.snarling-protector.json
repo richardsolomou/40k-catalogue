@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Maulerfiend",
-    "summary": "This unit is a valid target for the **[Heroic Intervention](vsdata:ability/core.heroic-intervention)** Stratagem whatever other uses it has had this phase. When you target it this way:\n\n- that use costs 1 CP less\n- other units can still receive the Stratagem in this phase\n- if an **engaged** **PSYKER** unit of yours is up to 12\" away as this unit declares the charge that use allows, you may use the rest of this ability\n\nWhen you do, this unit:\n\n- may re-roll the **Charge roll**\n- must finish the **Charge move** engaged with any enemy unit already engaged with that **PSYKER** unit",
+    "summary": "Your **[Heroic Intervention](vsdata:ability/core.heroic-intervention)** Stratagem can pick this unit even after being used earlier in the phase. When it picks this unit:\n\n- That use costs 1CP less.\n- That use doesn't block the Stratagem from being used on other units in the phase.\n- Whenever the unit **declares a charge** while one of your **engaged** **PSYKER** units is no more than 12\" from it, it can re-roll the **Charge roll** for it, but its **Charge move** must then finish engaged with one of the enemy units engaged with that **PSYKER** unit.\n\nIt is unclear whether the charge part also covers charges made without that Stratagem.",
     "citations": [
       {
         "type": "app",
@@ -34,21 +34,40 @@
           }
         ],
         "detail": {
-          "stratagem": {
-            "name": "Heroic Intervention",
-            "target": "owner unit",
-            "mayRepeatSamePhase": true,
-            "CPReduction": 1,
-            "otherUnitsRetainAccess": true
+          "ability": {
+            "datasheet": "Maulerfiend",
+            "stratagem": {
+              "ref": "ability:gdc.core.stratagem.e1005013.5751.54dd.a97c.fa38b5aea8cd",
+              "targetable": "regardless-of-other-uses-this-phase",
+              "cpDelta": -1,
+              "doesNotBlockUsesOnOtherUnits": true,
+              "cpReduction": 1
+            },
+            "chargePart": {
+              "trigger": "this-unit-declares-a-charge",
+              "condition": {
+                "friendlyEngagedUnit": {
+                  "keywordsAll": [
+                    "PSYKER"
+                  ],
+                  "withinInches": 12,
+                  "of": "this-unit"
+                }
+              },
+              "optional": true,
+              "effects": [
+                {
+                  "reroll": "charge"
+                },
+                {
+                  "mustEndChargeMoveEngagedWith": "an-enemy-unit-engaged-with-that-psyker-unit"
+                }
+              ]
+            }
           },
-          "charge": {
-            "trigger": "owner unit declares the charge granted by that Heroic Intervention use while a friendly engaged PSYKER unit is within range",
-            "onlyWithHeroicInterventionUse": true,
-            "maximumInchesFromOwnerUnitToPsykerUnit": 12,
-            "optional": true,
-            "mayRerollOwnChargeRoll": true,
-            "mustEndChargeMoveEngagedWith": "an enemy unit engaged with that friendly PSYKER unit"
-          }
+          "openQuestions": [
+            "The charge part is printed as an item of the list that follows the Heroic Intervention use, but it is worded as any charge this unit declares; the text does not settle whether it is limited to the charge that use allows."
+          ]
         }
       }
     }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Mercenary Oathband",
-    "summary": "**LEAGUES OF VOTANN** units in your army lack the [Hostile Acquisition](vsdata:ability/leagues-of-votann.prioritised-efficiency) and [Fortify Takeover](vsdata:ability/leagues-of-votann.prioritised-efficiency) abilities except through this rule. They begin the battle with Hostile Acquisition. As your [Command phase](vsdata:core-rule/command-phase) ends, you may spend 3YP to switch all of them from Hostile Acquisition to Fortify Takeover, or back again.",
+    "summary": "Except through this rule, **LEAGUES OF VOTANN** units in your army have neither [Hostile Acquisition](vsdata:ability/leagues-of-votann.prioritised-efficiency) nor [Fortify Takeover](vsdata:ability/leagues-of-votann.prioritised-efficiency). They start the battle with [Hostile Acquisition](vsdata:ability/leagues-of-votann.prioritised-efficiency).\n\nAs your Command phase ends, you can spend 3YP to swap them: those units lose whichever of the 2 abilities they have and get the other.",
     "citations": [
       {
         "type": "app",
@@ -39,28 +39,32 @@
         "detail": {
           "kind": "detachment-rule",
           "detachment": "Mercenary Oathband",
-          "recipients": {
+          "units": {
             "side": "friendly",
             "keywordsAll": [
               "LEAGUES OF VOTANN"
             ]
           },
-          "removes": [
+          "suppressedExceptByThisRule": [
             "Hostile Acquisition",
             "Fortify Takeover"
           ],
-          "startOfBattle": {
-            "grant": "Hostile Acquisition"
+          "atBattleStart": {
+            "has": "Hostile Acquisition"
           },
           "swap": {
-            "step": "end-of-own-command-phase",
-            "ypCost": 3,
+            "when": {
+              "turn": "own",
+              "phase": "command",
+              "timing": "end-of-phase"
+            },
             "optional": true,
-            "between": [
+            "costYP": 3,
+            "abilities": [
               "Hostile Acquisition",
               "Fortify Takeover"
             ],
-            "eitherDirection": true
+            "direction": "either way"
           }
         }
       }

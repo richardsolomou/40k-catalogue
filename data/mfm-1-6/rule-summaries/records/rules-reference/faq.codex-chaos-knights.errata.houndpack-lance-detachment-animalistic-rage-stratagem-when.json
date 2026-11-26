@@ -19,7 +19,7 @@
         "id": "chaos-knights.houndpack-lance.animalistic-rage"
       }
     ],
-    "summary": "[Animalistic Rage](vsdata:ability/chaos-knights.houndpack-lance.animalistic-rage) can be used in the opposing Shooting phase or either Fight phase, immediately after an attacking unit destroys one of your **WAR DOG** units that has yet to be picked to shoot or fight in that phase.",
+    "summary": "Errata to the When section of [Animalistic Rage](vsdata:ability/chaos-knights.houndpack-lance.animalistic-rage) (Houndpack Lance): your opponent's [Shooting phase](vsdata:core-rule/shooting-phase) or the [Fight phase](vsdata:core-rule/fight-phase), right after a **WAR DOG** unit of yours is **destroyed** before being picked to attack in that phase.",
     "citations": [
       {
         "type": "app",
@@ -44,31 +44,29 @@
             "entryType": "errata",
             "publicationId": "47cc2382-dce6-450a-9267-dd4160948007",
             "typedMechanics": {
-              "sections": [
-                "when"
+              "stratagem": "Animalistic Rage",
+              "detachment": "Houndpack Lance",
+              "windows": [
+                {
+                  "turn": "opponent",
+                  "phase": "shooting"
+                },
+                {
+                  "turn": "either",
+                  "phase": "fight"
+                }
               ],
-              "when": {
-                "event": "immediately-after-destruction-by-enemy-attack",
-                "windows": [
-                  {
-                    "phase": "shooting",
-                    "turn": "opponent"
-                  },
-                  {
-                    "phase": "fight",
-                    "turn": "either"
-                  }
-                ],
-                "destroyed": {
-                  "owner": "self",
-                  "allOf": [
+              "trigger": {
+                "timing": "just-after",
+                "event": "friendly unit destroyed",
+                "unit": {
+                  "keywordsAll": [
                     "WAR DOG"
                   ],
-                  "notSelectedToShootOrFightInPhase": true
+                  "notSelectedToAttackThisPhase": true
                 }
               },
-              "targetQid": "ability:chaos-knights.houndpack-lance.animalistic-rage",
-              "kind": "replace-stratagem-fields"
+              "kind": "replace-stratagem-when"
             },
             "statedValues": []
           }

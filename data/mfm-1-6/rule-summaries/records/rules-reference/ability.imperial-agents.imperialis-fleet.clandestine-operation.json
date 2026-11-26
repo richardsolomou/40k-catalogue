@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "imperial-agents.imperialis-fleet"
     },
-    "summary": "For an **AGENTS OF THE IMPERIUM** model. As the Declare Battle Formations step starts, you can pick up to 3 **AGENTS OF THE IMPERIUM INFANTRY** units of yours, other than **GREY KNIGHTS TERMINATOR SQUAD** units.\n\nEach picked unit gains the **[Infiltrators](vsdata:core-ability/infiltrators)** ability, and so does any **CHARACTER** attached to it.",
+    "summary": "Bearer: **AGENTS OF THE IMPERIUM** model.\n\nWhen Declare Battle Formations begins, you can give **[Infiltrators](vsdata:core-ability/infiltrators)** to as many as 3 **AGENTS OF THE IMPERIUM INFANTRY** units in your army, though not to **GREY KNIGHTS TERMINATOR SQUAD** units.",
     "citations": [
       {
         "type": "app",
@@ -59,35 +59,26 @@
           ]
         },
         "detail": {
-          "enhancement": {
-            "detachment": "Imperialis Fleet",
-            "pointsCost": 15,
-            "eligibility": {
-              "scope": "model",
-              "keywordsAll": [
-                "AGENTS OF THE IMPERIUM"
-              ]
-            },
-            "effects": [
-              {
-                "timing": "start-of-declare-battle-formations",
-                "optional": true,
-                "select": {
-                  "side": "friendly",
-                  "upTo": 3,
-                  "keywordsAll": [
-                    "AGENTS OF THE IMPERIUM",
-                    "INFANTRY"
-                  ],
-                  "excludesKeywords": [
-                    "GREY KNIGHTS TERMINATOR SQUAD"
-                  ]
-                },
-                "grantsAbility": "Infiltrators",
-                "attachedCharacterAlsoGains": true
-              }
-            ]
-          }
+          "kind": "enhancement",
+          "detachment": "Imperialis Fleet",
+          "effects": [
+            {
+              "when": "start of the Declare Battle Formations step",
+              "select": {
+                "side": "friendly",
+                "countUpTo": 3,
+                "keywordsAll": [
+                  "AGENTS OF THE IMPERIUM",
+                  "INFANTRY"
+                ],
+                "keywordsNone": [
+                  "GREY KNIGHTS TERMINATOR SQUAD"
+                ]
+              },
+              "grant": "core-ability:infiltrators",
+              "optional": true
+            }
+          ]
         }
       }
     }

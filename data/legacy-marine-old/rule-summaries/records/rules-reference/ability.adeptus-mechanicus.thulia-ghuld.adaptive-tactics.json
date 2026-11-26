@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Thulia Ghuld",
-    "summary": "If you pick this [Rod of the War Forge](vsdata:ability/adeptus-mechanicus.thulia-ghuld.rod-of-the-war-forge) option as your [Command phase](vsdata:core-rule/command-phase) starts, you may pick 1 **SKITARII** or **THULIA GHULD** unit of yours no more than 6\" from this model.\n\nUntil your next [Command phase](vsdata:core-rule/command-phase) starts, that unit can shoot and declare a charge even in turns when it [Fell Back](vsdata:core-rule/fall-back).",
+    "summary": "You can pick a **SKITARII** or **THULIA GHULD** unit of yours up to 6\" away from this model. That unit can declare a charge and shoot even in a turn it Fell Back, until your following Command phase.",
     "citations": [
       {
         "type": "app",
@@ -28,34 +28,25 @@
       "version": "1",
       "fields": {
         "detail": {
-          "trigger": {
-            "phase": "Command",
-            "side": "own",
-            "step": "start",
-            "requiresSelectionFrom": "Rod of the War Forge"
-          },
-          "optional": true,
-          "target": {
-            "count": 1,
-            "side": "friendly",
-            "anyKeyword": [
-              "SKITARII",
-              "THULIA GHULD"
-            ],
-            "withinInches": 6,
-            "origin": "owner model"
-          },
-          "until": {
-            "phase": "Command",
-            "side": "own",
-            "step": "start",
-            "occurrence": "next"
-          },
-          "effect": {
-            "afterMove": "Fall Back",
-            "mayShoot": true,
-            "mayDeclareCharge": true,
-            "moveTiming": "same turn"
+          "ability": {
+            "optionOf": "Rod of the War Forge",
+            "optional": true,
+            "select": {
+              "side": "friendly",
+              "count": 1,
+              "keywordsAny": [
+                "SKITARII",
+                "THULIA GHULD"
+              ],
+              "withinInches": 6,
+              "of": "this-model"
+            },
+            "effect": {
+              "eligibleToShoot": true,
+              "eligibleToDeclareCharge": true,
+              "inTurnItFellBack": true
+            },
+            "duration": "until-start-of-next-own-command-phase"
           }
         }
       }

@@ -18,7 +18,7 @@
       "kind": "detachment",
       "id": "chaos-knights.helhunt-lance"
     },
-    "summary": "In your [Command phase](vsdata:core-rule/command-phase), pick a **CHAOS KNIGHTS CHARACTER** model other than the bearer, at most 9″ away from the bearer. The chosen model also receives the effects of the bearer’s [Aura abilities](vsdata:core-rule/aura-abilities) for friendly **WAR DOG** units. That benefit ends as your next [Command phase](vsdata:core-rule/command-phase) begins.",
+    "summary": "Bearer: **TITANIC CHAOS KNIGHTS** model.\n\nDuring your Command phase, pick 1 **CHAOS KNIGHTS CHARACTER** model (not the bearer) up to 9\" from it. That model is also affected by any Aura abilities the bearer has that affect **WAR DOG** units of yours, until your next Command phase.",
     "citations": [
       {
         "type": "app",
@@ -65,36 +65,30 @@
           ]
         },
         "detail": {
-          "trigger": {
-            "phase": "command",
-            "turn": "own"
-          },
-          "select": {
-            "models": 1,
-            "exclude": "bearer",
-            "allKeywords": [
-              "CHAOS KNIGHTS",
-              "CHARACTER"
-            ],
-            "maxDistanceInches": 9,
-            "distanceFrom": "bearer"
-          },
-          "effect": {
-            "recipient": "selected-model",
-            "action": "receive-aura-effects",
-            "auraOrigin": "bearer",
-            "qualifyingAuraRecipient": {
-              "allegiance": "friendly",
-              "keyword": "WAR DOG",
-              "scope": "unit"
+          "kind": "enhancement",
+          "detachment": "Helhunt Lance",
+          "effects": [
+            {
+              "when": {
+                "turn": "own",
+                "phase": "command"
+              },
+              "select": {
+                "side": "friendly",
+                "count": 1,
+                "entity": "model",
+                "keywordsAll": [
+                  "CHAOS KNIGHTS",
+                  "CHARACTER"
+                ],
+                "otherThanBearer": true,
+                "withinInches": 9
+              },
+              "condition": "the bearer has Aura abilities affecting WAR DOG units of yours",
+              "effect": "the picked model is also affected by those Aura abilities",
+              "duration": "until the start of your next Command phase"
             }
-          },
-          "expires": {
-            "event": "phase-start",
-            "phase": "command",
-            "occurrence": "next",
-            "turn": "own"
-          }
+          ]
         }
       }
     }

@@ -11,7 +11,7 @@
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
-    "summary": "When a **[[DEVASTATING WOUNDS]](vsdata:weapon-ability/devastating-wounds)** weapon's attack scores a **critical wound**, its attack sequence stops; the target unit then suffers as many **mortal wounds** as the weapon's **D** characteristic, after any normal damage from those attacks. These mortal wounds can damage at most 1 model per critical wound; any left over are lost.\n\nWhat the **PSYKER** qualifier in this ability's name adds is not stated.",
+    "summary": "This weapon ability works only when the target unit has the **PSYKER** keyword. Against such a unit, whenever an attack with the weapon scores a **critical wound**, that attack's sequence stops, and the target unit takes a number of mortal wounds matching the weapon's D, applied once those attacks' normal damage is resolved.\n\nNo more than 1 model can be damaged by the mortal wounds from each critical wound, and any surplus from that attack is lost.",
     "citations": [
       {
         "type": "app",
@@ -79,7 +79,14 @@
         ],
         "detail": {
           "weaponAbility": "[DEVASTATING WOUNDS]",
-          "qualifier": "PSYKER",
+          "targetGate": {
+            "scope": "per-attack",
+            "target": "unit",
+            "anyKeywords": [
+              "PSYKER"
+            ],
+            "basis": "Core Rules, Abilities: a weapon ability followed by keywords works only against a target unit with 1 or more of them"
+          },
           "trigger": "critical wound",
           "effect": {
             "attackSequenceEnds": true,
@@ -89,15 +96,12 @@
             "excess": "lost"
           },
           "example": {
-            "weaponDamage": 3,
+            "weaponD": 3,
             "mortalWounds": 3,
             "woundsToDestroyOneModel": 2,
             "modelsDestroyed": 1,
-            "lost": 1
-          },
-          "openQuestions": [
-            "The text does not say what the PSYKER qualifier in the name changes."
-          ]
+            "mortalWoundsLost": 1
+          }
         }
       }
     }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Thulia Ghuld",
-    "summary": "Choose this [Rod of the War Forge](vsdata:ability/adeptus-mechanicus.thulia-ghuld.rod-of-the-war-forge) option during your Command phase. A friendly **SKITARII** unit up to 6″ from Ghuld gets the [Conqueror and Protector Imperatives](vsdata:ability/adeptus-mechanicus.doctrina-imperatives) together. They last until your next Command phase begins.",
+    "summary": "You can pick a **SKITARII** or **THULIA GHULD** unit of yours up to 6\" away from this model. Until your following Command phase, both the Protector Imperative and the Conqueror Imperative are active for that unit.",
     "citations": [
       {
         "type": "app",
@@ -234,24 +234,26 @@
           }
         },
         "detail": {
-          "menuId": "ability:adeptus-mechanicus.thulia-ghuld.rod-of-the-war-forge",
-          "trigger": "own-command-phase",
-          "selection": {
-            "keyword": "SKITARII",
-            "allegiance": "friendly",
-            "count": 1,
-            "distanceInches": 6,
-            "origin": "owning-model"
-          },
-          "effect": {
-            "armyRuleId": "ability:adeptus-mechanicus.doctrina-imperatives",
-            "grant": [
-              "Conqueror Imperative",
-              "Protector Imperative"
-            ],
-            "simultaneous": true,
-            "recipient": "selected-unit",
-            "durationEnd": "start-of-next-own-command-phase"
+          "ability": {
+            "optionOf": "Rod of the War Forge",
+            "optional": true,
+            "select": {
+              "side": "friendly",
+              "count": 1,
+              "keywordsAny": [
+                "SKITARII",
+                "THULIA GHULD"
+              ],
+              "withinInches": 6,
+              "of": "this-model"
+            },
+            "effect": {
+              "activeImperatives": [
+                "Conqueror Imperative",
+                "Protector Imperative"
+              ]
+            },
+            "duration": "until-start-of-next-own-command-phase"
           }
         }
       }

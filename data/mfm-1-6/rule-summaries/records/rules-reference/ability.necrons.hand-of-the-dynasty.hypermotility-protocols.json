@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Hand of the Dynasty",
-    "summary": "Your **IMMORTALS** and **NECRON WARRIORS** units gain **[[ASSAULT]](vsdata:weapon-ability/assault)** on ranged attacks. Once you pick the unit for an **[advance move](vsdata:core-rule/advance-move)**, it keeps its eligibility to **[start an action](vsdata:core-rule/performing-actions)**. Taking a **DYNASTY** unit in this **detachment** excludes it from another **detachment**.",
+    "summary": "Ranged attacks by your **IMMORTALS** and **NECRON WARRIORS** units get **[[ASSAULT]](vsdata:weapon-ability/assault)**. An **[advance move](vsdata:core-rule/advance-move)** by one of those units does not, on its own, stop it from being able to start an **action**.\n\nThis detachment carries the **DYNASTY** tag; you cannot take it alongside another **DYNASTY** detachment.",
     "citations": [
       {
         "type": "app",
@@ -189,55 +189,28 @@
           }
         ],
         "detail": {
-          "scope": {
-            "factionId": "47670bc3-64b8-4c2d-9154-7391f132688b",
-            "faction": "Necrons",
-            "detachmentId": "8e281a27-1d5a-415b-8b92-34cd0ed53b63",
-            "detachment": "Hand of the Dynasty",
-            "uniqueTags": [
-              {
-                "id": "ab40e159-b741-4636-90cb-94df401d2f6f",
-                "name": {
-                  "en": "Dynasty"
-                }
-              }
-            ],
-            "sourceId": "8e281a27-1d5a-415b-8b92-34cd0ed53b63:hypermotility-protocols",
-            "cardType": "detachmentRule",
-            "cardEdition": "40k-11e"
-          },
-          "target": {
-            "owner": "friendly",
-            "level": "unit",
-            "anyOf": [
+          "kind": "detachment-rule",
+          "detachment": "Hand of the Dynasty",
+          "units": {
+            "side": "friendly",
+            "keywordsAny": [
               "IMMORTALS",
               "NECRON WARRIORS"
             ]
           },
           "effects": [
             {
-              "type": "weapon-ability-grant",
-              "keyword": "assault",
-              "attackType": "ranged"
+              "attacks": "ranged",
+              "grant": "weapon-ability:assault"
             },
             {
-              "type": "eligibility-exception",
-              "action": "start-action",
-              "ignores": "triggering-move-only",
-              "trigger": {
-                "event": "selected-to-move",
-                "moveTypes": [
-                  "advance"
-                ]
-              }
+              "trigger": "unit selected to make an advance move",
+              "advanceMoveDoesNotBlock": "eligibility to start an action"
             }
           ],
-          "roster": {
-            "type": "detachment-tag-exclusivity",
+          "detachmentTag": {
             "tag": "DYNASTY",
-            "scope": "friendly-army",
-            "allowedIn": "this-detachment",
-            "prohibitedIn": "other-detachments"
+            "cannotCombineWithDetachmentTag": "DYNASTY"
           }
         }
       }

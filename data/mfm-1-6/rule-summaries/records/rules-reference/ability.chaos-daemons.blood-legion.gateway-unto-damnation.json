@@ -18,7 +18,7 @@
       "kind": "detachment",
       "id": "chaos-daemons.blood-legion"
     },
-    "summary": "The bearer triggers **[Deadly Demise](vsdata:core-ability/deadly-demise)** on 2+ with a D6. Its usual threshold is 6. Use D3+3 **[mortal wounds](vsdata:core-rule/mortal-wounds)** in place of the datasheet amount once this model has **destroyed** an enemy unit during the battle.",
+    "summary": "Bearer: **LEGIONES DAEMONICA KHORNE MONSTER** model.\n\nThe bearer's **[Deadly Demise](vsdata:core-ability/deadly-demise)** roll succeeds on a 2+ instead of a 6. After the bearer has destroyed at least 1 enemy unit this battle, it gets Deadly Demise D3+3, replacing any other Deadly Demise its datasheet gives it.",
     "citations": [
       {
         "type": "app",
@@ -67,25 +67,24 @@
           ]
         },
         "detail": {
-          "roll": {
-            "rule": "Deadly Demise",
-            "subject": "bearer",
-            "die": "D6",
-            "normalRequiredResult": 6,
-            "replacementMinimum": 2
-          },
-          "replacement": {
-            "condition": {
-              "destroyer": "bearer",
-              "destroyed": "enemy-unit",
-              "minimum": 1,
-              "window": "current-battle-before-resolution"
+          "kind": "enhancement",
+          "detachment": "Blood Legion",
+          "effects": [
+            {
+              "ability": "core-ability:deadly-demise",
+              "roll": "D6",
+              "mortalWoundsOn": "2+",
+              "mortalWoundsOnValue": 2,
+              "insteadOf": 6
             },
-            "insteadOf": "any-other-datasheet-Deadly-Demise-ability",
-            "amount": "D3+3",
-            "damageType": "mortal-wounds",
-            "useUnderlyingRecipientRules": true
-          }
+            {
+              "condition": {
+                "bearerDestroyedEnemyUnitsThisBattleAtLeast": 1
+              },
+              "deadlyDemise": "D3+3",
+              "replacesDatasheetDeadlyDemise": true
+            }
+          ]
         }
       }
     }

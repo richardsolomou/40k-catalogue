@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Defiler",
-    "summary": "Previous uses this phase leave your **[Counteroffensive](vsdata:ability/core.counteroffensive)** option open for this unit. Pay 1 CP for this use. Other units retain access to the Stratagem that phase. Each Defiler unit may do this once per phase.",
+    "summary": "Once per phase, you can use the [Counteroffensive](vsdata:ability/core.counteroffensive) Stratagem on this unit even if it was already used on another unit this phase. That use costs 1CP less and still leaves you free to use it on other units in this phase.",
     "citations": [
       {
         "type": "app",
@@ -34,18 +34,17 @@
           }
         ],
         "detail": {
-          "usage": {
-            "count": 1,
-            "period": "phase",
-            "scope": "unit"
-          },
-          "optional": true,
-          "stratagem": {
-            "name": "Counteroffensive",
-            "target": "owner unit",
-            "allowAfterOtherUsesInSamePhase": true,
-            "doesNotPreventOtherUnitsInSamePhase": true,
-            "fixedCP": 1
+          "ability": {
+            "usageLimit": {
+              "count": 1,
+              "period": "phase",
+              "scope": "unit"
+            },
+            "stratagem": "Counteroffensive",
+            "target": "this unit",
+            "ignoresOtherUsesThisPhase": true,
+            "cpModifier": -1,
+            "doesNotBlockUsesOnOtherUnitsThisPhase": true
           }
         }
       }

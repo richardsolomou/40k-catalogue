@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Blightlord Terminators",
-    "summary": "Add 1 to Strength and improve AP by 1 for a ranged attack from this unit if either condition applies. Its target started with 5 or more models, or a **CHARACTER** leads the Blightlord Terminators.",
+    "summary": "While this unit's Starting Strength is 5+ or a **CHARACTER** leads it, ranged attacks its models make against an Afflicted unit get +1 S and improve their AP by 1.",
     "citations": [
       {
         "type": "app",
@@ -146,24 +146,19 @@
           }
         },
         "detail": {
-          "trigger": {
-            "event": "make attack",
-            "actor": "model in owner unit",
-            "weaponClass": "ranged"
-          },
-          "conditionsAny": [
-            {
-              "targetStartingStrengthAtLeast": 5
-            },
-            {
-              "ownerUnitLedByCharacter": true
-            }
-          ],
-          "effect": {
-            "attackStatModifiers": {
-              "Strength": 1,
-              "Armour Penetration improvement": 1
-            }
+          "ability": {
+            "conditionAny": [
+              {
+                "thisUnitStartingStrengthAtLeast": 5
+              },
+              {
+                "ledByCharacter": true
+              }
+            ],
+            "attackType": "ranged",
+            "targetCondition": "Afflicted",
+            "strengthDelta": 1,
+            "apImprovement": 1
           }
         }
       }

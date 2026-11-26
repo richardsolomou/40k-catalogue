@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Archon",
-    "summary": "The Archon’s unit cannot reroll the Archon’s saves. If the Archon loses a wound from any cause other than a **mortal wound**, it loses its invulnerable save for the rest of the battle.",
+    "summary": "While this model's invulnerable save remains, its unit can't re-roll saving throws. After it loses a wound to anything but mortal wounds, the model has no invulnerable save for the remainder of the battle.",
     "citations": [
       {
         "type": "app",
@@ -34,22 +34,21 @@
           }
         ],
         "detail": {
-          "effects": [
-            {
-              "actor": "owning-unit",
-              "roll": "saving-throw-for-owning-model",
-              "kind": "prohibit-reroll"
-            },
-            {
-              "trigger": {
-                "event": "owning-model-loses-wound",
-                "excludeCause": "mortal-wound"
+          "ability": {
+            "effects": [
+              {
+                "condition": "this model has an invulnerable save",
+                "subject": "this unit",
+                "prohibit": "re-roll save rolls"
               },
-              "recipient": "owning-model",
-              "durationEnd": "battle-end",
-              "kind": "remove-invulnerable-save"
-            }
-          ]
+              {
+                "trigger": "this model loses a wound",
+                "excluding": "mortal wounds",
+                "effect": "this model has no invulnerable save",
+                "duration": "end-of-battle"
+              }
+            ]
+          }
         }
       }
     }

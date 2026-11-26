@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Firestrike Servo-turrets",
-    "summary": "This unit can receive **[Fire Overwatch](vsdata:ability/core.fire-overwatch)** once in a phase even after the Stratagem has been used on a different unit. During that [Snap Shooting](vsdata:core-rule/snap-shooting), a natural 4+ is enough to hit. Other Stratagems retain their regular use limits.",
+    "summary": "Once per phase, you can use the [Fire Overwatch](vsdata:ability/core.fire-overwatch) Stratagem on this unit even if it was already used on another unit this phase, with 2 effects:\n\n- Until that Stratagem resolves, an unmodified Hit roll of 4+ scores a hit for this unit's **[Snap Shooting](vsdata:core-rule/snap-shooting)** attacks.\n- That use still leaves you free to use Fire Overwatch on other units in this phase.",
     "citations": [
       {
         "type": "app",
@@ -80,26 +80,25 @@
           }
         ],
         "detail": {
-          "source": "this-unit",
-          "limit": {
-            "count": 1,
-            "period": "phase",
-            "scope": "unit"
-          },
-          "stratagem": {
-            "kind": "core-rule",
-            "id": "9be8c3f5-c0b2-4aff-93cf-32288aa77400"
-          },
-          "permission": {
-            "optional": true,
-            "kind": "target-after-other-unit-use"
-          },
-          "effect": {
-            "trigger": "unit-snap-shooting-from-this-stratagem",
-            "roll": "hit",
-            "minimumUnmodified": 4
-          },
-          "otherStratagems": "normal-use-limits"
+          "ability": {
+            "usageLimit": {
+              "count": 1,
+              "period": "phase",
+              "scope": "unit"
+            },
+            "stratagem": "Fire Overwatch",
+            "target": "this unit",
+            "ignoresOtherUsesThisPhase": true,
+            "effects": [
+              {
+                "snapShootingHitsOnUnmodified": 4,
+                "duration": "until that Stratagem resolves"
+              },
+              {
+                "doesNotBlockUsesOnOtherUnitsThisPhase": true
+              }
+            ]
+          }
         }
       }
     }

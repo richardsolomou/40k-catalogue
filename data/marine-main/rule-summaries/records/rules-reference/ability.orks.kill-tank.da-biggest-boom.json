@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Kill Tank",
-    "summary": "After the Kill Tank has fired in your [Shooting phase](vsdata:core-rule/shooting-phase), you may pick an enemy unit it hit. Every other enemy unit up to 3″ from the chosen unit makes a **[battle-shock roll](vsdata:core-rule/battle-shock)**.",
+    "summary": "In your Shooting phase, after this unit shoots, you can pick 1 enemy unit hit by its Tank Kannon attacks. Each enemy unit within 3\" of the picked unit, except **MONSTER** and **VEHICLE** units, takes a Battle-shock roll.",
     "citations": [
       {
         "type": "app",
@@ -37,26 +37,27 @@
           ]
         },
         "detail": {
-          "trigger": {
-            "phase": "own-shooting",
-            "event": "owning-unit-has-shot"
-          },
-          "optional": true,
-          "selection": {
-            "count": 1,
-            "side": "enemy",
-            "hitBy": "owning-unit"
-          },
-          "effect": {
-            "roll": "battle-shock",
-            "recipient": {
-              "side": "enemy",
-              "excludeSelectedUnit": true,
-              "withinInches": 3,
-              "origin": "selected-unit",
-              "all": true
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting",
+              "trigger": "after this unit has shot"
             },
-            "kind": "require-roll"
+            "optional": true,
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitBy": "this unit's Tank Kannon attacks"
+            },
+            "effect": {
+              "appliesTo": "enemy units within 3\" of the selected unit",
+              "keywordsNone": [
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "test": "battle-shock",
+              "withinInches": 3
+            }
           }
         }
       }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Commissar Yarrick",
-    "summary": "Yarrick’s next Order can reach an eligible friendly unit up to 12″ from him. When your army issues its first Order in the [Command phase](vsdata:core-rule/command-phase), copy it to other eligible units on your side up to 6″ from the initial recipient.",
+    "summary": "This model's next Order can go to 1 eligible unit of yours within 12\" of it. If that is the first Order any of your units issues in this Command phase, it also affects every other eligible unit of yours within 6\" of the unit that received it.",
     "citations": [
       {
         "type": "app",
@@ -28,15 +28,16 @@
       "version": "1",
       "fields": {
         "detail": {
-          "order": {
-            "nextOrderRangeInchesFromYarrick": 12,
-            "target": "one eligible friendly unit"
-          },
-          "relay": {
-            "trigger": "own army issues its first Order in the Command phase",
-            "propagateSameOrder": true,
-            "recipients": "other eligible friendly units",
-            "rangeInchesFromInitialRecipient": 6
+          "ability": {
+            "appliesTo": "next Order issued by this model",
+            "issueRangeInches": 12,
+            "count": 1,
+            "spread": {
+              "condition": "army's first Order this Command phase",
+              "to": "every other eligible friendly unit",
+              "withinInches": 6,
+              "of": "the unit that received the Order"
+            }
           }
         }
       }

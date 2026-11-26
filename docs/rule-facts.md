@@ -77,7 +77,7 @@ Keywords are written in upper case, as the rules print them.
 
 The effect blocks say what an ability, Stratagem, Enhancement, army or detachment rule, or core or weapon ability does to the game. A record carries only the blocks its rule gives; a rule with none of them does nothing these blocks can state. A record without effect blocks has not been read, or its rule states nothing they type: treat what its summary describes as not calculated. A block other than `references` can be `{ "unresolved": "<why>" }` where the rule's reading is known to be wrong or incomplete: treat what that block would cover as not calculated.
 
-Keyword values are written in capitals. A **selector** is a keyword, keywords printed together (`ADEPTUS ASTARTES INFANTRY`), or a datasheet's name, and a unit matches it when its keywords include every keyword of it (a keyword also matches its plural). A few selectors name a status a rule treats like a keyword, such as `BATTLE-SHOCKED` or `AFFLICTED`.
+Keyword values are written in capitals. A **selector** is a keyword, keywords printed together (`ADEPTUS ASTARTES INFANTRY`), or a datasheet's name, and a unit matches it when its keywords include every keyword of it (a keyword also matches its plural). A few selectors name a status a rule treats like a keyword, such as `BATTLE-SHOCKED` or `AFFLICTED`. Where a rule names models of its own unit by their model name, which no keyword holds, the selector is that name in capitals (`REPENTIA SUPERIOR`): only models of that name match it, and a unit has it while it contains one.
 
 **`grants`**: the abilities the rule gives. `abilities` lists each grant; an empty list means the rule's text reads as a grant but names no ability the block can type.
 

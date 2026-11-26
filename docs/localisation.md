@@ -26,13 +26,13 @@ Each entry has:
 
 Display names and aliases are separate so an app never shows an import-only spelling. An entity, a kind and ID, must keep the same catalogue name in every file; indexing files that disagree fails. Kinds have separate ID spaces, as in the identity, so a piece of wargear and the ability it gives can share an ID.
 
-Entry IDs are [catalogue identity](catalogue-identity.md) IDs, and `kind` names the identity kind, so an entry is the release entry with that kind and ID. An Enhancement is an identity `ability`. `enhancement` and `disposition` are for an app with its own IDs, which can use them in its own files but then cannot check them against a release.
+Entry IDs are [catalogue identity](catalogue-identity.md) IDs, and `kind` names the identity kind, so an entry is the release entry with that kind and ID. An Enhancement is an identity `ability`. A `disposition` is a force disposition a [mission pack](mission-packs.md) of the release defines, by the ID and name the pack gives it. `enhancement` is for an app with its own IDs, which can use it in its own files but then cannot check it against a release.
 
 A [catalogue release](catalogue-releases.md) can carry one file per language under `localisation/`, each checked against the release's identity when it is built.
 
 ## Checking a file against a release
 
-`releaseErrors(file, release)` checks a validated file against the identity release it is read with. It returns an error when the file's `rulesVersion` differs from the release's, and for each entry whose kind and ID the release does not publish, that the release publishes only as an alias, or that the release names differently from the entry's `name`. A retired entry passes, since the release still publishes it and lists written before it retired still name it. Select the release as [catalogue identity](catalogue-identity.md#selecting-a-rules-version) describes, then check each file before indexing it.
+`releaseErrors(file, release, dispositions)` checks a validated file against the identity release it is read with, and its `disposition` entries against the force dispositions the release's mission packs define. It returns an error when the file's `rulesVersion` differs from the release's, and for each entry whose kind and ID the release does not publish, that the release publishes only as an alias, or that the release names differently from the entry's `name`. A retired entry passes, since the release still publishes it and lists written before it retired still name it. Select the release as [catalogue identity](catalogue-identity.md#selecting-a-rules-version) describes, then check each file before indexing it.
 
 An empty result means every ID the resolver can return is published in that release under the name a reviewer sees. The resolver itself never reads a release, so it cannot catch an ID joined to the wrong entity.
 

@@ -188,6 +188,22 @@ test("an ID of another kind is reported as unpublished", () => {
   assert.deepEqual(releaseErrors(withFirstEntry({ kind: "unit" }), release), ["/entries/0 names unit ashen-wardens, which the release does not publish"]);
 });
 
+const holdTheLine = { id: "synthetic-pack.hold-the-line", name: "Hold the Line" };
+const disposition = (name: string): LocalisationFile => withFirstEntry({ id: holdTheLine.id, kind: "disposition", name, display: "Tenir la Ligne" });
+
+test("a force disposition a mission pack of the release defines is checked against the pack", () => {
+  assert.deepEqual(
+    [releaseErrors(disposition("Hold the Line"), release, [holdTheLine]), releaseErrors(disposition("Hold the Lines"), release, [holdTheLine])],
+    [[], ['/entries/0/name is "Hold the Lines" but the release names disposition synthetic-pack.hold-the-line "Hold the Line"']],
+  );
+});
+
+test("a force disposition no mission pack defines is reported", () => {
+  assert.deepEqual(releaseErrors(disposition("Hold the Line"), release), [
+    "/entries/0 names disposition synthetic-pack.hold-the-line, which no mission pack of the release defines",
+  ]);
+});
+
 test("an alias ID is reported with its canonical ID", () => {
   assert.deepEqual(releaseErrors(withFirstEntry({ id: "ashen-wardens.cinder-guards", kind: "unit", name: "Cinder Guard" }), release), [
     "/entries/0/id is an alias of unit ashen-wardens.cinder-guard",

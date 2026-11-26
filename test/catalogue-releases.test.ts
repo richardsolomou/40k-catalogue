@@ -195,6 +195,26 @@ test("the order of localised entries does not change the archive", () => {
   assert.equal(build(reversed).get("localisation/fr.json"), build(localised()).get("localisation/fr.json"));
 });
 
+test("a force disposition two mission packs define blocks the release", () => {
+  const dir = input("1.0");
+  edit(join(dir, "categories.json"), (value) => value.categories.find((c: { name: string }) => c.name === "missions").kinds.push("mission-pack"));
+  for (const pack of ["synthetic.pack-a", "synthetic.pack-b"]) {
+    edit(join(dir, "identity.json"), (value) => value.entries.push({ kind: "mission-pack", id: pack, name: pack }));
+    writeFileSync(
+      join(dir, "records", "missions", `${pack}.json`),
+      JSON.stringify({
+        formatVersion: 1,
+        kind: "mission-pack",
+        id: pack,
+        rulesVersion: { edition: "synthetic", update: "1.0" },
+        source: { title: "Synthetic catalogue source", page: "1" },
+        data: { dispositions: [{ id: "synthetic.hold", name: pack }] },
+      }),
+    );
+  }
+  assert.deepEqual(errors(dir), ["records/mission-packs: disposition synthetic.hold is defined by more than one mission pack"]);
+});
+
 test("verification rejects changed localised names", () => {
   const dir = written(build(localised()));
   writeFileSync(join(dir, "localisation/fr.json"), "{}\n");

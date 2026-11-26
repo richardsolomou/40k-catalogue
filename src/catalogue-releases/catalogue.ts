@@ -5,7 +5,7 @@ import identitySchema from "../catalogue-identity/release.v1.schema.json" with {
 import { historyErrors, resolve, validateRelease, type Ref, type Release, type RulesVersion } from "../catalogue-identity/identity.ts";
 import profilesSchema from "../datasheet-profiles/profiles.v1.schema.json" with { type: "json" };
 import localisationSchema from "../localisation/localisation.v1.schema.json" with { type: "json" };
-import { releaseErrors } from "../localisation/release.ts";
+import { releaseErrors, type Disposition } from "../localisation/release.ts";
 import { validateLocalisation, type LocalisationFile } from "../localisation/validate.ts";
 import missionPackSchema from "../mission-packs/mission-pack.v1.schema.json" with { type: "json" };
 import pointsHistorySchema from "../points/history.v1.schema.json" with { type: "json" };
@@ -163,6 +163,13 @@ export function buildCatalogueRelease(
     if (![...records.values()].some((r) => r.category === name)) errors.push(`records/${name}: an included category needs records`);
   }
 
+  const dispositions = [...records.values()].flatMap(({ record }) =>
+    record.kind === "mission-pack" ? ((record.data as { dispositions?: Disposition[] }).dispositions ?? []).map(({ id, name }) => ({ id, name })) : [],
+  );
+  // A localised name joins a disposition by its ID alone, so no two packs may define one.
+  for (const [i, { id }] of dispositions.entries()) {
+    if (dispositions.findIndex((other) => other.id === id) < i) errors.push(`records/mission-packs: disposition ${id} is defined by more than one mission pack`);
+  }
   const localisation = new Map<string, { language: string; value: LocalisationFile; entries: number }>();
   const localisationDir = top.some((e) => e.name === "localisation" && e.isDirectory()) ? sortedDir(join(dir, "localisation")) : [];
   for (const file of localisationDir) {
@@ -178,7 +185,7 @@ export function buildCatalogueRelease(
       continue;
     }
     if (result.file.language !== language) errors.push(`${where}: names language ${result.file.language}`);
-    errors.push(...releaseErrors(result.file, identity).map((e) => `${where}: ${e}`));
+    errors.push(...releaseErrors(result.file, identity, dispositions).map((e) => `${where}: ${e}`));
     localisation.set(where, { language, value: result.file, entries: result.file.entries.length });
   }
 

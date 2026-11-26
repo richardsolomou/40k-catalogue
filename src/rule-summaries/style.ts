@@ -32,6 +32,8 @@ const REPLACED: [string, RegExp][] = [
   ["is-dealt", /\bis dealt\b/i],
   ["is-added-to", /\bis added to\b/i],
   ["falls-by", /\bfalls by\b/i],
+  // A multiple of a value; "twice" as a count of times something happens stays.
+  ["multiple-word", /\b(?:double|triple|quadruple|thrice)\b|\btwice (?:the|its|their|that|as)\b/i],
   ["next-command-phase-starts", /\buntil your (?:opponent's )?next Command phase (?:starts|begins)\b/i],
   ["phase-opens", /\bphase opens\b|\bphase is over\b|\bturn finishes\b/i],
   ["inch-sign", /″/],

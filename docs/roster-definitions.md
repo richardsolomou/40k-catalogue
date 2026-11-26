@@ -12,7 +12,7 @@ Every record's `data` carries `"formatVersion": 2`. Records without it are forma
 
 | Kind | `data` | Meaning |
 | --- | --- | --- |
-| `faction` | optional `unitLimits`, `parent`, `excludedUnits`, `allies` | The faction exists in this rules version. Each of `unitLimits` bounds how many units holding all its `keywords` a roster of the faction holds. A roster of the faction may also take the detachments and units of its `parent`, which has no parent of its own, but none of its `excludedUnits`. `allies` are described under [Allies](#allies). |
+| `faction` | optional `unitLimits`, `parent`, `excludedUnits`, `excludedDetachments`, `withoutDetachments`, `allies` | The faction exists in this rules version. Each of `unitLimits` bounds how many units holding all its `keywords` a roster of the faction holds. A roster of the faction may also take the detachments and units of its `parent`, which has no parent of its own, but none of its `excludedUnits` or `excludedDetachments`. A faction with `withoutDetachments` takes no detachment at all, as when an army's own rules replace detachment selection: its roster's warlord must be one of `withoutDetachments.warlords`, which may hold the role though they otherwise could not, and `withoutDetachments.dispositions` are the [mission-pack](mission-packs.md) force dispositions its rosters have, where the faction names any. `allies` are described under [Allies](#allies). |
 | `battle-size` | `points`, optional `detachmentPoints`, `enhancements`, `duplicates` | A battle size a roster can be built for, its points limit, the most detachment points its detachments cost together, the most enhancements it takes besides upgrades, and how many copies of a unit it holds when the unit has no `perRoster` or limit for that battle size. |
 | `detachment` | `faction`, optional `stratagems` and `enhancements`, with optional `stratagemsUnlisted` and `enhancementsUnlisted`, optional `dispositions`, `excludedUnits`, `warlords`, `requiredWarlords`, `group`, `allegianceLimits` | The faction the detachment belongs to and, where listed, every Stratagem and Enhancement this rules version gives it: `stratagems` and `enhancements` name [rule summary](rule-summaries.md) records the release publishes (kind `ability`), and the `Unlisted` fields name, as printed, the cards the version has no record for. A record with the lists is complete for that version, so a consumer takes no card from another version. `dispositions` are the [mission-pack](mission-packs.md) force dispositions it has. A roster with the detachment holds none of its `excludedUnits`, may name a model in `warlords` as its warlord though it otherwise could not, and must name one of `requiredWarlords`. Two of a roster's detachments never share a `group`. Each of `allegianceLimits` bounds, by `min` and `max`, how many of the roster's units take one of its `allegiances`. |
 | `enhancement` | `detachment`, optional `upgrade`, optional `keywords.all` and `keywords.none` | Offered by that detachment to units holding every `all` keyword and no `none` keyword. An `upgrade` may be taken by several units; any other enhancement once per roster. |
@@ -97,7 +97,7 @@ A unit's `allegiances` entries offer it a choice of one of `choices`, which are 
 - A unit sets at most one limit per battle size and condition, and no limit after one without a condition for the same battle size, which would never apply. Each list of `bySize` bounds has at most one row per size and uses the unit's declared sizes.
 - A faction's unit limits name only its own or its parent's detachments, each once, and no `min` above its `max`. Its ally entries' `detachments` are its own or its parent's.
 - A detachment's allegiance limits have no `min` above their `max`.
-- A faction's `parent` is another faction with no parent of its own.
+- A faction's `parent` is another faction with no parent of its own. Its `excludedDetachments` are its parent's detachments, and a faction `withoutDetachments` has, like its parent, no detachments of its own.
 - A unit's allegiance `requires` names only choices of its own entry and wargear the unit's models, the unit itself or its options carry, and no `when` in its `limits` names an allegiance.
 - A wargear bundle includes at least two items and does not include itself, directly or through another bundle.
 - A unit's `defaults` and `defaultModels`, taken as one roster unit, are a fielding `checkRoster` accepts, apart from limits on how many units a roster holds.
@@ -114,14 +114,14 @@ Each earlier 11th-edition input of a current release line (`data/<version>/rule-
 
 A saved roster names a `faction`, one to three detachments as `detachment`, `detachments`, or both, which it then holds together, an optional `battleSize`, and its `units`. Each unit gives its `unit` ID, its model counts by model ID, its taken wargear as `{ <option ID>: { <wargear ID>: count } }`, an optional `enhancement` and `allegiance`, and, for the warlord's unit, the warlord's model ID as `warlord`. An omitted model count uses its base `min`. The checker then applies the bounds for the sum of those counts. Wargear a unit keeps by default is not listed.
 
-`checkRoster(definitions, roster, { points })` checks the constraints this format supports. The optional [points snapshot](points.md) prices the roster for the points checks; an item it does not price costs nothing, and `pointsGaps` below lists those. It reports problems in roster order, each with a `code`, the unit's position, and a message:
+`checkRoster(definitions, roster, { points })` checks the constraints this format supports. The optional [points snapshot](points.md) prices the roster for the points checks: a unit costs its size, its enhancement, and each priced item it carries, which counts its models' default wargear and the contents of a bundle it takes, less what its selections replace. An item the snapshot does not price costs nothing, and `pointsGaps` below lists those. It reports problems in roster order, each with a `code`, the unit's position, and a message:
 
 | Code | Problem |
 | --- | --- |
 | `not-current` | An ID that is aliased, retired or missing in this release. |
 | `missing-definition` | A current ID with no definition in the supplied records. |
 | `detachment-faction`, `unit-faction` | A detachment or unit from a faction other than the roster's or its parent, and not offered by an ally entry. |
-| `detachment-count`, `detachment-repeated` | No detachment or more than three, or one listed twice. |
+| `detachment-count`, `detachment-repeated`, `detachment-excluded` | No detachment or more than three, or any at all for a faction `withoutDetachments`; one listed twice; or a parent's detachment the faction excludes. |
 | `detachment-group` | Two detachments sharing a `group`. |
 | `unit-excluded` | A unit the faction or one of the roster's detachments excludes. |
 | `unit-model`, `model-count`, `unit-size` | A model, or a warlord, from another unit, a model count outside its bounds, or a total outside `sizes`. |
@@ -140,7 +140,7 @@ A saved roster names a `faction`, one to three detachments as `detachment`, `det
 | `warlord-repeated` | More than one unit names a warlord. |
 | `allegiance-missing`, `allegiance-choice`, `allegiance-requires` | A unit without the allegiance a `required` entry that applies needs, with one no entry that applies offers, or without the wargear its allegiance requires. |
 | `allegiance-limit` | Fewer or more units with a detachment's limited allegiances than its `allegianceLimits` allow. |
-| `warlord-ineligible`, `warlord-required` | A warlord that may not hold the role, or, where a detachment has `requiredWarlords`, a warlord outside them or none at all. |
+| `warlord-ineligible`, `warlord-required` | A warlord that may not hold the role, or, where a detachment has `requiredWarlords` or the faction `withoutDetachments`, a warlord outside them or none at all. |
 | `roster-points`, `detachment-points` | With a points snapshot, units, wargear and enhancements over the battle size's `points`, or detachments over its `detachmentPoints`. |
 
 Before reading a roster under another release, pass `rosterRefs(roster)` to [`checkUpgrade`](catalogue-identity.md#consumer-mappings-and-upgrades). A saved roster keeps its rules version so it can be checked against those definitions.

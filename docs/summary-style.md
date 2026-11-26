@@ -91,6 +91,7 @@ Each row is one idea and the one phrasing a summary uses for it. The last column
 | --- | --- | --- |
 | A change to a characteristic | "gets +1 OC", "gets +2 S", "gets -1 A", using the profile's abbreviation | "Objective Control falls by 4", "2 more Attacks" |
 | A change to a roll | "+1 to Hit", "-1 to Wound", "+1 to its Advance and Charge rolls" | "a −1 Hit roll modifier", "1 is added to" |
+| A multiple of a value | "costs 2 times its listed CP", "its A becomes 2 times its value" | "double its", "triple the", "twice its", "four times its", "doubled" |
 | Attacks made against a unit | "attacks against this unit get -1 to Wound" | "when this unit is the target" |
 | Re-rolling | "can re-roll 1s to Hit", "can re-roll its Hit rolls" | "re-roll any Hit roll of 1", "Hit rolls of 1 can be re-rolled" |
 | Giving an ability or weapon ability | "gets **[LETHAL HITS]**", "gets [Deep Strike]" | "has", "gains", "is granted" |

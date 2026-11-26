@@ -143,3 +143,27 @@ test("a Stratagem's Target part can name a count in digits", () => {
 test("a name that opens with a number word is not a count", () => {
   assert.deepEqual(styleIssues(stratagem({ when: "Your Command phase.", target: "**ONE EYE** of yours.", effect: "The model gets +1 OC." })), []);
 });
+
+test("a multiple written as a word is reported", () => {
+  assert.deepEqual(styleIssues(ability("Whenever you use a Stratagem on this model, it costs triple its listed CP.")), ["phrasing/multiple-word"]);
+});
+
+test("a multiple written with digits is in style", () => {
+  assert.deepEqual(styleIssues(ability("Whenever you use a Stratagem on this model, it costs 3 times its listed CP.")), []);
+});
+
+test("twice as a count of times stays in style", () => {
+  assert.deepEqual(styleIssues(ability("This unit can fight twice in this phase.")), []);
+});
+
+test("a double or triple as a dice result stays in style", () => {
+  assert.deepEqual(styleIssues(ability("If you roll a double 6 or any triple, this unit gets +1 OC.")), []);
+});
+
+test("a multiple in number words is reported", () => {
+  assert.deepEqual(styleIssues(ability("Whenever you use a Stratagem on this model, it costs four times its listed CP.")), ["phrasing/multiple-word"]);
+});
+
+test("a value doubled is reported", () => {
+  assert.deepEqual(styleIssues(ability("While this model leads a unit, its Attacks are doubled.")), ["phrasing/multiple-word"]);
+});

@@ -192,6 +192,26 @@ test("two phases named without whose they are are reported", () => {
   assert.deepEqual(styleIssues(ability("In the Movement or Charge phase, this unit gets +1 M.")), ["phrasing/whose-phase"]);
 });
 
+test("a phase with whose it is after it is reported", () => {
+  assert.deepEqual(styleIssues(ability("As the Fight phase of your opponent's turn ends, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("each phase of a kind is reported", () => {
+  assert.deepEqual(styleIssues(ability("As each Fight phase begins, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a list of phases named without whose they are is reported", () => {
+  assert.deepEqual(styleIssues(ability("In the Shooting, Charge or Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase named across a line break is reported", () => {
+  assert.deepEqual(styleIssues(ability("In the\nFight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase as a kind of phase in the past tense stays in style", () => {
+  assert.deepEqual(styleIssues(ability("After this unit fights, it can fight again as if it was the Fight phase.")), []);
+});
+
 test("the end of a phase with whose it is stays in style", () => {
   assert.deepEqual(styleIssues(ability("As your opponent's Fight phase ends, this unit gets +1 A.")), []);
 });

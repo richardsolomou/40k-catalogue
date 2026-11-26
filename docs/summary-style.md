@@ -74,7 +74,7 @@ Each row is one idea and the one phrasing a summary uses for it. The last column
 | A trigger that can happen many times | "whenever" | "each time", "every time" |
 | A trigger that follows an event | "after" | "just after", "right after", "immediately after" |
 | A condition that holds for a time | "while" | "as long as", "when" for a condition |
-| A phase of either player's turn | "in either player's Fight phase", with the link covering whose phase it is | "in the Fight phase" |
+| A phase of either player's turn | "in either player's Fight phase", with the link covering whose phase it is | "in the Fight phase", "each Fight phase", "the Fight phase of your opponent's turn" |
 
 ### Players, units and choices
 
@@ -109,7 +109,7 @@ Distances are digits and a straight double quote, such as `6"`. Dice are "a D6",
 
 ## Checking
 
-`styleIssues(record)` in [src/rule-summaries/style.ts](../src/rule-summaries/style.ts) names the rules of this style a summary breaks, and `styleReport(records)` lists the records breaking each one. It finds what a pattern can: a Stratagem without its parts, whose When part does not open with whose phase or turn it is, or whose Target part opens with a count word, an Enhancement that does not open with its bearer, a unit's Damaged rule that does not open with its range of wounds, a duration before its effect, a phase named without whose it is (reading link text too), and those phrasings the phrasebook replaces that `REPLACED` in that file lists, outside bold and linked names. A summary outside the [summary text](rule-summaries.md#summary-text) grammar is reported as `invalid-summary`. A review still reads every summary for the rest of the style.
+`styleIssues(record)` in [src/rule-summaries/style.ts](../src/rule-summaries/style.ts) names the rules of this style a summary breaks, and `styleReport(records)` lists the records breaking each one. It finds what a pattern can: a Stratagem without its parts, whose When part does not open with whose phase or turn it is, or whose Target part opens with a count word, an Enhancement that does not open with its bearer, a unit's Damaged rule that does not open with its range of wounds, a duration before its effect, a phase without whose it is in front of it (reading link text too), and those phrasings the phrasebook replaces that `REPLACED` in that file lists, outside bold and linked names. A summary outside the [summary text](rule-summaries.md#summary-text) grammar is reported as `invalid-summary`. A review still reads every summary for the rest of the style.
 
 ```sh
 pnpm style data/mfm-1-6/rule-summaries/records

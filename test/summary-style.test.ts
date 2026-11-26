@@ -180,6 +180,22 @@ test("a phase with whose it is stays in style", () => {
   assert.deepEqual(styleIssues(ability("In [either player's Fight phase](vsdata:core-rule/synthetic.fight-phase), this unit gets +1 A.")), []);
 });
 
-test("the end of a named phase stays in style", () => {
-  assert.deepEqual(styleIssues(ability("This unit gets +1 A until the end of the Fight phase.")), []);
+test("the end of a phase named without whose it is is reported", () => {
+  assert.deepEqual(styleIssues(ability("As the Fight phase ends, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("any phase of a kind is reported", () => {
+  assert.deepEqual(styleIssues(ability("In either Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("two phases named without whose they are are reported", () => {
+  assert.deepEqual(styleIssues(ability("In the Movement or Charge phase, this unit gets +1 M.")), ["phrasing/whose-phase"]);
+});
+
+test("the end of a phase with whose it is stays in style", () => {
+  assert.deepEqual(styleIssues(ability("As your opponent's Fight phase ends, this unit gets +1 A.")), []);
+});
+
+test("a phase as a kind of phase stays in style", () => {
+  assert.deepEqual(styleIssues(ability("After this unit fights, it can fight again as if it were the Fight phase.")), []);
 });

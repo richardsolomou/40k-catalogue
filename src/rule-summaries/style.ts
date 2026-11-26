@@ -47,8 +47,10 @@ const DURATION_FIRST =
 const WHEN = /^(?:(?:Your|Opponent's|Either player's) (?:(?:Command|Movement|Shooting|Charge|Fight) phase|turn)|Any phase)\b/;
 // A count word opening a Target part repeats the official text's own opening; "A" and digits do not.
 const TARGET_COUNT = /^(?:Up to )?(?:one|two|three|four|five|six|seven|eight|nine|ten)\b/i;
-// A phase is named with whose it is; a phase link's text is the timing, so this reads the text with its links.
-const WHOSE_PHASE = /\b(?:in|during) the (?:Command|Movement|Shooting|Charge|Fight) phase\b/i;
+// A phase is named with whose it is, except as a kind of phase ("as if it were the Fight phase"); a phase link's text is
+// the timing, so this reads the text with its links.
+const PHASE = "(?:Command|Movement|Shooting|Charge|Fight)";
+const WHOSE_PHASE = new RegExp(`(?<!\\bas (?:if|though) (?:it were |in )?)\\b(?:the|any|either) ${PHASE} (?:or ${PHASE} )?phases?\\b`, "i");
 const DAMAGED = /^With \d+-\d+ wounds left, /;
 const DAMAGED_ID = /^damaged\b/;
 

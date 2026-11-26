@@ -438,6 +438,30 @@ test("a grant, an invulnerable save and an effect can be limited to some models 
   assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = limited)), []);
 });
 
+test("a rule can give keywords, to the unit or the bearer", () => {
+  const given = structuredClone(EFFECTS);
+  (given.fields.grants as Record<string, unknown>).keywords = [{ keyword: "MOBILE", to: "unit" }, { keyword: "DAEMON", to: "bearer", conditional: true }];
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = given)), []);
+});
+
+test("a keyword grant names a keyword in capitals", () => {
+  const given = structuredClone(EFFECTS);
+  (given.fields.grants as Record<string, unknown>).keywords = [{ keyword: "Mobile", to: "unit" }];
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = given)).includes(`ability:${OATH.id} facts/grants/keywords/0/keyword must match pattern "^[^a-z]*[A-Z0-9][^a-z]*$"`));
+});
+
+test("a keyword grant goes to the bearer, the leader or the unit, never to some models", () => {
+  const given = structuredClone(EFFECTS);
+  (given.fields.grants as Record<string, unknown>).keywords = [{ keyword: "MOBILE", to: "models" }];
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = given)).includes(`ability:${OATH.id} facts/grants/keywords/0/to must be equal to one of the allowed values`));
+});
+
+test("a keyword grant names only the fields the format lists", () => {
+  const given = structuredClone(EFFECTS);
+  (given.fields.grants as Record<string, unknown>).keywords = [{ keyword: "MOBILE", to: "unit", named: true }];
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = given)).includes(`ability:${OATH.id} facts/grants/keywords/0 must NOT have additional properties`));
+});
+
 test("an effect can change Wounds, regain wounds, cap mortal wounds and re-roll saves", () => {
   const more = structuredClone(EFFECTS);
   Object.assign(more.fields.combat.readings[0]!.choices![0]!.effects[0] as Record<string, unknown>, {

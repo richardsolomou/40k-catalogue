@@ -77,9 +77,9 @@ Keywords are written in upper case, as the rules print them.
 
 The effect blocks say what an ability, Stratagem, Enhancement, army or detachment rule, or core or weapon ability does to the game. A record carries only the blocks its rule gives; a rule with none of them does nothing these blocks can state. A record without effect blocks has not been read, or its rule states nothing they type: treat what its summary describes as not calculated. A block other than `references` can be `{ "unresolved": "<why>" }` where the rule's reading is known to be wrong or incomplete: treat what that block would cover as not calculated.
 
-Keyword values are written in capitals. A **selector** is a keyword, keywords printed together (`ADEPTUS ASTARTES INFANTRY`), or a datasheet's name, and a unit matches it when its keywords include every keyword of it (a keyword also matches its plural). A few selectors name a status a rule treats like a keyword, such as `BATTLE-SHOCKED` or `AFFLICTED`.
+Keyword values are written in capitals. A **selector** is a keyword, keywords printed together (`ADEPTUS ASTARTES INFANTRY`), or a datasheet's name, and a unit matches it when its keywords include every keyword of it (a keyword also matches its plural). A few selectors name a status a rule treats like a keyword, such as `BATTLE-SHOCKED` or `AFFLICTED`. Where a rule names models of its own unit by their model name, which no keyword holds, the selector is that model's name in capitals (`SISTER REPENTIA`): only models of that name match it, and a unit has it while it contains one. Such a selector appears in an effect's `modelKeywords`, never as a unit target. A rule's `own` contexts read a model its datasheet always includes as present, as the unit starts the battle; a consumer that tracks casualties decides when that model is gone. A model the datasheet may leave out is a `stated` condition the player confirms.
 
-**`grants`**: the abilities the rule gives. `abilities` lists each grant; an empty list means the rule's text reads as a grant but names no ability the block can type.
+**`grants`**: the abilities and keywords the rule gives. `abilities` lists each ability grant, and `keywords` each keyword grant (below); an empty `abilities` list means the rule's text reads as a grant but names nothing the block can type.
 
 | Field | Meaning |
 | --- | --- |
@@ -93,7 +93,9 @@ Keyword values are written in capitals. A **selector** is a keyword, keywords pr
 | `conditional` | `true` when the rule attaches a further condition only the summary gives, such as a distance; apply the grant only once it holds. |
 | `against` | The attacks a granted Feel No Pain is limited to: `psychic-attacks`, `mortal-wounds` or both. |
 
-`grants.normalized` is the same statement read from the rule's text with its deployment abilities written out in full, where that reads differently; `null` when it states no grant.
+`keywords` lists the keywords the rule gives, each as `keyword` (in capitals) and `to`: the `bearer`, the `leader` attached to this unit, or the `unit`. It takes the same `whileAttached`, `counterpart`, `recipientKeywords` and `conditional` as an ability grant. A rule that gives a unit a keyword makes it match every selector that keyword is part of, as MOBILE or DAEMON.
+
+`grants.normalized` is the same statement read from the rule's text with its deployment abilities written out in full, where that reads differently; `null` when it states no grant. It holds `abilities` only, never `keywords`.
 
 **`weaponAbilities`**: weapon abilities the rule adds to weapons. Each gives `ability` (a weapon keyword as printed, such as `LETHAL HITS` or `SUSTAINED HITS 1`), the `attacks` it covers (`ranged`, `melee` or both) and `to`: the `bearer`'s own weapons, the bearer's `own-unit`, the unit it is leading (`led-unit`), or units across the `army`, which must match one of `keywords` and none of `excludedKeywords`.
 

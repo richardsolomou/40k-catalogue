@@ -32,8 +32,9 @@ const REPLACED: [string, RegExp][] = [
   ["is-dealt", /\bis dealt\b/i],
   ["is-added-to", /\bis added to\b/i],
   ["falls-by", /\bfalls by\b/i],
-  // A multiple of a value; "twice" as a count of times something happens stays.
-  ["multiple-word", /\b(?:double|triple|quadruple|thrice)\b|\btwice (?:the|its|their|that|as)\b/i],
+  // A multiple of a value: a multiplier word before what it multiplies, or a value doubled or tripled. A dice result
+  // ("a double 6") and "twice" as a count of times stay.
+  ["multiple-word", /\b(?:double|triple|quadruple|twice|(?:two|three|four|five|six) times) (?:the|its|their|that|both|as)\b|\b(?:doubled|tripled|quadrupled|thrice)\b/i],
   ["next-command-phase-starts", /\buntil your (?:opponent's )?next Command phase (?:starts|begins)\b/i],
   ["phase-opens", /\bphase opens\b|\bphase is over\b|\bturn finishes\b/i],
   ["inch-sign", /″/],

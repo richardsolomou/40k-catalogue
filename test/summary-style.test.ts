@@ -184,7 +184,7 @@ test("the end of a phase named without whose it is is reported", () => {
   assert.deepEqual(styleIssues(ability("As the Fight phase ends, this unit gets +1 A.")), ["phrasing/whose-phase"]);
 });
 
-test("any phase of a kind is reported", () => {
+test("either phase of a kind is reported", () => {
   assert.deepEqual(styleIssues(ability("In either Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
 });
 
@@ -218,4 +218,36 @@ test("the end of a phase with whose it is stays in style", () => {
 
 test("a phase as a kind of phase stays in style", () => {
   assert.deepEqual(styleIssues(ability("After this unit fights, it can fight again as if it were the Fight phase.")), []);
+});
+
+test("any phase of a kind is reported", () => {
+  assert.deepEqual(styleIssues(ability("In any Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("every phase of a kind is reported, whatever its case", () => {
+  assert.deepEqual(styleIssues(ability("Every Command Phase, this unit gets +1 OC.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase of a kind named with a is reported", () => {
+  assert.deepEqual(styleIssues(ability("As a Fight phase begins, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("the opposing phase is reported", () => {
+  assert.deepEqual(styleIssues(ability("In the opposing Shooting phase, this unit gets +1 T.")), ["phrasing/whose-phase"]);
+});
+
+test("phases joined with and are reported", () => {
+  assert.deepEqual(styleIssues(ability("In the Movement and Charge phases, this unit gets +1 M.")), ["phrasing/whose-phase"]);
+});
+
+test("a list of phases with a serial comma is reported", () => {
+  assert.deepEqual(styleIssues(ability("In the Shooting, Charge, or Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase as a kind of phase with though stays in style", () => {
+  assert.deepEqual(styleIssues(ability("After this unit fights, it can fight again as though in the Fight phase.")), []);
+});
+
+test("a phase as a kind of phase across a line break stays in style", () => {
+  assert.deepEqual(styleIssues(ability("After this unit fights, it can fight again as\nif it were in the Fight phase.")), []);
 });

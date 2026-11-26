@@ -52,7 +52,8 @@ const TARGET_COUNT = /^(?:Up to )?(?:one|two|three|four|five|six|seven|eight|nin
 // this reads the text with its links.
 const PHASE = "(?:Command|Movement|Shooting|Charge|Fight)";
 const WHOSE_PHASE = new RegExp(
-  `(?<!\\bas (?:if|though)\\s+(?:it\\s+(?:were|was)\\s+|in\\s+)?)\\b(?:the|any|either|each|every)\\s+${PHASE}(?:(?:,\\s*|\\s+(?:or|and)\\s+)${PHASE})*\\s+phases?\\b`,
+  `(?<!\\bas\\s+(?:if|though)\\s+(?:it\\s+(?:were|was)\\s+)?(?:in\\s+)?)\\b(?:the|an?|any|either|each|every)\\s+(?:(?:opposing|enemy)\\s+)?` +
+    `${PHASE}(?:(?:,\\s*(?:(?:or|and)\\s+)?|\\s+(?:or|and)\\s+)${PHASE})*\\s+phases?\\b`,
   "i",
 );
 const DAMAGED = /^With \d+-\d+ wounds left, /;

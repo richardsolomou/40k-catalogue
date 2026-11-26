@@ -30,7 +30,7 @@ The build fails when:
 - a record sits under a retained or undeclared category, or under a category that does not own its kind
 - a record's entry is missing, an alias, retired, or absent, its rules version differs from the identity's, or two records name the same entry
 - an included category has no records
-- a localisation file is not named `<language>.json` for the language it gives, fails [validation](localisation.md#validation), or fails [`releaseErrors`](localisation.md#checking-a-file-against-a-release) against the identity
+- a localisation file is not named `<language>.json` for the language it gives, fails [validation](localisation.md#validation), or fails [`releaseErrors`](localisation.md#checking-a-file-against-a-release) against the identity and the release's mission packs
 
 ## Layout
 

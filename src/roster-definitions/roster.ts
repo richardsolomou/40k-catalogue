@@ -209,18 +209,22 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
     for (const id of Object.keys(picked.models ?? {})) {
       if (current("model", id, i) && !models.some((m) => m.id === id)) add("unit-model", `model:${id} is not part of ${unit.name}`);
     }
+    const counts = new Map(models.map((m) => [m.id, picked.models && Object.hasOwn(picked.models, m.id) ? picked.models[m.id]! : m.data.min]));
+    // A fielded model's keywords: its unit's and its own.
+    const fielded = models.filter((m) => (counts.get(m.id) ?? 0) > 0).map((m) => ({ id: m.id, keywords: [...keywords, ...(m.data.keywords ?? [])] }));
     if (picked.warlord !== undefined) {
       const warlord = picked.warlord;
       const inUnit = models.some((m) => m.id === warlord);
       if (current("model", warlord, i) && !inUnit) add("unit-model", `model:${warlord} is not part of ${unit.name}`);
       if (warlords > 1) add("warlord-repeated", "a roster has one warlord");
-      const character = [...keywords, ...(models.find((m) => m.id === warlord)?.data.keywords ?? [])].some((k) => k.toUpperCase() === "CHARACTER");
-      if (inUnit && !granted.has(warlord) && (!character || offered.length > 0 || !own.has(unit.data.faction))) add("warlord-ineligible", `${unit.name} cannot hold the warlord`);
+      const held = fielded.find((m) => m.id === warlord);
+      const character = held?.keywords.some((k) => k.toUpperCase() === "CHARACTER") ?? false;
+      if (inUnit && !held) add("warlord-ineligible", `model:${warlord} is not fielded in ${unit.name}`);
+      else if (inUnit && !granted.has(warlord) && (!character || offered.length > 0 || !own.has(unit.data.faction))) add("warlord-ineligible", `${unit.name} cannot hold the warlord`);
       for (const required of requiredWarlords) {
         if (inUnit && !required.models.includes(warlord)) add("warlord-required", `${required.name} needs one of ${required.models.map((m) => `model:${m}`).join(", ")} as warlord`);
       }
     }
-    const counts = new Map(models.map((m) => [m.id, picked.models && Object.hasOwn(picked.models, m.id) ? picked.models[m.id]! : m.data.min]));
     const total = [...counts.values()].reduce((sum, n) => sum + n, 0);
     for (const model of models) {
       const count = counts.get(model.id)!;
@@ -311,9 +315,8 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       if (entry >= 0 && !allies[entry]!.enhancements) add("ally-enhancement", `${unit.name} cannot take enhancements`);
       const { all = [], none = [] } = enhancement.data.keywords ?? {};
       // A model of the unit bears it: one fielded model whose keywords, the unit's and its own, it allows.
-      const bearers = models.filter((m) => (counts.get(m.id) ?? 0) > 0).map((m) => [...keywords, ...(m.data.keywords ?? [])]);
       const bears = (held: string[]) => all.every((k) => held.includes(k)) && !none.some((k) => held.includes(k));
-      if (unit.data.enhancements === false || !(bearers.length ? bearers : [keywords]).some(bears)) {
+      if (unit.data.enhancements === false || !fielded.some((m) => bears(m.keywords))) {
         add("enhancement-keywords", `${unit.name} cannot take ${enhancement.name}`);
       }
       if (enhancements.has(enhancement.id) && !enhancement.data.upgrade) add("enhancement-repeated", `${enhancement.name} is already taken`);

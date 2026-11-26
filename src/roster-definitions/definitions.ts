@@ -380,6 +380,8 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
   for (const unit of all("unit")) {
     const at = key("unit", unit.id);
     const models = modelsOf(unit.id);
+    for (const model of models)
+      for (const keyword of model.data.keywords ?? []) if (unit.data.keywords.includes(keyword)) errors.push(`${key("model", model.id)} repeats its unit's keyword ${keyword}`);
     if (models.length === 0) errors.push(`${at} has no models`);
     for (const size of unit.data.sizes) {
       const bounds = models.map(({ data }) => modelBounds(data, size));

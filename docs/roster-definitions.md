@@ -72,7 +72,7 @@ A faction's `allies` entries let its roster hold units beyond its own and its pa
 
 A unit belongs to the first entry that offers it and whose `detachments`, if any, include one of the roster's. That entry's `points`, `limits` and `enhancements` then apply to it, and count only the units that belong to it. An entry may offer the faction's own or its parent's units, as when some of a faction's units are only allowed with one detachment and under a points cap; those units then follow the entry. A unit that no entry offers is legal when it belongs to the roster's faction or its parent and neither the faction nor one of the roster's detachments excludes it.
 
-A roster's warlord is a model of a unit holding the `CHARACTER` keyword, matched regardless of letter case, that belongs to the roster's faction or its parent and to no ally entry, or a model one of its detachments lists in `warlords`. Each detachment's `requiredWarlords` narrows that choice.
+A roster's warlord is a fielded model holding the `CHARACTER` keyword, its own or its unit's, matched regardless of letter case, that belongs to the roster's faction or its parent and to no ally entry, or a model one of its detachments lists in `warlords`. Each detachment's `requiredWarlords` narrows that choice.
 
 ## Allegiances
 
@@ -88,6 +88,7 @@ A unit's `allegiances` entries offer it a choice of one of `choices`, which are 
 - Every unit has at least one model, and every size lies between its models' summed minimums and maximums at that size.
 - Every shared model group includes at least two distinct models that belong to its unit.
 - Every option group names only options of its own unit, with only choices those options offer, and no choice of an option twice. A group of format version 1 names at least two options.
+- A model's `keywords` are none of its unit's own `keywords`.
 - A model's `min` is no more than its `max`, an option's `choose.min` no more than its `choose.max`, and an option group's `min` no more than its `max`.
 - An option's carrier belongs to its unit. It replaces no more of an item than one of its carriers carries, or for an option without one, than a model or the unit itself carries, and does not offer what it replaces.
 - An option caps only wargear it offers. Each of its requirements names another option of the same unit and choices that option offers, and an option with requirements has no minimum.

@@ -460,6 +460,10 @@ const invalid12: Record<string, [(records: CatalogueRecord[], identity: Release)
     },
     `unit:${PACK} size 6 fits none of its compositions`,
   ],
+  "a model repeating its unit's keyword": [
+    (r) => Object.assign(find(r, "model", "synthetic.ember-host.flame-wardens.leader").data, { keywords: ["Infantry"] }),
+    "model:synthetic.ember-host.flame-wardens.leader repeats its unit's keyword Infantry",
+  ],
   "a faction excluding its own detachment": [
     (r) => Object.assign(find(r, "faction", "synthetic.ember-host").data, { excludedDetachments: ["synthetic.kindled-vow"] }),
     "faction:synthetic.ember-host excludes detachment:synthetic.kindled-vow, which is not its parent's",
@@ -668,9 +672,9 @@ for (const [name, [roster, expected]] of Object.entries(withoutDetachments)) {
 
 // The Flame Wardens' leader is a Character, though the unit is not.
 const LEADER = `${WARDENS}.leader`;
-const characterLeader = () => {
+const characterLeader = (optional = false) => {
   const { identity, records } = input("1.2");
-  (find(records, "model", LEADER).data as any).keywords = ["Character"];
+  Object.assign(find(records, "model", LEADER).data, { keywords: ["Character"] }, optional ? { min: 0 } : {});
   const result = validateDefinitions(identity, records);
   if (!result.ok) assert.fail(result.errors.join("\n"));
   return result.definitions;
@@ -685,6 +689,18 @@ const modelKeywords: Record<string, [Roster, string[]]> = {
 for (const [name, [roster, expected]] of Object.entries(modelKeywords)) {
   test(`a unit with a Character model and ${name} reports ${expected.join(", ") || "nothing"}`, () => {
     assert.deepEqual(codes(characterLeader(), roster), expected);
+  });
+}
+
+const withoutLeader = { [LEADER]: 0, [WARDEN]: 5 };
+const unfieldedLeader: Record<string, [Roster, string[]]> = {
+  "an enhancement only that model could bear": [incursion([{ unit: WARDENS, models: withoutLeader, enhancement: MANTLE }]), ["0 enhancement-keywords"]],
+  "that model as warlord": [incursion([{ unit: WARDENS, models: withoutLeader, warlord: LEADER }]), ["0 warlord-ineligible"]],
+};
+
+for (const [name, [roster, expected]] of Object.entries(unfieldedLeader)) {
+  test(`a unit whose Character model is not fielded with ${name} reports ${expected.join(", ")}`, () => {
+    assert.deepEqual(codes(characterLeader(true), roster), expected);
   });
 }
 

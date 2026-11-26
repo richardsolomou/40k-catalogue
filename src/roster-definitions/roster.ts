@@ -121,7 +121,8 @@ const holdsAll = (keywords: string[], wanted: string[]) => wanted.every((k) => k
 /**
  * Every reason the roster is not legal under these definitions, in roster order. With a points snapshot, it also
  * checks the roster's points and detachment points against its battle size. A unit costs its size, its enhancement and
- * each priced item it carries, defaults and bundle contents included; an item the snapshot does not price costs nothing.
+ * each priced item it carries (its models' and its own wargear and a taken bundle's contents, less what its selections
+ * replace, never below zero); a bundle costs only its contents, and an item the snapshot does not price costs nothing.
  */
 export function checkRoster(definitions: Definitions, roster: Roster, options: CheckOptions = {}): Problem[] {
   const problems: Problem[] = [];
@@ -322,7 +323,9 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
     costs[i] =
       (enhancement ? price({ kind: "enhancement", faction: enhancementFaction, detachment: enhancement.data.detachment, enhancement: enhancement.id }) : 0) +
       price({ kind: "unit", faction: unit.data.faction, unit: unit.id, models: total, copy: copies.get(unit.id)! }) +
-      [...carried(definitions, unit, counts, picked)].reduce((sum, [item, n]) => sum + Math.max(n, 0) * price({ kind: "wargear", faction: unit.data.faction, unit: unit.id, item }), 0);
+      [...carried(definitions, unit, counts, picked)]
+        .filter(([item]) => !definitions.get("wargear", item)?.data.includes)
+        .reduce((sum, [item, n]) => sum + Math.max(n, 0) * price({ kind: "wargear", faction: unit.data.faction, unit: unit.id, item }), 0);
   });
   for (const shared of unitLimits) {
     if (shared.count < (shared.min ?? 0)) rosterProblem("unit-limit", `a roster holds at least ${shared.min} ${shared.keywords.join(" ")} units, has ${shared.count}`);

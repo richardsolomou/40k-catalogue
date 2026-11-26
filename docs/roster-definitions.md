@@ -83,7 +83,7 @@ A unit's `allegiances` entries offer it a choice of one of `choices`, which are 
 `validateDefinitions(identity, records)` checks the identity release, each record's `data` against its kind, and these rules, which the schema cannot express:
 
 - Every record uses the identity release's rules version, its entry is current, and an entry has at most one record.
-- Every ID a record's data names has a record of the right kind and appears in the identity entry's `references`, so a release's `dependsOn` and `unresolvedReferences` see every join. A detachment's `dispositions` are mission-pack members, outside this check.
+- Every ID a record's data names has a record of the right kind and appears in the identity entry's `references`, so a release's `dependsOn` and `unresolvedReferences` see every join. A detachment's `dispositions` and a faction's `withoutDetachments.dispositions` are mission-pack members, outside this check.
 - Every ID in a detachment's `stratagems` and `enhancements` is a current `ability` entry that the detachment's identity entry references.
 - Every unit has at least one model, and every size lies between its models' summed minimums and maximums at that size.
 - Every shared model group includes at least two distinct models that belong to its unit.
@@ -114,7 +114,7 @@ Each earlier 11th-edition input of a current release line (`data/<version>/rule-
 
 A saved roster names a `faction`, one to three detachments as `detachment`, `detachments`, or both, which it then holds together, an optional `battleSize`, and its `units`. Each unit gives its `unit` ID, its model counts by model ID, its taken wargear as `{ <option ID>: { <wargear ID>: count } }`, an optional `enhancement` and `allegiance`, and, for the warlord's unit, the warlord's model ID as `warlord`. An omitted model count uses its base `min`. The checker then applies the bounds for the sum of those counts. Wargear a unit keeps by default is not listed.
 
-`checkRoster(definitions, roster, { points })` checks the constraints this format supports. The optional [points snapshot](points.md) prices the roster for the points checks: a unit costs its size, its enhancement, and each priced item it carries, which counts its models' default wargear and the contents of a bundle it takes, less what its selections replace. An item the snapshot does not price costs nothing, and `pointsGaps` below lists those. It reports problems in roster order, each with a `code`, the unit's position, and a message:
+`checkRoster(definitions, roster, { points })` checks the constraints this format supports. The optional [points snapshot](points.md) prices the roster for the points checks: a unit costs its size, its enhancement, and each priced item it carries, which counts its models' and its own wargear and the contents of a bundle it takes, less what its selections replace, never below zero per item. A bundle costs only its contents, never a row of its own. Wargear the snapshot does not price costs nothing; a unit size, detachment or enhancement it does not price also costs nothing, and `pointsGaps` below lists those. It reports problems in roster order, each with a `code`, the unit's position, and a message:
 
 | Code | Problem |
 | --- | --- |

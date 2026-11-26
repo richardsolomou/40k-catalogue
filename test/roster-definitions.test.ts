@@ -460,6 +460,14 @@ const invalid12: Record<string, [(records: CatalogueRecord[], identity: Release)
     },
     `unit:${PACK} size 6 fits none of its compositions`,
   ],
+  "a faction excluding its own detachment": [
+    (r) => Object.assign(find(r, "faction", "synthetic.ember-host").data, { excludedDetachments: ["synthetic.kindled-vow"] }),
+    "faction:synthetic.ember-host excludes detachment:synthetic.kindled-vow, which is not its parent's",
+  ],
+  "a faction without detachments whose parent has some": [
+    (r) => Object.assign(find(r, "faction", "synthetic.ember-host").data, { withoutDetachments: { warlords: ["synthetic.ember-host.pyre-lord.lord"] } }),
+    "faction:synthetic.ember-host takes no detachments but it or its parent has some",
+  ],
 };
 
 for (const [name, [change, error]] of Object.entries(invalid12)) {
@@ -679,7 +687,17 @@ const wargearPriced = (item: string, points: number): PointsSnapshot => {
 
 test("a roster pays for priced wargear its units carry by default", () => {
   const problems = checkRoster(v12, incursion([{ unit: COLOSSUS }]), { points: wargearPriced("synthetic.cinder-cannon", 400) });
-  assert.deepEqual(problems.map((p) => p.code), ["roster-points"]);
+  assert.deepEqual(problems.map((p) => p.message), ["a roster costs at most 1000 points, costs 1040"]);
+});
+
+test("a roster does not pay for priced wargear its selections replace", () => {
+  const roster = incursion([{ unit: COLOSSUS, options: { [`${COLOSSUS}.cannons`]: { "synthetic.twin-scorch-projectors": 1 } } }]);
+  assert.deepEqual(checkRoster(v12, roster, { points: wargearPriced("synthetic.cinder-cannon", 400) }), []);
+});
+
+test("a roster does not pay for a priced bundle beside its contents", () => {
+  const roster = incursion([{ unit: COLOSSUS, options: { [`${COLOSSUS}.cannons`]: { "synthetic.twin-scorch-projectors": 1 } } }]);
+  assert.deepEqual(checkRoster(v12, roster, { points: wargearPriced("synthetic.twin-scorch-projectors", 800) }), []);
 });
 
 test("a roster pays for priced wargear a chosen bundle holds", () => {

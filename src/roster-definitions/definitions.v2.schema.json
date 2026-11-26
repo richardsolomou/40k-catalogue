@@ -627,6 +627,10 @@
                   }
                 }
               },
+              "min": {
+                "type": "integer",
+                "minimum": 1
+              },
               "max": {
                 "type": "integer",
                 "minimum": 1
@@ -846,20 +850,18 @@
           }
         },
         "requires": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "option",
-            "choices"
-          ],
-          "properties": {
-            "option": {
-              "$ref": "#/$defs/id"
+          "oneOf": [
+            {
+              "$ref": "#/$defs/requirement"
             },
-            "choices": {
-              "$ref": "#/$defs/choices"
+            {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "$ref": "#/$defs/requirement"
+              }
             }
-          }
+          ]
         }
       }
     },
@@ -898,6 +900,22 @@
       "properties": {
         "formatVersion": {
           "$ref": "#/$defs/version"
+        }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "option",
+        "choices"
+      ],
+      "properties": {
+        "option": {
+          "$ref": "#/$defs/id"
+        },
+        "choices": {
+          "$ref": "#/$defs/choices"
         }
       }
     }

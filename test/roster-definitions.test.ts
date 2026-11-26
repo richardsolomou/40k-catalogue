@@ -392,6 +392,30 @@ const edited12 = (change: (roster: Roster) => void) => {
   change(roster);
   return roster;
 };
+test("an option with several requirements opens only once every one of them holds", () => {
+  const { identity, records } = input("1.2");
+  (find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).requires = [
+    { option: `${WARDENS}.cannon`, choices: ["synthetic.cinder-cannon"] },
+    { option: `${WARDENS}.projector`, choices: ["synthetic.scorch-projector"] },
+  ];
+  identity.entries.find((e) => e.id === `${WARDENS}.leader-weapon`)!.references!.push(
+    ...[`${WARDENS}.cannon`, `${WARDENS}.projector`].map((id) => ({ kind: "roster-option" as const, id })),
+    ...["synthetic.cinder-cannon", "synthetic.scorch-projector"].map((id) => ({ kind: "wargear" as const, id })),
+  );
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  const withoutProjector = edited12((r) => delete r.units[0]!.options![`${WARDENS}.projector`]);
+  assert.deepEqual([codes(validated.definitions, legal12), codes(validated.definitions, withoutProjector)], [[], ["0 option-unavailable"]]);
+});
+
+test("an option group with a minimum refuses a unit that takes fewer of its selections", () => {
+  const { identity, records } = input("1.2");
+  Object.assign((find(records, "unit", WARDENS).data as any).optionGroups[0], { min: 1 });
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(codes(validated.definitions, legal12), ["1 option-group-count"]);
+});
+
 const ashPact = (units: Roster["units"]): Roster => ({ faction: "synthetic.ember-host", detachment: ASH_PACT, battleSize: "synthetic.incursion", units });
 
 test("version 1 wargear lists read as counts of one", () => {

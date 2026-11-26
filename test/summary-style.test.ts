@@ -85,7 +85,7 @@ test("a Stratagem's When part may use a curly apostrophe", () => {
 });
 
 test("a Stratagem's When part names a phase, not just any sentence with the word", () => {
-  assert.deepEqual(styleIssues(stratagem({ when: "Your unit is **selected to shoot** in the Shooting phase.", target: "That unit.", effect: "The unit gets +1 to Hit." })), ["stratagem-when"]);
+  assert.deepEqual(styleIssues(stratagem({ when: "Your unit is **selected to shoot** in your Shooting phase.", target: "That unit.", effect: "The unit gets +1 to Hit." })), ["stratagem-when"]);
 });
 
 test("a Stratagem's When part says Opponent's, not your opponent's", () => {
@@ -166,4 +166,88 @@ test("a multiple in number words is reported", () => {
 
 test("a value doubled is reported", () => {
   assert.deepEqual(styleIssues(ability("While this model leads a unit, its Attacks are doubled.")), ["phrasing/multiple-word"]);
+});
+
+test("a phase named without whose it is is reported", () => {
+  assert.deepEqual(styleIssues(ability("In the Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a linked phase named without whose it is is reported", () => {
+  assert.deepEqual(styleIssues(ability("In [the Fight phase](vsdata:core-rule/synthetic.fight-phase), this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase with whose it is stays in style", () => {
+  assert.deepEqual(styleIssues(ability("In [either player's Fight phase](vsdata:core-rule/synthetic.fight-phase), this unit gets +1 A.")), []);
+});
+
+test("the end of a phase named without whose it is is reported", () => {
+  assert.deepEqual(styleIssues(ability("As the Fight phase ends, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("either phase of a kind is reported", () => {
+  assert.deepEqual(styleIssues(ability("In either Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("two phases named without whose they are are reported", () => {
+  assert.deepEqual(styleIssues(ability("In the Movement or Charge phase, this unit gets +1 M.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase with whose it is after it is reported", () => {
+  assert.deepEqual(styleIssues(ability("As the Fight phase of your opponent's turn ends, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("each phase of a kind is reported", () => {
+  assert.deepEqual(styleIssues(ability("As each Fight phase begins, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a list of phases named without whose they are is reported", () => {
+  assert.deepEqual(styleIssues(ability("In the Shooting, Charge or Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase named across a line break is reported", () => {
+  assert.deepEqual(styleIssues(ability("In the\nFight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase as a kind of phase in the past tense stays in style", () => {
+  assert.deepEqual(styleIssues(ability("After this unit fights, it can fight again as if it was the Fight phase.")), []);
+});
+
+test("the end of a phase with whose it is stays in style", () => {
+  assert.deepEqual(styleIssues(ability("As your opponent's Fight phase ends, this unit gets +1 A.")), []);
+});
+
+test("a phase as a kind of phase stays in style", () => {
+  assert.deepEqual(styleIssues(ability("After this unit fights, it can fight again as if it were the Fight phase.")), []);
+});
+
+test("any phase of a kind is reported", () => {
+  assert.deepEqual(styleIssues(ability("In any Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("every phase of a kind is reported, whatever its case", () => {
+  assert.deepEqual(styleIssues(ability("Every Command Phase, this unit gets +1 OC.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase of a kind named with a is reported", () => {
+  assert.deepEqual(styleIssues(ability("As a Fight phase begins, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("the opposing phase is reported", () => {
+  assert.deepEqual(styleIssues(ability("In the opposing Shooting phase, this unit gets +1 T.")), ["phrasing/whose-phase"]);
+});
+
+test("phases joined with and are reported", () => {
+  assert.deepEqual(styleIssues(ability("In the Movement and Charge phases, this unit gets +1 M.")), ["phrasing/whose-phase"]);
+});
+
+test("a list of phases with a serial comma is reported", () => {
+  assert.deepEqual(styleIssues(ability("In the Shooting, Charge, or Fight phase, this unit gets +1 A.")), ["phrasing/whose-phase"]);
+});
+
+test("a phase as a kind of phase with though stays in style", () => {
+  assert.deepEqual(styleIssues(ability("After this unit fights, it can fight again as though in the Fight phase.")), []);
+});
+
+test("a phase as a kind of phase across a line break stays in style", () => {
+  assert.deepEqual(styleIssues(ability("After this unit fights, it can fight again as\nif it were in the Fight phase.")), []);
 });

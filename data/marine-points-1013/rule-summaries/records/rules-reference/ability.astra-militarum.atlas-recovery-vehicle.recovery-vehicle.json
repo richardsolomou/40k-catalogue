@@ -37,11 +37,34 @@
           ]
         },
         "combat": {
+          "applies": {
+            "target": {
+              "anyOf": [
+                [
+                  "ASTRA MILITARUM VEHICLE"
+                ]
+              ]
+            },
+            "recipient": {
+              "target": {
+                "anyOf": [
+                  [
+                    "ASTRA MILITARUM VEHICLE"
+                  ]
+                ]
+              }
+            }
+          },
           "readings": [
             {
               "choices": [
                 {
-                  "conditions": [],
+                  "conditions": [
+                    {
+                      "kind": "within",
+                      "inches": 3
+                    }
+                  ],
                   "effects": [
                     {
                       "role": "defender",
@@ -58,7 +81,47 @@
                   ]
                 }
               ],
-              "default": 1,
+              "default": 0,
+              "roles": [
+                "defender"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "ASTRA MILITARUM VEHICLE"
+                      ]
+                    },
+                    {
+                      "kind": "within",
+                      "inches": 3
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "regainWounds": {
+                        "dice": 1,
+                        "sides": 3,
+                        "bonus": 0
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
               "roles": [
                 "defender"
               ]
@@ -66,7 +129,12 @@
             {
               "choices": [
                 {
-                  "conditions": [],
+                  "conditions": [
+                    {
+                      "kind": "within",
+                      "inches": 3
+                    }
+                  ],
                   "effects": [
                     {
                       "role": "defender",
@@ -82,7 +150,7 @@
                   ]
                 }
               ],
-              "default": 1,
+              "default": 0,
               "roles": [
                 "defender"
               ]
@@ -90,7 +158,47 @@
             {
               "choices": [
                 {
-                  "conditions": [],
+                  "conditions": [
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "ASTRA MILITARUM VEHICLE"
+                      ]
+                    },
+                    {
+                      "kind": "within",
+                      "inches": 3
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "regainWounds": {
+                        "dice": 1,
+                        "sides": 3,
+                        "bonus": 0
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "within",
+                      "inches": 3
+                    }
+                  ],
                   "effects": [
                     {
                       "role": "defender",
@@ -106,7 +214,42 @@
                   ]
                 }
               ],
-              "default": 1,
+              "default": 0,
+              "roles": [
+                "defender"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "ASTRA MILITARUM VEHICLE"
+                      ]
+                    },
+                    {
+                      "kind": "within",
+                      "inches": 3
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "regainWounds": {
+                        "dice": 1,
+                        "sides": 3,
+                        "bonus": 0
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
               "roles": [
                 "defender"
               ]
@@ -115,10 +258,15 @@
           "trees": [
             [
               {
+                "ask": {
+                  "unitHas": "ASTRA MILITARUM VEHICLE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
                 "reading": 0
-              }
-            ],
-            [
+              },
               {
                 "reading": 1
               }
@@ -127,37 +275,77 @@
               {
                 "reading": 2
               }
+            ],
+            [
+              {
+                "ask": {
+                  "unitHas": "ASTRA MILITARUM VEHICLE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 3
+              },
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "reading": 4
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "unitHas": "ASTRA MILITARUM VEHICLE"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 5
+              },
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "reading": 6
+              }
             ]
           ],
           "contexts": {
             "own.one.known": 0,
-            "own.one.unknown": 0,
+            "own.one.unknown": 1,
             "own.many.known": 0,
-            "own.many.unknown": 0,
+            "own.many.unknown": 1,
             "leading.one.known": 0,
-            "leading.one.unknown": 0,
+            "leading.one.unknown": 1,
             "leading.many.known": 0,
-            "leading.many.unknown": 0,
+            "leading.many.unknown": 1,
             "aura.one.known": 0,
-            "aura.one.unknown": 0,
+            "aura.one.unknown": 1,
             "aura.many.known": 0,
-            "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
+            "aura.many.unknown": 1,
+            "stratagem-shooting.one.known": 2,
+            "stratagem-shooting.one.unknown": 3,
+            "stratagem-shooting.many.known": 2,
+            "stratagem-shooting.many.unknown": 3,
+            "stratagem-fight.one.known": 4,
+            "stratagem-fight.one.unknown": 5,
+            "stratagem-fight.many.known": 4,
+            "stratagem-fight.many.unknown": 5,
             "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 0,
+            "stratagem-both.one.unknown": 1,
             "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 0,
+            "stratagem-both.many.unknown": 1,
             "army.one.known": 0,
-            "army.one.unknown": 0,
+            "army.one.unknown": 1,
             "army.many.known": 0,
-            "army.many.unknown": 0
+            "army.many.unknown": 1
           }
         }
       }

@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "astra-militarum.armoured-infantry"
     },
-    "summary": "The bearer’s unit can board a friendly **ASTRA MILITARUM TRANSPORT** when the opposing [Fight phase](vsdata:core-rule/fight-phase) ends. It must be clear of enemy **[Engagement Range](vsdata:core-rule/engagement-range)**, and every model in the unit must be 3″ or closer to the same transport.",
+    "summary": "Bearer: **INFANTRY OFFICER** model.\n\nAs your opponent's Fight phase ends, provided the bearer's unit has no enemy unit within its **Engagement Range** and each of its models is 3\" or less from an **ASTRA MILITARUM TRANSPORT** of yours, the unit can embark in that **TRANSPORT**.",
     "citations": [
       {
         "type": "app",
@@ -56,37 +56,39 @@
           ]
         },
         "detail": {
-          "trigger": {
-            "event": "phase-end",
-            "phase": "fight",
-            "owner": "opponent"
-          },
-          "conditions": [
+          "kind": "enhancement",
+          "detachment": "Armoured Infantry",
+          "effects": [
             {
-              "subject": "bearer-unit",
-              "state": "outside-enemy-engagement-range"
-            },
-            {
-              "subject": "every-model-in-bearer-unit",
-              "within": {
-                "inches": 3,
-                "of": {
-                  "allKeywords": [
-                    "ASTRA MILITARUM",
-                    "TRANSPORT"
-                  ],
-                  "side": "own-army",
-                  "sameUnitForAllModels": true
+              "when": {
+                "turn": "opponent",
+                "phase": "fight",
+                "timing": "end-of-phase"
+              },
+              "conditions": [
+                {
+                  "subject": "bearer-unit",
+                  "notWithinEngagementRangeOfEnemy": true
+                },
+                {
+                  "subject": "every-model-in-bearer-unit",
+                  "withinInches": 3,
+                  "of": {
+                    "side": "friendly",
+                    "keywordsAll": [
+                      "ASTRA MILITARUM",
+                      "TRANSPORT"
+                    ]
+                  }
                 }
-              }
+              ],
+              "embark": {
+                "subject": "bearer-unit",
+                "into": "that TRANSPORT"
+              },
+              "optional": true
             }
-          ],
-          "effect": {
-            "type": "embark",
-            "subject": "bearer-unit",
-            "into": "qualifying-transport",
-            "optional": true
-          }
+          ]
         }
       }
     }

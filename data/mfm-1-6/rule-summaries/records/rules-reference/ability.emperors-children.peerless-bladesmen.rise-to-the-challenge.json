@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "emperors-children.peerless-bladesmen"
     },
-    "summary": "Once each battle, you may let the bearer fight an extra time as the [Fight phase](vsdata:core-rule/fight-phase) ends, provided they are in enemy **[Engagement Range](vsdata:core-rule/engagement-range)**. You may choose a single [Exquisite Swordsmanship](vsdata:ability/emperors-children.peerless-bladesmen.exquisite-swordsmanship) ability for those attacks.",
+    "summary": "Bearer: **EMPEROR’S CHILDREN INFANTRY** model.\n\nOnce per battle, when the Fight phase ends, the bearer can fight 1 more time if 3 or more enemy models are within its **Engagement Range**. For those attacks, you can pick 1 [Exquisite Swordsmanship](vsdata:ability/emperors-children.peerless-bladesmen.exquisite-swordsmanship) ability.",
     "citations": [
       {
         "type": "app",
@@ -58,32 +58,21 @@
           ]
         },
         "detail": {
-          "trigger": {
-            "event": "phase-end",
-            "phase": "fight",
-            "owner": "either"
-          },
-          "condition": {
-            "subject": "bearer",
-            "state": "within-engagement-range",
-            "reference": "enemy-models"
-          },
-          "limit": {
-            "count": 1,
-            "period": "battle"
-          },
+          "kind": "enhancement",
+          "detachment": "Peerless Bladesmen",
+          "usage": "once per battle",
           "effects": [
             {
-              "type": "extra-fight",
-              "subject": "bearer",
-              "optional": true
-            },
-            {
-              "type": "choose-linked-ability",
-              "rule": "exquisite-swordsmanship",
-              "count": 1,
+              "when": {
+                "phase": "fight",
+                "timing": "end-of-phase"
+              },
+              "condition": {
+                "bearerWithinEngagementRangeOfEnemyModelsAtLeast": 3
+              },
+              "extraFights": 1,
               "optional": true,
-              "scope": "bearer-attacks-in-extra-fight"
+              "exquisiteSwordsmanshipAbilities": 1
             }
           ]
         }

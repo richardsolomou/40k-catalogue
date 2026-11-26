@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Tesseract Vault",
-    "summary": "When you pick the Tesseract Vault to shoot in your own [Shooting phase](vsdata:core-rule/shooting-phase), you may pick two distinct C’tan Powers at most. Selecting any of them locks out the Vault’s other weapons for that phase.",
+    "summary": "In your Shooting phase, right as you pick this model to shoot, first pick up to 2 different C’tan Powers weapons. For the rest of the phase, it has those weapons as well as its other weapons, and it cannot attack with any unpicked C’tan Powers weapon.",
     "citations": [
       {
         "type": "app",
@@ -37,18 +37,27 @@
           ]
         },
         "detail": {
-          "actor": "controlling player",
-          "trigger": "owning model selected to shoot in own Shooting phase",
-          "choice": {
-            "optional": true,
-            "type": "C’tan Powers",
-            "upTo": 2,
-            "distinct": true
-          },
-          "onSelection": {
-            "recipient": "owning model",
-            "mayUseOtherWeapons": false,
-            "expires": "end of phase"
+          "ability": {
+            "window": {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "when-selected-to-shoot"
+            },
+            "pick": {
+              "from": "C’tan Powers weapons",
+              "upTo": 2,
+              "distinct": true
+            },
+            "effects": [
+              {
+                "equippedWithPicked": true,
+                "inAdditionToOtherWeapons": true
+              },
+              {
+                "cannotAttackWith": "C’tan Powers weapons not picked"
+              }
+            ],
+            "duration": "end-of-phase"
           }
         }
       }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Falchion",
-    "summary": "Against **MONSTER** or **VEHICLE** targets, the Falchion’s ranged attacks get **[[DEVASTATING WOUNDS]](vsdata:weapon-ability/devastating-wounds)**.",
+    "summary": "Ranged attacks this unit makes with its Twin Falchion Volcano Cannon against a **MONSTER** or **VEHICLE** unit get **[[DEVASTATING WOUNDS]](vsdata:weapon-ability/devastating-wounds)**.",
     "citations": [
       {
         "type": "app",
@@ -100,20 +100,17 @@
           }
         ],
         "detail": {
-          "source": "this-unit",
-          "trigger": {
-            "event": "attack",
-            "actor": "this-unit",
-            "mode": "ranged",
-            "targetAnyKeywords": [
-              "MONSTER",
-              "VEHICLE"
-            ]
-          },
-          "effect": {
-            "label": "DEVASTATING WOUNDS",
-            "recipient": "those-ranged-attacks",
-            "kind": "grant-ability"
+          "ability": {
+            "appliesTo": "this unit's Twin Falchion Volcano Cannon ranged attacks",
+            "condition": {
+              "targetKeywordsAny": [
+                "MONSTER",
+                "VEHICLE"
+              ]
+            },
+            "effect": {
+              "grant": "weapon-ability:devastating-wounds"
+            }
           }
         }
       }

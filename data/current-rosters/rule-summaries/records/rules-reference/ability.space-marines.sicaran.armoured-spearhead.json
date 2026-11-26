@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Sicaran",
-    "summary": "The unit gets a single reroll for its ranged attacks. Choose a **Hit roll**, a **Wound roll** or a **Damage roll**.",
+    "summary": "For each ranged attack this unit makes, you can re-roll 1 of these:\n\n- its **Hit roll**\n- its **Wound roll**\n- its **Damage roll**",
     "citations": [
       {
         "type": "app",
@@ -95,18 +95,19 @@
           }
         },
         "detail": {
-          "actor": "owning-unit",
-          "scope": "ranged-attacks",
-          "effect": {
-            "optional": true,
-            "count": 1,
-            "pool": "shared",
-            "rollTypes": [
-              "Hit",
-              "Wound",
-              "Damage"
-            ],
-            "kind": "re-roll"
+          "ability": {
+            "datasheet": "Sicaran",
+            "appliesTo": "each-ranged-attack-of-this-unit",
+            "reroll": {
+              "count": 1,
+              "perAttack": true,
+              "oneOf": [
+                "hit",
+                "wound",
+                "damage"
+              ]
+            },
+            "optional": true
           }
         }
       }

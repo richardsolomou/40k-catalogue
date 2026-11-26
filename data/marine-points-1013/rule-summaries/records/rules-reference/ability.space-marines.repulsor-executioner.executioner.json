@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Repulsor Executioner",
-    "summary": "The Repulsor Executioner gets +1 on **[hit rolls](vsdata:core-rule/hit-rolls)** for ranged attacks against a target **below half-strength**.",
+    "summary": "Ranged attacks made by this unit get +1 to Hit against a target that is not **below half-strength**.",
     "citations": [
       {
         "type": "app",
@@ -95,17 +95,12 @@
           }
         },
         "detail": {
-          "source": "this-unit",
-          "trigger": {
-            "event": "attack",
-            "actor": "model-in-this-unit",
-            "mode": "ranged",
-            "targetState": "below-half-strength"
-          },
-          "effect": {
+          "ability": {
+            "datasheet": "Repulsor Executioner",
+            "appliesTo": "this-unit-ranged-attacks",
+            "condition": "target-not-below-half-strength",
             "roll": "hit",
-            "amount": 1,
-            "kind": "modify-roll"
+            "delta": 1
           }
         }
       }

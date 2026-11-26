@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "The Silent King",
-    "summary": "With this option active, friendly **NECRONS** units up to 6″ from the Silent King’s unit re-roll 1s to [Hit](vsdata:core-rule/hit-rolls) and to [Wound](vsdata:core-rule/wound-rolls) on their attacks. **MONSTER** units are excluded.",
+    "summary": "Aura (6\"): Your **NECRONS** units, other than **MONSTER** units, that are up to 6\" away from the Szarekh model in this unit can re-roll Hit rolls and Wound rolls of 1 for their attacks.",
     "citations": [
       {
         "type": "app",
@@ -583,40 +583,31 @@
           }
         },
         "detail": {
-          "role": "aura-option",
-          "activation": {
-            "event": "parent-option-active",
-            "parentAbility": "Triarch Abilities"
-          },
-          "area": {
-            "comparison": "within",
-            "inclusive": true,
-            "distanceInches": 6,
-            "origin": "this-unit",
-            "candidate": {
-              "entity": "unit",
+          "ability": {
+            "aura": true,
+            "rangeInches": 6,
+            "origin": "this unit's Szarekh model",
+            "recipients": {
               "side": "friendly",
-              "requireAllKeywords": [
+              "keywordsAll": [
                 "NECRONS"
               ],
-              "excludeAnyKeywords": [
+              "keywordsNone": [
                 "MONSTER"
               ]
-            }
-          },
-          "trigger": {
-            "event": "attack",
-            "actor": "model-in-eligible-unit",
-            "mode": "any"
-          },
-          "effect": {
-            "rolls": [
-              "hit",
-              "wound"
-            ],
-            "optional": false,
-            "unmodifiedFace": 1,
-            "kind": "re-roll"
+            },
+            "effects": [
+              {
+                "reroll": "hit",
+                "unmodifiedValue": 1,
+                "optional": true
+              },
+              {
+                "reroll": "wound",
+                "unmodifiedValue": 1,
+                "optional": true
+              }
+            ]
           }
         }
       }

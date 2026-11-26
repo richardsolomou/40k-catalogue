@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Grimnyr",
-    "summary": "As any phase opens, this unit may clear [Battle-shock](vsdata:core-rule/battle-shock) on a friendly unit with **LEAGUES OF VOTANN** at a distance of up to 12″. This has one use per battle.",
+    "summary": "Once per battle, as any phase begins, you can pick 1 Battle-shocked **LEAGUES OF VOTANN** unit of yours that is up to 12\" from the **GRIMNYR** model in this unit. It stops being Battle-shocked.",
     "citations": [
       {
         "type": "app",
@@ -37,39 +37,30 @@
           ]
         },
         "detail": {
-          "source": "this-unit",
-          "limit": {
-            "period": "battle",
-            "scope": "unit",
-            "count": 1
-          },
-          "trigger": {
-            "event": "phase",
-            "phase": "any",
-            "timing": "start",
-            "turn": "either-player"
-          },
-          "selection": {
-            "count": 1,
+          "ability": {
+            "usageLimit": {
+              "count": 1,
+              "period": "battle"
+            },
+            "when": {
+              "turn": "either",
+              "phase": "any",
+              "timing": "start-of-phase"
+            },
             "optional": true,
-            "comparison": "within",
-            "inclusive": true,
-            "distanceInches": 12,
-            "origin": "this-unit",
-            "candidate": {
-              "entity": "unit",
+            "select": {
               "side": "friendly",
-              "requireAllKeywords": [
+              "count": 1,
+              "keywordsAll": [
                 "LEAGUES OF VOTANN"
               ],
-              "excludeAnyKeywords": []
+              "battleShocked": true,
+              "withinInches": 12,
+              "of": "this unit's GRIMNYR model"
             },
-            "state": "battle-shocked"
-          },
-          "effect": {
-            "recipient": "selected-unit",
-            "state": "battle-shocked",
-            "kind": "clear-state"
+            "effect": {
+              "clear": "battle-shocked"
+            }
           }
         }
       }

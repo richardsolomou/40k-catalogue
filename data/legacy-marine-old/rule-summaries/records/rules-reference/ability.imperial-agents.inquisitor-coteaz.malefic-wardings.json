@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Inquisitor Coteaz",
-    "summary": "Models in the unit Coteaz leads get a 6+ invulnerable save. Use 4+ against [Psychic Attacks](vsdata:core-rule/psychic).",
+    "summary": "While this model leads a unit, a 6+ invulnerable save applies to that unit's models, improved to 4+ against Psychic Attacks and against attacks by **DAEMON** models.",
     "citations": [
       {
         "type": "app",
@@ -77,19 +77,22 @@
           }
         },
         "detail": {
-          "role": "psychic",
-          "source": "this-model",
-          "condition": "this-model-leading-a-unit",
-          "recipient": "models-in-led-unit",
-          "effect": {
-            "minimum": 6,
-            "overrides": [
-              {
-                "against": "psychic-attack",
-                "minimum": 4
-              }
-            ],
-            "kind": "grant-invulnerable-save"
+          "ability": {
+            "psychic": true,
+            "condition": "this model is leading a unit",
+            "appliesTo": "models in the led unit",
+            "effect": {
+              "invulnerableSave": 6,
+              "against": [
+                {
+                  "attacks": [
+                    "Psychic Attacks",
+                    "attacks made by DAEMON models"
+                  ],
+                  "invulnerableSave": 4
+                }
+              ]
+            }
           }
         }
       }

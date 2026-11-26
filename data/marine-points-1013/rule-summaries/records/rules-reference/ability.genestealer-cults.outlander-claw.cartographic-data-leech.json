@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "genestealer-cults.outlander-claw"
     },
-    "summary": "Model eligibility — **GENESTEALER CULTS**. Embarked bearer — when its **TRANSPORT** shoots, improve the [Ballistic Skill](vsdata:core-rule/profiles) of that **TRANSPORT**’s ranged weapons by 1 through that [Shooting phase](vsdata:core-rule/shooting-phase).",
+    "summary": "Bearer: **GENESTEALER CULTS** model.\n\nWhenever a **TRANSPORT** carrying the embarked bearer is **selected to shoot**, the ranged weapons that **TRANSPORT** has through **[Firing Deck](vsdata:core-ability/firing-deck)** improve their Ballistic Skill by 1 for the rest of the phase.",
     "citations": [
       {
         "type": "app",
@@ -88,13 +88,20 @@
           }
         },
         "detail": {
-          "trigger": "TRANSPORT carrying the bearer selected to shoot",
-          "effect": {
-            "recipient": "that TRANSPORT’s ranged weapons",
-            "characteristic": "Ballistic Skill",
-            "improvement": 1
-          },
-          "duration": "until the end of that Shooting phase"
+          "kind": "enhancement",
+          "detachment": "Outlander Claw",
+          "effects": [
+            {
+              "condition": {
+                "bearerEmbarkedWithinKeyword": "TRANSPORT"
+              },
+              "trigger": "that TRANSPORT is selected to shoot",
+              "weapons": "ranged weapons that TRANSPORT has through core-ability:firing-deck",
+              "characteristic": "BS",
+              "improveBy": 1,
+              "duration": "end-of-phase"
+            }
+          ]
         }
       }
     }

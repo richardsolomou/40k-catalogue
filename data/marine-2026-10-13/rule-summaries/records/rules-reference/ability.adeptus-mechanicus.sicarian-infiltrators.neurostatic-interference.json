@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Sicarian Infiltrators",
-    "summary": "Enemy units no farther than 6″ from this unit take −1 on [Leadership tests](vsdata:core-rule/leadership-rolls). Use −2 instead for an enemy unit also within 6″ of any friendly **Adeptus Mechanicus Battleline** unit.",
+    "summary": "Aura (6\"): enemy units in range get -1 to their **Battle-shock tests** and **Leadership tests**. While this unit is up to 6\" from 1 or more **ADEPTUS MECHANICUS BATTLELINE** units of yours, they get -2 instead.",
     "citations": [
       {
         "type": "app",
@@ -28,29 +28,33 @@
       "version": "1",
       "fields": {
         "detail": {
-          "source": "this-unit",
-          "affected": {
-            "side": "enemy",
-            "entity": "unit",
-            "rangeInches": 6
-          },
-          "trigger": "each-leadership-test",
-          "effect": {
-            "roll": "leadership-test",
-            "modifier": -1,
+          "ability": {
+            "datasheet": "Sicarian Infiltrators",
+            "aura": true,
+            "select": {
+              "side": "enemy",
+              "scope": "unit",
+              "withinInches": 6,
+              "of": "this-unit"
+            },
+            "rolls": [
+              "battle-shock-test",
+              "leadership-test"
+            ],
+            "delta": -1,
             "replacement": {
-              "modifier": -2,
+              "delta": -2,
               "condition": {
-                "side": "friendly",
-                "entity": "unit",
-                "allKeywords": [
-                  "Adeptus Mechanicus",
-                  "Battleline"
-                ],
-                "rangeInches": 6,
-                "origin": "affected-enemy-unit",
-                "minimumUnits": 1
-              }
+                "thisUnitWithinInchesOf": 6,
+                "friendlyUnits": {
+                  "keywordsAll": [
+                    "ADEPTUS MECHANICUS",
+                    "BATTLELINE"
+                  ],
+                  "atLeast": 1
+                }
+              },
+              "amount": 2
             }
           }
         }

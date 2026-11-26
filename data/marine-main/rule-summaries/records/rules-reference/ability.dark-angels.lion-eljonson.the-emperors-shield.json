@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Lion El'Jonson",
-    "summary": "When the attack's S is more than the target's T, the attacking unit gets -1 to **Wound rolls**.",
+    "summary": "Attacks against this unit get -1 to their **Wound rolls** if their S is greater than the unit's T.",
     "citations": [
       {
         "type": "app",
@@ -152,36 +152,17 @@
           }
         },
         "detail": {
-          "effect": {
-            "type": "conditional",
+          "ability": {
+            "datasheet": "Lion El'Jonson",
+            "appliesTo": "attacks-targeting-this-unit",
             "condition": {
-              "type": "attack-compare",
-              "parameters": {
-                "left": {
-                  "of": "attacker",
-                  "stat": "S"
-                },
-                "comparison": "gt",
-                "right": {
-                  "of": "defender",
-                  "stat": "T"
-                }
-              }
+              "attackStrengthGreaterThan": "this-unit-toughness"
             },
-            "effect": {
-              "type": "roll-modifier",
-              "target": "attacker",
-              "modifier": {
-                "roll": "wound",
-                "operation": "subtract",
-                "value": 1
-              }
-            }
-          },
-          "scope": {
-            "duration": "permanent"
-          },
-          "behavior": "passive"
+            "roll": "wound",
+            "delta": -1,
+            "operation": "subtract",
+            "amount": 1
+          }
         }
       }
     }

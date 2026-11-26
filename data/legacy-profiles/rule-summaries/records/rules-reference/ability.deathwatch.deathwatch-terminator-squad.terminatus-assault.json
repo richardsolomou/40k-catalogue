@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Deathwatch Terminator Squad",
-    "summary": "Allow a reroll on **charge rolls** for the Deathwatch Terminators. At the end of their **[charge move](vsdata:core-rule/charge-move)**, every foe now **[engaged](vsdata:core-rule/engagement-range)** with the Terminators must make a **[battle-shock roll](vsdata:core-rule/battle-shock)** at −1.",
+    "summary": "This ability has 2 parts:\n\n- Charge rolls for this unit can be re-rolled.\n- After it finishes a Charge move, every enemy unit in Engagement Range of it takes a Battle-shock test, with -1 to the roll for units that are neither **IMPERIUM** nor **CHAOS**.",
     "citations": [
       {
         "type": "app",
@@ -34,27 +34,31 @@
           }
         ],
         "detail": {
-          "effects": [
-            {
-              "roll": "charge",
-              "actor": "owning-unit",
-              "kind": "allow-reroll"
-            },
-            {
-              "trigger": "after-owning-unit-ends-charge-move",
-              "selection": {
-                "side": "enemy",
-                "engagedWith": "owning-unit",
-                "all": true
+          "ability": {
+            "effects": [
+              {
+                "reroll": "charge"
               },
-              "roll": "battle-shock",
-              "modifier": {
-                "operation": "subtract",
-                "magnitude": 1
-              },
-              "kind": "require-roll"
-            }
-          ]
+              {
+                "trigger": "after this unit ends a Charge move",
+                "select": {
+                  "side": "enemy",
+                  "engagedWith": "this unit"
+                },
+                "forcedRoll": "battle-shock",
+                "modifier": {
+                  "operation": "subtract",
+                  "amount": 1
+                },
+                "modifierOnlyFor": {
+                  "keywordsNone": [
+                    "IMPERIUM",
+                    "CHAOS"
+                  ]
+                }
+              }
+            ]
+          }
         }
       }
     }

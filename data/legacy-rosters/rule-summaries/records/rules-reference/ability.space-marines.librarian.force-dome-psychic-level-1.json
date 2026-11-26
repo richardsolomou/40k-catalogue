@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Librarian",
-    "summary": "During your Movement phase, the Librarian’s unit may attempt Force Dome by rolling a D6. On 1, it becomes **[Battle-shocked](vsdata:core-rule/battle-shock)**. Success gives its models a 4+ invulnerable save until your next turn begins.",
+    "summary": "This unit can take a psychic roll of 1 D6 in your Movement phase while not Battle-shocked. Taking it gives the unit a 4+ invulnerable save that lasts until you start your next turn, and on a 1 the unit also becomes Battle-shocked.",
     "citations": [
       {
         "type": "app",
@@ -41,44 +41,30 @@
           ]
         },
         "detail": {
-          "role": "psychic-spell",
-          "psychicLevel": 1,
-          "source": "this-unit",
-          "trigger": {
-            "event": "phase",
-            "phase": "movement",
-            "turn": "your-turn",
-            "timing": "during"
-          },
-          "optional": true,
-          "effect": {
-            "dice": {
-              "count": 1,
-              "sides": 6,
-              "additive": 0
+          "ability": {
+            "psychicLevel": 1,
+            "when": {
+              "turn": "own",
+              "phase": "movement"
             },
-            "branches": [
+            "condition": "this unit is not battle-shocked",
+            "optional": true,
+            "roll": {
+              "type": "psychic",
+              "die": "D6",
+              "count": 1
+            },
+            "effects": [
               {
-                "comparison": "at-least",
-                "value": 2,
-                "effect": {
-                  "minimum": 4,
-                  "recipient": "models-in-this-unit",
-                  "duration": "until-start-of-your-next-turn",
-                  "kind": "grant-invulnerable-save"
-                }
+                "on": 1,
+                "status": "battle-shocked"
               },
               {
-                "comparison": "less-than",
-                "value": 2,
-                "effect": {
-                  "condition": "battle-shocked",
-                  "recipient": "this-unit",
-                  "kind": "apply-condition"
-                }
+                "invulnerableSave": 4,
+                "duration": "until the start of your next turn",
+                "regardlessOfResult": true
               }
-            ],
-            "kind": "roll-and-branch"
+            ]
           }
         }
       }

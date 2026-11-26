@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Foetid Bloat-Drone with Heavy Blight Launcher",
-    "summary": "In your [Shooting phase](vsdata:core-rule/shooting-phase), when the Bloat-Drone’s attack kills an enemy model, roll a D6 before lifting that model. Add 1 if its unit is already Afflicted. On 5+, Afflict every enemy unit no farther than 6″ from the **destroyed** model until your next turn begins.",
+    "summary": "In your Shooting phase, whenever an attack by this model destroys an enemy unit, roll a D6 before removing that unit's last model, with +1 to the roll for an Afflicted unit.\n\nOn a 5+, every enemy unit that is up to 6\" from that last model becomes Afflicted until your next turn starts.",
     "citations": [
       {
         "type": "app",
@@ -79,21 +79,24 @@
           }
         },
         "detail": {
-          "trigger": {
-            "phase": "Shooting",
-            "side": "own",
-            "event": "owner attack destroys enemy model, before removing that model"
-          },
-          "roll": {
-            "die": "D6",
-            "modifierIfTargetAfflicted": 1,
-            "minimumSuccess": 5
-          },
-          "effect": {
-            "status": "Afflicted",
-            "target": "every enemy unit",
-            "withinInchesOfDestroyedEnemyModel": 6,
-            "duration": "until start of next own turn"
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            "trigger": "an attack by this model destroys an enemy unit, before its last model is removed",
+            "roll": {
+              "die": "D6",
+              "plus": 1,
+              "plusIf": "the destroyed unit is Afflicted",
+              "success": 5
+            },
+            "effect": {
+              "appliesTo": "each enemy unit within 6\" of that last model",
+              "status": "Afflicted",
+              "withinInches": 6
+            },
+            "duration": "until the start of your next turn"
           }
         }
       }

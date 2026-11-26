@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "imperial-knights.spearhead-at-arms"
     },
-    "summary": "Model eligibility — **IMPERIAL KNIGHTS**. Once per turn you may pick an **ARMIGER** benefiting from this bearer’s [Bondsman](vsdata:ability/imperial-knights.bondsman) ability as the target of a [Stratagem](vsdata:core-rule/using-stratagems) for 0 CP.",
+    "summary": "Bearer: **IMPERIAL KNIGHTS** model.\n\nOnce per turn, while the bearer's [Bondsman](vsdata:ability/imperial-knights.bondsman) affects at least 2 **ARMIGER** models, you can use the [Counter-offensive](vsdata:ability/core.counteroffensive) Stratagem on 1 of them for 0CP.",
     "citations": [
       {
         "type": "app",
@@ -46,18 +46,20 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Spearhead-at-Arms",
+          "usage": "once per turn",
           "effects": [
             {
-              "type": "set-cp-cost",
-              "target": "stratagem-targeting-armiger-under-bearers-bondsman-ability",
-              "value": 0
+              "condition": {
+                "armigerModelsUnderBearersBondsmanAtLeast": 2
+              },
+              "stratagem": "Counter-offensive",
+              "target": "1 of those ARMIGER models",
+              "cpCost": 0,
+              "optional": true
             }
-          ],
-          "trigger": "stratagem-targets-eligible-armiger",
-          "usage": {
-            "optional": true,
-            "limit": "once-per-turn"
-          }
+          ]
         }
       }
     }

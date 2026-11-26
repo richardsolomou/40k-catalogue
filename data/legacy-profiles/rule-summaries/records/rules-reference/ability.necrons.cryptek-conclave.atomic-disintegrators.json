@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "necrons.cryptek-conclave"
     },
-    "summary": "Model eligibility — **CRYPTEK**. When you select the bearer’s unit to shoot in your [Shooting phase](vsdata:core-rule/shooting-phase), it may take **[[ANTI-MONSTER 5+]](vsdata:weapon-ability/anti)** and **[[ANTI-VEHICLE 5+]](vsdata:weapon-ability/anti)** as an extra [Technosorcerous Augmentations](vsdata:ability/necrons.cryptek-conclave.technosorcerous-augmentations) option.",
+    "summary": "Bearer: **CRYPTEK** model.\n\nWhenever you pick an ability for [Technosorcerous Augmentations](vsdata:ability/necrons.cryptek-conclave.technosorcerous-augmentations) for the bearer's unit as it is **selected to shoot** in your Shooting phase, **[[ANTI-MONSTER 5+]](vsdata:weapon-ability/anti)** and **[[ANTI-VEHICLE 5+]](vsdata:weapon-ability/anti)** are 2 more options you can pick from, each on its own.",
     "citations": [
       {
         "type": "app",
@@ -55,25 +55,27 @@
           ]
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Cryptek Conclave",
           "effects": [
             {
-              "type": "additional-augmentation-option",
-              "target": "bearers-unit",
-              "trigger": "selected-to-shoot",
-              "phase": "own-shooting",
-              "optional": true,
-              "inheritsDuration": "end-of-phase",
-              "affectedWeapons": "ranged",
-              "grants": [
+              "when": {
+                "turn": "own",
+                "phase": "shooting",
+                "timing": "bearer-unit-selected-to-shoot"
+              },
+              "rule": "Technosorcerous Augmentations",
+              "additionalOptions": [
                 {
-                  "ability": "ANTI-MONSTER",
-                  "threshold": "5+"
+                  "weaponAbility": "ANTI-MONSTER",
+                  "threshold": 5
                 },
                 {
-                  "ability": "ANTI-VEHICLE",
-                  "threshold": "5+"
+                  "weaponAbility": "ANTI-VEHICLE",
+                  "threshold": 5
                 }
-              ]
+              ],
+              "optionsAreSeparate": true
             }
           ]
         }

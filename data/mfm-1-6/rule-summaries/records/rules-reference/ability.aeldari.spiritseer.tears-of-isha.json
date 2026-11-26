@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Spiritseer",
-    "summary": "In your Command phase, choose one friendly Wraith unit no farther than 6″ from this model. Restore one **destroyed** model to it if possible. Otherwise a model there heals D3 lost wounds at most. Apply the selection limit of one per turn to each unit.",
+    "summary": "In your Command phase, pick 1 **WRAITH CONSTRUCT** unit of yours up to 6\" from this model. Then:\n\n- If any of its models are destroyed, you can bring 1 destroyed model back to it.\n- Otherwise, 1 of its models regains as many as D3 lost wounds.\n\nA unit can be picked for this ability only once per turn.",
     "citations": [
       {
         "type": "app",
@@ -37,44 +37,44 @@
           ]
         },
         "detail": {
-          "source": "this-model",
-          "actor": "controlling-player",
-          "trigger": {
-            "phase": "command",
-            "turn": "own"
-          },
-          "selection": {
-            "side": "friendly",
-            "entity": "unit",
-            "allKeywords": [
-              "WRAITH"
-            ],
-            "measure": "within",
-            "origin": "this-model",
-            "rangeInches": 6,
-            "count": 1,
-            "optional": false,
-            "limit": {
-              "count": 1,
-              "period": "turn",
-              "scope": "selected-unit"
-            }
-          },
-          "branches": [
-            {
-              "condition": "selected-unit-has-destroyed-model",
-              "effect": {
-                "returnDestroyedModels": 1
-              }
+          "ability": {
+            "datasheet": "Spiritseer",
+            "psychic": true,
+            "window": {
+              "turn": "own",
+              "phase": "command"
             },
-            {
-              "condition": "otherwise",
-              "effect": {
-                "recipient": "one-model-in-selected-unit",
-                "healLostWoundsUpTo": "D3"
+            "select": {
+              "side": "friendly",
+              "count": 1,
+              "scope": "unit",
+              "keywordsAll": [
+                "WRAITH CONSTRUCT"
+              ],
+              "withinInches": 6,
+              "of": "this-model"
+            },
+            "branches": [
+              {
+                "if": "selected-unit-has-destroyed-models",
+                "effect": {
+                  "returnDestroyedModels": 1,
+                  "optional": true
+                }
+              },
+              {
+                "if": "otherwise",
+                "effect": {
+                  "model": 1,
+                  "regainLostWoundsUpTo": "D3"
+                }
               }
+            ],
+            "limit": {
+              "perUnit": 1,
+              "per": "turn"
             }
-          ]
+          }
         }
       }
     }

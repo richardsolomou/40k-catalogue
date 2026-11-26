@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Rapier Carrier",
-    "summary": "The Rapier’s ranged attacks have **[[HEAVY]](vsdata:weapon-ability/heavy)** and **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)** if it **[remained stationary](vsdata:core-rule/remain-stationary)**.",
+    "summary": "In a turn in which this unit **remained stationary**, its ranged attacks with **[[HEAVY]](vsdata:weapon-ability/heavy)** get **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)** too.",
     "citations": [
       {
         "type": "app",
@@ -104,32 +104,17 @@
           }
         ],
         "detail": {
-          "source": "this-unit",
-          "condition": {
-            "event": "remain-stationary",
-            "actor": "this-unit"
-          },
-          "trigger": {
-            "event": "attack",
-            "actor": "this-units-models",
-            "mode": "ranged"
-          },
-          "effects": [
-            {
-              "recipient": "ranged-attacks",
-              "effect": {
-                "label": "[HEAVY]",
-                "kind": "grant-ability"
-              }
+          "ability": {
+            "datasheet": "Rapier Carrier",
+            "condition": "this-unit-remained-stationary-this-turn",
+            "appliesTo": {
+              "attacks": "ranged",
+              "weaponAbilitiesAll": [
+                "HEAVY"
+              ]
             },
-            {
-              "recipient": "ranged-attacks",
-              "effect": {
-                "label": "[LETHAL HITS]",
-                "kind": "grant-ability"
-              }
-            }
-          ]
+            "grant": "weapon-ability:lethal-hits"
+          }
         }
       }
     }

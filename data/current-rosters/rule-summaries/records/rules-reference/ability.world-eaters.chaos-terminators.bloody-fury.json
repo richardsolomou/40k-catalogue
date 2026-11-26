@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Chaos Terminators",
-    "summary": "Chaos Terminators may re-roll their **[Hit rolls](vsdata:core-rule/hit-rolls)** for ranged attacks at the closest eligible target. On a charge they can use this ability to re-roll their **Charge roll**. If they do, finish the move in range of the closest charge target.",
+    "summary": "**Hit rolls** can be re-rolled for ranged attacks this unit makes against the closest eligible target.\n\nYou can opt in to a second part as this unit **declares a charge**; doing so means both:\n\n- Its **Charge roll** for that charge can be re-rolled.\n- Its **Charge move** must end within **Engagement Range** of whichever **charge target** is closest.",
     "citations": [
       {
         "type": "app",
@@ -31,19 +31,28 @@
           "unresolved": "The reading gives one unit the same effect twice, which the rule does not."
         },
         "detail": {
-          "effects": [
-            {
-              "trigger": "owner unit ranged attacks",
-              "condition": "closest eligible target",
-              "reroll": "Hit roll"
-            },
-            {
-              "trigger": "owner unit charges",
-              "optional": true,
-              "reroll": "Charge roll",
-              "mustEndMoveInRangeOf": "closest charge target"
-            }
-          ]
+          "ability": {
+            "effects": [
+              {
+                "attackType": "ranged",
+                "targetCondition": "closest eligible target",
+                "reroll": "hit"
+              },
+              {
+                "trigger": "this unit declares a charge",
+                "optional": true,
+                "choiceMadeBeforeRoll": true,
+                "ifUsed": [
+                  {
+                    "reroll": "charge"
+                  },
+                  {
+                    "chargeMoveMustEndWithinEngagementRangeOf": "closest charge target"
+                  }
+                ]
+              }
+            ]
+          }
         }
       }
     }

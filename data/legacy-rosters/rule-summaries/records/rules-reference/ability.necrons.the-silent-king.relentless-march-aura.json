@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "The Silent King",
-    "summary": "While Relentless March is active, friendly **NECRONS** units up to 6″ from the Silent King’s unit get +2″ Move on their models. Exclude **MONSTER** units.",
+    "summary": "Aura (6\"): Your **NECRONS** units, other than **MONSTER** units, that are up to 6\" away from the Szarekh model in this unit get +2\" M.",
     "citations": [
       {
         "type": "app",
@@ -547,33 +547,26 @@
           }
         },
         "detail": {
-          "role": "aura-option",
-          "activation": {
-            "event": "parent-option-active",
-            "parentAbility": "Triarch Abilities"
-          },
-          "area": {
-            "comparison": "within",
-            "inclusive": true,
-            "distanceInches": 6,
-            "origin": "this-unit",
-            "candidate": {
-              "entity": "unit",
+          "ability": {
+            "aura": true,
+            "rangeInches": 6,
+            "origin": "this unit's Szarekh model",
+            "recipients": {
               "side": "friendly",
-              "requireAllKeywords": [
+              "keywordsAll": [
                 "NECRONS"
               ],
-              "excludeAnyKeywords": [
+              "keywordsNone": [
                 "MONSTER"
               ]
-            }
-          },
-          "effect": {
-            "operation": "modify",
-            "characteristic": "move-inches",
-            "amount": 2,
-            "direction": "increase",
-            "recipient": "models-in-eligible-unit"
+            },
+            "effects": [
+              {
+                "characteristic": "M",
+                "deltaInches": 2,
+                "subject": "models-in-recipient-unit"
+              }
+            ]
           }
         }
       }

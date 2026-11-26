@@ -19,7 +19,7 @@
         "id": "adeptus-mechanicus.archaeopter-fusilave"
       }
     ],
-    "summary": "[Bomb Rack](vsdata:ability/adeptus-mechanicus.archaeopter-fusilave.bomb-rack) resolves at the end of the opposing [Fight Phase](vsdata:core-rule/fight-phase). For each enemy unit within 24″ and **visible** to the Archaeopter Fusilave, roll a D6, skipping units with **[Lone Operative](vsdata:core-ability/lone-operative)**. Each 4+ deals 1 **mortal wound** to the corresponding unit.",
+    "summary": "Errata to [Bomb Rack](vsdata:ability/adeptus-mechanicus.archaeopter-fusilave.bomb-rack) (Archaeopter Fusilave): as your opponent's [Fight phase](vsdata:core-rule/fight-phase) ends, pick 1 **visible** enemy unit within 24\" of this model, other than a **[Lone Operative](vsdata:core-ability/lone-operative)** unit, and roll 6 D6 for it. It takes 1 **mortal wound** per 4+.",
     "citations": [
       {
         "type": "app",
@@ -43,18 +43,51 @@
           "faq": {
             "entryType": "errata",
             "publicationId": "31cf0b5f-c858-4b3c-bcfb-a2721b043eec",
+            "typedMechanics": {
+              "ability": "Bomb Rack",
+              "datasheet": "Archaeopter Fusilave",
+              "effect": {
+                "when": {
+                  "turn": "opponent",
+                  "phase": "fight",
+                  "timing": "end-of-phase"
+                },
+                "select": {
+                  "side": "enemy",
+                  "count": 1,
+                  "visible": true,
+                  "withinInches": 24,
+                  "excludesCoreAbility": "Lone Operative"
+                },
+                "dice": {
+                  "count": 6,
+                  "die": "D6",
+                  "successOn": 4
+                },
+                "mortalWoundsPerSuccess": 1
+              },
+              "kind": "replace-ability-text"
+            },
             "statedValues": [
               {
-                "kind": "threshold",
-                "value": 4
+                "role": "units-picked",
+                "value": 1
               },
               {
-                "kind": "distance",
+                "role": "range-inches",
                 "value": 24
               },
               {
-                "kind": "dice",
+                "role": "dice-rolled",
                 "value": 6
+              },
+              {
+                "role": "success-threshold",
+                "value": 4
+              },
+              {
+                "role": "mortal-wounds-per-success",
+                "value": 1
               }
             ]
           }

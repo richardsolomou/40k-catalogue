@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Venerable Dreadnought",
-    "summary": "After this unit shoots on your turn, pick one enemy unit it hit. Through the rest of that [Shooting phase](vsdata:core-rule/shooting-phase), your army gets +1 to [Hit](vsdata:core-rule/hit-rolls) when attacking the chosen unit.",
+    "summary": "After this unit shoots in your Shooting phase, pick 1 enemy unit hit by at least 1 of those attacks. For the rest of the phase, attacks made by **GREY KNIGHTS** models of yours that target that unit get +1 to Hit.",
     "citations": [
       {
         "type": "app",
@@ -221,25 +221,32 @@
           }
         },
         "detail": {
-          "actor": "controlling-player",
-          "trigger": {
-            "phase": "shooting",
-            "turn": "own",
-            "event": "this-unit-finished-shooting"
-          },
-          "selection": {
-            "side": "enemy",
-            "entity": "unit",
-            "count": 1,
-            "minHitsFromThisUnit": 1,
-            "optional": false
-          },
-          "duration": "through-end-of-triggering-phase",
-          "effect": {
-            "actor": "model-in-your-army",
-            "trigger": "attack-targets-selection",
-            "roll": "hit",
-            "modifier": 1
+          "ability": {
+            "psychic": true,
+            "window": {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "after-this-unit-has-shot"
+            },
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitByThisUnitsAttacksAtLeast": 1
+            },
+            "effects": [
+              {
+                "attackers": {
+                  "side": "friendly",
+                  "keywordsAll": [
+                    "GREY KNIGHTS"
+                  ],
+                  "scope": "model"
+                },
+                "roll": "hit",
+                "delta": 1
+              }
+            ],
+            "duration": "end-of-phase"
           }
         }
       }

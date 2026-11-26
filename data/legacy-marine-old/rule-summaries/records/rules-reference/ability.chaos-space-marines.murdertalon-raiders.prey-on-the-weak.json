@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Murdertalon Raiders",
-    "summary": "**HERETIC ASTARTES INFANTRY** can reroll 1s to hit when attacking enemies that are **[Battle-shocked](vsdata:core-rule/battle-shock)** or **below half strength**. An enemy in either state takes a −1 [Hit](vsdata:core-rule/hit-rolls) penalty on attacks against that infantry. This detachment has **NIGHTMARE**, which prevents taking a second detachment with that keyword.",
+    "summary": "For your **HERETIC ASTARTES INFANTRY FLY** units:\n\n- their attacks against a unit that is **battle-shocked** or down to **Half-strength** or less can re-roll 1s to Hit\n- attacks against them by an enemy unit that is **battle-shocked** or down to **Half-strength** or less get -1 to Hit\n\nThis detachment carries the **NIGHTMARE** tag; you cannot take it alongside another **NIGHTMARE** detachment.",
     "citations": [
       {
         "type": "app",
@@ -1547,40 +1547,37 @@
           }
         },
         "detail": {
-          "unitScope": {
+          "kind": "detachment-rule",
+          "detachment": "Murdertalon Raiders",
+          "units": {
             "side": "friendly",
-            "allKeywords": [
+            "keywordsAll": [
               "HERETIC ASTARTES",
-              "INFANTRY"
-            ]
-          },
-          "enemyState": {
-            "anyOf": [
-              "battle-shocked",
-              "below-half-strength"
+              "INFANTRY",
+              "FLY"
             ]
           },
           "effects": [
             {
-              "type": "reroll",
-              "trigger": "attack-target-qualifying-enemy",
-              "actor": "qualified-friendly-unit",
-              "roll": "hit",
+              "attacksBy": "these units",
+              "againstUnitAnyOf": [
+                "battle-shocked",
+                "at-or-below-half-strength"
+              ],
+              "reroll": "hit",
               "face": 1,
               "optional": true
             },
             {
-              "type": "roll-modifier",
-              "trigger": "qualifying-enemy-attacks-qualified-friendly-unit",
-              "actor": "qualifying-enemy-unit",
-              "attackScope": "attacks-targeting-qualified-friendly-unit",
+              "attacksBy": "enemy unit that is battle-shocked or at or below half-strength",
+              "targeting": "these units",
               "roll": "hit",
-              "amount": -1
+              "modifier": -1
             }
           ],
-          "composition": {
-            "detachmentGrantsKeyword": "NIGHTMARE",
-            "excludesOtherDetachmentsWithKeyword": "NIGHTMARE"
+          "detachmentTag": {
+            "tag": "NIGHTMARE",
+            "cannotCombineWithDetachmentTag": "NIGHTMARE"
           }
         }
       }

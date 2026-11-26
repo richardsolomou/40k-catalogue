@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Chaos Terminators",
-    "summary": "This unit may re-roll **[Hit rolls](vsdata:core-rule/hit-rolls)** for ranged attacks against the closest eligible target.\n\nWhen it **declares a charge**, you may use this part of the ability. If you do:\n\n- It may re-roll the **charge roll**.\n- Its **charge move** must finish **[engaged](vsdata:core-rule/engagement-range)** with whichever charge target is closest.",
+    "summary": "**Hit rolls** can be re-rolled for ranged attacks this unit makes against the closest eligible target.\n\nYou can opt in to a second part as this unit **declares a charge**; doing so means both:\n\n- Its **Charge roll** for that charge can be re-rolled.\n- Its **Charge move** must end within **Engagement Range** of whichever **charge target** is closest.",
     "citations": [
       {
         "type": "app",
@@ -31,29 +31,28 @@
           "unresolved": "The reading gives one unit the same effect twice, which the rule does not."
         },
         "detail": {
-          "owner": "Chaos Terminators",
-          "clauses": [
-            {
-              "appliesTo": "ranged attacks by this unit targeting the closest eligible target",
-              "reroll": {
-                "roll": "hit"
-              }
-            },
-            {
-              "trigger": "this unit declares a charge",
-              "optional": true,
-              "effects": [
-                {
-                  "reroll": {
-                    "roll": "charge"
+          "ability": {
+            "effects": [
+              {
+                "attackType": "ranged",
+                "targetCondition": "closest eligible target",
+                "reroll": "hit"
+              },
+              {
+                "trigger": "this unit declares a charge",
+                "optional": true,
+                "choiceMadeBeforeRoll": true,
+                "ifUsed": [
+                  {
+                    "reroll": "charge"
+                  },
+                  {
+                    "chargeMoveMustEndWithinEngagementRangeOf": "closest charge target"
                   }
-                },
-                {
-                  "requirement": "finish the charge move in Engagement Range of the nearest charge target"
-                }
-              ]
-            }
-          ]
+                ]
+              }
+            ]
+          }
         }
       }
     }

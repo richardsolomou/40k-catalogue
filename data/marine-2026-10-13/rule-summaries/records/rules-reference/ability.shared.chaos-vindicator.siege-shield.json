@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Chaos Vindicator",
-    "summary": "The Chaos Vindicator can aim its demolisher cannon at an enemy in its **[Engagement Range](vsdata:core-rule/engagement-range)**. While any enemy unit is within that range, the Vindicator makes ranged attacks without the corresponding **[Hit-roll](vsdata:core-rule/hit-rolls)** penalty.",
+    "summary": "This model's demolisher cannon can target an enemy unit in Engagement Range of this model, unless another unit of yours is also in Engagement Range of the target. Its ranged attacks also ignore the Hit roll penalty for being in Engagement Range of enemy units.",
     "citations": [
       {
         "type": "app",
@@ -70,20 +70,19 @@
           }
         },
         "detail": {
-          "actor": "Chaos Vindicator",
-          "effects": [
-            {
-              "type": "targeting-permission",
-              "weapon": "demolisher cannon",
-              "recipient": "enemy unit in the Vindicator’s Engagement Range"
-            },
-            {
-              "type": "ignore-penalty",
-              "roll": "Hit roll",
-              "appliesTo": "all ranged attacks from the Vindicator",
-              "when": "one or more enemy units within its Engagement Range"
-            }
-          ]
+          "ability": {
+            "effects": [
+              {
+                "weapon": "demolisher cannon",
+                "mayTarget": "enemy units within Engagement Range of this model",
+                "unless": "another friendly unit is within Engagement Range of that enemy unit"
+              },
+              {
+                "attackType": "ranged",
+                "ignore": "Hit roll penalty for being within Engagement Range of enemy units"
+              }
+            ]
+          }
         }
       }
     }

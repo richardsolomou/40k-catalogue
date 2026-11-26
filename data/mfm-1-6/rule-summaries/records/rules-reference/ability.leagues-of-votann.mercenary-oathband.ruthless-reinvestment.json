@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Mercenary Oathband",
-    "summary": "For units with **LEAGUES OF VOTANN** from your army, [Prioritised Efficiency](vsdata:ability/leagues-of-votann.prioritised-efficiency) loses two options: [Hostile Acquisition](vsdata:ability/leagues-of-votann.prioritised-efficiency) and [Fortify Takeover](vsdata:ability/leagues-of-votann.prioritised-efficiency). Grant them [Hostile Acquisition](vsdata:ability/leagues-of-votann.prioritised-efficiency) when battle begins. At your [Command phase](vsdata:core-rule/command-phase)’s end, you can spend 3 YP from your pool. The payment replaces [Hostile Acquisition](vsdata:ability/leagues-of-votann.prioritised-efficiency) with [Fortify Takeover](vsdata:ability/leagues-of-votann.prioritised-efficiency) on those units.",
+    "summary": "Except through this rule, **LEAGUES OF VOTANN** units in your army have neither [Hostile Acquisition](vsdata:ability/leagues-of-votann.prioritised-efficiency) nor [Fortify Takeover](vsdata:ability/leagues-of-votann.prioritised-efficiency). They start the battle with [Hostile Acquisition](vsdata:ability/leagues-of-votann.prioritised-efficiency).\n\nAs your Command phase ends, you can spend 3YP to swap them: those units lose whichever of the 2 abilities they have and get the other.",
     "citations": [
       {
         "type": "app",
@@ -37,146 +37,34 @@
           ]
         },
         "detail": {
-          "behavior": "reactive",
-          "scope": {
-            "duration": "permanent"
-          },
-          "effect": {
-            "type": "sequence",
-            "steps": [
-              {
-                "type": "sequence",
-                "steps": [
-                  {
-                    "type": "rule-state",
-                    "target": {
-                      "owner": "friendly",
-                      "all_of": [
-                        "LEAGUES OF VOTANN"
-                      ]
-                    },
-                    "modifier": {
-                      "direction": "suppressed",
-                      "rule_kind": "ability",
-                      "rule": {
-                        "ability_id": "prioritised-efficiency-leagues-of-votann",
-                        "definition_id": "hostile-acquisition"
-                      },
-                      "except_from": "this-ability"
-                    }
-                  },
-                  {
-                    "type": "rule-state",
-                    "target": {
-                      "owner": "friendly",
-                      "all_of": [
-                        "LEAGUES OF VOTANN"
-                      ]
-                    },
-                    "modifier": {
-                      "direction": "suppressed",
-                      "rule_kind": "ability",
-                      "rule": {
-                        "ability_id": "prioritised-efficiency-leagues-of-votann",
-                        "definition_id": "fortify-takeover"
-                      },
-                      "except_from": "this-ability"
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "ability-part",
-                "trigger": {
-                  "event": "battle-started"
-                },
-                "effect": {
-                  "type": "ability-grant",
-                  "target": {
-                    "owner": "friendly",
-                    "all_of": [
-                      "LEAGUES OF VOTANN"
-                    ]
-                  },
-                  "modifier": {
-                    "ability": {
-                      "ability_id": "prioritised-efficiency-leagues-of-votann",
-                      "definition_id": "hostile-acquisition"
-                    }
-                  }
-                }
-              },
-              {
-                "type": "ability-part",
-                "trigger": {
-                  "event": "phase-ended",
-                  "condition": {
-                    "operator": "and",
-                    "operands": [
-                      {
-                        "type": "phase-is",
-                        "parameters": {
-                          "phase": "command"
-                        }
-                      },
-                      {
-                        "type": "player-turn-is",
-                        "parameters": {
-                          "turn": "your-turn"
-                        }
-                      }
-                    ]
-                  },
-                  "optional": true
-                },
-                "effect": {
-                  "type": "conditional",
-                  "condition": {
-                    "type": "resource",
-                    "parameters": {
-                      "pool": "yp-pool",
-                      "count": {
-                        "min": 3
-                      }
-                    }
-                  },
-                  "effect": {
-                    "type": "sequence",
-                    "steps": [
-                      {
-                        "type": "resource-spend",
-                        "target": "this-model",
-                        "modifier": {
-                          "pool": "yp-pool",
-                          "amount": 3
-                        }
-                      },
-                      {
-                        "type": "rule-state",
-                        "target": {
-                          "owner": "friendly",
-                          "all_of": [
-                            "LEAGUES OF VOTANN"
-                          ]
-                        },
-                        "modifier": {
-                          "direction": "exchanged",
-                          "rule_kind": "ability",
-                          "rule": {
-                            "ability_id": "prioritised-efficiency-leagues-of-votann",
-                            "definition_id": "hostile-acquisition"
-                          },
-                          "exchange_with": {
-                            "ability_id": "prioritised-efficiency-leagues-of-votann",
-                            "definition_id": "fortify-takeover"
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
+          "kind": "detachment-rule",
+          "detachment": "Mercenary Oathband",
+          "units": {
+            "side": "friendly",
+            "keywordsAll": [
+              "LEAGUES OF VOTANN"
             ]
+          },
+          "suppressedExceptByThisRule": [
+            "Hostile Acquisition",
+            "Fortify Takeover"
+          ],
+          "atBattleStart": {
+            "has": "Hostile Acquisition"
+          },
+          "swap": {
+            "when": {
+              "turn": "own",
+              "phase": "command",
+              "timing": "end-of-phase"
+            },
+            "optional": true,
+            "costYP": 3,
+            "abilities": [
+              "Hostile Acquisition",
+              "Fortify Takeover"
+            ],
+            "direction": "either way"
           }
         }
       }

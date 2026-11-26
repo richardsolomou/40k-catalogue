@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Locus",
-    "summary": "While its owner leads a unit, **CHARACTER** models in that unit get **[Feel No Pain 4+](vsdata:core-ability/feel-no-pain)**.",
+    "summary": "While this model leads a unit, each other **CHARACTER** model joined to that unit gets **[Feel No Pain 4+](vsdata:core-ability/feel-no-pain)**.",
     "citations": [
       {
         "type": "app",
@@ -86,15 +86,14 @@
           }
         },
         "detail": {
-          "condition": {
-            "ownerIsLeading": true
-          },
-          "recipient": {
-            "unit": "led unit",
-            "modelKeyword": "CHARACTER"
-          },
-          "grant": {
-            "ability": "feel-no-pain",
+          "ability": {
+            "datasheet": "Locus",
+            "condition": "this-model-leading-a-unit",
+            "appliesTo": {
+              "models": "other CHARACTER models attached to the led unit",
+              "excludes": "this model"
+            },
+            "grant": "core-ability:feel-no-pain",
             "threshold": 4
           }
         }

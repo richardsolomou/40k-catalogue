@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Exorcist",
-    "summary": "After this model shoots in your Shooting phase:\n\n- Each enemy unit hit by at least one of its **[[INDIRECT FIRE]](vsdata:weapon-ability/indirect-fire)** attacks takes a Battle-shock test.\n- Whenever one of those **[[INDIRECT FIRE]](vsdata:weapon-ability/indirect-fire)** attacks destroys an enemy model with **[Deadly Demise](vsdata:core-ability/deadly-demise)**, that model's **[Deadly Demise](vsdata:core-ability/deadly-demise)** deals **mortal wounds** when its D6 shows 5+, not just on a 6.",
+    "summary": "After this model finishes shooting in your Shooting phase, each enemy unit hit by 1 or more of its **[[INDIRECT FIRE]](vsdata:weapon-ability/indirect-fire)** weapon attacks takes a Battle-shock test.\n\nWhenever one of those attacks destroys an enemy model with **[Deadly Demise](vsdata:core-ability/deadly-demise)**, that model's Deadly Demise causes mortal wounds on a 5+ rather than only a 6.",
     "citations": [
       {
         "type": "app",
@@ -37,31 +37,31 @@
           ]
         },
         "detail": {
-          "owner": "Exorcist",
-          "clauses": [
-            {
-              "trigger": {
-                "turn": "own",
-                "phase": "shooting",
-                "event": "after this model has shot"
+          "ability": {
+            "effects": [
+              {
+                "when": {
+                  "turn": "own",
+                  "phase": "shooting",
+                  "trigger": "after this model has shot"
+                },
+                "appliesTo": "each enemy unit hit by 1 or more of this model's Indirect Fire weapon attacks",
+                "effect": {
+                  "test": "battle-shock"
+                }
               },
-              "target": "every enemy unit struck by at least one of those Indirect Fire attacks",
-              "effect": {
-                "test": "Battle-shock"
-              }
-            },
-            {
-              "trigger": "one of those Indirect Fire attacks destroys an enemy model with Deadly Demise",
-              "effect": {
-                "ability": "Deadly Demise",
-                "mortalWoundsRoll": {
-                  "dice": "D6",
-                  "threshold": "5+",
-                  "replaces": 6
+              {
+                "trigger": "one of those Indirect Fire attacks destroys an enemy model with Deadly Demise",
+                "effect": {
+                  "deadlyDemiseMortalWoundsOn": {
+                    "die": "D6",
+                    "minimum": 5,
+                    "insteadOf": 6
+                  }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

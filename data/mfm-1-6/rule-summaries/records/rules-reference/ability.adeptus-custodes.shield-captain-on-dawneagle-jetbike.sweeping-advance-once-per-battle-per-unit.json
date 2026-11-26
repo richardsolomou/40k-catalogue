@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Shield-Captain on Dawneagle Jetbike",
-    "summary": "At [Fight phase](vsdata:core-rule/fight-phase) end, if the Shield-Captain’s unit is **eligible to fight**, it can make either a **[Normal move](vsdata:core-rule/normal-move)** or a **[Fall-Back move](vsdata:core-rule/fall-back)**. Each unit gets one use per battle.",
+    "summary": "Once per battle, as a Fight phase ends, provided it was **eligible to fight** in that phase, this unit can move:\n\n- if **unengaged**, with a **Normal move**\n- if **engaged**, with a **Fall Back move**",
     "citations": [
       {
         "type": "app",
@@ -47,26 +47,30 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "event": "phase",
-            "phase": "fight",
-            "timing": "end",
-            "turn": "either-player"
-          },
-          "condition": "this-unit-eligible-to-fight",
-          "limit": {
-            "period": "battle",
-            "scope": "unit",
-            "count": 1
-          },
-          "effect": {
-            "recipient": "this-unit",
+          "ability": {
+            "datasheet": "Shield-Captain on Dawneagle Jetbike",
+            "usage": {
+              "count": 1,
+              "per": "battle",
+              "scope": "unit"
+            },
+            "window": {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "end-of-phase"
+            },
+            "condition": "this-unit-was-eligible-to-fight-this-phase",
             "optional": true,
-            "chooseOne": [
-              "normal",
-              "fall-back"
-            ],
-            "kind": "make-move"
+            "options": [
+              {
+                "if": "unengaged",
+                "move": "normal"
+              },
+              {
+                "if": "engaged",
+                "move": "fall-back"
+              }
+            ]
           }
         }
       }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Hand of the Archon",
-    "summary": "On the bearer’s first failed save, set the incoming attack’s Damage characteristic to 0. This applies once.",
+    "summary": "Once per turn, when the first failed saving throw is made by any model of the bearer's unit, that attack's Damage characteristic becomes 0.",
     "citations": [
       {
         "type": "app",
@@ -73,18 +73,17 @@
           }
         },
         "detail": {
-          "usage": {
-            "count": 1
-          },
-          "trigger": {
-            "event": "failed save",
-            "actor": "bearer",
-            "occurrence": "first"
-          },
-          "effect": {
-            "attack": "attack for which save failed",
-            "stat": "Damage",
-            "set": 0
+          "ability": {
+            "usageLimit": {
+              "count": 1,
+              "period": "turn"
+            },
+            "trigger": "first failed saving throw that turn by any model of the bearer's unit",
+            "effect": {
+              "attack": "that attack",
+              "characteristic": "D",
+              "set": 0
+            }
           }
         }
       }

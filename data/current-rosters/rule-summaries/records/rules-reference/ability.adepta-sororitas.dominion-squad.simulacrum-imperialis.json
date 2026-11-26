@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Dominion Squad",
-    "summary": "As your [Command phase](vsdata:core-rule/command-phase) ends, check every [objective marker](vsdata:core-rule/level-of-control) you control. Roll a D6 for each marker in range of at least one of your units with this ability. Add 1 to your [Miracle dice](vsdata:ability/adepta-sororitas.acts-of-faith) pool for each 4+.",
+    "summary": "When your Command phase ends, roll a D6 for every objective marker under your control that has 1 or more units of yours bearing this ability in range. Each 4+ gives you 1 [Miracle dice](vsdata:ability/adepta-sororitas.acts-of-faith) whose value equals the number rolled.",
     "citations": [
       {
         "type": "app",
@@ -37,15 +37,21 @@
           ]
         },
         "detail": {
-          "window": "end of own Command phase",
-          "eligibleMarker": {
-            "controller": "you",
-            "inRangeOf": "at least one own unit with this ability"
-          },
-          "rollPerMarker": "D6",
-          "successThreshold": "4+",
-          "resource": "Miracle die",
-          "amountPerSuccess": 1
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "command",
+              "timing": "end-of-phase"
+            },
+            "per": "objective marker you control with 1+ of your units with this ability in range",
+            "roll": "D6",
+            "success": "4+",
+            "gain": {
+              "resource": "Miracle dice",
+              "count": 1,
+              "value": "the D6 result"
+            }
+          }
         }
       }
     }

@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Abaddon the Despoiler",
-    "summary": "With this [Warmaster](vsdata:ability/chaos-space-marines.abaddon-the-despoiler.warmaster) option active, friendly **HERETIC ASTARTES** units up to 6″ from Abaddon can re-roll every **[Hit roll](vsdata:core-rule/hit-rolls)** made by their models.",
+    "summary": "Aura (6\"): Models in **HERETIC ASTARTES** units of yours in range, other than **DAMNED** units, can re-roll their Hit rolls.\n\nThis model has this aura only while [Warmaster](vsdata:ability/chaos-space-marines.abaddon-the-despoiler.warmaster) gives it.",
     "citations": [
       {
         "type": "app",
@@ -508,36 +508,22 @@
           }
         },
         "detail": {
-          "role": "aura-option",
-          "activation": {
-            "event": "parent-option-active",
-            "parentAbility": "Warmaster"
-          },
-          "area": {
-            "comparison": "within",
-            "inclusive": true,
-            "distanceInches": 6,
-            "origin": "this-model",
-            "candidate": {
-              "entity": "unit",
+          "ability": {
+            "aura": true,
+            "rangeInches": 6,
+            "select": {
               "side": "friendly",
-              "requireAllKeywords": [
+              "keywordsAll": [
                 "HERETIC ASTARTES"
               ],
-              "excludeAnyKeywords": []
-            }
-          },
-          "trigger": {
-            "event": "attack",
-            "actor": "model-in-eligible-unit",
-            "mode": "any"
-          },
-          "effect": {
-            "rolls": [
-              "hit"
-            ],
+              "keywordsNone": [
+                "DAMNED"
+              ]
+            },
+            "reroll": "hit",
+            "attacks": "all",
             "optional": true,
-            "kind": "re-roll"
+            "activeWhile": "picked with Warmaster"
           }
         }
       }

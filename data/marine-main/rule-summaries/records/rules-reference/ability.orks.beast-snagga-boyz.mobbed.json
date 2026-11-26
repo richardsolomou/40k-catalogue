@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Beast Snagga Boyz",
-    "summary": "After the Beast Snagga Boyz complete a **[Charge Move](vsdata:core-rule/charge-move)**, subtract 1 from the resulting **[Battle-shock roll](vsdata:core-rule/battle-shock)** for an enemy **MONSTER** or **VEHICLE** **[Engaged](vsdata:core-rule/engagement-range)** with them. Subtract 2 instead if the Boyz still number at least 13 models.",
+    "summary": "Whenever this unit finishes a Charge move, every enemy **MONSTER** or **VEHICLE** unit in Engagement Range of it takes a Battle-shock test with -1 to the roll, or -2 while this unit contains 13+ models.",
     "citations": [
       {
         "type": "app",
@@ -37,27 +37,23 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "actor": "owner unit",
-            "event": "ends Charge Move"
-          },
-          "target": {
-            "side": "enemy",
-            "kind": "unit",
-            "anyKeyword": [
-              "MONSTER",
-              "VEHICLE"
-            ],
-            "relation": "Engaged with owner unit"
-          },
-          "effect": {
-            "roll": "resulting Battle-shock roll",
+          "ability": {
+            "trigger": "this unit ends a Charge move",
+            "select": {
+              "side": "enemy",
+              "keywordsAny": [
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "engagedWith": "this unit"
+            },
+            "forcedRoll": "battle-shock",
             "modifier": {
               "operation": "subtract",
               "amount": 1
             },
-            "replaceModifier": {
-              "minimumOwnerUnitModels": 13,
+            "alternative": {
+              "thisUnitModelsAtLeast": 13,
               "modifier": {
                 "operation": "subtract",
                 "amount": 2

@@ -19,7 +19,7 @@
         "id": "chaos-space-marines.veterans-of-the-long-war.eager-for-vengeance"
       }
     ],
-    "summary": "A **HERETIC ASTARTES** model can take Eager for Vengeance, excluding **DAMNED**. Its unit remains eligible for shooting and charge declarations after Falling Back that turn. A unit that is also the Focus of Hatred gets a +1 bonus to each attack’s **hit roll** and to its **Charge roll**.",
+    "summary": "Errata to Eager for Vengeance (Veterans of the Long War): only a **HERETIC ASTARTES** model that is not a **DAMNED** model can take it. Its unit can still shoot and declare a charge after Falling Back in the same turn, and:\n\n- if it Fell Back this turn, its models' attacks against your focus of hatred get +1 to Hit\n- whenever your focus of hatred is one of its charge targets, it gets +1 to its **Charge roll**",
     "citations": [
       {
         "type": "app",
@@ -44,124 +44,52 @@
             "entryType": "errata",
             "publicationId": "1b005241-163d-4acc-a924-247912c8f99b",
             "typedMechanics": {
-              "effect": {
-                "effect": {
-                  "type": "sequence",
-                  "steps": [
-                    {
-                      "type": "sequence",
-                      "steps": [
-                        {
-                          "type": "permission",
-                          "target": "this-unit",
-                          "modifier": {
-                            "activity": "shoot",
-                            "allow": true,
-                            "after": [
-                              "fall-back"
-                            ]
-                          }
-                        },
-                        {
-                          "type": "permission",
-                          "target": "this-unit",
-                          "modifier": {
-                            "activity": "declare-charge",
-                            "allow": true,
-                            "after": [
-                              "fall-back"
-                            ]
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "conditional",
-                      "condition": {
-                        "operator": "and",
-                        "operands": [
-                          {
-                            "type": "matches",
-                            "parameters": {
-                              "filter": {
-                                "designated": "focus-of-hatred"
-                              }
-                            }
-                          },
-                          {
-                            "type": "happened",
-                            "parameters": {
-                              "event": "move-ended",
-                              "filter": {
-                                "move_types": [
-                                  "fall-back"
-                                ]
-                              },
-                              "window": "turn"
-                            }
-                          }
-                        ]
-                      },
-                      "effect": {
-                        "type": "sequence",
-                        "steps": [
-                          {
-                            "type": "roll-modifier",
-                            "target": "this-unit",
-                            "modifier": {
-                              "roll": "hit",
-                              "operation": "add",
-                              "value": 1
-                            }
-                          },
-                          {
-                            "type": "ability-part",
-                            "trigger": {
-                              "event": "targets-selected",
-                              "filter": {
-                                "kind": "charge"
-                              }
-                            },
-                            "effect": {
-                              "type": "roll-modifier",
-                              "target": "this-unit",
-                              "modifier": {
-                                "roll": "charge",
-                                "operation": "add",
-                                "value": 1
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                },
-                "scope": {
-                  "duration": "permanent"
-                },
-                "behavior": "reactive"
-              },
-              "detachmentId": "veterans-of-the-long-war",
+              "enhancement": "Eager for Vengeance",
+              "detachment": "Veterans of the Long War",
               "eligibility": {
                 "scope": "model",
-                "allOf": [
-                  "Heretic Astartes"
+                "keywordsAll": [
+                  "HERETIC ASTARTES"
                 ],
-                "excludes": [
-                  "Damned"
+                "keywordsNone": [
+                  "DAMNED"
                 ]
               },
-              "targetQid": "ability:chaos-space-marines.veterans-of-the-long-war.eager-for-vengeance",
-              "kind": "replace-enhancement"
+              "effects": [
+                {
+                  "unit": "bearer's unit",
+                  "eligibleAfterFallBack": [
+                    "shoot",
+                    "declare-charge"
+                  ]
+                },
+                {
+                  "condition": {
+                    "bearerUnitFellBackThisTurn": true
+                  },
+                  "attacks": {
+                    "target": "your focus of hatred"
+                  },
+                  "roll": "hit",
+                  "delta": 1
+                },
+                {
+                  "condition": {
+                    "chargeTargetIncludes": "your focus of hatred"
+                  },
+                  "roll": "charge",
+                  "delta": 1
+                }
+              ],
+              "kind": "replace-enhancement-text"
             },
             "statedValues": [
               {
-                "kind": "hit-bonus",
+                "role": "hit-roll-delta",
                 "value": 1
               },
               {
-                "kind": "charge-bonus",
+                "role": "charge-roll-delta",
                 "value": 1
               }
             ]

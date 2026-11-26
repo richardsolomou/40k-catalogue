@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Sisters Novitiate Squad",
-    "summary": "As your [Command phase](vsdata:core-rule/command-phase) ends, check every [objective marker](vsdata:core-rule/level-of-control) you control. Roll a D6 for each marker in range of at least one of your units with this ability. Add 1 to your [Miracle dice](vsdata:ability/adepta-sororitas.acts-of-faith) pool for each 4+.",
+    "summary": "When your Command phase ends, roll a D6 for every objective marker under your control with 1 or more of your units that have this ability in range of it. Each 4+ gives you 1 [Miracle dice](vsdata:ability/adepta-sororitas.acts-of-faith), showing that roll's value.",
     "citations": [
       {
         "type": "app",
@@ -37,15 +37,29 @@
           ]
         },
         "detail": {
-          "window": "end of own Command phase",
-          "eligibleMarker": {
-            "controller": "you",
-            "inRangeOf": "at least one own unit with this ability"
-          },
-          "rollPerMarker": "D6",
-          "successThreshold": "4+",
-          "resource": "Miracle die",
-          "amountPerSuccess": 1
+          "ability": {
+            "datasheet": "Sisters Novitiate Squad",
+            "wargear": "Simulacrum Imperialis",
+            "window": {
+              "turn": "own",
+              "phase": "command",
+              "timing": "end-of-phase"
+            },
+            "perObjectiveMarker": {
+              "controlledByYou": true,
+              "inRangeOf": {
+                "unitsWithThisAbility": 1,
+                "atLeast": 1
+              }
+            },
+            "roll": {
+              "dice": 1,
+              "die": "D6",
+              "success": 4
+            },
+            "gainMiracleDice": 1,
+            "miracleDieValue": "the-roll"
+          }
         }
       }
     }

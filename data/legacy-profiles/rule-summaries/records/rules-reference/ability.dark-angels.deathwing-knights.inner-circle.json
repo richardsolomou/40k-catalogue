@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Deathwing Knights",
-    "summary": "Tactical Dreadnought Fortitude cannot target the Deathwing Knights.",
+    "summary": "This ability has 2 parts:\n\n- Attacks against this unit get -1 D.\n- The Tactical Dreadnought Fortitude Stratagem can't target this unit.",
     "citations": [
       {
         "type": "app",
@@ -143,12 +143,18 @@
           }
         },
         "detail": {
-          "source": "this-unit",
-          "recipient": "this-unit",
-          "effect": {
-            "stratagem": "Tactical Dreadnought Fortitude",
-            "detachment": "Terminator Storm Force",
-            "kind": "prohibit-stratagem-target"
+          "ability": {
+            "effects": [
+              {
+                "appliesTo": "attacks that target this unit",
+                "characteristic": "D",
+                "operation": "subtract",
+                "amount": 1
+              },
+              {
+                "cannotBeTargetedBy": "Tactical Dreadnought Fortitude"
+              }
+            ]
           }
         }
       }

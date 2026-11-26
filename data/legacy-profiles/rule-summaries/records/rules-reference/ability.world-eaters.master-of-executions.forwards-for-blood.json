@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Master of Executions",
-    "summary": "While this model leads, you can reroll its unit’s **Advance rolls** or the D6 that sets how far its models can travel on a **[Surge Move](vsdata:core-rule/surge-move)**.",
+    "summary": "While this model leads a unit, that unit can re-roll its **Advance rolls**. For each [Blood Surge](vsdata:ability/world-eaters.khorne-berzerkers.blood-surge) move it makes, it can also re-roll the D6 rolled for its models' move distance.",
     "citations": [
       {
         "type": "app",
@@ -28,24 +28,23 @@
       "version": "1",
       "fields": {
         "detail": {
-          "actor": "datasheet-model",
-          "recipient": "led-unit",
-          "condition": {
-            "whileLeading": true
-          },
-          "effects": [
-            {
-              "kind": "re-roll",
-              "roll": "Advance",
-              "optional": true
-            },
-            {
-              "kind": "re-roll",
-              "roll": "Surge",
-              "dice": 6,
-              "optional": true
-            }
-          ]
+          "ability": {
+            "datasheet": "Master of Executions",
+            "condition": "this-model-leading-a-unit",
+            "appliesTo": "led-unit",
+            "effects": [
+              {
+                "reroll": "advance",
+                "optional": true
+              },
+              {
+                "trigger": "led-unit-makes-a-blood-surge-move",
+                "reroll": "blood-surge-distance-die",
+                "die": "D6",
+                "optional": true
+              }
+            ]
+          }
         }
       }
     }

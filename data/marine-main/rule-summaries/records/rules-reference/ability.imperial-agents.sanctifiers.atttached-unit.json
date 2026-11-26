@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Sanctifiers",
-    "summary": "Sanctifiers can instead form an **[Attached Unit](vsdata:core-rule/forming-attached-units)** with a model from your army that has Leader and either the **MINISTORUM PRIEST** or **INQUISITOR** keyword. That Leader receives **[Scouts 6″](vsdata:core-ability/scouts)** if it joins the Sanctifiers during Declare Battle Formations.",
+    "summary": "A **MINISTORUM PRIEST** or **INQUISITOR** model of yours with the **[Leader](vsdata:core-ability/leader)** ability that is able to attach to a **SISTERS OF BATTLE SQUAD** can instead attach to this unit. Any **MINISTORUM PRIEST** or **INQUISITOR** model of yours attached to this unit in the Declare Battle Formations step gets **[Scouts](vsdata:core-ability/scouts)** 6\".",
     "citations": [
       {
         "type": "app",
@@ -42,25 +42,34 @@
           ]
         },
         "detail": {
-          "alternativeAttachment": {
-            "bodyguard": "owner unit",
-            "leaderModel": {
-              "side": "own army",
-              "requiresAbility": "Leader",
-              "anyKeyword": [
-                "MINISTORUM PRIEST",
-                "INQUISITOR"
-              ]
-            }
-          },
-          "trigger": {
-            "step": "Declare Battle Formations",
-            "event": "qualifying model attaches to owner unit"
-          },
-          "grant": {
-            "recipient": "attached leader model",
-            "ability": "Scouts",
-            "rangeInches": 6
+          "ability": {
+            "datasheet": "Sanctifiers",
+            "effects": [
+              {
+                "alternativeAttachment": {
+                  "leader": {
+                    "keywordsAny": [
+                      "MINISTORUM PRIEST",
+                      "INQUISITOR"
+                    ],
+                    "ability": "core-ability:leader",
+                    "mustBeAbleToAttachTo": "SISTERS OF BATTLE SQUAD"
+                  },
+                  "bodyguard": "this-unit"
+                }
+              },
+              {
+                "trigger": "attached-to-this-unit-during-declare-battle-formations",
+                "select": {
+                  "keywordsAny": [
+                    "MINISTORUM PRIEST",
+                    "INQUISITOR"
+                  ]
+                },
+                "grant": "core-ability:scouts",
+                "inches": 6
+              }
+            ]
           }
         }
       }

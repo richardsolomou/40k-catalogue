@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Obliterators",
-    "summary": "Once per battle for each unit with this ability: in your Shooting phase, as this unit is picked to shoot, you may use it, and its ranged attacks then have **[[INDIRECT FIRE]](vsdata:weapon-ability/indirect-fire)** for the rest of that phase.",
+    "summary": "Once per battle, at any point in a Shooting phase, you can activate this ability for this unit. For the rest of the phase, its models' ranged weapons get **[[INDIRECT FIRE]](vsdata:weapon-ability/indirect-fire)**.",
     "citations": [
       {
         "type": "app",
@@ -43,18 +43,22 @@
           }
         ],
         "detail": {
-          "kind": "unit-ability",
-          "datasheet": "Obliterators",
-          "when": {
-            "phase": "shooting",
-            "turn": "own",
-            "event": "selected-to-shoot"
-          },
-          "optional": true,
-          "limit": "once-per-battle-per-unit",
-          "attackType": "ranged",
-          "grantWeaponAbility": "INDIRECT FIRE",
-          "durationBasis": "core rule 01.02.02 Persisting Rules Effects: the card states no duration, so the effect lasts for the phase in which it was applied"
+          "ability": {
+            "datasheet": "Obliterators",
+            "usage": {
+              "count": 1,
+              "per": "battle"
+            },
+            "window": {
+              "turn": "any",
+              "phase": "shooting",
+              "timing": "during-phase"
+            },
+            "optional": true,
+            "grant": "weapon-ability:indirect-fire",
+            "appliesTo": "ranged-weapons-of-this-unit",
+            "duration": "end-of-phase"
+          }
         }
       }
     }

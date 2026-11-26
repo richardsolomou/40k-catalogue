@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Ghostkeel Battlesuit",
-    "summary": "After the Battlesuit Support System’s bearer [Falls Back](vsdata:core-rule/fall-back), it may still shoot that turn. The bearer also has **SMOKE**.",
+    "summary": "The bearer can shoot even after Falling Back that turn, but it no longer has the **SMOKE** keyword.",
     "citations": [
       {
         "type": "app",
@@ -28,24 +28,17 @@
       "version": "1",
       "fields": {
         "detail": {
-          "source": "wargear-bearer",
-          "effects": [
-            {
-              "recipient": "bearer",
-              "action": "shoot",
-              "qualifyingMovement": "fall-back",
-              "duration": "same-turn",
-              "kind": "retain-eligibility"
-            },
-            {
-              "recipient": "bearer",
-              "effect": {
-                "label": "SMOKE",
-                "termType": "keyword",
-                "kind": "grant-ability"
+          "ability": {
+            "appliesTo": "bearer",
+            "effects": [
+              {
+                "eligibleToShootAfterFallingBack": true
+              },
+              {
+                "losesKeyword": "SMOKE"
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

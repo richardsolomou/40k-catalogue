@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "detachment-rule",
     "group": "Hand of the Dynasty",
-    "summary": "Ranged attacks made by your **IMMORTALS** and **NECRON WARRIORS** units have **[[ASSAULT]](vsdata:weapon-ability/assault)**. When one of those units is picked for an **[Advance move](vsdata:core-rule/advance-move)**, it can still **[start an action](vsdata:core-rule/performing-actions)** despite that move. This Detachment carries the **DYNASTY** tag, so it cannot be combined with another **DYNASTY** Detachment.",
+    "summary": "Ranged attacks by your **IMMORTALS** and **NECRON WARRIORS** units get **[[ASSAULT]](vsdata:weapon-ability/assault)**. An **[advance move](vsdata:core-rule/advance-move)** by one of those units does not, on its own, stop it from being able to start an **action**.\n\nThis detachment carries the **DYNASTY** tag; you cannot take it alongside another **DYNASTY** detachment.",
     "citations": [
       {
         "type": "app",
@@ -191,20 +191,26 @@
         "detail": {
           "kind": "detachment-rule",
           "detachment": "Hand of the Dynasty",
-          "recipients": {
+          "units": {
             "side": "friendly",
             "keywordsAny": [
               "IMMORTALS",
               "NECRON WARRIORS"
             ]
           },
-          "rangedWeaponAbility": "ASSAULT",
-          "advanceMove": {
-            "keepsActionEligibility": true
-          },
+          "effects": [
+            {
+              "attacks": "ranged",
+              "grant": "weapon-ability:assault"
+            },
+            {
+              "trigger": "unit selected to make an advance move",
+              "advanceMoveDoesNotBlock": "eligibility to start an action"
+            }
+          ],
           "detachmentTag": {
             "tag": "DYNASTY",
-            "exclusiveWithSameTag": true
+            "cannotCombineWithDetachmentTag": "DYNASTY"
           }
         }
       }

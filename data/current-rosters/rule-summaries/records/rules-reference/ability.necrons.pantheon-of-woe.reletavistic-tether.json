@@ -17,7 +17,7 @@
       "kind": "detachment",
       "id": "necrons.pantheon-of-woe"
     },
-    "summary": "For a **TRANSCENDENT C'TAN** model. In your turn, each time the bearer's unit uses its **Transdimensional Displacement** ability to make an **ingress/advance move**:\n\n- It may finish that move over 6\" horizontally away from every enemy unit, rather than over 8\".\n- If it finishes that move 8\" or closer to an enemy unit, it cannot declare a charge for the rest of the turn.\n\nOnly the Advance part applies at present, because Transdimensional Displacement grants only an Advance.",
+    "summary": "Bearer: **TRANSCENDENT C’TAN** model.\n\nDuring your turn, an **ingress/advance move** the bearer's unit makes through its [Transdimensional Displacement](vsdata:ability/necrons.transcendent-ctan.transdimensional-displacement) ability can end with every enemy unit more than 6\" away horizontally, rather than more than 8\". If an enemy unit is within 8\" of it when that move ends, it is barred from declaring a charge until the turn ends.",
     "citations": [
       {
         "type": "app",
@@ -63,31 +63,21 @@
         "detail": {
           "kind": "enhancement",
           "detachment": "Pantheon of Woe",
-          "trigger": {
-            "turn": "own",
-            "event": "bearer-unit-moves-using-ability",
-            "ability": "Transdimensional Displacement",
-            "moveTypes": [
-              "ingress",
-              "advance"
-            ],
-            "operativeMoveTypesAtPresent": [
-              "advance"
-            ]
-          },
           "effects": [
             {
-              "kind": "end-move-clearance",
-              "horizontalFromAllEnemyUnitsMoreThanInches": 6,
-              "replacesInches": 8
+              "when": {
+                "turn": "own"
+              },
+              "trigger": "this unit makes an ingress/advance move using Transdimensional Displacement",
+              "minHorizontalDistanceFromEnemyInches": 6,
+              "insteadOfInches": 8
             },
             {
-              "kind": "charge-lock",
               "condition": {
-                "endsWithinInchesOfEnemyUnit": 8
+                "endsMoveWithinInchesOfEnemy": 8
               },
-              "declareCharge": false,
-              "until": "end-of-turn"
+              "cannotDeclareCharge": true,
+              "duration": "end-of-turn"
             }
           ]
         }

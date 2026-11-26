@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Infiltrator Squad",
-    "summary": "During your [Shooting phase](vsdata:core-rule/shooting-phase), the **[Infiltrators](vsdata:core-ability/infiltrators)** may pick an enemy unit they can see at 18″ or closer. Increase that enemy’s **Detection Range** by 3″ while it is Detected.",
+    "summary": "You can pick 1 visible enemy unit up to 18\" from this unit in your Shooting phase. It becomes detected, and while detected it gets +3\" detection range.",
     "citations": [
       {
         "type": "app",
@@ -37,24 +37,24 @@
           ]
         },
         "detail": {
-          "trigger": {
-            "phase": "Shooting",
-            "side": "own"
-          },
-          "optional": true,
-          "target": {
-            "kind": "unit",
-            "count": 1,
-            "side": "enemy",
-            "visible": true,
-            "withinInches": 18,
-            "origin": "owner unit"
-          },
-          "effect": {
-            "stat": "Detection Range",
-            "recipient": "selected enemy unit",
-            "addInches": 3,
-            "while": "selected enemy unit is Detected"
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            "optional": true,
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "visible": true,
+              "withinInches": 18
+            },
+            "effect": {
+              "status": "detected",
+              "whileDetected": {
+                "detectionRangeInches": 3
+              }
+            }
           }
         }
       }

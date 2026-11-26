@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Kill Tank",
-    "summary": "In your [Shooting phase](vsdata:core-rule/shooting-phase), after this unit shoots, you may pick 1 enemy unit that its Tank Kannon attacks hit. Each enemy unit within 3\" of the picked unit, other than **MONSTER** and **VEHICLE** units, then makes a **[battle-shock roll](vsdata:core-rule/battle-shock)**. Whether the picked unit also rolls is not stated.",
+    "summary": "In your Shooting phase, after this unit shoots, you can pick 1 enemy unit hit by its Tank Kannon attacks. Each enemy unit within 3\" of the picked unit, except **MONSTER** and **VEHICLE** units, takes a Battle-shock roll.",
     "citations": [
       {
         "type": "app",
@@ -37,31 +37,28 @@
           ]
         },
         "detail": {
-          "owner": "Kill Tank",
-          "clauses": [
-            {
-              "trigger": {
-                "turn": "own",
-                "phase": "shooting",
-                "event": "after this unit has shot"
-              },
-              "optional": true,
-              "selection": {
-                "side": "enemy",
-                "count": 1,
-                "hitBy": "this unit's Tank Kannon attacks"
-              },
-              "effect": {
-                "recipients": "enemy units within 3 inches of the selected unit",
-                "withinInches": 3,
-                "excludesKeywords": [
-                  "MONSTER",
-                  "VEHICLE"
-                ],
-                "roll": "battle-shock"
-              }
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting",
+              "trigger": "after this unit has shot"
+            },
+            "optional": true,
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitBy": "this unit's Tank Kannon attacks"
+            },
+            "effect": {
+              "appliesTo": "enemy units within 3\" of the selected unit",
+              "keywordsNone": [
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "test": "battle-shock",
+              "withinInches": 3
             }
-          ]
+          }
         }
       }
     }

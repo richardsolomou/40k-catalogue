@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Techmarine",
-    "summary": "As your [Movement phase](vsdata:core-rule/movement-phase) finishes, the Techmarine can pick one **ADEPTUS ASTARTES VEHICLE** model from your army 3″ away or closer. It heals D3 wounds. The same model can disregard any modifiers on **[Hit rolls](vsdata:core-rule/hit-rolls)** or **[Wound rolls](vsdata:core-rule/wound-rolls)**. This ends when your next [Movement phase](vsdata:core-rule/movement-phase) begins.",
+    "summary": "In your Movement phase, as this unit starts or finishes its move, you can pick 1 **ADEPTUS ASTARTES VEHICLE** model of yours up to 3\" from this model. That model:\n\n- **heals** D3 wounds\n- can ignore modifiers to its **Hit rolls** and **Wound rolls** until your next Movement phase",
     "citations": [
       {
         "type": "app",
@@ -415,41 +415,40 @@
           }
         },
         "detail": {
-          "trigger": {
-            "phase": "Movement",
-            "step": "end",
-            "side": "own"
-          },
-          "optional": true,
-          "target": {
-            "count": 1,
-            "kind": "model",
-            "side": "friendly",
-            "requiresKeywords": [
-              "ADEPTUS ASTARTES",
-              "VEHICLE"
-            ],
-            "withinInches": 3,
-            "origin": "owner model"
-          },
-          "effects": [
-            {
-              "healWounds": "D3"
+          "ability": {
+            "window": {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "start-or-end-of-this-unit-move"
             },
-            {
-              "ignoreModifiersTo": [
-                "Hit rolls",
-                "Wound rolls"
+            "optional": true,
+            "select": {
+              "side": "friendly",
+              "count": 1,
+              "scope": "model",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES",
+                "VEHICLE"
               ],
-              "optional": true,
-              "until": {
-                "phase": "Movement",
-                "side": "own",
-                "occurrence": "next",
-                "step": "start"
+              "withinInches": 3,
+              "of": "this-model"
+            },
+            "effects": [
+              {
+                "heal": "D3",
+                "subject": "selected-model"
+              },
+              {
+                "ignoreModifiers": [
+                  "hit",
+                  "wound"
+                ],
+                "attacks": "selected-model",
+                "optional": true,
+                "duration": "until-start-of-next-own-movement-phase"
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }

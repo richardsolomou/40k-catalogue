@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Wolf Guard Battle Leader",
-    "summary": "When the Wolf Guard Battle Leader’s unit attacks a foe up to 6″ away from it, those attacks gain **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)**. You may also re-roll their [Hit](vsdata:core-rule/hit-rolls) results of 1.",
+    "summary": "This unit’s attacks get **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)**, and they can re-roll 1s to Hit against an enemy unit up to 6\" from this unit.",
     "citations": [
       {
         "type": "app",
@@ -223,33 +223,26 @@
           }
         },
         "detail": {
-          "source": "this-unit",
-          "trigger": {
-            "event": "attack",
-            "actor": "models-in-this-unit",
-            "mode": "any",
-            "targetSide": "enemy",
-            "range": {
-              "origin": "this-unit",
-              "comparison": "within",
-              "inclusive": true,
-              "distanceInches": 6,
-              "side": "enemy"
-            }
-          },
-          "effects": [
-            {
-              "label": "SUSTAINED HITS 1",
-              "recipient": "attacks",
-              "kind": "grant-ability"
-            },
-            {
-              "roll": "hit",
-              "optional": true,
-              "unmodifiedFace": 1,
-              "kind": "re-roll"
-            }
-          ]
+          "ability": {
+            "effects": [
+              {
+                "attacks": "this-unit",
+                "grant": "weapon-ability:sustained-hits",
+                "value": 1
+              },
+              {
+                "attacks": "this-unit",
+                "condition": {
+                  "targetSide": "enemy",
+                  "withinInches": 6,
+                  "of": "this-unit"
+                },
+                "reroll": "hit",
+                "unmodifiedValue": 1,
+                "optional": true
+              }
+            ]
+          }
         }
       }
     }

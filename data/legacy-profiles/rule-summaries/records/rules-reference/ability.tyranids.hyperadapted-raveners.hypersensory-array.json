@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Hyperadapted Raveners",
-    "summary": "Previous uses this phase leave your **[Heroic Intervention](vsdata:ability/core.heroic-intervention)** option open for this unit. Apply a −1 CP modifier to this use. Other units retain access to the Stratagem that phase. Once per battle round.",
+    "summary": "Once per battle round, this unit can be targeted with the [Rapid Ingress](vsdata:ability/core.rapid-ingress) or [Heroic Intervention](vsdata:ability/core.heroic-intervention) Stratagem even if that Stratagem was already used this phase. That use costs 1CP less and does not stop you using it on other units in this phase.",
     "citations": [
       {
         "type": "app",
@@ -38,17 +38,19 @@
           }
         ],
         "detail": {
-          "usage": {
-            "count": 1,
-            "period": "battle round"
-          },
-          "optional": true,
-          "stratagem": {
-            "name": "Heroic Intervention",
-            "target": "owner unit",
-            "allowAfterOtherUsesInSamePhase": true,
-            "doesNotPreventOtherUnitsInSamePhase": true,
-            "cpModifier": -1
+          "ability": {
+            "usageLimit": {
+              "count": 1,
+              "period": "battle round"
+            },
+            "stratagems": [
+              "Rapid Ingress",
+              "Heroic Intervention"
+            ],
+            "target": "this unit",
+            "ignoresOtherUsesThisPhase": true,
+            "cpModifier": -1,
+            "doesNotBlockUsesOnOtherUnitsThisPhase": true
           }
         }
       }

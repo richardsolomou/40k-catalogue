@@ -19,7 +19,7 @@
         "id": "adeptus-mechanicus.serberys-raiders"
       }
     ],
-    "summary": "During the opposing [Movement phase](vsdata:core-rule/movement-phase), a move that leaves an enemy no farther than 8″ from **unengaged** Serberys Raiders triggers [Tactica Obliqua](vsdata:ability/adeptus-mechanicus.serberys-raiders.tactica-obliqua). The Raiders can travel up to D6″ as a **[Normal move](vsdata:core-rule/normal-move)**, provided their entire unit finishes within 6″ of a friendly **ADEPTUS MECHANICUS BATTLELINE** unit.",
+    "summary": "Errata to [Tactica Obliqua](vsdata:ability/adeptus-mechanicus.serberys-raiders.tactica-obliqua) (Serberys Raiders): in your opponent's [Movement phase](vsdata:core-rule/movement-phase), whenever an enemy unit finishes moving within 8\" of it, this unit can make 1 of these moves unless it is in **Engagement Range** of an enemy unit:\n\n- a **[Normal move](vsdata:core-rule/normal-move)** up to D6\"\n- a Normal move up to 6\" that leaves all its models wholly within 6\" of at least 1 friendly **ADEPTUS MECHANICUS BATTLELINE** unit",
     "citations": [
       {
         "type": "app",
@@ -43,18 +43,60 @@
           "faq": {
             "entryType": "errata",
             "publicationId": "31cf0b5f-c858-4b3c-bcfb-a2721b043eec",
+            "typedMechanics": {
+              "ability": "Tactica Obliqua",
+              "datasheet": "Serberys Raiders",
+              "effect": {
+                "when": {
+                  "turn": "opponent",
+                  "phase": "movement"
+                },
+                "trigger": {
+                  "enemyUnitEndsMoveWithinInches": 8
+                },
+                "condition": {
+                  "notInEngagementRange": true
+                },
+                "chooseOne": [
+                  {
+                    "move": "normal",
+                    "maxInches": "D6"
+                  },
+                  {
+                    "move": "normal",
+                    "maxInches": 6,
+                    "requires": {
+                      "everyModelWhollyWithinInches": 6,
+                      "of": {
+                        "side": "friendly",
+                        "count": "1+",
+                        "keywordsAll": [
+                          "ADEPTUS MECHANICUS",
+                          "BATTLELINE"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "kind": "replace-ability-text"
+            },
             "statedValues": [
               {
-                "kind": "distance",
+                "role": "trigger-range-inches",
                 "value": 8
               },
               {
-                "kind": "distance",
+                "role": "move-option-inches",
                 "value": 6
               },
               {
-                "kind": "dice",
+                "role": "wholly-within-inches",
                 "value": 6
+              },
+              {
+                "role": "move-options",
+                "value": 1
               }
             ]
           }

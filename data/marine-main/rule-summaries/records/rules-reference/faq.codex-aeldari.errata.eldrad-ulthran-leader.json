@@ -18,7 +18,7 @@
         "id": "aeldari.eldrad-ulthran"
       }
     ],
-    "summary": "Eldrad Ulthran errata, **[Leader](vsdata:core-ability/leader)** section rewritten: he can lead **GUARDIAN DEFENDERS**, **STORM GUARDIANS** or a **WARLOCK CONCLAVE**. While he is not yet attached, he may join a unit even when one **WARLOCKS** unit is attached to it already.",
+    "summary": "Errata to the Leader section of Eldrad Ulthran: he can be attached to **GUARDIAN DEFENDERS**, **STORM GUARDIANS** or **WARLOCK CONCLAVE**. While he is unattached, he can still join one of them that already has 1 **WARLOCKS** unit attached.",
     "citations": [
       {
         "type": "app",
@@ -38,18 +38,26 @@
             "publicationId": "995328e1-ae96-4ef6-b548-c31fad1a06fc",
             "typedMechanics": {
               "datasheet": "Eldrad Ulthran",
-              "section": "Leader",
-              "canLead": [
+              "canAttachTo": [
                 "GUARDIAN DEFENDERS",
                 "STORM GUARDIANS",
                 "WARLOCK CONCLAVE"
               ],
-              "mayJoinUnitAlreadyLedBy": {
-                "keyword": "WARLOCKS",
-                "max": 1
+              "exception": {
+                "condition": "not already attached to a unit",
+                "allowsAttachingWhenAlreadyAttached": {
+                  "unit": "WARLOCKS",
+                  "count": 1
+                }
               },
-              "condition": "not-already-attached"
-            }
+              "kind": "replace-leader-section"
+            },
+            "statedValues": [
+              {
+                "role": "warlocks-units-already-attached",
+                "value": 1
+              }
+            ]
           }
         }
       }

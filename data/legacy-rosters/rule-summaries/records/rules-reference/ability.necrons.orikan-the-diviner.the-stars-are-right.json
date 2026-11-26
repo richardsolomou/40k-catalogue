@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Orikan the Diviner",
-    "summary": "As a [Fight phase](vsdata:core-rule/fight-phase) begins, Orikan may use this ability once per battle. For the rest of that phase, triple his Strength and treat every successful [Wound result](vsdata:core-rule/wound-rolls) he rolls as a **Critical Wound**.",
+    "summary": "Once per battle, when a Fight phase starts, you can use this ability. For the rest of the phase:\n\n- the A and S of this model's Staff of Tomorrow are tripled\n- each successful **Wound roll** this model makes is a **Critical Wound**",
     "citations": [
       {
         "type": "app",
@@ -79,29 +79,34 @@
           }
         },
         "detail": {
-          "actor": "Orikan the Diviner",
-          "trigger": "start of a Fight phase",
-          "optional": true,
-          "useLimit": {
-            "count": 1,
-            "per": "battle"
-          },
-          "duration": "until end of that phase",
-          "effects": [
-            {
-              "type": "multiply-characteristic",
-              "recipient": "owning model",
-              "characteristic": "Strength",
-              "factor": 3
+          "ability": {
+            "datasheet": "Orikan the Diviner",
+            "usage": {
+              "count": 1,
+              "per": "battle"
             },
-            {
-              "type": "convert-roll-outcome",
-              "madeBy": "owning model",
-              "roll": "wound",
-              "from": "successful",
-              "to": "critical wound"
-            }
-          ]
+            "window": {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "start-of-phase"
+            },
+            "optional": true,
+            "effects": [
+              {
+                "weapon": "Staff of Tomorrow",
+                "characteristics": [
+                  "A",
+                  "S"
+                ],
+                "multiplier": 3
+              },
+              {
+                "criticalWound": "every-successful-wound-roll",
+                "attacks": "this-model"
+              }
+            ],
+            "duration": "end-of-phase"
+          }
         }
       }
     }

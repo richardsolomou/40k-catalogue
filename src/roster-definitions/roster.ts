@@ -277,7 +277,7 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       const taken = group.options.reduce((sum, { option, choices, weight = 1 }) => sum + weight * takenOf(option, choices), 0);
       const carriers = group.carrier ? (counts.get(group.carrier) ?? 0) : total;
       const most = group.bySize?.find(({ size }) => size === total)?.max ?? group.max * blocks(group.per, total, carriers);
-      const least = Math.min((group.min ?? 0) * blocks(group.per, total, carriers), most);
+      const least = (group.min ?? 0) * blocks(group.per, total, carriers);
       const members = group.options.map(({ option }) => `roster-option:${option}`).join(", ");
       if (taken > most) add("option-group-count", `${members} together take at most ${most}, have ${taken}`);
       else if (taken < least) add("option-group-count", `${members} together take at least ${least}, have ${taken}`);

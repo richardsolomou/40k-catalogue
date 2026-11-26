@@ -438,6 +438,19 @@ test("a grant, an invulnerable save and an effect can be limited to some models 
   assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = limited)), []);
 });
 
+test("a grant can go to the units the player picks as the battle begins", () => {
+  const picked = structuredClone(EFFECTS);
+  (picked.fields.grants.abilities[0] as Record<string, unknown>).picked = { count: 2, withinInches: 6 };
+  (picked.fields.grants as Record<string, unknown>).keywords = [{ keyword: "MOBILE", to: "unit", picked: {} }];
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = picked)), []);
+});
+
+test("a picked grant names how many units, not none", () => {
+  const picked = structuredClone(EFFECTS);
+  (picked.fields.grants.abilities[0] as Record<string, unknown>).picked = { count: 0 };
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = picked)).includes(`ability:${OATH.id} facts/grants/abilities/0/picked/count must be >= 1`));
+});
+
 test("a rule can give keywords, to the unit or the bearer", () => {
   const given = structuredClone(EFFECTS);
   (given.fields.grants as Record<string, unknown>).keywords = [{ keyword: "MOBILE", to: "unit" }, { keyword: "DAEMON", to: "bearer", conditional: true }];

@@ -90,10 +90,11 @@ Keyword values are written in capitals. A **selector** is a keyword, keywords pr
 | `counterpart` | Selectors, any of which the unit on the other side of the attachment must match; an empty list matches no unit. |
 | `linked` | `true` when it applies only to a unit that already has the ability, or may use deployment abilities it does not have. |
 | `recipientKeywords` | Selectors the receiving unit must match one of; other units the rule reaches do not gain it. |
+| `picked` | Present when the player picks the units that gain it as the battle begins, at Declare Battle Formations or as pre-battle abilities resolve, not when something happens during it: up to `count` units, each matching `recipientKeywords`, and within `withinInches` of the bearer where the rule says so. `count` is left out where the rule sets it another way, as by battle size, which the summary gives. Only the picked units gain it, and the pick alone does not make a grant `conditional`. |
 | `conditional` | `true` when the rule attaches a further condition only the summary gives, such as a distance; apply the grant only once it holds. |
 | `against` | The attacks a granted Feel No Pain is limited to: `psychic-attacks`, `mortal-wounds` or both. |
 
-`keywords` lists the keywords the rule gives, each as `keyword` (in capitals) and `to`: the `bearer`, the `leader` attached to this unit, or the `unit`. It takes the same `whileAttached`, `counterpart`, `recipientKeywords` and `conditional` as an ability grant. A rule that gives a unit a keyword makes it match every selector that keyword is part of, as MOBILE or DAEMON.
+`keywords` lists the keywords the rule gives, each as `keyword` (in capitals) and `to`: the `bearer`, the `leader` attached to this unit, or the `unit`. It takes the same `whileAttached`, `counterpart`, `recipientKeywords`, `picked` and `conditional` as an ability grant. A rule that gives a unit a keyword makes it match every selector that keyword is part of, as MOBILE or DAEMON.
 
 `grants.normalized` is the same statement read from the rule's text with its deployment abilities written out in full, where that reads differently; `null` when it states no grant. It holds `abilities` only, never `keywords`.
 

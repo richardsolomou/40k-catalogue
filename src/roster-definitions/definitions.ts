@@ -28,7 +28,18 @@ export type Ally = {
   oneLimit?: true;
   enhancements?: true;
 };
-export type FactionData = { unitLimits?: UnitLimit[]; parent?: string; excludedUnits?: string[]; allies?: Ally[] };
+/**
+ * `excludedDetachments` are its parent's detachments its rosters may not take. With `withoutDetachments`, its rosters take
+ * no detachment, their warlord is one of its `warlords`, and `dispositions` are their force dispositions.
+ */
+export type FactionData = {
+  unitLimits?: UnitLimit[];
+  parent?: string;
+  excludedUnits?: string[];
+  excludedDetachments?: string[];
+  withoutDetachments?: { warlords: string[]; dispositions?: string[] };
+  allies?: Ally[];
+};
 /** `duplicates` caps copies of a unit that has no `perRoster` or limit of its own. */
 export type BattleSizeData = { points: number; detachmentPoints?: number; enhancements?: number; duplicates?: number };
 /**
@@ -183,6 +194,8 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
         ...refs("detachment", faction.unitLimits?.flatMap((l) => l.detachments?.map((d) => d.detachment) ?? [])),
         ...refs("faction", faction.parent ? [faction.parent] : []),
         ...refs("unit", faction.excludedUnits),
+        ...refs("detachment", faction.excludedDetachments),
+        ...refs("model", faction.withoutDetachments?.warlords),
         ...refs("unit", allies.flatMap((a) => a.units)),
         ...refs("detachment", allies.flatMap((a) => a.detachments ?? [])),
         ...refs("battle-size", allies.flatMap((a) => [...(a.points ?? []), ...(a.limits ?? [])].map((row) => row.battleSize))),
@@ -354,6 +367,13 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     const { parent } = faction.data;
     if (parent === faction.id) errors.push(`faction:${faction.id} names itself as its parent`);
     else if (parent && get("faction", parent)?.data.parent) errors.push(`faction:${faction.id} names faction:${parent}, which has a parent of its own`);
+    for (const id of faction.data.excludedDetachments ?? []) {
+      const owner = get("detachment", id)?.data.faction;
+      if (owner !== undefined && (!parent || owner !== parent)) errors.push(`faction:${faction.id} excludes detachment:${id}, which is not its parent's`);
+    }
+    if (faction.data.withoutDetachments && all("detachment").some((d) => d.data.faction === faction.id || d.data.faction === parent)) {
+      errors.push(`faction:${faction.id} takes no detachments but it or its parent has some`);
+    }
   }
 
   for (const unit of all("unit")) {

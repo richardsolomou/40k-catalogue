@@ -460,6 +460,14 @@ const invalid12: Record<string, [(records: CatalogueRecord[], identity: Release)
     },
     `unit:${PACK} size 6 fits none of its compositions`,
   ],
+  "a faction excluding its own detachment": [
+    (r) => Object.assign(find(r, "faction", "synthetic.ember-host").data, { excludedDetachments: ["synthetic.kindled-vow"] }),
+    "faction:synthetic.ember-host excludes detachment:synthetic.kindled-vow, which is not its parent's",
+  ],
+  "a faction without detachments whose parent has some": [
+    (r) => Object.assign(find(r, "faction", "synthetic.ember-host").data, { withoutDetachments: { warlords: ["synthetic.ember-host.pyre-lord.lord"] } }),
+    "faction:synthetic.ember-host takes no detachments but it or its parent has some",
+  ],
 };
 
 for (const [name, [change, error]] of Object.entries(invalid12)) {
@@ -625,6 +633,39 @@ for (const [name, [roster, expected]] of Object.entries(construction)) {
   });
 }
 
+// The Ember Host excluding a detachment of its parent, and the Smoke Kin, who own none, taking no detachment.
+const SMOKE_KIN = "synthetic.smoke-kin";
+function factionVariant(id: string, data: object, references: { kind: "model" | "detachment"; id: string }[]): Definitions {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "faction", id).data, data);
+  const entry = identity.entries.find((e) => e.id === id)!;
+  entry.references = [...(entry.references ?? []), ...references];
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+const BEAST_MODEL = `${BEAST}.beast`;
+const excluding = () => factionVariant(EH, { excludedDetachments: [RITE] }, [{ kind: "detachment", id: RITE }]);
+const withoutDetachment = () => factionVariant(SMOKE_KIN, { withoutDetachments: { warlords: [BEAST_MODEL] } }, [{ kind: "model", id: BEAST_MODEL }]);
+const smokeKin = (units: Roster["units"], detachments: string[] = []): Roster => ({ faction: SMOKE_KIN, detachments, battleSize: "synthetic.incursion", units });
+
+test("a roster with a parent's detachment its faction excludes reports detachment-excluded", () => {
+  assert.deepEqual(codes(excluding(), incursion([{ unit: SEER, warlord: `${SEER}.seer` }], [KINDLED, RITE])), ["- detachment-excluded"]);
+});
+
+const withoutDetachments: Record<string, [Roster, string[]]> = {
+  "no detachment and its named warlord": [smokeKin([{ unit: BEAST, warlord: BEAST_MODEL }]), []],
+  "a detachment": [smokeKin([{ unit: BEAST, warlord: BEAST_MODEL }], [KINDLED]), ["- detachment-count", "- detachment-faction"]],
+  "a warlord it does not name": [smokeKin([{ unit: BEAST }, { unit: ORACLE, warlord: `${ORACLE}.oracle` }]), ["1 warlord-required"]],
+  "no warlord": [smokeKin([{ unit: BEAST }]), ["- warlord-required"]],
+};
+
+for (const [name, [roster, expected]] of Object.entries(withoutDetachments)) {
+  test(`a roster of a faction without detachments with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(withoutDetachment(), roster), expected);
+  });
+}
+
 // 1080 points against Incursion's 1000.
 const overspent = incursion([
   { unit: COLOSSUS },
@@ -635,6 +676,35 @@ const overspent = incursion([
   { unit: DRONES, models: { [`${DRONES}.drone`]: 3 } },
   { unit: WARDENS, models: { [WARDEN]: 9 } },
 ]);
+
+// A Colossus carries two cinder cannons by default; its cannons option swaps them for a bundle of two scorch projectors.
+const wargearPriced = (item: string, points: number): PointsSnapshot => {
+  const snapshot = structuredClone(points12);
+  const colossus = snapshot.factions.flatMap((f) => f.units).find((u) => u.id === COLOSSUS)!;
+  colossus.wargear = [{ item, points }];
+  return snapshot;
+};
+
+test("a roster pays for priced wargear its units carry by default", () => {
+  const problems = checkRoster(v12, incursion([{ unit: COLOSSUS }]), { points: wargearPriced("synthetic.cinder-cannon", 400) });
+  assert.deepEqual(problems.map((p) => p.message), ["a roster costs at most 1000 points, costs 1040"]);
+});
+
+test("a roster does not pay for priced wargear its selections replace", () => {
+  const roster = incursion([{ unit: COLOSSUS, options: { [`${COLOSSUS}.cannons`]: { "synthetic.twin-scorch-projectors": 1 } } }]);
+  assert.deepEqual(checkRoster(v12, roster, { points: wargearPriced("synthetic.cinder-cannon", 400) }), []);
+});
+
+test("a roster does not pay for a priced bundle beside its contents", () => {
+  const roster = incursion([{ unit: COLOSSUS, options: { [`${COLOSSUS}.cannons`]: { "synthetic.twin-scorch-projectors": 1 } } }]);
+  assert.deepEqual(checkRoster(v12, roster, { points: wargearPriced("synthetic.twin-scorch-projectors", 800) }), []);
+});
+
+test("a roster pays for priced wargear a chosen bundle holds", () => {
+  const roster = incursion([{ unit: COLOSSUS, options: { [`${COLOSSUS}.cannons`]: { "synthetic.twin-scorch-projectors": 1 } } }]);
+  const problems = checkRoster(v12, roster, { points: wargearPriced("synthetic.scorch-projector", 400) });
+  assert.deepEqual(problems.map((p) => p.code), ["roster-points"]);
+});
 
 test("a roster over its battle size's points reports roster-points", () => {
   assert.deepEqual(priced(overspent), ["- roster-points"]);

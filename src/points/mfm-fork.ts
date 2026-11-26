@@ -71,7 +71,7 @@ function unit(factionSlug: string, id: string, u: ForkUnit, issues: string[]): U
     const costs: Cost[] = [];
     for (const c of p.costs) {
       if (c.addon) {
-        // An add-on is an optional extra bought with the unit, which is how wargear prices already work.
+        // An add-on becomes a wargear price, charged for each one a unit carries.
         const item = c.desc ?? "add-on";
         if (!wargear.some((w) => w.item === item)) wargear.push({ item, points: c.points });
         continue;

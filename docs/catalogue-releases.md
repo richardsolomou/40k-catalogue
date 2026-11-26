@@ -13,7 +13,7 @@ A release is built from one tracked directory:
 | `identity.json` | An identity release: rules version, catalogue revision, and every entry. |
 | `categories.json` | Every category, with its `name`, the identity `kinds` it owns, its `sources`, and a `status` of `included` or `retained`. |
 | `records/<category>/<name>.json` | One record for an entry of an included category. |
-| `localisation/<language>.json` | Optional [localised names](localisation.md) in one language, for entries of the identity. |
+| `localisation/<language>.json` | Optional [localised names](localisation.md) in one language, for entries of the identity and the force dispositions of its mission packs. |
 | `README.md` | Optional review notes, left out of the artifact. |
 
 Each identity kind belongs to exactly one category. An included category holds records in this repository. A retained category holds no records and gives a `revision` for each source, such as a commit or an archive version.
@@ -30,6 +30,7 @@ The build fails when:
 - a record sits under a retained or undeclared category, or under a category that does not own its kind
 - a record's entry is missing, an alias, retired, or absent, its rules version differs from the identity's, or two records name the same entry
 - an included category has no records
+- two mission packs define a force disposition with the same ID
 - a localisation file is not named `<language>.json` for the language it gives, fails [validation](localisation.md#validation), or fails [`releaseErrors`](localisation.md#checking-a-file-against-a-release) against the identity and the release's mission packs
 
 ## Layout

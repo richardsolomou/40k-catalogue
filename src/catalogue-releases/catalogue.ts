@@ -166,6 +166,10 @@ export function buildCatalogueRelease(
   const dispositions = [...records.values()].flatMap(({ record }) =>
     record.kind === "mission-pack" ? ((record.data as { dispositions?: Disposition[] }).dispositions ?? []).map(({ id, name }) => ({ id, name })) : [],
   );
+  // A localised name joins a disposition by its ID alone, so no two packs may define one.
+  for (const [i, { id }] of dispositions.entries()) {
+    if (dispositions.findIndex((other) => other.id === id) < i) errors.push(`records/mission-packs: disposition ${id} is defined by more than one mission pack`);
+  }
   const localisation = new Map<string, { language: string; value: LocalisationFile; entries: number }>();
   const localisationDir = top.some((e) => e.name === "localisation" && e.isDirectory()) ? sortedDir(join(dir, "localisation")) : [];
   for (const file of localisationDir) {

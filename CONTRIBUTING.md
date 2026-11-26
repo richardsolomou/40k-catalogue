@@ -28,7 +28,7 @@ Edit records, identity entries and categories in `data/<version>/rule-summaries/
 
 Two kinds of file are generated, so a direct edit to them is replaced by the next update:
 
-- `localisation/*.json` takes each entry's name from `identity.json` and its names in each language from the official app. Correct a name in `identity.json`.
+- `localisation/*.json` takes each entry's name from `identity.json`, or a force disposition's from its mission pack, and its names in each language from the official app. Correct a name where it comes from.
 - A mission pack's award criteria and twist effects repeat the summaries of its `mission-award` and `mission-twist` records. Edit those records.
 
 Each release publishes a new catalogue revision, and a build that repeats a released revision fails. Raise `revision` in `identity.json` above the latest release's when an edit is to ship without a converted update.

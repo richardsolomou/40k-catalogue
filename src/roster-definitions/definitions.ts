@@ -61,6 +61,8 @@ export type DetachmentData = {
   requiredWarlords?: string[];
   /** A keyword two of a roster's detachments may not share. */
   group?: string;
+  /** A unit of a roster with this detachment holding every one of `keywords` takes only this detachment's enhancements. */
+  exclusiveEnhancements?: { keywords: string[] };
   /** How many units of a roster with this detachment take one of `allegiances`. */
   allegianceLimits?: (RosterBounds & { allegiances: string[] })[];
 };

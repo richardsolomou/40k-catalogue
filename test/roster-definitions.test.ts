@@ -472,6 +472,10 @@ const invalid12: Record<string, [(records: CatalogueRecord[], identity: Release)
     (r) => Object.assign(find(r, "unit", WARDENS).data, { factionKeywords: [] }),
     `unit:${WARDENS} data/factionKeywords must NOT have fewer than 1 items`,
   ],
+  "a detachment keeping no keyword's units to its enhancements": [
+    (r) => Object.assign(find(r, "detachment", ASH_PACT).data, { exclusiveEnhancements: { keywords: [] } }),
+    `detachment:${ASH_PACT} data/exclusiveEnhancements/keywords must NOT have fewer than 1 items`,
+  ],
   "a faction keyword the unit does not have": [
     (r) => Object.assign(find(r, "unit", WARDENS).data, { factionKeywords: ["Ash Host"] }),
     `unit:${WARDENS} faction keyword Ash Host is not one of its keywords`,
@@ -683,6 +687,33 @@ const withoutDetachments: Record<string, [Roster, string[]]> = {
 for (const [name, [roster, expected]] of Object.entries(withoutDetachments)) {
   test(`a roster of a faction without detachments with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
     assert.deepEqual(codes(withoutDetachment(), roster), expected);
+  });
+}
+
+// The Ash Pact or the Kindled Vow keeping its Character units to its own enhancements.
+function exclusive(detachment: string): Definitions {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "detachment", detachment).data, { exclusiveEnhancements: { keywords: ["Character"] } });
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const exclusiveEnhancements: Record<string, [string, Roster, string[]]> = {
+  "another detachment's enhancement on a unit holding its keywords": [ASH_PACT, incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), ["1 enhancement-exclusive"]],
+  "another detachment's enhancement on a unit without its keywords": [ASH_PACT, incursion([{ unit: DRONES }, { unit: WARDENS, enhancement: BRAND }], [ASH_PACT, KINDLED]), []],
+  "its own enhancement on a unit holding its keywords": [KINDLED, incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), []],
+  "another detachment's enhancement on a unit its allegiance gives its keywords": [
+    ASH_PACT,
+    incursion([{ unit: DRONES, allegiance: RITE_ALLEGIANCE, enhancement: SIGIL }], [ASH_PACT, KINDLED]),
+    ["0 enhancement-exclusive"],
+  ],
+  "it outside the roster": [ASH_PACT, incursion([{ unit: LORD, enhancement: SIGIL }]), []],
+};
+
+for (const [name, [detachment, roster, expected]] of Object.entries(exclusiveEnhancements)) {
+  test(`a detachment keeping units to its enhancements, with ${name}, reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(exclusive(detachment), roster), expected);
   });
 }
 

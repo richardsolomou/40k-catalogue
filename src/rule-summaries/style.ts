@@ -57,7 +57,9 @@ const WHOSE_PHASE = new RegExp(
   "i",
 );
 const DAMAGED = /^With \d+-\d+ wounds left, /;
-const DAMAGED_ID = /^damaged\b/;
+// A Damaged rule's id is `damaged`, or `damaged-N-M-wounds-remaining` where a datasheet has two; an ability such as
+// Damaged Armour only shares the word.
+const DAMAGED_ID = /^damaged(?:-\d+-\d+-wounds-remaining)?$/;
 
 // A summary's text without its names: bold spans and link text are game terms or names.
 const unnamed = (summary: string) => summary.replace(/\[[^\]]*\]\([^)]*\)/g, " ").replace(/\*\*[^*]*\*\*/g, " ");

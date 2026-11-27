@@ -717,6 +717,27 @@ for (const [name, [detachment, roster, expected]] of Object.entries(exclusiveEnh
   });
 }
 
+// Enhancements whose rule facts limit their copies or leave them outside the battle size's enhancements.
+function enhancementVariant(enhancement: string, data: object): Definitions {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "enhancement", enhancement).data, data);
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const enhancementLimits: Record<string, [string, object, Roster, string[]]> = {
+  "a one-per-army upgrade taken twice": [BRAND, { perRoster: 1 }, incursion([{ unit: WARDENS, enhancement: BRAND }, { unit: LORD, enhancement: BRAND }]), ["1 enhancement-repeated"]],
+  "an enhancement taken twice as its limit allows": [SIGIL, { perRoster: 2 }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: SEER, enhancement: SIGIL }]), []],
+  "an enhancement outside the battle size's enhancements beyond them": [MANTLE, { outsideLimit: true }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: KINDLER, enhancement: MANTLE }]), []],
+};
+
+for (const [name, [enhancement, data, roster, expected]] of Object.entries(enhancementLimits)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(enhancementVariant(enhancement, data), roster), expected);
+  });
+}
+
 // The Flame Wardens' leader is a Character, though the unit is not.
 const LEADER = `${WARDENS}.leader`;
 const characterLeader = (optional = false) => {

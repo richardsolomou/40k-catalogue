@@ -184,7 +184,66 @@
         "leads": { "$ref": "#/$defs/ids" },
         "supports": { "$ref": "#/$defs/ids" },
         "conditional": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/conditional-attachment" } },
+        "withAnotherLeader": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/beside-leader" } },
+        "joins": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/joining" } },
+        "insteadOf": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/stand-in" } },
+        "capacity": { "$ref": "#/$defs/attachment-capacity" },
         "gaps": { "$ref": "#/$defs/gaps" }
+      }
+    },
+    "keywords": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/keyword" } },
+    "beside-leader": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["units"],
+      "properties": {
+        "units": { "$ref": "#/$defs/ids" },
+        "besideUnits": { "$ref": "#/$defs/ids" },
+        "besideKeywords": { "$ref": "#/$defs/keywords" }
+      }
+    },
+    "stand-in": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["units"],
+      "properties": {
+        "units": { "$ref": "#/$defs/ids" },
+        "role": { "enum": ["leads", "supports"] },
+        "keywords": { "$ref": "#/$defs/keywords" },
+        "excludedKeywords": { "$ref": "#/$defs/keywords" }
+      }
+    },
+    "attachment-capacity": {
+      "type": "object",
+      "additionalProperties": false,
+      "anyOf": [{ "required": ["leads"] }, { "required": ["supports"] }],
+      "properties": {
+        "leads": { "type": "integer", "minimum": 2 },
+        "supports": { "type": "integer", "minimum": 2 },
+        "startingStrength": { "$ref": "#/$defs/positive" },
+        "distinct": { "const": true },
+        "limits": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["keywords", "max"],
+            "properties": { "keywords": { "$ref": "#/$defs/keywords" }, "max": { "$ref": "#/$defs/positive" } }
+          }
+        }
+      }
+    },
+    "joining": {
+      "type": "object",
+      "additionalProperties": false,
+      "anyOf": [{ "required": ["units"] }, { "required": ["keywords"] }, { "required": ["ledBy"] }],
+      "properties": {
+        "units": { "$ref": "#/$defs/ids" },
+        "keywords": { "$ref": "#/$defs/keywords" },
+        "ledBy": { "$ref": "#/$defs/keywords" },
+        "required": { "const": true },
+        "exclusive": { "$ref": "#/$defs/keywords" }
       }
     },
     "keyword": { "type": "string", "pattern": "^[^\\s\\p{Ll}](?:[^\\p{Ll}]*[^\\s\\p{Ll}])?$", "description": "A keyword as printed in capitals." },
@@ -193,10 +252,12 @@
       "additionalProperties": false,
       "required": ["role"],
       "anyOf": [{ "required": ["units"] }, { "required": ["keywords"] }],
+      "dependentRequired": { "excludedKeywords": ["keywords"] },
       "properties": {
         "role": { "enum": ["leads", "supports"] },
         "units": { "$ref": "#/$defs/ids" },
         "keywords": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/keyword" } },
+        "excludedKeywords": { "$ref": "#/$defs/keywords" },
         "when": {
           "type": "object",
           "additionalProperties": false,

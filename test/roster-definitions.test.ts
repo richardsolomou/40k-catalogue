@@ -792,6 +792,7 @@ const eligibility: Record<string, [object, Roster, string[], { kind: "unit" | "w
     [{ kind: "wargear", id: "synthetic.maul-and-shield" }],
   ],
   "the warlord's unit, which it bars": [{ ...characters, notWarlord: true }, incursion([{ unit: LORD, warlord: `${LORD}.lord`, enhancement: MANTLE }]), ["0 enhancement-keywords"]],
+  "a unit other than the warlord's, which it bars": [{ ...characters, notWarlord: true }, incursion([{ unit: LORD, enhancement: MANTLE }, { unit: SEER, warlord: `${SEER}.seer` }]), []],
 };
 
 for (const [name, [data, roster, expected, references]] of Object.entries(eligibility)) {

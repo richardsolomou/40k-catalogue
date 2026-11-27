@@ -6,7 +6,7 @@ Points are not definitions. Prices stay in [points snapshots](points.md), which 
 
 ## Format versions
 
-Every record's `data` carries `"formatVersion": 2`. Records without it are format version 1, described by [definitions.v1.schema.json](../src/roster-definitions/definitions.v1.schema.json), and all the records of one rules version use one version. Version 1 names wargear as lists, so it cannot say that a model carries two of an item or that an option replaces both. Version 2 counts them, and adds conditions, shared roster limits, compositions, substitutes and scaled option groups. `validateDefinitions` reads a version 1 list as a count of one of each item, which is what it meant, and a version 1 `upgrade` as one three units may take, which version 2 states as `perRoster`, so the checker, importer and points joins below treat both versions alike.
+Every record's `data` carries `"formatVersion": 2`. Records without it are format version 1, described by [definitions.v1.schema.json](../src/roster-definitions/definitions.v1.schema.json), and all the records of one rules version use one version. Version 1 names wargear as lists, so it cannot say that a model carries two of an item or that an option replaces both. Version 2 counts them, and adds conditions, shared roster limits, compositions, substitutes and scaled option groups. `validateDefinitions` reads a version 1 list as a count of one of each item, which is what it meant, a version 1 `upgrade` as one three units may take, which version 2 states as `perRoster`, and a version 1 enhancement's `keywords` as its `eligibility`, so the checker, importer and points joins below treat both versions alike.
 
 ## Records
 
@@ -89,7 +89,7 @@ An enhancement's `eligibility` admits a unit with a fielded model whose keywords
 | `requiredWargear` | The unit carries at least one of these wargear IDs, counting its models' and its own wargear as the options it takes change them, and the contents of bundles. |
 | `notWarlord` | `true`: the unit does not hold the warlord. |
 
-A unit with `enhancements: false` is never admitted. These are the Enhancement's [rule facts](rule-facts.md) eligibility with catalogue IDs: an entry's `factionKeywords` are among its `keywords`, and `requiredWargear` lists every wargear ID of the one item the facts name. Version 1 states eligibility as `keywords.all`, every one of which the model holds, and `keywords.none`, none of which it holds, with no CHARACTER or EPIC HERO rule beside them; `validateDefinitions` reads them as the equivalent `eligibility`.
+A unit with `enhancements: false` is never admitted. These are the Enhancement's [rule facts](rule-facts.md) eligibility with catalogue IDs: an entry's `factionKeywords` are among its `keywords`, and `requiredWargear` lists every wargear ID of the one item the facts name. Version 1 states eligibility as `keywords.all`, every one of which the model holds, and `keywords.none`, none of which it holds, with no CHARACTER or EPIC HERO rule beside them; `validateDefinitions` reads them as that `eligibility`, so they too match in any letter case.
 
 ## Allegiances
 

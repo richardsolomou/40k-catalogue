@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { test } from "node:test";
 import { checkUpgrade, historyErrors, type Release } from "../src/catalogue-identity/identity.ts";
 import { buildCatalogueRelease, type CatalogueRecord, type Manifest } from "../src/catalogue-releases/catalogue.ts";
-import { canAttach, validateProfiles, type AttachmentData, type ConditionalAttachment } from "../src/datasheet-profiles/profiles.ts";
+import { attachedUnitProblems, canAttach, mustAttach, validateProfiles, type AttachedUnit, type AttachmentData, type ConditionalAttachment } from "../src/datasheet-profiles/profiles.ts";
 
 const fixtures = new URL("../fixtures/", import.meta.url);
 const json = (path: string): any => JSON.parse(readFileSync(new URL(path, fixtures), "utf8"));
@@ -412,4 +412,167 @@ test("a base size by wargear gives each item one size", () => {
   const cannon = "synthetic.cinder-cannon";
   const found = baseSize({ size: { diameter: 32 }, withWargear: [{ wargear: [cannon], size: { diameter: 40 } }, { wargear: [cannon], size: { diameter: 50 } }] });
   assert.deepEqual(found, [`unit-profile:${WARDEN} gives wargear:${cannon} more than one base size`]);
+});
+
+const PYRE_LORD_UNIT = `${UNIT}.pyre-lord`;
+const COLOSSUS = `${UNIT}.ember-colossus`;
+/** The Pyre Lord leads the wardens and the Kindler supports the drones, as in the fixture; `hosts` adds records by unit. */
+const lookup = (hosts: Record<string, Omit<AttachmentData, "unit">> = {}) => {
+  const records: Record<string, AttachmentData> = {
+    [PYRE_LORD_UNIT]: { unit: PYRE_LORD_UNIT, leads: [WARDENS] },
+    [KINDLER]: { unit: KINDLER, supports: [DRONES] },
+  };
+  for (const [unit, data] of Object.entries(hosts)) records[unit] = { ...records[unit], unit, ...data };
+  return (unit: string) => records[unit];
+};
+const joinsInstead = (insteadOf: AttachmentData["insteadOf"], keywords: Record<string, string[]> = {}) =>
+  canAttach(lookup()(PYRE_LORD_UNIT)!, "leads", COLOSSUS, { keywords }, lookup({ [COLOSSUS]: { insteadOf } }));
+
+test("a unit may be joined instead of another by whatever may join that one", () => {
+  assert.equal(joinsInstead([{ units: [WARDENS] }]), true);
+});
+
+test("a stand-in is joined only in the role the other unit is joined in", () => {
+  const attachOf = lookup({ [COLOSSUS]: { insteadOf: [{ units: [WARDENS] }] } });
+  assert.equal(canAttach(attachOf(PYRE_LORD_UNIT)!, "supports", COLOSSUS, {}, attachOf), false);
+});
+
+test("a stand-in may admit only one role", () => {
+  const attachOf = lookup({ [COLOSSUS]: { insteadOf: [{ units: [DRONES], role: "leads" }] } });
+  assert.equal(canAttach(attachOf(KINDLER)!, "supports", COLOSSUS, {}, attachOf), false);
+});
+
+test("a stand-in may admit only units holding its keywords", () => {
+  assert.deepEqual([joinsInstead([{ units: [WARDENS], keywords: ["CHARACTER"] }], { [PYRE_LORD_UNIT]: ["CHARACTER"] }), joinsInstead([{ units: [WARDENS], keywords: ["CHARACTER"] }])], [true, false]);
+});
+
+test("a stand-in may refuse units holding a keyword", () => {
+  assert.equal(joinsInstead([{ units: [WARDENS], excludedKeywords: ["EPIC HERO"] }], { [PYRE_LORD_UNIT]: ["EPIC HERO"] }), false);
+});
+
+test("a stand-in for a stand-in may be joined", () => {
+  const attachOf = lookup({ [DRONES]: { insteadOf: [{ units: [WARDENS] }] }, [COLOSSUS]: { insteadOf: [{ units: [DRONES] }] } });
+  assert.equal(canAttach(attachOf(PYRE_LORD_UNIT)!, "leads", COLOSSUS, {}, attachOf), true);
+});
+
+test("stand-ins naming each other join nothing new", () => {
+  const attachOf = lookup({ [DRONES]: { insteadOf: [{ units: [COLOSSUS] }] }, [COLOSSUS]: { insteadOf: [{ units: [DRONES] }] } });
+  assert.equal(canAttach(attachOf(PYRE_LORD_UNIT)!, "leads", COLOSSUS, {}, attachOf), false);
+});
+
+const problems = (attached: Omit<AttachedUnit, "bodyguard">, hosts: Record<string, Omit<AttachmentData, "unit">> = {}, keywords: Record<string, string[]> = {}) =>
+  attachedUnitProblems({ bodyguard: WARDENS, ...attached }, { keywords }, lookup(hosts));
+
+test("a bodyguard takes one leader unit by default", () => {
+  assert.deepEqual(problems({ leaders: [PYRE_LORD_UNIT, KINDLER] }, { [KINDLER]: { leads: [WARDENS] } }), ["attachment-full"]);
+});
+
+test("an attached unit's members must be able to join its bodyguard", () => {
+  assert.deepEqual(problems({ supports: [KINDLER] }), [`attachment-target`]);
+});
+
+test("a bodyguard's capacity may take more leader units", () => {
+  assert.deepEqual(problems({ leaders: [PYRE_LORD_UNIT, KINDLER] }, { [WARDENS]: { capacity: { leads: 2 } }, [KINDLER]: { leads: [WARDENS] } }), []);
+});
+
+test("a capacity may hold only from a starting strength", () => {
+  const hosts = { [WARDENS]: { capacity: { leads: 2, startingStrength: 20 } }, [KINDLER]: { leads: [WARDENS] } };
+  assert.deepEqual([problems({ leaders: [PYRE_LORD_UNIT, KINDLER], startingStrength: 20 }, hosts), problems({ leaders: [PYRE_LORD_UNIT, KINDLER], startingStrength: 10 }, hosts)], [[], ["attachment-full"]]);
+});
+
+test("a capacity may refuse two of the same unit", () => {
+  assert.deepEqual(problems({ leaders: [PYRE_LORD_UNIT, PYRE_LORD_UNIT] }, { [WARDENS]: { capacity: { leads: 2, distinct: true } } }), ["attachment-duplicate"]);
+});
+
+test("a capacity may limit the attached units holding a keyword", () => {
+  const hosts = { [WARDENS]: { capacity: { leads: 2, limits: [{ keywords: ["COMMAND SQUAD"], max: 1 }] } } };
+  assert.deepEqual(problems({ leaders: [PYRE_LORD_UNIT, PYRE_LORD_UNIT] }, hosts, { [PYRE_LORD_UNIT]: ["COMMAND SQUAD"] }), ["attachment-limit"]);
+});
+
+test("a leader may join beside one other leader unit where it says so", () => {
+  const hosts = { [KINDLER]: { leads: [WARDENS], withAnotherLeader: [{ units: [WARDENS] }] } };
+  assert.deepEqual(problems({ leaders: [PYRE_LORD_UNIT, KINDLER] }, hosts), []);
+});
+
+test("a leader joining beside another is never beside its own kind", () => {
+  const hosts = { [KINDLER]: { leads: [WARDENS], withAnotherLeader: [{ units: [WARDENS] }] } };
+  assert.deepEqual(problems({ leaders: [KINDLER, KINDLER] }, hosts), ["attachment-duplicate"]);
+});
+
+test("a leader may join beside only some other leader units", () => {
+  const hosts = { [KINDLER]: { leads: [WARDENS], withAnotherLeader: [{ units: [WARDENS], besideUnits: [DRONES] }] }, [DRONES]: { leads: [WARDENS] } };
+  assert.deepEqual([problems({ leaders: [DRONES, KINDLER] }, hosts), problems({ leaders: [PYRE_LORD_UNIT, KINDLER] }, hosts)], [[], ["attachment-full"]]);
+});
+
+test("a leader may join beside leader units holding a keyword", () => {
+  const hosts = { [KINDLER]: { leads: [WARDENS], withAnotherLeader: [{ units: [WARDENS], besideKeywords: ["INQUISITOR"] }] } };
+  assert.deepEqual([problems({ leaders: [PYRE_LORD_UNIT, KINDLER] }, hosts, { [PYRE_LORD_UNIT]: ["INQUISITOR"] }), problems({ leaders: [PYRE_LORD_UNIT, KINDLER] }, hosts)], [[], ["attachment-full"]]);
+});
+
+test("a leader joins beside only one other leader unit", () => {
+  const hosts = { [KINDLER]: { leads: [WARDENS], withAnotherLeader: [{ units: [WARDENS] }] }, [DRONES]: { leads: [WARDENS] } };
+  assert.deepEqual(problems({ leaders: [PYRE_LORD_UNIT, KINDLER, DRONES] }, hosts), ["attachment-full"]);
+});
+
+test("a joining unit joins a bodyguard holding its keywords", () => {
+  const hosts = { [DRONES]: { joins: [{ keywords: ["COMMAND SQUAD"] }] } };
+  assert.deepEqual([problems({ joined: [DRONES] }, hosts, { [WARDENS]: ["COMMAND SQUAD"] }), problems({ joined: [DRONES] }, hosts)], [[], ["join-target"]]);
+});
+
+test("a joining unit may need its bodyguard led by a unit holding a keyword", () => {
+  const hosts = { [DRONES]: { joins: [{ ledBy: ["CRYPTEK"] }] } };
+  assert.deepEqual([problems({ leaders: [PYRE_LORD_UNIT], joined: [DRONES] }, hosts, { [PYRE_LORD_UNIT]: ["CRYPTEK"] }), problems({ joined: [DRONES] }, hosts)], [[], ["join-target"]]);
+});
+
+test("a joining unit may refuse to share its bodyguard with units holding a keyword", () => {
+  const hosts = { [DRONES]: { joins: [{ units: [WARDENS], exclusive: ["RETINUE"] }] }, [COLOSSUS]: { joins: [{ units: [WARDENS] }] } };
+  assert.deepEqual(problems({ joined: [DRONES, COLOSSUS] }, hosts, { [COLOSSUS]: ["RETINUE"] }), ["join-exclusive"]);
+});
+
+test("a unit that may support a unit must be attached", () => {
+  assert.equal(mustAttach(lookup()(KINDLER)!), true);
+});
+
+test("a unit that may only lead need not be attached", () => {
+  assert.equal(mustAttach(lookup()(PYRE_LORD_UNIT)!), false);
+});
+
+test("a unit supporting only in some rosters must be attached only there", () => {
+  const cato: AttachmentData = { unit: KINDLER, conditional: [{ role: "supports", units: [WARDENS], when: { withUnit: PYRE_LORD_UNIT } }] };
+  assert.deepEqual([mustAttach(cato, { units: [PYRE_LORD_UNIT] }), mustAttach(cato, {})], [true, false]);
+});
+
+test("a unit that must join one must be attached", () => {
+  assert.equal(mustAttach({ unit: DRONES, joins: [{ keywords: ["COMMAND SQUAD"], required: true }] }), true);
+});
+
+const recordErrors = (data: object, ...references: { kind: string; id: string }[]) =>
+  errors((id, recs) => {
+    Object.assign(record(recs, "attachment", KINDLER).data, data);
+    entry(id, "attachment", KINDLER).references!.push(...references);
+  });
+
+test("a stand-in names units its identity entry references", () => {
+  const found = recordErrors({ insteadOf: [{ units: [PYRE_LORD_UNIT] }] });
+  assert.deepEqual(found, [`attachment:${KINDLER} names unit:${PYRE_LORD_UNIT} but its identity entry does not reference it`]);
+});
+
+test("a unit is never a stand-in for itself", () => {
+  const found = recordErrors({ insteadOf: [{ units: [KINDLER] }] });
+  assert.deepEqual(found, [`attachment:${KINDLER} stands in for unit:${KINDLER}, itself`]);
+});
+
+test("a joining unit names what it joins", () => {
+  const found = recordErrors({ joins: [{ required: true }] });
+  assert.ok(found.some((e) => e.startsWith(`attachment:${KINDLER} data/joins/0 must`)), found.join("\n"));
+});
+
+test("a capacity raises a limit", () => {
+  const found = recordErrors({ capacity: { distinct: true } });
+  assert.ok(found.some((e) => e.startsWith(`attachment:${KINDLER} data/capacity must`)), found.join("\n"));
+});
+
+test("a conditional entry may refuse targets holding a keyword", () => {
+  const found = leadsWardens({ keywords: ["INFANTRY"], excludedKeywords: ["CHARACTER"] }, { keywords: { [WARDENS]: ["INFANTRY"] } }, { keywords: { [WARDENS]: ["INFANTRY", "CHARACTER"] } });
+  assert.deepEqual(found, [true, false]);
 });

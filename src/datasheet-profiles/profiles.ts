@@ -57,20 +57,63 @@ export type WeaponProfileData = {
   gaps?: Gap[];
 };
 /**
- * Units this unit may join while a roster condition holds: those in `units` or holding every one of `keywords`, where
+ * Units this unit may join while a roster condition holds: those in `units` or holding every one of `keywords` and none of
+ * `excludedKeywords`, where
  * the roster meets `when` and both units hold `shared`.
  */
 export type ConditionalAttachment = {
   role: "leads" | "supports";
   units?: string[];
   keywords?: string[];
+  excludedKeywords?: string[];
   when?: { faction?: string; detachment?: string; withoutDetachment?: string; withUnit?: string; withoutUnit?: string };
   shared?: string;
 };
-/** The units this unit may join as a Leader (`leads`) or as a support attachment (`supports`), and those it may join only in some rosters. */
-export type AttachmentData = { unit: string; leads?: string[]; supports?: string[]; conditional?: ConditionalAttachment[]; gaps?: Gap[] };
+/**
+ * Units this unit may be joined in place of: a unit that may join one of `units` in a role may join this unit in that
+ * role, where it is `role` when given, holds every one of `keywords` and none of `excludedKeywords`.
+ */
+export type StandIn = { units: string[]; role?: "leads" | "supports"; keywords?: string[]; excludedKeywords?: string[] };
+/**
+ * How many leader (`leads`) and support (`supports`) units this bodyguard takes in place of one each, from a Starting
+ * Strength of `startingStrength` where given; `distinct` when no two of them may be the same unit, and `limits` on how
+ * many of them may hold every one of a set of keywords.
+ */
+export type AttachmentCapacity = { leads?: number; supports?: number; startingStrength?: number; distinct?: true; limits?: { keywords: string[]; max: number }[] };
+/**
+ * A unit this one may join as part of it, outside the leader and support roles: one in `units` or holding every one of
+ * `keywords`, led by a unit holding every one of `ledBy`. `required` when it must join one if it can, and `exclusive`
+ * when the unit it joins may have no other joined unit holding one of these keywords.
+ */
+export type Joining = { units?: string[]; keywords?: string[]; ledBy?: string[]; required?: true; exclusive?: string[] };
+/**
+ * Bodyguard units (`units`) this unit may lead even when one other leader unit already leads them, where that other unit
+ * is one of `besideUnits` or holds one of `besideKeywords`, or is any leader unit where both are omitted.
+ */
+export type BesideLeader = { units: string[]; besideUnits?: string[]; besideKeywords?: string[] };
+/**
+ * The units this unit may join as a Leader (`leads`) or as a support attachment (`supports`), those it may join only in
+ * some rosters (`conditional`), the bodyguard units it may lead beside one other leader unit (`withAnotherLeader`), and
+ * the units it may join as part of them (`joins`). As a bodyguard, the units it may be joined in place of (`insteadOf`)
+ * and how many units it takes (`capacity`).
+ */
+export type AttachmentData = {
+  unit: string;
+  leads?: string[];
+  supports?: string[];
+  conditional?: ConditionalAttachment[];
+  withAnotherLeader?: BesideLeader[];
+  joins?: Joining[];
+  insteadOf?: StandIn[];
+  capacity?: AttachmentCapacity;
+  gaps?: Gap[];
+};
 /** The roster an attachment is asked about; an omitted field is empty. `keywords` gives units' keywords by unit ID. */
 export type AttachmentContext = { faction?: string; detachments?: string[]; units?: string[]; keywords?: Record<string, string[]> };
+/** Each unit's attachment record, by unit ID. */
+export type AttachmentLookup = (unit: string) => AttachmentData | undefined;
+/** A bodyguard unit and the units attached to or joined with it, with its Starting Strength where it matters. */
+export type AttachedUnit = { bodyguard: string; startingStrength?: number; leaders?: string[]; supports?: string[]; joined?: string[] };
 
 type TransportPool = { limit: number; count: "models" | "units"; selectors: string[]; maxWounds?: number };
 export type TransportProfileData = {
@@ -128,9 +171,10 @@ function namedRefs(kind: ProfileKind, data: any): Ref[] {
   if (kind === "weapon-profile") return [...unit, ...refs("wargear", data.wargear ? [data.wargear] : [])];
   if (kind === "transport-profile") return [...unit, ...refs("wargear", (data as TransportProfileData).capacity?.whenEquipped?.map(({ wargear }) => wargear))];
   const conditional: ConditionalAttachment[] = data.conditional ?? [];
+  const named = [...(data.withAnotherLeader ?? []).flatMap((b: BesideLeader) => [...b.units, ...(b.besideUnits ?? [])]), ...(data.insteadOf ?? []).flatMap((s: StandIn) => s.units), ...(data.joins ?? []).flatMap((j: Joining) => j.units ?? [])];
   return [
     ...unit,
-    ...refs("unit", [...(data.leads ?? []), ...(data.supports ?? [])]),
+    ...refs("unit", [...(data.leads ?? []), ...(data.supports ?? []), ...named]),
     ...conditional.flatMap(({ units = [], when = {} }) => [
       ...refs("unit", [...units, ...[when.withUnit, when.withoutUnit].filter((id) => id !== undefined)]),
       ...refs("faction", [when.faction].filter((id) => id !== undefined)),
@@ -139,28 +183,117 @@ function namedRefs(kind: ProfileKind, data: any): Ref[] {
   ];
 }
 
+const holds = (context: AttachmentContext, unit: string, keyword: string) =>
+  (context.keywords?.[unit] ?? []).some((k) => k.toUpperCase() === keyword.toUpperCase());
+
 /**
  * Whether the attachment's unit may join `target` in `role` within the roster `context`: unconditionally through
- * `leads` or `supports`, or through a conditional entry whose targets, roster condition and shared keyword all hold.
- * Keywords compare ignoring case.
+ * `leads` or `supports`, through a conditional entry whose targets, roster condition and shared keyword all hold, or,
+ * given `attachmentOf`, as it may join a unit `target` stands in for. Keywords compare ignoring case.
  */
-export function canAttach(attachment: AttachmentData, role: "leads" | "supports", target: string, context: AttachmentContext = {}): boolean {
+export function canAttach(attachment: AttachmentData, role: "leads" | "supports", target: string, context: AttachmentContext = {}, attachmentOf?: AttachmentLookup): boolean {
+  return joinsDirectly(attachment, role, target, context) || joinsInstead(attachment, role, target, context, attachmentOf, new Set([target]));
+}
+
+function joinsDirectly(attachment: AttachmentData, role: "leads" | "supports", target: string, context: AttachmentContext): boolean {
   // A unit never joins itself, whichever entry names it, as validation insists for entries that name units.
   if (target === attachment.unit) return false;
   if (attachment[role]?.includes(target)) return true;
   const { faction, detachments = [], units = [] } = context;
-  const holds = (unit: string, keyword: string) => (context.keywords?.[unit] ?? []).some((k) => k.toUpperCase() === keyword.toUpperCase());
   return (attachment.conditional ?? []).some(
-    ({ role: entryRole, units: named, keywords, when = {}, shared }) =>
+    ({ role: entryRole, units: named, keywords, excludedKeywords = [], when = {}, shared }) =>
       entryRole === role &&
-      (named?.includes(target) || (keywords !== undefined && keywords.every((k) => holds(target, k)))) &&
+      (named?.includes(target) || (keywords !== undefined && keywords.every((k) => holds(context, target, k)) && !excludedKeywords.some((k) => holds(context, target, k)))) &&
       (when.faction === undefined || when.faction === faction) &&
       (when.detachment === undefined || detachments.includes(when.detachment)) &&
       (when.withoutDetachment === undefined || !detachments.includes(when.withoutDetachment)) &&
       (when.withUnit === undefined || units.includes(when.withUnit)) &&
       (when.withoutUnit === undefined || !units.includes(when.withoutUnit)) &&
-      (shared === undefined || (holds(attachment.unit, shared) && holds(target, shared))),
+      (shared === undefined || (holds(context, attachment.unit, shared) && holds(context, target, shared))),
   );
+}
+
+/** Whether the unit may join `target` as it may join a unit `target` stands in for; `seen` stops stand-ins naming each other. */
+function joinsInstead(attachment: AttachmentData, role: "leads" | "supports", target: string, context: AttachmentContext, attachmentOf: AttachmentLookup | undefined, seen: Set<string>): boolean {
+  if (target === attachment.unit || !attachmentOf) return false;
+  return (attachmentOf(target)?.insteadOf ?? []).some(
+    ({ units, role: only, keywords = [], excludedKeywords = [] }) =>
+      (only === undefined || only === role) &&
+      keywords.every((k) => holds(context, attachment.unit, k)) &&
+      !excludedKeywords.some((k) => holds(context, attachment.unit, k)) &&
+      units.some((other) => !seen.has(other) && (joinsDirectly(attachment, role, other, context) || joinsInstead(attachment, role, other, context, attachmentOf, new Set([...seen, other])))),
+  );
+}
+
+/**
+ * Whether the core rules make the attachment's unit join another before the battle: a unit that may support a unit in
+ * this roster (a support unit) must be attached to a bodyguard unit, and a unit with a `required` joining must join one.
+ */
+export function mustAttach(attachment: AttachmentData, context: AttachmentContext = {}): boolean {
+  const { faction, detachments = [], units = [] } = context;
+  const supports =
+    (attachment.supports?.length ?? 0) > 0 ||
+    (attachment.conditional ?? []).some(
+      ({ role, when = {} }) =>
+        role === "supports" &&
+        (when.faction === undefined || when.faction === faction) &&
+        (when.detachment === undefined || detachments.includes(when.detachment)) &&
+        (when.withoutDetachment === undefined || !detachments.includes(when.withoutDetachment)) &&
+        (when.withUnit === undefined || units.includes(when.withUnit)) &&
+        (when.withoutUnit === undefined || !units.includes(when.withoutUnit)),
+    );
+  return supports || (attachment.joins ?? []).some((j) => j.required);
+}
+
+/**
+ * What is wrong with one attached unit, as problem codes: `attachment-target` for a leader or support unit that may not
+ * join its bodyguard in that role, `attachment-full` for more leader or support units than the bodyguard takes,
+ * `attachment-duplicate` for two of the same unit where that is refused, `attachment-limit` for more attached units
+ * holding a capacity limit's keywords than it allows, `join-target` for a joined unit that may not join it and
+ * `join-exclusive` for a joined unit sharing the bodyguard with one it refuses. By default a bodyguard takes one leader
+ * and one support unit.
+ */
+export function attachedUnitProblems(attached: AttachedUnit, context: AttachmentContext, attachmentOf: AttachmentLookup): string[] {
+  const { bodyguard, startingStrength, leaders = [], supports = [], joined = [] } = attached;
+  const problems = new Set<string>();
+  const members = [...leaders.map((unit) => ({ unit, role: "leads" as const })), ...supports.map((unit) => ({ unit, role: "supports" as const }))];
+  for (const { unit, role } of members) {
+    const record = attachmentOf(unit);
+    if (!record || !canAttach(record, role, bodyguard, context, attachmentOf)) problems.add("attachment-target");
+  }
+  const capacity = attachmentOf(bodyguard)?.capacity;
+  const raised = capacity !== undefined && (capacity.startingStrength === undefined || (startingStrength ?? 0) >= capacity.startingStrength);
+  // A leader that may join beside the other of two leader units makes room for both, never two of the same unit.
+  const beside =
+    leaders.length === 2 &&
+    leaders.some((unit, at) => {
+      const other = leaders[1 - at]!;
+      return (attachmentOf(unit)?.withAnotherLeader ?? []).some(
+        ({ units, besideUnits, besideKeywords }) =>
+          units.includes(bodyguard) &&
+          ((besideUnits === undefined && besideKeywords === undefined) || besideUnits?.includes(other) || (besideKeywords ?? []).some((k) => holds(context, other, k))),
+      );
+    });
+  const leadersAllowed = Math.max(raised ? (capacity.leads ?? 1) : 1, beside ? 2 : 1);
+  if (leaders.length > leadersAllowed || supports.length > (raised ? (capacity.supports ?? 1) : 1)) problems.add("attachment-full");
+  const units = members.map(({ unit }) => unit);
+  if (((raised && capacity.distinct) || beside) && new Set(units).size < units.length) problems.add("attachment-duplicate");
+  for (const { keywords, max } of raised ? (capacity.limits ?? []) : []) {
+    if (units.filter((unit) => keywords.every((k) => holds(context, unit, k))).length > max) problems.add("attachment-limit");
+  }
+  const joinings = joined.map((unit) =>
+    (attachmentOf(unit)?.joins ?? []).find(
+      (j) =>
+        (j.units === undefined || j.units.includes(bodyguard)) &&
+        (j.keywords ?? []).every((k) => holds(context, bodyguard, k)) &&
+        (j.ledBy === undefined || units.some((member) => j.ledBy!.every((k) => holds(context, member, k)))),
+    ),
+  );
+  if (joinings.some((j) => !j)) problems.add("join-target");
+  joinings.forEach((j, at) => {
+    if (joined.some((other, i) => i !== at && (j?.exclusive ?? []).some((k) => holds(context, other, k)))) problems.add("join-exclusive");
+  });
+  return [...problems];
 }
 
 /**
@@ -249,7 +382,8 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
       if (new Set(gear).size !== gear.length) errors.push(`${at} has multiple capacities for the same wargear`);
     }
     const targets = [...(data.leads ?? []), ...(data.supports ?? []), ...((data as AttachmentData).conditional ?? []).flatMap((c) => c.units ?? [])];
-    for (const target of targets) if (target === data.unit) errors.push(`${at} attaches unit:${target} to itself`);
+    for (const target of [...targets, ...(data.withAnotherLeader ?? []).flatMap((b: BesideLeader) => b.units), ...(data.joins ?? []).flatMap((j: Joining) => j.units ?? [])]) if (target === data.unit) errors.push(`${at} attaches unit:${target} to itself`);
+    for (const { units } of (data as AttachmentData).insteadOf ?? []) if (units.includes(data.unit)) errors.push(`${at} stands in for unit:${data.unit}, itself`);
     for (const [index, { when }] of ((data as AttachmentData).conditional ?? []).entries()) {
       if (when?.detachment !== undefined && when.detachment === when.withoutDetachment) errors.push(`${at} conditional ${index} needs and excludes detachment:${when.detachment}`);
       if (when?.withUnit !== undefined && when.withUnit === when.withoutUnit) errors.push(`${at} conditional ${index} needs and excludes unit:${when.withUnit}`);

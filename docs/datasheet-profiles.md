@@ -10,7 +10,7 @@ The [example profiles](../fixtures/datasheet-profiles/README.md) show how these 
 | --- | --- | --- |
 | `unit-profile` | `unit`, optional `models`, the unit characteristics, optional `gaps` | One stat line. With neither `models` nor a model gap, it describes every model of the unit. |
 | `weapon-profile` | `unit`, `wargear`, the weapon characteristics, optional `keywords` and `gaps` | One stat line of a weapon as this unit's datasheet prints it. A weapon with several modes has one profile per mode, all naming the same `wargear`. |
-| `attachment` | `unit`, optional `leads`, `supports`, `conditional` and `gaps` | The units this unit may join as a Leader (`leads`) or as a support attachment (`supports`) in any roster, and those it may join only in some rosters (`conditional`). |
+| `attachment` | `unit`, optional `leads`, `supports`, `conditional`, `withAnotherLeader`, `joins`, `insteadOf`, `capacity` and `gaps` | The units this unit may join as a Leader (`leads`) or as a support attachment (`supports`) in any roster, those it may join only in some rosters (`conditional`), and the rules described under [attachment rules](#attachment-rules). |
 | `transport-profile` | `unit`, `capacity` or a capacity gap, optional `firingDeck` | The transport's alternative loads, passenger allowances, exceptions and equipment-dependent capacities, and its Firing Deck. |
 
 A stat line's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two datasheets can print different stat lines for wargear with the same ID. An attachment or transport profile uses its unit's ID.
@@ -35,9 +35,23 @@ Unit profiles must state `movement`, `toughness`, `save`, `wounds`, `leadership`
 
 ## Conditional attachments
 
-Each `conditional` entry gives a `role`, `leads` or `supports`, and names its targets: the units in `units` and any unit holding every keyword in `keywords`. An entry has `units`, `keywords` or both. It applies where the roster meets its optional `when` and both units hold its optional `shared` keyword. A `when` holds for a roster of its `faction` that includes its `detachment` and its `withUnit`, and includes neither its `withoutDetachment` nor its `withoutUnit`. Each field it omits holds for any roster. Keywords are written in capitals, as printed.
+Each `conditional` entry gives a `role`, `leads` or `supports`, and names its targets: the units in `units` and any unit holding every keyword in `keywords` and none in its optional `excludedKeywords`. An entry has `units`, `keywords` or both. It applies where the roster meets its optional `when` and both units hold its optional `shared` keyword. A `when` holds for a roster of its `faction` that includes its `detachment` and its `withUnit`, and includes neither its `withoutDetachment` nor its `withoutUnit`. Each field it omits holds for any roster. Keywords are written in capitals, as printed.
 
-`canAttach(attachment, role, target, context)` answers whether the attachment's unit may join `target` in `role`. The optional `context` gives the roster's `faction` ID, its `detachments` and `units` as lists of IDs, and `keywords`, each unit's keywords by unit ID, compared ignoring case. A field it omits is empty: a roster of no faction with no detachments, units or keywords.
+`canAttach(attachment, role, target, context)` answers whether the attachment's unit may join `target` in `role`. The optional `context` gives the roster's `faction` ID, its `detachments` and `units` as lists of IDs, and `keywords`, each unit's keywords by unit ID (a unit holds every keyword its models hold), compared ignoring case. A field it omits is empty: a roster of no faction with no detachments, units or keywords.
+
+## Attachment rules
+
+By the core rules, a bodyguard unit takes one leader unit and one support unit, and each support unit in a roster must be attached to a bodyguard unit. A unit is a support unit in a roster where it may support a unit there: through `supports`, or a `supports` entry of `conditional` whose `when` holds. A unit may be a leader unit for some bodyguards and a support unit for others. Leading is never compulsory.
+
+`insteadOf` lists, on a bodyguard's record, the units it may be joined in place of, as a datasheet printing "if a unit can be attached to X, it can be attached to this unit instead". A unit that may join one of an entry's `units` in a role may join this unit in that role, where the entry's optional `role` is that role, the joining unit holds every keyword in its `keywords`, and none in its `excludedKeywords`. "With the Leader ability" is `role: "leads"`; a rule naming the joining units by keyword, such as "a CHARACTER unit" or "a CHAPLAIN model", gives that keyword; one naming two, such as "a CAPTAIN or CHAPTER MASTER unit", is an entry for each. A unit one stands in for may itself stand in for others.
+
+`capacity`, on a bodyguard's record, raises the core limit: it takes up to `leads` leader units and `supports` support units, the omitted one staying at one. With `startingStrength`, the raise holds only while the unit's Starting Strength is at least that. `distinct` means no two of its attached units may be the same unit, and each of `limits` that at most `max` of them hold every keyword in its `keywords`.
+
+`withAnotherLeader`, on a leader's record, lists the bodyguard units (`units`) it may lead even when one other leader unit already leads them, never beside a unit of its own: the bodyguard then takes the two. With `besideUnits` or `besideKeywords`, that other unit must be one of those units or hold one of those keywords.
+
+`joins` lists, on a unit outside the leader and support roles, the units it may join to become part of them: a unit in an entry's `units`, or holding every keyword in its `keywords`, led by a unit holding every keyword in its `ledBy`. With `required`, the unit must join one if it can; with `exclusive`, the unit it joins may have no other joined unit holding one of those keywords. An entry gives `units`, `keywords` or `ledBy`.
+
+`canAttach(attachment, role, target, context, attachmentOf)` follows `insteadOf` given `attachmentOf`, each unit's attachment record by unit ID. `mustAttach(attachment, context)` answers whether the unit is a support unit in the roster or must join a unit. `attachedUnitProblems(attached, context, attachmentOf)` checks one bodyguard with the units attached to or joined with it, as `{ bodyguard, startingStrength, leaders, supports, joined }`, and lists problem codes: `attachment-target`, `attachment-full`, `attachment-duplicate`, `attachment-limit`, `join-target` and `join-exclusive`.
 
 ## Base sizes
 

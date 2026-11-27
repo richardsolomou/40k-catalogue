@@ -11,9 +11,9 @@ Every summary is original wording, checked against the official sources it cites
 
 6,353 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.1, data build 972, released 2026-10-02; 571 records that no app row carries cite only the dated Games Workshop page that prints it. 160 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 935 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it, or a Warhammer Legends ability's PDF page: `combat` 2764, `grants` 396, `weaponAbilities` 127, `reminder` 2256, `reserves` 1, `invulnerableSave` 121, `upgradesWeapon` 21, `roster` 29, `options` 13, `attachment` 55, `references` 1258 (4,465 records with at least one). 99 Crucible and Warhammer Legends abilities that no app row prints and no Legends page is read for have their blocks too. A record whose rule none of these prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it, or a Warhammer Legends ability's PDF page: `combat` 2825, `grants` 396, `weaponAbilities` 127, `reminder` 2256, `reserves` 1, `invulnerableSave` 121, `upgradesWeapon` 21, `givenWeapon` 6, `roster` 29, `options` 13, `attachment` 55, `references` 1259 (4,526 records with at least one). 100 Crucible and Warhammer Legends abilities that no app row prints and no Legends page is read for have their blocks too. A record whose rule none of these prints has none; treat what its summary describes as not calculated.
 
-The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,117 stat lines and 5,172 weapon profiles, and the `marine-main` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the entry IDs saved rosters hold for it as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 340 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `marine-main-legends` snapshot, the costs of 330 of them from the Munitorum Field Manual's Legends section. 325 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (37 of them with options left out, listed below), and their weapon profiles name that wargear. 59 Crucible or promotional datasheets the app does not carry have roster definitions, stat lines, weapon profiles and Leader targets, each naming the publication that prints the datasheet as `source`; 13 Legends datasheets whose PDF states no loadout in typed form have a roster definition; and the `marine-main-extra` and `marine-main-extra-mfm` snapshots price those datasheets and 8 Legends datasheets the Field Manual's Legends section does not. Each of these roster definitions was checked, for each choice together with the choices it changes, to accept exactly the loadouts the datasheet allows, and every weapon profile names wargear it fields. In this release 6 Crucible or promotional datasheets the check did not prove have only an entry for their abilities, with no roster definition, stat lines or weapon profiles, and 2 Legends datasheets whose PDF states no loadout in typed form and the check did not prove have no roster definition; all are listed below, and 1 wargear ability some of them grant is published only for the datasheets the check proved. A characteristic another of these units' choices changes is a gap.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,118 stat lines and 5,172 weapon profiles, and the `marine-main` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the entry IDs saved rosters hold for it as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 340 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `marine-main-legends` snapshot, the costs of 330 of them from the Munitorum Field Manual's Legends section. 326 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (36 of them with options left out, listed below), and their weapon profiles name that wargear. 59 Crucible or promotional datasheets the app does not carry have roster definitions, stat lines, weapon profiles and Leader targets, each naming the publication that prints the datasheet as `source`; 13 Legends datasheets whose PDF states no loadout in typed form have a roster definition; and the `marine-main-extra` and `marine-main-extra-mfm` snapshots price those datasheets and 8 Legends datasheets the Field Manual's Legends section does not. Each of these roster definitions was checked, for each choice together with the choices it changes, to accept exactly the loadouts the datasheet allows, and every weapon profile names wargear it fields. In this release 6 Crucible or promotional datasheets the check did not prove have only an entry for their abilities, with no roster definition, stat lines or weapon profiles, and 1 Legends datasheet whose PDF states no loadout in typed form and the check did not prove has no roster definition; all are listed below, and 1 wargear ability some of them grant is published only for the datasheets the check proved. A characteristic another of these units' choices changes is a gap.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
@@ -25,7 +25,7 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 
 ## Base sizes
 
-1,079 stat lines take the base size the app build prints and 50 stat lines the one Games Workshop's Base Size Guide (in the Event Companion) prints, cited in `baseSizeSource`: where the app prints none or none the format types, and for a Warhammer Legends datasheet, whose PDF prints none, from the newest guide dated before the cutoff that lists it. For 9 units the guide says which model takes which of the sizes the app lists.
+1,079 stat lines take the base size the app build prints and 51 stat lines the one Games Workshop's Base Size Guide (in the Event Companion) prints, cited in `baseSizeSource`: where the app prints none or none the format types, and for a Warhammer Legends datasheet, whose PDF prints none, from the newest guide dated before the cutoff that lists it. For 9 units the guide says which model takes which of the sizes the app lists. For 1 unit the guide sizes some models apart from the one size the app prints for all, which the guide gives the rest.
 
 Where the app and the guide in force differ, the app's size is published (20 stat lines):
 
@@ -50,7 +50,7 @@ Where the app and the guide in force differ, the app's size is published (20 sta
 - `space-marines.chaplain-in-terminator-armour`: app 50mm, guide 40mm
 - `space-marines.chaplain-with-jump-pack`: app 40mm, guide 32mm
 
-### VS Data's own base sizes (365)
+### VS Data's own base sizes (366)
 
 No official source in reach prints a base size for these datasheets, so their stat lines take VS Data's own, with no `baseSizeSource`.
 
@@ -107,6 +107,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `astra-militarum.ciaphas-cain`
 - `astra-militarum.colossus`
 - `astra-militarum.crassus`
+- `astra-militarum.death-korps-grenadier-squad`
 - `astra-militarum.death-rider-commissar`
 - `astra-militarum.dominus-armoured-siege-bombard`
 - `astra-militarum.earthshaker-carriage-battery`
@@ -420,12 +421,11 @@ No official source in reach prints a base size for these datasheets, so their st
 - `world-eaters.butcherlord`
 - `world-eaters.eight-blessed-lord`
 
-### No base size: Warhammer Legends datasheets no guide lists (23)
+### No base size: Warhammer Legends datasheets no guide lists (22)
 
 No official source in reach prints their base size, so their stat lines carry a `no-source` gap.
 
 - `adeptus-mechanicus.x-101`
-- `astra-militarum.death-korps-grenadier-squad`
 - `chaos-daemons.tormentbringer-on-exalted-seeker-chariot`
 - `orks.attack-fighta`
 - `orks.big-gunz`
@@ -466,6 +466,8 @@ The app build prints no base size and the guide dated before the cutoff does not
 - `faq` `codex-necrons.errata.ophydian-destroyers-tunnelling-horrors-ability-2`, replaced by Necrons Faction Pack: Version 1.3, page 30
 - `faq` `imperial-armour-grey-knights.errata.grey-knights-thunderhawk-gunship`, replaced by Grey Knights Faction Pack: Version 1.2, page 7; Grey Knights Faction Pack: Version 1.2, page 8
 - `faq` `index-chaos-daemons.errata.feculent-gnarlmaw-screamers-skull-altar-keywords`, replaced by Chaos Daemons Faction Pack: Version 1.2, page 61; Chaos Daemons Faction Pack: Version 1.2, page 87; Chaos Daemons Faction Pack: Version 1.2, page 37
+
+15 entries the previous release published are retired: 11 "nothing" wargear placeholders for an empty default loadout, 3 wargear bundles the roster definitions now key by their parts, each replaced by both parts, and the Death Korps Grenadier Squad's stat line, replaced by its Grenadier and Heavy Weapons Team stat lines.
 
 ## Absent
 
@@ -516,9 +518,8 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `unit` `imperial-agents.martial-agent`
 - `unit` `necrons.hyperscientist`
 
-### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (2)
+### A Warhammer Legends datasheet from a Games Workshop PDF whose composition or default equipment did not read as typed values (1)
 
-- `unit` `astra-militarum.death-korps-grenadier-squad`
 - `unit` `space-marines.bike-squad`
 
 ## Wargear options left out
@@ -527,7 +528,6 @@ Options a source gives that are not stated: from the app build, structures the r
 
 - `adeptus-mechanicus.secutarii-peltasts`: option not typed: no model of the unit carries what it replaces (Legends PDF)
 - `aeldari-2.skathach-wraithknight`: option not typed: its choices did not read as wargear (Legends PDF)
-- `astra-militarum.death-korps-grenadier-squad`: alternative unit compositions are printed (Legends PDF)
 - `astra-militarum.griffon-mortar-carrier`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `astra-militarum.sabre-weapons-battery`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `blood-angels.death-company-dreadnought-with-magna-grapple`: option not typed: no model of the unit carries what it replaces (Legends PDF)
@@ -566,8 +566,6 @@ Options a source gives that are not stated: from the app build, structures the r
 - `space-marines.assault-squad-with-jump-packs`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-marines.assault-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-marines.bike-squad`: a model's default equipment not read (Legends PDF)
-- `space-marines.command-squad`: option not typed: no model of the unit carries what it replaces (Legends PDF)
-- `space-marines.command-squad`: option not typed: no model of the unit carries what it replaces (Legends PDF)
 - `space-marines.company-veterans-on-bikes`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-marines.company-veterans-on-bikes`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-marines.relic-terminator-squad`: option not typed: its wording is none of the typed forms (Legends PDF)

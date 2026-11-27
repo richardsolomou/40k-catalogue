@@ -90,6 +90,18 @@ export type AllegianceOffer = { choices: string[]; required?: true; detachment?:
 export type AllegianceData = Record<string, never>;
 /** The first of `limits` for the roster's battle size whose `when` holds replaces `perRoster`. */
 export type Limit = { battleSize: string; perRoster: number; when?: When };
+/**
+ * A core ability a datasheet gives its unit, or only its `models`: the Feel No Pain roll, the Scouts distance, a Lone
+ * Operative distance where printed, the Deadly Demise mortal wounds and the Damaged wounds.
+ */
+export type CoreAbility = { models?: string[] } & (
+  | { ability: "deep-strike" | "fights-first" | "hover" | "infiltrators" | "leader" | "stealth" | "super-heavy-walker" | "support" }
+  | { ability: "feel-no-pain"; threshold: number }
+  | { ability: "scouts"; inches: number }
+  | { ability: "lone-operative"; inches?: number }
+  | { ability: "deadly-demise"; mortalWounds: number | string }
+  | { ability: "damaged"; wounds: number }
+);
 /** `enhancements: false` bars a unit that the keyword rules would otherwise admit. */
 export type UnitData = {
   faction: string;
@@ -108,6 +120,10 @@ export type UnitData = {
   perRoster?: number;
   limits?: Limit[];
   legends?: true;
+  /** A datasheet printed in the Crucible of Champions book. */
+  crucible?: true;
+  /** The core abilities its datasheet gives it, each with its value where it takes one; absent where not recorded. */
+  coreAbilities?: CoreAbility[];
   enhancements?: false;
   allegiances?: AllegianceOffer[];
   /** Wargear the unit carries that none of its models does. */
@@ -273,6 +289,7 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
         ...refs("roster-option", Object.keys(unit.defaults ?? {})),
         ...refs("wargear", Object.values(unit.defaults ?? {}).flatMap((counts) => Object.keys(counts))),
         ...refs("model", Object.keys(unit.defaultModels ?? {})),
+        ...refs("model", unit.coreAbilities?.flatMap((entry) => entry.models ?? [])),
         ...refs("allegiance", unit.allegiances?.flatMap((offer) => offer.choices)),
         ...refs("detachment", unit.allegiances?.flatMap((offer) => (offer.detachment ? [offer.detachment] : []))),
         ...refs("wargear", unit.allegiances?.flatMap((offer) => Object.values(offer.requires ?? {}))),
@@ -444,6 +461,14 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     if (unit.data.compositions) {
       const reach = unit.data.compositions.map((c) => Object.values(c).reduce((r, b) => ({ min: r.min + b.min, max: r.max + b.max }), { min: 0, max: 0 }));
       for (const size of unit.data.sizes) if (!reach.some(({ min, max }) => size >= min && size <= max)) errors.push(`${at} size ${size} fits none of its compositions`);
+    }
+    const given = new Set<string>();
+    for (const [i, entry] of (unit.data.coreAbilities ?? []).entries()) {
+      for (const id of entry.models ?? []) ownModel(`${at} coreAbilities/${i}`, id, unit.id);
+      for (const id of entry.models ?? models.map((model) => model.id)) {
+        if (given.has(`${id} ${entry.ability}`)) errors.push(`${at} gives model:${id} core ability ${entry.ability} more than once`);
+        given.add(`${id} ${entry.ability}`);
+      }
     }
     for (const [i, group] of (unit.data.modelGroups ?? []).entries()) {
       const path = `${at} modelGroups/${i}`;

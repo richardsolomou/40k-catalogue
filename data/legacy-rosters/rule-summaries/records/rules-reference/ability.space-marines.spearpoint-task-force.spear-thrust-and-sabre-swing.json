@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,23 +15,24 @@
     "group": "Spearpoint Task Force",
     "detachment": {
       "kind": "detachment",
-      "id": "white-scars.spearpoint-task-force"
+      "id": "space-marines.spearpoint-task-force"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "fight"
       ],
-      "turn": "any"
+      "turn": "any",
+      "type": "battle-tactic"
     },
-    "summary": "Use it in either player's Fight phase when an **ADEPTUS ASTARTES** unit of yours is **selected to fight**; it is the target. For the rest of that phase, its melee attacks have your choice of:\n\n- **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)**\n- **[[LANCE]](vsdata:weapon-ability/lance)**\n- **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)** and **[[LANCE]](vsdata:weapon-ability/lance)**, if the unit has **MOUNTED**",
+    "summary": "Use it in either player's Fight phase as 1 of your **ADEPTUS ASTARTES** units is chosen to fight. For the rest of that phase, the melee attacks it makes gain either **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)** or **[[LANCE]](vsdata:weapon-ability/lance)**, as you choose; if the unit is **MOUNTED**, you may give them both instead.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -41,14 +42,17 @@
         "stratagem": {
           "limit": "phase",
           "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-fight"
+            "at": "phase"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
               "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
             ]
           }
         },
@@ -72,78 +76,7 @@
             }
           },
           "readings": [
-            {
-              "choices": [
-                {
-                  "option": "LETHAL HITS",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "weaponAbility": "LETHAL HITS"
-                    }
-                  ]
-                },
-                {
-                  "option": "LANCE",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "weaponAbility": "LANCE"
-                    }
-                  ]
-                },
-                {
-                  "option": "LETHAL HITS and LANCE",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    },
-                    {
-                      "kind": "for-units",
-                      "keywords": [
-                        "MOUNTED"
-                      ]
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "weaponAbility": "LETHAL HITS"
-                    },
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "weaponAbility": "LANCE"
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "attacker"
-              ]
-            },
+            {},
             {
               "choices": [],
               "default": 0
@@ -207,42 +140,38 @@
           "windows": [
             {
               "turn": "either",
-              "phase": "fight",
-              "timing": "a friendly ADEPTUS ASTARTES unit is selected to fight"
+              "phase": "fight"
             }
           ],
+          "trigger": {
+            "event": "friendly-unit-selected-to-fight"
+          },
           "target": {
             "side": "friendly",
             "count": 1,
             "keywordsAll": [
               "ADEPTUS ASTARTES"
-            ],
-            "is": "the unit selected to fight"
+            ]
           },
-          "chooseOne": [
+          "effects": [
             {
-              "attacks": "melee",
-              "grant": [
-                "[LETHAL HITS]"
+              "attackType": "melee",
+              "chooseOne": [
+                "LETHAL HITS",
+                "LANCE"
               ]
             },
             {
-              "attacks": "melee",
-              "grant": [
-                "[LANCE]"
+              "ifUnitHasKeyword": "MOUNTED",
+              "attackType": "melee",
+              "mayHaveBoth": [
+                "LETHAL HITS",
+                "LANCE"
               ]
-            },
-            {
-              "attacks": "melee",
-              "grant": [
-                "[LETHAL HITS]",
-                "[LANCE]"
-              ],
-              "requiresKeyword": "MOUNTED"
             }
           ],
           "duration": "end-of-phase",
-          "durationBasis": "Core Rules 01.02.02: the text gives no duration, so the effect lasts only for the phase in which it was applied."
+          "durationBasis": "Core Rules 01.02.02: no duration is printed, so the effect lasts for the rest of the phase in which it was applied"
         }
       }
     }

@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,23 +15,24 @@
     "group": "Blade of Ultramar",
     "detachment": {
       "kind": "detachment",
-      "id": "ultramarines.blade-of-ultramar"
+      "id": "space-marines.blade-of-ultramar"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "movement"
       ],
-      "turn": "opponent"
+      "turn": "opponent",
+      "type": "strategic-ploy"
     },
-    "summary": "In the opposing player’s [Movement phase](vsdata:core-rule/movement-phase), use this when an enemy finishes moving 8 inches or less from 1 of your units. That unit needs the **ADEPTUS ASTARTES INFANTRY/MOUNTED** keyword and must be **unengaged**. It may make a **[normal move](vsdata:core-rule/normal-move)**, with D3+3 inches setting the limit.",
+    "summary": "Use it in your opponent's Movement phase, right after an enemy unit finishes a **Normal move**, Advance or Fall Back. Pick 1 **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit of yours that:\n\n- has that enemy unit within 8\"\n- is outside **Engagement Range** of all enemy units\n\nIt may then move up to D6\" as a Normal move, or up to 6\" if the Tactical Doctrine applies to it.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -45,7 +46,8 @@
             "after": "enemy-ended-move"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "anyOf": [
               {
@@ -62,7 +64,7 @@
               }
             ],
             "conditions": [
-              "unengaged"
+              "not-in-engagement-range"
             ],
             "more": true
           }
@@ -76,43 +78,40 @@
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "normal-move"
-          }
-        ],
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "opponent",
-            "phases": [
-              "movement"
-            ],
-            "event": "enemy-unit-finishes-move",
-            "distance": {
-              "atMostInches": 8
+          "detachment": "Blade of Ultramar",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "movement",
+              "trigger": "just after an enemy unit finishes a Normal, Advance or Fall Back move"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "unengaged": true,
-            "sourceKeywordLabel": "Adeptus Astartes Infantry/Mounted"
+            "keywordsAny": [
+              "ADEPTUS ASTARTES INFANTRY",
+              "ADEPTUS ASTARTES MOUNTED"
+            ],
+            "withinInchesOfThatEnemyUnit": 8,
+            "notWithinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "kind": "move",
-              "subject": "selected-unit",
-              "move": "normal",
-              "optional": true,
-              "maximumInches": {
-                "dice": "D3",
-                "add": 3
-              }
+              "move": "Normal",
+              "maxInches": "D6"
+            },
+            {
+              "condition": "unit is under the Tactical Doctrine",
+              "move": "Normal",
+              "maxInches": 6,
+              "replacesPrevious": true
             }
-          ]
+          ],
+          "cardPrintsOtherText": {
+            "normalMoveMaxInches": "D3+3"
+          }
         }
       }
     }

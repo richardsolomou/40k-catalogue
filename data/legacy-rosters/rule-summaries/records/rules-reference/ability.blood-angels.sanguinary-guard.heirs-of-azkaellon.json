@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Sanguinary Guard",
-    "summary": "If the attack’s Strength exceeds this unit’s Toughness, apply −1 to the **[wound roll](vsdata:core-rule/wound-rolls)** for attacks against this unit.",
+    "summary": "While a **CHARACTER** model leads this unit, melee attacks aimed at this unit suffer -1 to the **Wound roll**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -35,61 +35,17 @@
             {
               "choices": [
                 {
-                  "conditions": [],
-                  "effects": [
+                  "conditions": [
                     {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "condition": "stronger",
-                      "rolls": {
-                        "woundModifier": -1
-                      }
+                      "kind": "leading"
                     }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "condition": "stronger",
-                      "rolls": {
-                        "woundModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [],
+                  ],
                   "effects": [
                     {
                       "role": "defender",
                       "attacks": [
                         "melee"
                       ],
-                      "condition": "stronger",
                       "rolls": {
                         "woundModifier": -1
                       }
@@ -97,7 +53,7 @@
                   ]
                 }
               ],
-              "default": 1,
+              "default": 0,
               "roles": [
                 "defender"
               ]
@@ -107,16 +63,6 @@
             [
               {
                 "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ],
-            [
-              {
-                "reading": 2
               }
             ]
           ],
@@ -133,14 +79,14 @@
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
             "stratagem-both.one.known": 0,
             "stratagem-both.one.unknown": 0,
             "stratagem-both.many.known": 0,
@@ -152,22 +98,17 @@
           }
         },
         "detail": {
-          "subtype": "short-defense",
-          "recipient": "this unit",
-          "appliesTo": "attacks",
-          "qualification": {
-            "attackStrengthExceedsTargetToughness": true
-          },
-          "amount": -1,
-          "magnitude": 1,
-          "incoming": {
-            "recipient": "this unit",
-            "trigger": "targets"
-          },
-          "effect": {
+          "ability": {
+            "condition": {
+              "ledByModelWithKeyword": "CHARACTER"
+            },
+            "appliesTo": "melee attacks targeting this unit",
             "roll": "wound",
             "delta": -1,
-            "kind": "modify-roll"
+            "magnitude": 1
+          },
+          "cardPrintsOtherText": {
+            "onlyWhenAttackStrengthExceedsToughness": true
           }
         }
       }

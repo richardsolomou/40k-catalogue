@@ -7,54 +7,86 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Belial",
-    "summary": "If this model is **destroyed** during the [Fight phase](vsdata:core-rule/fight-phase) before its unit is **selected to fight**, roll a D6 before removing it. On 2+, leave it on the battlefield until it fights or the phase ends, whichever happens first.",
+    "summary": "For every melee attack allocated to this model, roll one D6 once the attacking unit has made all its attacks, to a limit of six dice for each attacking unit; each 4+ inflicts 1 **mortal wound** on the attacking unit.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
-        "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "fight",
-              "turn": "any"
-            },
-            {
-              "at": "phase-end",
-              "phase": "fight",
-              "turn": "any"
-            }
+        "combat": {
+          "readings": [
+            {}
           ],
-          "whileDestroyed": true
-        },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "inflict-damage.destroyed"
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
           }
-        ],
+        },
         "detail": {
-          "timing": "model destroyed during Fight phase before its unit selected to fight",
-          "rollBeforeRemoval": true,
-          "dice": "D6",
-          "threshold": 2,
-          "success": "delay removal",
-          "removeWhen": "model has fought or Fight phase ends, whichever first"
+          "ability": {
+            "trigger": "a melee attack is allocated to this model",
+            "timing": "after the attacking unit has finished making its attacks",
+            "roll": {
+              "dice": "D6",
+              "perAllocatedAttack": 1,
+              "maxDicePerAttackingUnit": 6
+            },
+            "success": 4,
+            "effect": {
+              "mortalWoundsToAttackingUnit": 1
+            }
+          },
+          "cardPrintsOtherText": {
+            "rollWhenDestroyed": "D6",
+            "delayRemovalOn": 2
+          }
         }
       }
     }

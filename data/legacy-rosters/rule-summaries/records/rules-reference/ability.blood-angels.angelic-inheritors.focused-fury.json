@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -22,21 +22,17 @@
       "phases": [
         "fight"
       ],
-      "turn": "any"
+      "turn": "any",
+      "type": "battle-tactic"
     },
-    "parts": {
-      "when": "[Either player's Fight phase](vsdata:core-rule/fight-phase), as one of your **ADEPTUS ASTARTES** units is **selected to fight**.",
-      "target": "That **ADEPTUS ASTARTES** unit.",
-      "effect": "Pick 1 for the unit's melee attacks:\n\n- they get **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)**\n- if the unit has the **CHARACTER** keyword, they get **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)** and **[[LANCE]](vsdata:weapon-ability/lance)**"
-    },
-    "summary": "**When:** [Either player's Fight phase](vsdata:core-rule/fight-phase), as one of your **ADEPTUS ASTARTES** units is **selected to fight**.\n\n**Target:** That **ADEPTUS ASTARTES** unit.\n\n**Effect:** Pick 1 for the unit's melee attacks:\n\n- they get **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)**\n- if the unit has the **CHARACTER** keyword, they get **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)** and **[[LANCE]](vsdata:weapon-ability/lance)**",
+    "summary": "Use it in either player's Fight phase. Pick 1 **ADEPTUS ASTARTES** unit of yours not yet chosen to fight this phase. Until the phase ends, its models' melee weapons have **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)**, and **[[LANCE]](vsdata:weapon-ability/lance)** as well if it is a **CHARACTER** unit.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -46,14 +42,17 @@
         "stratagem": {
           "limit": "phase",
           "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-fight"
+            "at": "phase"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
               "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
             ]
           }
         },
@@ -80,29 +79,7 @@
             {
               "choices": [
                 {
-                  "option": "LETHAL HITS",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "weaponAbility": "LETHAL HITS"
-                    }
-                  ]
-                },
-                {
-                  "option": "LETHAL HITS, LANCE",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
+                  "conditions": [],
                   "effects": [
                     {
                       "role": "attacker",
@@ -121,7 +98,7 @@
                   ]
                 }
               ],
-              "default": 0,
+              "default": 1,
               "roles": [
                 "attacker"
               ]
@@ -129,12 +106,7 @@
             {
               "choices": [
                 {
-                  "option": "LETHAL HITS",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
+                  "conditions": [],
                   "effects": [
                     {
                       "role": "attacker",
@@ -146,38 +118,7 @@
                   ]
                 }
               ],
-              "default": 0,
-              "shown": {
-                "choices": [
-                  {
-                    "option": "LETHAL HITS",
-                    "conditions": [
-                      {
-                        "kind": "option"
-                      }
-                    ],
-                    "effects": [
-                      {
-                        "role": "attacker",
-                        "attacks": [
-                          "melee"
-                        ],
-                        "weaponAbility": "LETHAL HITS"
-                      }
-                    ]
-                  },
-                  {
-                    "option": "LETHAL HITS, LANCE",
-                    "conditions": [
-                      {
-                        "kind": "option"
-                      }
-                    ],
-                    "effects": []
-                  }
-                ],
-                "default": 0
-              },
+              "default": 1,
               "roles": [
                 "attacker"
               ]
@@ -185,12 +126,7 @@
             {
               "choices": [
                 {
-                  "option": "LETHAL HITS",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
+                  "conditions": [],
                   "effects": [
                     {
                       "role": "attacker",
@@ -202,11 +138,7 @@
                   ]
                 },
                 {
-                  "option": "LETHAL HITS, LANCE",
                   "conditions": [
-                    {
-                      "kind": "option"
-                    },
                     {
                       "kind": "for-units",
                       "keywords": [
@@ -232,7 +164,7 @@
                   ]
                 }
               ],
-              "default": 0,
+              "default": 1,
               "roles": [
                 "attacker"
               ]
@@ -311,63 +243,34 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "selected-to-fight",
-            "actor": "target-unit"
-          },
+          "detachment": "Angelic Inheritors",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "mode": "trigger-unit",
-            "keywords": [
+            "keywordsAll": [
               "ADEPTUS ASTARTES"
-            ]
+            ],
+            "notSelectedToFightThisPhase": true
           },
           "effects": [
             {
-              "kind": "choose-one-mode",
-              "alternatives": [
-                {
-                  "effects": [
-                    {
-                      "kind": "weapon-ability-grant",
-                      "recipient": "target-unit-attacks",
-                      "attackType": "melee",
-                      "abilities": [
-                        "LETHAL HITS"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "condition": {
-                    "targetHas": "Character"
-                  },
-                  "effects": [
-                    {
-                      "kind": "weapon-ability-grant",
-                      "recipient": "target-unit-attacks",
-                      "attackType": "melee",
-                      "abilities": [
-                        "LETHAL HITS",
-                        "LANCE"
-                      ]
-                    }
-                  ]
-                }
-              ]
+              "attackType": "melee",
+              "weaponAbility": "LETHAL HITS"
+            },
+            {
+              "ifTargetKeyword": "CHARACTER",
+              "attackType": "melee",
+              "weaponAbility": "LANCE",
+              "inAdditionTo": "LETHAL HITS"
             }
           ],
-          "duration": {
-            "scope": "target-unit-attacks-in-trigger"
-          }
+          "duration": "end-of-phase"
         }
       }
     }

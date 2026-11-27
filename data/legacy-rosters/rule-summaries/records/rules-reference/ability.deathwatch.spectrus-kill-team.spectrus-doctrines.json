@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Spectrus Kill Team",
-    "summary": "As [your opponent's Fight phase](vsdata:core-rule/fight-phase) ends, this unit, if **unengaged**, can go into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**.",
+    "summary": "When your opponent's turn ends, if no enemy unit is within 6\" of this unit, you may take this unit off the battlefield and put it into **Strategic Reserves**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -30,67 +30,27 @@
         "reminder": {
           "timings": [
             {
-              "at": "phase-end",
-              "phase": "fight",
+              "at": "turn-end",
               "turn": "opponent"
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "strategic-reserves"
-          }
-        ],
         "detail": {
-          "effect": {
-            "type": "conditional",
-            "condition": {
-              "operator": "not",
-              "operands": [
-                {
-                  "type": "matches",
-                  "parameters": {
-                    "filter": {
-                      "state": "engaged"
-                    }
-                  }
-                }
-              ]
+          "ability": {
+            "when": {
+              "turn": "opponent",
+              "timing": "end-of-turn"
             },
-            "effect": {
-              "type": "set-up",
-              "target": "this-unit",
-              "modifier": {
-                "to": "strategic-reserves"
-              }
-            }
-          },
-          "scope": {
-            "duration": "permanent"
-          },
-          "trigger": {
-            "event": "phase-ended",
             "condition": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "phase-is",
-                  "parameters": {
-                    "phase": "fight"
-                  }
-                },
-                {
-                  "type": "player-turn-is",
-                  "parameters": {
-                    "turn": "opponent-turn"
-                  }
-                }
-              ]
+              "moreThanInchesFromAllEnemyUnits": 6
             },
-            "optional": true
+            "optional": true,
+            "effect": "remove this unit and place it into Strategic Reserves"
           },
-          "behavior": "reactive"
+          "cardPrintsOtherText": {
+            "window": "end of your opponent's Fight phase",
+            "condition": "unengaged"
+          }
         }
       }
     }

@@ -18,9 +18,20 @@ export function verify(value: unknown): Verification {
   return errors.length > 0 ? { ok: false, errors } : { ok: true, record: value };
 }
 
-/** Checks that records verified one by one have distinct IDs. */
+/**
+ * Checks that records verified one by one have distinct IDs, and that each deployment a layout names is a deployment
+ * map among them on the same board.
+ */
 export function verifyDataset(records: TerrainRecord[]): string[] {
-  return duplicates(records.map((r) => r.id)).map((id) => `${id} is used by more than one record`);
+  const errors = duplicates(records.map((r) => r.id)).map((id) => `${id} is used by more than one record`);
+  const byId = new Map(records.map((r) => [r.id, r]));
+  for (const layout of records)
+    for (const id of (layout.kind === "terrain-layout" && layout.deployments) || []) {
+      const deployment = byId.get(id);
+      if (deployment?.kind !== "deployment-map") errors.push(`layout ${layout.id} names deployment ${id}, which has no deployment map`);
+      else if (!sameBoard(deployment, layout)) errors.push(`layout ${layout.id} is not on the same board as deployment ${id}`);
+    }
+  return errors;
 }
 
 /** The layouts and deployments a mission pack names, and which deployments each layout permits; any pack format fits. */
@@ -29,7 +40,7 @@ export type BattlefieldReferences = { layouts: { id: string; deployments: string
 /**
  * Joins referenced layouts and deployments to geometry records with the same ID. Missing geometry is reported as a
  * gap, not an error, because a pack can be published before its terrain; a layout drawn on a different board from a
- * deployment it permits is an error.
+ * deployment it permits is an error, and so is a listed layout naming deployments of its own, which the pack owns.
  */
 export function joinBattlefields(references: BattlefieldReferences, records: TerrainRecord[]): { gaps: string[]; errors: string[] } {
   const byId = new Map(records.map((r) => [r.id, r]));
@@ -43,10 +54,10 @@ export function joinBattlefields(references: BattlefieldReferences, records: Ter
       gaps.push(`layout ${id} has no terrain layout`);
       continue;
     }
+    if (layout.deployments) errors.push(`layout ${id} names its own deployments, though a mission pack lists it`);
     for (const deploymentId of deployments) {
       const deployment = byId.get(deploymentId);
-      if (deployment?.kind === "deployment-map" && (deployment.board.width !== layout.board.width || deployment.board.height !== layout.board.height))
-        errors.push(`layout ${id} is not on the same board as deployment ${deploymentId}`);
+      if (deployment?.kind === "deployment-map" && !sameBoard(deployment, layout)) errors.push(`layout ${id} is not on the same board as deployment ${deploymentId}`);
     }
   }
   return { gaps, errors };
@@ -100,6 +111,10 @@ function deploymentErrors(deployment: DeploymentMap): string[] {
   for (const id of duplicates(deployment.objectives.map((o) => o.id))) errors.push(`/objectives id ${id} is used more than once`);
   deployment.objectives.forEach((o, i) => errors.push(...pointErrors(`/objectives/${i}`, [o.at], deployment.board)));
   return errors;
+}
+
+function sameBoard(a: TerrainRecord, b: TerrainRecord): boolean {
+  return a.board.width === b.board.width && a.board.height === b.board.height;
 }
 
 function boardErrors(board: { width: number; height: number }): string[] {

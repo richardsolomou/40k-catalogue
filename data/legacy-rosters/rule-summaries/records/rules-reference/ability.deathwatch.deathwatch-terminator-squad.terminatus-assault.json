@@ -7,57 +7,55 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Deathwatch Terminator Squad",
-    "summary": "This unit gets 2 benefits:\n\n- it can re-roll its [Charge rolls](vsdata:core-rule/charge-step)\n- after it ends a **[Charge move](vsdata:core-rule/charge-move)**, every enemy unit in [Engagement Range](vsdata:core-rule/engagement-range) of it takes a [Battle-shock test](vsdata:core-rule/battle-shock), with -1 to that test for units that are neither **IMPERIUM** nor **CHAOS**",
+    "summary": "This unit's **Charge rolls** may be re-rolled. Each time it finishes a **Charge move**, every enemy unit it is within **Engagement Range** of takes a Battle-shock test, at -1 if that enemy unit has neither the **IMPERIUM** nor the **CHAOS** keyword.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "charge-move"
-          }
-        ],
         "detail": {
           "ability": {
             "effects": [
               {
-                "reroll": "charge"
+                "reroll": "charge",
+                "rollsMadeFor": "this unit"
               },
               {
-                "trigger": "after this unit ends a Charge move",
+                "trigger": "each time this unit ends a Charge move",
                 "select": {
                   "side": "enemy",
-                  "engagedWith": "this unit"
+                  "scope": "each unit",
+                  "withinEngagementRangeOf": "this unit"
                 },
-                "forcedRoll": "battle-shock",
-                "modifier": {
-                  "operation": "subtract",
-                  "amount": 1
-                },
-                "modifierOnlyFor": {
-                  "keywordsNone": [
-                    "IMPERIUM",
-                    "CHAOS"
-                  ]
+                "battleShockTest": true,
+                "testModifier": {
+                  "subtract": 1,
+                  "if": {
+                    "keywordsNone": [
+                      "IMPERIUM",
+                      "CHAOS"
+                    ]
+                  }
                 }
               }
             ]
+          },
+          "cardPrintsOtherText": {
+            "effect": "enemy units engaged after the charge make a battle-shock roll, -1 for non-IMPERIUM/CHAOS units"
           }
         }
       }

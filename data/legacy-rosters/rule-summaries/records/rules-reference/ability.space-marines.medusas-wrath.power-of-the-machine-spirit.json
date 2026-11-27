@@ -7,31 +7,32 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "stratagem",
-    "group": "Medusa's Wrath",
+    "group": "Ironstorm Spearhead",
     "detachment": {
       "kind": "detachment",
-      "id": "iron-hands.medusas-wrath"
+      "id": "space-marines.ironstorm-spearhead"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "shooting"
       ],
-      "turn": "opponent"
+      "turn": "opponent",
+      "type": "epic-deed"
     },
-    "summary": "Use it in the opponent's [Shooting phase](vsdata:core-rule/shooting-phase), once an enemy unit has shot after targeting an **unengaged** **ADEPTUS ASTARTES VEHICLE** unit of yours; that **VEHICLE** unit is the target.\n\nIt shoots, and may pick only that enemy unit as its target, using:\n\n- [Snap Shooting](vsdata:core-rule/snap-shooting)\n- Or **normal shooting**, if it is **at half-strength** or **below half-strength**",
+    "summary": "Use it in your opponent's Shooting phase, right after an enemy unit resolves its attacks. Pick 1 **ADEPTUS ASTARTES VEHICLE** unit of yours that those attacks left **Below Half-strength**.\n\nIt may shoot as though this were your Shooting phase, targeting only that enemy unit, which must be an eligible target.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -42,17 +43,17 @@
           "limit": "phase",
           "when": {
             "at": "phase",
-            "after": "enemy-shot"
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
               "ADEPTUS ASTARTES",
               "VEHICLE"
-            ],
-            "conditions": [
-              "unengaged"
             ],
             "more": true
           }
@@ -66,58 +67,39 @@
             }
           ]
         },
-        "combat": {
-          "unresolved": "An Or: bullet that changes what an effect gives is read as a numbered option with no effect."
-        },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "normal-shooting"
-          },
-          {
-            "kind": "core-rule",
-            "id": "snap-shooting"
-          }
-        ],
         "detail": {
-          "detachment": "Medusa's Wrath",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "opponents"
-              }
-            ],
-            "event": "enemy-unit-finishes-shooting",
-            "actor": "triggering-enemy",
-            "condition": "targeted-chosen-friendly-vehicle"
-          },
+          "detachment": "Ironstorm Spearhead",
+          "type": "Epic Deed",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "timing": "just after an enemy unit has resolved its attacks"
+            }
+          ],
           "target": {
-            "controller": "friendly",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "allKeywords": [
+            "keywordsAll": [
               "ADEPTUS ASTARTES",
               "VEHICLE"
             ],
-            "conditions": [
-              "unengaged",
-              "targeted-by-triggering-enemy"
-            ]
+            "reducedToBelowHalfStrengthByThatEnemyUnitsAttacks": true
           },
           "effects": [
             {
-              "action": "shoot",
-              "actor": "chosen-unit",
-              "defaultMode": "snap-shooting",
-              "alternative": {
-                "mode": "normal-shooting",
-                "condition": "at-or-below-half-strength"
-              },
-              "onlyTarget": "triggering-enemy"
+              "shoot": true,
+              "asIfOwnShootingPhase": true,
+              "mayTargetOnly": "that enemy unit",
+              "requiresEnemyEligibleTarget": true
             }
           ],
-          "restrictions": []
+          "cardPrintsOtherText": {
+            "detachment": "Medusa's Wrath",
+            "cpCost": 1,
+            "trigger": "enemy unit that targeted an unengaged friendly ADEPTUS ASTARTES VEHICLE unit has shot",
+            "effect": "snap shooting, or normal shooting if at or below half-strength, targeting only that enemy unit"
+          }
         }
       }
     }

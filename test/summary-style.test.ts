@@ -251,3 +251,7 @@ test("a phase as a kind of phase with though stays in style", () => {
 test("a phase as a kind of phase across a line break stays in style", () => {
   assert.deepEqual(styleIssues(ability("After this unit fights, it can fight again as\nif it were in the Fight phase.")), []);
 });
+
+test("an ability whose name only starts with Damaged is not a Damaged rule", () => {
+  assert.deepEqual(styleIssues({ ...ability("In your Shooting phase, this unit gets +1 to Hit."), id: "synthetic.ember-host.pyre-engine.damaged-armour" }), []);
+});

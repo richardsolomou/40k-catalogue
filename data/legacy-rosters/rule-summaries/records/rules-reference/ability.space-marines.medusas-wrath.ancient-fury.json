@@ -7,31 +7,32 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "stratagem",
-    "group": "Medusa's Wrath",
+    "group": "Ironstorm Spearhead",
     "detachment": {
       "kind": "detachment",
-      "id": "iron-hands.medusas-wrath"
+      "id": "space-marines.ironstorm-spearhead"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "command"
       ],
-      "turn": "own"
+      "turn": "own",
+      "type": "epic-deed"
     },
-    "summary": "Choose an **ADEPTUS ASTARTES DREADNOUGHT** in your [Command phase](vsdata:core-rule/command-phase). It gains 1 inch of Move and +1 each to Toughness, Leadership, Objective Control and **hit rolls** until your next [Command phase](vsdata:core-rule/command-phase) begins.",
+    "summary": "Use it in your Command phase. Pick 1 **ADEPTUS ASTARTES WALKER** model of yours. Until your next Command phase starts, that model gets +1 Move, +1 Toughness, +1 Leadership and +1 Objective Control, and its attacks get +1 to their **Hit rolls**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -46,10 +47,10 @@
           "target": {
             "count": 1,
             "side": "friendly",
-            "entity": "unit",
+            "entity": "model",
             "keywords": [
               "ADEPTUS ASTARTES",
-              "DREADNOUGHT"
+              "WALKER"
             ]
           }
         },
@@ -67,105 +68,13 @@
             "target": {
               "anyOf": [
                 [
-                  "ADEPTUS ASTARTES DREADNOUGHT"
+                  "ADEPTUS ASTARTES WALKER"
                 ]
               ]
             }
           },
           "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "toughness": 1
-                    },
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "rolls": {
-                        "hitModifier": 1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "shown": {
-                "choices": [
-                  {
-                    "conditions": [],
-                    "effects": [
-                      {
-                        "role": "defender",
-                        "attacks": [
-                          "ranged",
-                          "melee"
-                        ],
-                        "unitStat": {
-                          "kind": "movement",
-                          "add": 1
-                        }
-                      },
-                      {
-                        "role": "defender",
-                        "attacks": [
-                          "ranged",
-                          "melee"
-                        ],
-                        "toughness": 1
-                      },
-                      {
-                        "role": "defender",
-                        "attacks": [
-                          "ranged",
-                          "melee"
-                        ],
-                        "unitStat": {
-                          "kind": "leadership",
-                          "add": -1
-                        }
-                      },
-                      {
-                        "role": "defender",
-                        "attacks": [
-                          "ranged",
-                          "melee"
-                        ],
-                        "unitStat": {
-                          "kind": "objective-control",
-                          "add": 1
-                        }
-                      },
-                      {
-                        "role": "attacker",
-                        "attacks": [
-                          "ranged",
-                          "melee"
-                        ],
-                        "rolls": {
-                          "hitModifier": 1
-                        }
-                      }
-                    ]
-                  }
-                ],
-                "default": 1
-              },
-              "roles": [
-                "attacker",
-                "defender"
-              ]
-            }
+            {}
           ],
           "trees": [
             [
@@ -206,58 +115,58 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "your",
-            "phases": [
-              "command"
-            ],
-            "event": "phase",
-            "window": {
-              "command": "your"
-            }
+          "detachment": "Ironstorm Spearhead",
+          "type": "Epic Deed",
+          "window": {
+            "turn": "own",
+            "phase": "command"
           },
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "ADEPTUS ASTARTES DREADNOUGHT"
+            "scope": "model",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "WALKER"
             ]
           },
           "effects": [
             {
-              "kind": "modifier",
-              "subject": "selected-unit-models",
-              "characteristic": "move-inches",
+              "characteristic": "Move",
               "delta": 1
             },
             {
-              "kind": "modifier",
-              "subject": "selected-unit-models",
-              "characteristic": "toughness",
+              "characteristic": "Toughness",
               "delta": 1
             },
             {
-              "kind": "modifier",
-              "subject": "selected-unit-models",
-              "characteristic": "leadership",
+              "characteristic": "Leadership",
               "delta": 1
             },
             {
-              "kind": "modifier",
-              "subject": "selected-unit-models",
-              "characteristic": "objective-control",
+              "characteristic": "Objective Control",
               "delta": 1
             },
             {
-              "kind": "modifier",
-              "subject": "selected-unit-attacks",
-              "characteristic": "hit-roll",
+              "attacks": "every attack made by the model",
+              "roll": "hit",
               "delta": 1
             }
           ],
-          "duration": {
-            "until": "start-of-your-next-command-phase"
+          "duration": "until the start of your next Command phase",
+          "cardPrintsOtherText": {
+            "detachment": "Medusa's Wrath",
+            "type": "",
+            "target": {
+              "side": "friendly",
+              "count": 1,
+              "scope": "unit",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES",
+                "DREADNOUGHT"
+              ]
+            },
+            "moveInches": 1
           }
         }
       }

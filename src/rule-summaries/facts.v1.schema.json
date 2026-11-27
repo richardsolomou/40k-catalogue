@@ -255,6 +255,20 @@
             "const": true
           }
         },
+        "givenWeapon": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/given-weapon"
+          }
+        },
         "reminder": {
           "if": {
             "type": "object",
@@ -331,6 +345,11 @@
         "detail": {
           "$ref": "#/$defs/detail"
         }
+      },
+      "dependentRequired": {
+        "givenWeapon": [
+          "upgradesWeapon"
+        ]
       }
     },
     "enhancement-fields": {
@@ -411,6 +430,20 @@
             "const": true
           }
         },
+        "givenWeapon": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/given-weapon"
+          }
+        },
         "reminder": {
           "if": {
             "type": "object",
@@ -487,6 +520,11 @@
         "detail": {
           "$ref": "#/$defs/detail"
         }
+      },
+      "dependentRequired": {
+        "givenWeapon": [
+          "upgradesWeapon"
+        ]
       }
     },
     "mission-award": {
@@ -1022,6 +1060,12 @@
         },
         "keywords": {
           "$ref": "#/$defs/selectors"
+        },
+        "against": {
+          "enum": [
+            "ranged",
+            "melee"
+          ]
         }
       }
     },
@@ -1552,6 +1596,12 @@
         "weaponHas": {
           "$ref": "#/$defs/keyword"
         },
+        "weaponLacks": {
+          "$ref": "#/$defs/keyword"
+        },
+        "lostWeaponAbility": {
+          "$ref": "#/$defs/keyword"
+        },
         "weapon": {
           "$ref": "#/$defs/text"
         },
@@ -1571,11 +1621,17 @@
               "required": [
                 "set"
               ]
+            },
+            {
+              "required": [
+                "multiply"
+              ]
             }
           ],
           "properties": {
             "name": {
               "enum": [
+                "range",
                 "attacks",
                 "ballistic-skill",
                 "weapon-skill",
@@ -1585,15 +1641,109 @@
               ]
             },
             "add": {
-              "type": "integer"
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/dice"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "dice": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
             },
             "set": {
-              "type": "integer"
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/dice"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "dice": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "multiply": {
+              "type": "integer",
+              "minimum": 2
             },
             "nonCumulative": {
               "const": true
             }
-          }
+          },
+          "allOf": [
+            {
+              "if": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "not": {
+                      "enum": [
+                        "attacks",
+                        "damage"
+                      ]
+                    }
+                  }
+                }
+              },
+              "then": {
+                "not": {
+                  "required": [
+                    "multiply"
+                  ]
+                },
+                "properties": {
+                  "add": {
+                    "type": "integer"
+                  },
+                  "set": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "const": "range"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "set": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          ]
         },
         "targetKeywords": {
           "$ref": "#/$defs/selectors"
@@ -1805,29 +1955,7 @@
                     "maximum": 6
                   },
                   "damage": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                      "dice",
-                      "sides",
-                      "bonus"
-                    ],
-                    "properties": {
-                      "dice": {
-                        "type": "integer",
-                        "minimum": 0
-                      },
-                      "sides": {
-                        "enum": [
-                          3,
-                          6
-                        ]
-                      },
-                      "bonus": {
-                        "type": "integer",
-                        "minimum": 0
-                      }
-                    }
+                    "$ref": "#/$defs/dice"
                   }
                 }
               }
@@ -1852,21 +1980,119 @@
           "type": "object",
           "additionalProperties": false,
           "required": [
-            "kind",
-            "add"
+            "kind"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "add"
+              ]
+            },
+            {
+              "required": [
+                "set"
+              ]
+            }
           ],
           "properties": {
             "kind": {
               "enum": [
                 "movement",
+                "toughness",
+                "wounds",
                 "leadership",
                 "objective-control"
               ]
             },
             "add": {
               "type": "integer"
+            },
+            "set": {
+              "type": "integer"
             }
-          }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "toughness",
+                      "wounds"
+                    ]
+                  }
+                },
+                "type": "object"
+              },
+              "then": {
+                "required": [
+                  "set"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "movement",
+                      "objective-control"
+                    ]
+                  }
+                },
+                "type": "object"
+              },
+              "then": {
+                "properties": {
+                  "set": {
+                    "minimum": 0,
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "toughness",
+                      "wounds"
+                    ]
+                  }
+                },
+                "type": "object"
+              },
+              "then": {
+                "properties": {
+                  "set": {
+                    "minimum": 1,
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "leadership"
+                    ]
+                  }
+                },
+                "type": "object"
+              },
+              "then": {
+                "properties": {
+                  "set": {
+                    "minimum": 2,
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          ]
         },
         "ability": {
           "$ref": "#/$defs/text"
@@ -1895,29 +2121,7 @@
               "minimum": 1
             },
             {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "dice",
-                "sides",
-                "bonus"
-              ],
-              "properties": {
-                "dice": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "sides": {
-                  "enum": [
-                    3,
-                    6
-                  ]
-                },
-                "bonus": {
-                  "type": "integer",
-                  "minimum": 0
-                }
-              }
+              "$ref": "#/$defs/dice"
             }
           ]
         }
@@ -2174,6 +2378,20 @@
             "const": true
           }
         },
+        "givenWeapon": {
+          "if": {
+            "type": "object",
+            "required": [
+              "unresolved"
+            ]
+          },
+          "then": {
+            "$ref": "#/$defs/unresolved"
+          },
+          "else": {
+            "$ref": "#/$defs/given-weapon"
+          }
+        },
         "reminder": {
           "if": {
             "type": "object",
@@ -2250,6 +2468,11 @@
         "detail": {
           "$ref": "#/$defs/detail"
         }
+      },
+      "dependentRequired": {
+        "givenWeapon": [
+          "upgradesWeapon"
+        ]
       }
     },
     "options": {
@@ -2308,6 +2531,167 @@
               },
               "whileLeading": {
                 "const": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "dice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dice",
+        "sides",
+        "bonus"
+      ],
+      "properties": {
+        "dice": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sides": {
+          "enum": [
+            3,
+            6
+          ]
+        },
+        "bonus": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "given-weapon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "weapon",
+        "profiles"
+      ],
+      "properties": {
+        "weapon": {
+          "$ref": "#/$defs/text"
+        },
+        "replaces": {
+          "$ref": "#/$defs/text"
+        },
+        "profiles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "range",
+              "attacks",
+              "skill",
+              "strength",
+              "armourPenetration",
+              "damage"
+            ],
+            "properties": {
+              "mode": {
+                "$ref": "#/$defs/text"
+              },
+              "range": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "const": "melee"
+                  }
+                ]
+              },
+              "attacks": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^(?:[1-9][0-9]*)?D[1-9][0-9]*(?:\\+[1-9][0-9]*)?$"
+                  }
+                ]
+              },
+              "skill": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 2
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "strength": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "armourPenetration": {
+                "type": "integer",
+                "maximum": 0
+              },
+              "damage": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^(?:[1-9][0-9]*)?D[1-9][0-9]*(?:\\+[1-9][0-9]*)?$"
+                  }
+                ]
+              },
+              "keywords": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "#/$defs/text"
+                }
+              }
+            }
+          }
+        }
+      },
+      "if": {
+        "type": "object",
+        "properties": {
+          "profiles": {
+            "type": "array",
+            "minItems": 2
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "profiles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "mode"
+              ]
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "profiles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "not": {
+                "required": [
+                  "mode"
+                ]
               }
             }
           }

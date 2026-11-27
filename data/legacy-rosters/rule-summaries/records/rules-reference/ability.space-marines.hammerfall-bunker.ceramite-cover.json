@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Hammerfall Bunker",
-    "summary": "Whenever an attacking model cannot fully see the unit its attack targets because this unit is in the way, that target is treated as having the **[Benefit of Cover](vsdata:core-rule/benefit-of-cover)** for the attack.",
+    "summary": "When a model has a ranged attack allocated to it and, because of this **FORTIFICATION**, any of the attacking unit's models cannot fully see it, that model gains the **Benefit of Cover** for that attack.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -102,14 +102,17 @@
         },
         "references": [
           {
-            "kind": "core-rule",
-            "id": "benefit-of-cover"
+            "kind": "ability",
+            "id": "space-marines.hammerfall-bunker.fortification"
           }
         ],
         "detail": {
           "ability": {
-            "trigger": "this unit blocks the attacking model's full view of the attack's target",
-            "appliesTo": "the target unit",
+            "trigger": "a ranged attack is allocated to a model",
+            "condition": {
+              "notFullyVisibleToEveryModelInAttackingUnit": true,
+              "causedBy": "this FORTIFICATION"
+            },
             "effect": {
               "benefitOfCover": true,
               "scope": "that attack"

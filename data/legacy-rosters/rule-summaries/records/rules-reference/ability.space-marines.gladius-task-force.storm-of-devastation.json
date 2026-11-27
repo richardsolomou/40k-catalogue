@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -18,162 +18,58 @@
       "id": "space-marines.gladius-task-force"
     },
     "cp": 1,
-    "stratagem": {
-      "phases": [
-        "shooting"
-      ],
-      "turn": "own"
-    },
-    "summary": "Use it in your Shooting phase as an **ADEPTUS ASTARTES** unit of yours is chosen to shoot; that unit is the target. Its ranged attacks gain **[[IGNORES COVER]](vsdata:weapon-ability/ignores-cover)**.",
+    "summary": "Use it in your Shooting phase. Pick 1 **ADEPTUS ASTARTES** unit of yours not yet chosen to shoot this phase. Until the phase ends, its models' ranged weapons have **[[IGNORES COVER]](vsdata:weapon-ability/ignores-cover)**, and 1 better Armour Penetration too if the Devastator Doctrine applies to the unit.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
-        "stratagem": {
-          "limit": "phase",
-          "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-shoot"
-          },
-          "target": {
-            "triggering": true,
-            "entity": "unit",
-            "keywords": [
-              "ADEPTUS ASTARTES"
-            ]
-          }
-        },
-        "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "shooting",
-              "turn": "own"
-            }
-          ]
-        },
-        "combat": {
-          "applies": {
-            "target": {
-              "anyOf": [
-                [
-                  "ADEPTUS ASTARTES"
-                ]
-              ]
-            }
-          },
-          "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "weaponAbility": "IGNORES COVER"
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "attacker"
-              ]
-            },
-            {
-              "choices": [],
-              "default": 0
-            }
-          ],
-          "trees": [
-            [
-              {
-                "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 0,
-            "own.many.known": 0,
-            "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
-            "aura.one.known": 0,
-            "aura.one.unknown": 0,
-            "aura.many.known": 0,
-            "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 0,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 0,
-            "stratagem-fight.one.known": 1,
-            "stratagem-fight.one.unknown": 1,
-            "stratagem-fight.many.known": 1,
-            "stratagem-fight.many.unknown": 1,
-            "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 0,
-            "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 0,
-            "army.one.known": 0,
-            "army.one.unknown": 0,
-            "army.many.known": 0,
-            "army.many.unknown": 0
-          }
-        },
-        "references": [
-          {
-            "kind": "weapon-ability",
-            "id": "ignores-cover"
-          }
-        ],
         "detail": {
           "detachment": "Gladius Task Force",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "own"
-              }
-            ],
-            "event": "friendly-unit-selected-to-shoot"
+          "type": "Battle Tactic",
+          "window": {
+            "turn": "own",
+            "phase": "shooting"
           },
           "target": {
-            "entity": "unit",
-            "count": 1,
             "side": "friendly",
+            "count": 1,
             "keywordsAll": [
               "ADEPTUS ASTARTES"
             ],
-            "sameAs": "triggering-unit"
+            "notSelectedToShootThisPhase": true
           },
           "effects": [
             {
-              "kind": "grant-weapon-ability",
-              "attackType": "ranged",
-              "ability": "IGNORES COVER"
+              "weapons": "ranged weapons equipped by models in the unit",
+              "weaponAbility": "IGNORES COVER"
+            },
+            {
+              "condition": "unit is under the effects of the Devastator Doctrine",
+              "weapons": "those ranged weapons",
+              "characteristic": "Armour Penetration",
+              "improve": 1
             }
           ],
-          "restrictions": []
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "name": "Storm of devastation",
+            "trigger": "when the unit is selected to shoot",
+            "effects": [
+              {
+                "attackType": "ranged",
+                "weaponAbility": "IGNORES COVER"
+              }
+            ]
+          }
         }
       }
     }

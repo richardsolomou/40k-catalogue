@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,23 +15,24 @@
     "group": "Shadowmark Talon",
     "detachment": {
       "kind": "detachment",
-      "id": "raven-guard.shadowmark-talon"
+      "id": "space-marines.shadowmark-talon"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "fight"
       ],
-      "turn": "opponent"
+      "turn": "opponent",
+      "type": "strategic-ploy"
     },
-    "summary": "At the end of the opponent’s [Fight phase](vsdata:core-rule/fight-phase), choose a **ADEPTUS ASTARTES INFANTRY** unit that is **unengaged**. Put it into **[strategic reserves](vsdata:core-rule/strategic-reserves)**.",
+    "summary": "Use it as your opponent's Fight phase ends. Pick units of yours that are not in **Engagement Range** of any enemy unit, either:\n\n- up to 2 **PHOBOS** or **SCOUT SQUAD** units, in any mix\n- 1 different **ADEPTUS ASTARTES INFANTRY** unit\n\nTake them off the battlefield and put them into **Strategic Reserves**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -44,16 +45,7 @@
             "at": "phase-end"
           },
           "target": {
-            "count": 1,
-            "side": "friendly",
-            "entity": "unit",
-            "keywords": [
-              "ADEPTUS ASTARTES",
-              "INFANTRY"
-            ],
-            "conditions": [
-              "unengaged"
-            ]
+            "unresolved": "not typed yet; see the summary"
           }
         },
         "reminder": {
@@ -65,36 +57,40 @@
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "strategic-reserves"
-          }
-        ],
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "opponent",
-            "phases": [
-              "fight"
-            ],
-            "event": "phase-end",
-            "window": {
-              "fight": "opponent"
+          "detachment": "Shadowmark Talon",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "fight",
+              "timing": "end-of-phase"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
-            "count": 1,
-            "unengaged": true,
-            "sourceKeywordLabel": "Adeptus Astartes Infantry"
+            "side": "friendly",
+            "options": [
+              {
+                "countMax": 2,
+                "keywordsAny": [
+                  "PHOBOS",
+                  "SCOUT SQUAD"
+                ]
+              },
+              {
+                "count": 1,
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ],
+                "otherThanAbove": true
+              }
+            ],
+            "notWithinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "kind": "place-in-strategic-reserves",
-              "subject": "selected-unit",
-              "optional": false,
-              "from": "battlefield"
+              "removeFromBattlefield": true,
+              "placeInto": "Strategic Reserves"
             }
           ]
         }

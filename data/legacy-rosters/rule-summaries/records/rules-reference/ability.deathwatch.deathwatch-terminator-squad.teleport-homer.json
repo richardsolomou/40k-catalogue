@@ -7,56 +7,52 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Deathwatch Terminator Squad",
-    "summary": "As the battle begins, you can place 1 Teleport Homer token on the battlefield for this unit. If you do:\n\n- whenever you use the **[Rapid Ingress](vsdata:ability/core.rapid-ingress)** Stratagem on this unit, you can use the token: that use costs 1CP less, but the unit has to be placed up to 3\" from the token and more than 8\" from every enemy unit, and the token is then removed\n- if an enemy unit finishes a move up to 1\" from the token, the token is removed",
+    "summary": "As the battle starts, you may put a Teleport Homer token on the battlefield for this unit, anywhere except in the deployment zone of your opponent. Having done so, you can, once per battle, use **[Rapid Ingress](vsdata:ability/core.rapid-ingress)** on this unit for 0 CP. When resolving it:\n\n- set the unit up no more than 3\" horizontally from the token and more than 8\" horizontally from every enemy model\n- then remove the token",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "rapid-ingress"
-          }
-        ],
         "detail": {
-          "setup": {
-            "at": "battle start",
-            "optional": true,
-            "tokens": 1,
-            "location": "battlefield"
-          },
-          "trigger": "owning unit selected for Rapid Ingress; token available",
-          "cpCostModifier": {
-            "operation": "subtract",
-            "value": 1
-          },
-          "placement": {
-            "subject": "owning unit",
-            "withinInchesOfToken": 3,
-            "outsideInchesOfEnemyUnits": 8
-          },
-          "removeToken": [
-            "after use",
-            {
-              "enemyMoveEndsWithinInches": 1
+          "ability": {
+            "setup": {
+              "when": "start of the battle",
+              "optional": true,
+              "tokens": 1,
+              "placement": "anywhere not in your opponent's deployment zone"
+            },
+            "rapidIngress": {
+              "limit": {
+                "per": "battle",
+                "uses": 1
+              },
+              "cpCost": 0,
+              "target": "this unit",
+              "placement": {
+                "withinInchesHorizontallyOfToken": 3,
+                "notWithinInchesHorizontallyOfEnemyModels": 8
+              },
+              "removeTokenAfter": true
             }
-          ],
-          "singleUseToken": true
+          },
+          "cardPrintsOtherText": {
+            "cpReduction": 1,
+            "enemyEndsMoveWithinInchesRemovesToken": 1
+          }
         }
       }
     }

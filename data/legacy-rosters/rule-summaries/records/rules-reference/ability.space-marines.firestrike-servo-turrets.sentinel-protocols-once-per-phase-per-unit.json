@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Firestrike Servo-turrets",
-    "summary": "Once per phase, you can use the [Fire Overwatch](vsdata:ability/core.fire-overwatch) Stratagem on this unit even if it was already used on another unit this phase, with 2 effects:\n\n- Until that Stratagem resolves, an unmodified Hit roll of 4+ scores a hit for this unit's **[Snap Shooting](vsdata:core-rule/snap-shooting)** attacks.\n- That use still leaves you free to use Fire Overwatch on other units in this phase.",
+    "summary": "This unit can receive [Fire Overwatch](vsdata:core-rule/fire-overwatch) once in a phase even after the Stratagem has been used on a different unit. During that [Snap Shooting](vsdata:core-rule/snap-shooting), a natural 4+ is enough to hit. Other Stratagems retain their regular use limits.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -69,36 +69,27 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "fire-overwatch"
-          },
-          {
-            "kind": "core-rule",
-            "id": "snap-shooting"
-          }
-        ],
         "detail": {
-          "ability": {
-            "usageLimit": {
-              "count": 1,
-              "period": "phase",
-              "scope": "unit"
-            },
-            "stratagem": "Fire Overwatch",
-            "target": "this unit",
-            "ignoresOtherUsesThisPhase": true,
-            "effects": [
-              {
-                "snapShootingHitsOnUnmodified": 4,
-                "duration": "until that Stratagem resolves"
-              },
-              {
-                "doesNotBlockUsesOnOtherUnitsThisPhase": true
-              }
-            ]
-          }
+          "source": "this-unit",
+          "limit": {
+            "count": 1,
+            "period": "phase",
+            "scope": "unit"
+          },
+          "stratagem": {
+            "kind": "core-rule",
+            "id": "9be8c3f5-c0b2-4aff-93cf-32288aa77400"
+          },
+          "permission": {
+            "optional": true,
+            "kind": "target-after-other-unit-use"
+          },
+          "effect": {
+            "trigger": "unit-snap-shooting-from-this-stratagem",
+            "roll": "hit",
+            "minimumUnmodified": 4
+          },
+          "otherStratagems": "normal-use-limits"
         }
       }
     }

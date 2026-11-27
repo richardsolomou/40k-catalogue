@@ -5,7 +5,7 @@ import { test } from "node:test";
 import { checkUpgrade, historyErrors, type Release } from "../src/catalogue-identity/identity.ts";
 import { buildCatalogueRelease, type CatalogueRecord, type Manifest } from "../src/catalogue-releases/catalogue.ts";
 import { validateDefinitions, type Definitions } from "../src/roster-definitions/definitions.ts";
-import { checkRoster, importUnit, pointsGaps, rosterRefs, type Roster } from "../src/roster-definitions/roster.ts";
+import { checkRoster, importUnit, pointsGaps, rosterRefs, unitKeywords, type Roster } from "../src/roster-definitions/roster.ts";
 import type { PointsSnapshot } from "../src/points/snapshot.ts";
 import { validateSnapshot } from "../src/points/validate.ts";
 
@@ -203,7 +203,11 @@ const illegal: Record<string, [(roster: Roster) => void, string[]]> = {
   "an enhancement on a unit without its keywords": [(r) => (r.units[4]!.enhancement = MANTLE), ["4 enhancement-keywords"]],
   "an enhancement on a unit barred from enhancements": [(r) => r.units.push({ unit: "synthetic.ember-host.ember-colossus", enhancement: MANTLE }), ["5 enhancement-keywords"]],
   "an enhancement taken twice": [(r) => r.units.push({ unit: "synthetic.ember-host.pyre-lord", enhancement: SIGIL }), ["5 enhancement-repeated"]],
-  "an upgrade taken twice": [(r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND)), []],
+  "an upgrade taken three times": [(r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND), (r.units[3]!.enhancement = BRAND)), []],
+  "an upgrade taken four times": [
+    (r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND), (r.units[3]!.enhancement = BRAND), r.units.push({ unit: WARDENS, enhancement: BRAND })),
+    ["5 enhancement-repeated"],
+  ],
   "more copies than its battle size allows": [(r) => (r.battleSize = "synthetic.incursion"), ["1 roster-limit"]],
   "a battle size without its own limit for the unit": [(r) => (r.battleSize = "synthetic.strike-force"), []],
   "a battle size the release does not define": [(r) => (r.battleSize = "synthetic.onslaught"), ["- not-current"]],
@@ -464,6 +468,18 @@ const invalid12: Record<string, [(records: CatalogueRecord[], identity: Release)
     (r) => Object.assign(find(r, "model", "synthetic.ember-host.flame-wardens.leader").data, { keywords: ["Infantry"] }),
     "model:synthetic.ember-host.flame-wardens.leader repeats its unit's keyword Infantry",
   ],
+  "an empty list of faction keywords": [
+    (r) => Object.assign(find(r, "unit", WARDENS).data, { factionKeywords: [] }),
+    `unit:${WARDENS} data/factionKeywords must NOT have fewer than 1 items`,
+  ],
+  "a detachment keeping no keyword's units to its enhancements": [
+    (r) => Object.assign(find(r, "detachment", ASH_PACT).data, { exclusiveEnhancements: { keywords: [] } }),
+    `detachment:${ASH_PACT} data/exclusiveEnhancements/keywords must NOT have fewer than 1 items`,
+  ],
+  "a faction keyword the unit does not have": [
+    (r) => Object.assign(find(r, "unit", WARDENS).data, { factionKeywords: ["Ash Host"] }),
+    `unit:${WARDENS} faction keyword Ash Host is not one of its keywords`,
+  ],
   "a faction excluding its own detachment": [
     (r) => Object.assign(find(r, "faction", "synthetic.ember-host").data, { excludedDetachments: ["synthetic.kindled-vow"] }),
     "faction:synthetic.ember-host excludes detachment:synthetic.kindled-vow, which is not its parent's",
@@ -607,7 +623,11 @@ test("a roster's references include every detachment it lists", () => {
 const construction: Record<string, [Roster, string[]]> = {
   "an enhancement from its second detachment": [incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), []],
   "more enhancements than its battle size allows": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: KINDLER, enhancement: MANTLE }]), ["1 enhancement-limit"]],
-  "an upgrade beyond its battle size's enhancements": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: WARDENS, enhancement: BRAND }]), []],
+  "an upgrade beyond its battle size's enhancements": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: WARDENS, enhancement: BRAND }]), ["1 enhancement-limit"]],
+  "an upgrade's later copies within its battle size's enhancements": [
+    incursion([{ unit: WARDENS, enhancement: BRAND }, { unit: LORD, enhancement: BRAND }, { unit: SEER, enhancement: BRAND }]),
+    [],
+  ],
   "more copies than its battle size's duplicates": [incursion([{ unit: LORD }, { unit: LORD }, { unit: LORD }]), ["2 roster-limit"]],
   "a unit of the parent faction": [incursion([{ unit: SEER }]), []],
   "a unit the faction excludes": [incursion([{ unit: GUARD }]), ["0 unit-excluded"]],
@@ -667,6 +687,79 @@ const withoutDetachments: Record<string, [Roster, string[]]> = {
 for (const [name, [roster, expected]] of Object.entries(withoutDetachments)) {
   test(`a roster of a faction without detachments with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
     assert.deepEqual(codes(withoutDetachment(), roster), expected);
+  });
+}
+
+// A Pyre Lord and a Smoke Oracle whose models a datasheet rule keeps from the warlord role.
+function barredWarlords(): Definitions {
+  const { identity, records } = input("1.2");
+  for (const id of [LORD_MODEL, `${ORACLE}.oracle`]) Object.assign(find(records, "model", id).data, { warlord: false });
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const barred: Record<string, [Roster, string[]]> = {
+  "a warlord whose model cannot hold the role": [incursion([{ unit: LORD, warlord: LORD_MODEL }]), ["0 warlord-ineligible"]],
+  "a detachment granting the role to a model that otherwise cannot hold it": [incursion([{ unit: ORACLE, warlord: `${ORACLE}.oracle` }], [SWORN]), []],
+};
+
+for (const [name, [roster, expected]] of Object.entries(barred)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(barredWarlords(), roster), expected);
+  });
+}
+
+// The Ash Pact or the Kindled Vow keeping its Character units to its own enhancements.
+function exclusive(detachment: string): Definitions {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "detachment", detachment).data, { exclusiveEnhancements: { keywords: ["Character"] } });
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const exclusiveEnhancements: Record<string, [string, Roster, string[]]> = {
+  "another detachment's enhancement on a unit holding its keywords": [ASH_PACT, incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), ["1 enhancement-exclusive"]],
+  "another detachment's enhancement on a unit without its keywords": [ASH_PACT, incursion([{ unit: DRONES }, { unit: WARDENS, enhancement: BRAND }], [ASH_PACT, KINDLED]), []],
+  "its own enhancement on a unit holding its keywords": [KINDLED, incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), []],
+  "another detachment's enhancement on a unit its allegiance gives its keywords": [
+    ASH_PACT,
+    incursion([{ unit: DRONES, allegiance: RITE_ALLEGIANCE, enhancement: SIGIL }], [ASH_PACT, KINDLED]),
+    ["0 enhancement-exclusive"],
+  ],
+  "it outside the roster": [ASH_PACT, incursion([{ unit: LORD, enhancement: SIGIL }]), []],
+};
+
+for (const [name, [detachment, roster, expected]] of Object.entries(exclusiveEnhancements)) {
+  test(`a detachment keeping units to its enhancements, with ${name}, reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(exclusive(detachment), roster), expected);
+  });
+}
+
+// Enhancements whose rule facts limit their copies or leave them outside the battle size's enhancements.
+function enhancementVariant(enhancement: string, data: object): Definitions {
+  const { identity, records } = input("1.2");
+  const record = find(records, "enhancement", enhancement).data as Record<string, unknown>;
+  for (const [key, value] of Object.entries(data)) {
+    if (value === undefined) delete record[key];
+    else record[key] = value;
+  }
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const enhancementLimits: Record<string, [string, object, Roster, string[]]> = {
+  "an enhancement taken twice as its limit allows": [SIGIL, { perRoster: 2 }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: SEER, enhancement: SIGIL }]), []],
+  "an enhancement taken more often than its limit allows": [SIGIL, { perRoster: 2 }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: SEER, enhancement: SIGIL }, { unit: LORD, enhancement: SIGIL }]), ["2 enhancement-repeated"]],
+  "an upgrade without a limit taken twice": [BRAND, { perRoster: undefined }, incursion([{ unit: WARDENS, enhancement: BRAND }, { unit: LORD, enhancement: BRAND }]), ["1 enhancement-repeated"]],
+  "more enhancements than its battle size allows, one of them outside the limit": [MANTLE, { outsideLimit: true }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: KINDLER, enhancement: MANTLE }]), []],
+};
+
+for (const [name, [enhancement, data, roster, expected]] of Object.entries(enhancementLimits)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(enhancementVariant(enhancement, data), roster), expected);
   });
 }
 
@@ -879,3 +972,132 @@ for (const [name, [change, error]] of Object.entries(invalidAllegiances)) {
     assert.ok(!result.ok && result.errors.includes(error), JSON.stringify(result));
   });
 }
+
+// Ash Imps carrying an ember maul are Fly in place of Infantry, and Ash Pact needs a Fly unit.
+const MAUL = { [`${IMPS}.maul`]: { "synthetic.ember-maul": 1 } };
+const wargearKeywords: Record<string, [Roster, string[]]> = {
+  "a unit without the wargear that gives a keyword a limit needs": [incursion([IMP], [ASH_PACT]), ["- unit-limit"]],
+  "a unit with the wargear that gives a keyword a limit needs": [incursion([{ ...IMP, options: MAUL }], [ASH_PACT]), []],
+};
+
+for (const [name, [roster, expected]] of Object.entries(wargearKeywords)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(v12, roster), expected);
+  });
+}
+
+test("a unit carrying wargear loses the keywords its conditional keywords replace", () => {
+  assert.deepEqual(unitKeywords(v12.get("unit", IMPS)!.data, incursion([]), undefined, new Map([["synthetic.ember-maul", 1]])), ["Fly"]);
+});
+
+const wargearCondition = (records: CatalogueRecord[]) => (find(records, "unit", IMPS).data as any).conditionalKeywords[0];
+const invalidWargearKeywords: Record<string, [(records: CatalogueRecord[], identity: Release) => void, string]> = {
+  "a conditional keyword on wargear the unit cannot carry": [
+    (r, identity) => {
+      wargearCondition(r).when = { wargear: "synthetic.ward-shield" };
+      identity.entries.find((e) => e.id === IMPS)!.references!.push({ kind: "wargear", id: "synthetic.ward-shield" });
+    },
+    `unit:${IMPS} conditionalKeywords/0 names wargear:synthetic.ward-shield, which the unit cannot carry`,
+  ],
+  "a conditional keyword replacing one the unit lacks": [
+    (r) => (wargearCondition(r).replaces = ["Monster"]),
+    `unit:${IMPS} conditionalKeywords/0 replaces Monster, which is not one of its keywords`,
+  ],
+  "wargear in a roster-wide condition": [
+    (r) => ((find(r, "unit", IMPS).data as any).limits = [{ battleSize: "synthetic.incursion", perRoster: 1, when: { wargear: "synthetic.ember-maul" } }]),
+    `unit:${IMPS} limits name wargear, which holds only in conditional keywords`,
+  ],
+};
+
+for (const [name, [change, error]] of Object.entries(invalidWargearKeywords)) {
+  test(`definitions with ${name} fail with: ${error}`, () => {
+    const { identity, records } = input("1.2");
+    change(records, identity);
+    const result = validateDefinitions(identity, records);
+    assert.ok(!result.ok && result.errors.includes(error), JSON.stringify(result));
+  });
+}
+
+// The Wardens' leader may take the carbines the Wardens take, and a unit-wide rule makes every model take the same one.
+const uniformAcrossCarriers = (change?: (records: CatalogueRecord[], identity: Release) => void) => {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "roster-option", `${WARDENS}.leader-weapon`).data, {
+    uniform: true,
+    replaces: { "synthetic.ember-pistol": 1 },
+    choices: ["synthetic.ember-carbine", "synthetic.ash-carbine"],
+  });
+  (find(records, "unit", WARDENS).data as any).uniformOptions = [[`${WARDENS}.carbines`, `${WARDENS}.leader-weapon`]];
+  for (const id of [WARDENS, `${WARDENS}.leader-weapon`]) {
+    identity.entries.find((e) => e.id === id)!.references!.push(
+      ...[`${WARDENS}.carbines`, `${WARDENS}.leader-weapon`].map((option) => ({ kind: "roster-option" as const, id: option })),
+      ...["synthetic.ember-carbine", "synthetic.ash-carbine", "synthetic.ember-pistol"].map((wargear) => ({ kind: "wargear" as const, id: wargear })),
+    );
+  }
+  change?.(records, identity);
+  return validateDefinitions(identity, records);
+};
+const leaderTakes = (options: Record<string, number>) => edited12((r) => (r.units[1]!.options![`${WARDENS}.leader-weapon`] = options));
+// The first unit of the roster takes its leader's weapon as the 1.2 fixture had it, so only the second is compared.
+const secondUnit = (definitions: Definitions, roster: Roster) => codes(definitions, roster).filter((c) => c.startsWith("1 "));
+
+test("uniform options of different carriers accept every model taking the same choice", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, leaderTakes({ "synthetic.ember-carbine": 1 })), []);
+});
+
+test("uniform options of different carriers refuse a carrier taking another choice", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, leaderTakes({ "synthetic.ash-carbine": 1 })), ["1 option-uniform"]);
+});
+
+test("uniform options of different carriers refuse a carrier keeping its default", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, legal12), ["1 option-uniform"]);
+});
+
+test("uniform options of different carriers accept a unit taking none of them", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, edited12((r) => (r.units[1]!.options = {}))), []);
+});
+
+test("uniform options must each be uniform", () => {
+  const validated = uniformAcrossCarriers((records) => delete (find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).uniform);
+  assert.deepEqual(validated.ok ? [] : validated.errors, [`unit:${WARDENS} uniformOptions/0 names roster-option:${WARDENS}.leader-weapon, which is not uniform`]);
+});
+
+test("a carrier taking a substitute leaves its uniform option out of the choice made together", () => {
+  const validated = uniformAcrossCarriers((records, identity) => {
+    Object.assign(find(records, "roster-option", `${WARDENS}.leader-weapon`).data, { choices: ["synthetic.ember-carbine", "synthetic.ash-carbine", "synthetic.cinder-lance"], substitutes: ["synthetic.cinder-lance"] });
+    identity.entries.find((e) => e.id === `${WARDENS}.leader-weapon`)!.references!.push({ kind: "wargear", id: "synthetic.cinder-lance" });
+  });
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, leaderTakes({ "synthetic.cinder-lance": 1 })), []);
+});
+
+test("uniform options made together offer the same choices", () => {
+  const validated = uniformAcrossCarriers((records) => ((find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).choices = ["synthetic.ash-carbine"]));
+  assert.deepEqual(validated.ok ? [] : validated.errors, [`unit:${WARDENS} uniformOptions/0 names options offering different choices besides their substitutes`]);
+});
+
+test("uniform options made together have different carriers", () => {
+  const validated = uniformAcrossCarriers((records) => ((find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).carrier = WARDEN));
+  assert.ok(!validated.ok && validated.errors.includes(`unit:${WARDENS} uniformOptions/0 names roster-option:${WARDENS}.leader-weapon, whose carrier is not one only it names`));
+});
+
+test("a uniform option that can take nothing at the unit's size is left out of the choice made together", () => {
+  const validated = uniformAcrossCarriers((records) => ((find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).bySize = [{ size: 5, min: 0, max: 0 }]));
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, legal12), []);
+});
+
+test("an option is made together with others in one entry only", () => {
+  const validated = uniformAcrossCarriers((records) => {
+    const unit = find(records, "unit", WARDENS).data as any;
+    unit.uniformOptions.push([...unit.uniformOptions[0]].reverse());
+  });
+  assert.ok(!validated.ok && validated.errors.includes(`unit:${WARDENS} uniformOptions/1 names roster-option:${WARDENS}.leader-weapon, which another entry names`));
+});

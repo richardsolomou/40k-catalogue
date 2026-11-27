@@ -6,24 +6,26 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,921 | 6,921 | 0 |
+| `rules-reference` | 6,922 | 6,920 | 2 |
 | `mission-rules` | 291 | 291 | 0 |
 
-6,469 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.0, data build 981, released 2026-10-14; 582 records that no app row carries cite only the dated Games Workshop page that prints it. 161 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 1,687 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,469 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.8.1, data build 995, released 2026-10-16; 581 records that no app row carries cite only the dated Games Workshop page that prints it. 161 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 1,686 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 22 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it, or a Warhammer Legends ability's PDF page: `combat` 2768, `grants` 397, `weaponAbilities` 131, `reminder` 2260, `reserves` 1, `invulnerableSave` 123, `upgradesWeapon` 23, `roster` 30, `options` 13, `attachment` 56, `references` 1062 (4,503 records with at least one). 100 Crucible and Warhammer Legends abilities that no app row prints and no Legends page is read for have their blocks too. A record whose rule none of these prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 817 Enhancements carry their eligibility and 201 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it, or a Warhammer Legends ability's PDF page: `combat` 2768, `grants` 397, `weaponAbilities` 131, `reminder` 2260, `reserves` 1, `invulnerableSave` 123, `upgradesWeapon` 23, `roster` 30, `options` 13, `attachment` 56, `references` 1320 (4,505 records with at least one). 100 Crucible and Warhammer Legends abilities that no app row prints and no Legends page is read for have their blocks too. A record whose rule none of these prints has none; treat what its summary describes as not calculated.
 
-The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,061 units with roster definitions (1,312 wargear options), 1,122 stat lines and 5,177 weapon profiles, and the `mfm-1-6` points snapshot of 1,060 units, 256 Detachments and 817 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the entry IDs saved rosters hold for it as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 341 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `mfm-1-6-legends` snapshot, the costs of 331 of them from the Munitorum Field Manual's Legends section. 326 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (37 of them with options left out, listed below), and their weapon profiles name that wargear. 58 Crucible or promotional datasheets the app does not carry have roster definitions, stat lines, weapon profiles and Leader targets, each naming the publication that prints the datasheet as `source`; 12 Legends datasheets whose PDF states no loadout in typed form have a roster definition; and the `mfm-1-6-extra` and `mfm-1-6-extra-mfm` snapshots price those datasheets and 7 Legends datasheets the Field Manual's Legends section does not. Each of these roster definitions was checked, for each choice together with the choices it changes, to accept exactly the loadouts the datasheet allows, and every weapon profile names wargear it fields. In this release 6 Crucible or promotional datasheets the check did not prove have only an entry for their abilities, with no roster definition, stat lines or weapon profiles, and 1 Legends datasheet whose PDF states no loadout in typed form and the check did not prove has no roster definition; all are listed below, and 1 wargear ability some of them grant is published only for the datasheets the check proved. A characteristic another of these units' choices changes is a gap.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,061 units with roster definitions (1,312 wargear options), 1,122 stat lines and 5,177 weapon profiles, and the `mfm-1-6` points snapshot of 1,060 units, 256 Detachments and 817 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the entry IDs saved rosters hold for it as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 340 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `mfm-1-6-legends` snapshot, the costs of 330 of them from the Munitorum Field Manual's Legends section. 325 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (37 of them with options left out, listed below), and their weapon profiles name that wargear. 91 Crucible or promotional datasheets the app does not carry have roster definitions, stat lines, weapon profiles and Leader targets, each naming the publication that prints the datasheet as `source`; 12 Legends datasheets whose PDF states no loadout in typed form have a roster definition; and the `mfm-1-6-extra` and `mfm-1-6-extra-mfm` snapshots price those datasheets and 7 Legends datasheets the Field Manual's Legends section does not. Each of these roster definitions was checked, for each choice together with the choices it changes, to accept exactly the loadouts the datasheet allows, and every weapon profile names wargear it fields. In this release 6 Crucible or promotional datasheets the check did not prove have only an entry for their abilities, with no roster definition, stat lines or weapon profiles, and 1 Legends datasheet whose PDF states no loadout in typed form and the check did not prove has no roster definition; all are listed below, and 1 wargear ability some of them grant is published only for the datasheets the check proved. A characteristic another of these units' choices changes is a gap.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Combat Patrol, built from the app build's mission tables: 0 force dispositions, 3 deployments, 3 layouts, 26 primary missions, 0 secondary cards and 0 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
+The `terrain` category holds the [terrain records](../../../docs/terrain.md) of King of the Colosseum 1.0 and King of the Colosseum 2.0, a format no mission pack here lists: each layout names the deployment map it is played with. Their positions and outlines are measured from the publisher's diagrams, which each record's `provenance` names.
+
 FAQs also name 1 publication, an identity entry of the retained `publications` category.
 
 ## Base sizes
 
-1,082 stat lines take the base size the app build prints and 51 stat lines the one Games Workshop's Base Size Guide (in the Event Companion) prints, cited in `baseSizeSource`: where the app prints none or none the format types, and for a Warhammer Legends datasheet, whose PDF prints none, from the newest guide dated before the cutoff that lists it. For 9 units the guide says which model takes which of the sizes the app lists.
+1,115 stat lines take the base size the app build prints and 51 stat lines the one Games Workshop's Base Size Guide (in the Event Companion) prints, cited in `baseSizeSource`: where the app prints none or none the format types, and for a Warhammer Legends datasheet, whose PDF prints none, from the newest guide dated before the cutoff that lists it. For 9 units the guide says which model takes which of the sizes the app lists.
 
 Where the app and the guide in force differ, the app's size is published (21 stat lines):
 
@@ -49,7 +51,7 @@ Where the app and the guide in force differ, the app's size is published (21 sta
 - `space-marines.chaplain-in-terminator-armour`: app 50mm, guide 40mm
 - `space-marines.chaplain-with-jump-pack`: app 40mm, guide 32mm
 
-### VS Data's own base sizes (334)
+### VS Data's own base sizes (365)
 
 No official source in reach prints a base size for these datasheets, so their stat lines take VS Data's own, with no `baseSizeSource`.
 
@@ -59,8 +61,10 @@ No official source in reach prints a base size for these datasheets, so their st
 - `adepta-sororitas.death-cult-assassins`
 - `adepta-sororitas.inspiring-devotee`
 - `adepta-sororitas.militant-commander`
+- `adepta-sororitas.reliquant-knight`
 - `adepta-sororitas.repressor`
 - `adeptus-mechanicus.cohort-commander`
+- `adeptus-mechanicus.ironstrider-alpha`
 - `adeptus-mechanicus.magos`
 - `adeptus-mechanicus.secutarii-hoplites`
 - `adeptus-mechanicus.secutarii-peltasts`
@@ -70,6 +74,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `aeldari-2.cobra`
 - `aeldari-2.corsair-cloud-dancer-band`
 - `aeldari-2.corsair-reaver-band`
+- `aeldari-2.craftworld-warleader`
 - `aeldari-2.firestorm`
 - `aeldari-2.hornet`
 - `aeldari-2.illic-nightspear`
@@ -81,6 +86,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `aeldari-2.scorpion`
 - `aeldari-2.shadow-spectres`
 - `aeldari-2.skathach-wraithknight`
+- `aeldari-2.skyrunner`
 - `aeldari-2.vampire-hunter`
 - `aeldari-2.vampire-raider`
 - `aeldari-2.warp-hunter`
@@ -108,6 +114,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `astra-militarum.earthshaker-platform`
 - `astra-militarum.elysian-drop-sentinel`
 - `astra-militarum.elysian-sniper-squad`
+- `astra-militarum.front-line-commander`
 - `astra-militarum.gorgon-heavy-transport`
 - `astra-militarum.griffon-mortar-carrier`
 - `astra-militarum.hades-breaching-drill`
@@ -167,6 +174,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `blood-angels.tycho-the-lost`
 - `chaos-daemons.aetaosraukeres`
 - `chaos-daemons.anggrath-the-unbound`
+- `chaos-daemons.daemonic-herald`
 - `chaos-daemons.exalted-seeker-chariot`
 - `chaos-daemons.furies`
 - `chaos-daemons.giant-chaos-spawn`
@@ -189,6 +197,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `chaos-space-marines.decimator`
 - `chaos-space-marines.dreadclaw-drop-pod`
 - `chaos-space-marines.exalted-champion`
+- `chaos-space-marines.exalted-champion-2`
 - `chaos-space-marines.gellerpox-infected`
 - `chaos-space-marines.greater-blight-drone`
 - `chaos-space-marines.greater-brass-scorpion`
@@ -208,6 +217,8 @@ No official source in reach prints a base size for these datasheets, so their st
 - `chaos-space-marines.sorcerer-on-disc-of-tzeentch`
 - `chaos-space-marines.sorcerer-on-palanquin-of-nurgle`
 - `chaos-space-marines.sorcerer-on-steed-of-slaanesh`
+- `chaos-space-marines.sorcerous-champion`
+- `chaos-space-marines.soul-forge-tyrant`
 - `dark-angels.deathwing-command-squad`
 - `dark-angels.deathwing-strikemaster`
 - `dark-angels.ravenwing-talonmaster`
@@ -216,15 +227,23 @@ No official source in reach prints a base size for these datasheets, so their st
 - `death-guard.death-guard-cultists`
 - `death-guard.death-guard-possessed`
 - `death-guard.death-guard-sorcerer-in-terminator-armour`
+- `death-guard.plague-lord`
+- `death-guard.plague-sorcerer`
+- `death-guard.tri-lobe-vectors`
+- `drukhari.archtormentor`
 - `drukhari.flesh-crafter`
 - `drukhari.raven-strike-fighter`
 - `drukhari.reaper`
 - `drukhari.tantalus`
+- `emperors-children.champion-of-excess`
+- `emperors-children.excruciator`
+- `emperors-children.flawless-champion`
 - `genestealer-cults.cult-guerrilla`
 - `genestealer-cults.cult-insurrectionist`
 - `genestealer-cults.tectonic-fragdrill`
 - `genestealer-cults.voice-of-the-patriarch`
 - `grey-knights.champion-of-titan`
+- `grey-knights.dreadknight-champion`
 - `grey-knights.grey-knights-dreadnought`
 - `grey-knights.grey-knights-relic-razorback`
 - `grey-knights.venerable-daemon-slayer`
@@ -242,11 +261,14 @@ No official source in reach prints a base size for these datasheets, so their st
 - `imperial-agents.proteus-kill-team`
 - `imperial-agents.ur-025`
 - `imperial-agents.veteran-bike-squad`
+- `leagues-of-votann.kinhost-commander`
+- `leagues-of-votann.living-ancestor`
 - `leagues-of-votann.steeljack-elder`
 - `necrons.anrakyr-the-traveller`
 - `necrons.canoptek-acanthrites`
 - `necrons.canoptek-tomb-sentinel`
 - `necrons.canoptek-tomb-stalker`
+- `necrons.dynastic-conqueror`
 - `necrons.gauss-pylon`
 - `necrons.lord`
 - `necrons.nemesor-zahndrekh`
@@ -257,7 +279,10 @@ No official source in reach prints a base size for these datasheets, so their st
 - `necrons.vargard-obyron`
 - `orks.da-red-gobbos-a-bomb-inable-snowman`
 - `orks.da-red-gobbos-tinboy`
+- `orks.hordeboss`
 - `orks.mekboy-workshop`
+- `orks.upstart-gretchin`
+- `orks.warphead`
 - `space-marines.ancient-on-bike`
 - `space-marines.apothecary-on-bike`
 - `space-marines.assault-squad`
@@ -267,6 +292,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `space-marines.bike-squad`
 - `space-marines.caestus-assault-ram`
 - `space-marines.carab-culln-the-risen`
+- `space-marines.champion-of-the-chapter`
 - `space-marines.chaplain-cassius`
 - `space-marines.chaplain-kastiel`
 - `space-marines.chaplain-venerable-dreadnought`
@@ -296,6 +322,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `space-marines.leviathan-dreadnought`
 - `space-marines.librarian-on-bike`
 - `space-marines.librarian-with-jump-pack`
+- `space-marines.librarius-adept`
 - `space-marines.mortis-dreadnought`
 - `space-marines.primaris-company-champion`
 - `space-marines.relic-contemptor-dreadnought`
@@ -304,7 +331,6 @@ No official source in reach prints a base size for these datasheets, so their st
 - `space-marines.sergeant-chronus`
 - `space-marines.sergeant-telion`
 - `space-marines.sicaran-arcus`
-- `space-marines.sicaran-battle-tank`
 - `space-marines.sicaran-omega`
 - `space-marines.sicaran-punisher`
 - `space-marines.sicaran-venator`
@@ -317,6 +343,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `space-marines.thunderfire-cannon`
 - `space-marines.thunderhawk-transporter`
 - `space-marines.tyrannic-war-veterans`
+- `space-marines.venerable-battle-brother`
 - `space-marines.vindicator-laser-destroyer`
 - `space-marines.whirlwind-scorpius`
 - `space-marines.xiphon-interceptor`
@@ -341,17 +368,20 @@ No official source in reach prints a base size for these datasheets, so their st
 - `tau-empire.aunshi`
 - `tau-empire.aunva`
 - `tau-empire.barracuda`
+- `tau-empire.battlesuit-veteran`
 - `tau-empire.commander-in-crisis-battlesuit`
 - `tau-empire.crisis-battlesuits`
 - `tau-empire.drone-sentry-turret`
 - `tau-empire.great-knarloc`
 - `tau-empire.heavy-gun-drones`
+- `tau-empire.kinband-champion`
 - `tau-empire.knarloc-riders`
 - `tau-empire.longstrike`
 - `tau-empire.orca-dropship`
 - `tau-empire.remora-stealth-drones`
 - `tau-empire.remote-sensor-tower`
 - `tau-empire.rvarna-battlesuit`
+- `tau-empire.shasnel`
 - `tau-empire.shaso-ralai`
 - `tau-empire.tactical-drones`
 - `tau-empire.tetras`
@@ -360,9 +390,11 @@ No official source in reach prints a base size for these datasheets, so their st
 - `tau-empire.yvahra-battlesuit`
 - `thousand-sons.brayherd-chieftain`
 - `thousand-sons.brayherd-shaman`
+- `thousand-sons.magister`
 - `tyranids.barbed-hierodule`
 - `tyranids.dimachaeron`
 - `tyranids.malanthrope`
+- `tyranids.node-organism`
 - `tyranids.scythed-hierodule`
 - `tyranids.sky-slasher-swarms`
 - `unaligned-forces.aegis-defence-line-with-weapon-emplacement`
@@ -386,6 +418,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `unaligned-forces.wall-of-martyrs-defence-emplacement`
 - `unaligned-forces.wall-of-martyrs-defence-line`
 - `world-eaters.bloodcult-champion`
+- `world-eaters.butcherlord`
 - `world-eaters.eight-blessed-lord`
 
 ### No base size: Warhammer Legends datasheets no guide lists (23)
@@ -416,45 +449,13 @@ No official source in reach prints their base size, so their stat lines carry a 
 - `orks.squiggoth`
 - `orks.ufthak-blackhawk`
 
-### No base size: datasheets neither the app nor the guide in force sizes (35)
+### No base size: datasheets neither the app nor the guide in force sizes (3)
 
 The app build prints no base size and the guide dated before the cutoff does not list them, so their stat lines carry a `no-source` gap.
 
-- `adepta-sororitas.reliquant-knight`
-- `adeptus-mechanicus.ironstrider-alpha`
-- `aeldari-2.craftworld-warleader`
-- `aeldari-2.skyrunner`
-- `astra-militarum.front-line-commander`
-- `chaos-daemons.daemonic-herald`
-- `chaos-space-marines.exalted-champion-2`
-- `chaos-space-marines.sorcerous-champion`
-- `chaos-space-marines.soul-forge-tyrant`
-- `death-guard.plague-lord`
-- `death-guard.plague-sorcerer`
-- `death-guard.tri-lobe-vectors`
-- `drukhari.archtormentor`
-- `emperors-children.champion-of-excess`
-- `emperors-children.excruciator`
-- `emperors-children.flawless-champion`
-- `grey-knights.dreadknight-champion`
-- `leagues-of-votann.kinhost-commander`
-- `leagues-of-votann.living-ancestor`
-- `necrons.dynastic-conqueror`
 - `necrons.triarchal-overseer`
-- `orks.hordeboss`
-- `orks.upstart-gretchin`
-- `orks.warphead`
-- `space-marines.champion-of-the-chapter`
-- `space-marines.librarius-adept`
-- `space-marines.venerable-battle-brother`
-- `tau-empire.battlesuit-veteran`
-- `tau-empire.kinband-champion`
-- `tau-empire.shasnel`
-- `thousand-sons.magister`
 - `tyranids.macro-organism`
-- `tyranids.node-organism`
 - `tyranids.prime-organism`
-- `world-eaters.butcherlord`
 
 ## Retired
 
@@ -482,6 +483,19 @@ The app build prints no base size and the guide dated before the cutoff does not
 ## Unresolved
 
 Active entries without a record, by reason. An entry with several reasons is listed under each.
+
+### The rule has no finished draft for this version (2)
+
+- `faq` `codex-space-marines.errata.kayvaan-shrike-2`
+- `faq` `codex-space-marines.errata.librarian-in-terminator-armour`
+
+### The build this version reads adds the rule, which has no summary yet (1)
+
+- `faq` `codex-space-marines.errata.kayvaan-shrike-2`
+
+### The build this version reads prints the rule in other words, so its summary awaits a redraft (1)
+
+- `faq` `codex-space-marines.errata.librarian-in-terminator-armour`
 
 ### A datasheet the app does not carry whose choices the roster definition format does not yet reproduce exactly: an entry for its abilities and its faction's (6)
 

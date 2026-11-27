@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.stormlance-task-force.full-throttle",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Stormlance Task Force",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.stormlance-task-force"
+    },
+    "cp": 2,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "wargear"
+    },
+    "summary": "Use it in your Movement phase. Pick 1 **ADEPTUS ASTARTES MOUNTED** or **ADEPTUS ASTARTES VEHICLE** unit of yours that is not a **WALKER**.\n\nIf it Advances this phase, no **Advance roll** is made for it: its models' Move characteristic goes up by 6\" instead, or by 9\" if the unit is **MOUNTED**.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "VEHICLE"
+                ]
+              }
+            ],
+            "excludedKeywords": [
+              "WALKER"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
+          "detachment": "Stormlance Task Force",
+          "type": "Wargear",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              [
+                "ADEPTUS ASTARTES",
+                "MOUNTED"
+              ],
+              [
+                "ADEPTUS ASTARTES",
+                "VEHICLE"
+              ]
+            ],
+            "excludeKeywords": [
+              "WALKER"
+            ]
+          },
+          "effects": [
+            {
+              "if": "the unit Advances this phase",
+              "noAdvanceRoll": true,
+              "moveBonusInches": 6,
+              "moveBonusInchesIfMounted": 9
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

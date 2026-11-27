@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Assault Intercessor Squad",
-    "summary": "In a turn when this unit has charged (made a **charge move**), its melee attacks get +1 Strength and +1 AP.",
+    "summary": "**Wound rolls** of 1 may be re-rolled for melee attacks this unit makes. Against an enemy unit within an objective marker's range, that widens to any Wound roll.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -35,9 +35,23 @@
             {
               "choices": [
                 {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundReroll": "ones"
+                      }
+                    }
+                  ]
+                },
+                {
                   "conditions": [
                     {
-                      "kind": "charged"
+                      "kind": "target-on-objective"
                     }
                   ],
                   "effects": [
@@ -46,25 +60,14 @@
                       "attacks": [
                         "melee"
                       ],
-                      "characteristic": {
-                        "name": "strength",
-                        "add": 1
-                      }
-                    },
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "characteristic": {
-                        "name": "armour-penetration",
-                        "add": -1
+                      "rolls": {
+                        "woundReroll": "failed"
                       }
                     }
                   ]
                 }
               ],
-              "default": 0,
+              "default": 1,
               "roles": [
                 "attacker"
               ]
@@ -108,27 +111,32 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "charge-move"
-          }
-        ],
         "detail": {
-          "kind": "unit-ability",
-          "datasheet": "Assault Intercessor Squad",
-          "condition": "this unit made a charge move this turn",
-          "effects": [
-            {
-              "kind": "characteristic-modifier",
+          "ability": {
+            "when": {
               "attackType": "melee",
-              "characteristics": [
-                "S",
-                "AP"
-              ],
-              "delta": 1
-            }
-          ]
+              "attacker": "a model in this unit",
+              "target": "an enemy unit"
+            },
+            "effects": [
+              {
+                "reroll": "wound",
+                "rollValues": [
+                  1
+                ],
+                "optional": true
+              },
+              {
+                "condition": {
+                  "targetWithinRangeOfObjectiveMarker": true
+                },
+                "reroll": "wound",
+                "rollValues": "any",
+                "optional": true,
+                "insteadOf": "re-rolling only a Wound roll of 1"
+              }
+            ]
+          }
         }
       }
     }

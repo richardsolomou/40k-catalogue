@@ -7,26 +7,44 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Captain Titus",
-    "summary": "[Assault Doctrine](vsdata:ability/space-marines.combat-doctrines) makes **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)** apply to all melee attacks by this unit. Otherwise only **non-MONSTER/VEHICLE** targets qualify.",
+    "summary": "This model's unit has **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)** on every weapon its models are equipped with.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "weaponAbilities": [
+          {
+            "ability": "SUSTAINED HITS 1",
+            "attacks": [
+              "ranged",
+              "melee"
+            ],
+            "to": "own-unit"
+          },
+          {
+            "ability": "SUSTAINED HITS 1",
+            "attacks": [
+              "ranged",
+              "melee"
+            ],
+            "to": "led-unit"
+          }
+        ],
         "combat": {
           "applies": {
             "reachesAttached": true
@@ -35,37 +53,48 @@
             {
               "choices": [
                 {
-                  "option": "SUSTAINED HITS 1 vs non-MONSTER/VEHICLE",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
+                  "conditions": [],
                   "effects": [
                     {
                       "role": "attacker",
                       "attacks": [
+                        "ranged",
                         "melee"
-                      ],
-                      "excludedTargetKeywords": [
-                        "MONSTER",
-                        "VEHICLE"
                       ],
                       "weaponAbility": "SUSTAINED HITS 1"
                     }
                   ]
-                },
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
                 {
-                  "option": "Sustained Hits 1",
-                  "conditions": [
+                  "conditions": [],
+                  "effects": [
                     {
-                      "kind": "option"
-                    },
-                    {
-                      "kind": "stated",
-                      "label": "With the assault doctrine"
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "SUSTAINED HITS 1"
                     }
-                  ],
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
                   "effects": [
                     {
                       "role": "attacker",
@@ -77,7 +106,7 @@
                   ]
                 }
               ],
-              "default": 0,
+              "default": 1,
               "roles": [
                 "attacker"
               ]
@@ -87,6 +116,16 @@
             [
               {
                 "reading": 0
+              }
+            ],
+            [
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "reading": 2
               }
             ]
           ],
@@ -103,14 +142,14 @@
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 0,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 0,
-            "stratagem-fight.one.known": 0,
-            "stratagem-fight.one.unknown": 0,
-            "stratagem-fight.many.known": 0,
-            "stratagem-fight.many.unknown": 0,
+            "stratagem-shooting.one.known": 1,
+            "stratagem-shooting.one.unknown": 1,
+            "stratagem-shooting.many.known": 1,
+            "stratagem-shooting.many.unknown": 1,
+            "stratagem-fight.one.known": 2,
+            "stratagem-fight.one.unknown": 2,
+            "stratagem-fight.many.known": 2,
+            "stratagem-fight.many.unknown": 2,
             "stratagem-both.one.known": 0,
             "stratagem-both.one.unknown": 0,
             "stratagem-both.many.known": 0,
@@ -122,15 +161,10 @@
           }
         },
         "detail": {
-          "recipient": "datasheet-unit-melee-attacks",
-          "effect": {
-            "grant": "Sustained Hits 1",
-            "additionalHits": 1,
-            "targetExcludes": [
-              "Monster",
-              "vehicle"
-            ],
-            "allTargetsInDoctrine": "Assault Doctrine"
+          "ability": {
+            "appliesTo": "all weapons equipped by models in this model's unit",
+            "grantWeaponAbility": "SUSTAINED HITS",
+            "value": 1
           }
         }
       }

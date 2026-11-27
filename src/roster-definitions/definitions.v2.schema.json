@@ -170,6 +170,9 @@
         },
         "allegiance": {
           "$ref": "#/$defs/id"
+        },
+        "wargear": {
+          "$ref": "#/$defs/id"
         }
       }
     },
@@ -438,6 +441,18 @@
         "group": {
           "$ref": "#/$defs/text"
         },
+        "exclusiveEnhancements": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "keywords"
+          ],
+          "properties": {
+            "keywords": {
+              "$ref": "#/$defs/names"
+            }
+          }
+        },
         "allegianceLimits": {
           "type": "array",
           "minItems": 1,
@@ -492,6 +507,13 @@
         "upgrade": {
           "const": true
         },
+        "perRoster": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "outsideLimit": {
+          "const": true
+        },
         "keywords": {
           "type": "object",
           "additionalProperties": false,
@@ -525,6 +547,9 @@
         "keywords": {
           "$ref": "#/$defs/keywords"
         },
+        "factionKeywords": {
+          "$ref": "#/$defs/nonEmptyKeywords"
+        },
         "conditionalKeywords": {
           "type": "array",
           "minItems": 1,
@@ -537,6 +562,17 @@
             ],
             "properties": {
               "keywords": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/keywords"
+                  },
+                  {
+                    "type": "array",
+                    "minItems": 1
+                  }
+                ]
+              },
+              "replaces": {
                 "allOf": [
                   {
                     "$ref": "#/$defs/keywords"
@@ -665,6 +701,18 @@
             }
           }
         },
+        "uniformOptions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        },
         "perRoster": {
           "$ref": "#/$defs/count"
         },
@@ -786,6 +834,9 @@
         },
         "keywords": {
           "$ref": "#/$defs/nonEmptyKeywords"
+        },
+        "warlord": {
+          "const": false
         }
       }
     },

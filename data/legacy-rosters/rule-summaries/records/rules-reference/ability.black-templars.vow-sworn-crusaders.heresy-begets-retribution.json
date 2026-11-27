@@ -7,36 +7,32 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "stratagem",
-    "group": "Vow-sworn Crusaders",
+    "group": "Companions of Vehemence",
     "detachment": {
       "kind": "detachment",
-      "id": "black-templars.vow-sworn-crusaders"
+      "id": "black-templars.companions-of-vehemence"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "movement"
       ],
-      "turn": "opponent"
+      "turn": "opponent",
+      "type": "strategic-ploy"
     },
-    "parts": {
-      "when": "[Opponent's Movement phase](vsdata:core-rule/movement-phase), as an enemy unit finishes a move up to 8\" from one of your **ADEPTUS ASTARTES INFANTRY** units.",
-      "target": "That same **ADEPTUS ASTARTES INFANTRY** unit.",
-      "effect": "You can move the unit with a [surge move](vsdata:core-rule/surge-move), up to D6\"."
-    },
-    "summary": "**When:** [Opponent's Movement phase](vsdata:core-rule/movement-phase), as an enemy unit finishes a move up to 8\" from one of your **ADEPTUS ASTARTES INFANTRY** units.\n\n**Target:** That same **ADEPTUS ASTARTES INFANTRY** unit.\n\n**Effect:** You can move the unit with a [surge move](vsdata:core-rule/surge-move), up to D6\".",
+    "summary": "Use it in your opponent's Movement phase, right after an enemy unit finishes a **Normal move**, Advance or Fall Back. Pick 1 **CHAPLAIN** or **JUDICIAR** unit of yours that:\n\n- has that enemy unit within 8\"\n- is outside **Engagement Range** of all enemy units\n\nIt may then move up to D6\" with a **surge move**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -50,11 +46,20 @@
             "after": "enemy-ended-move"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
-            "keywords": [
-              "ADEPTUS ASTARTES",
-              "INFANTRY"
+            "anyOf": [
+              {
+                "keywords": [
+                  "CHAPLAIN"
+                ]
+              },
+              {
+                "keywords": [
+                  "JUDICIAR"
+                ]
+              }
             ],
             "more": true
           }
@@ -75,34 +80,47 @@
           }
         ],
         "detail": {
-          "detachment": "Vow-sworn Crusaders",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "opponent"
-              }
-            ],
-            "event": "enemy-unit-ends-move-near-target"
+          "detachment": "Companions of Vehemence",
+          "type": "Strategic Ploy",
+          "window": {
+            "turn": "opponent",
+            "phase": "movement",
+            "timing": "just after an enemy unit finishes a Normal, Advance or Fall Back move"
           },
           "target": {
-            "entity": "unit",
-            "count": 1,
             "side": "friendly",
-            "keywordsAll": [
-              "ADEPTUS ASTARTES",
-              "INFANTRY"
+            "count": 1,
+            "keywordsAny": [
+              "CHAPLAIN",
+              "JUDICIAR"
             ],
-            "withinInchesOfTrigger": 8
+            "withinInches": 8,
+            "of": "that enemy unit",
+            "notWithinEngagementRange": true
           },
           "effects": [
             {
-              "kind": "surge-move",
+              "move": "surge",
               "maxDistance": "D6",
               "optional": true
             }
           ],
-          "restrictions": []
+          "duration": "instant",
+          "cardPrintsOtherText": {
+            "detachment": "Vow-sworn Crusaders",
+            "targetKeywordsAll": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "trigger": "an enemy unit ends any move near that friendly unit",
+            "withinInches": 8,
+            "effects": [
+              {
+                "move": "surge",
+                "maxDistance": "D6"
+              }
+            ]
+          }
         }
       }
     }

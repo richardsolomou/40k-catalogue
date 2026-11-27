@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.repulsor.emergency-combat-embarkation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Repulsor",
+    "summary": "Once per turn, during the Charge phase of your opponent's turn, this ability can be used when an enemy unit has picked its charge targets and has not yet made its **Charge move**:\n\n- you may pick 1 **ADEPTUS ASTARTES** unit of yours from among those charge targets\n- if no enemy unit is within **Engagement Range** of the picked unit and this **TRANSPORT** is within 3\" of every model in it, it can embark in this **TRANSPORT**\n- the enemy unit may then pick new charge targets",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "ability": {
+            "limit": {
+              "count": 1,
+              "per": "turn"
+            },
+            "when": {
+              "turn": "opponent",
+              "phase": "charge",
+              "timing": "after an enemy unit selects its charge targets, before its Charge move"
+            },
+            "select": {
+              "side": "friendly",
+              "count": 1,
+              "keywordsAll": [
+                "ADEPTUS ASTARTES"
+              ],
+              "isChargeTarget": true
+            },
+            "condition": {
+              "notWithinEngagementRange": true,
+              "allModelsWithinInches": 3
+            },
+            "effect": {
+              "embarkInThisTransport": true,
+              "chargingUnitMaySelectNewTargets": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

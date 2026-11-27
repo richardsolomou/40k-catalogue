@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -22,21 +22,17 @@
       "phases": [
         "shooting"
       ],
-      "turn": "own"
+      "turn": "own",
+      "type": "strategic-ploy"
     },
-    "parts": {
-      "when": "[Your Shooting phase](vsdata:core-rule/shooting-phase), as one of your **ADEPTUS ASTARTES** units is **selected to shoot**.",
-      "target": "That **ADEPTUS ASTARTES** unit.",
-      "effect": "The unit's ranged attacks get **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)**."
-    },
-    "summary": "**When:** [Your Shooting phase](vsdata:core-rule/shooting-phase), as one of your **ADEPTUS ASTARTES** units is **selected to shoot**.\n\n**Target:** That **ADEPTUS ASTARTES** unit.\n\n**Effect:** The unit's ranged attacks get **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)**.",
+    "summary": "Use it in your Shooting phase. Pick 1 **ADEPTUS ASTARTES** unit of yours that has not yet been chosen to shoot in this phase. Until that phase ends, its models' ranged weapons gain **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -46,14 +42,17 @@
         "stratagem": {
           "limit": "phase",
           "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-attack"
+            "at": "phase"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
               "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
             ]
           }
         },
@@ -147,33 +146,32 @@
         },
         "detail": {
           "detachment": "Angelic Inheritors",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "own"
-              }
-            ],
-            "event": "friendly-unit-selected-to-attack"
-          },
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "count": 1,
             "side": "friendly",
+            "count": 1,
             "keywordsAll": [
               "ADEPTUS ASTARTES"
             ],
-            "sameAs": "triggering-unit"
+            "notSelectedToShootThisPhase": true
           },
           "effects": [
             {
-              "kind": "grant-weapon-ability",
-              "attackType": "ranged",
-              "ability": "SUSTAINED HITS",
+              "weapons": "ranged",
+              "weaponAbility": "SUSTAINED HITS",
               "value": 1
             }
           ],
-          "restrictions": []
+          "duration": "end-of-phase",
+          "cardPrintsNewerText": {
+            "window": "when a friendly ADEPTUS ASTARTES unit is chosen to attack"
+          }
         }
       }
     }

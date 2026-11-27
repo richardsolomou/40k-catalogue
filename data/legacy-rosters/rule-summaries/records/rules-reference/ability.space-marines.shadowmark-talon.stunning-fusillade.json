@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.shadowmark-talon.stunning-fusillade",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Shadowmark Talon",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.shadowmark-talon"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "own",
+      "type": "battle-tactic"
+    },
+    "summary": "Use it in your Shooting phase. Pick 1 **ADEPTUS ASTARTES INFANTRY** unit of yours that has not yet been picked to shoot this phase.\n\nFor the rest of the phase, its models' ranged attacks against an enemy unit over 12\" away improve their Armour Penetration and Ballistic Skill by 1. If any enemy models are **destroyed** by those attacks, pick 1 of them: its unit takes a Battle-shock test.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
+            ]
+          }
+        },
+        "detail": {
+          "detachment": "Shadowmark Talon",
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "notSelectedToShootThisPhase": true
+          },
+          "effects": [
+            {
+              "attackType": "ranged",
+              "if": "the target is more than 12\" away",
+              "moreThanInches": 12,
+              "improve": {
+                "ballisticSkill": 1,
+                "armourPenetration": 1
+              }
+            },
+            {
+              "if": "those attacks destroy at least 1 enemy model",
+              "select": "1 destroyed model",
+              "battleShockTest": "that model's unit"
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

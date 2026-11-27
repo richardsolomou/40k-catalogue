@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -22,21 +22,17 @@
       "phases": [
         "shooting"
       ],
-      "turn": "own"
+      "turn": "own",
+      "type": "strategic-ploy"
     },
-    "parts": {
-      "when": "[Your Shooting phase](vsdata:core-rule/shooting-phase), as one of your **ADEPTUS ASTARTES INFANTRY** or **MOUNTED** units is **selected to shoot**.",
-      "target": "That **ADEPTUS ASTARTES INFANTRY** or **MOUNTED** unit.",
-      "effect": "The unit's ranged attacks get +2 S."
-    },
-    "summary": "**When:** [Your Shooting phase](vsdata:core-rule/shooting-phase), as one of your **ADEPTUS ASTARTES INFANTRY** or **MOUNTED** units is **selected to shoot**.\n\n**Target:** That **ADEPTUS ASTARTES INFANTRY** or **MOUNTED** unit.\n\n**Effect:** The unit's ranged attacks get +2 S.",
+    "summary": "Use it in your Shooting phase as 1 of your **ADEPTUS ASTARTES** units that is **INFANTRY** or **MOUNTED** is chosen to shoot. For the rest of that phase, the ranged attacks it makes get +2 S.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -46,11 +42,11 @@
         "stratagem": {
           "limit": "phase",
           "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-shoot"
+            "at": "phase"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "anyOf": [
               {
@@ -65,6 +61,9 @@
                   "MOUNTED"
                 ]
               }
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
             ]
           }
         },
@@ -164,37 +163,35 @@
         },
         "detail": {
           "detachment": "Wrath of the Rock",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
           "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "own"
-              }
-            ],
             "event": "friendly-unit-selected-to-shoot"
           },
           "target": {
-            "entity": "unit",
-            "count": 1,
             "side": "friendly",
+            "count": 1,
             "keywordsAll": [
               "ADEPTUS ASTARTES"
             ],
             "keywordsAny": [
               "INFANTRY",
               "MOUNTED"
-            ],
-            "sameAs": "triggering-unit"
+            ]
           },
           "effects": [
             {
-              "kind": "characteristic-modifier",
               "attackType": "ranged",
               "characteristic": "S",
               "delta": 2
             }
           ],
-          "restrictions": []
+          "duration": "end-of-phase",
+          "durationBasis": "Core Rules 01.02.02: no duration is printed, so the effect lasts for the rest of the phase in which it was applied"
         }
       }
     }

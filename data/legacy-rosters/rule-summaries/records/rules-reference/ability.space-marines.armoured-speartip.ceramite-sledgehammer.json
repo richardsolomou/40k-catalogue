@@ -13,7 +13,18 @@
   "data": {
     "ruleType": "stratagem",
     "group": "Armoured Speartip",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.armoured-speartip"
+    },
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
     "summary": "Use it in your Movement phase on 1 **ADEPTUS ASTARTES TRANSPORT** unit of yours not yet chosen to move this phase. For the rest of the phase, its **Normal moves** and **Advance moves** can cross **terrain features** horizontally.\n\nIf it is a **HEAVY TRANSPORT**, those moves also gain the following:\n\n- They can cross enemy models that are not **MONSTERS** or **VEHICLES**.\n- They can come within **Engagement Range** of those models but must end outside it.\n- Any **Desperate Escape test** taken during them counts as passed.",
     "citations": [
       {
@@ -28,6 +39,24 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "TRANSPORT"
+            ],
+            "conditions": [
+              "not-selected-to-move"
+            ]
+          }
+        },
         "detail": {
           "detachment": "Armoured Speartip",
           "type": "Strategic Ploy",
@@ -71,11 +100,7 @@
               "desperateEscapeTestsAutoPassed": true
             }
           ],
-          "duration": "end-of-phase",
-          "lastPrinted": {
-            "dataBuild": 946,
-            "note": "Build 963, in force at this version's cutoff, no longer prints the Armoured Speartip Detachment; this rule is as build 946, the last to print it, gives it."
-          }
+          "duration": "end-of-phase"
         }
       }
     }

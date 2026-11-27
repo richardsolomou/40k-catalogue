@@ -7,19 +7,19 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "army-rule",
-    "summary": "As [your Command phase](vsdata:core-rule/command-phase) begins, you can pick one of the 3 combat doctrines below. Your **ADEPTUS ASTARTES** units that have this ability then benefit from it until your next Command phase. The doctrines are:\n\n- **Assault Doctrine**: the unit can still declare a charge after making an **[advance move](vsdata:core-rule/advance-move)**.\n- **Devastator Doctrine**: the unit's ranged attacks get **[[ASSAULT]](vsdata:weapon-ability/assault)**.\n- **Tactical Doctrine**: the unit can still shoot and declare a charge after making a **[fall-back move](vsdata:core-rule/fall-back)**.\n\nUnless a rule says otherwise:\n\n- You can pick each combat doctrine only once per battle.\n- A unit can have just one combat doctrine active at a time. If a rule makes another one active for it, the doctrine it had before stops being active.",
+    "summary": "During your Command phase, you may pick one Combat Doctrine ability; every **ADEPTUS ASTARTES** unit of yours has it until your next Command phase starts. Each can be picked once per battle.\n\n- **Assault Doctrine**: the unit may still declare a charge after Advancing that turn.\n- **Devastator Doctrine**: the unit may still shoot after Advancing that turn.\n- **Tactical Doctrine**: the unit may still shoot, and may still declare a charge, after Falling Back that turn.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -35,107 +35,6 @@
             }
           ]
         },
-        "combat": {
-          "applies": {
-            "target": {
-              "anyOf": [
-                [
-                  "ADEPTUS ASTARTES"
-                ]
-              ]
-            },
-            "reachesAttached": true
-          },
-          "readings": [
-            {
-              "choices": [],
-              "default": 0,
-              "shown": {
-                "choices": [
-                  {
-                    "option": "Assault Doctrine",
-                    "armyWide": true,
-                    "conditions": [
-                      {
-                        "kind": "option"
-                      }
-                    ],
-                    "effects": []
-                  },
-                  {
-                    "option": "Devastator Doctrine",
-                    "armyWide": true,
-                    "conditions": [
-                      {
-                        "kind": "option"
-                      }
-                    ],
-                    "effects": [
-                      {
-                        "role": "attacker",
-                        "attacks": [
-                          "ranged"
-                        ],
-                        "weaponAbility": "ASSAULT"
-                      }
-                    ]
-                  },
-                  {
-                    "option": "Tactical Doctrine",
-                    "armyWide": true,
-                    "conditions": [
-                      {
-                        "kind": "option"
-                      }
-                    ],
-                    "effects": []
-                  }
-                ],
-                "default": 0
-              },
-              "roles": [
-                "attacker"
-              ]
-            }
-          ],
-          "trees": [
-            [
-              {
-                "reading": 0
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 0,
-            "own.many.known": 0,
-            "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
-            "aura.one.known": 0,
-            "aura.one.unknown": 0,
-            "aura.many.known": 0,
-            "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 0,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 0,
-            "stratagem-fight.one.known": 0,
-            "stratagem-fight.one.unknown": 0,
-            "stratagem-fight.many.known": 0,
-            "stratagem-fight.many.unknown": 0,
-            "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 0,
-            "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 0,
-            "army.one.known": 0,
-            "army.one.unknown": 0,
-            "army.many.known": 0,
-            "army.many.unknown": 0
-          }
-        },
         "references": [
           {
             "kind": "core-rule",
@@ -144,58 +43,47 @@
           {
             "kind": "core-rule",
             "id": "fall-back"
-          },
-          {
-            "kind": "weapon-ability",
-            "id": "assault"
           }
         ],
         "detail": {
-          "kind": "army-rule-choice",
-          "trigger": {
+          "kind": "army-rule",
+          "when": {
             "turn": "own",
-            "phase": "command",
-            "timing": "start-of-phase"
+            "phase": "command"
           },
           "optional": true,
-          "choose": 1,
-          "recipients": {
+          "select": {
+            "count": 1,
+            "from": "Combat Doctrine abilities"
+          },
+          "appliesTo": {
             "side": "friendly",
             "keywordsAll": [
               "ADEPTUS ASTARTES"
-            ],
-            "withThisAbility": true
+            ]
           },
-          "duration": "until-start-of-next-own-command-phase",
-          "limits": {
-            "unlessOtherwiseStated": true,
-            "selectionsPerDoctrinePerBattle": 1,
-            "limitScope": "army-selection",
-            "activeDoctrinesPerUnit": 1,
-            "newDoctrineEndsPrevious": true
-          },
-          "doctrines": [
-            {
-              "name": "Assault Doctrine",
-              "whenSelectedFor": "advance-move",
-              "stillEligible": [
-                "declare-charge"
-              ]
+          "duration": "until-start-of-your-next-command-phase",
+          "doctrines": {
+            "Assault Doctrine": {
+              "inTurnUnitAdvanced": {
+                "eligibleToDeclareCharge": true
+              }
             },
-            {
-              "name": "Devastator Doctrine",
-              "attackType": "ranged",
-              "grant": "ASSAULT"
+            "Devastator Doctrine": {
+              "inTurnUnitAdvanced": {
+                "eligibleToShoot": true
+              }
             },
-            {
-              "name": "Tactical Doctrine",
-              "whenSelectedFor": "fall-back-move",
-              "stillEligible": [
-                "shoot",
-                "declare-charge"
-              ]
+            "Tactical Doctrine": {
+              "inTurnUnitFellBack": {
+                "eligibleToShoot": true,
+                "eligibleToDeclareCharge": true
+              }
             }
-          ]
+          },
+          "limits": {
+            "selectionsPerDoctrinePerBattle": 1
+          }
         }
       }
     }

@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -20,34 +20,19 @@
     "cp": 1,
     "stratagem": {
       "phases": [
-        "shooting",
-        "fight"
+        "shooting"
       ],
-      "turn": "any",
-      "windows": [
-        {
-          "phase": "shooting",
-          "turn": "own"
-        },
-        {
-          "phase": "fight",
-          "turn": "any"
-        }
-      ]
+      "turn": "own",
+      "type": "battle-tactic"
     },
-    "parts": {
-      "when": "[Your Shooting phase](vsdata:core-rule/shooting-phase) or [either player's Fight phase](vsdata:core-rule/fight-phase), as one of your **ADEPTUS ASTARTES INFANTRY** units is **selected to attack**.",
-      "target": "That same **ADEPTUS ASTARTES INFANTRY** unit.",
-      "effect": "With its attacks, the unit can re-roll 1s and 2s to [Wound](vsdata:core-rule/wound-rolls)."
-    },
-    "summary": "**When:** [Your Shooting phase](vsdata:core-rule/shooting-phase) or [either player's Fight phase](vsdata:core-rule/fight-phase), as one of your **ADEPTUS ASTARTES INFANTRY** units is **selected to attack**.\n\n**Target:** That same **ADEPTUS ASTARTES INFANTRY** unit.\n\n**Effect:** With its attacks, the unit can re-roll 1s and 2s to [Wound](vsdata:core-rule/wound-rolls).",
+    "summary": "Use it in your Shooting phase. Pick 1 **ADEPTUS ASTARTES** unit of yours that has not yet been chosen to shoot in this phase. Until that phase ends, each attack made by its models may get +1 to its **Wound roll**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -57,15 +42,17 @@
         "stratagem": {
           "limit": "phase",
           "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-attack"
+            "at": "phase"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
-              "ADEPTUS ASTARTES",
-              "INFANTRY"
+              "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
             ]
           }
         },
@@ -75,11 +62,6 @@
               "at": "phase-start",
               "phase": "shooting",
               "turn": "own"
-            },
-            {
-              "at": "phase-start",
-              "phase": "fight",
-              "turn": "any"
             }
           ]
         },
@@ -88,18 +70,48 @@
             "target": {
               "anyOf": [
                 [
-                  "ADEPTUS ASTARTES INFANTRY"
+                  "ADEPTUS ASTARTES"
                 ]
               ]
             }
           },
           "readings": [
-            {}
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "woundModifier": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0
+            }
           ],
           "trees": [
             [
               {
                 "reading": 0
+              }
+            ],
+            [
+              {
+                "reading": 1
               }
             ]
           ],
@@ -120,10 +132,10 @@
             "stratagem-shooting.one.unknown": 0,
             "stratagem-shooting.many.known": 0,
             "stratagem-shooting.many.unknown": 0,
-            "stratagem-fight.one.known": 0,
-            "stratagem-fight.one.unknown": 0,
-            "stratagem-fight.many.known": 0,
-            "stratagem-fight.many.unknown": 0,
+            "stratagem-fight.one.known": 1,
+            "stratagem-fight.one.unknown": 1,
+            "stratagem-fight.many.known": 1,
+            "stratagem-fight.many.unknown": 1,
             "stratagem-both.one.known": 0,
             "stratagem-both.one.unknown": 0,
             "stratagem-both.many.known": 0,
@@ -134,48 +146,43 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "select-weapons.selected-to-attack"
-          }
-        ],
         "detail": {
           "detachment": "Saga of the Great Wolf",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "own"
-              },
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "friendly-unit-selected-to-attack"
-          },
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "count": 1,
             "side": "friendly",
+            "count": 1,
             "keywordsAll": [
-              "ADEPTUS ASTARTES",
-              "INFANTRY"
+              "ADEPTUS ASTARTES"
             ],
-            "sameAs": "triggering-unit"
+            "notSelectedToShootThisPhase": true
           },
           "effects": [
             {
-              "kind": "re-roll",
+              "attacks": "target-unit-models",
               "roll": "wound",
-              "values": [
-                1,
-                2
-              ]
+              "delta": 1,
+              "optional": true
             }
           ],
-          "restrictions": []
+          "duration": "end-of-phase",
+          "cardPrintsNewerText": {
+            "targetKeywordsAll": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "rerollWoundRollsOf": [
+              1,
+              2
+            ],
+            "alsoFightPhase": true
+          }
         }
       }
     }

@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "detachment-rule",
     "group": "Inner Circle Task Force",
-    "summary": "In [your Command phase](vsdata:core-rule/command-phase), 1 **[objective](vsdata:core-rule/objectives)** can be picked as your **vowed objective** until the start of your next Command phase. Attacks by your **DEATHWING INFANTRY** units against enemy units in range of the **vowed objective** get +1 to [Wound](vsdata:core-rule/wound-rolls).\n\nYour army can contain **DARK ANGELS** units, and no **ADEPTUS ASTARTES** units of any other Chapter.",
+    "summary": "As your Movement phase starts, choose one option; its **Vowed objectives** last until your next Movement phase starts:\n\n- **Defensive Footing**: one objective you control becomes your **Vowed objective**.\n- **Aggressive Push**: one or more objectives you do not control each become a **Vowed objective** of yours; any rule about being in range of the **Vowed objective** then applies when a unit or model is in range of at least one of them.\n\nAttacks by your **DEATHWING INFANTRY** units against a unit in range of any of your **Vowed objectives** get +1 to **Wound rolls**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -31,7 +31,7 @@
           "timings": [
             {
               "at": "phase-start",
-              "phase": "command",
+              "phase": "movement",
               "turn": "own"
             }
           ]
@@ -50,10 +50,13 @@
             {
               "choices": [
                 {
+                  "option": "Aggressive Push",
                   "conditions": [
                     {
-                      "kind": "stated",
-                      "label": "Target on the vowed objective"
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated"
                     }
                   ],
                   "effects": [
@@ -71,18 +74,82 @@
                 }
               ],
               "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "Defensive Footing",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  },
+                  {
+                    "option": "Aggressive Push",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged",
+                          "melee"
+                        ],
+                        "rolls": {
+                          "woundModifier": 1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
               "roles": [
                 "attacker"
               ]
             },
             {
               "choices": [],
-              "default": 0
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "Defensive Footing",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  },
+                  {
+                    "option": "Aggressive Push",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  }
+                ],
+                "default": 0
+              }
             },
             {
               "choices": [
                 {
+                  "option": "Aggressive Push",
                   "conditions": [
+                    {
+                      "kind": "option"
+                    },
                     {
                       "kind": "for-units",
                       "keywords": [
@@ -90,8 +157,7 @@
                       ]
                     },
                     {
-                      "kind": "stated",
-                      "label": "Target on the vowed objective"
+                      "kind": "stated"
                     }
                   ],
                   "effects": [
@@ -109,6 +175,49 @@
                 }
               ],
               "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "Defensive Footing",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  },
+                  {
+                    "option": "Aggressive Push",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "for-units",
+                        "keywords": [
+                          "DEATHWING INFANTRY"
+                        ]
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged",
+                          "melee"
+                        ],
+                        "rolls": {
+                          "woundModifier": 1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
               "roles": [
                 "attacker"
               ]
@@ -116,10 +225,13 @@
             {
               "choices": [
                 {
+                  "option": "Aggressive Push",
                   "conditions": [
                     {
-                      "kind": "stated",
-                      "label": "Target on the vowed objective"
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated"
                     }
                   ],
                   "effects": [
@@ -136,6 +248,42 @@
                 }
               ],
               "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "Defensive Footing",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  },
+                  {
+                    "option": "Aggressive Push",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "rolls": {
+                          "woundModifier": 1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
               "roles": [
                 "attacker"
               ]
@@ -143,7 +291,11 @@
             {
               "choices": [
                 {
+                  "option": "Aggressive Push",
                   "conditions": [
+                    {
+                      "kind": "option"
+                    },
                     {
                       "kind": "for-units",
                       "keywords": [
@@ -151,8 +303,7 @@
                       ]
                     },
                     {
-                      "kind": "stated",
-                      "label": "Target on the vowed objective"
+                      "kind": "stated"
                     }
                   ],
                   "effects": [
@@ -169,6 +320,48 @@
                 }
               ],
               "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "Defensive Footing",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  },
+                  {
+                    "option": "Aggressive Push",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "for-units",
+                        "keywords": [
+                          "DEATHWING INFANTRY"
+                        ]
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "rolls": {
+                          "woundModifier": 1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
               "roles": [
                 "attacker"
               ]
@@ -176,10 +369,13 @@
             {
               "choices": [
                 {
+                  "option": "Aggressive Push",
                   "conditions": [
                     {
-                      "kind": "stated",
-                      "label": "Target on the vowed objective"
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated"
                     }
                   ],
                   "effects": [
@@ -196,6 +392,42 @@
                 }
               ],
               "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "Defensive Footing",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  },
+                  {
+                    "option": "Aggressive Push",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "woundModifier": 1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
               "roles": [
                 "attacker"
               ]
@@ -203,7 +435,11 @@
             {
               "choices": [
                 {
+                  "option": "Aggressive Push",
                   "conditions": [
+                    {
+                      "kind": "option"
+                    },
                     {
                       "kind": "for-units",
                       "keywords": [
@@ -211,8 +447,7 @@
                       ]
                     },
                     {
-                      "kind": "stated",
-                      "label": "Target on the vowed objective"
+                      "kind": "stated"
                     }
                   ],
                   "effects": [
@@ -229,6 +464,48 @@
                 }
               ],
               "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "Defensive Footing",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  },
+                  {
+                    "option": "Aggressive Push",
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "for-units",
+                        "keywords": [
+                          "DEATHWING INFANTRY"
+                        ]
+                      },
+                      {
+                        "kind": "stated"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "rolls": {
+                          "woundModifier": 1
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
               "roles": [
                 "attacker"
               ]
@@ -327,73 +604,54 @@
             "army.many.unknown": 1
           }
         },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "objectives"
+          }
+        ],
         "detail": {
-          "scope": {
-            "factionId": "fa0e86ef-b5da-4510-9a9f-8cd86267bb6a",
-            "faction": "Dark Angels",
-            "detachmentId": "0af88b8c-951a-442c-987b-85384f0020e7",
+          "detachmentRule": {
             "detachment": "Inner Circle Task Force",
-            "uniqueTags": [],
-            "sourceId": "0af88b8c-951a-442c-987b-85384f0020e7:vowed-target",
-            "cardType": "detachmentRule",
-            "cardEdition": "40k-11e"
-          },
-          "trigger": {
-            "event": "during-phase",
-            "phase": "command",
-            "owner": "self"
-          },
-          "selection": {
-            "count": 1,
-            "optional": true,
-            "target": {
-              "kind": "objective"
+            "when": {
+              "turn": "own",
+              "phase": "movement",
+              "timing": "start-of-phase"
             },
-            "designation": "vowed objective"
-          },
-          "expires": {
-            "event": "next-phase-started",
-            "phase": "command",
-            "owner": "self"
-          },
-          "effect": {
-            "type": "roll-modifier",
-            "roll": "wound",
-            "operation": "add",
-            "value": 1,
-            "actor": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Deathwing",
-                "Infantry"
-              ]
-            },
-            "targetCondition": {
-              "owner": "enemy",
-              "level": "unit",
-              "withinRangeOf": "vowed-objective"
-            }
-          },
-          "roster": {
-            "type": "roster-restriction",
-            "permits": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Dark Angels"
-              ]
-            },
-            "excludes": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Adeptus Astartes"
-              ],
-              "chapter": {
-                "otherThan": "Dark Angels"
+            "chooseOne": {
+              "Defensive Footing": {
+                "select": {
+                  "objectives": 1,
+                  "control": "you control"
+                },
+                "vowedUntil": "start of your next Movement phase"
+              },
+              "Aggressive Push": {
+                "select": {
+                  "objectives": "one or more",
+                  "control": "you do not control"
+                },
+                "vowedUntil": "start of your next Movement phase",
+                "rangeReferencesMeanAnyVowedObjective": true
               }
+            },
+            "effect": {
+              "attackers": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "DEATHWING",
+                  "INFANTRY"
+                ]
+              },
+              "targetCondition": "target unit within range of one or more Vowed objectives",
+              "roll": "wound",
+              "add": 1
             }
+          },
+          "cardPrintsOtherText": {
+            "vowWindow": "your Command phase",
+            "vowedObjectives": 1,
+            "armyRestriction": "DARK ANGELS units only, no ADEPTUS ASTARTES units from another Chapter"
           }
         }
       }

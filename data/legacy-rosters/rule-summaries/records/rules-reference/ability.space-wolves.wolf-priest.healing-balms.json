@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Wolf Priest",
-    "summary": "During the [Command phase](vsdata:core-rule/command-phase), in your turn, the unit regains up to D3+1 lost wounds.",
+    "summary": "In your Command phase, while this model leads a unit, you may return one **destroyed** model to that unit, as long as the returned model is not a **CHARACTER**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -37,37 +37,25 @@
           ]
         },
         "detail": {
-          "effect": {
-            "type": "conditional",
-            "condition": {
-              "operator": "and",
-              "operands": [
-                {
-                  "type": "phase-is",
-                  "parameters": {
-                    "phase": "command"
-                  }
-                },
-                {
-                  "type": "player-turn-is",
-                  "parameters": {
-                    "turn": "your-turn"
-                  }
-                }
-              ]
+          "ability": {
+            "condition": "this model is leading a unit",
+            "when": {
+              "turn": "own",
+              "phase": "command"
             },
+            "optional": true,
             "effect": {
-              "type": "heal",
-              "target": "this-unit",
-              "modifier": {
-                "amount": "D3+1"
-              }
+              "returnDestroyedModels": 1,
+              "to": "the unit this model leads",
+              "excludeKeywords": [
+                "CHARACTER"
+              ]
             }
           },
-          "scope": {
-            "duration": "permanent"
-          },
-          "behavior": "passive"
+          "cardPrintsOtherText": {
+            "heal": "D3+1",
+            "healTarget": "this unit"
+          }
         }
       }
     }

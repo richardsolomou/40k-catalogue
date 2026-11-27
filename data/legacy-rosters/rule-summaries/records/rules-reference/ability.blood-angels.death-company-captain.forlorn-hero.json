@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Death Company Captain",
-    "summary": "The unit receives **[Scouts 6\"](vsdata:core-ability/scouts)**.",
+    "summary": "While this model leads a unit, every model in that unit has **[Scouts 6\"](vsdata:core-ability/scouts)**, unless that unit was embarked inside a **TRANSPORT** at the start of the battle.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -32,13 +32,22 @@
             {
               "ability": "Scouts 6\"",
               "to": "unit",
-              "named": true
+              "named": true,
+              "whileAttached": true,
+              "conditional": true
             }
           ]
         },
         "detail": {
-          "recipient": "owning unit",
-          "scoutsInches": 6
+          "ability": {
+            "condition": {
+              "leadingAUnit": true,
+              "ledUnitNotEmbarkedInTransportAtBattleStart": true
+            },
+            "appliesTo": "models in the led unit",
+            "grantAbility": "Scouts",
+            "inches": 6
+          }
         }
       }
     }

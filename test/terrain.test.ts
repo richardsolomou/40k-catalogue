@@ -57,6 +57,7 @@ test("footprints sharing an objective ID place it at one point", () => {
 
 const expectedErrors: Record<string, string> = {
   "duplicate-id": "/areas id turn-0 is used more than once in the layout",
+  "empty-deployments": "/deployments must NOT have fewer than 1 items",
   "flat-outline": "/areas/0/outline encloses no area",
   "lone-group": "/areas group pair has one footprint; a footprint that is a terrain area on its own has no group",
   "measured-without-reuse": "/provenance must have required property 'reuse'",
@@ -100,6 +101,30 @@ test("a layout permitting a deployment drawn on another board fails the join", (
   assert.deepEqual(joinBattlefields(mismatched, dataset()).errors, [
     "layout synthetic.layout.orientation is not on the same board as deployment synthetic.deployment.standard",
   ]);
+});
+
+test("a layout no pack lists names deployment maps of the dataset", () => {
+  assert.deepEqual(verifyDataset(dataset()), []);
+});
+
+test("a layout naming a deployment with no deployment map fails the dataset check", () => {
+  const records = dataset().filter((r) => r.id !== "synthetic.deployment.standard");
+  assert.deepEqual(verifyDataset(records), ["layout synthetic.layout.standalone names deployment synthetic.deployment.standard, which has no deployment map"]);
+});
+
+test("a layout naming another layout as its deployment fails the dataset check", () => {
+  const records = dataset().map((r) => (r.id === "synthetic.layout.standalone" ? { ...r, deployments: ["synthetic.layout.standard"] } : r));
+  assert.deepEqual(verifyDataset(records), ["layout synthetic.layout.standalone names deployment synthetic.layout.standard, which has no deployment map"]);
+});
+
+test("a layout naming a deployment drawn on another board fails the dataset check", () => {
+  const records = dataset().map((r) => (r.id === "synthetic.layout.standalone" ? { ...r, board: { width: 44, height: 30 } } : r));
+  assert.deepEqual(verifyDataset(records), ["layout synthetic.layout.standalone is not on the same board as deployment synthetic.deployment.standard"]);
+});
+
+test("a pack layout naming deployments of its own fails the join", () => {
+  const listed = { ...references, layouts: [...references.layouts, { id: "synthetic.layout.standalone", deployments: ["synthetic.deployment.standard"] }] };
+  assert.deepEqual(joinBattlefields(listed, dataset()).errors, ["layout synthetic.layout.standalone names its own deployments, though a mission pack lists it"]);
 });
 
 test("two records with one ID fail the dataset check", () => {

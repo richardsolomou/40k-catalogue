@@ -37,6 +37,8 @@ A **terrain layout** (`kind: "terrain-layout"`) has `areas`. Each area is one fo
 | `objective` | `{ id, at }` when the footprint hosts an objective marker. Footprints sharing an objective `id` host one marker, as when a central marker straddles two footprints. |
 | `parts` | Pieces of the footprint, each with `name`, `density` (`dense` or `light`), `roof` (a polygon or `null`), and `walls` (polylines with a `thickness`). `name` is free text such as a kit letter, and consumers decide whether to show it. |
 
+A layout that no [mission pack](mission-packs.md) lists, such as a battlefield of a format with no pack here, names the deployment maps it is played with in an optional `deployments`, by ID. A layout a pack lists leaves it out, because the pack owns that pairing.
+
 A **deployment map** (`kind: "deployment-map"`) has two `zones`, one per role (`attacker`, `defender`), up to two `territories` by role, and `objectives` as `{ id, at }`. A board region outside every territory belongs to no one, unless the consumer's rules assign it.
 
 ## Provenance
@@ -55,12 +57,16 @@ A saved battle can also hold the ID of a footprint or an objective, so these are
 
 ### Joining mission packs
 
-[Mission packs](mission-packs.md) own battlefield references: `layouts[].id`, `deployments[].id`, and which deployments each layout permits. A terrain layout's `id` equals the pack's layout ID, and a deployment map's `id` equals the pack's deployment ID. Geometry records do not repeat the permitted deployments. `joinBattlefields(pack, records)` takes any object with that shape and reports:
+[Mission packs](mission-packs.md) own battlefield references: `layouts[].id`, `deployments[].id`, and which deployments each layout permits. A terrain layout's `id` equals the pack's layout ID, and a deployment map's `id` equals the pack's deployment ID. A layout a pack lists does not repeat the deployments it permits. `joinBattlefields(pack, records)` takes any object with that shape and reports:
 
 - **Gaps**, for a pack layout or deployment with no geometry. A pack can be released before its terrain.
 - **Errors**, for a layout drawn on a different board from a deployment it permits.
 
-The join expects layout and deployment IDs to be unique across a release.
+The join expects layout and deployment IDs to be unique across a release. It also reports an error for a listed layout that names `deployments` of its own.
+
+### In catalogue releases
+
+A catalogue release carries terrain as records of kind `terrain-layout` and `deployment-map` in a `terrain` category. Each record's `data` is the terrain record of the same kind and ID, and a measured record's `source` is its `provenance.source`. A layout's identity entry references each deployment map it names in `deployments`, and no other. Each rules version's records verify one by one and as one dataset, and join every mission pack of the version without errors.
 
 ## Checks
 
@@ -80,6 +86,7 @@ node --test test/terrain.test.ts
 - No outline, roof, zone, or territory encloses zero area.
 - Each objective lies inside its footprint's outline.
 - A deployment map has one zone per role.
+- Each deployment a layout names has a deployment map on the same board among the files given.
 
 [fixtures/terrain/invalid](../fixtures/terrain/invalid) has one record for each failure, and the test lists the expected error for each.
 

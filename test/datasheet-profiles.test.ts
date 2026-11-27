@@ -542,8 +542,43 @@ test("a unit supporting only in some rosters must be attached only there", () =>
   assert.deepEqual([mustAttach(cato, { units: [PYRE_LORD_UNIT] }), mustAttach(cato, {})], [true, false]);
 });
 
-test("a unit that must join one must be attached", () => {
-  assert.equal(mustAttach({ unit: DRONES, joins: [{ keywords: ["COMMAND SQUAD"], required: true }] }), true);
+test("a unit that must join one is not a support unit", () => {
+  assert.equal(mustAttach({ unit: DRONES, joins: [{ keywords: ["COMMAND SQUAD"], required: true }] }), false);
+});
+
+test("a support unit does not lead a joining unit's bodyguard", () => {
+  const hosts = { [DRONES]: { joins: [{ ledBy: ["CRYPTEK"] }] }, [KINDLER]: { supports: [WARDENS] } };
+  assert.deepEqual(problems({ supports: [KINDLER], joined: [DRONES] }, hosts, { [KINDLER]: ["CRYPTEK"] }), ["join-target"]);
+});
+
+test("a joining unit joins a unit it names or one holding its keywords", () => {
+  const hosts = { [DRONES]: { joins: [{ units: [COLOSSUS], keywords: ["INFANTRY"] }] } };
+  assert.deepEqual(problems({ joined: [DRONES] }, hosts, { [WARDENS]: ["INFANTRY"] }), []);
+});
+
+test("a leader joins beside another on a unit standing in for its bodyguard", () => {
+  const hosts = { [KINDLER]: { leads: [WARDENS], withAnotherLeader: [{ units: [WARDENS] }] }, [COLOSSUS]: { insteadOf: [{ units: [WARDENS] }] } };
+  assert.deepEqual(attachedUnitProblems({ bodyguard: COLOSSUS, leaders: [PYRE_LORD_UNIT, KINDLER] }, {}, lookup(hosts)), []);
+});
+
+test("a capacity taking two of the same unit is not narrowed by a leader joining beside another", () => {
+  const hosts = { [WARDENS]: { capacity: { leads: 2 } }, [KINDLER]: { leads: [WARDENS], withAnotherLeader: [{ units: [WARDENS] }] } };
+  assert.deepEqual(problems({ leaders: [KINDLER, KINDLER] }, hosts), []);
+});
+
+test("a leader joins beside another only on units it leads", () => {
+  const found = recordErrors({ withAnotherLeader: [{ units: [DRONES] }] }, { kind: "unit", id: DRONES });
+  assert.deepEqual(found, [`attachment:${KINDLER} leads unit:${DRONES} beside another leader but does not lead it`]);
+});
+
+test("a leader never joins beside itself", () => {
+  const found = recordErrors({ withAnotherLeader: [{ units: [WARDENS], besideUnits: [KINDLER] }] });
+  assert.deepEqual(found, [`attachment:${KINDLER} attaches unit:${KINDLER} to itself`]);
+});
+
+test("a conditional entry excludes keywords only beside keywords it names", () => {
+  const found = conditionalErrors({ units: [WARDENS], excludedKeywords: ["CHARACTER"] });
+  assert.ok(found.some((e) => e.includes("data/conditional/0 must have property keywords when property excludedKeywords is present")), found.join("\n"));
 });
 
 const recordErrors = (data: object, ...references: { kind: string; id: string }[]) =>

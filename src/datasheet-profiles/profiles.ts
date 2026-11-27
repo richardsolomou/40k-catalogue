@@ -226,12 +226,12 @@ function joinsInstead(attachment: AttachmentData, role: "leads" | "supports", ta
 }
 
 /**
- * Whether the core rules make the attachment's unit join another before the battle: a unit that may support a unit in
- * this roster (a support unit) must be attached to a bodyguard unit, and a unit with a `required` joining must join one.
+ * Whether the core rules make the attachment's unit join a bodyguard before the battle: a support unit, one with
+ * `supports` or a `supports` entry of `conditional` whose `when` holds in this roster, must be attached to one.
  */
 export function mustAttach(attachment: AttachmentData, context: AttachmentContext = {}): boolean {
   const { faction, detachments = [], units = [] } = context;
-  const supports =
+  return (
     (attachment.supports?.length ?? 0) > 0 ||
     (attachment.conditional ?? []).some(
       ({ role, when = {} }) =>
@@ -241,8 +241,16 @@ export function mustAttach(attachment: AttachmentData, context: AttachmentContex
         (when.withoutDetachment === undefined || !detachments.includes(when.withoutDetachment)) &&
         (when.withUnit === undefined || units.includes(when.withUnit)) &&
         (when.withoutUnit === undefined || !units.includes(when.withoutUnit)),
-    );
-  return supports || (attachment.joins ?? []).some((j) => j.required);
+    )
+  );
+}
+
+/** The bodyguard and every unit it stands in for, at any depth. */
+function standsFor(bodyguard: string, attachmentOf: AttachmentLookup): Set<string> {
+  const found = new Set([bodyguard]);
+  // A Set visits members added while iterating it, so this follows stand-ins of stand-ins, each once.
+  for (const unit of found) for (const { units } of attachmentOf(unit)?.insteadOf ?? []) for (const other of units) found.add(other);
+  return found;
 }
 
 /**
@@ -263,18 +271,21 @@ export function attachedUnitProblems(attached: AttachedUnit, context: Attachment
   }
   const capacity = attachmentOf(bodyguard)?.capacity;
   const raised = capacity !== undefined && (capacity.startingStrength === undefined || (startingStrength ?? 0) >= capacity.startingStrength);
+  const room = raised ? (capacity.leads ?? 1) : 1;
+  const hosts = standsFor(bodyguard, attachmentOf);
   // A leader that may join beside the other of two leader units makes room for both, never two of the same unit.
   const beside =
     leaders.length === 2 &&
+    room < 2 &&
     leaders.some((unit, at) => {
       const other = leaders[1 - at]!;
       return (attachmentOf(unit)?.withAnotherLeader ?? []).some(
         ({ units, besideUnits, besideKeywords }) =>
-          units.includes(bodyguard) &&
+          units.some((u) => hosts.has(u)) &&
           ((besideUnits === undefined && besideKeywords === undefined) || besideUnits?.includes(other) || (besideKeywords ?? []).some((k) => holds(context, other, k))),
       );
     });
-  const leadersAllowed = Math.max(raised ? (capacity.leads ?? 1) : 1, beside ? 2 : 1);
+  const leadersAllowed = beside ? 2 : room;
   if (leaders.length > leadersAllowed || supports.length > (raised ? (capacity.supports ?? 1) : 1)) problems.add("attachment-full");
   const units = members.map(({ unit }) => unit);
   if (((raised && capacity.distinct) || beside) && new Set(units).size < units.length) problems.add("attachment-duplicate");
@@ -284,9 +295,8 @@ export function attachedUnitProblems(attached: AttachedUnit, context: Attachment
   const joinings = joined.map((unit) =>
     (attachmentOf(unit)?.joins ?? []).find(
       (j) =>
-        (j.units === undefined || j.units.includes(bodyguard)) &&
-        (j.keywords ?? []).every((k) => holds(context, bodyguard, k)) &&
-        (j.ledBy === undefined || units.some((member) => j.ledBy!.every((k) => holds(context, member, k)))),
+        ((j.units === undefined && j.keywords === undefined) || j.units?.includes(bodyguard) || (j.keywords !== undefined && j.keywords.every((k) => holds(context, bodyguard, k)))) &&
+        (j.ledBy === undefined || leaders.some((leader) => j.ledBy!.every((k) => holds(context, leader, k)))),
     ),
   );
   if (joinings.some((j) => !j)) problems.add("join-target");
@@ -382,7 +392,9 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
       if (new Set(gear).size !== gear.length) errors.push(`${at} has multiple capacities for the same wargear`);
     }
     const targets = [...(data.leads ?? []), ...(data.supports ?? []), ...((data as AttachmentData).conditional ?? []).flatMap((c) => c.units ?? [])];
-    for (const target of [...targets, ...(data.withAnotherLeader ?? []).flatMap((b: BesideLeader) => b.units), ...(data.joins ?? []).flatMap((j: Joining) => j.units ?? [])]) if (target === data.unit) errors.push(`${at} attaches unit:${target} to itself`);
+    const led = new Set([...(data.leads ?? []), ...((data as AttachmentData).conditional ?? []).filter((c) => c.role === "leads").flatMap((c) => c.units ?? [])]);
+    for (const { units } of (data as AttachmentData).withAnotherLeader ?? []) for (const unit of units) if (!led.has(unit)) errors.push(`${at} leads unit:${unit} beside another leader but does not lead it`);
+    for (const target of [...targets, ...(data.withAnotherLeader ?? []).flatMap((b: BesideLeader) => [...b.units, ...(b.besideUnits ?? [])]), ...(data.joins ?? []).flatMap((j: Joining) => j.units ?? [])]) if (target === data.unit) errors.push(`${at} attaches unit:${target} to itself`);
     for (const { units } of (data as AttachmentData).insteadOf ?? []) if (units.includes(data.unit)) errors.push(`${at} stands in for unit:${data.unit}, itself`);
     for (const [index, { when }] of ((data as AttachmentData).conditional ?? []).entries()) {
       if (when?.detachment !== undefined && when.detachment === when.withoutDetachment) errors.push(`${at} conditional ${index} needs and excludes detachment:${when.detachment}`);

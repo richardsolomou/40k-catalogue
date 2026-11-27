@@ -150,6 +150,7 @@ An effect applies to one `role`, `attacker` or `defender`, for the `attacks` it 
 | --- | --- |
 | `weaponAbility` | A weapon ability the attacks gain. |
 | `weaponHas` | The effect applies only to weapons with this weapon ability. |
+| `weaponLacks` | The effect applies only to weapons without this weapon ability. |
 | `weaponLoses` | A weapon ability the attacks lose. With `weaponAbility` in the same effect, the one replaces the other. |
 | `weapon` | The effect applies only to this weapon, by name. |
 | `characteristic` | A weapon characteristic (`range`, `attacks`, `ballistic-skill`, `weapon-skill`, `strength`, `armour-penetration`, `damage`) changed by `add`, set to `set`, or multiplied by `multiply`; `add` and `set` are a number or dice (`dice` × D`sides` + `bonus`), and `range` is in inches. `nonCumulative` when it does not stack with other changes. |

@@ -593,3 +593,7 @@ test("only a unit ability names wargear", () => {
     }).includes(`ability:${OATH.id} names wargear but is not a unit ability`),
   );
 });
+
+test("an effect can apply only to weapons without a weapon ability", () => {
+  assert.deepEqual(withEffect({ weaponLacks: "PSYCHIC" }), []);
+});

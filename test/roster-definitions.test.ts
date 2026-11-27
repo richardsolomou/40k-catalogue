@@ -952,3 +952,73 @@ for (const [name, [change, error]] of Object.entries(invalidAllegiances)) {
     assert.ok(!result.ok && result.errors.includes(error), JSON.stringify(result));
   });
 }
+
+// The Wardens' leader may take the carbines the Wardens take, and a unit-wide rule makes every model take the same one.
+const uniformAcrossCarriers = (change?: (records: CatalogueRecord[], identity: Release) => void) => {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "roster-option", `${WARDENS}.leader-weapon`).data, {
+    uniform: true,
+    replaces: { "synthetic.ember-pistol": 1 },
+    choices: ["synthetic.ember-carbine", "synthetic.ash-carbine"],
+  });
+  (find(records, "unit", WARDENS).data as any).uniformOptions = [[`${WARDENS}.carbines`, `${WARDENS}.leader-weapon`]];
+  for (const id of [WARDENS, `${WARDENS}.leader-weapon`]) {
+    identity.entries.find((e) => e.id === id)!.references!.push(
+      ...[`${WARDENS}.carbines`, `${WARDENS}.leader-weapon`].map((option) => ({ kind: "roster-option" as const, id: option })),
+      ...["synthetic.ember-carbine", "synthetic.ash-carbine", "synthetic.ember-pistol"].map((wargear) => ({ kind: "wargear" as const, id: wargear })),
+    );
+  }
+  change?.(records, identity);
+  return validateDefinitions(identity, records);
+};
+const leaderTakes = (options: Record<string, number>) => edited12((r) => (r.units[1]!.options![`${WARDENS}.leader-weapon`] = options));
+// The first unit of the roster takes its leader's weapon as the 1.2 fixture had it, so only the second is compared.
+const secondUnit = (definitions: Definitions, roster: Roster) => codes(definitions, roster).filter((c) => c.startsWith("1 "));
+
+test("uniform options of different carriers accept every model taking the same choice", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, leaderTakes({ "synthetic.ember-carbine": 1 })), []);
+});
+
+test("uniform options of different carriers refuse a carrier taking another choice", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, leaderTakes({ "synthetic.ash-carbine": 1 })), ["1 option-uniform"]);
+});
+
+test("uniform options of different carriers refuse a carrier keeping its default", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, legal12), ["1 option-uniform"]);
+});
+
+test("uniform options of different carriers accept a unit taking none of them", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, edited12((r) => (r.units[1]!.options = {}))), []);
+});
+
+test("uniform options must each be uniform", () => {
+  const validated = uniformAcrossCarriers((records) => delete (find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).uniform);
+  assert.deepEqual(validated.ok ? [] : validated.errors, [`unit:${WARDENS} uniformOptions/0 names roster-option:${WARDENS}.leader-weapon, which is not uniform`]);
+});
+
+test("a carrier taking a substitute leaves its uniform option out of the choice made together", () => {
+  const validated = uniformAcrossCarriers((records, identity) => {
+    Object.assign(find(records, "roster-option", `${WARDENS}.leader-weapon`).data, { choices: ["synthetic.ember-carbine", "synthetic.ash-carbine", "synthetic.cinder-lance"], substitutes: ["synthetic.cinder-lance"] });
+    identity.entries.find((e) => e.id === `${WARDENS}.leader-weapon`)!.references!.push({ kind: "wargear", id: "synthetic.cinder-lance" });
+  });
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, leaderTakes({ "synthetic.cinder-lance": 1 })), []);
+});
+
+test("uniform options made together offer the same choices", () => {
+  const validated = uniformAcrossCarriers((records) => ((find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).choices = ["synthetic.ash-carbine"]));
+  assert.deepEqual(validated.ok ? [] : validated.errors, [`unit:${WARDENS} uniformOptions/0 names options offering different choices besides their substitutes`]);
+});
+
+test("uniform options made together have different carriers", () => {
+  const validated = uniformAcrossCarriers((records) => ((find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).carrier = WARDEN));
+  assert.ok(!validated.ok && validated.errors.includes(`unit:${WARDENS} uniformOptions/0 names roster-option:${WARDENS}.leader-weapon, whose carrier is not one only it names`));
+});

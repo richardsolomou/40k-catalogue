@@ -495,7 +495,8 @@
       "additionalProperties": false,
       "required": [
         "formatVersion",
-        "detachment"
+        "detachment",
+        "eligibility"
       ],
       "properties": {
         "formatVersion": {
@@ -514,15 +515,49 @@
         "outsideLimit": {
           "const": true
         },
-        "keywords": {
+        "eligibility": {
           "type": "object",
           "additionalProperties": false,
+          "required": [
+            "anyOf"
+          ],
           "properties": {
-            "all": {
-              "$ref": "#/$defs/keywords"
+            "anyOf": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "minProperties": 1,
+                "properties": {
+                  "keywords": {
+                    "$ref": "#/$defs/names"
+                  },
+                  "unit": {
+                    "$ref": "#/$defs/id"
+                  }
+                }
+              }
             },
-            "none": {
-              "$ref": "#/$defs/keywords"
+            "excludedKeywords": {
+              "$ref": "#/$defs/names"
+            },
+            "requiredWargear": {
+              "type": "array",
+              "uniqueItems": true,
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "epicHeroes": {
+              "const": true
+            },
+            "nonCharacters": {
+              "const": true
+            },
+            "notWarlord": {
+              "const": true
             }
           }
         }

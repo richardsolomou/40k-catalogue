@@ -71,7 +71,20 @@ export type DetachmentData = {
  * An enhancement may be taken once per roster, or by up to `perRoster` units; only its first copy counts towards the
  * battle size's enhancements, and none of an `outsideLimit` one. Version 1 gives an `upgrade` a `perRoster` of three.
  */
-export type EnhancementData = { detachment: string; upgrade?: true; perRoster?: number; outsideLimit?: true; keywords?: { all?: string[]; none?: string[] } };
+export type EnhancementData = { detachment: string; upgrade?: true; perRoster?: number; outsideLimit?: true; eligibility: Eligibility };
+/**
+ * Who may bear an enhancement: a fielded model matching one of `anyOf`, an entry holding all its `keywords` and being
+ * its `unit` where it names one, and none of `excludedKeywords`; a CHARACTER unless `nonCharacters`, not an EPIC HERO
+ * unless `epicHeroes`, in a unit carrying one of `requiredWargear` where named, and not the warlord's when `notWarlord`.
+ */
+export type Eligibility = {
+  anyOf: { keywords?: string[]; unit?: string }[];
+  excludedKeywords?: string[];
+  requiredWargear?: string[];
+  epicHeroes?: true;
+  nonCharacters?: true;
+  notWarlord?: true;
+};
 /** A choice the unit takes from `choices`, in a roster with `detachment` where named; `requires` maps a choice to wargear the unit must carry. */
 export type AllegianceOffer = { choices: string[]; required?: true; detachment?: string; requires?: Record<string, string> };
 export type AllegianceData = Record<string, never>;
@@ -200,9 +213,16 @@ const checkData = { 1: checkers(v1Schema), 2: checkers(v2Schema) };
 
 const UPGRADE_COPIES = 3;
 const counted = (ids: string[] | undefined) => ids && Object.fromEntries(ids.map((id) => [id, 1]));
-/** Reads version 1 data as version 2: wargear lists name one of each, and an upgrade may be taken by three units. */
+/**
+ * Reads version 1 data as version 2: wargear lists name one of each, an upgrade may be taken by three units, and an
+ * enhancement's keywords are its whole eligibility, with no CHARACTER or EPIC HERO rule beside them.
+ */
 function fromV1(kind: DefinitionKind, data: any): any {
-  if (kind === "enhancement" && data.upgrade) return { ...data, perRoster: UPGRADE_COPIES };
+  if (kind === "enhancement") {
+    const { keywords: { all, none } = {} as { all?: string[]; none?: string[] }, ...rest } = data;
+    const eligibility: Eligibility = { anyOf: [all ? { keywords: all } : {}], ...(none ? { excludedKeywords: none } : {}), epicHeroes: true, nonCharacters: true };
+    return { ...rest, ...(data.upgrade ? { perRoster: UPGRADE_COPIES } : {}), eligibility };
+  }
   if (kind === "model") return { ...data, wargear: counted(data.wargear) };
   if (kind === "roster-option" && data.replaces) return { ...data, replaces: counted(data.replaces) };
   if (kind === "wargear" && data.includes) return { ...data, includes: counted(data.includes) };
@@ -244,8 +264,14 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
         ...refs("allegiance", detachment.allegianceLimits?.flatMap((l) => l.allegiances)),
       ];
     }
-    case "enhancement":
-      return refs("detachment", [data.detachment]);
+    case "enhancement": {
+      const { detachment, eligibility } = data as EnhancementData;
+      return [
+        ...refs("detachment", [detachment]),
+        ...refs("unit", eligibility.anyOf.flatMap((entry) => (entry.unit ? [entry.unit] : []))),
+        ...refs("wargear", eligibility.requiredWargear),
+      ];
+    }
     case "unit": {
       const unit = data as UnitData;
       return [

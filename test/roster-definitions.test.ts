@@ -818,6 +818,51 @@ for (const [name, [enhancement, data, roster, expected]] of Object.entries(enhan
   });
 }
 
+const STAFF = `${LORD}.staff`;
+// Cinder Mantle with `eligibility` in place of its own, its identity entry referencing what that names.
+function eligibilityVariant(eligibility: object, references: { kind: "unit" | "wargear"; id: string }[] = []): Definitions {
+  const { identity, records } = input("1.2");
+  (find(records, "enhancement", MANTLE).data as Record<string, unknown>).eligibility = eligibility;
+  identity.entries.find((e) => e.kind === "enhancement" && e.id === MANTLE)!.references!.push(...references);
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const characters = { anyOf: [{ keywords: ["Infantry"] }] };
+const eligibility: Record<string, [object, Roster, string[], { kind: "unit" | "wargear"; id: string }[]?]> = {
+  "a unit that is not a Character": [characters, incursion([{ unit: WARDENS, enhancement: MANTLE }]), ["0 enhancement-keywords"]],
+  "a unit that is not a Character, which it allows": [{ ...characters, nonCharacters: true }, incursion([{ unit: WARDENS, enhancement: MANTLE }]), []],
+  "an Epic Hero": [characters, incursion([{ unit: KINDLER, enhancement: MANTLE }]), ["0 enhancement-keywords"]],
+  "an Epic Hero, which it allows": [{ ...characters, epicHeroes: true }, incursion([{ unit: KINDLER, enhancement: MANTLE }]), []],
+  "a unit holding an excluded keyword": [{ ...characters, excludedKeywords: ["INFANTRY"] }, incursion([{ unit: LORD, enhancement: MANTLE }]), ["0 enhancement-keywords"]],
+  "a unit matching its second group": [{ anyOf: [{ keywords: ["Fly"] }, { keywords: ["Infantry"] }] }, incursion([{ unit: LORD, enhancement: MANTLE }]), []],
+  "a unit other than the one it names": [{ anyOf: [{ unit: KINDLER }] }, incursion([{ unit: LORD, enhancement: MANTLE }]), ["0 enhancement-keywords"], [{ kind: "unit", id: KINDLER }]],
+  "the unit it names": [{ anyOf: [{ unit: LORD }] }, incursion([{ unit: LORD, enhancement: MANTLE }]), [], [{ kind: "unit", id: LORD }]],
+  "a unit carrying none of its wargear": [{ ...characters, requiredWargear: ["synthetic.maul-and-shield"] }, incursion([{ unit: LORD, enhancement: MANTLE }]), ["0 enhancement-keywords"], [{ kind: "wargear", id: "synthetic.maul-and-shield" }]],
+  "a unit carrying its wargear": [
+    { ...characters, requiredWargear: ["synthetic.maul-and-shield"] },
+    incursion([{ unit: LORD, options: { [STAFF]: { "synthetic.maul-and-shield": 1 } }, enhancement: MANTLE }]),
+    [],
+    [{ kind: "wargear", id: "synthetic.maul-and-shield" }],
+  ],
+  "the warlord's unit, which it bars": [{ ...characters, notWarlord: true }, incursion([{ unit: LORD, warlord: `${LORD}.lord`, enhancement: MANTLE }]), ["0 enhancement-keywords"]],
+  "a unit other than the warlord's, which it bars": [{ ...characters, notWarlord: true }, incursion([{ unit: LORD, enhancement: MANTLE }, { unit: SEER, warlord: `${SEER}.seer` }]), []],
+};
+
+for (const [name, [data, roster, expected, references]] of Object.entries(eligibility)) {
+  test(`an enhancement taken by ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(eligibilityVariant(data, references), roster), expected);
+  });
+}
+
+test("an enhancement naming a unit its identity entry does not reference fails validation", () => {
+  const { identity, records } = input("1.2");
+  (find(records, "enhancement", MANTLE).data as Record<string, unknown>).eligibility = { anyOf: [{ unit: LORD }] };
+  const result = validateDefinitions(identity, records);
+  assert.deepEqual(result.ok ? [] : result.errors, [`enhancement:${MANTLE} names unit:${LORD} but its identity entry does not reference it`]);
+});
+
 // The Flame Wardens' leader is a Character, though the unit is not.
 const LEADER = `${WARDENS}.leader`;
 const characterLeader = (optional = false) => {

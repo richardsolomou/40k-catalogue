@@ -182,6 +182,10 @@ test("no model has one core ability twice", () => {
   assert.deepEqual(coreAbilityErrors([{ ability: "deadly-demise", mortalWounds: 1 }, { ability: "deadly-demise", mortalWounds: "D3", models: [WARDEN] }], [WARDEN]), [`unit:${WARDENS} gives model:${WARDEN} core ability deadly-demise more than once`]);
 });
 
+test("a core ability's models are references of its unit's identity entry", () => {
+  assert.deepEqual(coreAbilityErrors([{ ability: "stealth", models: [WARDEN] }]), [`unit:${WARDENS} names model:${WARDEN} but its identity entry does not reference it`]);
+});
+
 test("a core ability names models of its own unit", () => {
   assert.deepEqual(coreAbilityErrors([{ ability: "stealth", models: [`${DRONES}.drone`] }], [`${DRONES}.drone`]), [`unit:${WARDENS} coreAbilities/0 names model:${DRONES}.drone, which belongs to another unit`]);
 });

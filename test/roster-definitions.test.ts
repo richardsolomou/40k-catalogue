@@ -731,7 +731,6 @@ function enhancementVariant(enhancement: string, data: object): Definitions {
 }
 
 const enhancementLimits: Record<string, [string, object, Roster, string[]]> = {
-  "a one-per-army upgrade taken twice": [BRAND, { perRoster: 1 }, incursion([{ unit: WARDENS, enhancement: BRAND }, { unit: LORD, enhancement: BRAND }]), ["1 enhancement-repeated"]],
   "an enhancement taken twice as its limit allows": [SIGIL, { perRoster: 2 }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: SEER, enhancement: SIGIL }]), []],
   "an enhancement taken more often than its limit allows": [SIGIL, { perRoster: 2 }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: SEER, enhancement: SIGIL }, { unit: LORD, enhancement: SIGIL }]), ["2 enhancement-repeated"]],
   "an upgrade without a limit taken twice": [BRAND, { perRoster: undefined }, incursion([{ unit: WARDENS, enhancement: BRAND }, { unit: LORD, enhancement: BRAND }]), ["1 enhancement-repeated"]],

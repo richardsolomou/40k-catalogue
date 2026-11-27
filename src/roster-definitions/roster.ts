@@ -37,6 +37,7 @@ export type ProblemCode =
   | "enhancement-detachment"
   | "enhancement-keywords"
   | "enhancement-repeated"
+  | "enhancement-exclusive"
   | "roster-limit"
   | "unit-limit"
   | "warlord-repeated"
@@ -123,7 +124,6 @@ export function unitKeywords(unit: UnitData, roster: Roster, allegiance?: string
 }
 
 const holdsAll = (keywords: string[], wanted: string[]) => wanted.every((k) => keywords.includes(k));
-const UPGRADE_COPIES = 3;
 
 /**
  * Every reason the roster is not legal under these definitions, in roster order. With a points snapshot, it also
@@ -227,8 +227,9 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       if (warlords > 1) add("warlord-repeated", "a roster has one warlord");
       const held = fielded.find((m) => m.id === warlord);
       const character = held?.keywords.some((k) => k.toUpperCase() === "CHARACTER") ?? false;
+      const barred = models.find((m) => m.id === warlord)?.data.warlord === false;
       if (inUnit && !held) add("warlord-ineligible", `model:${warlord} is not fielded in ${unit.name}`);
-      else if (inUnit && !granted.has(warlord) && (!character || offered.length > 0 || !own.has(unit.data.faction))) add("warlord-ineligible", `${unit.name} cannot hold the warlord`);
+      else if (inUnit && !granted.has(warlord) && (barred || !character || offered.length > 0 || !own.has(unit.data.faction))) add("warlord-ineligible", `${unit.name} cannot hold the warlord`);
       for (const required of requiredWarlords) {
         if (inUnit && !required.models.includes(warlord)) add("warlord-required", `${required.name} needs one of ${required.models.map((m) => `model:${m}`).join(", ")} as warlord`);
       }
@@ -296,6 +297,22 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
         }
       }
     }
+    // Uniform options of several carriers take one choice together, leaving out one whose carriers are not fielded or
+    // took nothing but substitutes, as many as it allows (none where its maximum is 0).
+    for (const group of unit.data.uniformOptions ?? []) {
+      const members = group.flatMap((id) => options.filter((o) => o.id === id));
+      const chosen = members.flatMap((option) => {
+        const carriers = option.data.carrier ? (counts.get(option.data.carrier) ?? 0) : total;
+        const substitutes = option.data.substitutes ?? [];
+        const { max } = optionBounds(option, total, carriers);
+        if (!carriers || takenOf(option.id, substitutes) === max) return [];
+        return [Object.entries(picked.options?.[option.id] ?? {}).filter(([w, n]) => n > 0 && !substitutes.includes(w)).map(([w]) => w)];
+      });
+      const choices = new Set(chosen.flat());
+      if (choices.size > 1 || (choices.size === 1 && chosen.some((c) => !c.length))) {
+        add("option-uniform", `${members.map((o) => o.name).join(", ")} take one choice together, or none of them takes one`);
+      }
+    }
     for (const group of unit.data.optionGroups ?? []) {
       const taken = group.options.reduce((sum, { option, choices, weight = 1 }) => sum + weight * takenOf(option, choices), 0);
       const carriers = group.carrier ? (counts.get(group.carrier) ?? 0) : total;
@@ -320,6 +337,10 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
     if (picked.enhancement && current("enhancement", picked.enhancement, i)) {
       const enhancement = definitions.get("enhancement", picked.enhancement)!;
       if (!detachmentIds.includes(enhancement.data.detachment)) add("enhancement-detachment", `${enhancement.name} belongs to another detachment`);
+      for (const keeper of detachments) {
+        const kept = keeper.data.exclusiveEnhancements?.keywords;
+        if (kept && keeper.id !== enhancement.data.detachment && holdsAll(keywords, kept)) add("enhancement-exclusive", `${unit.name} takes only ${keeper.name} enhancements`);
+      }
       if (entry >= 0 && !allies[entry]!.enhancements) add("ally-enhancement", `${unit.name} cannot take enhancements`);
       const { all = [], none = [] } = enhancement.data.keywords ?? {};
       // A model of the unit bears it: one fielded model whose keywords, the unit's and its own, it allows.
@@ -329,10 +350,10 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       }
       const copy = (enhancementCopies.get(enhancement.id) ?? 0) + 1;
       enhancementCopies.set(enhancement.id, copy);
-      const most = enhancement.data.upgrade ? UPGRADE_COPIES : 1;
+      const most = enhancement.data.perRoster ?? 1;
       if (copy > most) add("enhancement-repeated", `${enhancement.name} is taken at most ${most === 1 ? "once" : `${most} times`}`);
-      // Only an enhancement's first copy counts towards the battle size's limit.
-      if (copy === 1 && ++enhancementCount === (size?.enhancements ?? Infinity) + 1) add("enhancement-limit", `a roster takes at most ${size!.enhancements} enhancements`);
+      // Only an enhancement's first copy counts towards the battle size's limit, and none of one outside it.
+      if (copy === 1 && !enhancement.data.outsideLimit && ++enhancementCount === (size?.enhancements ?? Infinity) + 1) add("enhancement-limit", `a roster takes at most ${size!.enhancements} enhancements`);
     }
 
     const enhancement = picked.enhancement ? definitions.get("enhancement", picked.enhancement) : undefined;

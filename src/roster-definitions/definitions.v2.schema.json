@@ -441,6 +441,18 @@
         "group": {
           "$ref": "#/$defs/text"
         },
+        "exclusiveEnhancements": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "keywords"
+          ],
+          "properties": {
+            "keywords": {
+              "$ref": "#/$defs/names"
+            }
+          }
+        },
         "allegianceLimits": {
           "type": "array",
           "minItems": 1,
@@ -493,6 +505,13 @@
           "$ref": "#/$defs/id"
         },
         "upgrade": {
+          "const": true
+        },
+        "perRoster": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "outsideLimit": {
           "const": true
         },
         "keywords": {
@@ -682,6 +701,18 @@
             }
           }
         },
+        "uniformOptions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        },
         "perRoster": {
           "$ref": "#/$defs/count"
         },
@@ -803,6 +834,9 @@
         },
         "keywords": {
           "$ref": "#/$defs/nonEmptyKeywords"
+        },
+        "warlord": {
+          "const": false
         }
       }
     },

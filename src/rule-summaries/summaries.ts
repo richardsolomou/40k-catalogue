@@ -103,7 +103,7 @@ function factsShape(kind: SummaryKind, data: SummaryData): string {
   return "plain";
 }
 
-type Choices = { choices: { conditions: { kind: string }[]; option?: string }[]; default: number };
+type Choices = { choices: { conditions: { kind: string }[]; effects: Record<string, unknown>[]; option?: string }[]; default: number };
 type CombatFacts = { readings: (Partial<Choices> & { shown?: Choices | null; fallback?: Choices })[]; trees: ({ reading: number } | { yes: number; no: number })[][]; contexts: Record<string, number> };
 
 /** The index rules of a `combat` block, which the schema cannot express: each points at an entry that exists. */
@@ -118,6 +118,10 @@ function combatErrors(combat: CombatFacts): string[] {
     if (set.default > set.choices.length) errors.push(`${at}/default is past its choices`);
     set.choices.forEach((c, j) => {
       if (c.conditions.some((p) => p.kind === "option") && !c.option) errors.push(`${at}/choices/${j} names its option without an option`);
+      c.effects.forEach((e, k) => {
+        if (e.weaponAbility !== undefined && e.weaponAbility === e.lostWeaponAbility) errors.push(`${at}/choices/${j}/effects/${k} gives and removes ${e.weaponAbility}`);
+        if (e.weaponHas !== undefined && e.weaponHas === e.weaponLacks) errors.push(`${at}/choices/${j}/effects/${k} applies to weapons with and without ${e.weaponHas}`);
+      });
     });
   }
   combat.trees.forEach((tree, t) =>

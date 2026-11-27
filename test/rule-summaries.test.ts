@@ -531,7 +531,23 @@ test("a weapon characteristic changes one way at a time", () => {
 });
 
 test("an effect can remove a weapon ability", () => {
-  assert.deepEqual(withEffect({ weaponLoses: "HAZARDOUS" }), []);
+  assert.deepEqual(withEffect({ lostWeaponAbility: "HAZARDOUS" }), []);
+});
+
+test("an effect does not give and remove the same weapon ability", () => {
+  assert.ok(withEffect({ weaponAbility: "HAZARDOUS", lostWeaponAbility: "HAZARDOUS" }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0 gives and removes HAZARDOUS`));
+});
+
+test("an effect does not apply to weapons both with and without one weapon ability", () => {
+  assert.ok(withEffect({ weaponHas: "PSYCHIC", weaponLacks: "PSYCHIC" }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0 applies to weapons with and without PSYCHIC`));
+});
+
+test("only Attacks and Damage take dice", () => {
+  assert.ok(withEffect({ attacks: ["ranged"], characteristic: { name: "range", set: { dice: 1, sides: 6, bonus: 0 } } }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0/characteristic/set must be integer`));
+});
+
+test("only Attacks and Damage are multiplied", () => {
+  assert.ok(withEffect({ characteristic: { name: "armour-penetration", multiply: 2 } }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0/characteristic must NOT be valid`));
 });
 
 test("an effect can set a unit characteristic", () => {
@@ -542,10 +558,8 @@ test("Toughness and Wounds are added to by their own effect fields, not unitStat
   assert.ok(withEffect({ unitStat: { kind: "wounds", add: 1 } }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0/unitStat must have required property 'set'`));
 });
 
-test("an effect can hold only while its model is equipped with named wargear", () => {
-  const equipped = effect({ weapon: "Frostfang", characteristic: { name: "attacks", add: 2 } });
-  equipped.fields.combat.readings[0]!.choices![0]!.conditions.push({ kind: "equipped", wargear: ["Frostfang"], count: 1 } as never);
-  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = equipped)), []);
+test("a set unit characteristic stays within what a profile prints", () => {
+  assert.ok(withEffect({ unitStat: { kind: "toughness", set: 0 } }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0/unitStat/set must be >= 1`));
 });
 
 test("an invulnerable save can hold against ranged or melee attacks only", () => {
@@ -563,9 +577,20 @@ test("an Enhancement can state the weapon it gives", () => {
   assert.deepEqual(errors((_, recs) => Object.assign(data(recs, "ability", OATH.id), { ruleType: "enhancement", facts: given })), []);
 });
 
+test("a rule that states the weapon it gives says it gives one", () => {
+  const given = { ...EFFECTS, fields: { ...EFFECTS.fields, givenWeapon: GIVEN_WEAPON } };
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = given)).includes(`ability:${OATH.id} facts must have property upgradesWeapon when property givenWeapon is present`));
+});
+
+test("a given weapon with several profiles names each one's mode", () => {
+  const twice = { ...GIVEN_WEAPON, profiles: [GIVEN_WEAPON.profiles[0]!, GIVEN_WEAPON.profiles[0]!] };
+  const given = { ...EFFECTS, fields: { ...EFFECTS.fields, upgradesWeapon: true, givenWeapon: twice } };
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = given)).includes(`ability:${OATH.id} facts/givenWeapon/profiles/0 must have required property 'mode'`));
+});
+
 test("a given weapon's profile states every weapon characteristic", () => {
   const { damage: _, ...short } = GIVEN_WEAPON.profiles[0]!;
-  const given = { ...EFFECTS, fields: { ...EFFECTS.fields, givenWeapon: { ...GIVEN_WEAPON, profiles: [short] } } };
+  const given = { ...EFFECTS, fields: { ...EFFECTS.fields, upgradesWeapon: true, givenWeapon: { ...GIVEN_WEAPON, profiles: [short] } } };
   assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = given)).includes(`ability:${OATH.id} facts/givenWeapon/profiles/0 must have required property 'damage'`));
 });
 

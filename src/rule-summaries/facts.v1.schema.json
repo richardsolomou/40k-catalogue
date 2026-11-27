@@ -345,6 +345,11 @@
         "detail": {
           "$ref": "#/$defs/detail"
         }
+      },
+      "dependentRequired": {
+        "givenWeapon": [
+          "upgradesWeapon"
+        ]
       }
     },
     "enhancement-fields": {
@@ -515,6 +520,11 @@
         "detail": {
           "$ref": "#/$defs/detail"
         }
+      },
+      "dependentRequired": {
+        "givenWeapon": [
+          "upgradesWeapon"
+        ]
       }
     },
     "mission-award": {
@@ -1552,31 +1562,6 @@
               "$ref": "#/$defs/keyword"
             }
           }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "kind",
-            "wargear"
-          ],
-          "properties": {
-            "kind": {
-              "const": "equipped"
-            },
-            "wargear": {
-              "type": "array",
-              "minItems": 1,
-              "uniqueItems": true,
-              "items": {
-                "$ref": "#/$defs/text"
-              }
-            },
-            "count": {
-              "type": "integer",
-              "minimum": 1
-            }
-          }
         }
       ]
     },
@@ -1614,7 +1599,7 @@
         "weaponLacks": {
           "$ref": "#/$defs/keyword"
         },
-        "weaponLoses": {
+        "lostWeaponAbility": {
           "$ref": "#/$defs/keyword"
         },
         "weapon": {
@@ -1661,7 +1646,18 @@
                   "type": "integer"
                 },
                 {
-                  "$ref": "#/$defs/dice"
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/dice"
+                    },
+                    {
+                      "properties": {
+                        "dice": {
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -1671,7 +1667,18 @@
                   "type": "integer"
                 },
                 {
-                  "$ref": "#/$defs/dice"
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/dice"
+                    },
+                    {
+                      "properties": {
+                        "dice": {
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -1681,6 +1688,33 @@
             },
             "nonCumulative": {
               "const": true
+            }
+          },
+          "if": {
+            "not": {
+              "properties": {
+                "name": {
+                  "enum": [
+                    "attacks",
+                    "damage"
+                  ]
+                }
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": [
+                "multiply"
+              ]
+            },
+            "properties": {
+              "add": {
+                "type": "integer"
+              },
+              "set": {
+                "type": "integer"
+              }
             }
           }
         },
@@ -1933,21 +1967,6 @@
               ]
             }
           ],
-          "if": {
-            "properties": {
-              "kind": {
-                "enum": [
-                  "toughness",
-                  "wounds"
-                ]
-              }
-            }
-          },
-          "then": {
-            "required": [
-              "set"
-            ]
-          },
           "properties": {
             "kind": {
               "enum": [
@@ -1962,10 +1981,84 @@
               "type": "integer"
             },
             "set": {
-              "type": "integer",
-              "minimum": 0
+              "type": "integer"
             }
-          }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "toughness",
+                      "wounds"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "set"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "movement",
+                      "objective-control"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "set": {
+                    "minimum": 0
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "toughness",
+                      "wounds"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "set": {
+                    "minimum": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "leadership"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "set": {
+                    "minimum": 2
+                  }
+                }
+              }
+            }
+          ]
         },
         "ability": {
           "$ref": "#/$defs/text"
@@ -2341,6 +2434,11 @@
         "detail": {
           "$ref": "#/$defs/detail"
         }
+      },
+      "dependentRequired": {
+        "givenWeapon": [
+          "upgradesWeapon"
+        ]
       }
     },
     "options": {
@@ -2524,6 +2622,24 @@
                   "$ref": "#/$defs/text"
                 }
               }
+            }
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "profiles": {
+            "minItems": 2
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "profiles": {
+            "items": {
+              "required": [
+                "mode"
+              ]
             }
           }
         }

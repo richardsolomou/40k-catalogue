@@ -118,7 +118,6 @@ export function unitKeywords(unit: UnitData, roster: Roster, allegiance?: string
 }
 
 const holdsAll = (keywords: string[], wanted: string[]) => wanted.every((k) => keywords.includes(k));
-const UPGRADE_COPIES = 3;
 
 /**
  * Every reason the roster is not legal under these definitions, in roster order. With a points snapshot, it also
@@ -327,10 +326,10 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       }
       const copy = (enhancementCopies.get(enhancement.id) ?? 0) + 1;
       enhancementCopies.set(enhancement.id, copy);
-      const most = enhancement.data.upgrade ? UPGRADE_COPIES : 1;
+      const most = enhancement.data.perRoster ?? 1;
       if (copy > most) add("enhancement-repeated", `${enhancement.name} is taken at most ${most === 1 ? "once" : `${most} times`}`);
-      // Only an enhancement's first copy counts towards the battle size's limit.
-      if (copy === 1 && ++enhancementCount === (size?.enhancements ?? Infinity) + 1) add("enhancement-limit", `a roster takes at most ${size!.enhancements} enhancements`);
+      // Only an enhancement's first copy counts towards the battle size's limit, and none of one outside it.
+      if (copy === 1 && !enhancement.data.outsideLimit && ++enhancementCount === (size?.enhancements ?? Infinity) + 1) add("enhancement-limit", `a roster takes at most ${size!.enhancements} enhancements`);
     }
 
     const enhancement = picked.enhancement ? definitions.get("enhancement", picked.enhancement) : undefined;

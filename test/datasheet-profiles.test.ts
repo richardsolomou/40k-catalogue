@@ -222,6 +222,28 @@ test("only a conditional invulnerable save has a summary", () => {
   assert.ok(found.includes(`unit-profile:${PYRE_LORD} data/invulnerableSave must have property conditional when property summary is present`), found.join("\n"));
 });
 
+const coreAbilities = (abilities: object[]) => errors((_, recs) => (record(recs, "unit-profile", PYRE_LORD).data.coreAbilities = abilities));
+
+test("a unit profile lists its models' core abilities with their values", () => {
+  const found = coreAbilities([{ ability: "deep-strike" }, { ability: "feel-no-pain", threshold: 5 }, { ability: "scouts", inches: 6 }, { ability: "deadly-demise", mortalWounds: "D3" }, { ability: "lone-operative" }]);
+  assert.deepEqual(found, []);
+});
+
+test("a core ability that takes a value states it", () => {
+  const found = coreAbilities([{ ability: "feel-no-pain" }]);
+  assert.ok(found.includes(`unit-profile:${PYRE_LORD} data/coreAbilities/0 must have required property 'threshold'`), found.join("\n"));
+});
+
+test("a core ability that takes no value states none", () => {
+  const found = coreAbilities([{ ability: "stealth", inches: 6 }]);
+  assert.ok(found.includes(`unit-profile:${PYRE_LORD} data/coreAbilities/0 must NOT have additional properties`), found.join("\n"));
+});
+
+test("a unit profile lists each core ability once", () => {
+  const found = coreAbilities([{ ability: "feel-no-pain", threshold: 5 }, { ability: "feel-no-pain", threshold: 6 }]);
+  assert.deepEqual(found, [`unit-profile:${PYRE_LORD} lists core ability feel-no-pain more than once`]);
+});
+
 const invulnerableSaves = (saves: object[]) => errors((_, recs) => (record(recs, "unit-profile", PYRE_LORD).data.invulnerableSave = saves));
 
 test("a unit may have one invulnerable save against ranged attacks and another against melee", () => {

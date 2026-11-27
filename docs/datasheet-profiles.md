@@ -1,6 +1,6 @@
 # Datasheet profiles
 
-Datasheet profiles record what a unit's datasheet prints in its stat lines and which units it may join. They are the `data` of a profiles category in a [catalogue release](catalogue-releases.md), one record per [identity](catalogue-identity.md) entry, beside the [roster definitions](roster-definitions.md) whose units, models and wargear they name. The contract is [src/datasheet-profiles/profiles.v1.schema.json](../src/datasheet-profiles/profiles.v1.schema.json) plus the rules below, and `src/datasheet-profiles/` is a reference implementation of both.
+Datasheet profiles record what a unit's datasheet prints in its stat lines and core abilities, and which units it may join. They are the `data` of a profiles category in a [catalogue release](catalogue-releases.md), one record per [identity](catalogue-identity.md) entry, beside the [roster definitions](roster-definitions.md) whose units, models and wargear they name. The contract is [src/datasheet-profiles/profiles.v1.schema.json](../src/datasheet-profiles/profiles.v1.schema.json) plus the rules below, and `src/datasheet-profiles/` is a reference implementation of both.
 
 The [example profiles](../fixtures/datasheet-profiles/README.md) show how these records join to roster definitions.
 
@@ -8,7 +8,7 @@ The [example profiles](../fixtures/datasheet-profiles/README.md) show how these 
 
 | Kind | `data` | Meaning |
 | --- | --- | --- |
-| `unit-profile` | `unit`, optional `models`, the unit characteristics, optional `gaps` | One stat line. With neither `models` nor a model gap, it describes every model of the unit. |
+| `unit-profile` | `unit`, optional `models`, the unit characteristics, optional `coreAbilities` and `gaps` | One stat line and the [core abilities](#core-abilities) of the models it describes. With neither `models` nor a model gap, it describes every model of the unit. |
 | `weapon-profile` | `unit`, `wargear`, the weapon characteristics, optional `keywords` and `gaps` | One stat line of a weapon as this unit's datasheet prints it. A weapon with several modes has one profile per mode, all naming the same `wargear`. |
 | `attachment` | `unit`, optional `leads`, `supports`, `conditional`, `withAnotherLeader`, `joins`, `insteadOf`, `capacity` and `gaps` | The units this unit may join as a Leader (`leads`) or as a support attachment (`supports`) in any roster, those it may join only in some rosters (`conditional`), and the rules described under [attachment rules](#attachment-rules). |
 | `transport-profile` | `unit`, `capacity` or a capacity gap, optional `firingDeck` | The transport's alternative loads, passenger allowances, exceptions and equipment-dependent capacities, and its Firing Deck. |
@@ -32,6 +32,22 @@ A stat line's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two
 | `keywords` | Weapon keywords in capitals, one per item, including any parameter such as `RAPID FIRE 1`. A printed lower-case qualifier stays lower case (`ANTI-non-MONSTER/VEHICLE 2+`). A keyword is a name, never rules text. |
 
 Unit profiles must state `movement`, `toughness`, `save`, `wounds`, `leadership` and `objectiveControl`, and weapon profiles `wargear`, `range`, `attacks`, `skill`, `strength`, `armourPenetration` and `damage`, unless a gap names the field.
+
+## Core abilities
+
+`coreAbilities` lists the core abilities the datasheet gives the models a unit profile describes, each once, as `{ "ability": id }` with its value where it takes one. `ability` is the core ability's ID, which is also the ID of its `core-ability` entry where the release has one.
+
+| `ability` | Value |
+| --- | --- |
+| `feel-no-pain` | `threshold`, the roll: `5` means Feel No Pain 5+. |
+| `scouts` | `inches`. |
+| `lone-operative` | `inches`, only where the datasheet prints a distance, as Lone Operative 15". |
+| `deadly-demise` | `mortalWounds`, a positive integer or dice, as `D3` or `2D6+6`. |
+| `firing-deck` | `models`, as the transport profile's `firingDeck`. |
+| `damaged` | `wounds`, the remaining wounds at or below which the model is damaged. |
+| `deep-strike`, `fights-first`, `hover`, `infiltrators`, `leader`, `stealth`, `super-heavy-walker`, `support` | None. |
+
+A profile without `coreAbilities` or a gap for it describes models the datasheet gives no core ability. A core ability another rule grants, such as a Detachment rule or an Enhancement, is in that rule's [rule facts](rule-facts.md), not here. Where the datasheet gives a core ability to only some of a unit's models, as Deadly Demise to Szarekh alone, it is listed on the profiles of those models only, and a profile describing models that differ in their core abilities has a `coreAbilities` gap instead.
 
 ## Conditional attachments
 
@@ -96,6 +112,7 @@ A profile's `unit` bounds what else it may name. Its `models` must belong to tha
 - A list of invulnerable saves names each kind of attack once, and each save's `summary` parses with the summary grammar and has no links.
 - When a unit has several unit profiles, each names its models or has a `models` gap, and no model has two profiles.
 - A base size by model gives each model the profile describes (its `models`, else every model of its unit) exactly one base size and names no other model. A model or wargear a base size names follows the local reference rules above, and no wargear item is named twice in one model's base size.
+- A unit profile lists each core ability once.
 - A unit has at most one attachment and one transport record. A transport can state one replacement pool for each wargear ID.
 
 `profiles.of(kind, unit)` lists a unit's records of one kind, and `profiles.attachedBy(unit, role)` lists the units whose `leads` or `supports` name it.

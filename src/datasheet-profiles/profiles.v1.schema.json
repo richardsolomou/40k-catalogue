@@ -127,6 +127,43 @@
         "summary": { "$ref": "#/$defs/text", "description": "When the save applies, as Markdown in the rule summary grammar without links; validateProfiles parses it." }
       }
     },
+    "core-ability": {
+      "type": "object",
+      "required": ["ability"],
+      "properties": {
+        "ability": { "enum": ["damaged", "deadly-demise", "deep-strike", "feel-no-pain", "fights-first", "firing-deck", "hover", "infiltrators", "leader", "lone-operative", "scouts", "stealth", "super-heavy-walker", "support"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "ability": { "const": "damaged" } } },
+          "then": { "additionalProperties": false, "required": ["ability", "wounds"], "properties": { "ability": true, "wounds": { "$ref": "#/$defs/positive" } } }
+        },
+        {
+          "if": { "properties": { "ability": { "const": "deadly-demise" } } },
+          "then": { "additionalProperties": false, "required": ["ability", "mortalWounds"], "properties": { "ability": true, "mortalWounds": { "$ref": "#/$defs/amount" } } }
+        },
+        {
+          "if": { "properties": { "ability": { "const": "feel-no-pain" } } },
+          "then": { "additionalProperties": false, "required": ["ability", "threshold"], "properties": { "ability": true, "threshold": { "$ref": "#/$defs/roll" } } }
+        },
+        {
+          "if": { "properties": { "ability": { "const": "firing-deck" } } },
+          "then": { "additionalProperties": false, "required": ["ability", "models"], "properties": { "ability": true, "models": { "$ref": "#/$defs/positive" } } }
+        },
+        {
+          "if": { "properties": { "ability": { "const": "lone-operative" } } },
+          "then": { "additionalProperties": false, "required": ["ability"], "properties": { "ability": true, "inches": { "$ref": "#/$defs/positive" } } }
+        },
+        {
+          "if": { "properties": { "ability": { "const": "scouts" } } },
+          "then": { "additionalProperties": false, "required": ["ability", "inches"], "properties": { "ability": true, "inches": { "$ref": "#/$defs/positive" } } }
+        },
+        {
+          "if": { "properties": { "ability": { "enum": ["deep-strike", "fights-first", "hover", "infiltrators", "leader", "stealth", "super-heavy-walker", "support"] } } },
+          "then": { "additionalProperties": false, "properties": { "ability": true } }
+        }
+      ]
+    },
     "unit-profile": {
       "type": "object",
       "additionalProperties": false,
@@ -154,6 +191,7 @@
         },
         "baseSize": { "$ref": "#/$defs/base-size" },
         "baseSizeSource": { "$ref": "#/$defs/source", "description": "The source that prints the base size, where it is not the record's own source." },
+        "coreAbilities": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/core-ability" } },
         "gaps": { "$ref": "#/$defs/gaps" }
       }
     },

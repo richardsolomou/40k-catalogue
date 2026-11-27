@@ -95,6 +95,8 @@ export type UnitData = {
   perRoster?: number;
   limits?: Limit[];
   legends?: true;
+  /** A datasheet printed in the Crucible of Champions book. */
+  crucible?: true;
   enhancements?: false;
   allegiances?: AllegianceOffer[];
   /** Wargear the unit carries that none of its models does. */

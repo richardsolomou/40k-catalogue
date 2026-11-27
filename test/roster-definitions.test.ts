@@ -135,6 +135,13 @@ for (const [name, [change, error]] of Object.entries(invalid)) {
   });
 }
 
+test("a unit may be marked as a Crucible datasheet", () => {
+  const { identity, records } = input("1.2");
+  (find(records, "unit", WARDENS).data as any).crucible = true;
+  const result = validateDefinitions(identity, records);
+  assert.deepEqual(result.ok ? [] : result.errors, []);
+});
+
 // Kindled Vow listing one Stratagem, whose rule summary entry the identity holds unless `listed` is false.
 const listingCards = (referenced: boolean, listed = true) => {
   const { identity, records } = input("1.2");

@@ -88,6 +88,8 @@ export type UnitData = {
   modelGroups?: (ModelCountBounds & { models: string[] })[];
   /** Bounds the selections its options take together, counting only a member's `choices` where it names them. */
   optionGroups?: OptionGroup[];
+  /** Each lists `uniform` options of different carriers that take one choice together, or none of them takes one. */
+  uniformOptions?: string[][];
   perRoster?: number;
   limits?: Limit[];
   legends?: true;
@@ -237,6 +239,7 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
         ...refs("model", unit.modelGroups?.flatMap((group) => group.models)),
         ...refs("model", unit.optionGroups?.flatMap((group) => (group.carrier ? [group.carrier] : []))),
         ...refs("roster-option", unit.optionGroups?.flatMap((group) => group.options.map((member) => member.option))),
+        ...refs("roster-option", unit.uniformOptions?.flat()),
         ...refs("wargear", unit.optionGroups?.flatMap((group) => group.options.flatMap((member) => member.choices ?? []))),
         ...refs("roster-option", Object.keys(unit.defaults ?? {})),
         ...refs("wargear", Object.values(unit.defaults ?? {}).flatMap((counts) => Object.keys(counts))),
@@ -418,6 +421,24 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       if (group.min > group.max) errors.push(`${path} min is above max`);
       if (group.bySize) checkSizeBounds(`${path} bySize`, group.bySize, unit.id);
       for (const id of group.models) ownModel(path, id, unit.id);
+    }
+    const tied = new Set<string>();
+    for (const [i, group] of (unit.data.uniformOptions ?? []).entries()) {
+      const path = `${at} uniformOptions/${i}`;
+      const carriers = new Set<string>();
+      const offers = new Set<string>();
+      for (const id of group) {
+        if (tied.has(id)) errors.push(`${path} names roster-option:${id}, which another entry names`);
+        tied.add(id);
+        const option = get("roster-option", id);
+        if (!option) continue;
+        if (option.data.unit !== unit.id) errors.push(`${path} names roster-option:${id}, which belongs to another unit`);
+        else if (!option.data.uniform) errors.push(`${path} names roster-option:${id}, which is not uniform`);
+        if (!option.data.carrier || carriers.has(option.data.carrier)) errors.push(`${path} names roster-option:${id}, whose carrier is not one only it names`);
+        if (option.data.carrier) carriers.add(option.data.carrier);
+        offers.add(option.data.choices.filter((w) => !(option.data.substitutes ?? []).includes(w)).toSorted().join(","));
+      }
+      if (offers.size > 1) errors.push(`${path} names options offering different choices besides their substitutes`);
     }
     for (const [i, group] of (unit.data.optionGroups ?? []).entries()) {
       const path = `${at} optionGroups/${i}`;

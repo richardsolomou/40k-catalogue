@@ -75,12 +75,17 @@ for (const version of versions) {
 
   test(`every ${version} terrain record verifies under its record's ID and joins the version's mission packs`, () => {
     const all = records();
+    const entries = new Map(json(join(summaries, "identity.json")).entries.map((e: any) => [`${e.kind}:${e.id}`, e]));
     const terrain = all.filter((r) => r.kind === "terrain-layout" || r.kind === "deployment-map");
     const verified = terrain.map((r): TerrainRecord => {
       const result = verify(r.data);
       if (!result.ok) assert.fail(`${r.kind}:${r.id}: ${result.errors.slice(0, 20).join("\n")}`);
-      assert.deepEqual([result.record.kind, result.record.id], [r.kind, r.id]);
-      return result.record;
+      const record = result.record;
+      assert.deepEqual([record.kind, record.id], [r.kind, r.id]);
+      if (record.provenance.basis === "measured") assert.deepEqual(r.source, record.provenance.source, `${r.kind}:${r.id} source`);
+      const named = ((entries.get(`${r.kind}:${r.id}`) as any)?.references ?? []).filter((x: any) => x.kind === "deployment-map").map((x: any) => x.id);
+      assert.deepEqual(named.sort(), [...((record.kind === "terrain-layout" && record.deployments) || [])].sort(), `${r.kind}:${r.id} references`);
+      return record;
     });
     assert.deepEqual(verifyDataset(verified), []);
     for (const pack of all.filter((r) => r.kind === "mission-pack")) assert.deepEqual(joinBattlefields(pack.data as BattlefieldReferences, verified).errors, []);

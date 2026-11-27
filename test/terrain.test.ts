@@ -112,6 +112,11 @@ test("a layout naming a deployment with no deployment map fails the dataset chec
   assert.deepEqual(verifyDataset(records), ["layout synthetic.layout.standalone names deployment synthetic.deployment.standard, which has no deployment map"]);
 });
 
+test("a layout naming another layout as its deployment fails the dataset check", () => {
+  const records = dataset().map((r) => (r.id === "synthetic.layout.standalone" ? { ...r, deployments: ["synthetic.layout.standard"] } : r));
+  assert.deepEqual(verifyDataset(records), ["layout synthetic.layout.standalone names deployment synthetic.layout.standard, which has no deployment map"]);
+});
+
 test("a layout naming a deployment drawn on another board fails the dataset check", () => {
   const records = dataset().map((r) => (r.id === "synthetic.layout.standalone" ? { ...r, board: { width: 44, height: 30 } } : r));
   assert.deepEqual(verifyDataset(records), ["layout synthetic.layout.standalone is not on the same board as deployment synthetic.deployment.standard"]);

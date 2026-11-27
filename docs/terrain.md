@@ -57,7 +57,7 @@ A saved battle can also hold the ID of a footprint or an objective, so these are
 
 ### Joining mission packs
 
-[Mission packs](mission-packs.md) own battlefield references: `layouts[].id`, `deployments[].id`, and which deployments each layout permits. A terrain layout's `id` equals the pack's layout ID, and a deployment map's `id` equals the pack's deployment ID. Geometry records do not repeat the permitted deployments. `joinBattlefields(pack, records)` takes any object with that shape and reports:
+[Mission packs](mission-packs.md) own battlefield references: `layouts[].id`, `deployments[].id`, and which deployments each layout permits. A terrain layout's `id` equals the pack's layout ID, and a deployment map's `id` equals the pack's deployment ID. A layout a pack lists does not repeat the deployments it permits. `joinBattlefields(pack, records)` takes any object with that shape and reports:
 
 - **Gaps**, for a pack layout or deployment with no geometry. A pack can be released before its terrain.
 - **Errors**, for a layout drawn on a different board from a deployment it permits.
@@ -66,7 +66,7 @@ The join expects layout and deployment IDs to be unique across a release. It als
 
 ### In catalogue releases
 
-A catalogue release carries terrain as records of kind `terrain-layout` and `deployment-map` in a `terrain` category. Each record's `data` is the terrain record of the same kind and ID, and its `source` names what the geometry was measured from, as its `provenance` does. Each rules version's records verify one by one and as one dataset, and join every mission pack of the version without errors.
+A catalogue release carries terrain as records of kind `terrain-layout` and `deployment-map` in a `terrain` category. Each record's `data` is the terrain record of the same kind and ID, and a measured record's `source` is its `provenance.source`. A layout's identity entry references each deployment map it names in `deployments`, and no other. Each rules version's records verify one by one and as one dataset, and join every mission pack of the version without errors.
 
 ## Checks
 

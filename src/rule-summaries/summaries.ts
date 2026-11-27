@@ -34,6 +34,8 @@ export type AbilityData = SummaryData & {
   group?: string;
   /** The Detachment entry a Stratagem or Enhancement belongs to. */
   detachment?: Ref;
+  /** The wargear entries a unit ability is the rule of. */
+  wargear?: Ref[];
   /** Required for Stratagems and absent otherwise, like `stratagem`. */
   cp?: number;
   /** A Stratagem's parts as the official app gives them; its `summary` is `stratagemSummary(parts)`. */
@@ -179,7 +181,7 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
     if ((record.data as { text?: string }).text === "none") continue;
 
     if (summary.kind === "ability") {
-      const { ruleType, cp, stratagem, detachment, parts } = summary.data as AbilityData;
+      const { ruleType, cp, stratagem, detachment, wargear, parts } = summary.data as AbilityData;
       if (STRATAGEMS.has(ruleType)) {
         if (cp === undefined) errors.push(`${at} is a Stratagem with no CP cost`);
       } else if (cp !== undefined || stratagem || parts) errors.push(`${at} is not a Stratagem but has a CP cost, Stratagem timing or Stratagem parts`);
@@ -199,6 +201,12 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
         if (ruleType !== "stratagem" && ruleType !== "enhancement") errors.push(`${at} names a Detachment but is not a Stratagem or Enhancement`);
         else if (!target || target.retired) errors.push(`${at} names ${key(detachment)}, which is not current in the identity release`);
         else if (!entry.references?.some((r) => key(r) === key(detachment))) errors.push(`${at} names ${key(detachment)} but its identity entry does not reference it`);
+      }
+      if (wargear && ruleType !== "unit-ability") errors.push(`${at} names wargear but is not a unit ability`);
+      for (const item of wargear ?? []) {
+        const target = entries.get(key(item));
+        if (!target || target.retired) errors.push(`${at} names ${key(item)}, which is not current in the identity release`);
+        else if (!entry.references?.some((r) => key(r) === key(item))) errors.push(`${at} names ${key(item)} but its identity entry does not reference it`);
       }
     }
     const parent = summary.kind === "core-rule" ? (summary.data as CoreRuleData).parent : undefined;

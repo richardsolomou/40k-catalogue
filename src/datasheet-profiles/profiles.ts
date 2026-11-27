@@ -26,18 +26,6 @@ export type EquippedBase = BaseChoice | { size: BaseChoice; withWargear: { warge
 export type BaseSize = EquippedBase | { byModel: { models: string[]; size: EquippedBase }[] };
 /** Where a value was printed, as a record's `source` gives it. */
 export type Source = { title: string; page?: string; url?: string; revision?: string };
-/**
- * A core ability the datasheet gives the profile's models, with its value where it takes one: the Feel No Pain roll, the
- * Scouts or Lone Operative distance, the Deadly Demise mortal wounds, the Firing Deck models and the Damaged wounds.
- */
-export type CoreAbility =
-  | { ability: "deep-strike" | "fights-first" | "hover" | "infiltrators" | "leader" | "stealth" | "super-heavy-walker" | "support" }
-  | { ability: "feel-no-pain"; threshold: Roll }
-  | { ability: "scouts"; inches: number }
-  | { ability: "lone-operative"; inches?: number }
-  | { ability: "deadly-demise"; mortalWounds: Amount }
-  | { ability: "firing-deck"; models: number }
-  | { ability: "damaged"; wounds: number };
 /** A profile with neither `models` nor a model gap applies to the whole unit. `null` means the datasheet gives no value. */
 export type UnitProfileData = {
   unit: string;
@@ -53,7 +41,6 @@ export type UnitProfileData = {
   baseSize?: BaseSize;
   /** The source that prints the base size, where it is not the record's own source. */
   baseSizeSource?: Source;
-  coreAbilities?: CoreAbility[];
   gaps?: Gap[];
 };
 /** `skill` is the ballistic or weapon skill; `null` means the weapon makes no hit roll. */
@@ -407,8 +394,6 @@ export function validateProfiles(identityValue: unknown, records: CatalogueRecor
       if (when?.detachment !== undefined && when.detachment === when.withoutDetachment) errors.push(`${at} conditional ${index} needs and excludes detachment:${when.detachment}`);
       if (when?.withUnit !== undefined && when.withUnit === when.withoutUnit) errors.push(`${at} conditional ${index} needs and excludes unit:${when.withUnit}`);
     }
-    const abilities = ((data as UnitProfileData).coreAbilities ?? []).map(({ ability }) => ability);
-    for (const ability of new Set(abilities)) if (abilities.indexOf(ability) !== abilities.lastIndexOf(ability)) errors.push(`${at} lists core ability ${ability} more than once`);
     const saves = [(data as UnitProfileData).invulnerableSave ?? []].flat();
     for (const against of ["ranged", "melee"]) {
       if (saves.length > 1 && saves.filter((s) => s.against === against).length > 1) errors.push(`${at} has more than one invulnerable save against ${against} attacks`);

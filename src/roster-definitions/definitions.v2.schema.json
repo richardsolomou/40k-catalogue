@@ -745,6 +745,12 @@
         "crucible": {
           "const": true
         },
+        "coreAbilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/core-ability"
+          }
+        },
         "enhancements": {
           "const": false
         },
@@ -977,6 +983,208 @@
           "$ref": "#/$defs/version"
         }
       }
+    },
+    "core-ability": {
+      "type": "object",
+      "required": [
+        "ability"
+      ],
+      "properties": {
+        "ability": {
+          "enum": [
+            "damaged",
+            "deadly-demise",
+            "deep-strike",
+            "feel-no-pain",
+            "fights-first",
+            "hover",
+            "infiltrators",
+            "leader",
+            "lone-operative",
+            "scouts",
+            "stealth",
+            "super-heavy-walker",
+            "support"
+          ]
+        },
+        "models": {
+          "$ref": "#/$defs/ids",
+          "minItems": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "ability"
+            ],
+            "properties": {
+              "ability": {
+                "const": "damaged"
+              }
+            }
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "ability",
+              "wounds"
+            ],
+            "properties": {
+              "ability": true,
+              "models": true,
+              "wounds": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "ability"
+            ],
+            "properties": {
+              "ability": {
+                "const": "deadly-demise"
+              }
+            }
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "ability",
+              "mortalWounds"
+            ],
+            "properties": {
+              "ability": true,
+              "models": true,
+              "mortalWounds": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^(?:[1-9][0-9]*)?D[1-9][0-9]*(?:\\+[1-9][0-9]*)?$"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "ability"
+            ],
+            "properties": {
+              "ability": {
+                "const": "feel-no-pain"
+              }
+            }
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "ability",
+              "threshold"
+            ],
+            "properties": {
+              "ability": true,
+              "models": true,
+              "threshold": {
+                "type": "integer",
+                "minimum": 2,
+                "maximum": 6
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "ability"
+            ],
+            "properties": {
+              "ability": {
+                "const": "lone-operative"
+              }
+            }
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "ability"
+            ],
+            "properties": {
+              "ability": true,
+              "models": true,
+              "inches": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "ability"
+            ],
+            "properties": {
+              "ability": {
+                "const": "scouts"
+              }
+            }
+          },
+          "then": {
+            "additionalProperties": false,
+            "required": [
+              "ability",
+              "inches"
+            ],
+            "properties": {
+              "ability": true,
+              "models": true,
+              "inches": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "ability"
+            ],
+            "properties": {
+              "ability": {
+                "enum": [
+                  "deep-strike",
+                  "fights-first",
+                  "hover",
+                  "infiltrators",
+                  "leader",
+                  "stealth",
+                  "super-heavy-walker",
+                  "support"
+                ]
+              }
+            }
+          },
+          "then": {
+            "additionalProperties": false,
+            "properties": {
+              "ability": true,
+              "models": true
+            }
+          }
+        }
+      ]
     },
     "requirement": {
       "type": "object",

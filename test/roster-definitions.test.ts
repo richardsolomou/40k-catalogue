@@ -142,6 +142,50 @@ test("a unit may be marked as a Crucible datasheet", () => {
   assert.deepEqual(result.ok ? [] : result.errors, []);
 });
 
+/** Errors of the 1.2 definitions with the flame wardens' core abilities set to `abilities`, the identity referencing `models`. */
+const coreAbilityErrors = (abilities: object[], models: string[] = []) => {
+  const { identity, records } = input("1.2");
+  (find(records, "unit", WARDENS).data as any).coreAbilities = abilities;
+  identity.entries.find((e: { kind: string; id: string }) => e.kind === "unit" && e.id === WARDENS)!.references!.push(...models.map((id) => ({ kind: "model", id })));
+  const result = validateDefinitions(identity, records);
+  return result.ok ? [] : result.errors;
+};
+
+test("a unit lists its core abilities with their values, one for only some of its models", () => {
+  const found = coreAbilityErrors([{ ability: "deep-strike" }, { ability: "feel-no-pain", threshold: 5 }, { ability: "scouts", inches: 6 }, { ability: "deadly-demise", mortalWounds: "D3", models: [WARDEN] }, { ability: "lone-operative" }], [WARDEN]);
+  assert.deepEqual(found, []);
+});
+
+test("a unit may list no core abilities", () => {
+  assert.deepEqual(coreAbilityErrors([]), []);
+});
+
+for (const [ability, field] of [["feel-no-pain", "threshold"], ["scouts", "inches"], ["deadly-demise", "mortalWounds"], ["damaged", "wounds"]]) {
+  test(`${ability} states its ${field}`, () => {
+    assert.ok(coreAbilityErrors([{ ability }]).includes(`unit:${WARDENS} data/coreAbilities/0 must have required property '${field}'`));
+  });
+}
+
+test("a core ability that takes no value states none", () => {
+  assert.ok(coreAbilityErrors([{ ability: "stealth", inches: 6 }]).includes(`unit:${WARDENS} data/coreAbilities/0 must NOT have additional properties`));
+});
+
+test("a core ability is one the format names", () => {
+  assert.ok(coreAbilityErrors([{ ability: "firing-deck" }]).includes(`unit:${WARDENS} data/coreAbilities/0/ability must be equal to one of the allowed values`));
+});
+
+test("a Feel No Pain roll is at most 6+", () => {
+  assert.ok(coreAbilityErrors([{ ability: "feel-no-pain", threshold: 7 }]).includes(`unit:${WARDENS} data/coreAbilities/0/threshold must be <= 6`));
+});
+
+test("no model has one core ability twice", () => {
+  assert.deepEqual(coreAbilityErrors([{ ability: "deadly-demise", mortalWounds: 1 }, { ability: "deadly-demise", mortalWounds: "D3", models: [WARDEN] }], [WARDEN]), [`unit:${WARDENS} gives model:${WARDEN} core ability deadly-demise more than once`]);
+});
+
+test("a core ability names models of its own unit", () => {
+  assert.deepEqual(coreAbilityErrors([{ ability: "stealth", models: [`${DRONES}.drone`] }], [`${DRONES}.drone`]), [`unit:${WARDENS} coreAbilities/0 names model:${DRONES}.drone, which belongs to another unit`]);
+});
+
 // Kindled Vow listing one Stratagem, whose rule summary entry the identity holds unless `listed` is false.
 const listingCards = (referenced: boolean, listed = true) => {
   const { identity, records } = input("1.2");

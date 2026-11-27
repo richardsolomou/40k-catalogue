@@ -690,6 +690,26 @@ for (const [name, [roster, expected]] of Object.entries(withoutDetachments)) {
   });
 }
 
+// A Pyre Lord and a Smoke Oracle whose models a datasheet rule keeps from the warlord role.
+function barredWarlords(): Definitions {
+  const { identity, records } = input("1.2");
+  for (const id of [LORD_MODEL, `${ORACLE}.oracle`]) Object.assign(find(records, "model", id).data, { warlord: false });
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const barred: Record<string, [Roster, string[]]> = {
+  "a warlord whose model cannot hold the role": [incursion([{ unit: LORD, warlord: LORD_MODEL }]), ["0 warlord-ineligible"]],
+  "a detachment granting the role to a model that otherwise cannot hold it": [incursion([{ unit: ORACLE, warlord: `${ORACLE}.oracle` }], [SWORN]), []],
+};
+
+for (const [name, [roster, expected]] of Object.entries(barred)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(barredWarlords(), roster), expected);
+  });
+}
+
 // The Ash Pact or the Kindled Vow keeping its Character units to its own enhancements.
 function exclusive(detachment: string): Definitions {
   const { identity, records } = input("1.2");

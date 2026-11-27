@@ -110,8 +110,12 @@ export type Requirement = { option: string; choices: string[] };
 type SizeBounds = Bounds & { size: number };
 type SizeMaximum = { size: number; max: number };
 type ModelCountBounds = Bounds & { bySize?: SizeBounds[] };
-/** `keywords` are those this model has beyond its unit's, as when a squad's leader is a Character. */
-export type ModelData = ModelCountBounds & { unit: string; wargear: Counts; keywords?: string[] };
+/**
+ * `keywords` are those this model has beyond its unit's, as when a squad's leader is a Character. `warlord: false` keeps
+ * the model from the warlord role unless a grant lists it: one of the roster's detachments' `warlords` or its faction's
+ * `withoutDetachments.warlords`.
+ */
+export type ModelData = ModelCountBounds & { unit: string; wargear: Counts; keywords?: string[]; warlord?: false };
 /** Scales a bound by each carrier model, or by every `models` models in the unit; absent means once per unit. */
 export type Per = "carrier" | { models: number };
 export type OptionData = {

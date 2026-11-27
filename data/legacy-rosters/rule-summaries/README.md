@@ -480,7 +480,7 @@ The app build prints no base size and the guide dated before the cutoff does not
 - `faq` `imperial-armour-grey-knights.errata.grey-knights-thunderhawk-gunship`, replaced by Grey Knights Faction Pack: Version 1.2, page 7; Grey Knights Faction Pack: Version 1.2, page 8
 - `faq` `index-chaos-daemons.errata.feculent-gnarlmaw-screamers-skull-altar-keywords`, replaced by Chaos Daemons Faction Pack: Version 1.2, page 61; Chaos Daemons Faction Pack: Version 1.2, page 87; Chaos Daemons Faction Pack: Version 1.2, page 37
 
-15 roster entries the previous release published are retired: wargear bundles and options the roster definitions now key by their counts, with new IDs.
+15 entries the previous release published are retired: 11 "nothing" wargear placeholders of units that carry no wargear, 3 wargear bundles the roster definitions now key by their parts, each replaced by both parts, and the Death Korps Grenadier Squad's stat line, replaced by its Grenadier and Heavy Weapons Team stat lines.
 
 ## Absent
 

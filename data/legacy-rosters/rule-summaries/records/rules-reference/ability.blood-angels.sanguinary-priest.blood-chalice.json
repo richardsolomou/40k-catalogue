@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Sanguinary Priest",
-    "summary": "Apply +1 to the unit’s **T**.",
+    "summary": "While this model leads a unit, the melee weapons of every model in that unit get their Armour Penetration characteristic improved by 1.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -29,28 +29,35 @@
       "fields": {
         "combat": {
           "applies": {
+            "leading": true,
             "reachesAttached": true
           },
           "readings": [
             {
               "choices": [
                 {
-                  "conditions": [],
+                  "conditions": [
+                    {
+                      "kind": "leading"
+                    }
+                  ],
                   "effects": [
                     {
-                      "role": "defender",
+                      "role": "attacker",
                       "attacks": [
-                        "ranged",
                         "melee"
                       ],
-                      "toughness": 1
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
                     }
                   ]
                 }
               ],
-              "default": 1,
+              "default": 0,
               "roles": [
-                "defender"
+                "attacker"
               ]
             },
             {
@@ -59,38 +66,21 @@
                   "conditions": [],
                   "effects": [
                     {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "toughness": 1
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "defender",
+                      "role": "attacker",
                       "attacks": [
                         "melee"
                       ],
-                      "toughness": 1
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
                     }
                   ]
                 }
               ],
               "default": 1,
               "roles": [
-                "defender"
+                "attacker"
               ]
             }
           ],
@@ -104,11 +94,6 @@
               {
                 "reading": 1
               }
-            ],
-            [
-              {
-                "reading": 2
-              }
             ]
           ],
           "contexts": {
@@ -116,22 +101,22 @@
             "own.one.unknown": 0,
             "own.many.known": 0,
             "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
+            "leading.one.known": 1,
+            "leading.one.unknown": 1,
+            "leading.many.known": 1,
+            "leading.many.unknown": 1,
             "aura.one.known": 0,
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
             "stratagem-both.one.known": 0,
             "stratagem-both.one.unknown": 0,
             "stratagem-both.many.known": 0,
@@ -143,9 +128,15 @@
           }
         },
         "detail": {
-          "recipient": "owning unit",
-          "characteristic": "Toughness",
-          "modifier": 1
+          "ability": {
+            "condition": "this model is leading a unit",
+            "appliesTo": "melee weapons of models in the led unit",
+            "characteristic": "AP",
+            "improveBy": 1
+          },
+          "cardPrintsOtherText": {
+            "toughnessDelta": 1
+          }
         }
       }
     }

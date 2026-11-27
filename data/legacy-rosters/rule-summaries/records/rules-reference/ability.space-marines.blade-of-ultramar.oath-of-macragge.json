@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,16 +15,16 @@
     "group": "Blade of Ultramar",
     "detachment": {
       "kind": "detachment",
-      "id": "ultramarines.blade-of-ultramar"
+      "id": "space-marines.blade-of-ultramar"
     },
-    "summary": "Model eligibility — **ADEPTUS ASTARTES**. Increase the bearer’s melee **[S](vsdata:core-rule/profiles)** by 1 and improve its **[AP](vsdata:core-rule/profiles)** by 1. When the bearer’s unit has an active [assault doctrine](vsdata:ability/space-marines.combat-doctrines), apply 2 to each instead.",
+    "summary": "For an ADEPTUS ASTARTES model. Melee weapons the bearer is equipped with get +1 Attacks and +1 Strength; while the Assault Doctrine applies to the bearer, they get +2 Attacks and +2 Strength instead.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -33,7 +33,7 @@
       "fields": {
         "enhancement": {
           "type": "model",
-          "points": 20,
+          "points": 15,
           "eligibility": {
             "basis": "app-eligibility-rows",
             "anyOf": [
@@ -50,12 +50,7 @@
             {
               "choices": [
                 {
-                  "option": "+1 S and AP",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
+                  "conditions": [],
                   "effects": [
                     {
                       "role": "attacker",
@@ -63,7 +58,7 @@
                         "melee"
                       ],
                       "characteristic": {
-                        "name": "strength",
+                        "name": "attacks",
                         "add": 1
                       }
                     },
@@ -73,21 +68,16 @@
                         "melee"
                       ],
                       "characteristic": {
-                        "name": "armour-penetration",
-                        "add": -1
+                        "name": "strength",
+                        "add": 1
                       }
                     }
                   ]
                 },
                 {
-                  "option": "+2 S and AP",
                   "conditions": [
                     {
-                      "kind": "option"
-                    },
-                    {
-                      "kind": "stated",
-                      "label": "With the assault doctrine"
+                      "kind": "stated"
                     }
                   ],
                   "effects": [
@@ -97,7 +87,7 @@
                         "melee"
                       ],
                       "characteristic": {
-                        "name": "strength",
+                        "name": "attacks",
                         "add": 2
                       }
                     },
@@ -107,14 +97,14 @@
                         "melee"
                       ],
                       "characteristic": {
-                        "name": "armour-penetration",
-                        "add": -2
+                        "name": "strength",
+                        "add": 2
                       }
                     }
                   ]
                 }
               ],
-              "default": 0,
+              "default": 1,
               "roles": [
                 "attacker"
               ]
@@ -122,12 +112,7 @@
             {
               "choices": [
                 {
-                  "option": "+1 S and AP",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
+                  "conditions": [],
                   "effects": [
                     {
                       "role": "attacker",
@@ -136,7 +121,7 @@
                       ],
                       "bearerOnly": true,
                       "characteristic": {
-                        "name": "strength",
+                        "name": "attacks",
                         "add": 1
                       }
                     },
@@ -147,21 +132,16 @@
                       ],
                       "bearerOnly": true,
                       "characteristic": {
-                        "name": "armour-penetration",
-                        "add": -1
+                        "name": "strength",
+                        "add": 1
                       }
                     }
                   ]
                 },
                 {
-                  "option": "+2 S and AP",
                   "conditions": [
                     {
-                      "kind": "option"
-                    },
-                    {
-                      "kind": "stated",
-                      "label": "With the assault doctrine"
+                      "kind": "stated"
                     }
                   ],
                   "effects": [
@@ -172,7 +152,7 @@
                       ],
                       "bearerOnly": true,
                       "characteristic": {
-                        "name": "strength",
+                        "name": "attacks",
                         "add": 2
                       }
                     },
@@ -183,14 +163,14 @@
                       ],
                       "bearerOnly": true,
                       "characteristic": {
-                        "name": "armour-penetration",
-                        "add": -2
+                        "name": "strength",
+                        "add": 2
                       }
                     }
                   ]
                 }
               ],
-              "default": 0,
+              "default": 1,
               "roles": [
                 "attacker"
               ]
@@ -240,25 +220,37 @@
           }
         },
         "detail": {
+          "kind": "enhancement",
+          "detachment": "Blade of Ultramar",
           "effects": [
             {
-              "type": "modifier",
-              "target": "bearers-melee",
-              "characteristic": "Strength",
-              "delta": 1,
-              "replacedBy": 2,
-              "when": "unit-assault-doctrine-active"
+              "weapons": "bearer's melee weapons",
+              "characteristics": [
+                "A",
+                "S"
+              ],
+              "add": 1
             },
             {
-              "type": "modifier",
-              "target": "bearers-melee",
-              "characteristic": "Armour Penetration",
-              "delta": -1,
-              "magnitude": 1,
-              "replacedBy": -2,
-              "when": "unit-assault-doctrine-active"
+              "condition": "bearer is under the Assault Doctrine",
+              "weapons": "bearer's melee weapons",
+              "characteristics": [
+                "A",
+                "S"
+              ],
+              "add": 2,
+              "replacesPrevious": true
             }
-          ]
+          ],
+          "cardPrintsOtherText": {
+            "characteristics": [
+              "S",
+              "AP"
+            ],
+            "bonus": 1,
+            "assaultDoctrineBonus": 2,
+            "pointsCost": 20
+          }
         }
       }
     }

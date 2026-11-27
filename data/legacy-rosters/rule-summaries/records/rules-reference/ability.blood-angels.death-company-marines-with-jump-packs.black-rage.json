@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Death Company Marines with Jump Packs",
-    "summary": "Melee attacks by this unit can re-roll 1s to [Hit](vsdata:core-rule/hit-rolls).\n\nWhile this unit is more than 6\" from every **BLOOD ANGELS CHARACTER** model of yours, or more than 12\" from every **CHAPLAIN** model of yours, it can make no **[fall-back move](vsdata:core-rule/fall-back)**, and its OC becomes 0.",
+    "summary": "**Hit rolls** for melee attacks by this unit's models may be re-rolled.\n\nUnless the unit has both a friendly **BLOOD ANGELS CHARACTER** model within 6\" of it and a friendly **CHAPLAIN** model within 12\" of it, it cannot be chosen to Fall Back, and has an OC of 0.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -43,7 +43,7 @@
                         "melee"
                       ],
                       "rolls": {
-                        "hitReroll": "ones"
+                        "hitReroll": "failed"
                       }
                     }
                   ]
@@ -94,43 +94,39 @@
           }
         },
         "detail": {
-          "reroll": {
-            "subject": "this-unit",
-            "attackType": "melee",
-            "roll": "Hit",
-            "eligibleResult": 1,
-            "optional": true
-          },
-          "support": {
-            "allRequiredToAvoidRestriction": [
-              {
-                "side": "friendly",
-                "scope": "model",
-                "selector": [
-                  "Blood Angels",
-                  "Character"
-                ],
-                "rangeInches": 6,
-                "minimumModels": 1
-              },
-              {
-                "side": "friendly",
-                "scope": "model",
-                "selector": [
-                  "Chaplain"
-                ],
-                "rangeInches": 12,
-                "minimumModels": 1
+          "ability": {
+            "reroll": {
+              "attackType": "melee",
+              "roll": "hit"
+            },
+            "restriction": {
+              "unlessAll": [
+                {
+                  "side": "friendly",
+                  "scope": "model",
+                  "keywordsAll": [
+                    "BLOOD ANGELS",
+                    "CHARACTER"
+                  ],
+                  "withinInches": 6
+                },
+                {
+                  "side": "friendly",
+                  "scope": "model",
+                  "keywordsAll": [
+                    "CHAPLAIN"
+                  ],
+                  "withinInches": 12
+                }
+              ],
+              "effects": {
+                "cannotBeSelectedToFallBack": true,
+                "objectiveControl": 0
               }
-            ]
-          },
-          "withoutEitherRequiredSupport": {
-            "subject": "this-unit",
-            "prohibitedMove": "Fall-Back Move",
-            "objectiveControl": {
-              "operation": "set",
-              "value": 0
             }
+          },
+          "cardPrintsOtherText": {
+            "rerollOnlyHitRollsOf": 1
           }
         }
       }

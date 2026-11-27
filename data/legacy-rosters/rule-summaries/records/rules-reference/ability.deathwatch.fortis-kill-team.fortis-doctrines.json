@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Fortis Kill Team",
-    "summary": "This unit gets +1 to [Hit](vsdata:core-rule/hit-rolls) against targets **Below Starting Strength**. If the target is at **half-strength** or lower, use +1 to [Hit](vsdata:core-rule/hit-rolls) and +1 to [Wound](vsdata:core-rule/wound-rolls) instead.",
+    "summary": "Attacks made by models in this unit get +1 to their **Hit rolls** against a unit below its **Starting Strength**; against a **Below Half-strength** target they instead get +1 to their Hit rolls and +1 to their **Wound rolls**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -31,33 +31,34 @@
           "unresolved": "The rule holds at or below Half-strength, which the format's below-half-strength condition leaves out; withheld until the format has an at-or-below kind."
         },
         "detail": {
-          "source": "this-unit",
-          "trigger": "each-attack-by-this-unit",
-          "branchResolution": "first-match",
-          "branches": [
-            {
-              "targetStrength": "at-or-below-half",
-              "effects": [
-                {
-                  "roll": "hit",
-                  "modifier": 1
-                },
-                {
-                  "roll": "wound",
-                  "modifier": 1
-                }
-              ]
-            },
-            {
-              "targetStrength": "below-starting",
-              "effects": [
-                {
-                  "roll": "hit",
-                  "modifier": 1
-                }
-              ]
-            }
-          ]
+          "ability": {
+            "attackers": "models in this unit",
+            "branches": [
+              {
+                "targetCondition": "below its Starting Strength",
+                "effects": [
+                  {
+                    "roll": "hit",
+                    "add": 1
+                  }
+                ]
+              },
+              {
+                "targetCondition": "Below Half-strength",
+                "replacesOtherBranch": true,
+                "effects": [
+                  {
+                    "roll": "hit",
+                    "add": 1
+                  },
+                  {
+                    "roll": "wound",
+                    "add": 1
+                  }
+                ]
+              }
+            ]
+          }
         }
       }
     }

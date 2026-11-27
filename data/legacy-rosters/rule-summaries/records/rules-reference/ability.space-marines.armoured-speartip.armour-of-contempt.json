@@ -13,7 +13,29 @@
   "data": {
     "ruleType": "stratagem",
     "group": "Armoured Speartip",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.armoured-speartip"
+    },
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting",
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy",
+      "windows": [
+        {
+          "phase": "shooting",
+          "turn": "opponent"
+        },
+        {
+          "phase": "fight",
+          "turn": "any"
+        }
+      ]
+    },
     "summary": "Use it in your opponent's Shooting phase or in the Fight phase, right after an enemy unit picks its targets. Pick 1 **ADEPTUS ASTARTES** unit of yours that any of those attacks target.\n\nUntil the enemy unit has finished attacking, each attack aimed at your unit has its Armour Penetration worsened by 1.",
     "citations": [
       {
@@ -28,6 +50,24 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
         "detail": {
           "detachment": "Armoured Speartip",
           "type": "Strategic Ploy",
@@ -59,11 +99,7 @@
               }
             }
           ],
-          "duration": "until the attacking unit has finished making its attacks",
-          "lastPrinted": {
-            "dataBuild": 946,
-            "note": "Build 963, in force at this version's cutoff, no longer prints the Armoured Speartip Detachment; this rule is as build 946, the last to print it, gives it."
-          }
+          "duration": "until the attacking unit has finished making its attacks"
         }
       }
     }

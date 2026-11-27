@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,7 +15,7 @@
     "group": "Blade of Ultramar",
     "detachment": {
       "kind": "detachment",
-      "id": "ultramarines.blade-of-ultramar"
+      "id": "space-marines.blade-of-ultramar"
     },
     "cp": 1,
     "stratagem": {
@@ -24,6 +24,7 @@
         "fight"
       ],
       "turn": "any",
+      "type": "epic-deed",
       "windows": [
         {
           "phase": "shooting",
@@ -35,14 +36,14 @@
         }
       ]
     },
-    "summary": "When an enemy targets your **ADEPTUS ASTARTES** unit in their [Shooting phase](vsdata:core-rule/shooting-phase) or either [Fight phase](vsdata:core-rule/fight-phase), attacks against that unit take -1 to wound if the attack’**s** Strength exceeds the defender’**s** Toughness.",
+    "summary": "Use it in your opponent's Shooting phase or either player's Fight phase, right after an enemy unit selects its targets. Pick 1 of your **ADEPTUS ASTARTES** units it targeted. Until the phase ends, attacks on that unit with Strength at least its Toughness get -1 to the **Wound roll**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -56,10 +57,14 @@
             "after": "enemy-selected-targets"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
               "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
             ]
           }
         },
@@ -88,91 +93,12 @@
             }
           },
           "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "condition": "stronger",
-                      "rolls": {
-                        "woundModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "condition": "stronger",
-                      "rolls": {
-                        "woundModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "condition": "stronger",
-                      "rolls": {
-                        "woundModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "defender"
-              ]
-            }
+            {}
           ],
           "trees": [
             [
               {
                 "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ],
-            [
-              {
-                "reading": 2
               }
             ]
           ],
@@ -189,14 +115,14 @@
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
             "stratagem-both.one.known": 0,
             "stratagem-both.one.unknown": 0,
             "stratagem-both.many.known": 0,
@@ -208,41 +134,42 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
-            ],
-            "event": "enemy-targets-selected",
-            "window": {
-              "shooting": "opponent",
-              "fight": "either"
+          "detachment": "Blade of Ultramar",
+          "type": "Epic Deed",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
             }
+          ],
+          "trigger": {
+            "event": "enemy-unit-selected-targets"
           },
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "isATargetOfThatEnemyUnit": true
           },
           "effects": [
             {
-              "kind": "modifier",
-              "subject": "attacks",
-              "characteristic": "wound-roll",
-              "delta": -1,
-              "conditions": {
-                "attacks": "against-selected-unit",
-                "comparison": {
-                  "left": "attack-strength",
-                  "operator": "greater-than",
-                  "right": "target-toughness"
-                }
-              }
+              "attacksTargetingThisUnit": true,
+              "condition": "attack Strength greater than or equal to this unit's Toughness",
+              "roll": "wound",
+              "delta": -1
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsNewerText": {
+            "condition": "attack S greater than this unit's T",
+            "delta": -1
+          }
         }
       }
     }

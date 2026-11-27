@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -18,103 +18,64 @@
       "id": "space-marines.gladius-task-force"
     },
     "cp": 1,
-    "stratagem": {
-      "phases": [
-        "movement"
-      ],
-      "turn": "opponent"
-    },
-    "summary": "Use it during the opposing player's Movement phase once an enemy unit finishes any move within 8″ of an **unengaged** **ADEPTUS ASTARTES INFANTRY** or **MOUNTED** unit of yours; that unit is the target. It may make a **normal move**, going no further than D6″.",
+    "summary": "Use it in your opponent's Movement phase, right after an enemy unit finishes a **Normal move**, Advance or Fall Back. Pick 1 **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit of yours that:\n\n- has that enemy unit within 8\"\n- is outside **Engagement Range** of all enemy units\n\nIt may then move up to D6\" as a Normal move, or up to 6\" if the Tactical Doctrine applies to it.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
-        "stratagem": {
-          "limit": "phase",
-          "when": {
-            "at": "phase",
-            "after": "enemy-ended-move"
-          },
-          "target": {
-            "triggering": true,
-            "entity": "unit",
-            "anyOf": [
-              {
-                "keywords": [
-                  "ADEPTUS ASTARTES",
-                  "INFANTRY"
-                ]
-              },
-              {
-                "keywords": [
-                  "ADEPTUS ASTARTES",
-                  "MOUNTED"
-                ]
-              }
-            ],
-            "conditions": [
-              "unengaged"
-            ],
-            "more": true
-          }
-        },
-        "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "movement",
-              "turn": "opponent"
-            }
-          ]
-        },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "normal-move"
-          }
-        ],
         "detail": {
           "detachment": "Gladius Task Force",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "opponent"
-              }
-            ],
-            "event": "enemy-unit-ends-move-near-target"
+          "type": "Strategic Ploy",
+          "window": {
+            "turn": "opponent",
+            "phase": "movement",
+            "timing": "just after an enemy unit finishes a Normal, Advance or Fall Back move"
           },
           "target": {
-            "entity": "unit",
-            "count": 1,
             "side": "friendly",
-            "keywordsAll": [
-              "ADEPTUS ASTARTES"
-            ],
+            "count": 1,
             "keywordsAny": [
-              "INFANTRY",
-              "MOUNTED"
+              "ADEPTUS ASTARTES INFANTRY",
+              "ADEPTUS ASTARTES MOUNTED"
             ],
-            "withinInchesOfTrigger": 8,
-            "mustBe": "unengaged"
+            "withinInches": 8,
+            "of": "that enemy unit",
+            "notWithinEngagementRange": true
           },
           "effects": [
             {
-              "kind": "normal-move",
+              "move": "normal",
               "maxDistance": "D6",
               "optional": true
+            },
+            {
+              "condition": "unit is under the effects of the Tactical Doctrine",
+              "move": "normal",
+              "maxDistanceInches": 6,
+              "replaces": "D6 distance"
             }
           ],
-          "restrictions": []
+          "duration": "instant",
+          "cardPrintsOtherText": {
+            "name": "Responsive Tactics",
+            "trigger": "an enemy unit ends any move within 8\" of that unengaged unit",
+            "withinInches": 8,
+            "effects": [
+              {
+                "move": "normal",
+                "maxDistance": "D6"
+              }
+            ]
+          }
         }
       }
     }

@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "High Marshal Helbrecht",
-    "summary": "As [either player's Fight phase](vsdata:core-rule/fight-phase) begins, you can pick an enemy unit in [Engagement Range](vsdata:core-rule/engagement-range) of this unit and roll a D6. That enemy unit takes [mortal wounds](vsdata:core-rule/mortal-wounds) by the result:\n\n- 2-3: D3\n- 4-5: 3\n- 6+: D3+3",
+    "summary": "As each Fight phase starts, in either player's turn, pick 1 enemy unit in **Engagement Range** of the unit this model is part of. Roll a D6, adding 1 per full 5 models in that friendly unit. By result, the picked unit suffers:\n\n- 2-3: D3 **mortal wounds**\n- 4-5: 3 mortal wounds\n- 6+: D3+3 mortal wounds",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -37,77 +37,16 @@
           ]
         },
         "combat": {
+          "applies": {
+            "reachesAttached": true
+          },
           "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "selected-target-in-engagement-range"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "mortalWounds": {
-                        "timing": "outside-attacks",
-                        "rolls": 1,
-                        "outcomes": [
-                          {
-                            "min": 2,
-                            "max": 3,
-                            "damage": {
-                              "dice": 1,
-                              "sides": 3,
-                              "bonus": 0
-                            }
-                          },
-                          {
-                            "min": 4,
-                            "max": 5,
-                            "damage": {
-                              "dice": 0,
-                              "sides": 6,
-                              "bonus": 3
-                            }
-                          },
-                          {
-                            "min": 6,
-                            "max": 6,
-                            "damage": {
-                              "dice": 1,
-                              "sides": 3,
-                              "bonus": 3
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "attacker"
-              ]
-            },
-            {
-              "choices": [],
-              "default": 0
-            }
+            {}
           ],
           "trees": [
             [
               {
                 "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
               }
             ]
           ],
@@ -124,10 +63,10 @@
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
             "stratagem-fight.one.known": 0,
             "stratagem-fight.one.unknown": 0,
             "stratagem-fight.many.known": 0,
@@ -142,41 +81,41 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "mortal-wounds"
-          }
-        ],
         "detail": {
-          "actor": "controlling-player",
-          "activation": "start-of-fight-phase-either-turn",
-          "selection": {
-            "side": "enemy",
-            "entity": "unit",
-            "maximumCount": 1,
-            "optional": true,
-            "relation": "in-combat-with-this-unit"
-          },
-          "dieSides": 6,
-          "effect": "mortal-wounds-to-selected-unit",
-          "outcomes": [
-            {
-              "minimum": 2,
-              "maximum": 3,
-              "diceSides": 3
+          "ability": {
+            "when": {
+              "turn": "either",
+              "phase": "fight",
+              "timing": "start-of-phase"
             },
-            {
-              "minimum": 4,
-              "maximum": 5,
-              "amount": 3
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "withinEngagementRangeOf": "this model's unit"
             },
-            {
-              "minimum": 6,
-              "diceSides": 3,
-              "bonus": 3
-            }
-          ]
+            "roll": "D6",
+            "rollModifier": {
+              "add": 1,
+              "perModelsInUnit": 5,
+              "countedUnit": "this model's own unit"
+            },
+            "results": [
+              {
+                "min": 2,
+                "max": 3,
+                "mortalWounds": "D3"
+              },
+              {
+                "min": 4,
+                "max": 5,
+                "mortalWounds": 3
+              },
+              {
+                "min": 6,
+                "mortalWounds": "D3+3"
+              }
+            ]
+          }
         }
       }
     }

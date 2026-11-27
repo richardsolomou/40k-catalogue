@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,23 +15,24 @@
     "group": "Spearpoint Task Force",
     "detachment": {
       "kind": "detachment",
-      "id": "white-scars.spearpoint-task-force"
+      "id": "space-marines.spearpoint-task-force"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "shooting"
       ],
-      "turn": "opponent"
+      "turn": "opponent",
+      "type": "battle-tactic"
     },
-    "summary": "During the opposing player’s [Shooting phase](vsdata:core-rule/shooting-phase), use this when an enemy targets 1 of your units with the **ADEPTUS ASTARTES MOUNTED/SPEEDER** keyword. Reduce **[wound rolls](vsdata:core-rule/wound-rolls)** for ranged attacks against it by 1.",
+    "summary": "Use it in your opponent's Shooting phase, right after an enemy unit selects its targets. Pick 1 of your **ADEPTUS ASTARTES MOUNTED** or **ADEPTUS ASTARTES FLY VEHICLE** units it targeted. Until the phase ends, attacks that target that unit get -1 to the **Wound roll**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -45,7 +46,8 @@
             "after": "enemy-selected-targets"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "anyOf": [
               {
@@ -57,9 +59,13 @@
               {
                 "keywords": [
                   "ADEPTUS ASTARTES",
-                  "SPEEDER"
+                  "FLY",
+                  "VEHICLE"
                 ]
               }
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
             ]
           }
         },
@@ -80,7 +86,7 @@
                   "ADEPTUS ASTARTES MOUNTED"
                 ],
                 [
-                  "ADEPTUS ASTARTES SPEEDER"
+                  "ADEPTUS ASTARTES FLY VEHICLE"
                 ]
               ]
             }
@@ -157,34 +163,43 @@
           }
         },
         "detail": {
-          "type": "",
-          "trigger": {
+          "detachment": "Spearpoint Task Force",
+          "type": "Battle Tactic",
+          "window": {
             "turn": "opponent",
-            "phases": [
-              "shooting"
-            ],
-            "event": "enemy-targets-selected",
-            "window": {
-              "shooting": "opponent"
-            }
+            "phase": "shooting",
+            "timing": "just after an enemy unit selects its targets"
           },
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes Mounted/Speeder"
+            "keywordsAny": [
+              "ADEPTUS ASTARTES MOUNTED",
+              "ADEPTUS ASTARTES FLY VEHICLE"
+            ],
+            "targetedByThatEnemyUnit": true
           },
           "effects": [
             {
-              "kind": "modifier",
-              "subject": "attacks",
-              "characteristic": "wound-roll",
-              "delta": -1,
-              "conditions": {
-                "attacks": "ranged-versus-selected-unit"
-              }
+              "attacks": "every attack that targets this unit",
+              "roll": "wound",
+              "delta": -1
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "name": "Evasive Manoeuvers",
+            "targetKeywordLabel": "ADEPTUS ASTARTES MOUNTED/SPEEDER",
+            "trigger": "an enemy unit targets that friendly unit",
+            "effects": [
+              {
+                "attacks": "ranged attacks targeting that unit",
+                "roll": "wound",
+                "delta": -1
+              }
+            ],
+            "duration": "unstated"
+          }
         }
       }
     }

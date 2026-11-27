@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,7 +15,7 @@
     "group": "Forgefather's Seekers",
     "detachment": {
       "kind": "detachment",
-      "id": "salamanders.forgefathers-seekers"
+      "id": "space-marines.forgefathers-seekers"
     },
     "cp": 1,
     "stratagem": {
@@ -24,6 +24,7 @@
         "fight"
       ],
       "turn": "any",
+      "type": "battle-tactic",
       "windows": [
         {
           "phase": "shooting",
@@ -35,14 +36,14 @@
         }
       ]
     },
-    "summary": "In your [Shooting phase](vsdata:core-rule/shooting-phase) or either [Fight phase](vsdata:core-rule/fight-phase), select the **Adeptus Astartes infantry** unit when it is picked to attack an enemy within 6 inches. You may reroll its hit and **[wound rolls](vsdata:core-rule/wound-rolls)** of 1.",
+    "summary": "Use it in your Shooting phase or either player's Fight phase. Pick 1 **ADEPTUS ASTARTES INFANTRY** unit of yours not yet picked to shoot or fight in this phase.\n\nUntil the phase ends, its models' attacks get +1 to **Wound rolls** against the closest eligible target, if it is within 6\".",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -52,17 +53,19 @@
         "stratagem": {
           "limit": "phase",
           "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-attack"
+            "at": "phase"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
               "ADEPTUS ASTARTES",
               "INFANTRY"
             ],
-            "more": true
+            "conditions": [
+              "not-selected-to-shoot-or-fight"
+            ]
           }
         },
         "reminder": {
@@ -95,6 +98,9 @@
                 {
                   "conditions": [
                     {
+                      "kind": "target-closest"
+                    },
+                    {
                       "kind": "target-within",
                       "inches": 6
                     }
@@ -107,17 +113,7 @@
                         "melee"
                       ],
                       "rolls": {
-                        "hitReroll": "ones"
-                      }
-                    },
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "rolls": {
-                        "woundReroll": "ones"
+                        "woundModifier": 1
                       }
                     }
                   ]
@@ -133,6 +129,9 @@
                 {
                   "conditions": [
                     {
+                      "kind": "target-closest"
+                    },
+                    {
                       "kind": "target-within",
                       "inches": 6
                     }
@@ -144,16 +143,7 @@
                         "ranged"
                       ],
                       "rolls": {
-                        "hitReroll": "ones"
-                      }
-                    },
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "rolls": {
-                        "woundReroll": "ones"
+                        "woundModifier": 1
                       }
                     }
                   ]
@@ -169,6 +159,9 @@
                 {
                   "conditions": [
                     {
+                      "kind": "target-closest"
+                    },
+                    {
                       "kind": "target-within",
                       "inches": 6
                     }
@@ -180,16 +173,7 @@
                         "melee"
                       ],
                       "rolls": {
-                        "hitReroll": "ones"
-                      }
-                    },
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "rolls": {
-                        "woundReroll": "ones"
+                        "woundModifier": 1
                       }
                     }
                   ]
@@ -249,49 +233,44 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "select-weapons.selected-to-attack"
-          }
-        ],
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
-            ],
-            "event": "friendly-selected-to-attack",
-            "window": {
-              "shooting": "your",
-              "fight": "either"
+          "detachment": "Forgefather's Seekers",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
             },
-            "enemyDistance": {
-              "atMostInches": 6
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes infantry"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "notSelectedToShootOrFightThisPhase": true
           },
           "effects": [
             {
-              "kind": "re-roll",
-              "roll": "hit",
-              "result": 1,
-              "optional": true
-            },
-            {
-              "kind": "re-roll",
+              "attacks": "made by models in the target unit",
+              "condition": {
+                "target": "closest eligible target",
+                "withinInches": 6
+              },
               "roll": "wound",
-              "result": 1,
-              "optional": true
+              "add": 1
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "rerollHitRollsOf": 1,
+            "rerollWoundRollsOf": 1,
+            "enemyWithinInches": 6
+          }
         }
       }
     }

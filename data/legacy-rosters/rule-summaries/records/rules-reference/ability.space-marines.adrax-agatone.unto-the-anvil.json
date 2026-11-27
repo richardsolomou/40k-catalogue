@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Adrax Agatone",
-    "summary": "This unit may reroll melee **wound rolls** of 1. With the [assault doctrine](vsdata:ability/space-marines.combat-doctrines) active for this unit, it may reroll any melee wound rolls instead.",
+    "summary": "As long as this model leads a unit, models in that unit may re-roll **Wound rolls** for their melee attacks.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -28,20 +28,112 @@
       "version": "1",
       "fields": {
         "combat": {
-          "unresolved": "The rule names only melee or only ranged attacks, but the reading's attacks cover both."
+          "applies": {
+            "leading": true,
+            "reachesAttached": true
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "leading"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundReroll": "failed"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundReroll": "failed"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ],
+            [
+              {
+                "reading": 1
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 1,
+            "leading.one.unknown": 1,
+            "leading.many.known": 1,
+            "leading.many.unknown": 1,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
         },
         "detail": {
-          "actor": "datasheet-unit",
-          "effect": {
-            "attackKind": "melee",
-            "roll": "wound",
-            "default": {
-              "optionalRerollOn": 1
-            },
-            "alternative": {
-              "requiresActiveDoctrineForThisUnit": "assault doctrine",
-              "optionalReroll": "any"
-            }
+          "ability": {
+            "condition": "this model is leading a unit",
+            "attacks": "melee attacks by models in the led unit",
+            "reroll": "wound",
+            "optional": true
+          },
+          "cardPrintsOtherText": {
+            "rerollWoundRollsOf": 1
           }
         }
       }

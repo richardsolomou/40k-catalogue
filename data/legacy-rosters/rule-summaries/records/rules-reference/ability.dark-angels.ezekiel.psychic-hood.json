@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Ezekiel",
-    "summary": "This unit gets **[Feel No Pain 4+](vsdata:core-ability/feel-no-pain)** for **[mortal wounds](vsdata:core-rule/mortal-wounds)** and [psychic attacks](vsdata:core-rule/psychic-abilities).",
+    "summary": "As long as this model leads a unit, every model in that unit gets **[Feel No Pain 4+](vsdata:core-ability/feel-no-pain)**, which applies only to Psychic Attacks.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -33,18 +33,44 @@
               "ability": "Feel No Pain 4+",
               "to": "unit",
               "named": true,
+              "whileAttached": true,
               "against": [
-                "psychic-attacks",
-                "mortal-wounds"
+                "psychic-attacks"
               ]
             }
           ]
         },
         "combat": {
           "applies": {
+            "leading": true,
             "reachesAttached": true
           },
           "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "leading"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged",
+                        "melee"
+                      ],
+                      "psychicFeelNoPain": 4
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "defender"
+              ]
+            },
             {
               "choices": [
                 {
@@ -56,8 +82,7 @@
                         "ranged",
                         "melee"
                       ],
-                      "psychicFeelNoPain": 4,
-                      "mortalFeelNoPain": 4
+                      "psychicFeelNoPain": 4
                     }
                   ]
                 }
@@ -70,20 +95,23 @@
             {
               "choices": [
                 {
-                  "conditions": [],
+                  "conditions": [
+                    {
+                      "kind": "leading"
+                    }
+                  ],
                   "effects": [
                     {
                       "role": "defender",
                       "attacks": [
                         "ranged"
                       ],
-                      "psychicFeelNoPain": 4,
-                      "mortalFeelNoPain": 4
+                      "psychicFeelNoPain": 4
                     }
                   ]
                 }
               ],
-              "default": 1,
+              "default": 0,
               "roles": [
                 "defender"
               ]
@@ -91,20 +119,23 @@
             {
               "choices": [
                 {
-                  "conditions": [],
+                  "conditions": [
+                    {
+                      "kind": "leading"
+                    }
+                  ],
                   "effects": [
                     {
                       "role": "defender",
                       "attacks": [
                         "melee"
                       ],
-                      "psychicFeelNoPain": 4,
-                      "mortalFeelNoPain": 4
+                      "psychicFeelNoPain": 4
                     }
                   ]
                 }
               ],
-              "default": 1,
+              "default": 0,
               "roles": [
                 "defender"
               ]
@@ -125,6 +156,11 @@
               {
                 "reading": 2
               }
+            ],
+            [
+              {
+                "reading": 3
+              }
             ]
           ],
           "contexts": {
@@ -132,22 +168,22 @@
             "own.one.unknown": 0,
             "own.many.known": 0,
             "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
+            "leading.one.known": 1,
+            "leading.one.unknown": 1,
+            "leading.many.known": 1,
+            "leading.many.unknown": 1,
             "aura.one.known": 0,
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
+            "stratagem-shooting.one.known": 2,
+            "stratagem-shooting.one.unknown": 2,
+            "stratagem-shooting.many.known": 2,
+            "stratagem-shooting.many.unknown": 2,
+            "stratagem-fight.one.known": 3,
+            "stratagem-fight.one.unknown": 3,
+            "stratagem-fight.many.known": 3,
+            "stratagem-fight.many.unknown": 3,
             "stratagem-both.one.known": 0,
             "stratagem-both.one.unknown": 0,
             "stratagem-both.many.known": 0,
@@ -158,21 +194,19 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "mortal-wounds"
-          }
-        ],
         "detail": {
-          "recipient": "owning unit",
-          "grant": "feel-no-pain",
-          "threshold": "4+",
-          "against": [
-            "psychic attacks",
-            "mortal wounds"
-          ],
-          "psychicAbility": false
+          "ability": {
+            "condition": "this model is leading a unit",
+            "appliesTo": "models in the led unit",
+            "feelNoPain": 4,
+            "onlyAgainst": [
+              "Psychic Attacks"
+            ]
+          },
+          "cardPrintsOtherText": {
+            "alsoAgainst": "mortal wounds",
+            "recipient": "this unit"
+          }
         }
       }
     }

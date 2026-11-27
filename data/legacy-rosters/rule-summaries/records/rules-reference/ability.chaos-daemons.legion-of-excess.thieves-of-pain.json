@@ -1,0 +1,112 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.legion-of-excess.thieves-of-pain",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Legion of Excess",
+    "detachment": {
+      "kind": "detachment",
+      "id": "chaos-daemons.legion-of-excess"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight",
+        "end-of-turn"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
+    "summary": "Use it in any phase, when a **LEGIONES DAEMONICA SLAANESH** unit of yours that is not a **MONSTER** or **VEHICLE** is picked as a target by an enemy unit, or suffers a **mortal wound**; it is the target.\n\nPick another **LEGIONES DAEMONICA SLAANESH** unit of yours within 9\" of the target and **visible** to it. For the rest of the phase, as long as the picked unit remains on the battlefield, each wound a model in the target would lose becomes 1 mortal wound inflicted on the picked unit instead.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "SLAANESH"
+            ],
+            "more": true
+          }
+        },
+        "detail": {
+          "detachment": "Legion of Excess",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "any",
+              "timing": "the unit is targeted by an enemy unit or suffers a mortal wound"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "SLAANESH"
+            ],
+            "excludeKeywords": [
+              "MONSTER",
+              "VEHICLE"
+            ]
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "friendly",
+                "count": 1,
+                "other": true,
+                "keywordsAll": [
+                  "LEGIONES DAEMONICA",
+                  "SLAANESH"
+                ],
+                "withinInches": 9,
+                "visible": true
+              },
+              "while": "the selected unit is on the battlefield",
+              "redirect": {
+                "trigger": "a model in the target unit would lose a wound",
+                "instead": {
+                  "mortalWoundsOnSelectedUnit": 1
+                }
+              }
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

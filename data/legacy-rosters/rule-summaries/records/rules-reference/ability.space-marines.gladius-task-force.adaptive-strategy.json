@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -22,16 +22,17 @@
       "phases": [
         "command"
       ],
-      "turn": "own"
+      "turn": "own",
+      "type": "strategic-ploy"
     },
-    "summary": "In your [Command phase](vsdata:core-rule/command-phase), pick an **ADEPTUS ASTARTES** unit and choose a [Combat Doctrine](vsdata:ability/space-marines.combat-doctrines) for it. That doctrine stays active for the unit until your next [Command phase](vsdata:core-rule/command-phase) begins.",
+    "summary": "Use it in your Command phase. Pick 1 **ADEPTUS ASTARTES** unit of yours and the Assault Doctrine, Devastator Doctrine or Tactical Doctrine, even one already chosen this battle. Until your next Command phase starts, that doctrine applies to the unit replacing your army's active combat doctrine.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -62,34 +63,33 @@
           ]
         },
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "command",
-                "turn": "your"
-              }
-            ]
-          },
+          "detachment": "Gladius Task Force",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "command"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "Adeptus Astartes"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
             ]
           },
           "effects": [
             {
-              "action": "choose-and-activate-combat-doctrine",
-              "actor": "you",
-              "recipient": "target-unit",
-              "selectionCount": 1,
-              "options": "combat-doctrines",
-              "duration": {
-                "until": "start-of-your-next-command-phase"
-              }
+              "chooseOne": [
+                "Assault Doctrine",
+                "Devastator Doctrine",
+                "Tactical Doctrine"
+              ],
+              "activeFor": "target unit",
+              "replacesArmyActiveDoctrineForUnit": true,
+              "allowedEvenIfAlreadySelectedThisBattle": true
             }
-          ]
+          ],
+          "duration": "until-start-of-your-next-command-phase"
         }
       }
     }

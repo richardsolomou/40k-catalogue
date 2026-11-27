@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -18,63 +18,20 @@
       "id": "space-wolves.saga-of-the-beastslayer"
     },
     "cp": 1,
-    "stratagem": {
-      "phases": [
-        "fight"
-      ],
-      "turn": "opponent"
-    },
-    "parts": {
-      "when": "[Opponent's Fight phase](vsdata:core-rule/fight-phase), as it ends.",
-      "target": "A **WULFEN**, **BLOOD CLAWS** or **THUNDERWOLF CAVALRY** unit of yours that is **[unengaged](vsdata:core-rule/engagement-range)** and up to 9\" from at least 1 battlefield edge.",
-      "effect": "Place the unit into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**."
-    },
-    "summary": "**When:** [Opponent's Fight phase](vsdata:core-rule/fight-phase), as it ends.\n\n**Target:** A **WULFEN**, **BLOOD CLAWS** or **THUNDERWOLF CAVALRY** unit of yours that is **[unengaged](vsdata:core-rule/engagement-range)** and up to 9\" from at least 1 battlefield edge.\n\n**Effect:** Place the unit into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**.",
+    "summary": "Use it as the Fight phase of your opponent's turn ends. Pick 1 **SPACE WOLVES** unit of yours that lies wholly within 9\" of any battlefield edge and is outside **Engagement Range** of every enemy unit. Take it off the battlefield and put it into **Strategic Reserves**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
-        "stratagem": {
-          "limit": "phase",
-          "when": {
-            "at": "phase-end"
-          },
-          "target": {
-            "count": 1,
-            "side": "friendly",
-            "entity": "unit",
-            "anyOf": [
-              {
-                "keywords": [
-                  "BLOOD CLAWS"
-                ]
-              },
-              {
-                "keywords": [
-                  "THUNDERWOLF CAVALRY"
-                ]
-              },
-              {
-                "keywords": [
-                  "WULFEN"
-                ]
-              }
-            ],
-            "conditions": [
-              "unengaged"
-            ],
-            "more": true
-          }
-        },
         "reminder": {
           "timings": [
             {
@@ -84,41 +41,40 @@
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "strategic-reserves"
-          }
-        ],
         "detail": {
           "detachment": "Saga of the Beastslayer",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "opponent"
-              }
-            ],
-            "event": "end-of-phase"
-          },
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "fight",
+              "timing": "end-of-phase"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "count": 1,
             "side": "friendly",
-            "keywordsAny": [
+            "count": 1,
+            "keywordsAll": [
+              "SPACE WOLVES"
+            ],
+            "whollyWithinInchesOfBattlefieldEdge": 9,
+            "notWithinEngagementRangeOfEnemy": true
+          },
+          "effects": [
+            {
+              "removeFromBattlefield": true,
+              "placeInStrategicReserves": true
+            }
+          ],
+          "duration": "instant",
+          "cardPrintsNewerText": {
+            "targetKeywordsAny": [
               "BLOOD CLAWS",
               "THUNDERWOLF CAVALRY",
               "WULFEN"
             ],
-            "mustBe": "unengaged",
             "withinInchesOfBattlefieldEdge": 9
-          },
-          "effects": [
-            {
-              "kind": "place-into-strategic-reserves"
-            }
-          ],
-          "restrictions": []
+          }
         }
       }
     }

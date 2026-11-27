@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -25,19 +25,14 @@
       "turn": "opponent",
       "type": "battle-tactic"
     },
-    "parts": {
-      "when": "[Opponent's Charge phase](vsdata:core-rule/charge-phase), after an enemy unit finishes a [Charge move](vsdata:core-rule/charge-move).",
-      "target": "A **RUBRIC MARINES** unit of yours in [Engagement Range](vsdata:core-rule/engagement-range) of the charging unit.",
-      "effect": "Attacks against the unit whose S exceeds its T get -1 to [Wound](vsdata:core-rule/wound-rolls) for the rest of the turn."
-    },
-    "summary": "**When:** [Opponent's Charge phase](vsdata:core-rule/charge-phase), after an enemy unit finishes a [Charge move](vsdata:core-rule/charge-move).\n\n**Target:** A **RUBRIC MARINES** unit of yours in [Engagement Range](vsdata:core-rule/engagement-range) of the charging unit.\n\n**Effect:** Attacks against the unit whose S exceeds its T get -1 to [Wound](vsdata:core-rule/wound-rolls) for the rest of the turn.",
+    "summary": "Use it in your opponent's Charge phase, right after an enemy unit finishes a **Charge move**. Pick 1 **RUBRIC MARINES** unit of yours in **Engagement Range** of the charging unit. Until the turn ends, attacks against your unit get -1 to the **Wound roll**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -91,7 +86,6 @@
                         "ranged",
                         "melee"
                       ],
-                      "condition": "stronger",
                       "rolls": {
                         "woundModifier": -1
                       }
@@ -114,7 +108,6 @@
                       "attacks": [
                         "ranged"
                       ],
-                      "condition": "stronger",
                       "rolls": {
                         "woundModifier": -1
                       }
@@ -137,7 +130,6 @@
                       "attacks": [
                         "melee"
                       ],
-                      "condition": "stronger",
                       "rolls": {
                         "woundModifier": -1
                       }
@@ -200,17 +192,12 @@
           }
         },
         "detail": {
-          "detachment": "Rubricae Phalanx",
           "type": "Battle Tactic",
-          "windows": [
-            {
-              "turn": "opponent",
-              "phase": "charge"
-            }
-          ],
-          "trigger": {
-            "event": "enemy-unit-ends-charge-move",
-            "timing": "just-after"
+          "detachment": "Rubricae Phalanx",
+          "window": {
+            "turn": "opponent",
+            "phase": "charge",
+            "timing": "just after an enemy unit ends a Charge move"
           },
           "target": {
             "side": "friendly",
@@ -218,17 +205,17 @@
             "keywordsAll": [
               "RUBRIC MARINES"
             ],
-            "withinEngagementRangeOf": "triggering-enemy-unit"
+            "withinEngagementRangeOf": "that enemy unit"
           },
-          "effects": [
-            {
-              "attacks": "targeting-target-unit",
-              "condition": "attack Strength greater than target Toughness",
-              "roll": "wound",
-              "delta": -1
-            }
-          ],
-          "duration": "end-of-turn"
+          "effect": {
+            "appliesTo": "attacks that target your unit",
+            "roll": "wound",
+            "subtract": 1
+          },
+          "duration": "end-of-turn",
+          "cardPrintsOtherText": {
+            "onlyIfAttackStrengthExceedsToughness": true
+          }
         }
       }
     }

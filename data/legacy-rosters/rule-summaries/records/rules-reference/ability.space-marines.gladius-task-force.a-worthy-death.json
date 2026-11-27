@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -17,101 +17,57 @@
       "kind": "detachment",
       "id": "space-marines.gladius-task-force"
     },
-    "cp": 1,
-    "stratagem": {
-      "phases": [
-        "fight"
-      ],
-      "turn": "any"
-    },
-    "summary": "Use it in either player's [Fight phase](vsdata:core-rule/fight-phase), as an enemy unit selects an **ADEPTUS ASTARTES** unit of yours as a target.\n\nEach time 1 of its models is **destroyed** before your unit is **selected to fight** in this phase, roll a D6. On a 4+, leave the model on the battlefield until the phase ends or your unit has fought, whichever comes first, then remove it.",
+    "cp": 2,
+    "summary": "Use it in either player's Fight phase, right after an enemy unit selects its targets. Pick 1 of your **ADEPTUS ASTARTES** units it targeted. Until the phase ends, whenever a model of that unit is **destroyed** before it has fought this phase, the model:\n\n1. stays on the battlefield\n2. may fight, but only after the attacking unit is done attacking\n3. is removed afterwards",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
-        "stratagem": {
-          "limit": "phase",
-          "when": {
-            "at": "phase",
-            "after": "enemy-selected-targets"
-          },
-          "target": {
-            "triggering": true,
-            "entity": "unit",
-            "keywords": [
-              "ADEPTUS ASTARTES"
-            ]
-          }
-        },
-        "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "fight",
-              "turn": "any"
-            }
-          ]
-        },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "inflict-damage.destroyed"
-          }
-        ],
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "either"
-              }
-            ],
-            "event": "enemy-targets-friendly-unit",
-            "actor": "enemy-unit",
-            "recipient": "target-unit"
+          "detachment": "Gladius Task Force",
+          "type": "Epic Deed",
+          "window": {
+            "turn": "either",
+            "phase": "fight",
+            "timing": "just after an enemy unit has selected its targets"
           },
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "mode": "trigger-unit",
-            "keywords": [
-              "Adeptus Astartes"
-            ]
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "targetedByThatEnemyUnit": true
           },
           "effects": [
             {
-              "kind": "delay-destroyed-model-removal",
-              "recipient": "model-in-target-unit",
-              "trigger": {
-                "event": "model-destroyed",
-                "targetUnitSelection": "not-selected-to-fight-this-phase"
-              },
-              "roll": {
-                "die": "D6",
-                "sides": 6,
-                "count": 1,
-                "success": {
-                  "atLeast": 4
-                }
-              },
-              "duration": {
-                "untilFirst": [
-                  "target-unit-finishes-fighting",
-                  "current-phase-ends"
-                ]
-              }
+              "trigger": "a model in your unit is destroyed",
+              "condition": "that model has not fought this phase",
+              "effect": "not removed from play",
+              "then": "it can fight after the attacking unit has finished its attacks, then it is removed from play"
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "name": "A Worthy Death",
+            "cpCost": 1,
+            "trigger": "an enemy unit targets that unit",
+            "condition": "your unit has yet to be chosen to fight this phase",
+            "roll": {
+              "dice": "D6",
+              "success": "4+"
+            },
+            "removal": "when your unit has fought or the phase ends, whichever comes first"
+          }
         }
       }
     }

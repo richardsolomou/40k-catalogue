@@ -7,342 +7,142 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "detachment-rule",
-    "group": "Vow-sworn Crusaders",
-    "summary": "As [battle round 1](vsdata:core-rule/start-of-battle-round) begins, you can pick 1 **Vow** from those below. It is active for your **ADEPTUS ASTARTES** units for the rest of the battle.\n\n**Abhor the Witch, Destroy the Witch**: the unit's melee attacks against a **PSYKER** unit get **[[PRECISION]](vsdata:weapon-ability/precision)** and **[[LANCE]](vsdata:weapon-ability/lance)**.\n\n**Accept Any Challenge, No Matter the Odds**: the unit's melee attacks get +1 to [Wound](vsdata:core-rule/wound-rolls) against a target whose T is higher than the attack's S.\n\n**Uphold the Honour of the Emperor**: if the unit is **INFANTRY**, it gets both of these:\n\n- as [your Movement phase](vsdata:core-rule/movement-phase) ends, an [objective](vsdata:core-rule/objectives) it controls becomes **[secured](vsdata:core-rule/secured-objectives)**\n- it can still [start an action](vsdata:core-rule/performing-actions) after making an **[advance move](vsdata:core-rule/advance-move)**\n\nYour army can contain **BLACK TEMPLARS** units, and no **ADEPTUS ASTARTES** units of any other Chapter.",
+    "group": "Companions of Vehemence",
+    "summary": "With **ADEPTUS ASTARTES** as your Army Faction, choose one Vow as the first battle round starts. It is active for your **ADEPTUS ASTARTES** units, and each of them gains that Vow's ability:\n\n- **Abhor the Witch, Destroy the Witch**: the unit's melee attacks get **[[PRECISION]](vsdata:weapon-ability/precision)** against **PSYKER** units; when it declares a charge with an enemy **PSYKER** unit within 12\", you may let it re-roll the **charge roll**, but the charge must then end **engaged** with at least one of those **PSYKER** enemies.\n- **Accept any Challenge, no Matter the Odds**: each melee attack by its models with Strength no higher than the target's Toughness gets +1 to its **Wound roll**.\n- **Suffer Not the Unclean to Live**: the unit can declare a charge after Falling Back that turn, and its Pile-in and **Consolidation moves** need not end nearer the nearest enemy model, provided each ends as near as possible to the nearest enemy unit.\n- **Uphold the Honour of the Emperor** (**INFANTRY** units only): as your Command phase ends, a marker you control that the unit is in range of stays yours until a phase ends with the opponent's **Level of Control** over it higher than yours; in missions that use Actions, the unit may start one even after Advancing that turn.\n\nNo end is given for how long the chosen Vow stays active.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
-        "reminder": {
-          "timings": [
-            {
-              "at": "round-start",
-              "turn": "any",
-              "firstRoundOnly": true
+        "detail": {
+          "armyRule": {
+            "faction": "Black Templars",
+            "condition": {
+              "armyFaction": "ADEPTUS ASTARTES"
             },
-            {
-              "at": "phase-end",
-              "phase": "movement",
-              "turn": "own"
-            }
-          ]
-        },
-        "combat": {
-          "applies": {
-            "target": {
-              "anyOf": [
-                [
-                  "ADEPTUS ASTARTES"
-                ]
+            "timing": "start of the first battle round",
+            "select": {
+              "count": 1,
+              "of": "Vow"
+            },
+            "appliesTo": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES"
               ]
             },
-            "reachesAttached": true
-          },
-          "readings": [
-            {
-              "choices": [
-                {
-                  "option": "Abhor the Witch, Destroy the Witch",
-                  "armyWide": true,
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "targetKeywords": [
+            "duration": "not printed",
+            "vows": [
+              {
+                "name": "Abhor the Witch, Destroy the Witch",
+                "effects": [
+                  {
+                    "attackType": "melee",
+                    "targetKeywordsAll": [
+                      "PSYKER"
+                    ],
+                    "weaponAbility": "PRECISION"
+                  },
+                  {
+                    "trigger": "this unit declares a charge",
+                    "condition": {
+                      "enemyKeywordsAll": [
                         "PSYKER"
                       ],
-                      "weaponAbility": "LANCE"
-                    }
-                  ]
-                },
-                {
-                  "option": "Accept Any Challenge, No Matter the Odds",
-                  "armyWide": true,
-                  "conditions": [
-                    {
-                      "kind": "option"
+                      "withinInches": 12
                     },
-                    {
-                      "kind": "target-tougher"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "rolls": {
-                        "woundModifier": 1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "shown": {
-                "choices": [
-                  {
-                    "option": "Abhor the Witch, Destroy the Witch",
-                    "armyWide": true,
-                    "conditions": [
-                      {
-                        "kind": "option"
-                      }
-                    ],
-                    "effects": [
-                      {
-                        "role": "attacker",
-                        "attacks": [
-                          "melee"
-                        ],
-                        "targetKeywords": [
-                          "PSYKER"
-                        ],
-                        "weaponAbility": "LANCE"
-                      }
-                    ]
-                  },
-                  {
-                    "option": "Accept Any Challenge, No Matter the Odds",
-                    "armyWide": true,
-                    "conditions": [
-                      {
-                        "kind": "option"
-                      },
-                      {
-                        "kind": "target-tougher"
-                      }
-                    ],
-                    "effects": [
-                      {
-                        "role": "attacker",
-                        "attacks": [
-                          "melee"
-                        ],
-                        "rolls": {
-                          "woundModifier": 1
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "option": "Uphold the Honour of the Emperor",
-                    "armyWide": true,
-                    "conditions": [
-                      {
-                        "kind": "option"
-                      }
-                    ],
-                    "effects": []
+                    "optional": true,
+                    "reroll": "charge roll",
+                    "requirement": "the charge move must end engaged with at least one of those enemy PSYKER units"
                   }
-                ],
-                "default": 0
-              },
-              "roles": [
-                "attacker"
-              ]
-            }
-          ],
-          "trees": [
-            [
-              {
-                "reading": 0
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 0,
-            "own.many.known": 0,
-            "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
-            "aura.one.known": 0,
-            "aura.one.unknown": 0,
-            "aura.many.known": 0,
-            "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 0,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 0,
-            "stratagem-fight.one.known": 0,
-            "stratagem-fight.one.unknown": 0,
-            "stratagem-fight.many.known": 0,
-            "stratagem-fight.many.unknown": 0,
-            "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 0,
-            "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 0,
-            "army.one.known": 0,
-            "army.one.unknown": 0,
-            "army.many.known": 0,
-            "army.many.unknown": 0
-          }
-        },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "advance-move"
-          },
-          {
-            "kind": "weapon-ability",
-            "id": "lance"
-          },
-          {
-            "kind": "weapon-ability",
-            "id": "precision"
-          }
-        ],
-        "detail": {
-          "scope": {
-            "factionId": "28162de0-fd36-450b-87ee-39e973ead32d",
-            "faction": "Black Templars",
-            "detachmentId": "ced4cd04-74b5-4341-a7c8-5da07b5b5620",
-            "detachment": "Vow-sworn Crusaders",
-            "uniqueTags": [],
-            "sourceId": "ced4cd04-74b5-4341-a7c8-5da07b5b5620:templar-vows",
-            "cardType": "detachmentRule",
-            "cardEdition": "40k-11e"
-          },
-          "trigger": {
-            "event": "battle-round-started",
-            "round": 1
-          },
-          "selection": {
-            "count": 1,
-            "optional": true
-          },
-          "target": {
-            "owner": "friendly",
-            "level": "unit",
-            "allOf": [
-              "Adeptus Astartes"
-            ]
-          },
-          "expires": {
-            "event": "battle-ended"
-          },
-          "options": [
-            {
-              "name": "Abhor the Witch, Destroy the Witch",
-              "condition": {
-                "attackType": "melee",
-                "target": {
-                  "level": "unit",
-                  "allOf": [
-                    "PSYKER"
-                  ]
-                }
-              },
-              "effects": [
-                {
-                  "type": "weapon-ability-grant",
-                  "keyword": "precision",
-                  "attackType": "melee"
-                },
-                {
-                  "type": "weapon-ability-grant",
-                  "keyword": "lance",
-                  "attackType": "melee"
-                }
-              ]
-            },
-            {
-              "name": "Accept Any Challenge, No Matter the Odds",
-              "condition": {
-                "attackType": "melee",
-                "compare": {
-                  "targetStat": "toughness",
-                  "attackStat": "strength",
-                  "kind": "greater-than"
-                }
-              },
-              "effect": {
-                "type": "roll-modifier",
-                "roll": "wound",
-                "operation": "add",
-                "value": 1
-              }
-            },
-            {
-              "name": "Uphold the Honour of the Emperor",
-              "bearer": {
-                "owner": "friendly",
-                "level": "unit",
-                "allOf": [
-                  "Adeptus Astartes",
-                  "Infantry"
                 ]
               },
-              "effects": [
-                {
-                  "type": "secure-objective",
-                  "trigger": {
-                    "event": "phase-ended",
-                    "phase": "movement",
-                    "owner": "self"
+              {
+                "name": "Accept any Challenge, no Matter the Odds",
+                "effects": [
+                  {
+                    "attackType": "melee",
+                    "condition": "attack Strength is less than or equal to target Toughness",
+                    "roll": "wound",
+                    "delta": 1
+                  }
+                ]
+              },
+              {
+                "name": "Suffer Not the Unclean to Live",
+                "effects": [
+                  {
+                    "mayDeclareChargeInTurnItFellBack": true
                   },
-                  "objective": {
-                    "controlledBy": "bearer-unit"
+                  {
+                    "moves": [
+                      "Pile-in",
+                      "Consolidation"
+                    ],
+                    "needNotEndCloserToClosestEnemyModel": true,
+                    "condition": "ends as close as possible to the closest enemy unit"
                   }
+                ]
+              },
+              {
+                "name": "Uphold the Honour of the Emperor",
+                "eligibility": {
+                  "keywordsAll": [
+                    "INFANTRY"
+                  ]
                 },
-                {
-                  "type": "eligibility-exception",
-                  "action": "start-action",
-                  "ignores": "triggering-move-only",
-                  "trigger": {
-                    "event": "selected-to-move",
-                    "moveTypes": [
-                      "advance"
-                    ]
+                "effects": [
+                  {
+                    "timing": "end of your Command phase",
+                    "condition": "this unit is in range of an objective marker you control",
+                    "effect": "that objective marker remains yours until the opponent's Level of Control over it exceeds yours at the end of a phase"
+                  },
+                  {
+                    "condition": "the mission features Actions",
+                    "effect": "eligible to start an Action in a turn in which it Advanced"
                   }
-                }
-              ]
-            }
+                ]
+              }
+            ]
+          },
+          "openQuestions": [
+            "The rule names no end for the chosen Vow."
           ],
-          "roster": {
-            "type": "roster-restriction",
-            "permits": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Black Templars"
+          "cardPrintsOtherText": {
+            "ruleType": "detachment rule",
+            "detachment": "Vow-sworn Crusaders",
+            "vowCount": 3,
+            "duration": "until the end of the battle",
+            "abhorTheWitch": {
+              "weaponAbilities": [
+                "PRECISION",
+                "LANCE"
               ]
             },
-            "excludes": {
-              "owner": "friendly",
-              "level": "unit",
-              "allOf": [
-                "Adeptus Astartes"
-              ],
-              "chapter": {
-                "otherThan": "Black Templars"
-              }
-            }
+            "acceptAnyChallenge": {
+              "condition": "target Toughness greater than this unit's Strength",
+              "roll": "wound",
+              "delta": 1
+            },
+            "upholdTheHonour": {
+              "timing": "end of your Movement phase",
+              "effect": "objective secured",
+              "advanceDoesNotPreventStartingAction": true
+            },
+            "restriction": "BLACK TEMPLARS units allowed; no ADEPTUS ASTARTES units drawn from any other Chapter"
           }
         }
       }

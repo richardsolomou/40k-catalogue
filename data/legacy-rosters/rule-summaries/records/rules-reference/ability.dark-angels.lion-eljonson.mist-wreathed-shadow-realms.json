@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Lion El'Jonson",
-    "summary": "The Lion can send his **[unengaged](vsdata:core-rule/engagement-range)** unit into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)** in your Command phase. The unit can still make an **[ingress move](vsdata:core-rule/ingress-move)** during the [Movement phase](vsdata:core-rule/movement-phase) of that turn.",
+    "summary": "During your Command phase, if it is **[unengaged](vsdata:core-rule/engagement-range)**, this unit may use this ability to go into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**. It may then use an **[ingress move](vsdata:core-rule/ingress-move)** during your next [Movement phase](vsdata:core-rule/movement-phase), even if that falls in your first turn.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -52,17 +52,26 @@
           }
         ],
         "detail": {
-          "trigger": "own-command-phase",
-          "condition": "owning-unit-unengaged",
-          "optional": true,
-          "effects": [
+          "owner": "Lion El'Jonson",
+          "clauses": [
             {
-              "kind": "place-owning-unit-in-strategic-reserves"
-            },
-            {
-              "phase": "own-movement-phase",
-              "turn": "same-turn",
-              "kind": "permit-ingress-move"
+              "trigger": {
+                "turn": "own",
+                "phase": "command"
+              },
+              "condition": {
+                "thisUnitUnengaged": true
+              },
+              "optional": true,
+              "effects": [
+                "place this unit in strategic reserves",
+                {
+                  "allowIngressMove": {
+                    "phase": "your next Movement phase",
+                    "includingFirstTurn": true
+                  }
+                }
+              ]
             }
           ]
         }

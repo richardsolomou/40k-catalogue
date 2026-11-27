@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Kor’sarro Khan",
-    "summary": "For this unit, **[[ASSAULT]](vsdata:weapon-ability/assault)** applies to ranged attacks and **[[LANCE]](vsdata:weapon-ability/lance)** applies in melee.",
+    "summary": "As long as this model leads a unit, that unit's models have **[[ASSAULT]](vsdata:weapon-ability/assault)** on their ranged weapons and **[[LANCE]](vsdata:weapon-ability/lance)** on their melee weapons.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -29,9 +29,62 @@
       "fields": {
         "combat": {
           "applies": {
+            "leading": true,
             "reachesAttached": true
           },
           "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "leading"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "LANCE"
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "conditions": [
+                      {
+                        "kind": "leading"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "weaponAbility": "ASSAULT"
+                      },
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "weaponAbility": "LANCE"
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker"
+              ]
+            },
             {
               "choices": [
                 {
@@ -82,6 +135,11 @@
               {
                 "reading": 0
               }
+            ],
+            [
+              {
+                "reading": 1
+              }
             ]
           ],
           "contexts": {
@@ -89,10 +147,10 @@
             "own.one.unknown": 0,
             "own.many.known": 0,
             "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
+            "leading.one.known": 1,
+            "leading.one.unknown": 1,
+            "leading.many.known": 1,
+            "leading.many.unknown": 1,
             "aura.one.known": 0,
             "aura.one.unknown": 0,
             "aura.many.known": 0,
@@ -126,17 +184,19 @@
           }
         ],
         "detail": {
-          "actor": "datasheet-unit",
-          "effects": [
-            {
-              "attackKind": "ranged",
-              "grant": "ASSAULT"
-            },
-            {
-              "attackKind": "melee",
-              "grant": "LANCE"
-            }
-          ]
+          "ability": {
+            "condition": "this model is leading a unit",
+            "effects": [
+              {
+                "weapons": "ranged weapons of models in the led unit",
+                "grantWeaponAbility": "ASSAULT"
+              },
+              {
+                "weapons": "melee weapons of models in the led unit",
+                "grantWeaponAbility": "LANCE"
+              }
+            ]
+          }
         }
       }
     }

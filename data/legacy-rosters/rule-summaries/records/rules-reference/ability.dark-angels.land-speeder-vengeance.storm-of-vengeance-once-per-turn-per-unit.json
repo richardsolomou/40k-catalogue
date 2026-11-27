@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Land Speeder Vengeance",
-    "summary": "Once per turn, if attacks an enemy unit makes in your opponent's Shooting phase destroy a **DARK ANGELS** unit of yours up to 6\" from this unit, then after that enemy unit has finished shooting, this unit can shoot with **[Normal Shooting](vsdata:core-rule/normal-shooting)**, targeting only that enemy unit.",
+    "summary": "Once per turn, during your opponent's Shooting phase, if another **ADEPTUS ASTARTES** unit of yours is **destroyed** within 6\" of one or more models in your army that have this ability, one of those models may use it. If one does:\n\n- after all of the attacking unit's attacks are made, that model may shoot as though in your Shooting phase\n- it can target only the attacking unit, and only if that unit is an eligible target",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -36,43 +36,43 @@
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "inflict-damage.destroyed"
-          },
-          {
-            "kind": "core-rule",
-            "id": "normal-shooting"
-          }
-        ],
         "detail": {
           "ability": {
-            "usageLimit": {
+            "limit": {
               "count": 1,
               "period": "turn",
-              "scope": "unit"
+              "scope": "one model with this ability in your army"
             },
-            "when": {
+            "trigger": {
               "turn": "opponent",
               "phase": "shooting",
-              "trigger": "after an enemy unit has shot"
+              "event": "another friendly unit is destroyed",
+              "destroyedUnitKeywordsAll": [
+                "ADEPTUS ASTARTES"
+              ],
+              "withinInches": 6,
+              "of": "this model"
             },
-            "condition": {
-              "thoseAttacksDestroyed": {
-                "side": "friendly",
-                "keywordsAll": [
-                  "DARK ANGELS"
-                ],
-                "withinInches": 6,
-                "of": "this unit"
-              }
-            },
-            "optional": true,
+            "timing": "after the attacking unit has finished making its attacks",
             "effect": {
-              "shoot": "normal shooting",
-              "onlyTarget": "that enemy unit"
+              "shoot": "as if it were your Shooting phase",
+              "targetRestriction": "only the attacking enemy unit, provided it is an eligible target"
             }
+          },
+          "cardPrintsOtherText": {
+            "name": "Storm of Vengeance (Once per turn, per unit)",
+            "limit": {
+              "count": 1,
+              "period": "turn",
+              "scope": "per unit"
+            },
+            "destroyedUnitKeywordsAll": [
+              "DARK ANGELS"
+            ],
+            "withinInches": 6,
+            "of": "this unit",
+            "destroyedBy": "the enemy unit's shooting",
+            "shooter": "this unit, using normal shooting"
           }
         }
       }

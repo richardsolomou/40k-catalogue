@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,23 +15,24 @@
     "group": "Shadowmark Talon",
     "detachment": {
       "kind": "detachment",
-      "id": "raven-guard.shadowmark-talon"
+      "id": "space-marines.shadowmark-talon"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "fight"
       ],
-      "turn": "any"
+      "turn": "any",
+      "type": "battle-tactic"
     },
-    "summary": "When **selected to fight** in either player’s [Fight phase](vsdata:core-rule/fight-phase), the **ADEPTUS ASTARTES INFANTRY** unit gains **[[PRECISION]](vsdata:weapon-ability/precision)** on its melee attacks.",
+    "summary": "Use it in either player's Fight phase, picking an **ADEPTUS ASTARTES INFANTRY** unit of yours that has not yet been chosen to fight this phase. For the rest of the phase, its models' melee weapons have **[[PRECISION]](vsdata:weapon-ability/precision)**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -41,11 +42,19 @@
         "stratagem": {
           "limit": "phase",
           "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-fight"
+            "at": "phase"
           },
           "target": {
-            "unresolved": "not typed yet; see the summary"
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "not-selected-to-fight"
+            ]
           }
         },
         "reminder": {
@@ -147,30 +156,29 @@
           }
         ],
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight"
-            ],
-            "event": "friendly-selected-to-fight",
-            "window": {
-              "fight": "either"
+          "detachment": "Shadowmark Talon",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes Infantry"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "notSelectedToFightThisPhase": true
           },
           "effects": [
             {
-              "kind": "grant-ability",
-              "subject": "selected-unit-melee-attacks",
-              "ability": "precision"
+              "weapons": "melee weapons of models in the target unit",
+              "grantWeaponAbility": "PRECISION"
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

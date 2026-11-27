@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -22,21 +22,17 @@
       "phases": [
         "command"
       ],
-      "turn": "any"
+      "turn": "any",
+      "type": "strategic-ploy"
     },
-    "parts": {
-      "when": "[Either player's Command phase](vsdata:core-rule/command-phase).",
-      "target": "An **ADEPTUS ASTARTES** unit of yours in range of at least 1 **[objective](vsdata:core-rule/objectives)**.",
-      "effect": "The unit gets +1 OC for the rest of the turn."
-    },
-    "summary": "**When:** [Either player's Command phase](vsdata:core-rule/command-phase).\n\n**Target:** An **ADEPTUS ASTARTES** unit of yours in range of at least 1 **[objective](vsdata:core-rule/objectives)**.\n\n**Effect:** The unit gets +1 OC for the rest of the turn.",
+    "summary": "Use it in either player's Command phase. Pick 1 **ADEPTUS ASTARTES** unit of yours in **Engagement Range** of an enemy unit. Its models get:\n\n- +1 Objective Control until your next Command phase starts\n- +1 to **Hit rolls** for their attacks until the turn ends, if the unit is not **DEATHWING**, **RAVENWING** or **VEHICLE**",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -55,7 +51,9 @@
             "keywords": [
               "ADEPTUS ASTARTES"
             ],
-            "more": true
+            "conditions": [
+              "in-engagement-range"
+            ]
           }
         },
         "reminder": {
@@ -78,103 +76,12 @@
             }
           },
           "readings": [
-            {
-              "choices": [],
-              "default": 0,
-              "shown": {
-                "choices": [
-                  {
-                    "conditions": [],
-                    "effects": [
-                      {
-                        "role": "defender",
-                        "attacks": [
-                          "ranged",
-                          "melee"
-                        ],
-                        "unitStat": {
-                          "kind": "objective-control",
-                          "add": 1
-                        }
-                      }
-                    ]
-                  }
-                ],
-                "default": 1
-              },
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [],
-              "default": 0,
-              "shown": {
-                "choices": [
-                  {
-                    "conditions": [],
-                    "effects": [
-                      {
-                        "role": "defender",
-                        "attacks": [
-                          "ranged"
-                        ],
-                        "unitStat": {
-                          "kind": "objective-control",
-                          "add": 1
-                        }
-                      }
-                    ]
-                  }
-                ],
-                "default": 1
-              },
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [],
-              "default": 0,
-              "shown": {
-                "choices": [
-                  {
-                    "conditions": [],
-                    "effects": [
-                      {
-                        "role": "defender",
-                        "attacks": [
-                          "melee"
-                        ],
-                        "unitStat": {
-                          "kind": "objective-control",
-                          "add": 1
-                        }
-                      }
-                    ]
-                  }
-                ],
-                "default": 1
-              },
-              "roles": [
-                "defender"
-              ]
-            }
+            {}
           ],
           "trees": [
             [
               {
                 "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ],
-            [
-              {
-                "reading": 2
               }
             ]
           ],
@@ -191,14 +98,14 @@
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
             "stratagem-both.one.known": 0,
             "stratagem-both.one.unknown": 0,
             "stratagem-both.many.known": 0,
@@ -211,33 +118,45 @@
         },
         "detail": {
           "detachment": "Wrath of the Rock",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "command",
-                "turn": "either"
-              }
-            ],
-            "event": "phase-step"
-          },
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "either",
+              "phase": "command"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "count": 1,
             "side": "friendly",
+            "count": 1,
             "keywordsAll": [
               "ADEPTUS ASTARTES"
             ],
-            "withinRangeOf": "objective"
+            "withinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "kind": "characteristic-modifier",
+              "models": "target unit",
               "characteristic": "OC",
               "delta": 1,
-              "expires": "end-of-turn"
+              "duration": "until-start-of-your-next-command-phase"
+            },
+            {
+              "ifUnitKeywordsNone": [
+                "DEATHWING",
+                "RAVENWING",
+                "VEHICLE"
+              ],
+              "attacks": "target-unit-models",
+              "roll": "hit",
+              "delta": 1,
+              "duration": "end-of-turn"
             }
           ],
-          "restrictions": []
+          "cardPrintsNewerText": {
+            "target": "unit within range of an objective",
+            "ocDelta": 1,
+            "duration": "end-of-turn"
+          }
         }
       }
     }

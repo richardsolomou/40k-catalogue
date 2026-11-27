@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -22,21 +22,17 @@
       "phases": [
         "movement"
       ],
-      "turn": "own"
+      "turn": "own",
+      "type": "strategic-ploy"
     },
-    "parts": {
-      "when": "[Your Movement phase](vsdata:core-rule/movement-phase), as one of your **DEATHWING** units that has **[Deep Strike](vsdata:core-ability/deep-strike)** is picked for an **[ingress move](vsdata:core-rule/ingress-move)**.",
-      "target": "That **DEATHWING** unit.",
-      "effect": "The unit can be placed more than 6\" horizontally away from every enemy unit, rather than more than 8\". It cannot declare a charge for the rest of the turn."
-    },
-    "summary": "**When:** [Your Movement phase](vsdata:core-rule/movement-phase), as one of your **DEATHWING** units that has **[Deep Strike](vsdata:core-ability/deep-strike)** is picked for an **[ingress move](vsdata:core-rule/ingress-move)**.\n\n**Target:** That **DEATHWING** unit.\n\n**Effect:** The unit can be placed more than 6\" horizontally away from every enemy unit, rather than more than 8\". It cannot declare a charge for the rest of the turn.",
+    "summary": "Use it in your Movement phase. Pick 1 **DEATHWING** unit of yours arriving by **[Deep Strike](vsdata:core-ability/deep-strike)** this phase. It may be placed anywhere on the battlefield over 6\" horizontally from every enemy model, but cannot declare a charge until the turn ends.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -45,19 +41,20 @@
       "fields": {
         "stratagem": {
           "limit": "phase",
+          "restricted": true,
           "when": {
-            "at": "phase",
-            "after": {
-              "unresolved": "not typed yet; see the summary"
-            }
+            "at": "phase"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
               "DEATHWING"
             ],
-            "more": true
+            "conditions": [
+              "arriving-by-deep-strike"
+            ]
           }
         },
         "reminder": {
@@ -69,66 +66,34 @@
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-ability",
-            "id": "deep-strike"
-          },
-          {
-            "kind": "core-rule",
-            "id": "ingress-move"
-          }
-        ],
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "movement",
-                "turn": "your"
-              }
-            ],
-            "event": "selected-to-move",
-            "actor": "target-unit",
-            "move": "ingress"
+          "detachment": "Inner Circle Task Force",
+          "window": {
+            "turn": "own",
+            "phase": "movement"
           },
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "mode": "trigger-unit",
-            "keywords": [
-              "Deathwing"
+            "keywordsAll": [
+              "DEATHWING"
             ],
-            "ability": "Deep Strike"
+            "arrivingWith": "Deep Strike",
+            "thisPhase": true
           },
-          "effects": [
-            {
-              "kind": "replace-setup-separation",
-              "recipient": "target-unit",
-              "move": "ingress",
-              "optional": true,
-              "axis": "horizontal",
-              "against": "every-enemy-unit",
-              "previous": {
-                "amount": 8,
-                "unit": "inches",
-                "comparison": "greater-than"
-              },
-              "replacement": {
-                "amount": 6,
-                "unit": "inches",
-                "comparison": "greater-than"
-              }
-            },
-            {
-              "kind": "prohibit",
-              "recipient": "target-unit",
-              "action": "declare-charge",
-              "duration": {
-                "until": "end-of-this-turn"
-              }
-            }
-          ]
+          "effect": {
+            "setUpAnywhere": true,
+            "moreThanInchesHorizontally": 6,
+            "from": "all enemy models"
+          },
+          "restriction": {
+            "cannotDeclareCharge": true,
+            "duration": "end-of-turn"
+          },
+          "cardPrintsOtherText": {
+            "replacesInches": 8,
+            "measuredFrom": "all enemy units"
+          }
         }
       }
     }

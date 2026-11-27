@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,23 +15,24 @@
     "group": "Spearpoint Task Force",
     "detachment": {
       "kind": "detachment",
-      "id": "white-scars.spearpoint-task-force"
+      "id": "space-marines.spearpoint-task-force"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "fight"
       ],
-      "turn": "opponent"
+      "turn": "opponent",
+      "type": "strategic-ploy"
     },
-    "summary": "At the close of the opposing [Fight phase](vsdata:core-rule/fight-phase), choose a unit with the **ADEPTUS ASTARTES MOUNTED/SPEEDER** keyword. It must be **unengaged**. Transfer it to **[strategic reserves](vsdata:core-rule/strategic-reserves)**.",
+    "summary": "Use it as the opponent's Fight phase ends, picking an **ADEPTUS ASTARTES MOUNTED** or **ADEPTUS ASTARTES FLY VEHICLE** unit of yours that is not in **Engagement Range** of any enemy unit. Take it off the battlefield and put it into **Strategic Reserves**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -57,12 +58,13 @@
               {
                 "keywords": [
                   "ADEPTUS ASTARTES",
-                  "SPEEDER"
+                  "FLY",
+                  "VEHICLE"
                 ]
               }
             ],
             "conditions": [
-              "unengaged"
+              "not-in-engagement-range"
             ]
           }
         },
@@ -75,36 +77,28 @@
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "strategic-reserves"
-          }
-        ],
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "opponent",
-            "phases": [
-              "fight"
-            ],
-            "event": "phase-end",
-            "window": {
-              "fight": "opponent"
+          "detachment": "Spearpoint Task Force",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "fight",
+              "timing": "end-of-phase"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "unengaged": true,
-            "sourceKeywordLabel": "Adeptus Astartes Mounted/Speeder"
+            "keywordsAny": [
+              "ADEPTUS ASTARTES MOUNTED",
+              "ADEPTUS ASTARTES FLY VEHICLE"
+            ],
+            "notWithinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "kind": "place-in-strategic-reserves",
-              "subject": "selected-unit",
-              "optional": false,
-              "from": "battlefield"
+              "removeFromBattlefield": true,
+              "placeInto": "Strategic Reserves"
             }
           ]
         }

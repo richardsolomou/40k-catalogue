@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,23 +15,24 @@
     "group": "Blade of Ultramar",
     "detachment": {
       "kind": "detachment",
-      "id": "ultramarines.blade-of-ultramar"
+      "id": "space-marines.blade-of-ultramar"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "shooting"
       ],
-      "turn": "own"
+      "turn": "own",
+      "type": "battle-tactic"
     },
-    "summary": "When you nominate the **ADEPTUS ASTARTES** unit to shoot in your [Shooting phase](vsdata:core-rule/shooting-phase), its ranged attacks gain **[[IGNORES COVER]](vsdata:weapon-ability/ignores-cover)**.",
+    "summary": "Use it in your Shooting phase. Pick 1 **ADEPTUS ASTARTES** unit of yours not yet chosen to shoot this phase. Until the phase ends, its models' ranged weapons have **[[IGNORES COVER]](vsdata:weapon-ability/ignores-cover)**, and 1 better Armour Penetration too if the Devastator Doctrine applies to the unit.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -41,14 +42,17 @@
         "stratagem": {
           "limit": "phase",
           "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-shoot"
+            "at": "phase"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
               "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
             ]
           }
         },
@@ -83,6 +87,33 @@
                         "ranged"
                       ],
                       "weaponAbility": "IGNORES COVER"
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "kind": "stated",
+                      "label": "With the Devastator Doctrine"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "weaponAbility": "IGNORES COVER"
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "characteristic": {
+                        "name": "armour-penetration",
+                        "add": -1
+                      }
                     }
                   ]
                 }
@@ -147,30 +178,34 @@
           }
         ],
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "your",
-            "phases": [
-              "shooting"
-            ],
-            "event": "friendly-selected-to-shoot",
-            "window": {
-              "shooting": "your"
+          "detachment": "Blade of Ultramar",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes"
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "notSelectedToShootThisPhase": true
           },
           "effects": [
             {
-              "kind": "grant-ability",
-              "subject": "selected-unit-ranged-attacks",
-              "ability": "ignores-cover"
+              "weapons": "ranged weapons of models in the target unit",
+              "grantWeaponAbility": "IGNORES COVER"
+            },
+            {
+              "condition": "unit is under the Devastator Doctrine",
+              "weapons": "ranged weapons of models in the target unit",
+              "characteristic": "AP",
+              "improveBy": 1
             }
-          ]
+          ],
+          "duration": "end-of-phase"
         }
       }
     }

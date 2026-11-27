@@ -7,35 +7,26 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Corvus Blackstar",
-    "summary": "In [your Movement phase](vsdata:core-rule/movement-phase), after this unit finishes a **[Normal Move](vsdata:core-rule/normal-move)**, you can pick an enemy unit it passed over in that move and roll 6D6. That unit takes 1 **[mortal wound](vsdata:core-rule/mortal-wounds)** for each 4+.",
+    "summary": "Whenever this model finishes a **Normal move**, you may pick one enemy unit it crossed in the course of that move. Roll 6D6: each 5+ inflicts 1 **mortal wound** on the picked unit.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
-        "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "movement",
-              "turn": "own"
-            }
-          ]
-        },
         "combat": {
           "readings": [
             {
@@ -58,7 +49,7 @@
                         "rolls": 6,
                         "outcomes": [
                           {
-                            "min": 4,
+                            "min": 5,
                             "max": 6,
                             "damage": {
                               "dice": 0,
@@ -96,7 +87,7 @@
                         "rolls": 6,
                         "outcomes": [
                           {
-                            "min": 4,
+                            "min": 5,
                             "max": 6,
                             "damage": {
                               "dice": 0,
@@ -134,7 +125,7 @@
                         "rolls": 6,
                         "outcomes": [
                           {
-                            "min": 4,
+                            "min": 5,
                             "max": 6,
                             "damage": {
                               "dice": 0,
@@ -202,40 +193,25 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "normal-move"
-          }
-        ],
         "detail": {
-          "type": "flyover-mortal-wounds",
-          "trigger": {
-            "event": "move-completed",
-            "phase": "your-movement",
-            "moves": [
-              "normal"
-            ]
-          },
-          "actor": "this-unit",
-          "selection": {
-            "side": "enemy",
-            "entity": "unit",
-            "max": 1,
+          "ability": {
+            "trigger": "this model ends a Normal move",
             "optional": true,
-            "passedOverByActorDuringTriggeringMove": true
-          },
-          "dice": {
-            "count": 6,
-            "sides": 6
-          },
-          "threshold": {
-            "comparison": "at-least",
-            "value": 4
-          },
-          "damage": {
-            "recipient": "selected-unit",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "movedOverDuringThatMove": true
+            },
+            "roll": {
+              "dice": 6,
+              "die": "D6",
+              "successOn": "5+"
+            },
             "mortalWoundsPerSuccess": 1
+          },
+          "cardPrintsOtherText": {
+            "onlyInYourMovementPhase": true,
+            "successOn": "4+"
           }
         }
       }

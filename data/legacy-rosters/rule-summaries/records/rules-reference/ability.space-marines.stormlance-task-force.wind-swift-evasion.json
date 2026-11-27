@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -20,18 +20,19 @@
     "cp": 1,
     "stratagem": {
       "phases": [
-        "fight"
+        "movement"
       ],
-      "turn": "any"
+      "turn": "opponent",
+      "type": "strategic-ploy"
     },
-    "summary": "Use it as the [Fight phase](vsdata:core-rule/fight-phase) ends. Pick 1 **ADEPTUS ASTARTES MOUNTED** unit of yours that has been **eligible to fight** in this phase. If it is **unengaged**, it may make a **[Normal move](vsdata:core-rule/normal-move)**; if it is **engaged**, it may make a **[Fall Back move](vsdata:core-rule/fall-back)** instead.",
+    "summary": "Use it in your opponent's Movement phase, right after an enemy unit finishes a **Normal move**, Advance or Fall Back. Pick 1 **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit of yours that:\n\n- has that enemy unit within 8\"\n- is outside **Engagement Range** of all enemy units\n\nIt may then move up to 6\" as a Normal move.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -40,16 +41,28 @@
       "fields": {
         "stratagem": {
           "limit": "phase",
+          "restricted": true,
           "when": {
-            "at": "phase-end"
+            "at": "phase",
+            "after": "enemy-ended-move"
           },
           "target": {
             "count": 1,
             "side": "friendly",
             "entity": "unit",
-            "keywords": [
-              "ADEPTUS ASTARTES",
-              "MOUNTED"
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              }
             ],
             "more": true
           }
@@ -57,53 +70,67 @@
         "reminder": {
           "timings": [
             {
-              "at": "phase-end",
-              "phase": "fight",
-              "turn": "any"
+              "at": "phase-start",
+              "phase": "movement",
+              "turn": "opponent"
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "fall-back"
-          },
-          {
-            "kind": "core-rule",
-            "id": "normal-move"
-          }
-        ],
         "detail": {
           "detachment": "Stormlance Task Force",
+          "type": "Strategic Ploy",
           "windows": [
             {
-              "turn": "either",
-              "phase": "fight",
-              "timing": "end-of-phase"
+              "turn": "opponent",
+              "phase": "movement"
             }
           ],
+          "trigger": {
+            "event": "enemy-unit-ends-move",
+            "moves": [
+              "normal",
+              "advance",
+              "fall-back"
+            ]
+          },
           "target": {
             "side": "friendly",
             "count": 1,
-            "keywordsAll": [
-              "ADEPTUS ASTARTES MOUNTED"
+            "keywordsAnyGroup": [
+              [
+                "ADEPTUS ASTARTES",
+                "INFANTRY"
+              ],
+              [
+                "ADEPTUS ASTARTES",
+                "MOUNTED"
+              ]
             ],
-            "wasEligibleToFightThisPhase": true
+            "withinInchesOfThatEnemyUnit": 8,
+            "notWithinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "ifUnengaged": {
-                "move": "normal",
-                "optional": true
-              }
-            },
-            {
-              "ifEngaged": {
-                "move": "fall-back",
-                "optional": true
-              }
+              "move": "normal",
+              "maxInches": 6,
+              "optional": true
             }
-          ]
+          ],
+          "duration": "instant",
+          "cardPrintsNewerText": {
+            "windows": [
+              {
+                "turn": "either",
+                "phase": "fight",
+                "timing": "end-of-phase"
+              }
+            ],
+            "target": "ADEPTUS ASTARTES MOUNTED unit eligible to fight this phase",
+            "effects": [
+              "normal move if unengaged",
+              "fall-back move if engaged"
+            ]
+          }
         }
       }
     }

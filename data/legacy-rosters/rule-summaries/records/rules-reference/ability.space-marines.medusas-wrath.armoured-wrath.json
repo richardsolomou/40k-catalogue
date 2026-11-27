@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "detachment-rule",
-    "group": "Medusa's Wrath",
-    "summary": "When you select an **ADEPTUS ASTARTES** unit of yours to shoot or fight, you may re-roll, for those attacks:\n\n- 1 **hit roll**, 1 **wound roll** and 1 **damage roll**, if the unit is no more than 6\" from a friendly **CANNOK VAR** or **IRON FATHER FEIRROS** unit.\n- Otherwise, just 1 of those 3 rolls.",
+    "group": "Ironstorm Spearhead",
+    "summary": "Each **ADEPTUS ASTARTES** unit of yours may, once in each phase, re-roll a single **Hit roll**, **Wound roll** or **Damage roll** made for one of its models.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -28,39 +28,83 @@
       "version": "1",
       "fields": {
         "combat": {
-          "unresolved": "The reading's numbered options carry no effects."
+          "applies": {
+            "reachesAttached": true
+          },
+          "readings": [
+            {}
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
         },
         "detail": {
-          "trigger": {
-            "recipientAllOf": [
-              "friendly",
-              "Adeptus Astartes"
-            ],
-            "selectedTo": [
-              "shoot",
-              "fight"
-            ],
-            "during": "resolution of that unit’s attacks"
-          },
-          "near": {
-            "anyFriendlyAnchor": [
-              "Cannok Var unit",
-              "Iron Father Feirros unit"
-            ],
-            "maxInches": 6,
-            "rerollsEach": {
-              "hit": 1,
-              "wound": 1,
-              "damage": 1
+          "detachmentRule": {
+            "detachment": "Ironstorm Spearhead",
+            "appliesTo": {
+              "side": "friendly",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES"
+              ]
+            },
+            "limit": {
+              "count": 1,
+              "per": "phase",
+              "for": "each unit"
+            },
+            "effect": {
+              "reroll": {
+                "count": 1,
+                "oneOf": [
+                  "hit",
+                  "wound",
+                  "damage"
+                ],
+                "rollsMadeFor": "a model in that unit"
+              }
             }
           },
-          "outside": {
-            "rerollsTotal": 1,
-            "chooseRollType": [
-              "hit",
-              "wound",
-              "damage"
-            ]
+          "cardPrintsOtherText": {
+            "detachment": "Medusa's Wrath",
+            "trigger": "unit selected to shoot or fight",
+            "nearUnit": "Cannok Var/Iron Father Feirros",
+            "withinInches": 6,
+            "nearEffect": "re-roll one hit, one wound and one damage roll",
+            "otherwiseEffect": "re-roll one of the three"
           }
         }
       }

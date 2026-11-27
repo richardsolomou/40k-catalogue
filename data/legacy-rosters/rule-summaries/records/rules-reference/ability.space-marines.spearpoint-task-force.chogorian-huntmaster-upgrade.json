@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,16 +15,16 @@
     "group": "Spearpoint Task Force",
     "detachment": {
       "kind": "detachment",
-      "id": "white-scars.spearpoint-task-force"
+      "id": "space-marines.spearpoint-task-force"
     },
-    "summary": "Bearer: **ADEPTUS ASTARTES MOUNTED** or **ADEPTUS ASTARTES SPEEDER** unit.\n\nWhen the unit is picked for an **[ingress move](vsdata:core-rule/ingress-move)**, it treats the battle round number as 1 higher than it is, for the rest of the phase.",
+    "summary": "For an **ADEPTUS ASTARTES MOUNTED** model. While the bearer's unit waits in **Strategic Reserves**, count the battle round as one higher than it really is for the purpose of setting that unit up on the battlefield.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -32,9 +32,8 @@
       "version": "1",
       "fields": {
         "enhancement": {
-          "type": "upgrade",
-          "points": 20,
-          "perRoster": 3,
+          "type": "model",
+          "points": 25,
           "eligibility": {
             "basis": "app-eligibility-rows",
             "anyOf": [
@@ -45,36 +44,25 @@
                 "factionKeywords": [
                   "ADEPTUS ASTARTES"
                 ]
-              },
-              {
-                "keywords": [
-                  "SPEEDER"
-                ],
-                "factionKeywords": [
-                  "ADEPTUS ASTARTES"
-                ]
               }
-            ],
-            "nonCharacters": true
+            ]
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "ingress-move"
-          }
-        ],
         "detail": {
           "kind": "enhancement",
           "detachment": "Spearpoint Task Force",
           "effects": [
             {
-              "trigger": "this unit is selected to make an ingress move",
-              "battleRoundTreatedAs": "current + 1",
-              "battleRoundDelta": 1,
-              "duration": "end-of-phase"
+              "condition": "bearer's unit is in Strategic Reserves",
+              "purpose": "setting up that unit on the battlefield",
+              "battleRoundCountsHigherBy": 1
             }
-          ]
+          ],
+          "cardPrintsOtherText": {
+            "eligibility": "ADEPTUS ASTARTES MOUNTED or SPEEDER unit",
+            "trigger": "unit selected to make an ingress move",
+            "pointsCost": 20
+          }
         }
       }
     }

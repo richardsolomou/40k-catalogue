@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -24,19 +24,14 @@
       ],
       "turn": "opponent"
     },
-    "parts": {
-      "when": "[Opponent's Shooting phase](vsdata:core-rule/shooting-phase), as an enemy unit targets one of your **SANGUINARY GUARD** units.",
-      "target": "That **SANGUINARY GUARD** unit.",
-      "effect": "The unit gets **[Stealth](vsdata:core-ability/stealth)** and -3\" detection range."
-    },
-    "summary": "**When:** [Opponent's Shooting phase](vsdata:core-rule/shooting-phase), as an enemy unit targets one of your **SANGUINARY GUARD** units.\n\n**Target:** That **SANGUINARY GUARD** unit.\n\n**Effect:** The unit gets **[Stealth](vsdata:core-ability/stealth)** and -3\" detection range.",
+    "summary": "Use it during the opponent's Shooting phase, as an enemy unit picks a **SANGUINARY GUARD** unit of yours as a target. That **SANGUINARY GUARD** unit gains the **[Stealth](vsdata:core-ability/stealth)** ability for the rest of that phase.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -56,6 +51,15 @@
               "SANGUINARY GUARD"
             ]
           }
+        },
+        "grants": {
+          "abilities": [
+            {
+              "ability": "Stealth",
+              "to": "unit",
+              "named": true
+            }
+          ]
         },
         "reminder": {
           "timings": [
@@ -155,43 +159,31 @@
           }
         ],
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "opponent"
-              }
-            ],
-            "event": "enemy-targets-friendly-unit",
-            "actor": "enemy-unit",
-            "recipient": "target-unit"
-          },
+          "detachment": "Encarmine Speartip",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting"
+            }
+          ],
+          "trigger": "an enemy unit targets a friendly SANGUINARY GUARD unit",
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "mode": "trigger-unit",
-            "keywords": [
-              "Sanguinary Guard"
-            ]
+            "keywordsAll": [
+              "SANGUINARY GUARD"
+            ],
+            "isTheTargetedUnit": true
           },
           "effects": [
             {
-              "kind": "unit-ability-grant",
-              "recipient": "target-unit",
-              "ability": "Stealth"
-            },
-            {
-              "kind": "modify",
-              "recipient": "target-unit",
-              "subject": "detection-range",
-              "operation": "subtract",
-              "amount": 3,
-              "unit": "inches"
+              "grantAbility": "Stealth"
             }
           ],
-          "duration": {
-            "explicit": false
+          "duration": "end-of-phase",
+          "durationBasis": "Core Rules 01.02.02: the official text prints no duration, so the effect lasts only for the phase it was applied in.",
+          "cardPrintsOtherText": {
+            "detectionRangeReductionInches": 3
           }
         }
       }

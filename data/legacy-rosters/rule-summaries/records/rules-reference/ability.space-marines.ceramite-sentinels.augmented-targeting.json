@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,34 +15,24 @@
     "group": "Ceramite Sentinels",
     "detachment": {
       "kind": "detachment",
-      "id": "imperial-fists.ceramite-sentinels"
+      "id": "space-marines.ceramite-sentinels"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
-        "shooting",
-        "fight"
+        "shooting"
       ],
-      "turn": "any",
-      "windows": [
-        {
-          "phase": "shooting",
-          "turn": "own"
-        },
-        {
-          "phase": "fight",
-          "turn": "any"
-        }
-      ]
+      "turn": "own",
+      "type": "battle-tactic"
     },
-    "summary": "Use it in your [Shooting phase](vsdata:core-rule/shooting-phase) or either player's [Fight phase](vsdata:core-rule/fight-phase), when an **ADEPTUS ASTARTES** unit of yours is **selected to attack**. The target is that unit.\n\nFor the rest of the phase, its attacks gain your choice of:\n\n- **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)**\n- **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)**\n- both **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)** and **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)**, if the unit is **entrenched**",
+    "summary": "Use it in your Shooting phase. Pick 1 **ADEPTUS ASTARTES** unit of yours not yet chosen to shoot this phase. Until the phase ends, its models' ranged weapons have:\n\n- your choice of **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)** or **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)**\n- both abilities instead, if the unit is Entrenched",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -52,14 +42,17 @@
         "stratagem": {
           "limit": "phase",
           "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-attack"
+            "at": "phase"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
               "ADEPTUS ASTARTES"
+            ],
+            "conditions": [
+              "not-selected-to-shoot"
             ]
           }
         },
@@ -69,22 +62,70 @@
               "at": "phase-start",
               "phase": "shooting",
               "turn": "own"
-            },
-            {
-              "at": "phase-start",
-              "phase": "fight",
-              "turn": "any"
             }
           ]
         },
         "combat": {
-          "unresolved": "An Or: bullet that changes what an effect gives is read as a numbered option with no effect."
+          "applies": {
+            "target": {
+              "anyOf": [
+                [
+                  "ADEPTUS ASTARTES"
+                ]
+              ]
+            }
+          },
+          "readings": [
+            {},
+            {
+              "choices": [],
+              "default": 0
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ],
+            [
+              {
+                "reading": 1
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 1,
+            "stratagem-fight.one.unknown": 1,
+            "stratagem-fight.many.known": 1,
+            "stratagem-fight.many.unknown": 1,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
         },
         "references": [
-          {
-            "kind": "core-rule",
-            "id": "select-weapons.selected-to-attack"
-          },
           {
             "kind": "weapon-ability",
             "id": "lethal-hits"
@@ -92,55 +133,62 @@
         ],
         "detail": {
           "detachment": "Ceramite Sentinels",
+          "type": "Battle Tactic",
           "windows": [
             {
               "turn": "own",
               "phase": "shooting"
-            },
-            {
-              "turn": "either",
-              "phase": "fight"
             }
           ],
-          "trigger": "friendly-unit-selected-to-attack",
           "target": {
             "side": "friendly",
             "count": 1,
             "keywordsAll": [
               "ADEPTUS ASTARTES"
             ],
-            "unitSelectedToAttack": true
+            "notSelectedToShootThisPhase": true
           },
           "effects": [
             {
-              "choose": "one",
-              "attacks": "target-unit",
-              "options": [
-                {
-                  "weaponAbility": "LETHAL HITS"
-                },
+              "weapons": "ranged",
+              "chooseOne": [
                 {
                   "weaponAbility": "SUSTAINED HITS",
                   "value": 1
+                },
+                {
+                  "weaponAbility": "LETHAL HITS"
                 }
               ]
             },
             {
-              "condition": "target-unit-entrenched",
-              "attacks": "target-unit",
-              "grantsAllInsteadOfChoice": [
-                {
-                  "weaponAbility": "LETHAL HITS"
-                },
+              "ifUnitStatus": "Entrenched",
+              "weapons": "ranged",
+              "insteadBoth": [
                 {
                   "weaponAbility": "SUSTAINED HITS",
                   "value": 1
+                },
+                {
+                  "weaponAbility": "LETHAL HITS"
                 }
               ]
             }
           ],
           "duration": "end-of-phase",
-          "durationBasis": "Core Rules 01.02.02: the card gives no duration, so the granted abilities last only for the phase in which the Stratagem is used."
+          "cardPrintsNewerText": {
+            "windows": [
+              {
+                "turn": "own",
+                "phase": "shooting"
+              },
+              {
+                "turn": "either",
+                "phase": "fight"
+              }
+            ],
+            "attacks": "all of the unit's attacks"
+          }
         }
       }
     }

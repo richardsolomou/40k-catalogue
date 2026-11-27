@@ -289,15 +289,15 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
         }
       }
     }
-    // Uniform options of several carriers: the ones that can take a choice and whose carriers did not all take a
-    // substitute take one choice together.
+    // Uniform options of several carriers take one choice together, leaving out one whose carriers are not fielded or
+    // took nothing but substitutes, as many as it allows (none where its maximum is 0).
     for (const group of unit.data.uniformOptions ?? []) {
       const members = group.flatMap((id) => options.filter((o) => o.id === id));
       const chosen = members.flatMap((option) => {
         const carriers = option.data.carrier ? (counts.get(option.data.carrier) ?? 0) : total;
         const substitutes = option.data.substitutes ?? [];
         const { max } = optionBounds(option, total, carriers);
-        if (!carriers || max === 0 || takenOf(option.id, substitutes) === max) return [];
+        if (!carriers || takenOf(option.id, substitutes) === max) return [];
         return [Object.entries(picked.options?.[option.id] ?? {}).filter(([w, n]) => n > 0 && !substitutes.includes(w)).map(([w]) => w)];
       });
       const choices = new Set(chosen.flat());

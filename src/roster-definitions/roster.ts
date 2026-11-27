@@ -342,12 +342,18 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
         if (kept && keeper.id !== enhancement.data.detachment && holdsAll(keywords, kept)) add("enhancement-exclusive", `${unit.name} takes only ${keeper.name} enhancements`);
       }
       if (entry >= 0 && !allies[entry]!.enhancements) add("ally-enhancement", `${unit.name} cannot take enhancements`);
-      const { all = [], none = [] } = enhancement.data.keywords ?? {};
-      // A model of the unit bears it: one fielded model whose keywords, the unit's and its own, it allows.
-      const bears = (held: string[]) => all.every((k) => held.includes(k)) && !none.some((k) => held.includes(k));
-      if (unit.data.enhancements === false || !fielded.some((m) => bears(m.keywords))) {
+      const { anyOf, excludedKeywords = [], requiredWargear, epicHeroes, nonCharacters, notWarlord } = enhancement.data.eligibility;
+      // A model of the unit bears it: one fielded model whose keywords, the unit's and its own, it allows, in any letter case.
+      const bears = (keywords: string[]) => {
+        const has = (k: string) => keywords.some((own) => own.toUpperCase() === k.toUpperCase());
+        if ((!nonCharacters && !has("CHARACTER")) || (!epicHeroes && has("EPIC HERO")) || excludedKeywords.some(has)) return false;
+        return anyOf.some((entry) => (!entry.unit || entry.unit === unit.id) && (entry.keywords ?? []).every(has));
+      };
+      const carries = !requiredWargear || requiredWargear.some((w) => (held.get(w) ?? 0) > 0);
+      if (unit.data.enhancements === false || !fielded.some((m) => bears(m.keywords)) || !carries) {
         add("enhancement-keywords", `${unit.name} cannot take ${enhancement.name}`);
       }
+      if (notWarlord && picked.warlord !== undefined) add("enhancement-keywords", `${enhancement.name} cannot be taken by the warlord's unit`);
       const copy = (enhancementCopies.get(enhancement.id) ?? 0) + 1;
       enhancementCopies.set(enhancement.id, copy);
       const most = enhancement.data.perRoster ?? 1;

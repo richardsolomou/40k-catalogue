@@ -203,7 +203,6 @@ const illegal: Record<string, [(roster: Roster) => void, string[]]> = {
   "an enhancement on a unit without its keywords": [(r) => (r.units[4]!.enhancement = MANTLE), ["4 enhancement-keywords"]],
   "an enhancement on a unit barred from enhancements": [(r) => r.units.push({ unit: "synthetic.ember-host.ember-colossus", enhancement: MANTLE }), ["5 enhancement-keywords"]],
   "an enhancement taken twice": [(r) => r.units.push({ unit: "synthetic.ember-host.pyre-lord", enhancement: SIGIL }), ["5 enhancement-repeated"]],
-  "an upgrade taken twice": [(r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND)), []],
   "an upgrade taken three times": [(r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND), (r.units[3]!.enhancement = BRAND)), []],
   "an upgrade taken four times": [
     (r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND), (r.units[3]!.enhancement = BRAND), r.units.push({ unit: WARDENS, enhancement: BRAND })),

@@ -102,9 +102,11 @@ Keyword values are written in capitals. A **selector** is a keyword, keywords pr
 
 **`reserves`**: `exempt: true` when this unit's points do not count towards the Strategic Reserves limit, and `exemptUnits` for the selectors of friendly units whose points do not.
 
-**`invulnerableSave`**: `{ "roll": n }`, an invulnerable save of n+ the rule gives; `keywords` when only models matching one of those selectors gain it, and `conditional: true` when a further condition only the summary gives applies.
+**`invulnerableSave`**: `{ "roll": n }`, an invulnerable save of n+ the rule gives; `against: "ranged"` or `against: "melee"` when it holds only against those attacks (a rule that gives one save against ranged and another against melee attacks states them as `combat` effects for each), `keywords` when only models matching one of those selectors gain it, and `conditional: true` when a further condition only the summary gives applies.
 
 **`upgradesWeapon`**: `true` for an Enhancement whose text ends by naming a weapon, whose profile the bearer gains or has in place of its own.
+
+**`givenWeapon`**: the weapon a rule gives its bearer, where its source prints the weapon's profile, beside `upgradesWeapon`, which a record with it always has: the `weapon` by name as printed, the weapon it `replaces` where the bearer has it in place of one of its own, and its `profiles`, one per mode, each with its own `mode` name where the weapon has several, and none where it has one. A profile states `range`, `attacks`, `skill`, `strength`, `armourPenetration`, `damage` and any `keywords` in the [weapon profile](datasheet-profiles.md#characteristics) forms, so dice are written there as a profile writes them (`D3+1`), not as an effect's dice.
 
 **`reminder`**: when a player acts on the rule. Each of `timings` gives `at` (`phase-start`, `phase-end`, `turn-start`, `turn-end`, `round-start` or `round-end`), the `phase` (`command`, `movement`, `shooting`, `charge`, `fight` or `any`) for a phase moment, the `turn` (`own`, `opponent` or `any`) and `firstRoundOnly`. `whileDestroyed: true` when the rule acts as its unit is destroyed.
 
@@ -148,8 +150,10 @@ An effect applies to one `role`, `attacker` or `defender`, for the `attacks` it 
 | --- | --- |
 | `weaponAbility` | A weapon ability the attacks gain. |
 | `weaponHas` | The effect applies only to weapons with this weapon ability. |
+| `weaponLacks` | The effect applies only to weapons without this weapon ability, never one the same effect names in `weaponHas`, `weaponAbility` or `lostWeaponAbility`. |
+| `lostWeaponAbility` | A weapon ability the attacks lose. With `weaponAbility` in the same effect, the one replaces the other; an effect never gives and removes the same one. |
 | `weapon` | The effect applies only to this weapon, by name. |
-| `characteristic` | A weapon characteristic (`attacks`, `ballistic-skill`, `weapon-skill`, `strength`, `armour-penetration`, `damage`) changed by `add` or set to `set`; `nonCumulative` when it does not stack with other changes. |
+| `characteristic` | A weapon characteristic (`range`, `attacks`, `ballistic-skill`, `weapon-skill`, `strength`, `armour-penetration`, `damage`) changed by `add`, set to `set`, or multiplied by `multiply`, and `range` is in inches, at least 1 when set. For `attacks` and `damage` alone, `add` and `set` can be dice (at least one die: `dice` × D`sides` + `bonus`) and `multiply` applies. `nonCumulative` when it does not stack with other changes. |
 | `targetKeywords`, `excludedTargetKeywords` | Selectors the attack's target must match one of, or none of. |
 | `modelKeywords`, `excludedModelKeywords` | Only models matching one of `modelKeywords`, and none of `excludedModelKeywords`, make their attacks (or have attacks allocated to them) with the effect. |
 | `condition` | A comparison the attack must meet: `stronger` (Strength above the target's Toughness), `not-stronger`, `double-strength`, or `critical-wound`. |
@@ -167,7 +171,7 @@ An effect applies to one `role`, `attacker` or `defender`, for the `attacks` it 
 | `feelNoPain`, `psychicFeelNoPain`, `mortalFeelNoPain` | A Feel No Pain roll against all damage, psychic attacks, or mortal wounds. |
 | `mortalWounds` | Mortal wounds inflicted `before` or `after` the attacks, or `outside-attacks` (at another moment, as the rule's reminder says), at most `max` in all: `rolls` dice per unit, per model when `perModel`, or per point of one of the unit's models' Toughness when `perToughness`, each mapping a result from `min` to `max` to `damage` (`dice` × D`sides` + `bonus`); `psychic` when they come from a psychic ability, and `sacrifice` for the attacker's own models destroyed first. |
 | `damageReroll` | Damage rolls may be re-rolled: `ones` or `any`. |
-| `unitStat` | A unit characteristic no roll reads (`movement`, `leadership`, `objective-control`) changed by `add`. |
+| `unitStat` | A unit characteristic (`movement`, `toughness`, `wounds`, `leadership`, `objective-control`) set to `set`, or one no roll reads (`movement`, `leadership`, `objective-control`) changed by `add`; `toughness` and `wounds` change by their own fields. A set value applies before any addition. Movement is in inches, and Leadership is the roll, so `add: -1` improves it by 1. |
 | `ability` | A named ability the unit gains, such as Stealth. |
 | `bearerOnly` | The effect is the bearer's alone: only the attacks of the model with the rule, or attacks allocated to it, gain it, not the rest of a unit it leads. |
 | `activates` | Named options of the unit's other rules this makes active together. |
@@ -180,4 +184,4 @@ Use `detail` to show or compare structure. Read game behaviour from the typed bl
 
 ## Versioning
 
-Version `1` grows only by adding optional blocks for a kind. A change to the meaning or shape of an existing block, or a closed vocabulary for `detail`, is a new version. Records published before this format carry facts in an earlier, unversioned format, `catalogue-core-facts`, until their rules version's next release. Treat those like `detail`.
+Version `1` grows only by adding optional blocks for a kind, and optional fields and values within a block. A reader that meets a field or value it does not know treats that block as not calculated. A change to the meaning or shape of an existing block, or a closed vocabulary for `detail`, is a new version. Records published before this format carry facts in an earlier, unversioned format, `catalogue-core-facts`, until their rules version's next release. Treat those like `detail`.

@@ -34,6 +34,8 @@ export type AbilityData = SummaryData & {
   group?: string;
   /** The Detachment entry a Stratagem or Enhancement belongs to. */
   detachment?: Ref;
+  /** The wargear entries a unit ability is the rule of. */
+  wargear?: Ref[];
   /** Required for Stratagems and absent otherwise, like `stratagem`. */
   cp?: number;
   /** A Stratagem's parts as the official app gives them; its `summary` is `stratagemSummary(parts)`. */
@@ -101,7 +103,7 @@ function factsShape(kind: SummaryKind, data: SummaryData): string {
   return "plain";
 }
 
-type Choices = { choices: { conditions: { kind: string }[]; option?: string }[]; default: number };
+type Choices = { choices: { conditions: { kind: string }[]; effects: Record<string, unknown>[]; option?: string }[]; default: number };
 type CombatFacts = { readings: (Partial<Choices> & { shown?: Choices | null; fallback?: Choices })[]; trees: ({ reading: number } | { yes: number; no: number })[][]; contexts: Record<string, number> };
 
 /** The index rules of a `combat` block, which the schema cannot express: each points at an entry that exists. */
@@ -116,6 +118,12 @@ function combatErrors(combat: CombatFacts): string[] {
     if (set.default > set.choices.length) errors.push(`${at}/default is past its choices`);
     set.choices.forEach((c, j) => {
       if (c.conditions.some((p) => p.kind === "option") && !c.option) errors.push(`${at}/choices/${j} names its option without an option`);
+      c.effects.forEach((e, k) => {
+        if (e.weaponAbility !== undefined && e.weaponAbility === e.lostWeaponAbility) errors.push(`${at}/choices/${j}/effects/${k} gives and removes ${e.weaponAbility}`);
+        if (e.weaponHas !== undefined && e.weaponHas === e.weaponLacks) errors.push(`${at}/choices/${j}/effects/${k} applies to weapons with and without ${e.weaponHas}`);
+        const lacked = e.weaponLacks !== undefined && [e.weaponAbility, e.lostWeaponAbility].find((ability) => ability === e.weaponLacks);
+        if (lacked) errors.push(`${at}/choices/${j}/effects/${k} changes ${lacked} on weapons without it`);
+      });
     });
   }
   combat.trees.forEach((tree, t) =>
@@ -179,7 +187,7 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
     if ((record.data as { text?: string }).text === "none") continue;
 
     if (summary.kind === "ability") {
-      const { ruleType, cp, stratagem, detachment, parts } = summary.data as AbilityData;
+      const { ruleType, cp, stratagem, detachment, wargear, parts } = summary.data as AbilityData;
       if (STRATAGEMS.has(ruleType)) {
         if (cp === undefined) errors.push(`${at} is a Stratagem with no CP cost`);
       } else if (cp !== undefined || stratagem || parts) errors.push(`${at} is not a Stratagem but has a CP cost, Stratagem timing or Stratagem parts`);
@@ -199,6 +207,12 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
         if (ruleType !== "stratagem" && ruleType !== "enhancement") errors.push(`${at} names a Detachment but is not a Stratagem or Enhancement`);
         else if (!target || target.retired) errors.push(`${at} names ${key(detachment)}, which is not current in the identity release`);
         else if (!entry.references?.some((r) => key(r) === key(detachment))) errors.push(`${at} names ${key(detachment)} but its identity entry does not reference it`);
+      }
+      if (wargear && ruleType !== "unit-ability") errors.push(`${at} names wargear but is not a unit ability`);
+      for (const item of wargear ?? []) {
+        const target = entries.get(key(item));
+        if (!target || target.retired) errors.push(`${at} names ${key(item)}, which is not current in the identity release`);
+        else if (!entry.references?.some((r) => key(r) === key(item))) errors.push(`${at} names ${key(item)} but its identity entry does not reference it`);
       }
     }
     const parent = summary.kind === "core-rule" ? (summary.data as CoreRuleData).parent : undefined;
@@ -233,6 +247,8 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
         if (rounds.some((r, i) => i > 0 && r <= rounds[i - 1])) errors.push(`${at} facts/award/rounds are not in ascending order`);
         const combat = facts.fields.combat as CombatFacts | { unresolved: string } | undefined;
         if (combat && !("unresolved" in combat)) errors.push(...combatErrors(combat).map((e) => `${at} facts/combat/${e}`));
+        const modes = ((facts.fields.givenWeapon as { profiles?: { mode?: string }[] } | undefined)?.profiles ?? []).flatMap((p) => (p.mode ? [p.mode] : []));
+        for (const mode of new Set(modes.filter((m, i) => modes.indexOf(m) !== i))) errors.push(`${at} facts/givenWeapon names the mode ${mode} twice`);
         // Rules the facts name are references of the record, as its summary links are.
         for (const ref of (facts.fields.references as Ref[] | undefined) ?? []) {
           const target = entries.get(key(ref));

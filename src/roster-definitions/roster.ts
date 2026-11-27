@@ -221,8 +221,9 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       if (warlords > 1) add("warlord-repeated", "a roster has one warlord");
       const held = fielded.find((m) => m.id === warlord);
       const character = held?.keywords.some((k) => k.toUpperCase() === "CHARACTER") ?? false;
+      const barred = models.find((m) => m.id === warlord)?.data.warlord === false;
       if (inUnit && !held) add("warlord-ineligible", `model:${warlord} is not fielded in ${unit.name}`);
-      else if (inUnit && !granted.has(warlord) && (!character || offered.length > 0 || !own.has(unit.data.faction))) add("warlord-ineligible", `${unit.name} cannot hold the warlord`);
+      else if (inUnit && !granted.has(warlord) && (barred || !character || offered.length > 0 || !own.has(unit.data.faction))) add("warlord-ineligible", `${unit.name} cannot hold the warlord`);
       for (const required of requiredWarlords) {
         if (inUnit && !required.models.includes(warlord)) add("warlord-required", `${required.name} needs one of ${required.models.map((m) => `model:${m}`).join(", ")} as warlord`);
       }

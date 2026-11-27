@@ -75,6 +75,7 @@ export type Limit = { battleSize: string; perRoster: number; when?: When };
 export type UnitData = {
   faction: string;
   keywords: string[];
+  factionKeywords?: string[];
   conditionalKeywords?: { keywords: string[]; when: When }[];
   sizes: number[];
   /** Model counts must fit one of these, each giving every model's bounds; a model a composition omits fields none. */
@@ -382,6 +383,7 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     const models = modelsOf(unit.id);
     for (const model of models)
       for (const keyword of model.data.keywords ?? []) if (unit.data.keywords.includes(keyword)) errors.push(`${key("model", model.id)} repeats its unit's keyword ${keyword}`);
+    for (const keyword of unit.data.factionKeywords ?? []) if (!unit.data.keywords.includes(keyword)) errors.push(`${at} faction keyword ${keyword} is not one of its keywords`);
     if (models.length === 0) errors.push(`${at} has no models`);
     for (const size of unit.data.sizes) {
       const bounds = models.map(({ data }) => modelBounds(data, size));

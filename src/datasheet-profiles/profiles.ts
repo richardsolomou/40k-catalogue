@@ -245,14 +245,6 @@ export function mustAttach(attachment: AttachmentData, context: AttachmentContex
   );
 }
 
-/** The bodyguard and every unit it stands in for, at any depth. */
-function standsFor(bodyguard: string, attachmentOf: AttachmentLookup): Set<string> {
-  const found = new Set([bodyguard]);
-  // A Set visits members added while iterating it, so this follows stand-ins of stand-ins, each once.
-  for (const unit of found) for (const { units } of attachmentOf(unit)?.insteadOf ?? []) for (const other of units) found.add(other);
-  return found;
-}
-
 /**
  * What is wrong with one attached unit, as problem codes: `attachment-target` for a leader or support unit that may not
  * join its bodyguard in that role, `attachment-full` for more leader or support units than the bodyguard takes,
@@ -272,16 +264,18 @@ export function attachedUnitProblems(attached: AttachedUnit, context: Attachment
   const capacity = attachmentOf(bodyguard)?.capacity;
   const raised = capacity !== undefined && (capacity.startingStrength === undefined || (startingStrength ?? 0) >= capacity.startingStrength);
   const room = raised ? (capacity.leads ?? 1) : 1;
-  const hosts = standsFor(bodyguard, attachmentOf);
   // A leader that may join beside the other of two leader units makes room for both, never two of the same unit.
   const beside =
     leaders.length === 2 &&
     room < 2 &&
     leaders.some((unit, at) => {
       const other = leaders[1 - at]!;
-      return (attachmentOf(unit)?.withAnotherLeader ?? []).some(
+      const record = attachmentOf(unit);
+      // Its bodyguard, or a unit the bodyguard stands in for that admits this leader.
+      const on = (u: string) => u === bodyguard || (record !== undefined && joinsInstead({ ...record, leads: [u], conditional: [] }, "leads", bodyguard, context, attachmentOf, new Set([bodyguard])));
+      return (record?.withAnotherLeader ?? []).some(
         ({ units, besideUnits, besideKeywords }) =>
-          units.some((u) => hosts.has(u)) &&
+          units.some(on) &&
           ((besideUnits === undefined && besideKeywords === undefined) || besideUnits?.includes(other) || (besideKeywords ?? []).some((k) => holds(context, other, k))),
       );
     });

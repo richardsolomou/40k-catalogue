@@ -611,3 +611,8 @@ test("a conditional entry may refuse targets holding a keyword", () => {
   const found = leadsWardens({ keywords: ["INFANTRY"], excludedKeywords: ["CHARACTER"] }, { keywords: { [WARDENS]: ["INFANTRY"] } }, { keywords: { [WARDENS]: ["INFANTRY", "CHARACTER"] } });
   assert.deepEqual(found, [true, false]);
 });
+
+test("a leader joins beside another on a stand-in only where the stand-in admits it", () => {
+  const hosts = { [KINDLER]: { leads: [WARDENS], withAnotherLeader: [{ units: [WARDENS] }] }, [COLOSSUS]: { insteadOf: [{ units: [WARDENS], keywords: ["CHAPLAIN"] }] }, [PYRE_LORD_UNIT]: { leads: [COLOSSUS] } };
+  assert.deepEqual(attachedUnitProblems({ bodyguard: COLOSSUS, leaders: [PYRE_LORD_UNIT, KINDLER] }, {}, lookup(hosts)), ["attachment-target", "attachment-full"]);
+});

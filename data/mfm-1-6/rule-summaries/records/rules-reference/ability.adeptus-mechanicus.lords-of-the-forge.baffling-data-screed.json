@@ -1,0 +1,93 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "adeptus-mechanicus.lords-of-the-forge.baffling-data-screed",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.1, data build 995, released 2026-10-16",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Lords of the Forge",
+    "summary": "Whenever this unit gets **selected to shoot** in [your Shooting phase](vsdata:core-rule/shooting-phase), you can roll a D6 if it is not [battle-shocked](vsdata:core-rule/battle-shock). On a 2+, pick one of these:\n\n- an enemy **VEHICLE** unit up to 12\" from this unit takes a **[battle-shock roll](vsdata:core-rule/battle-shock)** at -1; each unit can be picked this way only once per turn\n- this unit's ranged attacks do not stop it being **[hidden](vsdata:core-rule/hidden)**",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.1",
+        "dataBuild": 995,
+        "releaseDate": "2026-10-16"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "own"
+            }
+          ]
+        },
+        "combat": {
+          "unresolved": "The reading's numbered options carry no effects."
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "hidden"
+          }
+        ],
+        "detail": {
+          "kind": "detachment-rule-part",
+          "detachment": "Lords of the Forge",
+          "partOf": "War-form Mantles",
+          "when": {
+            "turn": "own",
+            "phase": "shooting",
+            "trigger": "this-unit-selected-to-shoot"
+          },
+          "condition": {
+            "notBattleShocked": true
+          },
+          "optional": true,
+          "roll": {
+            "dice": "D6",
+            "count": 1,
+            "successOn": 2
+          },
+          "chooseOne": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsAll": [
+                  "VEHICLE"
+                ],
+                "withinInches": 12
+              },
+              "effect": {
+                "battleShockRoll": true,
+                "rollModifier": -1,
+                "subtract": 1
+              },
+              "limit": "each unit once per turn"
+            },
+            {
+              "effect": {
+                "rangedAttacksDoNotPreventHidden": true
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -203,7 +203,11 @@ const illegal: Record<string, [(roster: Roster) => void, string[]]> = {
   "an enhancement on a unit without its keywords": [(r) => (r.units[4]!.enhancement = MANTLE), ["4 enhancement-keywords"]],
   "an enhancement on a unit barred from enhancements": [(r) => r.units.push({ unit: "synthetic.ember-host.ember-colossus", enhancement: MANTLE }), ["5 enhancement-keywords"]],
   "an enhancement taken twice": [(r) => r.units.push({ unit: "synthetic.ember-host.pyre-lord", enhancement: SIGIL }), ["5 enhancement-repeated"]],
-  "an upgrade taken twice": [(r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND)), []],
+  "an upgrade taken three times": [(r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND), (r.units[3]!.enhancement = BRAND)), []],
+  "an upgrade taken four times": [
+    (r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND), (r.units[3]!.enhancement = BRAND), r.units.push({ unit: WARDENS, enhancement: BRAND })),
+    ["5 enhancement-repeated"],
+  ],
   "more copies than its battle size allows": [(r) => (r.battleSize = "synthetic.incursion"), ["1 roster-limit"]],
   "a battle size without its own limit for the unit": [(r) => (r.battleSize = "synthetic.strike-force"), []],
   "a battle size the release does not define": [(r) => (r.battleSize = "synthetic.onslaught"), ["- not-current"]],
@@ -468,6 +472,10 @@ const invalid12: Record<string, [(records: CatalogueRecord[], identity: Release)
     (r) => Object.assign(find(r, "unit", WARDENS).data, { factionKeywords: [] }),
     `unit:${WARDENS} data/factionKeywords must NOT have fewer than 1 items`,
   ],
+  "a detachment keeping no keyword's units to its enhancements": [
+    (r) => Object.assign(find(r, "detachment", ASH_PACT).data, { exclusiveEnhancements: { keywords: [] } }),
+    `detachment:${ASH_PACT} data/exclusiveEnhancements/keywords must NOT have fewer than 1 items`,
+  ],
   "a faction keyword the unit does not have": [
     (r) => Object.assign(find(r, "unit", WARDENS).data, { factionKeywords: ["Ash Host"] }),
     `unit:${WARDENS} faction keyword Ash Host is not one of its keywords`,
@@ -615,7 +623,11 @@ test("a roster's references include every detachment it lists", () => {
 const construction: Record<string, [Roster, string[]]> = {
   "an enhancement from its second detachment": [incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), []],
   "more enhancements than its battle size allows": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: KINDLER, enhancement: MANTLE }]), ["1 enhancement-limit"]],
-  "an upgrade beyond its battle size's enhancements": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: WARDENS, enhancement: BRAND }]), []],
+  "an upgrade beyond its battle size's enhancements": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: WARDENS, enhancement: BRAND }]), ["1 enhancement-limit"]],
+  "an upgrade's later copies within its battle size's enhancements": [
+    incursion([{ unit: WARDENS, enhancement: BRAND }, { unit: LORD, enhancement: BRAND }, { unit: SEER, enhancement: BRAND }]),
+    [],
+  ],
   "more copies than its battle size's duplicates": [incursion([{ unit: LORD }, { unit: LORD }, { unit: LORD }]), ["2 roster-limit"]],
   "a unit of the parent faction": [incursion([{ unit: SEER }]), []],
   "a unit the faction excludes": [incursion([{ unit: GUARD }]), ["0 unit-excluded"]],
@@ -675,6 +687,59 @@ const withoutDetachments: Record<string, [Roster, string[]]> = {
 for (const [name, [roster, expected]] of Object.entries(withoutDetachments)) {
   test(`a roster of a faction without detachments with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
     assert.deepEqual(codes(withoutDetachment(), roster), expected);
+  });
+}
+
+// The Ash Pact or the Kindled Vow keeping its Character units to its own enhancements.
+function exclusive(detachment: string): Definitions {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "detachment", detachment).data, { exclusiveEnhancements: { keywords: ["Character"] } });
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const exclusiveEnhancements: Record<string, [string, Roster, string[]]> = {
+  "another detachment's enhancement on a unit holding its keywords": [ASH_PACT, incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), ["1 enhancement-exclusive"]],
+  "another detachment's enhancement on a unit without its keywords": [ASH_PACT, incursion([{ unit: DRONES }, { unit: WARDENS, enhancement: BRAND }], [ASH_PACT, KINDLED]), []],
+  "its own enhancement on a unit holding its keywords": [KINDLED, incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), []],
+  "another detachment's enhancement on a unit its allegiance gives its keywords": [
+    ASH_PACT,
+    incursion([{ unit: DRONES, allegiance: RITE_ALLEGIANCE, enhancement: SIGIL }], [ASH_PACT, KINDLED]),
+    ["0 enhancement-exclusive"],
+  ],
+  "it outside the roster": [ASH_PACT, incursion([{ unit: LORD, enhancement: SIGIL }]), []],
+};
+
+for (const [name, [detachment, roster, expected]] of Object.entries(exclusiveEnhancements)) {
+  test(`a detachment keeping units to its enhancements, with ${name}, reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(exclusive(detachment), roster), expected);
+  });
+}
+
+// Enhancements whose rule facts limit their copies or leave them outside the battle size's enhancements.
+function enhancementVariant(enhancement: string, data: object): Definitions {
+  const { identity, records } = input("1.2");
+  const record = find(records, "enhancement", enhancement).data as Record<string, unknown>;
+  for (const [key, value] of Object.entries(data)) {
+    if (value === undefined) delete record[key];
+    else record[key] = value;
+  }
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const enhancementLimits: Record<string, [string, object, Roster, string[]]> = {
+  "an enhancement taken twice as its limit allows": [SIGIL, { perRoster: 2 }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: SEER, enhancement: SIGIL }]), []],
+  "an enhancement taken more often than its limit allows": [SIGIL, { perRoster: 2 }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: SEER, enhancement: SIGIL }, { unit: LORD, enhancement: SIGIL }]), ["2 enhancement-repeated"]],
+  "an upgrade without a limit taken twice": [BRAND, { perRoster: undefined }, incursion([{ unit: WARDENS, enhancement: BRAND }, { unit: LORD, enhancement: BRAND }]), ["1 enhancement-repeated"]],
+  "more enhancements than its battle size allows, one of them outside the limit": [MANTLE, { outsideLimit: true }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: KINDLER, enhancement: MANTLE }]), []],
+};
+
+for (const [name, [enhancement, data, roster, expected]] of Object.entries(enhancementLimits)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(enhancementVariant(enhancement, data), roster), expected);
   });
 }
 

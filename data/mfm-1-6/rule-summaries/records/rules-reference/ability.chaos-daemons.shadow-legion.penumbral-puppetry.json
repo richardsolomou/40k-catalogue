@@ -1,0 +1,216 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.shadow-legion.penumbral-puppetry",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.6"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.8.1, data build 995, released 2026-10-16",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Shadow Legion",
+    "summary": "Only **SHADOW LEGION TZEENTCH** units have this ability: this unit gets [Stealth](vsdata:core-ability/stealth), and melee attacks against it get -1 to [Hit](vsdata:core-rule/hit-rolls).",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.8.1",
+        "dataBuild": 995,
+        "releaseDate": "2026-10-16"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "grants": {
+          "abilities": [
+            {
+              "ability": "Stealth",
+              "to": "unit",
+              "named": true,
+              "recipientKeywords": [
+                "SHADOW LEGION TZEENTCH"
+              ]
+            }
+          ]
+        },
+        "combat": {
+          "applies": {
+            "reachesAttached": true
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "cover": true
+                      },
+                      "ability": "Stealth"
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "defender"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "SHADOW LEGION TZEENTCH"
+                      ]
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "cover": true
+                      },
+                      "ability": "Stealth"
+                    },
+                    {
+                      "role": "defender",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": -1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "defender"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "unitHas": "SHADOW LEGION TZEENTCH"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 0
+              },
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "reading": 2
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 1,
+            "leading.one.unknown": 2,
+            "leading.many.known": 1,
+            "leading.many.unknown": 2,
+            "aura.one.known": 1,
+            "aura.one.unknown": 2,
+            "aura.many.known": 1,
+            "aura.many.unknown": 2,
+            "stratagem-shooting.one.known": 1,
+            "stratagem-shooting.one.unknown": 2,
+            "stratagem-shooting.many.known": 1,
+            "stratagem-shooting.many.unknown": 2,
+            "stratagem-fight.one.known": 1,
+            "stratagem-fight.one.unknown": 2,
+            "stratagem-fight.many.known": 1,
+            "stratagem-fight.many.unknown": 2,
+            "stratagem-both.one.known": 1,
+            "stratagem-both.one.unknown": 2,
+            "stratagem-both.many.known": 1,
+            "stratagem-both.many.unknown": 2,
+            "army.one.known": 1,
+            "army.one.unknown": 2,
+            "army.many.known": 1,
+            "army.many.unknown": 2
+          }
+        },
+        "references": [
+          {
+            "kind": "core-ability",
+            "id": "stealth"
+          }
+        ],
+        "detail": {
+          "kind": "detachment-rule-part",
+          "detachment": "Shadow Legion",
+          "partOf": "First Prince of Chaos",
+          "eligibility": {
+            "scope": "unit",
+            "keywordsAll": [
+              "SHADOW LEGION",
+              "TZEENTCH"
+            ]
+          },
+          "effects": [
+            {
+              "grantsCoreAbility": "Stealth"
+            },
+            {
+              "when": {
+                "attackTargetsThisUnit": true
+              },
+              "attackType": "melee",
+              "roll": "hit",
+              "delta": -1,
+              "subtract": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -29,7 +29,7 @@ A stat line's ID is scoped by its unit, as in `<unit ID>.<profile>`, because two
 | `attacks`, `damage` | A positive integer, or dice written as `D6`, `2D3` or `D6+1`. |
 | `skill` | The ballistic or weapon skill as a roll, or `null` when the weapon makes no hit roll. |
 | `armourPenetration` | Zero or a negative integer. |
-| `keywords` | Weapon keywords as printed, one per item, including any parameter such as `Rapid Fire 1`. |
+| `keywords` | Weapon keywords in capitals, one per item, including any parameter such as `RAPID FIRE 1`. A printed lower-case qualifier stays lower case (`ANTI-non-MONSTER/VEHICLE 2+`). A keyword is a name, never rules text. |
 
 Unit profiles must state `movement`, `toughness`, `save`, `wounds`, `leadership` and `objectiveControl`, and weapon profiles `wargear`, `range`, `attacks`, `skill`, `strength`, `armourPenetration` and `damage`, unless a gap names the field.
 

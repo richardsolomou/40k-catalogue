@@ -61,10 +61,12 @@ export type DetachmentData = {
   requiredWarlords?: string[];
   /** A keyword two of a roster's detachments may not share. */
   group?: string;
+  /** A unit of a roster with this detachment holding every one of `keywords` takes only this detachment's enhancements. */
+  exclusiveEnhancements?: { keywords: string[] };
   /** How many units of a roster with this detachment take one of `allegiances`. */
   allegianceLimits?: (RosterBounds & { allegiances: string[] })[];
 };
-/** An `upgrade` may be taken by several units; other enhancements once per roster. */
+/** An `upgrade` may be taken by up to three units; other enhancements once per roster. */
 export type EnhancementData = { detachment: string; upgrade?: true; keywords?: { all?: string[]; none?: string[] } };
 /** A choice the unit takes from `choices`, in a roster with `detachment` where named; `requires` maps a choice to wargear the unit must carry. */
 export type AllegianceOffer = { choices: string[]; required?: true; detachment?: string; requires?: Record<string, string> };

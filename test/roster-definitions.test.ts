@@ -5,7 +5,7 @@ import { test } from "node:test";
 import { checkUpgrade, historyErrors, type Release } from "../src/catalogue-identity/identity.ts";
 import { buildCatalogueRelease, type CatalogueRecord, type Manifest } from "../src/catalogue-releases/catalogue.ts";
 import { validateDefinitions, type Definitions } from "../src/roster-definitions/definitions.ts";
-import { checkRoster, importUnit, pointsGaps, rosterRefs, type Roster } from "../src/roster-definitions/roster.ts";
+import { checkRoster, importUnit, pointsGaps, rosterRefs, unitKeywords, type Roster } from "../src/roster-definitions/roster.ts";
 import type { PointsSnapshot } from "../src/points/snapshot.ts";
 import { validateSnapshot } from "../src/points/validate.ts";
 
@@ -965,6 +965,51 @@ const invalidAllegiances: Record<string, [(records: CatalogueRecord[], identity:
 };
 
 for (const [name, [change, error]] of Object.entries(invalidAllegiances)) {
+  test(`definitions with ${name} fail with: ${error}`, () => {
+    const { identity, records } = input("1.2");
+    change(records, identity);
+    const result = validateDefinitions(identity, records);
+    assert.ok(!result.ok && result.errors.includes(error), JSON.stringify(result));
+  });
+}
+
+// Ash Imps carrying an ember maul are Fly in place of Infantry, and Ash Pact needs a Fly unit.
+const MAUL = { [`${IMPS}.maul`]: { "synthetic.ember-maul": 1 } };
+const wargearKeywords: Record<string, [Roster, string[]]> = {
+  "a unit without the wargear that gives a keyword a limit needs": [incursion([IMP], [ASH_PACT]), ["- unit-limit"]],
+  "a unit with the wargear that gives a keyword a limit needs": [incursion([{ ...IMP, options: MAUL }], [ASH_PACT]), []],
+};
+
+for (const [name, [roster, expected]] of Object.entries(wargearKeywords)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(v12, roster), expected);
+  });
+}
+
+test("a unit carrying wargear loses the keywords its conditional keywords replace", () => {
+  assert.deepEqual(unitKeywords(v12.get("unit", IMPS)!.data, incursion([]), undefined, new Map([["synthetic.ember-maul", 1]])), ["Fly"]);
+});
+
+const wargearCondition = (records: CatalogueRecord[]) => (find(records, "unit", IMPS).data as any).conditionalKeywords[0];
+const invalidWargearKeywords: Record<string, [(records: CatalogueRecord[], identity: Release) => void, string]> = {
+  "a conditional keyword on wargear the unit cannot carry": [
+    (r, identity) => {
+      wargearCondition(r).when = { wargear: "synthetic.ward-shield" };
+      identity.entries.find((e) => e.id === IMPS)!.references!.push({ kind: "wargear", id: "synthetic.ward-shield" });
+    },
+    `unit:${IMPS} conditionalKeywords/0 names wargear:synthetic.ward-shield, which the unit cannot carry`,
+  ],
+  "a conditional keyword replacing one the unit lacks": [
+    (r) => (wargearCondition(r).replaces = ["Monster"]),
+    `unit:${IMPS} conditionalKeywords/0 replaces Monster, which is not one of its keywords`,
+  ],
+  "wargear in a roster-wide condition": [
+    (r) => ((find(r, "unit", IMPS).data as any).limits = [{ battleSize: "synthetic.incursion", perRoster: 1, when: { wargear: "synthetic.ember-maul" } }]),
+    `unit:${IMPS} limits name wargear, which holds only in conditional keywords`,
+  ],
+};
+
+for (const [name, [change, error]] of Object.entries(invalidWargearKeywords)) {
   test(`definitions with ${name} fail with: ${error}`, () => {
     const { identity, records } = input("1.2");
     change(records, identity);

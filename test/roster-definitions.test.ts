@@ -678,6 +678,34 @@ for (const [name, [roster, expected]] of Object.entries(withoutDetachments)) {
   });
 }
 
+// The Ash Pact or the Kindled Vow keeping its Character units to its own enhancements.
+function exclusive(detachment: string): Definitions {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "detachment", detachment).data, { exclusiveEnhancements: { keywords: ["Character"] } });
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const exclusiveEnhancements: Record<string, [string, Roster, string[]]> = {
+  "another detachment's enhancement on a unit holding its keywords": [ASH_PACT, incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), ["1 enhancement-exclusive"]],
+  "another detachment's enhancement on a unit without its keywords": [ASH_PACT, incursion([{ unit: DRONES }, { unit: WARDENS, enhancement: BRAND }], [ASH_PACT, KINDLED]), []],
+  "its own enhancement on a unit holding its keywords": [KINDLED, incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), []],
+};
+
+for (const [name, [detachment, roster, expected]] of Object.entries(exclusiveEnhancements)) {
+  test(`a detachment keeping units to its enhancements, with ${name}, reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(exclusive(detachment), roster), expected);
+  });
+}
+
+test("a detachment's exclusive enhancements name at least one keyword", () => {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "detachment", ASH_PACT).data, { exclusiveEnhancements: { keywords: [] } });
+  const result = validateDefinitions(identity, records);
+  assert.ok(!result.ok && result.errors.some((e) => e.includes("fewer than 1 items")), JSON.stringify(result));
+});
+
 // The Flame Wardens' leader is a Character, though the unit is not.
 const LEADER = `${WARDENS}.leader`;
 const characterLeader = (optional = false) => {

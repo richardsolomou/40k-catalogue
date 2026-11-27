@@ -66,8 +66,11 @@ export type DetachmentData = {
   /** How many units of a roster with this detachment take one of `allegiances`. */
   allegianceLimits?: (RosterBounds & { allegiances: string[] })[];
 };
-/** An `upgrade` may be taken by up to three units; other enhancements once per roster. */
-export type EnhancementData = { detachment: string; upgrade?: true; keywords?: { all?: string[]; none?: string[] } };
+/**
+ * An enhancement may be taken once per roster, or by up to `perRoster` units; only its first copy counts towards the
+ * battle size's enhancements, and none of an `outsideLimit` one. Version 1 gives an `upgrade` a `perRoster` of three.
+ */
+export type EnhancementData = { detachment: string; upgrade?: true; perRoster?: number; outsideLimit?: true; keywords?: { all?: string[]; none?: string[] } };
 /** A choice the unit takes from `choices`, in a roster with `detachment` where named; `requires` maps a choice to wargear the unit must carry. */
 export type AllegianceOffer = { choices: string[]; required?: true; detachment?: string; requires?: Record<string, string> };
 export type AllegianceData = Record<string, never>;
@@ -85,6 +88,8 @@ export type UnitData = {
   modelGroups?: (ModelCountBounds & { models: string[] })[];
   /** Bounds the selections its options take together, counting only a member's `choices` where it names them. */
   optionGroups?: OptionGroup[];
+  /** Each lists `uniform` options of different carriers that take one choice together, or none of them takes one. */
+  uniformOptions?: string[][];
   perRoster?: number;
   limits?: Limit[];
   legends?: true;
@@ -105,8 +110,12 @@ export type Requirement = { option: string; choices: string[] };
 type SizeBounds = Bounds & { size: number };
 type SizeMaximum = { size: number; max: number };
 type ModelCountBounds = Bounds & { bySize?: SizeBounds[] };
-/** `keywords` are those this model has beyond its unit's, as when a squad's leader is a Character. */
-export type ModelData = ModelCountBounds & { unit: string; wargear: Counts; keywords?: string[] };
+/**
+ * `keywords` are those this model has beyond its unit's, as when a squad's leader is a Character. `warlord: false` keeps
+ * the model from the warlord role unless a grant lists it: one of the roster's detachments' `warlords` or its faction's
+ * `withoutDetachments.warlords`.
+ */
+export type ModelData = ModelCountBounds & { unit: string; wargear: Counts; keywords?: string[]; warlord?: false };
 /** Scales a bound by each carrier model, or by every `models` models in the unit; absent means once per unit. */
 export type Per = "carrier" | { models: number };
 export type OptionData = {
@@ -171,9 +180,11 @@ const checkers = (schema: { $id: string }) =>
   new Map(KINDS.map((kind) => [kind, ajv.getSchema(`${schema.$id}#/$defs/${kind}`)] as const).filter((pair): pair is [DefinitionKind, NonNullable<(typeof pair)[1]>] => pair[1] !== undefined));
 const checkData = { 1: checkers(v1Schema), 2: checkers(v2Schema) };
 
+const UPGRADE_COPIES = 3;
 const counted = (ids: string[] | undefined) => ids && Object.fromEntries(ids.map((id) => [id, 1]));
-/** Reads version 1 data, whose wargear lists name one of each, as version 2 counts. */
+/** Reads version 1 data as version 2: wargear lists name one of each, and an upgrade may be taken by three units. */
 function fromV1(kind: DefinitionKind, data: any): any {
+  if (kind === "enhancement" && data.upgrade) return { ...data, perRoster: UPGRADE_COPIES };
   if (kind === "model") return { ...data, wargear: counted(data.wargear) };
   if (kind === "roster-option" && data.replaces) return { ...data, replaces: counted(data.replaces) };
   if (kind === "wargear" && data.includes) return { ...data, includes: counted(data.includes) };
@@ -228,6 +239,7 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
         ...refs("model", unit.modelGroups?.flatMap((group) => group.models)),
         ...refs("model", unit.optionGroups?.flatMap((group) => (group.carrier ? [group.carrier] : []))),
         ...refs("roster-option", unit.optionGroups?.flatMap((group) => group.options.map((member) => member.option))),
+        ...refs("roster-option", unit.uniformOptions?.flat()),
         ...refs("wargear", unit.optionGroups?.flatMap((group) => group.options.flatMap((member) => member.choices ?? []))),
         ...refs("roster-option", Object.keys(unit.defaults ?? {})),
         ...refs("wargear", Object.values(unit.defaults ?? {}).flatMap((counts) => Object.keys(counts))),
@@ -409,6 +421,24 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       if (group.min > group.max) errors.push(`${path} min is above max`);
       if (group.bySize) checkSizeBounds(`${path} bySize`, group.bySize, unit.id);
       for (const id of group.models) ownModel(path, id, unit.id);
+    }
+    const tied = new Set<string>();
+    for (const [i, group] of (unit.data.uniformOptions ?? []).entries()) {
+      const path = `${at} uniformOptions/${i}`;
+      const carriers = new Set<string>();
+      const offers = new Set<string>();
+      for (const id of group) {
+        if (tied.has(id)) errors.push(`${path} names roster-option:${id}, which another entry names`);
+        tied.add(id);
+        const option = get("roster-option", id);
+        if (!option) continue;
+        if (option.data.unit !== unit.id) errors.push(`${path} names roster-option:${id}, which belongs to another unit`);
+        else if (!option.data.uniform) errors.push(`${path} names roster-option:${id}, which is not uniform`);
+        if (!option.data.carrier || carriers.has(option.data.carrier)) errors.push(`${path} names roster-option:${id}, whose carrier is not one only it names`);
+        if (option.data.carrier) carriers.add(option.data.carrier);
+        offers.add(option.data.choices.filter((w) => !(option.data.substitutes ?? []).includes(w)).toSorted().join(","));
+      }
+      if (offers.size > 1) errors.push(`${path} names options offering different choices besides their substitutes`);
     }
     for (const [i, group] of (unit.data.optionGroups ?? []).entries()) {
       const path = `${at} optionGroups/${i}`;

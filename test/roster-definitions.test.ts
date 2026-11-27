@@ -690,6 +690,26 @@ for (const [name, [roster, expected]] of Object.entries(withoutDetachments)) {
   });
 }
 
+// A Pyre Lord and a Smoke Oracle whose models a datasheet rule keeps from the warlord role.
+function barredWarlords(): Definitions {
+  const { identity, records } = input("1.2");
+  for (const id of [LORD_MODEL, `${ORACLE}.oracle`]) Object.assign(find(records, "model", id).data, { warlord: false });
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const barred: Record<string, [Roster, string[]]> = {
+  "a warlord whose model cannot hold the role": [incursion([{ unit: LORD, warlord: LORD_MODEL }]), ["0 warlord-ineligible"]],
+  "a detachment granting the role to a model that otherwise cannot hold it": [incursion([{ unit: ORACLE, warlord: `${ORACLE}.oracle` }], [SWORN]), []],
+};
+
+for (const [name, [roster, expected]] of Object.entries(barred)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(barredWarlords(), roster), expected);
+  });
+}
+
 // The Ash Pact or the Kindled Vow keeping its Character units to its own enhancements.
 function exclusive(detachment: string): Definitions {
   const { identity, records } = input("1.2");
@@ -714,6 +734,32 @@ const exclusiveEnhancements: Record<string, [string, Roster, string[]]> = {
 for (const [name, [detachment, roster, expected]] of Object.entries(exclusiveEnhancements)) {
   test(`a detachment keeping units to its enhancements, with ${name}, reports ${expected.join(", ") || "nothing"}`, () => {
     assert.deepEqual(codes(exclusive(detachment), roster), expected);
+  });
+}
+
+// Enhancements whose rule facts limit their copies or leave them outside the battle size's enhancements.
+function enhancementVariant(enhancement: string, data: object): Definitions {
+  const { identity, records } = input("1.2");
+  const record = find(records, "enhancement", enhancement).data as Record<string, unknown>;
+  for (const [key, value] of Object.entries(data)) {
+    if (value === undefined) delete record[key];
+    else record[key] = value;
+  }
+  const result = validateDefinitions(identity, records);
+  if (!result.ok) assert.fail(result.errors.join("\n"));
+  return result.definitions;
+}
+
+const enhancementLimits: Record<string, [string, object, Roster, string[]]> = {
+  "an enhancement taken twice as its limit allows": [SIGIL, { perRoster: 2 }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: SEER, enhancement: SIGIL }]), []],
+  "an enhancement taken more often than its limit allows": [SIGIL, { perRoster: 2 }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: SEER, enhancement: SIGIL }, { unit: LORD, enhancement: SIGIL }]), ["2 enhancement-repeated"]],
+  "an upgrade without a limit taken twice": [BRAND, { perRoster: undefined }, incursion([{ unit: WARDENS, enhancement: BRAND }, { unit: LORD, enhancement: BRAND }]), ["1 enhancement-repeated"]],
+  "more enhancements than its battle size allows, one of them outside the limit": [MANTLE, { outsideLimit: true }, incursion([{ unit: LORD, enhancement: SIGIL }, { unit: KINDLER, enhancement: MANTLE }]), []],
+};
+
+for (const [name, [enhancement, data, roster, expected]] of Object.entries(enhancementLimits)) {
+  test(`a roster with ${name} reports ${expected.join(", ") || "nothing"}`, () => {
+    assert.deepEqual(codes(enhancementVariant(enhancement, data), roster), expected);
   });
 }
 
@@ -926,3 +972,87 @@ for (const [name, [change, error]] of Object.entries(invalidAllegiances)) {
     assert.ok(!result.ok && result.errors.includes(error), JSON.stringify(result));
   });
 }
+
+// The Wardens' leader may take the carbines the Wardens take, and a unit-wide rule makes every model take the same one.
+const uniformAcrossCarriers = (change?: (records: CatalogueRecord[], identity: Release) => void) => {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "roster-option", `${WARDENS}.leader-weapon`).data, {
+    uniform: true,
+    replaces: { "synthetic.ember-pistol": 1 },
+    choices: ["synthetic.ember-carbine", "synthetic.ash-carbine"],
+  });
+  (find(records, "unit", WARDENS).data as any).uniformOptions = [[`${WARDENS}.carbines`, `${WARDENS}.leader-weapon`]];
+  for (const id of [WARDENS, `${WARDENS}.leader-weapon`]) {
+    identity.entries.find((e) => e.id === id)!.references!.push(
+      ...[`${WARDENS}.carbines`, `${WARDENS}.leader-weapon`].map((option) => ({ kind: "roster-option" as const, id: option })),
+      ...["synthetic.ember-carbine", "synthetic.ash-carbine", "synthetic.ember-pistol"].map((wargear) => ({ kind: "wargear" as const, id: wargear })),
+    );
+  }
+  change?.(records, identity);
+  return validateDefinitions(identity, records);
+};
+const leaderTakes = (options: Record<string, number>) => edited12((r) => (r.units[1]!.options![`${WARDENS}.leader-weapon`] = options));
+// The first unit of the roster takes its leader's weapon as the 1.2 fixture had it, so only the second is compared.
+const secondUnit = (definitions: Definitions, roster: Roster) => codes(definitions, roster).filter((c) => c.startsWith("1 "));
+
+test("uniform options of different carriers accept every model taking the same choice", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, leaderTakes({ "synthetic.ember-carbine": 1 })), []);
+});
+
+test("uniform options of different carriers refuse a carrier taking another choice", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, leaderTakes({ "synthetic.ash-carbine": 1 })), ["1 option-uniform"]);
+});
+
+test("uniform options of different carriers refuse a carrier keeping its default", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, legal12), ["1 option-uniform"]);
+});
+
+test("uniform options of different carriers accept a unit taking none of them", () => {
+  const validated = uniformAcrossCarriers();
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, edited12((r) => (r.units[1]!.options = {}))), []);
+});
+
+test("uniform options must each be uniform", () => {
+  const validated = uniformAcrossCarriers((records) => delete (find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).uniform);
+  assert.deepEqual(validated.ok ? [] : validated.errors, [`unit:${WARDENS} uniformOptions/0 names roster-option:${WARDENS}.leader-weapon, which is not uniform`]);
+});
+
+test("a carrier taking a substitute leaves its uniform option out of the choice made together", () => {
+  const validated = uniformAcrossCarriers((records, identity) => {
+    Object.assign(find(records, "roster-option", `${WARDENS}.leader-weapon`).data, { choices: ["synthetic.ember-carbine", "synthetic.ash-carbine", "synthetic.cinder-lance"], substitutes: ["synthetic.cinder-lance"] });
+    identity.entries.find((e) => e.id === `${WARDENS}.leader-weapon`)!.references!.push({ kind: "wargear", id: "synthetic.cinder-lance" });
+  });
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, leaderTakes({ "synthetic.cinder-lance": 1 })), []);
+});
+
+test("uniform options made together offer the same choices", () => {
+  const validated = uniformAcrossCarriers((records) => ((find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).choices = ["synthetic.ash-carbine"]));
+  assert.deepEqual(validated.ok ? [] : validated.errors, [`unit:${WARDENS} uniformOptions/0 names options offering different choices besides their substitutes`]);
+});
+
+test("uniform options made together have different carriers", () => {
+  const validated = uniformAcrossCarriers((records) => ((find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).carrier = WARDEN));
+  assert.ok(!validated.ok && validated.errors.includes(`unit:${WARDENS} uniformOptions/0 names roster-option:${WARDENS}.leader-weapon, whose carrier is not one only it names`));
+});
+
+test("a uniform option that can take nothing at the unit's size is left out of the choice made together", () => {
+  const validated = uniformAcrossCarriers((records) => ((find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).bySize = [{ size: 5, min: 0, max: 0 }]));
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, legal12), []);
+});
+
+test("an option is made together with others in one entry only", () => {
+  const validated = uniformAcrossCarriers((records) => {
+    const unit = find(records, "unit", WARDENS).data as any;
+    unit.uniformOptions.push([...unit.uniformOptions[0]].reverse());
+  });
+  assert.ok(!validated.ok && validated.errors.includes(`unit:${WARDENS} uniformOptions/1 names roster-option:${WARDENS}.leader-weapon, which another entry names`));
+});

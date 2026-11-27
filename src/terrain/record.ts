@@ -36,6 +36,8 @@ export type TerrainLayout = {
   provenance: Provenance;
   board: { width: number; height: number };
   areas: Area[];
+  /** For a layout no mission pack lists: the deployment maps it is played with. */
+  deployments?: string[];
 };
 
 export type DeploymentMap = {

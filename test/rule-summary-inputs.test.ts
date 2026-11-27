@@ -9,6 +9,8 @@ import { validatePack } from "../src/mission-packs/validate.ts";
 import { validateSnapshot } from "../src/points/validate.ts";
 import { KINDS as DEFINITION_KINDS, validateDefinitions } from "../src/roster-definitions/definitions.ts";
 import { buildRelease } from "../src/releases/release.ts";
+import type { TerrainRecord } from "../src/terrain/record.ts";
+import { joinBattlefields, verify, verifyDataset, type BattlefieldReferences } from "../src/terrain/verify.ts";
 import { parseSummary, validateSummaries } from "../src/rule-summaries/summaries.ts";
 import { commonmark } from "./commonmark.ts";
 
@@ -69,6 +71,19 @@ for (const version of versions) {
         return (secondary.whenDrawn.action === "discard") !== discards;
       });
     assert.deepEqual(differ.map((secondary) => secondary.id), []);
+  });
+
+  test(`every ${version} terrain record verifies under its record's ID and joins the version's mission packs`, () => {
+    const all = records();
+    const terrain = all.filter((r) => r.kind === "terrain-layout" || r.kind === "deployment-map");
+    const verified = terrain.map((r): TerrainRecord => {
+      const result = verify(r.data);
+      if (!result.ok) assert.fail(`${r.kind}:${r.id}: ${result.errors.slice(0, 20).join("\n")}`);
+      assert.deepEqual([result.record.kind, result.record.id], [r.kind, r.id]);
+      return result.record;
+    });
+    assert.deepEqual(verifyDataset(verified), []);
+    for (const pack of all.filter((r) => r.kind === "mission-pack")) assert.deepEqual(joinBattlefields(pack.data as BattlefieldReferences, verified).errors, []);
   });
 
   test(`every ${version} datasheet profile, roster definition and points snapshot validates`, () => {

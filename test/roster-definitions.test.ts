@@ -1022,3 +1022,17 @@ test("uniform options made together have different carriers", () => {
   const validated = uniformAcrossCarriers((records) => ((find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).carrier = WARDEN));
   assert.ok(!validated.ok && validated.errors.includes(`unit:${WARDENS} uniformOptions/0 names roster-option:${WARDENS}.leader-weapon, whose carrier is not one only it names`));
 });
+
+test("a uniform option that can take nothing at the unit's size is left out of the choice made together", () => {
+  const validated = uniformAcrossCarriers((records) => ((find(records, "roster-option", `${WARDENS}.leader-weapon`).data as any).bySize = [{ size: 5, min: 0, max: 0 }]));
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(secondUnit(validated.definitions, legal12), []);
+});
+
+test("an option is made together with others in one entry only", () => {
+  const validated = uniformAcrossCarriers((records) => {
+    const unit = find(records, "unit", WARDENS).data as any;
+    unit.uniformOptions.push([...unit.uniformOptions[0]].reverse());
+  });
+  assert.ok(!validated.ok && validated.errors.includes(`unit:${WARDENS} uniformOptions/1 names roster-option:${WARDENS}.leader-weapon, which another entry names`));
+});

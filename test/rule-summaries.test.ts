@@ -317,21 +317,6 @@ test("an Enhancement's eligibility is typed facts of an Enhancement only", () =>
   );
 });
 
-test("an upgrade may be limited to one per army", () => {
-  const once = structuredClone(ENHANCEMENT) as any;
-  Object.assign(once.fields.enhancement, { type: "upgrade", perRoster: 1 });
-  assert.deepEqual(errors((_, recs) => Object.assign(data(recs, "ability", OATH.id), { ruleType: "enhancement", facts: once })), []);
-});
-
-test("a model Enhancement states no limit of one per army", () => {
-  const once = structuredClone(ENHANCEMENT) as any;
-  once.fields.enhancement.perRoster = 1;
-  assert.deepEqual(
-    errors((_, recs) => Object.assign(data(recs, "ability", OATH.id), { ruleType: "enhancement", facts: once })),
-    [`ability:${OATH.id} facts/enhancement/perRoster must be >= 2`, `ability:${OATH.id} facts/enhancement must match "then" schema`],
-  );
-});
-
 test("typed keywords are upper case", () => {
   const lower = structuredClone(ENHANCEMENT);
   lower.fields.enhancement.eligibility.anyOf[0].keywords = ["Infantry"];

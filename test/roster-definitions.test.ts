@@ -203,7 +203,11 @@ const illegal: Record<string, [(roster: Roster) => void, string[]]> = {
   "an enhancement on a unit without its keywords": [(r) => (r.units[4]!.enhancement = MANTLE), ["4 enhancement-keywords"]],
   "an enhancement on a unit barred from enhancements": [(r) => r.units.push({ unit: "synthetic.ember-host.ember-colossus", enhancement: MANTLE }), ["5 enhancement-keywords"]],
   "an enhancement taken twice": [(r) => r.units.push({ unit: "synthetic.ember-host.pyre-lord", enhancement: SIGIL }), ["5 enhancement-repeated"]],
-  "an upgrade taken twice": [(r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND)), []],
+  "an upgrade taken three times": [(r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND), (r.units[3]!.enhancement = BRAND)), []],
+  "an upgrade taken four times": [
+    (r) => ((r.units[0]!.enhancement = BRAND), (r.units[1]!.enhancement = BRAND), (r.units[3]!.enhancement = BRAND), r.units.push({ unit: WARDENS, enhancement: BRAND })),
+    ["5 enhancement-repeated"],
+  ],
   "more copies than its battle size allows": [(r) => (r.battleSize = "synthetic.incursion"), ["1 roster-limit"]],
   "a battle size without its own limit for the unit": [(r) => (r.battleSize = "synthetic.strike-force"), []],
   "a battle size the release does not define": [(r) => (r.battleSize = "synthetic.onslaught"), ["- not-current"]],
@@ -619,7 +623,11 @@ test("a roster's references include every detachment it lists", () => {
 const construction: Record<string, [Roster, string[]]> = {
   "an enhancement from its second detachment": [incursion([{ unit: DRONES }, { unit: LORD, enhancement: SIGIL }], [ASH_PACT, KINDLED]), []],
   "more enhancements than its battle size allows": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: KINDLER, enhancement: MANTLE }]), ["1 enhancement-limit"]],
-  "an upgrade beyond its battle size's enhancements": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: WARDENS, enhancement: BRAND }]), []],
+  "an upgrade beyond its battle size's enhancements": [incursion([{ unit: LORD, enhancement: SIGIL }, { unit: WARDENS, enhancement: BRAND }]), ["1 enhancement-limit"]],
+  "an upgrade's later copies within its battle size's enhancements": [
+    incursion([{ unit: WARDENS, enhancement: BRAND }, { unit: LORD, enhancement: BRAND }, { unit: SEER, enhancement: BRAND }]),
+    [],
+  ],
   "more copies than its battle size's duplicates": [incursion([{ unit: LORD }, { unit: LORD }, { unit: LORD }]), ["2 roster-limit"]],
   "a unit of the parent faction": [incursion([{ unit: SEER }]), []],
   "a unit the faction excludes": [incursion([{ unit: GUARD }]), ["0 unit-excluded"]],

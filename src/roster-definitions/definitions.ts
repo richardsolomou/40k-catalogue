@@ -66,7 +66,7 @@ export type DetachmentData = {
   /** How many units of a roster with this detachment take one of `allegiances`. */
   allegianceLimits?: (RosterBounds & { allegiances: string[] })[];
 };
-/** An `upgrade` may be taken by several units; other enhancements once per roster. */
+/** An `upgrade` may be taken by up to three units; other enhancements once per roster. */
 export type EnhancementData = { detachment: string; upgrade?: true; keywords?: { all?: string[]; none?: string[] } };
 /** A choice the unit takes from `choices`, in a roster with `detachment` where named; `requires` maps a choice to wargear the unit must carry. */
 export type AllegianceOffer = { choices: string[]; required?: true; detachment?: string; requires?: Record<string, string> };

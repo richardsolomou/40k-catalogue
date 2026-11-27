@@ -67,8 +67,8 @@ export type DetachmentData = {
   allegianceLimits?: (RosterBounds & { allegiances: string[] })[];
 };
 /**
- * An `upgrade` may be taken by up to three units and other enhancements once per roster, unless `perRoster` says how
- * many; an `outsideLimit` one does not count towards the battle size's enhancements.
+ * An enhancement may be taken once per roster, or by up to `perRoster` units; only its first copy counts towards the
+ * battle size's enhancements, and none of an `outsideLimit` one. Version 1 gives an `upgrade` a `perRoster` of three.
  */
 export type EnhancementData = { detachment: string; upgrade?: true; perRoster?: number; outsideLimit?: true; keywords?: { all?: string[]; none?: string[] } };
 /** A choice the unit takes from `choices`, in a roster with `detachment` where named; `requires` maps a choice to wargear the unit must carry. */
@@ -174,9 +174,11 @@ const checkers = (schema: { $id: string }) =>
   new Map(KINDS.map((kind) => [kind, ajv.getSchema(`${schema.$id}#/$defs/${kind}`)] as const).filter((pair): pair is [DefinitionKind, NonNullable<(typeof pair)[1]>] => pair[1] !== undefined));
 const checkData = { 1: checkers(v1Schema), 2: checkers(v2Schema) };
 
+const UPGRADE_COPIES = 3;
 const counted = (ids: string[] | undefined) => ids && Object.fromEntries(ids.map((id) => [id, 1]));
-/** Reads version 1 data, whose wargear lists name one of each, as version 2 counts. */
+/** Reads version 1 data as version 2: wargear lists name one of each, and an upgrade may be taken by three units. */
 function fromV1(kind: DefinitionKind, data: any): any {
+  if (kind === "enhancement" && data.upgrade) return { ...data, perRoster: UPGRADE_COPIES };
   if (kind === "model") return { ...data, wargear: counted(data.wargear) };
   if (kind === "roster-option" && data.replaces) return { ...data, replaces: counted(data.replaces) };
   if (kind === "wargear" && data.includes) return { ...data, includes: counted(data.includes) };

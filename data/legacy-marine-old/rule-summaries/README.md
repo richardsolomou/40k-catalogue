@@ -475,7 +475,7 @@ The app build prints no base size and the guide dated before the cutoff does not
 - `faq` `codex-chaos-knights.errata.iconoclast-fiefdom-detachment-preserve-the-idols-stratagem-target`, replaced by Chaos Knights Faction Pack: Version 1.2, page 4
 - `faq` `codex-chaos-knights.errata.knight-abominant-volkite-combustor-weapon`, replaced by Chaos Knights Faction Pack: Version 1.2, page 25
 
-15 entries the previous release published are retired: 11 "nothing" wargear placeholders of units that carry no wargear, 3 wargear bundles the roster definitions now key by their parts, each replaced by both parts, and the Death Korps Grenadier Squad's stat line, replaced by its Grenadier and Heavy Weapons Team stat lines.
+15 entries the previous release published are retired: 11 "nothing" wargear placeholders for an empty default loadout, 3 wargear bundles the roster definitions now key by their parts, each replaced by both parts, and the Death Korps Grenadier Squad's stat line, replaced by its Grenadier and Heavy Weapons Team stat lines.
 
 ## Absent
 

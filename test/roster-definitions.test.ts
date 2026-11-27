@@ -464,6 +464,14 @@ const invalid12: Record<string, [(records: CatalogueRecord[], identity: Release)
     (r) => Object.assign(find(r, "model", "synthetic.ember-host.flame-wardens.leader").data, { keywords: ["Infantry"] }),
     "model:synthetic.ember-host.flame-wardens.leader repeats its unit's keyword Infantry",
   ],
+  "an empty list of faction keywords": [
+    (r) => Object.assign(find(r, "unit", WARDENS).data, { factionKeywords: [] }),
+    `unit:${WARDENS} data/factionKeywords must NOT have fewer than 1 items`,
+  ],
+  "a faction keyword the unit does not have": [
+    (r) => Object.assign(find(r, "unit", WARDENS).data, { factionKeywords: ["Ash Host"] }),
+    `unit:${WARDENS} faction keyword Ash Host is not one of its keywords`,
+  ],
   "a faction excluding its own detachment": [
     (r) => Object.assign(find(r, "faction", "synthetic.ember-host").data, { excludedDetachments: ["synthetic.kindled-vow"] }),
     "faction:synthetic.ember-host excludes detachment:synthetic.kindled-vow, which is not its parent's",

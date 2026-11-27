@@ -622,3 +622,22 @@ test("only a unit ability names wargear", () => {
 test("an effect can apply only to weapons without a weapon ability", () => {
   assert.deepEqual(withEffect({ weaponLacks: "PSYCHIC" }), []);
 });
+
+test("a single given weapon profile has no mode", () => {
+  const given = { ...EFFECTS, fields: { ...EFFECTS.fields, upgradesWeapon: true, givenWeapon: { ...GIVEN_WEAPON, profiles: [{ ...GIVEN_WEAPON.profiles[0]!, mode: "strike" }] } } };
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = given)).includes(`ability:${OATH.id} facts/givenWeapon/profiles/0 must NOT be valid`));
+});
+
+test("a given weapon's modes are distinct", () => {
+  const twice = { ...GIVEN_WEAPON, profiles: [{ ...GIVEN_WEAPON.profiles[0]!, mode: "strike" }, { ...GIVEN_WEAPON.profiles[0]!, mode: "strike" }] };
+  const given = { ...EFFECTS, fields: { ...EFFECTS.fields, upgradesWeapon: true, givenWeapon: twice } };
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = given)), [`ability:${OATH.id} facts/givenWeapon names the mode strike twice`]);
+});
+
+test("an effect on weapons without a weapon ability does not give or remove it", () => {
+  assert.ok(withEffect({ weaponLacks: "HAZARDOUS", lostWeaponAbility: "HAZARDOUS" }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0 changes HAZARDOUS on weapons without it`));
+});
+
+test("a Range set is at least 1", () => {
+  assert.ok(withEffect({ attacks: ["ranged"], characteristic: { name: "range", set: -6 } }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0/characteristic/set must be >= 1`));
+});

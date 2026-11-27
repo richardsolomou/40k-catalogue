@@ -121,6 +121,8 @@ function combatErrors(combat: CombatFacts): string[] {
       c.effects.forEach((e, k) => {
         if (e.weaponAbility !== undefined && e.weaponAbility === e.lostWeaponAbility) errors.push(`${at}/choices/${j}/effects/${k} gives and removes ${e.weaponAbility}`);
         if (e.weaponHas !== undefined && e.weaponHas === e.weaponLacks) errors.push(`${at}/choices/${j}/effects/${k} applies to weapons with and without ${e.weaponHas}`);
+        const lacked = e.weaponLacks !== undefined && [e.weaponAbility, e.lostWeaponAbility].find((ability) => ability === e.weaponLacks);
+        if (lacked) errors.push(`${at}/choices/${j}/effects/${k} changes ${lacked} on weapons without it`);
       });
     });
   }
@@ -245,6 +247,8 @@ export function validateSummaries(identityValue: unknown, records: CatalogueReco
         if (rounds.some((r, i) => i > 0 && r <= rounds[i - 1])) errors.push(`${at} facts/award/rounds are not in ascending order`);
         const combat = facts.fields.combat as CombatFacts | { unresolved: string } | undefined;
         if (combat && !("unresolved" in combat)) errors.push(...combatErrors(combat).map((e) => `${at} facts/combat/${e}`));
+        const modes = ((facts.fields.givenWeapon as { profiles?: { mode?: string }[] } | undefined)?.profiles ?? []).flatMap((p) => (p.mode ? [p.mode] : []));
+        for (const mode of new Set(modes.filter((m, i) => modes.indexOf(m) !== i))) errors.push(`${at} facts/givenWeapon names the mode ${mode} twice`);
         // Rules the facts name are references of the record, as its summary links are.
         for (const ref of (facts.fields.references as Ref[] | undefined) ?? []) {
           const target = entries.get(key(ref));

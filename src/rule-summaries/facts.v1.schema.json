@@ -1651,8 +1651,10 @@
                       "$ref": "#/$defs/dice"
                     },
                     {
+                      "type": "object",
                       "properties": {
                         "dice": {
+                          "type": "integer",
                           "minimum": 1
                         }
                       }
@@ -1672,8 +1674,10 @@
                       "$ref": "#/$defs/dice"
                     },
                     {
+                      "type": "object",
                       "properties": {
                         "dice": {
+                          "type": "integer",
                           "minimum": 1
                         }
                       }
@@ -1690,33 +1694,56 @@
               "const": true
             }
           },
-          "if": {
-            "not": {
-              "properties": {
-                "name": {
-                  "enum": [
-                    "attacks",
-                    "damage"
+          "allOf": [
+            {
+              "if": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "not": {
+                      "enum": [
+                        "attacks",
+                        "damage"
+                      ]
+                    }
+                  }
+                }
+              },
+              "then": {
+                "not": {
+                  "required": [
+                    "multiply"
                   ]
+                },
+                "properties": {
+                  "add": {
+                    "type": "integer"
+                  },
+                  "set": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "const": "range"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "set": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
                 }
               }
             }
-          },
-          "then": {
-            "not": {
-              "required": [
-                "multiply"
-              ]
-            },
-            "properties": {
-              "add": {
-                "type": "integer"
-              },
-              "set": {
-                "type": "integer"
-              }
-            }
-          }
+          ]
         },
         "targetKeywords": {
           "$ref": "#/$defs/selectors"
@@ -1994,7 +2021,8 @@
                       "wounds"
                     ]
                   }
-                }
+                },
+                "type": "object"
               },
               "then": {
                 "required": [
@@ -2011,12 +2039,14 @@
                       "objective-control"
                     ]
                   }
-                }
+                },
+                "type": "object"
               },
               "then": {
                 "properties": {
                   "set": {
-                    "minimum": 0
+                    "minimum": 0,
+                    "type": "integer"
                   }
                 }
               }
@@ -2030,12 +2060,14 @@
                       "wounds"
                     ]
                   }
-                }
+                },
+                "type": "object"
               },
               "then": {
                 "properties": {
                   "set": {
-                    "minimum": 1
+                    "minimum": 1,
+                    "type": "integer"
                   }
                 }
               }
@@ -2048,12 +2080,14 @@
                       "leadership"
                     ]
                   }
-                }
+                },
+                "type": "object"
               },
               "then": {
                 "properties": {
                   "set": {
-                    "minimum": 2
+                    "minimum": 2,
+                    "type": "integer"
                   }
                 }
               }
@@ -2627,8 +2661,10 @@
         }
       },
       "if": {
+        "type": "object",
         "properties": {
           "profiles": {
+            "type": "array",
             "minItems": 2
           }
         }
@@ -2636,10 +2672,27 @@
       "then": {
         "properties": {
           "profiles": {
+            "type": "array",
             "items": {
+              "type": "object",
               "required": [
                 "mode"
               ]
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "profiles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "not": {
+                "required": [
+                  "mode"
+                ]
+              }
             }
           }
         }

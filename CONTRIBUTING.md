@@ -15,7 +15,7 @@ pnpm test
 pnpm lint:md
 ```
 
-Every pull request and every push to `main` runs `pnpm check`, `pnpm test` and `pnpm validate` on the valid fixtures in the [Checks workflow](.github/workflows/checks.yml), and a pull request merges only once it passes.
+Every pull request and every push to `main` runs `pnpm check`, `pnpm test` and `pnpm validate` on the valid fixtures in the [Checks workflow](.github/workflows/checks.yml). Merge a pull request only once it passes; it does not run `pnpm lint:md`, so run that yourself when you change Markdown.
 
 ## Rules records
 

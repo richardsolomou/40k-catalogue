@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Captain Titus",
-    "summary": "If this model is **destroyed** during the [Fight phase](vsdata:core-rule/fight-phase) before its unit is **selected to fight**, roll a D6 before removing it. On 2+, leave it on the battlefield until it fights or the phase ends, whichever happens first.",
+    "summary": "When a melee attack destroys this model before it has fought this phase, roll a D6. On a 2+, it stays in play and, after the attacking unit finishes its attacks, may fight:\n\n- If its attacks destroy at least 1 enemy model, this model is not **destroyed** and regains D3 lost wounds.\n- Otherwise, it is then removed from play.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -28,33 +28,26 @@
       "version": "1",
       "fields": {
         "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "fight",
-              "turn": "any"
-            },
-            {
-              "at": "phase-end",
-              "phase": "fight",
-              "turn": "any"
-            }
-          ],
+          "timings": [],
           "whileDestroyed": true
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "inflict-damage.destroyed"
-          }
-        ],
         "detail": {
-          "timing": "model destroyed during Fight phase before its unit selected to fight",
-          "rollBeforeRemoval": true,
-          "dice": "D6",
-          "threshold": 2,
-          "success": "delay removal",
-          "removeWhen": "model has fought or Fight phase ends, whichever first"
+          "ability": {
+            "trigger": "this model is destroyed by a melee attack",
+            "condition": "this model has not fought this phase",
+            "roll": "D6",
+            "threshold": "2+",
+            "onSuccess": {
+              "notRemoved": true,
+              "mayFightAfterAttackingUnitFinishes": true,
+              "ifEnemyModelsDestroyed": {
+                "atLeast": 1,
+                "regainLostWounds": "D3",
+                "notDestroyed": true
+              },
+              "otherwise": "removed from play"
+            }
+          }
         }
       }
     }

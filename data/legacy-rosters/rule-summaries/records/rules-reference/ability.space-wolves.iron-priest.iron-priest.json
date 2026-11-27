@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Iron Priest",
-    "summary": "While this model is up to 3\" from a **SPACE WOLVES VEHICLE** unit of yours, it gets **[Lone Operative](vsdata:core-ability/lone-operative)**.",
+    "summary": "This model gains **[Lone Operative](vsdata:core-ability/lone-operative)** whenever at least one friendly **ADEPTUS ASTARTES VEHICLE** unit is within 3\" of it.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -37,28 +37,27 @@
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-ability",
-            "id": "lone-operative"
-          }
-        ],
         "detail": {
-          "recipient": "this-model",
-          "condition": {
-            "origin": "this-model",
-            "entity": "unit",
-            "side": "friendly",
-            "allKeywords": [
+          "ability": {
+            "recipient": "this model",
+            "condition": {
+              "withinInches": 3,
+              "of": {
+                "side": "friendly",
+                "count": "one or more",
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "VEHICLE"
+                ]
+              }
+            },
+            "grants": "Lone Operative"
+          },
+          "cardPrintsOtherText": {
+            "requiredKeywords": [
               "SPACE WOLVES",
               "VEHICLE"
-            ],
-            "rangeInches": 3,
-            "measure": "within"
-          },
-          "effect": {
-            "ability": "LONE OPERATIVE",
-            "kind": "grant-ability"
+            ]
           }
         }
       }

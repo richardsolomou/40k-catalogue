@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Assault Intercessors with Jump Packs",
-    "summary": "When a **[Charge Move](vsdata:core-rule/charge-move)** is complete, this unit may pick an enemy it is **[engaged](vsdata:core-rule/engagement-range)** with. For the models from this unit that are [engaged](vsdata:core-rule/engagement-range) with the chosen enemy, roll one D6 apiece. Each die showing 4+ inflicts one **[Mortal Wound](vsdata:core-rule/mortal-wounds)** on the chosen enemy.",
+    "summary": "Whenever this unit finishes a **Charge move**, pick an enemy unit in **Engagement Range** of this unit and roll a D6 per model of this unit that is in Engagement Range of the chosen unit. Each 4+ inflicts 1 **mortal wound** on the chosen unit.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -123,34 +123,20 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "charge-move"
-          }
-        ],
         "detail": {
-          "type": "post-charge-mortal-wounds",
-          "actor": "this-unit",
-          "trigger": "charge-move-completed",
-          "selection": {
-            "count": 1,
-            "optional": true,
-            "side": "enemy",
-            "entity": "unit",
-            "engagedWith": "this-unit"
-          },
-          "dice": {
-            "count": 1,
-            "sides": 6,
-            "per": "model-in-this-unit-engaged-with-selected-enemy-unit"
-          },
-          "threshold": {
-            "comparison": "at-least",
-            "value": 4
-          },
-          "damage": {
-            "recipient": "selected-unit",
+          "ability": {
+            "trigger": "this unit ends a Charge move",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "withinEngagementRangeOfThisUnit": true,
+              "optional": false
+            },
+            "dice": {
+              "type": "D6",
+              "per": "model in this unit within Engagement Range of the selected unit"
+            },
+            "threshold": "4+",
             "mortalWoundsPerSuccess": 1
           }
         }

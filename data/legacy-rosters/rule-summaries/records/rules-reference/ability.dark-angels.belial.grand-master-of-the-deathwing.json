@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Belial",
-    "summary": "This unit's attacks against **CHARACTER** units get +1 to [Wound](vsdata:core-rule/wound-rolls).",
+    "summary": "As long as this model leads a unit, any attack made by that unit's models that scores a **Critical Hit** gains **[[PRECISION]](vsdata:weapon-ability/precision)**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -29,100 +29,16 @@
       "fields": {
         "combat": {
           "applies": {
+            "leading": true,
             "reachesAttached": true
           },
           "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "targetKeywords": [
-                        "CHARACTER"
-                      ],
-                      "rolls": {
-                        "woundModifier": 1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "attacker"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "targetKeywords": [
-                        "CHARACTER"
-                      ],
-                      "rolls": {
-                        "woundModifier": 1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "attacker"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "targetKeywords": [
-                        "CHARACTER"
-                      ],
-                      "rolls": {
-                        "woundModifier": 1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "attacker"
-              ]
-            }
+            {}
           ],
           "trees": [
             [
               {
                 "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ],
-            [
-              {
-                "reading": 2
               }
             ]
           ],
@@ -139,14 +55,14 @@
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
             "stratagem-both.one.known": 0,
             "stratagem-both.one.unknown": 0,
             "stratagem-both.many.known": 0,
@@ -157,19 +73,21 @@
             "army.many.unknown": 0
           }
         },
+        "references": [
+          {
+            "kind": "weapon-ability",
+            "id": "precision"
+          }
+        ],
         "detail": {
-          "subtype": "short-roll-modifier",
-          "recipient": "this unit",
-          "appliesTo": "attacks",
-          "target": {
-            "keywordLabel": "Character",
-            "kind": "unit"
+          "ability": {
+            "condition": "this model is leading a unit",
+            "attackers": "models in the led unit",
+            "trigger": "Critical Hit scored",
+            "grantsWeaponAbility": "PRECISION"
           },
-          "amount": 1,
-          "effect": {
-            "roll": "wound",
-            "delta": 1,
-            "kind": "modify-roll"
+          "cardPrintsOtherText": {
+            "woundRollAddAgainstCharacters": 1
           }
         }
       }

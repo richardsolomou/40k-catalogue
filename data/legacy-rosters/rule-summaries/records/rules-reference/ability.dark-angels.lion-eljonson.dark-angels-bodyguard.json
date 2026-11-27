@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Lion El'Jonson",
-    "summary": "While this unit is up to 3\" from a **DARK ANGELS INFANTRY** unit of yours, it gets **[Lone Operative](vsdata:core-ability/lone-operative)**.",
+    "summary": "This model gains **[Lone Operative](vsdata:core-ability/lone-operative)** whenever at least one friendly **ADEPTUS ASTARTES INFANTRY** unit lies within 3\" of it.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -31,34 +31,34 @@
           "abilities": [
             {
               "ability": "Lone Operative",
-              "to": "unit",
+              "to": "bearer",
               "named": true,
               "conditional": true
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-ability",
-            "id": "lone-operative"
-          }
-        ],
         "detail": {
-          "recipient": "this-unit",
-          "condition": {
-            "origin": "this-unit",
-            "entity": "unit",
-            "side": "friendly",
-            "allKeywords": [
+          "ability": {
+            "recipient": "this model",
+            "condition": {
+              "withinInches": 3,
+              "of": {
+                "side": "friendly",
+                "count": "one or more",
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              }
+            },
+            "grants": "Lone Operative"
+          },
+          "cardPrintsOtherText": {
+            "requiredKeywords": [
               "DARK ANGELS",
               "INFANTRY"
             ],
-            "rangeInches": 3,
-            "measure": "within"
-          },
-          "effect": {
-            "ability": "LONE OPERATIVE",
-            "kind": "grant-ability"
+            "recipient": "this unit"
           }
         }
       }

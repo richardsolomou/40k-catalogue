@@ -13,7 +13,18 @@
   "data": {
     "ruleType": "stratagem",
     "group": "Armoured Speartip",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.armoured-speartip"
+    },
     "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "wargear"
+    },
     "summary": "Use it as a Fight phase ends, picking 2 units of yours: an **ADEPTUS ASTARTES INFANTRY** unit outside **Engagement Range** of every enemy unit, and a friendly **HEAVY TRANSPORT** that unit could legally embark within.\n\nProvided the **HEAVY TRANSPORT** has the **INFANTRY** unit wholly within 6\" of it, that unit may then embark in it, even if it already disembarked this turn.",
     "citations": [
       {
@@ -28,6 +39,25 @@
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-end"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ],
+            "conditions": [
+              "not-in-engagement-range"
+            ],
+            "more": true
+          }
+        },
         "detail": {
           "detachment": "Armoured Speartip",
           "type": "Wargear",
@@ -66,11 +96,7 @@
               "effect": "the unit can embark within it",
               "evenIfDisembarkedFromATransportThisTurn": true
             }
-          ],
-          "lastPrinted": {
-            "dataBuild": 946,
-            "note": "Build 963, in force at this version's cutoff, no longer prints the Armoured Speartip Detachment; this rule is as build 946, the last to print it, gives it."
-          }
+          ]
         }
       }
     }

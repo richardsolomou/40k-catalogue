@@ -7,15 +7,15 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "stratagem",
-    "group": "Medusa's Wrath",
+    "group": "Ironstorm Spearhead",
     "detachment": {
       "kind": "detachment",
-      "id": "iron-hands.medusas-wrath"
+      "id": "space-marines.ironstorm-spearhead"
     },
     "cp": 1,
     "stratagem": {
@@ -27,16 +27,17 @@
         "fight",
         "end-of-turn"
       ],
-      "turn": "any"
+      "turn": "any",
+      "type": "epic-deed"
     },
-    "summary": "In any phase, just before a **destroyed** **ADEPTUS ASTARTES VEHICLE** rolls for **[deadly demise](vsdata:core-ability/deadly-demise)**, make that roll’s result an automatic 6.",
+    "summary": "Use it in any phase, right after an **ADEPTUS ASTARTES VEHICLE** model of yours with **[Deadly Demise](vsdata:core-ability/deadly-demise)** is **destroyed**. Pick that model; it can be chosen despite having been destroyed. Its **[Deadly Demise](vsdata:core-ability/deadly-demise)** inflicts **mortal wounds** automatically, with no D6 roll to decide.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -47,58 +48,68 @@
           "limit": "phase",
           "when": {
             "at": "phase",
-            "after": "friendly-destroyed"
+            "after": {
+              "unresolved": "not typed yet; see the summary"
+            }
           },
           "target": {
             "triggering": true,
-            "side": "friendly",
-            "entity": "unit",
+            "entity": "model",
             "keywords": [
               "ADEPTUS ASTARTES",
               "VEHICLE"
-            ]
+            ],
+            "more": true
           }
         },
         "reminder": {
           "timings": [],
           "whileDestroyed": true
         },
-        "references": [
-          {
-            "kind": "core-ability",
-            "id": "deadly-demise"
-          },
-          {
-            "kind": "core-rule",
-            "id": "inflict-damage.destroyed"
-          }
-        ],
         "detail": {
-          "type": "",
-          "trigger": {
+          "detachment": "Ironstorm Spearhead",
+          "type": "Epic Deed",
+          "window": {
             "turn": "either",
-            "phases": [
-              "any"
-            ],
-            "event": "before-deadly-demise-roll-for-destroyed-friendly",
-            "window": "any-phase"
+            "phase": "any",
+            "timing": "just after a friendly ADEPTUS ASTARTES VEHICLE model with Deadly Demise is destroyed"
           },
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "ADEPTUS ASTARTES VEHICLE"
+            "scope": "model",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "VEHICLE"
             ],
-            "referencedByTrigger": true
+            "hasAbility": "Deadly Demise",
+            "theDestroyedModel": true,
+            "eligibleThoughDestroyed": true
           },
           "effects": [
             {
-              "kind": "replace-roll-result",
-              "roll": "deadly-demise",
-              "result": 6,
-              "automatic": true
+              "ability": "Deadly Demise",
+              "skipRoll": "D6",
+              "mortalWounds": "inflicted automatically"
             }
-          ]
+          ],
+          "duration": "instant",
+          "cardPrintsOtherText": {
+            "detachment": "Medusa's Wrath",
+            "type": "",
+            "target": {
+              "scope": "unit",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES",
+                "VEHICLE"
+              ]
+            },
+            "timing": "when the unit is destroyed, before rolling for Deadly Demise",
+            "effect": {
+              "deadlyDemiseRolls": "changed to an unmodified result",
+              "result": 6
+            }
+          }
         }
       }
     }

@@ -7,38 +7,126 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Emperor's Champion",
-    "summary": "This unit gets +1 to its [Charge rolls](vsdata:core-rule/charge-move).",
+    "summary": "This ability has 2 parts:\n\n- When declaring a charge with an enemy **CHARACTER** unit no more than 12\" away from this unit, you may use this part. Doing so lets this unit re-roll the **Charge roll**, but its **charge move** must finish **engaged** with at least one such enemy **CHARACTER** unit.\n- Once per battle for your army, during the Fight phase, as this unit gets **selected to fight** while a **CHARACTER** unit is engaged with it, you may use this part. If you do, its melee attacks gain **[[DEVASTATING WOUNDS]](vsdata:weapon-ability/devastating-wounds)** for the rest of that phase.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ]
+        },
+        "combat": {
+          "applies": {
+            "reachesAttached": true
+          },
+          "readings": [
+            {}
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
+        },
+        "references": [
+          {
+            "kind": "weapon-ability",
+            "id": "devastating-wounds"
+          }
+        ],
         "detail": {
-          "trigger": {
-            "kind": "always"
+          "ability": {
+            "parts": [
+              {
+                "trigger": "this unit declares a charge",
+                "condition": {
+                  "side": "enemy",
+                  "keywordsAll": [
+                    "CHARACTER"
+                  ],
+                  "withinInches": 12
+                },
+                "optional": true,
+                "effects": {
+                  "rerollChargeRoll": true,
+                  "mustEndChargeMoveEngagedWithThoseCharacterUnits": true
+                }
+              },
+              {
+                "uses": {
+                  "perBattle": 1,
+                  "scope": "army"
+                },
+                "when": {
+                  "phase": "fight",
+                  "event": "this unit is selected to fight"
+                },
+                "condition": "engaged with a CHARACTER unit",
+                "optional": true,
+                "effect": {
+                  "attackType": "melee",
+                  "weaponAbility": "DEVASTATING WOUNDS"
+                },
+                "duration": "end-of-phase",
+                "durationBasis": "Core Rules 01.02.02: the official text prints no duration, so the effect lasts only for the phase it was applied in."
+              }
+            ]
           },
-          "target": {
-            "unit": "this-unit"
-          },
-          "conditions": [],
-          "effect": {
-            "kind": "modify-roll",
-            "roll": "charge",
-            "by": 1
+          "cardPrintsOtherText": {
+            "chargeRollModifier": 1
           }
         }
       }

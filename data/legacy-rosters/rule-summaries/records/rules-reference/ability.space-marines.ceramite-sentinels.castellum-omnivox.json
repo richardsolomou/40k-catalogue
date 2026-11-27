@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,16 +15,16 @@
     "group": "Ceramite Sentinels",
     "detachment": {
       "kind": "detachment",
-      "id": "imperial-fists.ceramite-sentinels"
+      "id": "space-marines.ceramite-sentinels"
     },
-    "summary": "Upgrade for an **ADEPTUS ASTARTES** unit. Making an advance or **fall-back move** does not make this unit ineligible to **start an action**.",
+    "summary": "For an ADEPTUS ASTARTES model. Whenever its unit Falls Back, choose one of these for that unit until the turn ends: it may still perform an Action this turn despite having Fallen Back; or it may still shoot this turn, and declare a charge too, despite having Fallen Back.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -33,7 +33,7 @@
       "fields": {
         "enhancement": {
           "type": "model",
-          "points": 10,
+          "points": 20,
           "eligibility": {
             "basis": "app-eligibility-rows",
             "anyOf": [
@@ -45,24 +45,38 @@
             ]
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "fall-back"
-          }
-        ],
         "detail": {
           "kind": "enhancement",
           "detachment": "Ceramite Sentinels",
           "effects": [
             {
-              "moveTypes": [
-                "advance",
-                "fall-back"
+              "trigger": "whenever the bearer's unit makes a Fall Back move",
+              "appliesTo": "bearer's unit",
+              "chooseOne": [
+                {
+                  "inTurnUnitFellBack": {
+                    "eligibleToPerformAction": true
+                  }
+                },
+                {
+                  "inTurnUnitFellBack": {
+                    "eligibleToShoot": true,
+                    "eligibleToDeclareCharge": true
+                  }
+                }
               ],
-              "keepsEligibility": "start an action"
+              "duration": "end-of-turn"
             }
-          ]
+          ],
+          "cardPrintsNewerText": {
+            "pointsCost": 10,
+            "eligibilityScope": "unit",
+            "moves": [
+              "advance",
+              "fall-back"
+            ],
+            "effect": "eligible to start an action"
+          }
         }
       }
     }

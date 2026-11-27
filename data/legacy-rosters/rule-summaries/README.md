@@ -6,14 +6,14 @@ Every summary is original wording, checked against the official sources it cites
 
 | Category | Active entries | Records | Unresolved |
 | --- | --- | --- | --- |
-| `rules-reference` | 6,921 | 6,912 | 9 |
+| `rules-reference` | 6,999 | 6,503 | 496 |
 | `mission-rules` | 285 | 285 | 0 |
 
-6,454 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30; 582 records that no app row carries cite only the dated Games Workshop page that prints it. 161 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 946 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 19 records rest on a reading the sources leave open and carry an `interpretation` flag.
+6,037 records cite the signed app build in force at the update's cutoff, Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02; 591 records that no app row carries cite only the dated Games Workshop page that prints it. 160 records are provisional: no official source in reach prints the rule (abilities of Crucible datasheets, printed only in the Crucible of Champions book), so they cite nothing and carry `provisional: true` until one does, naming that book as `source`. 955 records cite the Games Workshop PDF page that prints the rule, which is then their `source`. 16 records rest on a reading the sources leave open and carry an `interpretation` flag.
 
-Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it, or a Warhammer Legends ability's PDF page: `combat` 2770, `grants` 398, `weaponAbilities` 128, `reminder` 2258, `reserves` 1, `invulnerableSave` 121, `upgradesWeapon` 21, `roster` 29, `options` 13, `attachment` 56, `references` 995 (4,474 records with at least one). 100 Crucible and Warhammer Legends abilities that no app row prints and no Legends page is read for have their blocks too. A record whose rule none of these prints has none; treat what its summary describes as not calculated.
+Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 833 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it, or a Warhammer Legends ability's PDF page: `combat` 2530, `grants` 364, `weaponAbilities` 117, `reminder` 2041, `reserves` 1, `invulnerableSave` 111, `upgradesWeapon` 19, `roster` 26, `options` 13, `attachment` 47, `references` 721 (4,041 records with at least one). 99 Crucible and Warhammer Legends abilities that no app row prints and no Legends page is read for have their blocks too. A record whose rule none of these prints has none; treat what its summary describes as not calculated.
 
-The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,117 stat lines and 5,172 weapon profiles, and the `legacy-rosters` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the entry IDs saved rosters hold for it as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 341 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-rosters-legends` snapshot, the costs of 331 of them from the Munitorum Field Manual's Legends section. 326 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (37 of them with options left out, listed below), and their weapon profiles name that wargear. 59 Crucible or promotional datasheets the app does not carry have roster definitions, stat lines, weapon profiles and Leader targets, each naming the publication that prints the datasheet as `source`; 13 Legends datasheets whose PDF states no loadout in typed form have a roster definition; and the `legacy-rosters-extra` and `legacy-rosters-extra-mfm` snapshots price those datasheets and 8 Legends datasheets the Field Manual's Legends section does not. Each of these roster definitions was checked, for each choice together with the choices it changes, to accept exactly the loadouts the datasheet allows, and every weapon profile names wargear it fields. In this release 6 Crucible or promotional datasheets the check did not prove have only an entry for their abilities, with no roster definition, stat lines or weapon profiles, and 2 Legends datasheets whose PDF states no loadout in typed form and the check did not prove have no roster definition; all are listed below, and 1 wargear ability some of them grant is published only for the datasheets the check proved. A characteristic another of these units' choices changes is a gap.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,048 units with roster definitions (1,321 wargear options), 1,108 stat lines and 5,126 weapon profiles, and the `legacy-rosters` points snapshot of 1,047 units, 270 Detachments and 862 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the entry IDs saved rosters hold for it as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it, and names the 270 cards it prints that this version publishes no record for in `stratagemsUnlisted` and `enhancementsUnlisted`. 357 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `legacy-rosters-legends` snapshot, the costs of 347 of them from the Munitorum Field Manual's Legends section. 341 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (40 of them with options left out, listed below), and their weapon profiles name that wargear. 60 Crucible or promotional datasheets the app does not carry have roster definitions, stat lines, weapon profiles and Leader targets, each naming the publication that prints the datasheet as `source`; 13 Legends datasheets whose PDF states no loadout in typed form have a roster definition; and the `legacy-rosters-extra` and `legacy-rosters-extra-mfm` snapshots price those datasheets and 8 Legends datasheets the Field Manual's Legends section does not. Each of these roster definitions was checked, for each choice together with the choices it changes, to accept exactly the loadouts the datasheet allows, and every weapon profile names wargear it fields. In this release 6 Crucible or promotional datasheets the check did not prove have only an entry for their abilities, with no roster definition, stat lines or weapon profiles, and 2 Legends datasheets whose PDF states no loadout in typed form and the check did not prove have no roster definition; all are listed below, and 1 wargear ability some of them grant is published only for the datasheets the check proved. A characteristic another of these units' choices changes is a gap.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
@@ -23,15 +23,14 @@ FAQs also name 1 publication, an identity entry of the retained `publications` c
 
 ## Base sizes
 
-1,078 stat lines take the base size the app build prints and 50 stat lines the one Games Workshop's Base Size Guide (in the Event Companion) prints, cited in `baseSizeSource`: where the app prints none or none the format types, and for a Warhammer Legends datasheet, whose PDF prints none, from the newest guide dated before the cutoff that lists it. For 9 units the guide says which model takes which of the sizes the app lists.
+1,083 stat lines take the base size the app build prints and 36 stat lines the one Games Workshop's Base Size Guide (in the Event Companion) prints, cited in `baseSizeSource`: where the app prints none or none the format types, and for a Warhammer Legends datasheet, whose PDF prints none, from the newest guide dated before the cutoff that lists it. For 1 unit the guide says which model takes which of the sizes the app lists.
 
-Where the app and the guide in force differ, the app's size is published (20 stat lines):
+Where the app and the guide in force differ, the app's size is published (15 stat lines):
 
 - `aeldari.yvraine`: app 74x42mm oval, guide 75x42mm oval
 - `astra-militarum.attilan-rough-riders`: app 60x35mm oval, guide 60x35.5mm oval
 - `astra-militarum.cadian-recon-squad`: app 28mm, guide 28.5mm
 - `astra-militarum.krieg-command-squad`: app 25mm, guide 32mm
-- `blood-angels.commander-dante`: app 40mm, guide 50mm
 - `chaos-space-marines.red-corsairs-raiders`: app 32mm, guide 40mm
 - `chaos-space-marines.red-corsairs-reave-captain`: app 40mm, guide 32mm
 - `grey-knights.brotherhood-techmarine`: app 40mm, guide 32mm
@@ -41,12 +40,8 @@ Where the app and the guide in force differ, the app's size is published (20 sta
 - `orks.deffkoptas`: app 75mm, guide 75x42mm oval
 - `orks.nobz`: app 40mm, guide 32mm
 - `orks.squighog-boyz`: app 75mm or 90x52.5mm oval, guide 75x42mm oval
-- `orks.warboss`: app 50mm, guide 40mm
-- `orks.wazbom-blastajet`: app 120x92mm oval, guide 150x95mm oval
+- `orks.wazbom-blastajet`: app 120mm, guide 150x95mm oval
 - `orks.weirdboy`: app 50mm, guide 40mm
-- `space-marines.captain-in-terminator-armour`: app 40mm, guide 50mm
-- `space-marines.chaplain-in-terminator-armour`: app 50mm, guide 40mm
-- `space-marines.chaplain-with-jump-pack`: app 40mm, guide 32mm
 
 ### VS Data's own base sizes (335)
 
@@ -388,7 +383,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `world-eaters.bloodcult-champion`
 - `world-eaters.eight-blessed-lord`
 
-### No base size: Warhammer Legends datasheets no guide lists (23)
+### No base size: Warhammer Legends datasheets no guide lists (39)
 
 No official source in reach prints their base size, so their stat lines carry a `no-source` gap.
 
@@ -415,6 +410,22 @@ No official source in reach prints their base size, so their stat lines carry a 
 - `orks.skorchas`
 - `orks.squiggoth`
 - `orks.ufthak-blackhawk`
+- `space-marines.captain-on-bike`
+- `space-marines.cerberus`
+- `space-marines.falchion`
+- `space-marines.kratos`
+- `space-marines.land-raider-excelsior`
+- `space-marines.mastodon`
+- `space-marines.rapier-carrier`
+- `space-marines.relic-razorback`
+- `space-marines.rhino-primaris`
+- `space-marines.scout-bike-squad`
+- `space-marines.tarantula-air-defence-battery`
+- `space-marines.tarantula-sentry-battery`
+- `space-marines.terrax-pattern-termite`
+- `space-marines.typhon`
+- `space-marines.vanguard-veteran-squad`
+- `thousand-sons.sicaran`
 
 ### No base size: datasheets neither the app nor the guide in force sizes (35)
 
@@ -467,9 +478,13 @@ The app build prints no base size and the guide dated before the cutoff does not
 - `faq` `imperial-armour-grey-knights.errata.grey-knights-thunderhawk-gunship`, replaced by Grey Knights Faction Pack: Version 1.2, page 7; Grey Knights Faction Pack: Version 1.2, page 8
 - `faq` `index-chaos-daemons.errata.feculent-gnarlmaw-screamers-skull-altar-keywords`, replaced by Chaos Daemons Faction Pack: Version 1.2, page 61; Chaos Daemons Faction Pack: Version 1.2, page 87; Chaos Daemons Faction Pack: Version 1.2, page 37
 
+692 roster entries the previous release published are retired: wargear bundles and options the roster definitions now key by their counts, with new IDs.
+
+10 rule entries the previous release published are retired: rules the build in force no longer prints as these records, such as a Warhammer Legends datasheet's rule where the build prints that datasheet and its own record is the rule.
+
 ## Absent
 
-65 abilities that saved rosters name on a datasheet this version's official sources do not print them on are entries with `absent: true`, no record and, where no other entry holds it, the rosters' ID as an alias.
+32 abilities that saved rosters name on a datasheet this version's official sources do not print them on are entries with `absent: true`, no record and, where no other entry holds it, the rosters' ID as an alias.
 
 - `ability` `blood-angels.blood-angels-captain.rites-of-battle`
 - `ability` `blood-angels.death-company-marines-with-jump-packs.attached-unit`
@@ -477,69 +492,776 @@ The app build prints no base size and the guide dated before the cutoff does not
 - `ability` `blood-angels.sanguinary-guard.attached-unit`
 - `ability` `blood-angels.sanguinary-guard.sanguinary-banner`
 - `ability` `blood-angels.sanguinary-priest.sanguinary-priest`
-- `ability` `dark-angels.deathwing-knights.attached-unit`
-- `ability` `dark-angels.deathwing-terminator-squad.attached-unit`
-- `ability` `dark-angels.inner-circle-companions.attached-unit`
 - `ability` `dark-angels.lazarus.keeper-of-the-unseen-ritual`
-- `ability` `dark-angels.ravenwing-black-knights.attached-unit`
-- `ability` `imperial-agents.aquila-kill-team.attached-unit`
 - `ability` `imperial-agents.corvus-blackstar.infernum-halo-launcher`
 - `ability` `imperial-agents.deathwatch-kill-team.astartes-shield`
-- `ability` `imperial-agents.watch-master.rites-of-battle`
 - `ability` `space-marines.ancient-in-terminator-armour.astartes-banner`
 - `ability` `space-marines.ancient-in-terminator-armour.keep-the-banner-high`
-- `ability` `space-marines.ancient-in-terminator-armour.terminator-storm-shield`
-- `ability` `space-marines.ancient.astartes-banner`
-- `ability` `space-marines.ancient.unbreakable-duty`
-- `ability` `space-marines.apothecary-biologis.surgical-precision`
-- `ability` `space-marines.apothecary-biologis.vivispectrum`
-- `ability` `space-marines.apothecary.gene-seed-recovery`
 - `ability` `space-marines.assault-intercessor-squad.shock-assault`
 - `ability` `space-marines.bladeguard-ancient.astartes-banner`
-- `ability` `space-marines.bladeguard-ancient.deeds-of-heroism`
 - `ability` `space-marines.captain-in-gravis-armour.rites-of-battle`
-- `ability` `space-marines.captain-in-phobos-armour.master-of-deceit`
 - `ability` `space-marines.captain-in-phobos-armour.rites-of-battle`
 - `ability` `space-marines.captain-in-terminator-armour.rites-of-battle`
-- `ability` `space-marines.captain-on-bike.relic-shield`
-- `ability` `space-marines.captain-on-bike.rites-of-battle`
 - `ability` `space-marines.captain-on-bike.swift-assault`
 - `ability` `space-marines.captain-with-jump-pack.rites-of-battle`
-- `ability` `space-marines.captain.rites-of-battle`
 - `ability` `space-marines.chaplain-in-terminator-armour.recitation-of-faith`
 - `ability` `space-marines.company-heroes.ancient-banner`
-- `ability` `space-marines.drop-pod.combat-disembarkation`
 - `ability` `space-marines.eliminator-squad.mark-the-target`
-- `ability` `space-marines.eliminator-squad.reposition-under-covering-fire`
 - `ability` `space-marines.gladiator-reaper.rotating-death`
 - `ability` `space-marines.gladiator-valiant.ferocious-assault`
-- `ability` `space-marines.hellblaster-squad.for-the-chapter`
 - `ability` `space-marines.impulsor.assault-vehicle`
-- `ability` `space-marines.incursor-squad.multi-spectrum-array`
-- `ability` `space-marines.infernus-squad.incendiary-terror`
 - `ability` `space-marines.infiltrator-squad.infiltrator-comms-array`
-- `ability` `space-marines.intercessor-squad.hail-of-bolts`
-- `ability` `space-marines.intercessor-squad.objective-secured`
 - `ability` `space-marines.invader-atvs.outrider-escort`
 - `ability` `space-marines.invictor-tactical-warsuit.combat-support`
-- `ability` `space-marines.judiciar.silent-fury`
 - `ability` `space-marines.land-raider-excelsior.assault-ramp`
 - `ability` `space-marines.librarian-in-terminator-armour.veil-of-time-psychic`
 - `ability` `space-marines.librarian.mental-fortress-psychic`
-- `ability` `space-marines.lieutenant-in-phobos-armour.strategic-dispersal`
 - `ability` `space-marines.lieutenant-with-combi-weapon.lone-survivor`
-- `ability` `space-marines.lieutenant-with-combi-weapon.priority-objective-identified`
-- `ability` `space-marines.lieutenant.target-priority`
-- `ability` `space-marines.outrider-squad.thunderous-impact`
-- `ability` `space-marines.repulsor.emergency-combat-embarkation`
-- `ability` `space-marines.rhino.self-repair`
-- `ability` `space-marines.scout-squad.guerrilla-tactics`
-- `ability` `space-marines.techmarine.vengeance-of-the-omnissiah`
 - `ability` `space-marines.vulkan-hestan.inspiring-commander`
 
 ## Unresolved
 
 Active entries without a record, by reason. An entry with several reasons is listed under each.
+
+### Neither a datasheet or rule of the app build in force nor a dated publisher page carries the rule, so it has no official citation yet (278)
+
+- `ability` `black-templars.chaplain-grimaldus.faithful-cenobytes`
+- `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
+- `ability` `black-templars.fist-of-the-god-emperor.avowed-destruction`
+- `ability` `black-templars.fist-of-the-god-emperor.doctrinal-flexibility`
+- `ability` `black-templars.fist-of-the-god-emperor.oathbound-exemplar`
+- `ability` `black-templars.fist-of-the-god-emperor.purge-and-sanctify`
+- `ability` `black-templars.fist-of-the-god-emperor.righteous-fervour-upgrade`
+- `ability` `black-templars.vow-sworn-crusaders.augury-servo-host`
+- `ability` `black-templars.vow-sworn-crusaders.consecrating-aura`
+- `ability` `black-templars.vow-sworn-crusaders.devout-push`
+- `ability` `black-templars.vow-sworn-crusaders.dread-crusaders`
+- `ability` `black-templars.vow-sworn-crusaders.for-the-emperors-honour`
+- `ability` `black-templars.vow-sworn-crusaders.incendiary-animus`
+- `ability` `black-templars.vow-sworn-crusaders.pious-enmity`
+- `ability` `black-templars.vow-sworn-crusaders.spoor-of-the-unholy`
+- `ability` `black-templars.vow-sworn-crusaders.zealous-vanguard`
+- `ability` `blood-angels.angelic-inheritors.measured-strategist`
+- `ability` `blood-angels.angelic-inheritors.unto-death`
+- `ability` `blood-angels.blood-angels-captain.strategic-acumen`
+- `ability` `blood-angels.chief-librarian-mephiston.chief-librarian-psyker-level-3`
+- `ability` `blood-angels.chief-librarian-mephiston.quickening-psychic-level-1`
+- `ability` `blood-angels.death-company-captain-with-jump-pack.death-visions-of-sanguinius`
+- `ability` `blood-angels.death-company-captain-with-jump-pack.relic-shield`
+- `ability` `blood-angels.death-company-captain.death-visions-of-sanguinius`
+- `ability` `blood-angels.sanguinary-priest.narthecium-once-per-turn-per-unit`
+- `ability` `blood-angels.wrath-of-the-doomed.sanguinius-fury`
+- `ability` `core.sustained-hits-1-non-monster-vehicle`
+- `ability` `core.sustained-hits-2-non-monster-vehicle`
+- `ability` `dark-angels.azrael.watcher-in-the-dark-once-per-battle-per-unit`
+- `ability` `dark-angels.darkflight-pursuit.nightforged-battery-upgarde`
+- `ability` `dark-angels.ezekiel.chief-librarian-psyker-level-3`
+- `ability` `dark-angels.ezekiel.whispers-of-the-shadow-forest-psychic-level-1`
+- `ability` `dark-angels.lion-eljonson.master-strategist`
+- `ability` `dark-angels.lion-eljonson.the-watchers`
+- `ability` `dark-angels.wrath-of-the-rock.in-sacrifice-victory`
+- `ability` `dark-angels.wrath-of-the-rock.knights-of-iron`
+- `ability` `deathwatch.deathwatch-veterans.storm-shield`
+- `ability` `deathwatch.decimus-kill-team.storm-shield`
+- `ability` `deathwatch.veteran-recruits`
+- `ability` `deathwatch.watch-master.purgatus-quarry`
+- `ability` `deathwatch.watch-master.watch-master`
+- `ability` `imperial-agents.aquila-kill-team.storm-shield`
+- `ability` `imperial-agents.deathwatch-kill-team.storm-shield`
+- `ability` `imperial-agents.watch-master.strategic-acumen`
+- `ability` `imperial-agents.watch-master.watch-that-new`
+- `ability` `space-marines.ancient-in-terminator-armour.never-shall-the-standard-fall`
+- `ability` `space-marines.ancient-in-terminator-armour.raise-the-banner`
+- `ability` `space-marines.ancient.honour-of-the-company`
+- `ability` `space-marines.ancient.raise-the-banner`
+- `ability` `space-marines.apothecary-biologis.vivispectral-analysis-targeting`
+- `ability` `space-marines.assault-brethren.armour-of-contempt`
+- `ability` `space-marines.assault-brethren.assault-mastery`
+- `ability` `space-marines.assault-brethren.duty-in-death`
+- `ability` `space-marines.assault-brethren.furious-assault-upgrade`
+- `ability` `space-marines.assault-brethren.gene-wrought-might`
+- `ability` `space-marines.assault-brethren.imperiums-sword`
+- `ability` `space-marines.bladeguard-ancient.deeds-of-legend`
+- `ability` `space-marines.bladeguard-ancient.raise-the-banner`
+- `ability` `space-marines.captain-in-gravis-armour.strategic-acumen`
+- `ability` `space-marines.captain-in-phobos-armour.strategic-acumen`
+- `ability` `space-marines.captain-in-phobos-armour.tactical-fluidity-once-per-battle-round-per-unit`
+- `ability` `space-marines.captain-in-terminator-armour.strategic-acumen`
+- `ability` `space-marines.captain-on-bike.into-the-fray`
+- `ability` `space-marines.captain-on-bike.strategic-acumen`
+- `ability` `space-marines.captain-titus.righteous-fury-once-per-battle-per-army`
+- `ability` `space-marines.captain-with-jump-pack.strategic-acumen`
+- `ability` `space-marines.captain.strategic-acumen`
+- `ability` `space-marines.cato-sicarius.captain-of-the-honour-guard`
+- `ability` `space-marines.ceramite-sentinels.establish-supremacy`
+- `ability` `space-marines.cerberus.atomantic-arc-reactor`
+- `ability` `space-marines.cerberus.damaged`
+- `ability` `space-marines.chaplain-in-terminator-armour.zealous-fortitude`
+- `ability` `space-marines.chief-librarian-tigurius.chief-librarian-psyker-level-3`
+- `ability` `space-marines.chief-librarian-tigurius.prescience-psychic-level-2`
+- `ability` `space-marines.chief-librarian-tigurius.telepathic-assault-psychic-level-1`
+- `ability` `space-marines.company-heroes.raise-the-banner`
+- `ability` `space-marines.deathwatch-support.beacon-angelis`
+- `ability` `space-marines.deathwatch-support.blackstar-extraction`
+- `ability` `space-marines.deathwatch-support.dragonfire-rounds`
+- `ability` `space-marines.deathwatch-support.hellfire-rounds`
+- `ability` `space-marines.deathwatch-support.kraken-rounds`
+- `ability` `space-marines.deathwatch-support.mission-tactics`
+- `ability` `space-marines.devastator-brethren.armour-of-contempt`
+- `ability` `space-marines.devastator-brethren.devastator-mastery`
+- `ability` `space-marines.devastator-brethren.hail-of-vengeance`
+- `ability` `space-marines.devastator-brethren.honour-of-vigilance`
+- `ability` `space-marines.devastator-brethren.master-forged-firearms`
+- `ability` `space-marines.devastator-brethren.storm-of-fire`
+- `ability` `space-marines.eliminator-squad.chameleoline-cloaks`
+- `ability` `space-marines.eliminator-squad.special-issue-optics-and-ammunition`
+- `ability` `space-marines.eradicator-squad-with-heavy-bolters.overlapping-destruction`
+- `ability` `space-marines.falchion.damaged`
+- `ability` `space-marines.falchion.titan-killer`
+- `ability` `space-marines.forgefathers-seekers.forged-in-fire`
+- `ability` `space-marines.forgefathers-seekers.wrath-and-ruin`
+- `ability` `space-marines.gauntlet-task-force.aggressive-disembarkation`
+- `ability` `space-marines.gauntlet-task-force.combined-deployment`
+- `ability` `space-marines.gauntlet-task-force.damocles-class-uplink`
+- `ability` `space-marines.gauntlet-task-force.duty-is-never-done`
+- `ability` `space-marines.gauntlet-task-force.linebreaker-onslaught`
+- `ability` `space-marines.gauntlet-task-force.storm-and-secure`
+- `ability` `space-marines.gladius-task-force.codex-discipline`
+- `ability` `space-marines.gladius-task-force.laurels-of-triumph`
+- `ability` `space-marines.gladius-task-force.standard-of-the-emperor-ascendant`
+- `ability` `space-marines.gravis-linebreaker-force.annihilating-force`
+- `ability` `space-marines.gravis-linebreaker-force.armoured-impact`
+- `ability` `space-marines.gravis-linebreaker-force.indefatigable-fortitude`
+- `ability` `space-marines.gravis-linebreaker-force.purgation-push`
+- `ability` `space-marines.gravis-linebreaker-force.relentless-advance`
+- `ability` `space-marines.gravis-linebreaker-force.walking-fortress`
+- `ability` `space-marines.gravis-siege-force.annihilating-force`
+- `ability` `space-marines.gravis-siege-force.immovable-conquerors-upgrade`
+- `ability` `space-marines.gravis-siege-force.indomitable-defence`
+- `ability` `space-marines.gravis-siege-force.narthecis-gauntlet`
+- `ability` `space-marines.gravis-siege-force.stand-unyielding`
+- `ability` `space-marines.gravis-siege-force.suppression-volleys`
+- `ability` `space-marines.hellblaster-squad.rites-of-thermal-appeasement`
+- `ability` `space-marines.impulsor.rapid-disembarkation`
+- `ability` `space-marines.inceptor-squad.parabolic-jetleap`
+- `ability` `space-marines.incursor-squad.divinator-class-auspexes-once-per-phase-per-unit`
+- `ability` `space-marines.infernus-squad.driven-from-cover`
+- `ability` `space-marines.intercessor-squad.bolter-discipline`
+- `ability` `space-marines.intercessor-squad.tactical-mainstay`
+- `ability` `space-marines.invader-atvs.aggressive-reconnaissance`
+- `ability` `space-marines.invictor-tactical-warsuit.forward-assault-warsuit`
+- `ability` `space-marines.ironclad-champions.adamantine-terror`
+- `ability` `space-marines.ironclad-champions.artificer-sarcophagus-upgrade`
+- `ability` `space-marines.ironclad-champions.enduring-vengeance`
+- `ability` `space-marines.ironclad-champions.mercy-is-weakness`
+- `ability` `space-marines.ironclad-champions.upstoppable-advance`
+- `ability` `space-marines.ironclad-champions.venerable-champion-aura-upgrade`
+- `ability` `space-marines.ironstorm-spearhead.gunnery-honours-upgrade`
+- `ability` `space-marines.ironstorm-spearhead.headhunter-doctrine`
+- `ability` `space-marines.ironstorm-spearhead.ironstorm-auto-targeters`
+- `ability` `space-marines.ironstorm-spearhead.layered-ceramite`
+- `ability` `space-marines.ironstorm-spearhead.might-of-the-machine-spirit`
+- `ability` `space-marines.ironstorm-spearhead.redoubtable-machine-spirit-upgrade`
+- `ability` `space-marines.kaius-konorius.calgars-champion`
+- `ability` `space-marines.kaius-konorius.support`
+- `ability` `space-marines.kaius-konorius.veteran-bodyguard`
+- `ability` `space-marines.kratos.damaged`
+- `ability` `space-marines.kratos.line-breaker`
+- `ability` `space-marines.land-raider-crusader.fury-of-the-machine-spirit`
+- `ability` `space-marines.land-raider-excelsior.damaged`
+- `ability` `space-marines.land-raider-excelsior.rites-of-battle`
+- `ability` `space-marines.land-raider-redeemer.wrath-of-the-machine-spirit`
+- `ability` `space-marines.land-raider.power-of-the-machine-spirit`
+- `ability` `space-marines.librarian-in-phobos-armour.librarian-psyker-level-1`
+- `ability` `space-marines.librarian-in-phobos-armour.soul-sight-psychic-level-1`
+- `ability` `space-marines.librarian-in-terminator-armour.librarian-psyker-level-1`
+- `ability` `space-marines.librarian-in-terminator-armour.might-of-heroes-psychic-level-1`
+- `ability` `space-marines.librarian-in-terminator-armour.thunderous-force-psychic-level-1`
+- `ability` `space-marines.librarian.force-dome-psychic-level-1`
+- `ability` `space-marines.librarian.librarian-psyker-level-1`
+- `ability` `space-marines.librarian.veil-of-time-psychic-level-1`
+- `ability` `space-marines.lieutenant-in-phobos-armour.demi-company-commander-once-per-turn-per-unit`
+- `ability` `space-marines.lieutenant-with-combi-weapon.priority-target-identified-once-per-battle-per-unit`
+- `ability` `space-marines.lieutenant.demi-company-commander-once-per-turn-per-unit`
+- `ability` `space-marines.marneus-calgar.codex-adept`
+- `ability` `space-marines.marneus-calgar.master-tactician`
+- `ability` `space-marines.marneus-calgar.thunderhawk-insertion`
+- `ability` `space-marines.mastodon.damaged`
+- `ability` `space-marines.mastodon.inviolable-transport`
+- `ability` `space-marines.medusas-wrath.methodical-brutality`
+- `ability` `space-marines.medusas-wrath.spirits-of-iron`
+- `ability` `space-marines.outrider-squad.full-throttle-assault`
+- `ability` `space-marines.phobos-shadow-force.execute-and-redeploy`
+- `ability` `space-marines.phobos-shadow-force.mortis-snares`
+- `ability` `space-marines.phobos-shadow-force.shadow-masters`
+- `ability` `space-marines.phobos-shadow-force.strike-from-the-shadows`
+- `ability` `space-marines.phobos-shadow-force.tactical-withdrawal`
+- `ability` `space-marines.phobos-shadow-force.venator-omni-auspex`
+- `ability` `space-marines.phobos-shock-force.seal-of-shrouding`
+- `ability` `space-marines.phobos-shock-force.strike-from-the-shadows`
+- `ability` `space-marines.phobos-shock-force.transhuman-reactions`
+- `ability` `space-marines.phobos-shock-force.umbral-evasion`
+- `ability` `space-marines.phobos-shock-force.vanguard-ambushers`
+- `ability` `space-marines.phobos-shock-force.venator-omni-auspex`
+- `ability` `space-marines.rapier-carrier.powerful-volley`
+- `ability` `space-marines.reiver-squad.grapnel-launchers`
+- `ability` `space-marines.reiver-squad.grav-chutes`
+- `ability` `space-marines.relic-razorback.fire-supprt`
+- `ability` `space-marines.repulsor.combat-embarkation`
+- `ability` `space-marines.rhino-primaris.orbital-comms-array`
+- `ability` `space-marines.rhino-primaris.self-repair`
+- `ability` `space-marines.rhino.veiling-smoke-once-per-phase-per-unit`
+- `ability` `space-marines.roboute-guilliman.codex-adept`
+- `ability` `space-marines.roboute-guilliman.leader-of-astartes`
+- `ability` `space-marines.scout-bike-squad.outflank`
+- `ability` `space-marines.scout-squad.flexible-asset`
+- `ability` `space-marines.shadowmark-talon.murderous-fusillade`
+- `ability` `space-marines.shadowmark-talon.shadow-tactics`
+- `ability` `space-marines.shadowmark-talon.suppressed-weapons`
+- `ability` `space-marines.sicaran.armoured-spearhead`
+- `ability` `space-marines.sicaran.damaged`
+- `ability` `space-marines.spearpoint-task-force.flawless-riders`
+- `ability` `space-marines.sternguard-veteran-squad.veteran-marksmen`
+- `ability` `space-marines.storm-speeder-thunderstrike.shattered-defences`
+- `ability` `space-marines.stormlance-task-force.auspex-triangulation-shrines-upgrade`
+- `ability` `space-marines.stormlance-task-force.hurtling-targets`
+- `ability` `space-marines.stormlance-task-force.lightning-fast-strike`
+- `ability` `space-marines.stormlance-task-force.sudden-onslaught`
+- `ability` `space-marines.stormlance-task-force.supercharged-engines-upgrade`
+- `ability` `space-marines.tactical-brethren.armour-of-contempt`
+- `ability` `space-marines.tactical-brethren.domination-fire`
+- `ability` `space-marines.tactical-brethren.laurels-of-vigilance`
+- `ability` `space-marines.tactical-brethren.masterful-tactics`
+- `ability` `space-marines.tactical-brethren.tactical-insight`
+- `ability` `space-marines.tactical-brethren.tactical-mastery`
+- `ability` `space-marines.tacticus-attack-force.martial-paragon`
+- `ability` `space-marines.tacticus-attack-force.relentless-assault`
+- `ability` `space-marines.tacticus-attack-force.spearpoint-war-leader`
+- `ability` `space-marines.tacticus-attack-force.tactical-focus`
+- `ability` `space-marines.tacticus-attack-force.transhuman-swiftness`
+- `ability` `space-marines.tacticus-attack-force.wrath-of-the-chapter`
+- `ability` `space-marines.tacticus-firestorm-force.codex-fire-patterns`
+- `ability` `space-marines.tacticus-firestorm-force.cyber-familiar`
+- `ability` `space-marines.tacticus-firestorm-force.for-the-emperor`
+- `ability` `space-marines.tacticus-firestorm-force.point-blank-brutality`
+- `ability` `space-marines.tacticus-firestorm-force.relentless-assault`
+- `ability` `space-marines.tacticus-firestorm-force.tempered-in-battle-aura`
+- `ability` `space-marines.tarantula-air-defence-battery.sentry-programming-once-per-phase-per-unit`
+- `ability` `space-marines.tarantula-sentry-battery.sentinel-protocols-once-per-phase-per-unit`
+- `ability` `space-marines.techmarine.blessings-of-the-omnissiah`
+- `ability` `space-marines.terminator-storm-force.champion-of-the-first-company`
+- `ability` `space-marines.terminator-storm-force.corporeum-reliquary`
+- `ability` `space-marines.terminator-storm-force.death-blow`
+- `ability` `space-marines.terminator-storm-force.gunship-extraction`
+- `ability` `space-marines.terminator-storm-force.merciless-veterans`
+- `ability` `space-marines.terminator-storm-force.tactical-dreadnought-fortitude`
+- `ability` `space-marines.terrax-pattern-termite.damaged`
+- `ability` `space-marines.terrax-pattern-termite.termite-assault`
+- `ability` `space-marines.transhuman-strategist`
+- `ability` `space-marines.typhon.damaged`
+- `ability` `space-marines.typhon.sunderer-of-fortresses`
+- `ability` `space-marines.vanguard-veteran-squad-with-jump-packs.combat-shield`
+- `ability` `space-marines.vanguard-veteran-squad.storm-shield`
+- `ability` `space-marines.vanguard-veteran-squad.vanguard-assault`
+- `ability` `space-marines.venerable-dreadnought.wisdom-of-the-ancients`
+- `ability` `space-marines.victrix-honour-guard.honour-guard-of-macragge`
+- `ability` `space-marines.wardens-of-ultramar.raise-the-banner`
+- `ability` `space-marines.whirlwind.punishing-bombardment`
+- `ability` `space-wolves.champions-of-fenris.birth-of-a-saga`
+- `ability` `space-wolves.champions-of-fenris.champions-guidance`
+- `ability` `space-wolves.champions-of-fenris.heroic-resolve`
+- `ability` `space-wolves.grey-hunters.old-greymanes`
+- `ability` `space-wolves.njal-stormcaller.high-rune-priest-psyker-level-3`
+- `ability` `space-wolves.njal-stormcaller.murderous-hurricane-psychic-level-1`
+- `ability` `space-wolves.njal-stormcaller.storm-caller-psychic-level-1`
+- `ability` `space-wolves.saga-of-the-great-wolf.fangs-of-the-pack`
+- `ability` `space-wolves.saga-of-the-great-wolf.wolf-totems`
+- `ability` `world-eaters.khorne-berzerkers.murderous-charge`
+- `core-rule` `legends-space-marines.legendary-proxies`
+- `core-rule` `legends-space-marines.legends`
+- `faq` `codex-adeptus-custodes.errata.datasheets`
+- `faq` `codex-chaos-space-marines.errata.datasheets`
+- `faq` `codex-death-guard.errata.datasheets`
+- `faq` `codex-emperors-children.errata.datasheets`
+- `faq` `codex-grey-knights.errata.datasheets`
+- `faq` `codex-imperial-agents.errata.datasheets`
+- `faq` `codex-space-marines.errata.captain-titus-righteous-fury-ability`
+- `faq` `codex-space-marines.errata.iron-father-feirros-iron-father-ability`
+- `faq` `codex-space-marines.errata.librarian-in-terminator-armour`
+- `faq` `codex-space-marines.errata.techmarine-techmarine-ability`
+- `faq` `codex-thousand-sons.errata.datasheets`
+- `faq` `codex-thousand-sons.errata.rubricae-phalanx-detachment`
+- `faq` `codex-world-eaters.errata.angron-driven-by-ultimate-rage-ability`
+- `faq` `codex-world-eaters.errata.berzerker-warband-detachment-relentless-rage-detachment-rule`
+- `faq` `codex-world-eaters.errata.datasheets`
+- `faq` `codex-world-eaters.errata.khorne-berzerkers-abilities`
+- `faq` `core-rules.faq.abilities-in-attached-units`
+- `faq` `core-rules.faq.level-of-control-3`
+- `faq` `core-rules.faq.level-of-control`
+- `faq` `core-rules.faq.units-and-models`
+- `faq` `core-rules.faq.visibility-2`
+- `weapon-ability` `sustained-hits-1-infantry`
+- `weapon-ability` `sustained-hits-1-non-monster-vehicle`
+- `weapon-ability` `sustained-hits-2-non-monster-vehicle`
+
+### The rule has no finished draft for this version (245)
+
+- `ability` `black-templars.castellan.vehement-aggression`
+- `ability` `black-templars.chaplain-grimaldus.faithful-cenobytes`
+- `ability` `black-templars.chaplain-grimaldus.temple-relics`
+- `ability` `black-templars.crusade-ancient.vengeful-exhortation`
+- `ability` `black-templars.crusader-squad.righteous-zeal`
+- `ability` `black-templars.emperors-champion.chosen-of-the-emperor`
+- `ability` `black-templars.execrator.condemnatory-annihilation`
+- `ability` `black-templars.execrator.remorseless-persecution`
+- `ability` `black-templars.high-marshal-helbrecht.crusade-of-wrath`
+- `ability` `black-templars.marshal.pious-fervour`
+- `ability` `black-templars.marshals-household.blade-of-detestation`
+- `ability` `black-templars.sword-brethren-squad.exploit-their-cowardice`
+- `ability` `black-templars.vow-sworn-crusaders.pious-enmity`
+- `ability` `blood-angels.angelic-inheritors.legacy-of-the-angel`
+- `ability` `blood-angels.angelic-inheritors.ordained-sacrifice`
+- `ability` `blood-angels.angelic-inheritors.unto-death`
+- `ability` `blood-angels.astorath.mass-of-doom`
+- `ability` `blood-angels.astorath.redeemer-of-the-lost`
+- `ability` `blood-angels.chief-librarian-mephiston.quickening-psychic-level-1`
+- `ability` `blood-angels.chief-librarian-mephiston.transfixing-gaze-psychic-level-2`
+- `ability` `blood-angels.commander-dante.death-mask-of-sanguinius`
+- `ability` `blood-angels.commander-dante.warden-of-the-imperium-nihilus`
+- `ability` `blood-angels.death-company-captain-with-jump-pack.death-visions-of-sanguinius`
+- `ability` `blood-angels.death-company-captain.death-visions-of-sanguinius`
+- `ability` `blood-angels.death-company-dreadnought.driven-by-fury`
+- `ability` `blood-angels.encarmine-speartip.judgement-of-the-golden-host`
+- `ability` `blood-angels.the-sanguinor.aura-of-fervour`
+- `ability` `blood-angels.the-sanguinor.miraculous-saviour-once-per-battle-per-army`
+- `ability` `chaos-daemons.legion-of-excess.rapturous-agony`
+- `ability` `chaos-daemons.legion-of-excess.sensory-excruciation`
+- `ability` `dark-angels.asmodai.feared-interrogator`
+- `ability` `dark-angels.azrael.masterful-tactician`
+- `ability` `dark-angels.azrael.watcher-in-the-dark-once-per-battle-per-unit`
+- `ability` `dark-angels.darkflight-pursuit.nightforged-battery-upgarde`
+- `ability` `dark-angels.deathwing-knights.inner-circle`
+- `ability` `dark-angels.deathwing-terminator-squad.deathwing`
+- `ability` `dark-angels.ezekiel.engulfing-fear-psychic-level-1`
+- `ability` `dark-angels.ezekiel.whispers-of-the-shadow-forest-psychic-level-1`
+- `ability` `dark-angels.inner-circle-task-force.duty-unto-death`
+- `ability` `dark-angels.inner-circle-task-force.wrath-of-the-lion`
+- `ability` `dark-angels.lazarus.intractable-will`
+- `ability` `dark-angels.lion-eljonson.martial-exemplar`
+- `ability` `dark-angels.lion-eljonson.master-strategist`
+- `ability` `dark-angels.lion-eljonson.no-hiding-from-the-watchers`
+- `ability` `dark-angels.lion-eljonson.primarch-of-the-first-legion`
+- `ability` `dark-angels.ravenwing-command-squad.honour-or-death`
+- `ability` `dark-angels.ravenwing-command-squad.narthecium`
+- `ability` `dark-angels.ravenwing-darkshroud.icon-of-old-caliban`
+- `ability` `dark-angels.sammael.cut-off-their-escape`
+- `ability` `dark-angels.wrath-of-the-rock.ancient-weapons`
+- `ability` `dark-angels.wrath-of-the-rock.in-sacrifice-victory`
+- `ability` `deathwatch.black-spear-task-force.beacon-angelis`
+- `ability` `deathwatch.black-spear-task-force.mission-tactics`
+- `ability` `deathwatch.indomitor-kill-team.indomitor-doctrines`
+- `ability` `deathwatch.spectrus-kill-team.helix-gauntlet`
+- `ability` `deathwatch.talonstrike-kill-team.talonstrike-doctrines`
+- `ability` `deathwatch.watch-captain-artemis.unstoppable-champion-once-per-battle-per-army`
+- `ability` `deathwatch.watch-master.strategic-knowledge`
+- `ability` `emperors-children.slaaneshs-chosen.vengeful-surge`
+- `ability` `imperial-agents.aquila-kill-team.kill-team`
+- `ability` `imperial-agents.watch-master.watch-that-new`
+- `ability` `space-marines.aethon-shaan.blackwing-mantle-once-per-phase-per-army`
+- `ability` `space-marines.ancient-in-terminator-armour.support`
+- `ability` `space-marines.ancient.support`
+- `ability` `space-marines.apothecary-biologis.support`
+- `ability` `space-marines.apothecary.support`
+- `ability` `space-marines.blade-of-ultramar.armour-of-contempt`
+- `ability` `space-marines.blade-of-ultramar.courage-and-honour`
+- `ability` `space-marines.blade-of-ultramar.mastered-doctrines`
+- `ability` `space-marines.blade-of-ultramar.student-of-the-codex`
+- `ability` `space-marines.bladeguard-veteran-squad.bladeguard-once-per-turn-per-unit`
+- `ability` `space-marines.brutalis-dreadnought.brutalis-charge-once-per-phase-per-unit`
+- `ability` `space-marines.caanok-var.cold-and-calculating`
+- `ability` `space-marines.captain-in-phobos-armour.tactical-fluidity-once-per-battle-round-per-unit`
+- `ability` `space-marines.captain-titus.righteous-fury-once-per-battle-per-army`
+- `ability` `space-marines.centurion-assault-squad.annihilator-protocols`
+- `ability` `space-marines.centurion-assault-squad.centurion-assault-launcher`
+- `ability` `space-marines.ceramite-sentinels.adaptive-defence`
+- `ability` `space-marines.ceramite-sentinels.defensive-mastery`
+- `ability` `space-marines.ceramite-sentinels.establish-supremacy`
+- `ability` `space-marines.ceramite-sentinels.evasive-repositioning`
+- `ability` `space-marines.ceramite-sentinels.spy-skull-data-link`
+- `ability` `space-marines.cerberus.atomantic-arc-reactor`
+- `ability` `space-marines.cerberus.damaged`
+- `ability` `space-marines.chief-librarian-tigurius.prescience-psychic-level-2`
+- `ability` `space-marines.chief-librarian-tigurius.telepathic-assault-psychic-level-1`
+- `ability` `space-marines.deathwatch-support.beacon-angelis`
+- `ability` `space-marines.deathwatch-support.hellfire-rounds`
+- `ability` `space-marines.deathwatch-support.mission-tactics`
+- `ability` `space-marines.desolation-squad.targeter-optics`
+- `ability` `space-marines.devastator-brethren.honour-of-vigilance`
+- `ability` `space-marines.eliminator-squad.special-issue-optics-and-ammunition`
+- `ability` `space-marines.falchion.damaged`
+- `ability` `space-marines.falchion.titan-killer`
+- `ability` `space-marines.forgefathers-seekers.adamantine-mantle`
+- `ability` `space-marines.forgefathers-seekers.blazing-earth`
+- `ability` `space-marines.forgefathers-seekers.burning-vengeance`
+- `ability` `space-marines.forgefathers-seekers.forged-in-fire`
+- `ability` `space-marines.forgefathers-seekers.immolation-protocols`
+- `ability` `space-marines.forgefathers-seekers.vulkans-quest`
+- `ability` `space-marines.forgefathers-seekers.wrath-and-ruin`
+- `ability` `space-marines.gauntlet-task-force.linebreaker-onslaught`
+- `ability` `space-marines.gladiator-lancer.aquilon-optics.shared`
+- `ability` `space-marines.gladius-task-force.codex-discipline`
+- `ability` `space-marines.gladius-task-force.laurels-of-triumph`
+- `ability` `space-marines.gladius-task-force.standard-of-the-emperor-ascendant`
+- `ability` `space-marines.gravis-linebreaker-force.walking-fortress`
+- `ability` `space-marines.hammerfall-bunker.fortification`
+- `ability` `space-marines.impulsor.rapid-disembarkation`
+- `ability` `space-marines.impulsor.shield-dome`
+- `ability` `space-marines.impulsor.transport.shared`
+- `ability` `space-marines.incursor-squad.divinator-class-auspexes-once-per-phase-per-unit`
+- `ability` `space-marines.incursor-squad.haywire-mine-once-per-battle-per-unit`
+- `ability` `space-marines.infiltrator-squad.omni-scramblers`
+- `ability` `space-marines.iron-father-feirros.iron-father`
+- `ability` `space-marines.iron-father-feirros.master-of-the-forge`
+- `ability` `space-marines.ironstorm-spearhead.ironstorm-auto-targeters`
+- `ability` `space-marines.ironstorm-spearhead.redoubtable-machine-spirit-upgrade`
+- `ability` `space-marines.judiciar.support`
+- `ability` `space-marines.kaius-konorius.support`
+- `ability` `space-marines.kratos.damaged`
+- `ability` `space-marines.land-raider-excelsior.damaged`
+- `ability` `space-marines.land-raider-excelsior.rites-of-battle`
+- `ability` `space-marines.land-raider.power-of-the-machine-spirit`
+- `ability` `space-marines.land-speeder.purgation-run`
+- `ability` `space-marines.librarian-in-phobos-armour.shrouding-psychic-level-1`
+- `ability` `space-marines.librarian-in-phobos-armour.soul-sight-psychic-level-1`
+- `ability` `space-marines.librarian-in-terminator-armour.might-of-heroes-psychic-level-1`
+- `ability` `space-marines.librarian-in-terminator-armour.thunderous-force-psychic-level-1`
+- `ability` `space-marines.librarian.force-dome-psychic-level-1`
+- `ability` `space-marines.librarian.veil-of-time-psychic-level-1`
+- `ability` `space-marines.lieutenant-in-phobos-armour.support`
+- `ability` `space-marines.lieutenant.support`
+- `ability` `space-marines.mastodon.damaged`
+- `ability` `space-marines.medusas-wrath.methodical-brutality`
+- `ability` `space-marines.phobos-shadow-force.shadow-masters`
+- `ability` `space-marines.phobos-shadow-force.venator-omni-auspex`
+- `ability` `space-marines.phobos-shock-force.venator-omni-auspex`
+- `ability` `space-marines.rapier-carrier.powerful-volley`
+- `ability` `space-marines.reiver-squad.grapnel-launchers`
+- `ability` `space-marines.reiver-squad.grav-chutes`
+- `ability` `space-marines.repulsor-executioner.executioner`
+- `ability` `space-marines.repulsor-executioner.transport.shared`
+- `ability` `space-marines.repulsor.combat-embarkation`
+- `ability` `space-marines.repulsor.transport.shared`
+- `ability` `space-marines.scout-bike-squad.outflank`
+- `ability` `space-marines.shadowmark-talon.coronal-susurrant`
+- `ability` `space-marines.shadowmark-talon.murderous-fusillade`
+- `ability` `space-marines.shadowmark-talon.shadow-tactics`
+- `ability` `space-marines.shadowmark-talon.suppressed-weapons`
+- `ability` `space-marines.sicaran.armoured-spearhead`
+- `ability` `space-marines.sicaran.damaged`
+- `ability` `space-marines.spearpoint-task-force.flawless-riders`
+- `ability` `space-marines.spearpoint-task-force.hunters-instincts`
+- `ability` `space-marines.spearpoint-task-force.mobile-lethality`
+- `ability` `space-marines.spearpoint-task-force.storm-swift-onslaught`
+- `ability` `space-marines.stormlance-task-force.auspex-triangulation-shrines-upgrade`
+- `ability` `space-marines.suboden-khan.spear-of-chogoris`
+- `ability` `space-marines.tacticus-attack-force.martial-paragon`
+- `ability` `space-marines.tarantula-air-defence-battery.sentry-programming-once-per-phase-per-unit`
+- `ability` `space-marines.techmarine.blessings-of-the-omnissiah`
+- `ability` `space-marines.techmarine.techmarine`
+- `ability` `space-marines.terrax-pattern-termite.damaged`
+- `ability` `space-marines.thunderhawk-gunship.aerial-assault`
+- `ability` `space-marines.typhon.damaged`
+- `ability` `space-marines.typhon.sunderer-of-fortresses`
+- `ability` `space-marines.venerable-dreadnought.wisdom-of-the-ancients`
+- `ability` `space-marines.victrix-honour-guard.banner-of-macragge`
+- `ability` `space-marines.wardens-of-ultramar.support`
+- `ability` `space-marines.whirlwind.punishing-bombardment`
+- `ability` `space-wolves.arjac-rockfist.anvil-of-endurance`
+- `ability` `space-wolves.arjac-rockfist.champion-of-the-kingsguard`
+- `ability` `space-wolves.blood-claws.berserk-charge`
+- `ability` `space-wolves.champions-of-fenris.the-great-wolf-watches`
+- `ability` `space-wolves.fenrisian-wolves.hunting-hounds`
+- `ability` `space-wolves.grey-hunters.cunning-hunters`
+- `ability` `space-wolves.grey-hunters.old-greymanes`
+- `ability` `space-wolves.iron-priest.gift-of-the-iron-wolf`
+- `ability` `space-wolves.iron-priest.judgement-of-the-omnissiah`
+- `ability` `space-wolves.logan-grimnar.guile-of-the-wolf`
+- `ability` `space-wolves.logan-grimnar.high-king-of-fenris-once-per-battle-round-per-unit`
+- `ability` `space-wolves.murderfang.bestial-fury`
+- `ability` `space-wolves.murderfang.murder-maker`
+- `ability` `space-wolves.njal-stormcaller.high-rune-priest-psyker-level-3`
+- `ability` `space-wolves.njal-stormcaller.murderous-hurricane-psychic-level-1`
+- `ability` `space-wolves.njal-stormcaller.storm-caller-psychic-level-1`
+- `ability` `space-wolves.njal-stormcaller.tempests-wrath-psychic-level-1`
+- `ability` `space-wolves.njal-stormcaller.wind-walker`
+- `ability` `space-wolves.ragnar-blackmane.war-howl`
+- `ability` `space-wolves.saga-of-the-beastslayer.wolf-touched`
+- `ability` `space-wolves.saga-of-the-great-wolf.grimnars-mark`
+- `ability` `space-wolves.saga-of-the-great-wolf.master-of-wolves`
+- `ability` `space-wolves.thunderwolf-cavalry.thunderous-charge`
+- `ability` `space-wolves.ulrik-the-slayer.slayers-oath`
+- `ability` `space-wolves.venerable-dreadnought.fervour-of-the-ancients`
+- `ability` `space-wolves.wolf-guard-battle-leader.heroic-last-stand`
+- `ability` `space-wolves.wolf-guard-battle-leader.tempered-ferocity`
+- `ability` `space-wolves.wolf-guard-headtakers.headhunters`
+- `ability` `space-wolves.wolf-guard-headtakers.let-loose-the-wolves`
+- `ability` `space-wolves.wolf-scouts.deadly-stalkers`
+- `ability` `space-wolves.wolf-scouts.haywire-mine-once-per-battle-per-unit`
+- `ability` `space-wolves.wulfen-dreadnought.bestial-rage`
+- `ability` `space-wolves.wulfen-dreadnought.violent-fury`
+- `ability` `space-wolves.wulfen.savage-frenzy`
+- `ability` `world-eaters.angron.driven-by-ultimate-rage-aura`
+- `core-rule` `legends-orks.legends`
+- `core-rule` `legends-space-marines.legendary-proxies`
+- `core-rule` `legends-space-marines.legends`
+- `core-rule` `shock-disembark-move`
+- `core-rule` `snap-shooting`
+- `faq` `codex-adeptus-custodes.errata.datasheets`
+- `faq` `codex-chaos-space-marines.errata.datasheets`
+- `faq` `codex-death-guard.errata.datasheets`
+- `faq` `codex-emperors-children.errata.datasheets`
+- `faq` `codex-emperors-children.errata.slaaneshs-chosen-detachment-vengeful-surge-stratagem`
+- `faq` `codex-grey-knights.errata.datasheets`
+- `faq` `codex-imperial-agents.errata.datasheets`
+- `faq` `codex-space-marines.errata.captain-titus-righteous-fury-ability`
+- `faq` `codex-space-marines.errata.iron-father-feirros-iron-father-ability`
+- `faq` `codex-space-marines.errata.librarian-in-terminator-armour`
+- `faq` `codex-space-marines.errata.techmarine-techmarine-ability`
+- `faq` `codex-thousand-sons.errata.datasheets`
+- `faq` `codex-thousand-sons.errata.rubricae-phalanx-detachment`
+- `faq` `codex-world-eaters.errata.angron-driven-by-ultimate-rage-ability`
+- `faq` `codex-world-eaters.errata.berzerker-warband-detachment-relentless-rage-detachment-rule`
+- `faq` `codex-world-eaters.errata.datasheets`
+- `faq` `codex-world-eaters.errata.khorne-berzerkers-abilities`
+- `faq` `core-rules.faq.abilities-in-attached-units`
+- `faq` `core-rules.faq.embarking`
+- `faq` `core-rules.faq.flying-models`
+- `faq` `core-rules.faq.inflict-damage`
+- `faq` `core-rules.faq.insane-bravery`
+- `faq` `core-rules.faq.keywords-in-attached-units`
+- `faq` `core-rules.faq.level-of-control-3`
+- `faq` `core-rules.faq.level-of-control`
+- `faq` `core-rules.faq.objectives`
+- `faq` `core-rules.faq.profiles-2`
+- `faq` `core-rules.faq.profiles`
+- `faq` `core-rules.faq.scouts`
+- `faq` `core-rules.faq.units-and-models`
+- `faq` `core-rules.faq.visibility-2`
+- `faq` `core-rules.faq.visibility`
+- `weapon-ability` `sustained-hits-1-infantry`
+- `weapon-ability` `sustained-hits-1-non-monster-vehicle`
+- `weapon-ability` `sustained-hits-2-non-monster-vehicle`
+
+### The summary is still generated from upstream structured data and awaits a redraft in original wording (149)
+
+- `ability` `black-templars.fist-of-the-god-emperor.angels-defiant`
+- `ability` `black-templars.fist-of-the-god-emperor.oathbound-exemplar`
+- `ability` `black-templars.fist-of-the-god-emperor.righteous-fervour-upgrade`
+- `ability` `black-templars.vow-sworn-crusaders.augury-servo-host`
+- `ability` `black-templars.vow-sworn-crusaders.consecrating-aura`
+- `ability` `black-templars.vow-sworn-crusaders.devout-push`
+- `ability` `black-templars.vow-sworn-crusaders.dread-crusaders`
+- `ability` `black-templars.vow-sworn-crusaders.for-the-emperors-honour`
+- `ability` `black-templars.vow-sworn-crusaders.incendiary-animus`
+- `ability` `black-templars.vow-sworn-crusaders.zealous-vanguard`
+- `ability` `blood-angels.angelic-inheritors.blazing-icon`
+- `ability` `blood-angels.angelic-inheritors.instant-of-grace`
+- `ability` `blood-angels.angelic-inheritors.measured-strategist`
+- `ability` `blood-angels.encarmine-speartip.wrath-of-angels`
+- `ability` `blood-angels.sanguinary-guard.angelic-visage`
+- `ability` `dark-angels.darkflight-pursuit.black-winged-vigilance`
+- `ability` `dark-angels.darkflight-pursuit.thundercowl-turbines-upgrade`
+- `ability` `dark-angels.inner-circle-task-force.champion-of-the-deathwing`
+- `ability` `dark-angels.inner-circle-task-force.singular-will`
+- `ability` `dark-angels.wrath-of-the-rock.deathwing-assault`
+- `ability` `dark-angels.wrath-of-the-rock.dutiful-tenacity`
+- `ability` `dark-angels.wrath-of-the-rock.lord-of-the-ravenwing`
+- `ability` `dark-angels.wrath-of-the-rock.tempered-in-battle-aura`
+- `ability` `deathwatch.black-spear-task-force.adaptive-tactics`
+- `ability` `deathwatch.black-spear-task-force.armour-of-contempt`
+- `ability` `deathwatch.black-spear-task-force.hellfire-rounds`
+- `ability` `deathwatch.black-spear-task-force.osseus-key-aura`
+- `ability` `deathwatch.black-spear-task-force.the-tome-of-ectoclades`
+- `ability` `deathwatch.watch-captain-artemis.tactical-instinct`
+- `ability` `emperors-children.frenzied-host.frantic-focus`
+- `ability` `imperial-agents.veiled-blade-elimination-force.ensnaring-trap`
+- `ability` `imperial-agents.watch-master.strategic-acumen`
+- `ability` `space-marines.adrax-agatone.lord-of-the-pyroclasts`
+- `ability` `space-marines.aethon-shaan.master-of-shadows`
+- `ability` `space-marines.ancient-in-terminator-armour.never-shall-the-standard-fall`
+- `ability` `space-marines.ancient-in-terminator-armour.raise-the-banner`
+- `ability` `space-marines.ancient.honour-of-the-company`
+- `ability` `space-marines.ancient.raise-the-banner`
+- `ability` `space-marines.apothecary-biologis.vivispectral-analysis-targeting`
+- `ability` `space-marines.apothecary.narthecium`
+- `ability` `space-marines.assault-brethren.assault-mastery`
+- `ability` `space-marines.assault-brethren.furious-assault-upgrade`
+- `ability` `space-marines.assault-brethren.imperiums-sword`
+- `ability` `space-marines.ballistus-dreadnought.ballistus-strike`
+- `ability` `space-marines.bladeguard-ancient.deeds-of-legend`
+- `ability` `space-marines.bladeguard-ancient.raise-the-banner`
+- `ability` `space-marines.caanok-var.cerebrex-logic-engine`
+- `ability` `space-marines.captain-in-gravis-armour.refuse-to-yield`
+- `ability` `space-marines.captain-in-gravis-armour.strategic-acumen`
+- `ability` `space-marines.captain-in-phobos-armour.strategic-acumen`
+- `ability` `space-marines.captain-in-terminator-armour.strategic-acumen`
+- `ability` `space-marines.captain-in-terminator-armour.unstoppable-valour`
+- `ability` `space-marines.captain-on-bike.into-the-fray`
+- `ability` `space-marines.captain-on-bike.strategic-acumen`
+- `ability` `space-marines.captain-with-jump-pack.angels-wrath`
+- `ability` `space-marines.captain-with-jump-pack.strategic-acumen`
+- `ability` `space-marines.captain.strategic-acumen`
+- `ability` `space-marines.chaplain-in-terminator-armour.litany-of-hate`
+- `ability` `space-marines.chaplain-in-terminator-armour.zealous-fortitude`
+- `ability` `space-marines.chaplain-on-bike.catechism-of-fire`
+- `ability` `space-marines.chaplain-on-bike.litany-of-hate`
+- `ability` `space-marines.chaplain-with-jump-pack.exhortation-of-rage`
+- `ability` `space-marines.chaplain-with-jump-pack.litany-of-hate`
+- `ability` `space-marines.company-heroes.raise-the-banner`
+- `ability` `space-marines.darnath-lysander.icon-of-obstinacy`
+- `ability` `space-marines.devastator-brethren.devastator-mastery`
+- `ability` `space-marines.devastator-brethren.master-forged-firearms`
+- `ability` `space-marines.eliminator-squad.chameleoline-cloaks`
+- `ability` `space-marines.eradicator-squad-with-heavy-bolters.overlapping-destruction`
+- `ability` `space-marines.gravis-linebreaker-force.indefatigable-fortitude`
+- `ability` `space-marines.gravis-linebreaker-force.relentless-advance`
+- `ability` `space-marines.gravis-siege-force.immovable-conquerors-upgrade`
+- `ability` `space-marines.gravis-siege-force.indomitable-defence`
+- `ability` `space-marines.gravis-siege-force.narthecis-gauntlet`
+- `ability` `space-marines.heavy-intercessor-squad.unyielding-in-the-face-of-the-foe`
+- `ability` `space-marines.hellblaster-squad.rites-of-thermal-appeasement`
+- `ability` `space-marines.inceptor-squad.meteoric-descent`
+- `ability` `space-marines.inceptor-squad.parabolic-jetleap`
+- `ability` `space-marines.infernus-squad.driven-from-cover`
+- `ability` `space-marines.invader-atvs.aggressive-reconnaissance`
+- `ability` `space-marines.iron-father-feirros.rites-of-tempering`
+- `ability` `space-marines.ironclad-champions.artificer-sarcophagus-upgrade`
+- `ability` `space-marines.ironclad-champions.enduring-vengeance`
+- `ability` `space-marines.ironclad-champions.venerable-champion-aura-upgrade`
+- `ability` `space-marines.ironstorm-spearhead.gunnery-honours-upgrade`
+- `ability` `space-marines.ironstorm-spearhead.headhunter-doctrine`
+- `ability` `space-marines.ironstorm-spearhead.layered-ceramite`
+- `ability` `space-marines.kaius-konorius.veteran-bodyguard`
+- `ability` `space-marines.kayvaan-shrike.echo-of-the-ravenspire`
+- `ability` `space-marines.land-raider-crusader.fury-of-the-machine-spirit`
+- `ability` `space-marines.land-raider-redeemer.wrath-of-the-machine-spirit`
+- `ability` `space-marines.lieutenant-in-phobos-armour.demi-company-commander-once-per-turn-per-unit`
+- `ability` `space-marines.lieutenant-in-phobos-armour.tactical-precision`
+- `ability` `space-marines.lieutenant.demi-company-commander-once-per-turn-per-unit`
+- `ability` `space-marines.lieutenant.tactical-precision`
+- `ability` `space-marines.marneus-calgar.codex-adept`
+- `ability` `space-marines.marneus-calgar.master-tactician`
+- `ability` `space-marines.marneus-calgar.thunderhawk-insertion`
+- `ability` `space-marines.phobos-shadow-force.execute-and-redeploy`
+- `ability` `space-marines.phobos-shock-force.seal-of-shrouding`
+- `ability` `space-marines.phobos-shock-force.vanguard-ambushers`
+- `ability` `space-marines.redemptor-dreadnought.duty-eternal`
+- `ability` `space-marines.reiver-squad.fearsome-assault`
+- `ability` `space-marines.reiver-squad.terror-troops-aura`
+- `ability` `space-marines.roboute-guilliman.author-of-the-codex`
+- `ability` `space-marines.roboute-guilliman.codex-adept`
+- `ability` `space-marines.roboute-guilliman.leader-of-astartes`
+- `ability` `space-marines.scout-squad.flexible-asset`
+- `ability` `space-marines.sternguard-veteran-squad.veteran-marksmen`
+- `ability` `space-marines.storm-speeder-hailstrike.hailstrike`
+- `ability` `space-marines.storm-speeder-hammerstrike.hammerstrike`
+- `ability` `space-marines.storm-speeder-thunderstrike.shattered-defences`
+- `ability` `space-marines.storm-speeder-thunderstrike.thunderstrike`
+- `ability` `space-marines.stormlance-task-force.lightning-fast-strike`
+- `ability` `space-marines.stormlance-task-force.sudden-onslaught`
+- `ability` `space-marines.stormlance-task-force.supercharged-engines-upgrade`
+- `ability` `space-marines.suboden-khan.skilled-riders`
+- `ability` `space-marines.tactical-brethren.tactical-insight`
+- `ability` `space-marines.tactical-brethren.tactical-mastery`
+- `ability` `space-marines.tacticus-attack-force.spearpoint-war-leader`
+- `ability` `space-marines.tacticus-attack-force.wrath-of-the-chapter`
+- `ability` `space-marines.tacticus-firestorm-force.codex-fire-patterns`
+- `ability` `space-marines.tacticus-firestorm-force.cyber-familiar`
+- `ability` `space-marines.tacticus-firestorm-force.tempered-in-battle-aura`
+- `ability` `space-marines.terminator-squad.fury-of-the-first`
+- `ability` `space-marines.terminator-storm-force.champion-of-the-first-company`
+- `ability` `space-marines.terminator-storm-force.corporeum-reliquary`
+- `ability` `space-marines.terminator-storm-force.death-blow`
+- `ability` `space-marines.terminator-storm-force.gunship-extraction`
+- `ability` `space-marines.terminator-storm-force.tactical-dreadnought-fortitude`
+- `ability` `space-marines.tor-garadon.siege-captain`
+- `ability` `space-marines.tor-garadon.signum-array`
+- `ability` `space-marines.vanguard-veteran-squad-with-jump-packs.combat-shield`
+- `ability` `space-marines.vanguard-veteran-squad-with-jump-packs.vanguard-assault`
+- `ability` `space-marines.victrix-honour-guard.honour-guard-of-macragge`
+- `ability` `space-marines.vulkan-hestan.forgefather`
+- `ability` `space-marines.wardens-of-ultramar.raise-the-banner`
+- `ability` `space-marines.wardens-of-ultramar.strategium-command`
+- `ability` `space-wolves.champions-of-fenris.champions-guidance`
+- `ability` `space-wolves.champions-of-fenris.preyslayer`
+- `ability` `space-wolves.saga-of-the-beastslayer.hunters-guile`
+- `ability` `space-wolves.saga-of-the-beastslayer.legendary-slayers`
+- `ability` `space-wolves.saga-of-the-great-wolf.chariots-of-the-storm`
+- `ability` `space-wolves.saga-of-the-great-wolf.fenrisian-ferocity`
+- `ability` `space-wolves.saga-of-the-great-wolf.howlmaw`
+- `ability` `space-wolves.saga-of-the-great-wolf.skjalds-foretelling`
+- `ability` `thousand-sons.rubricae-phalanx.infernal-fusillade`
+- `ability` `world-eaters.berzerker-warband.relentless-rage`
+- `ability` `world-eaters.khorne-berzerkers.murderous-charge`
+
+### The summary or typed facts repeat a run of the official wording and await a redraft (43)
+
+- `ability` `black-templars.vow-sworn-crusaders.dread-crusaders`
+- `ability` `black-templars.vow-sworn-crusaders.for-the-emperors-honour`
+- `ability` `black-templars.vow-sworn-crusaders.incendiary-animus`
+- `ability` `blood-angels.angelic-inheritors.instant-of-grace`
+- `ability` `blood-angels.angelic-inheritors.measured-strategist`
+- `ability` `blood-angels.blood-angels-captain.strategic-acumen`
+- `ability` `dark-angels.wrath-of-the-rock.tempered-in-battle-aura`
+- `ability` `deathwatch.black-spear-task-force.adaptive-tactics`
+- `ability` `deathwatch.black-spear-task-force.hellfire-rounds`
+- `ability` `deathwatch.black-spear-task-force.the-tome-of-ectoclades`
+- `ability` `imperial-agents.veiled-blade-elimination-force.ensnaring-trap`
+- `ability` `imperial-agents.watch-master.strategic-acumen`
+- `ability` `space-marines.aethon-shaan.master-of-shadows`
+- `ability` `space-marines.ancient-in-terminator-armour.raise-the-banner`
+- `ability` `space-marines.ancient.raise-the-banner`
+- `ability` `space-marines.bladeguard-ancient.deeds-of-legend`
+- `ability` `space-marines.bladeguard-ancient.raise-the-banner`
+- `ability` `space-marines.captain-in-gravis-armour.refuse-to-yield`
+- `ability` `space-marines.captain-in-gravis-armour.strategic-acumen`
+- `ability` `space-marines.captain-in-phobos-armour.strategic-acumen`
+- `ability` `space-marines.captain-in-terminator-armour.strategic-acumen`
+- `ability` `space-marines.captain-on-bike.strategic-acumen`
+- `ability` `space-marines.captain-with-jump-pack.strategic-acumen`
+- `ability` `space-marines.captain.strategic-acumen`
+- `ability` `space-marines.chaplain-with-jump-pack.exhortation-of-rage`
+- `ability` `space-marines.company-heroes.raise-the-banner`
+- `ability` `space-marines.heavy-intercessor-squad.unyielding-in-the-face-of-the-foe`
+- `ability` `space-marines.inceptor-squad.parabolic-jetleap`
+- `ability` `space-marines.ironclad-champions.artificer-sarcophagus-upgrade`
+- `ability` `space-marines.kayvaan-shrike.echo-of-the-ravenspire`
+- `ability` `space-marines.marneus-calgar.master-tactician`
+- `ability` `space-marines.phobos-shadow-force.execute-and-redeploy`
+- `ability` `space-marines.phobos-shock-force.vanguard-ambushers`
+- `ability` `space-marines.roboute-guilliman.author-of-the-codex`
+- `ability` `space-marines.storm-speeder-thunderstrike.shattered-defences`
+- `ability` `space-marines.tacticus-firestorm-force.tempered-in-battle-aura`
+- `ability` `space-marines.vanguard-veteran-squad-with-jump-packs.vanguard-assault`
+- `ability` `space-marines.wardens-of-ultramar.raise-the-banner`
+- `ability` `space-wolves.champions-of-fenris.champions-guidance`
+- `ability` `space-wolves.saga-of-the-great-wolf.fenrisian-ferocity`
+- `ability` `space-wolves.saga-of-the-great-wolf.howlmaw`
+- `ability` `thousand-sons.rubricae-phalanx.infernal-fusillade`
+- `ability` `world-eaters.khorne-berzerkers.murderous-charge`
+
+### The Stratagem has no CP cost (10)
+
+- `ability` `chaos-daemons.legion-of-excess.rapturous-agony`
+- `ability` `dark-angels.wrath-of-the-rock.in-sacrifice-victory`
+- `ability` `space-marines.ceramite-sentinels.establish-supremacy`
+- `ability` `space-marines.deathwatch-support.hellfire-rounds`
+- `ability` `space-marines.forgefathers-seekers.forged-in-fire`
+- `ability` `space-marines.forgefathers-seekers.wrath-and-ruin`
+- `ability` `space-marines.medusas-wrath.methodical-brutality`
+- `ability` `space-marines.shadowmark-talon.murderous-fusillade`
+- `ability` `space-marines.shadowmark-talon.suppressed-weapons`
+- `ability` `space-marines.spearpoint-task-force.flawless-riders`
 
 ### A rule known only by name, which the catalogue links to its keyword's definition only in the current rules version (9)
 
@@ -562,30 +1284,21 @@ Active entries without a record, by reason. An entry with several reasons is lis
 - `ability` `core.sustained-hits-1-non-monster-vehicle`
 - `ability` `core.sustained-hits-2-non-monster-vehicle`
 
-### A Detachment this version's app build no longer prints, last printed in build 946: an entry for the rules bound here as that build gives them (22)
+### The summary links to a weapon profile, which has no catalogue entry yet (6)
 
-- `detachment` `blood-angels.legacy-of-grace`
-- `detachment` `blood-angels.liberator-assault-group`
-- `detachment` `blood-angels.rage-cursed-onslaught`
-- `detachment` `blood-angels.the-angelic-host`
-- `detachment` `blood-angels.the-lost-brethren`
-- `detachment` `dark-angels.company-of-hunters`
-- `detachment` `dark-angels.dark-age-arsenal`
-- `detachment` `dark-angels.interrogation-conclave`
-- `detachment` `dark-angels.lions-blade-task-force`
-- `detachment` `dark-angels.unforgiven-task-force`
-- `detachment` `space-marines.1st-company-task-force`
-- `detachment` `space-marines.anvil-siege-force`
-- `detachment` `space-marines.armoured-speartip`
-- `detachment` `space-marines.bastion-task-force`
-- `detachment` `space-marines.firestorm-assault-force`
-- `detachment` `space-marines.fulguris-task-force`
-- `detachment` `space-marines.headhunter-task-force`
-- `detachment` `space-marines.librarius-conclave`
-- `detachment` `space-marines.orbital-assault-force`
-- `detachment` `space-marines.subversion-assets`
-- `detachment` `space-marines.vanguard-spearhead`
-- `detachment` `space-marines.vengeful-hosts`
+- `ability` `deathwatch.black-spear-task-force.dragonfire-rounds`
+- `ability` `deathwatch.black-spear-task-force.kraken-rounds`
+- `ability` `space-marines.blade-of-ultramar.armour-of-antoninus`
+- `ability` `space-marines.gladius-task-force.artificer-armour`
+- `ability` `space-marines.reiver-squad.fearsome-assault`
+- `ability` `space-wolves.saga-of-the-great-wolf.grimnars-command`
+
+### The rule's text differs between the factions that share it (4)
+
+- `ability` `space-marines.gladiator-lancer.aquilon-optics.shared`
+- `ability` `space-marines.impulsor.transport.shared`
+- `ability` `space-marines.repulsor-executioner.transport.shared`
+- `ability` `space-marines.repulsor.transport.shared`
 
 ### A datasheet the app does not carry whose choices the roster definition format does not yet reproduce exactly: an entry for its abilities and its faction's (6)
 
@@ -650,10 +1363,13 @@ Options a source gives that are not stated: from the app build, structures the r
 - `space-marines.command-squad`: option not typed: no model of the unit carries what it replaces (Legends PDF)
 - `space-marines.company-veterans-on-bikes`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-marines.company-veterans-on-bikes`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.mastodon`: option not typed: its choices did not read as wargear (Legends PDF)
 - `space-marines.relic-terminator-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-marines.scout-sniper-squad`: option not typed: no model of the unit carries what it replaces (Legends PDF)
 - `space-marines.storm-eagle-gunship`: option not typed: no model of the unit carries what it replaces (Legends PDF)
+- `space-marines.tarantula-sentry-battery`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-marines.techmarine-on-bike`: option not typed: its wording is none of the typed forms (Legends PDF)
+- `space-marines.vanguard-veteran-squad`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-wolves.stormwolf`: option not typed: its wording is none of the typed forms (Legends PDF)
 - `space-wolves.wolf-guard-pack-leader-in-terminator-armour`: option not typed: its choices did not read as wargear (Legends PDF)
 - `space-wolves.wolf-guard-pack-leader-in-terminator-armour`: option not typed: its choices did not read as wargear (Legends PDF)

@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,16 +15,16 @@
     "group": "Ceramite Sentinels",
     "detachment": {
       "kind": "detachment",
-      "id": "imperial-fists.ceramite-sentinels"
+      "id": "space-marines.ceramite-sentinels"
     },
-    "summary": "For a **GRAVIS** model. Once per battle for your army, when a phase ends in which the bearer was **destroyed**, roll a D6. On a 2+, return it to the battlefield **[unengaged](vsdata:core-rule/engagement-range)**, as near as it can be to the place it was destroyed, with 3 wounds left.",
+    "summary": "For a **GRAVIS** model. The first time it is **destroyed**, roll a D6 as that phase ends. On a 2+, set it back up as near as it can be to where it died, outside **Engagement Range** of every enemy unit, with its full wounds.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -33,7 +33,7 @@
       "fields": {
         "enhancement": {
           "type": "model",
-          "points": 10,
+          "points": 25,
           "eligibility": {
             "basis": "app-eligibility-rows",
             "anyOf": [
@@ -55,33 +55,32 @@
           ],
           "whileDestroyed": true
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "inflict-damage.destroyed"
-          }
-        ],
         "detail": {
           "kind": "enhancement",
           "detachment": "Ceramite Sentinels",
-          "usage": {
-            "limit": 1,
-            "period": "battle",
-            "scope": "army"
-          },
-          "trigger": {
-            "timing": "end-of-phase",
-            "condition": "bearer-destroyed-this-phase"
-          },
-          "effect": {
-            "roll": "D6",
-            "threshold": "2+",
-            "onSuccess": {
-              "setUpAgain": "bearer",
-              "placement": "as-close-as-possible-to-where-destroyed",
-              "unengaged": true,
-              "woundsRemaining": 3
+          "effects": [
+            {
+              "trigger": "first time the bearer is destroyed",
+              "when": {
+                "timing": "end-of-phase"
+              },
+              "roll": {
+                "dice": "D6",
+                "count": 1,
+                "success": "2+"
+              },
+              "onSuccess": {
+                "setBackUp": true,
+                "placement": "as close as possible to where it was destroyed",
+                "notWithinEngagementRangeOfEnemy": true,
+                "woundsRemaining": "full"
+              }
             }
+          ],
+          "cardPrintsNewerText": {
+            "pointsCost": 10,
+            "limit": "once per battle, per army",
+            "woundsRemaining": 3
           }
         }
       }

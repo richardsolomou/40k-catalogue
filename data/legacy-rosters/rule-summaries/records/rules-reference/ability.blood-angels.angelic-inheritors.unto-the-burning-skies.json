@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -22,21 +22,17 @@
       "phases": [
         "fight"
       ],
-      "turn": "opponent"
+      "turn": "opponent",
+      "type": "strategic-ploy"
     },
-    "parts": {
-      "when": "[Opponent's Fight phase](vsdata:core-rule/fight-phase), as it ends.",
-      "target": "Your **THE SANGUINOR** unit, or an **unengaged** **ADEPTUS ASTARTES JUMP PACK** unit of yours.",
-      "effect": "Place the unit into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**."
-    },
-    "summary": "**When:** [Opponent's Fight phase](vsdata:core-rule/fight-phase), as it ends.\n\n**Target:** Your **THE SANGUINOR** unit, or an **unengaged** **ADEPTUS ASTARTES JUMP PACK** unit of yours.\n\n**Effect:** Place the unit into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**.",
+    "summary": "Use it as the opponent's Fight phase ends. Pick 1 **ADEPTUS ASTARTES JUMP PACK** unit of yours that is not within **Engagement Range** of any enemy unit (**THE SANGUINOR** may be picked even if it is). Take that unit off the battlefield and put it into **Strategic Reserves**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -52,20 +48,10 @@
             "count": 1,
             "side": "friendly",
             "entity": "unit",
-            "anyOf": [
-              {
-                "keywords": [
-                  "THE SANGUINOR"
-                ]
-              },
-              {
-                "keywords": [
-                  "ADEPTUS ASTARTES",
-                  "JUMP PACK"
-                ]
-              }
-            ],
-            "more": true
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "JUMP PACK"
+            ]
           }
         },
         "reminder": {
@@ -77,48 +63,29 @@
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "strategic-reserves"
-          }
-        ],
         "detail": {
-          "type": "",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "opponent"
-              }
-            ],
-            "event": "end-of-phase"
-          },
+          "detachment": "Angelic Inheritors",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "fight",
+              "timing": "end-of-phase"
+            }
+          ],
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
+            "side": "friendly",
             "count": 1,
-            "alternatives": [
-              {
-                "keywords": [
-                  "The Sanguinor"
-                ]
-              },
-              {
-                "keywords": [
-                  "Adeptus Astartes Jump Pack"
-                ],
-                "state": "unengaged"
-              }
-            ]
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "JUMP PACK"
+            ],
+            "notWithinEngagementRangeOfEnemy": true,
+            "exemptFromEngagementRestriction": "THE SANGUINOR"
           },
           "effects": [
             {
-              "kind": "transfer-to-strategic-reserves",
-              "recipient": "target-unit",
-              "duration": {
-                "until": "resolution"
-              }
+              "removeFromBattlefield": true,
+              "placeInto": "Strategic Reserves"
             }
           ]
         }

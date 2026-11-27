@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Astraeus",
-    "summary": "Your [Shooting phase](vsdata:core-rule/shooting-phase) gives this model a suppression choice after its unit fires. Pick one enemy the Twin Macro-accelerator Cannon hit. Subtract 1 from that enemy’s **Hit rolls** until you begin your next turn.",
+    "summary": "After this model shoots in your Shooting phase, pick 1 enemy unit that at least one attack from its twin macro-accelerator cannon hit this phase. That unit is suppressed until your next turn starts, while this model remains on the battlefield.\n\nAttacks by models in a suppressed unit take −1 to their **Hit rolls**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -43,103 +43,12 @@
             }
           },
           "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "enemy-status",
-                      "status": "SUPPRESSED"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "rolls": {
-                        "hitModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "enemy-status",
-                      "status": "SUPPRESSED"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "rolls": {
-                        "hitModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "enemy-status",
-                      "status": "SUPPRESSED"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "rolls": {
-                        "hitModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            }
+            {}
           ],
           "trees": [
             [
               {
                 "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ],
-            [
-              {
-                "reading": 2
               }
             ]
           ],
@@ -156,14 +65,14 @@
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
             "stratagem-both.one.known": 0,
             "stratagem-both.one.unknown": 0,
             "stratagem-both.many.known": 0,
@@ -175,34 +84,26 @@
           }
         },
         "detail": {
-          "actor": "controlling-player",
-          "source": "datasheet-model",
-          "trigger": {
-            "phase": "Shooting",
-            "turnOwner": "self",
-            "afterSourceUnitShoots": true
-          },
-          "selection": {
-            "count": 1,
-            "side": "enemy",
-            "mustHaveBeenHitByWeapon": "Twin Macro-accelerator Cannon",
-            "optional": true
-          },
-          "effect": {
-            "recipient": "selected-enemy-unit-attacks",
-            "kind": "roll-modifier",
-            "roll": "Hit",
-            "operation": "subtract",
-            "amount": 1
-          },
-          "expiry": {
-            "edge": "start",
-            "turnOwner": "self",
-            "next": true
-          },
-          "weaponProfiles": [
-            "Twin Macro-accelerator Cannon"
-          ]
+          "ability": {
+            "when": {
+              "turn": "own",
+              "phase": "shooting",
+              "timing": "after this model has shot"
+            },
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "hitThisPhaseBy": "Twin Macro-accelerator Cannon"
+            },
+            "status": "suppressed",
+            "duration": "until-start-of-your-next-turn",
+            "condition": "this model is on the battlefield",
+            "suppressedEffect": {
+              "attacksBy": "models in the suppressed unit",
+              "roll": "hit",
+              "subtract": 1
+            }
+          }
         }
       }
     }

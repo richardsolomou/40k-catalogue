@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,23 +15,24 @@
     "group": "Shadowmark Talon",
     "detachment": {
       "kind": "detachment",
-      "id": "raven-guard.shadowmark-talon"
+      "id": "space-marines.shadowmark-talon"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "movement"
       ],
-      "turn": "opponent"
+      "turn": "opponent",
+      "type": "battle-tactic"
     },
-    "summary": "Use it in the opponent's [Movement phase](vsdata:core-rule/movement-phase), once an enemy unit ends any move 8\" or less from an **unengaged** **ADEPTUS ASTARTES INFANTRY** unit of yours; that unit is the target.\n\nIt may make a **[normal move](vsdata:core-rule/normal-move)**, moving at most D6\", or 6\" if it is a **PHOBOS** or **SCOUT SQUAD** unit.",
+    "summary": "Use it in your opponent's Movement phase, right after an enemy unit finishes a **Normal move**, Advance or Fall Back. Pick 1 **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit of yours that:\n\n- has that enemy unit within 8\"\n- is outside **Engagement Range** of all enemy units\n\nIt may then move up to D6\" as a Normal move, or up to 6\" for a **PHOBOS** or **SCOUT SQUAD** unit.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -45,14 +46,22 @@
             "after": "enemy-ended-move"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
-            "keywords": [
-              "ADEPTUS ASTARTES",
-              "INFANTRY"
-            ],
-            "conditions": [
-              "unengaged"
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              }
             ],
             "more": true
           }
@@ -66,131 +75,38 @@
             }
           ]
         },
-        "combat": {
-          "applies": {
-            "target": {
-              "anyOf": [
-                [
-                  "ADEPTUS ASTARTES INFANTRY"
-                ]
-              ]
-            }
-          },
-          "readings": [
-            {
-              "choices": [],
-              "default": 0,
-              "shown": {
-                "choices": [
-                  {
-                    "option": "Up to D6\"",
-                    "conditions": [
-                      {
-                        "kind": "option"
-                      }
-                    ],
-                    "effects": []
-                  },
-                  {
-                    "option": "up to 6\"",
-                    "conditions": [
-                      {
-                        "kind": "option"
-                      }
-                    ],
-                    "effects": []
-                  }
-                ],
-                "default": 0
-              }
-            }
-          ],
-          "trees": [
-            [
-              {
-                "reading": 0
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 0,
-            "own.many.known": 0,
-            "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
-            "aura.one.known": 0,
-            "aura.one.unknown": 0,
-            "aura.many.known": 0,
-            "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 0,
-            "stratagem-shooting.one.unknown": 0,
-            "stratagem-shooting.many.known": 0,
-            "stratagem-shooting.many.unknown": 0,
-            "stratagem-fight.one.known": 0,
-            "stratagem-fight.one.unknown": 0,
-            "stratagem-fight.many.known": 0,
-            "stratagem-fight.many.unknown": 0,
-            "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 0,
-            "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 0,
-            "army.one.known": 0,
-            "army.one.unknown": 0,
-            "army.many.known": 0,
-            "army.many.unknown": 0
-          }
-        },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "normal-move"
-          }
-        ],
         "detail": {
-          "trigger": {
-            "turn": "opponent",
-            "phases": [
-              "movement"
-            ],
-            "event": "enemy-finishes-move",
-            "withinInches": {
-              "value": 8,
-              "of": "selected-unit"
+          "detachment": "Shadowmark Talon",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "movement",
+              "trigger": "just after an enemy unit finishes a Normal, Advance or Fall Back move"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "keywords": [
-              "ADEPTUS ASTARTES INFANTRY"
+            "keywordsAny": [
+              "ADEPTUS ASTARTES INFANTRY",
+              "ADEPTUS ASTARTES MOUNTED"
             ],
-            "unengaged": true
+            "withinInchesOfThatEnemyUnit": 8,
+            "notWithinEngagementRangeOfEnemy": true
           },
           "effects": [
             {
-              "kind": "move",
-              "subject": "selected-unit",
-              "move": "normal",
-              "optional": true,
-              "maximumInches": {
-                "dice": "D6"
-              },
-              "alternateMaximum": {
-                "inches": 6,
-                "if": {
-                  "anyOf": [
-                    {
-                      "keyword": "PHOBOS"
-                    },
-                    {
-                      "keyword": "SCOUT SQUAD"
-                    }
-                  ]
-                }
-              }
+              "move": "Normal",
+              "maxInches": "D6"
+            },
+            {
+              "ifKeywordsAny": [
+                "PHOBOS",
+                "SCOUT SQUAD"
+              ],
+              "move": "Normal",
+              "maxInches": 6,
+              "replacesPrevious": true
             }
           ]
         }

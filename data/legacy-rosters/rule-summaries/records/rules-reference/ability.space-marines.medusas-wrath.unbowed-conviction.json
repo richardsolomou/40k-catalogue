@@ -7,31 +7,32 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "stratagem",
-    "group": "Medusa's Wrath",
+    "group": "Ironstorm Spearhead",
     "detachment": {
       "kind": "detachment",
-      "id": "iron-hands.medusas-wrath"
+      "id": "space-marines.ironstorm-spearhead"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
         "command"
       ],
-      "turn": "own"
+      "turn": "any",
+      "type": "battle-tactic"
     },
-    "summary": "Use it in your Command phase. Pick 1 **ADEPTUS ASTARTES** unit of yours that is currently below its **Starting Strength**. From then until your following Command phase starts, that unit may ignore every modifier to its WS and BS characteristics and every modifier to its Hit or **Wound rolls**.",
+    "summary": "Use it in either player's Command phase. Pick 1 **ADEPTUS ASTARTES** unit of yours below its **Starting Strength**. Until the turn ends, the unit may ignore any or all characteristic modifiers and roll or test modifiers that apply to it, except saving throw modifiers.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -58,7 +59,7 @@
             {
               "at": "phase-start",
               "phase": "command",
-              "turn": "own"
+              "turn": "any"
             }
           ]
         },
@@ -73,36 +74,7 @@
             }
           },
           "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [],
-                  "effects": [
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "ignoreSkillModifiers": true
-                    },
-                    {
-                      "role": "attacker",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "ignoreHitModifiers": true,
-                      "ignoreWoundModifiers": true
-                    }
-                  ]
-                }
-              ],
-              "default": 1,
-              "roles": [
-                "attacker"
-              ]
-            }
+            {}
           ],
           "trees": [
             [
@@ -143,13 +115,12 @@
           }
         },
         "detail": {
-          "detachment": "Medusa's Wrath",
-          "windows": [
-            {
-              "turn": "own",
-              "phase": "command"
-            }
-          ],
+          "detachment": "Ironstorm Spearhead",
+          "type": "Battle Tactic",
+          "window": {
+            "turn": "either",
+            "phase": "command"
+          },
           "target": {
             "side": "friendly",
             "count": 1,
@@ -160,27 +131,33 @@
           },
           "effects": [
             {
-              "ignoreModifiers": {
-                "characteristics": [
-                  "WS",
-                  "BS"
-                ]
-              },
+              "ignoreModifiers": [
+                "characteristics",
+                "every roll or test made for the unit"
+              ],
               "optional": true,
-              "subject": "target-unit"
-            },
-            {
-              "ignoreModifiers": {
-                "rolls": [
-                  "hit",
-                  "wound"
-                ]
-              },
-              "optional": true,
-              "subject": "target-unit"
+              "anyOrAll": true,
+              "except": [
+                "saving throws"
+              ]
             }
           ],
-          "duration": "until-start-of-your-next-command-phase"
+          "duration": "end-of-turn",
+          "cardPrintsOtherText": {
+            "detachment": "Medusa's Wrath",
+            "type": "",
+            "window": {
+              "turn": "own",
+              "phase": "command"
+            },
+            "ignoreModifiers": [
+              "BS",
+              "WS",
+              "Hit rolls",
+              "Wound rolls"
+            ],
+            "duration": "until the start of your next Command phase"
+          }
         }
       }
     }

@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -20,23 +20,19 @@
     "cp": 1,
     "stratagem": {
       "phases": [
-        "command"
+        "movement"
       ],
-      "turn": "own"
+      "turn": "own",
+      "type": "battle-tactic"
     },
-    "parts": {
-      "when": "[Your Command phase](vsdata:core-rule/command-phase).",
-      "target": "A **DEATHWING** or **RAVENWING** unit of yours.",
-      "effect": "Pick 1 [combat doctrine](vsdata:ability/space-marines.combat-doctrines). It is active for the unit until your next Command phase."
-    },
-    "summary": "**When:** [Your Command phase](vsdata:core-rule/command-phase).\n\n**Target:** A **DEATHWING** or **RAVENWING** unit of yours.\n\n**Effect:** Pick 1 [combat doctrine](vsdata:ability/space-marines.combat-doctrines). It is active for the unit until your next Command phase.",
+    "summary": "Use it in your Movement phase. Pick 1 **ADEPTUS ASTARTES** unit of yours. Until the turn ends, it may shoot and may declare a charge even though it Advanced this turn; if it has the **RAVENWING** keyword, the same holds even though it Fell Back this turn.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -52,17 +48,8 @@
             "count": 1,
             "side": "friendly",
             "entity": "unit",
-            "anyOf": [
-              {
-                "keywords": [
-                  "DEATHWING"
-                ]
-              },
-              {
-                "keywords": [
-                  "RAVENWING"
-                ]
-              }
+            "keywords": [
+              "ADEPTUS ASTARTES"
             ]
           }
         },
@@ -70,40 +57,53 @@
           "timings": [
             {
               "at": "phase-start",
-              "phase": "command",
+              "phase": "movement",
               "turn": "own"
             }
           ]
         },
         "detail": {
           "detachment": "Wrath of the Rock",
-          "trigger": {
-            "windows": [
-              {
-                "phase": "command",
-                "turn": "own"
-              }
-            ],
-            "event": "phase-step"
-          },
+          "type": "Battle Tactic",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "movement"
+            }
+          ],
           "target": {
-            "entity": "unit",
-            "count": 1,
             "side": "friendly",
-            "keywordsAny": [
-              "DEATHWING",
-              "RAVENWING"
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
             ]
           },
           "effects": [
             {
-              "kind": "activate-combat-doctrine",
-              "choose": 1,
-              "appliesTo": "target-unit",
-              "expires": "start-of-your-next-command-phase"
+              "inTurnUnitAdvanced": {
+                "eligibleToShoot": true,
+                "eligibleToDeclareCharge": true
+              }
+            },
+            {
+              "ifUnitKeywordsAll": [
+                "RAVENWING"
+              ],
+              "inTurnUnitFellBack": {
+                "eligibleToShoot": true,
+                "eligibleToDeclareCharge": true
+              }
             }
           ],
-          "restrictions": []
+          "duration": "end-of-turn",
+          "cardPrintsNewerText": {
+            "window": "your Command phase",
+            "targetKeywordsAny": [
+              "DEATHWING",
+              "RAVENWING"
+            ],
+            "effect": "select one combat doctrine until your next Command phase starts"
+          }
         }
       }
     }

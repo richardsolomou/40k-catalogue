@@ -7,66 +7,52 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Drop Pod",
-    "summary": "This unit follows 3 deployment rules:\n\n- It always begins in **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**.\n- It can arrive with an **[Ingress Move](vsdata:core-rule/ingress-move)** even during your first Movement phase.\n- When it is set up, each unit embarked within it must make a [Disembark Move](vsdata:core-rule/disembark-move) or [Assault Disembark Move](vsdata:core-rule/assault-disembark-move) and be placed more than 8\" from every enemy unit.",
+    "summary": "This model always starts the battle in Reserves. It can arrive during the Reinforcements step of any of your first 3 Movement phases, whatever the mission rules say.\n\nImmediately after it is set up, every unit embarked in it must disembark, each placed more than 8\" from every enemy model.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
       "format": "vs-data-facts",
       "version": "1",
       "fields": {
-        "reminder": {
-          "timings": [
-            {
-              "at": "phase-start",
-              "phase": "movement",
-              "turn": "own",
-              "firstRoundOnly": true
-            }
-          ]
-        },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "assault-disembark-move"
-          },
-          {
-            "kind": "core-rule",
-            "id": "ingress-move"
-          },
-          {
-            "kind": "core-rule",
-            "id": "strategic-reserves"
-          }
-        ],
         "detail": {
           "ability": {
-            "startsInStrategicReserves": true,
-            "ingressMove": {
-              "when": "your first Movement phase",
-              "optional": true
+            "startsIn": "Reserves",
+            "arrival": {
+              "step": "Reinforcements",
+              "phase": "movement",
+              "turn": "own",
+              "yourMovementPhases": [
+                1,
+                2,
+                3
+              ],
+              "overridesMissionRules": true
             },
             "onSetUp": {
-              "embarkedUnits": "all",
-              "mustMake": [
-                "disembark move",
-                "assault disembark move"
-              ],
-              "setUpMoreThanInchesFromEnemy": 8,
-              "referencePage": 157
+              "embarkedUnits": "must disembark immediately",
+              "minDistanceFromEnemyModelsInches": 8,
+              "strictlyMoreThan": true
             }
+          },
+          "cardPrintsOtherText": {
+            "startsIn": "Strategic Reserves",
+            "ingressMove": "your first Movement phase",
+            "disembark": "disembark/assault disembark move",
+            "pageReference": 157,
+            "awayFromEnemyUnitsInches": 8
           }
         }
       }

@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Ulrik the Slayer",
-    "summary": "Melee attacks by this unit get +1 to [Hit](vsdata:core-rule/hit-rolls), or +1 to Hit and +1 to [Wound](vsdata:core-rule/wound-rolls) if they target its **[slayer's oath](vsdata:ability/space-wolves.ulrik-the-slayer.slayers-oath)**.",
+    "summary": "As long as this model leads a unit, the melee attacks of that unit's models get +1 to their **Hit rolls**; if the target unit has the Slayer's Oath keyword belonging to this model, those attacks also get +1 to their **Wound rolls**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -29,16 +29,16 @@
       "fields": {
         "combat": {
           "applies": {
+            "leading": true,
             "reachesAttached": true
           },
           "readings": [
             {
               "choices": [
                 {
-                  "option": "Option 1",
                   "conditions": [
                     {
-                      "kind": "option"
+                      "kind": "leading"
                     }
                   ],
                   "effects": [
@@ -54,13 +54,12 @@
                   ]
                 },
                 {
-                  "option": "Option 2",
                   "conditions": [
                     {
-                      "kind": "option"
+                      "kind": "leading"
                     },
                     {
-                      "kind": "selected-target"
+                      "kind": "stated"
                     }
                   ],
                   "effects": [
@@ -89,12 +88,66 @@
               "roles": [
                 "attacker"
               ]
+            },
+            {
+              "choices": [
+                {
+                  "conditions": [],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "kind": "stated"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    },
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "rolls": {
+                        "woundModifier": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 1,
+              "roles": [
+                "attacker"
+              ]
             }
           ],
           "trees": [
             [
               {
                 "reading": 0
+              }
+            ],
+            [
+              {
+                "reading": 1
               }
             ]
           ],
@@ -103,10 +156,10 @@
             "own.one.unknown": 0,
             "own.many.known": 0,
             "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
+            "leading.one.known": 1,
+            "leading.one.unknown": 1,
+            "leading.many.known": 1,
+            "leading.many.unknown": 1,
             "aura.one.known": 0,
             "aura.one.unknown": 0,
             "aura.many.known": 0,
@@ -129,29 +182,23 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "ability",
-            "id": "space-wolves.ulrik-the-slayer.slayers-oath"
-          }
-        ],
         "detail": {
-          "source": "this-unit",
-          "trigger": "each-melee-attack-by-this-unit",
-          "effects": [
-            {
-              "roll": "hit",
-              "modifier": 1
-            },
-            {
-              "roll": "wound",
-              "modifier": 1,
-              "condition": {
-                "target": "this-units-designated-slayers-oath-unit"
+          "ability": {
+            "condition": "this model is leading a unit",
+            "attackers": "models in the unit this model leads",
+            "attackType": "melee",
+            "effects": [
+              {
+                "roll": "hit",
+                "add": 1
+              },
+              {
+                "roll": "wound",
+                "add": 1,
+                "onlyIf": "target unit has this model's Slayer's Oath keyword"
               }
-            }
-          ],
-          "originalBranchResolution": "alternative-with-shared-hit-bonus"
+            ]
+          }
         }
       }
     }

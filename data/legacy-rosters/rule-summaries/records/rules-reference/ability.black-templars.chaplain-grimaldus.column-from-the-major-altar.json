@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Chaplain Grimaldus",
-    "summary": "This unit gets +1 T.",
+    "summary": "Models in this unit get +1 to their Toughness characteristic. This is one of the Temple Relics abilities: in your Command phase, if the unit still includes at least one Cenobyte Servitor model, you can pick it, and Chaplain Grimaldus then has it until your next Command phase starts.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -158,14 +158,23 @@
           }
         },
         "detail": {
-          "recipient": "owning unit",
-          "characteristic": "Toughness",
-          "modifier": 1,
-          "activity": {
-            "ability": "ability:black-templars.chaplain-grimaldus.temple-relics",
-            "timing": "own Command phase start",
-            "condition": "one or more Cenobytes in owning unit",
-            "duration": "until start of own next Command phase"
+          "ability": {
+            "appliesTo": "models in this unit",
+            "characteristic": "T",
+            "delta": 1,
+            "grantedBy": {
+              "ability": "Temple Relics",
+              "when": {
+                "turn": "own",
+                "phase": "command"
+              },
+              "condition": {
+                "unitContainsModel": "Cenobyte Servitor",
+                "minimum": 1
+              },
+              "holder": "Chaplain Grimaldus",
+              "duration": "until-start-of-your-next-command-phase"
+            }
           }
         }
       }

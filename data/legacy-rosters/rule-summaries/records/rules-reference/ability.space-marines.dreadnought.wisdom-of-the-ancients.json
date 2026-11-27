@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Dreadnought",
-    "summary": "Friendly **ADEPTUS ASTARTES INFANTRY** within 6″ of the Dreadnought may re-roll their attacks’ **[hit rolls](vsdata:core-rule/hit-rolls)** of 1.",
+    "summary": "**Hit rolls** of 1 made for attacks by models in a friendly **ADEPTUS ASTARTES INFANTRY** unit may be re-rolled while this model is within 6\" of that unit.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -401,34 +401,24 @@
           }
         },
         "detail": {
-          "aura": {
-            "source": "this-model",
-            "distanceInches": 6,
-            "comparison": "within",
-            "inclusive": true,
-            "candidate": {
-              "entity": "unit",
+          "ability": {
+            "aura": true,
+            "range": {
+              "withinInches": 6,
+              "of": "this model"
+            },
+            "appliesTo": {
               "side": "friendly",
-              "keywords": [
+              "keywordsAll": [
                 "ADEPTUS ASTARTES",
                 "INFANTRY"
               ]
+            },
+            "effect": {
+              "reroll": "hit",
+              "onlyIfValue": 1,
+              "attacksBy": "models in that unit"
             }
-          },
-          "trigger": {
-            "event": "attack",
-            "actor": "model-in-eligible-unit",
-            "mode": "any"
-          },
-          "effect": {
-            "optional": true,
-            "rolls": [
-              "hit"
-            ],
-            "faces": [
-              1
-            ],
-            "kind": "re-roll"
           }
         }
       }

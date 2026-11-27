@@ -7,20 +7,20 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
     "ruleType": "unit-ability",
     "group": "Wulfen with Storm Shields",
-    "summary": "In [either player's Fight phase](vsdata:core-rule/fight-phase), after this unit has fought, you can pick an enemy **MONSTER** or **VEHICLE** unit that those attacks hit. That unit is **suppressed** until your next turn.\n\nA **suppressed** unit's attacks get -1 to [Hit](vsdata:core-rule/hit-rolls).",
+    "summary": "After this unit fights in the Fight phase, pick 1 enemy unit that at least one of those attacks hit and that is a **MONSTER** or **VEHICLE**. Until the next turn ends, that unit is suppressed.\n\nAttacks made by models in a suppressed unit take −1 to their **Hit rolls**.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -44,103 +44,12 @@
             }
           },
           "readings": [
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "enemy-status",
-                      "status": "SUPPRESSED"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "rolls": {
-                        "hitModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "enemy-status",
-                      "status": "SUPPRESSED"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "rolls": {
-                        "hitModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "conditions": [
-                    {
-                      "kind": "enemy-status",
-                      "status": "SUPPRESSED"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "rolls": {
-                        "hitModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            }
+            {}
           ],
           "trees": [
             [
               {
                 "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ],
-            [
-              {
-                "reading": 2
               }
             ]
           ],
@@ -157,14 +66,14 @@
             "aura.one.unknown": 0,
             "aura.many.known": 0,
             "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
             "stratagem-both.one.known": 0,
             "stratagem-both.one.unknown": 0,
             "stratagem-both.many.known": 0,
@@ -176,29 +85,33 @@
           }
         },
         "detail": {
-          "source": "this-unit",
-          "actor": "controlling-player",
-          "trigger": {
-            "phase": "fight",
-            "turn": "either",
-            "event": "after-this-unit-fought"
+          "ability": {
+            "when": {
+              "turn": "either",
+              "phase": "fight"
+            },
+            "trigger": "after this unit has fought",
+            "select": {
+              "side": "enemy",
+              "count": 1,
+              "keywordsAny": [
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "hitByThoseAttacks": true
+            },
+            "status": "suppressed",
+            "duration": "until-end-of-next-turn",
+            "whileSuppressed": {
+              "attacks": "models in that unit",
+              "roll": "hit",
+              "delta": -1
+            }
           },
-          "selection": {
-            "side": "enemy",
-            "entity": "unit",
-            "maximum": 1,
-            "minHitsFromThisUnit": 1,
-            "anyKeyword": [
-              "MONSTER",
-              "VEHICLE"
-            ]
-          },
-          "status": "suppressed",
-          "duration": "until-start-of-owners-next-turn",
-          "effect": {
-            "recipient": "suppressed-unit-attacks",
-            "roll": "hit",
-            "modifier": -1
+          "cardPrintsNewerText": {
+            "select": "up to one",
+            "duration": "until-start-of-your-next-turn",
+            "hitRollDelta": -1
           }
         }
       }

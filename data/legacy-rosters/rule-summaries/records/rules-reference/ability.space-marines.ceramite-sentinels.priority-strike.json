@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,15 +15,16 @@
     "group": "Ceramite Sentinels",
     "detachment": {
       "kind": "detachment",
-      "id": "imperial-fists.ceramite-sentinels"
+      "id": "space-marines.ceramite-sentinels"
     },
-    "cp": 1,
+    "cp": 2,
     "stratagem": {
       "phases": [
         "shooting",
         "fight"
       ],
       "turn": "any",
+      "type": "battle-tactic",
       "windows": [
         {
           "phase": "shooting",
@@ -35,14 +36,14 @@
         }
       ]
     },
-    "summary": "As you select a unit to attack in your [Shooting phase](vsdata:core-rule/shooting-phase) or either [Fight phase](vsdata:core-rule/fight-phase), use this if it has the **ADEPTUS ASTARTES INFANTRY/MOUNTED** keyword. Its **[wound rolls](vsdata:core-rule/wound-rolls)** get +1 against targets with **MONSTER** or **VEHICLE**.",
+    "summary": "Use it in your Shooting phase or either player's Fight phase. Pick 1 **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit of yours not yet picked to shoot or fight in this phase.\n\nUntil the phase ends, **Wound rolls** may be re-rolled for its models' attacks against **CHARACTER**, **MONSTER** or **VEHICLE** units.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -52,11 +53,11 @@
         "stratagem": {
           "limit": "phase",
           "when": {
-            "at": "phase",
-            "after": "friendly-selected-to-attack"
+            "at": "phase"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "anyOf": [
               {
@@ -71,6 +72,9 @@
                   "MOUNTED"
                 ]
               }
+            ],
+            "conditions": [
+              "not-selected-to-shoot-or-fight"
             ]
           }
         },
@@ -114,11 +118,12 @@
                         "melee"
                       ],
                       "targetKeywords": [
+                        "CHARACTER",
                         "MONSTER",
                         "VEHICLE"
                       ],
                       "rolls": {
-                        "woundModifier": 1
+                        "woundReroll": "failed"
                       }
                     }
                   ]
@@ -140,11 +145,12 @@
                         "ranged"
                       ],
                       "targetKeywords": [
+                        "CHARACTER",
                         "MONSTER",
                         "VEHICLE"
                       ],
                       "rolls": {
-                        "woundModifier": 1
+                        "woundReroll": "failed"
                       }
                     }
                   ]
@@ -166,11 +172,12 @@
                         "melee"
                       ],
                       "targetKeywords": [
+                        "CHARACTER",
                         "MONSTER",
                         "VEHICLE"
                       ],
                       "rolls": {
-                        "woundModifier": 1
+                        "woundReroll": "failed"
                       }
                     }
                   ]
@@ -230,46 +237,43 @@
             "army.many.unknown": 0
           }
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "select-weapons.selected-to-attack"
-          }
-        ],
         "detail": {
-          "type": "",
-          "trigger": {
-            "turn": "either",
-            "phases": [
-              "fight",
-              "shooting"
-            ],
-            "event": "friendly-selected-to-attack",
-            "window": {
-              "shooting": "your",
-              "fight": "either"
+          "detachment": "Ceramite Sentinels",
+          "windows": [
+            {
+              "turn": "own",
+              "phase": "shooting"
+            },
+            {
+              "turn": "either",
+              "phase": "fight"
             }
-          },
+          ],
           "target": {
-            "owner": "your-army",
+            "side": "friendly",
             "count": 1,
-            "referencedByTrigger": true,
-            "sourceKeywordLabel": "Adeptus Astartes Infantry/Mounted"
+            "keywordsAny": [
+              "ADEPTUS ASTARTES INFANTRY",
+              "ADEPTUS ASTARTES MOUNTED"
+            ],
+            "notSelectedToShootOrFightThisPhase": true
           },
           "effects": [
             {
-              "kind": "modifier",
-              "subject": "attacks",
-              "characteristic": "wound-roll",
-              "delta": 1,
-              "conditions": {
-                "enemyAnyKeyword": [
-                  "MONSTER",
-                  "VEHICLE"
-                ]
-              }
+              "attacksAgainstKeywordsAny": [
+                "CHARACTER",
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "reroll": "wound",
+              "optional": true
             }
-          ]
+          ],
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "woundRollBonus": 1,
+            "cpCost": 1
+          }
         }
       }
     }

@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -22,21 +22,17 @@
       "phases": [
         "shooting"
       ],
-      "turn": "opponent"
+      "turn": "opponent",
+      "type": "strategic-ploy"
     },
-    "parts": {
-      "when": "[Opponent's Shooting phase](vsdata:core-rule/shooting-phase), after an enemy unit finishes shooting, if it targeted an **[unengaged](vsdata:core-rule/engagement-range)** **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit of yours.",
-      "target": "That **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit.",
-      "effect": "The unit can carry out a **[normal move](vsdata:core-rule/normal-move)** of at most D3+3\"."
-    },
-    "summary": "**When:** [Opponent's Shooting phase](vsdata:core-rule/shooting-phase), after an enemy unit finishes shooting, if it targeted an **[unengaged](vsdata:core-rule/engagement-range)** **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit of yours.\n\n**Target:** That **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit.\n\n**Effect:** The unit can carry out a **[normal move](vsdata:core-rule/normal-move)** of at most D3+3\".",
+    "summary": "Use it in the Shooting phase of your opponent's turn, right after an enemy unit finishes shooting. Pick 1 **SPACE WOLVES** unit of yours that was a target of at least 1 of that enemy unit's attacks. Your unit may make a **Normal move**, going at most D6\".",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -50,26 +46,15 @@
             "after": "enemy-shot"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
-            "anyOf": [
-              {
-                "keywords": [
-                  "ADEPTUS ASTARTES",
-                  "INFANTRY"
-                ]
-              },
-              {
-                "keywords": [
-                  "ADEPTUS ASTARTES",
-                  "MOUNTED"
-                ]
-              }
+            "keywords": [
+              "SPACE WOLVES"
             ],
             "conditions": [
-              "unengaged"
-            ],
-            "more": true
+              "targeted-by-the-attacking-unit"
+            ]
           }
         },
         "reminder": {
@@ -81,45 +66,45 @@
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-rule",
-            "id": "normal-move"
-          }
-        ],
         "detail": {
           "detachment": "Saga of the Great Wolf",
+          "type": "Strategic Ploy",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting"
+            }
+          ],
           "trigger": {
-            "windows": [
-              {
-                "phase": "shooting",
-                "turn": "opponent"
-              }
-            ],
             "event": "enemy-unit-has-shot"
           },
           "target": {
-            "entity": "unit",
-            "count": 1,
             "side": "friendly",
+            "count": 1,
             "keywordsAll": [
-              "ADEPTUS ASTARTES"
+              "SPACE WOLVES"
             ],
-            "keywordsAny": [
-              "INFANTRY",
-              "MOUNTED"
-            ],
-            "targetedBy": "triggering-enemy-unit",
-            "mustBe": "unengaged"
+            "wasATargetOfThatEnemyUnit": true
           },
           "effects": [
             {
-              "kind": "normal-move",
-              "maxDistance": "D3+3",
+              "move": "normal",
+              "maxDistance": "D6",
               "optional": true
             }
           ],
-          "restrictions": []
+          "duration": "instant",
+          "cardPrintsNewerText": {
+            "targetKeywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "targetKeywordsAny": [
+              "INFANTRY",
+              "MOUNTED"
+            ],
+            "unengaged": true,
+            "maxDistance": "D3+3"
+          }
         }
       }
     }

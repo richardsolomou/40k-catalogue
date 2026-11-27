@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -15,34 +15,24 @@
     "group": "Ceramite Sentinels",
     "detachment": {
       "kind": "detachment",
-      "id": "imperial-fists.ceramite-sentinels"
+      "id": "space-marines.ceramite-sentinels"
     },
     "cp": 1,
     "stratagem": {
       "phases": [
-        "shooting",
         "fight"
       ],
       "turn": "any",
-      "windows": [
-        {
-          "phase": "shooting",
-          "turn": "opponent"
-        },
-        {
-          "phase": "fight",
-          "turn": "any"
-        }
-      ]
+      "type": "epic-deed"
     },
-    "summary": "Use it in your opponent's Shooting phase or either player's Fight phase, the moment an enemy unit selects an **ADEPTUS ASTARTES** unit of yours, other than a **MONSTER** or **VEHICLE**, as a target. Pick 1 of these; for the rest of the phase it applies to attacks targeting your unit:\n\n- attacks with a Strength above your unit's Toughness get −1 to their Wound rolls\n- only while your unit is **entrenched**, every such attack gets −1 to its Wound roll",
+    "summary": "Use it in either player's Fight phase, right after an enemy unit selects its targets. Pick 1 of your **ADEPTUS ASTARTES** units it targeted. Until the phase ends, whenever a model of that unit is **destroyed** before it has fought this phase, roll a D6, adding 1 if the unit is **ENTRENCHED**. If the result is 4+, that model:\n\n1. stays in play\n2. may fight, but only after the attacking unit is done attacking\n3. is removed afterwards",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -56,21 +46,19 @@
             "after": "enemy-selected-targets"
           },
           "target": {
-            "triggering": true,
+            "count": 1,
+            "side": "friendly",
             "entity": "unit",
             "keywords": [
               "ADEPTUS ASTARTES"
             ],
-            "more": true
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
           }
         },
         "reminder": {
           "timings": [
-            {
-              "at": "phase-start",
-              "phase": "shooting",
-              "turn": "opponent"
-            },
             {
               "at": "phase-start",
               "phase": "fight",
@@ -78,238 +66,13 @@
             }
           ]
         },
-        "combat": {
-          "applies": {
-            "target": {
-              "anyOf": [
-                [
-                  "ADEPTUS ASTARTES"
-                ]
-              ],
-              "excluded": [
-                "MONSTER",
-                "VEHICLE"
-              ]
-            }
-          },
-          "readings": [
-            {
-              "choices": [
-                {
-                  "option": "Option 1",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "condition": "stronger",
-                      "rolls": {
-                        "woundModifier": -1
-                      }
-                    }
-                  ]
-                },
-                {
-                  "option": "Option 2",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    },
-                    {
-                      "kind": "own-status",
-                      "status": "ENTRENCHED"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged",
-                        "melee"
-                      ],
-                      "rolls": {
-                        "woundModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "option": "Option 1",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "condition": "stronger",
-                      "rolls": {
-                        "woundModifier": -1
-                      }
-                    }
-                  ]
-                },
-                {
-                  "option": "Option 2",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    },
-                    {
-                      "kind": "own-status",
-                      "status": "ENTRENCHED"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "ranged"
-                      ],
-                      "rolls": {
-                        "woundModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            },
-            {
-              "choices": [
-                {
-                  "option": "Option 1",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "condition": "stronger",
-                      "rolls": {
-                        "woundModifier": -1
-                      }
-                    }
-                  ]
-                },
-                {
-                  "option": "Option 2",
-                  "conditions": [
-                    {
-                      "kind": "option"
-                    },
-                    {
-                      "kind": "own-status",
-                      "status": "ENTRENCHED"
-                    }
-                  ],
-                  "effects": [
-                    {
-                      "role": "defender",
-                      "attacks": [
-                        "melee"
-                      ],
-                      "rolls": {
-                        "woundModifier": -1
-                      }
-                    }
-                  ]
-                }
-              ],
-              "default": 0,
-              "roles": [
-                "defender"
-              ]
-            }
-          ],
-          "trees": [
-            [
-              {
-                "reading": 0
-              }
-            ],
-            [
-              {
-                "reading": 1
-              }
-            ],
-            [
-              {
-                "reading": 2
-              }
-            ]
-          ],
-          "contexts": {
-            "own.one.known": 0,
-            "own.one.unknown": 0,
-            "own.many.known": 0,
-            "own.many.unknown": 0,
-            "leading.one.known": 0,
-            "leading.one.unknown": 0,
-            "leading.many.known": 0,
-            "leading.many.unknown": 0,
-            "aura.one.known": 0,
-            "aura.one.unknown": 0,
-            "aura.many.known": 0,
-            "aura.many.unknown": 0,
-            "stratagem-shooting.one.known": 1,
-            "stratagem-shooting.one.unknown": 1,
-            "stratagem-shooting.many.known": 1,
-            "stratagem-shooting.many.unknown": 1,
-            "stratagem-fight.one.known": 2,
-            "stratagem-fight.one.unknown": 2,
-            "stratagem-fight.many.known": 2,
-            "stratagem-fight.many.unknown": 2,
-            "stratagem-both.one.known": 0,
-            "stratagem-both.one.unknown": 0,
-            "stratagem-both.many.known": 0,
-            "stratagem-both.many.unknown": 0,
-            "army.one.known": 0,
-            "army.one.unknown": 0,
-            "army.many.known": 0,
-            "army.many.unknown": 0
-          }
-        },
         "detail": {
           "detachment": "Ceramite Sentinels",
-          "type": null,
           "windows": [
-            {
-              "turn": "opponent",
-              "phase": "shooting",
-              "timing": "when-an-enemy-unit-targets-the-unit"
-            },
             {
               "turn": "either",
               "phase": "fight",
-              "timing": "when-an-enemy-unit-targets-the-unit"
+              "trigger": "just after an enemy unit has selected its targets"
             }
           ],
           "target": {
@@ -318,31 +81,29 @@
             "keywordsAll": [
               "ADEPTUS ASTARTES"
             ],
-            "keywordsNone": [
-              "MONSTER",
-              "VEHICLE"
-            ],
-            "sameAs": "targeted-unit"
+            "targetedByAttackingUnit": true
           },
           "effects": [
             {
-              "chooseOne": [
-                {
-                  "roll": "wound",
-                  "delta": -1,
-                  "attacks": "targeting-target-unit",
-                  "condition": "attack-strength-greater-than-target-toughness"
-                },
-                {
-                  "roll": "wound",
-                  "delta": -1,
-                  "attacks": "targeting-target-unit",
-                  "condition": "target-unit-entrenched"
-                }
-              ]
+              "trigger": "a model in the target unit is destroyed",
+              "condition": "that model has not fought this phase",
+              "roll": "D6",
+              "rollBonusIfKeyword": {
+                "keyword": "ENTRENCHED",
+                "add": 1
+              },
+              "threshold": "4+",
+              "onSuccess": {
+                "notRemovedYet": true,
+                "mayFightAfterAttackingUnitFinishes": true,
+                "thenRemoved": true
+              }
             }
           ],
-          "duration": "end-of-phase"
+          "duration": "end-of-phase",
+          "cardPrintsOtherText": {
+            "woundRollPenalty": 1
+          }
         }
       }
     }

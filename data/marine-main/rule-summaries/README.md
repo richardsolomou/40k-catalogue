@@ -13,7 +13,7 @@ Every summary is original wording, checked against the official sources it cites
 
 Typed facts follow the [rule facts](../../../docs/rule-facts.md) format: 818 Enhancements carry their eligibility and 197 awards their scoring from the app build's rows, and drafted structure is in `detail`. Effect blocks, read from each rule as the app build prints it, or a Warhammer Legends ability's PDF page: `combat` 2764, `grants` 396, `weaponAbilities` 127, `reminder` 2256, `reserves` 1, `invulnerableSave` 121, `upgradesWeapon` 21, `roster` 29, `options` 13, `attachment` 55, `references` 998 (4,464 records with at least one). 99 Crucible and Warhammer Legends abilities that no app row prints and no Legends page is read for have their blocks too. A record whose rule none of these prints has none; treat what its summary describes as not calculated.
 
-The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,117 stat lines and 5,172 weapon profiles, and the `marine-main` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the entry IDs saved rosters hold for it as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 341 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `marine-main-legends` snapshot, the costs of 331 of them from the Munitorum Field Manual's Legends section. 326 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (37 of them with options left out, listed below), and their weapon profiles name that wargear. 58 Crucible or promotional datasheets the app does not carry have roster definitions, stat lines, weapon profiles and Leader targets, each naming the publication that prints the datasheet as `source`; 13 Legends datasheets whose PDF states no loadout in typed form have a roster definition; and the `marine-main-extra` and `marine-main-extra-mfm` snapshots price those datasheets and 8 Legends datasheets the Field Manual's Legends section does not. Each of these roster definitions was checked, for each choice together with the choices it changes, to accept exactly the loadouts the datasheet allows, and every weapon profile names wargear it fields. In this release 6 Crucible or promotional datasheets the check did not prove have only an entry for their abilities, with no roster definition, stat lines or weapon profiles, and 2 Legends datasheets whose PDF states no loadout in typed form and the check did not prove have no roster definition; all are listed below, and 1 wargear ability some of them grant is published only for the datasheets the check proved. A characteristic another of these units' choices changes is a gap.
+The `rosters`, `profiles` and `points` categories hold the update's datasheets, built from the app build: 1,056 units with roster definitions (1,311 wargear options), 1,117 stat lines and 5,172 weapon profiles, and the `marine-main` points snapshot of 1,055 units, 252 Detachments and 818 Enhancements. Datasheets are modelled once, not once per Space Marine chapter; each unit lists the entry IDs saved rosters hold for it as `aliases`. Each Detachment lists, in `stratagems` and `enhancements`, the rule summary IDs of the cards the app build gives it. 340 Warhammer Legends datasheets the app does not carry come from Games Workshop's Legends PDFs, with their profiles and, in the `marine-main-legends` snapshot, the costs of 330 of them from the Munitorum Field Manual's Legends section. 325 Legends datasheets have roster definitions typed from the PDF's composition, equipment and wargear options (37 of them with options left out, listed below), and their weapon profiles name that wargear. 59 Crucible or promotional datasheets the app does not carry have roster definitions, stat lines, weapon profiles and Leader targets, each naming the publication that prints the datasheet as `source`; 13 Legends datasheets whose PDF states no loadout in typed form have a roster definition; and the `marine-main-extra` and `marine-main-extra-mfm` snapshots price those datasheets and 8 Legends datasheets the Field Manual's Legends section does not. Each of these roster definitions was checked, for each choice together with the choices it changes, to accept exactly the loadouts the datasheet allows, and every weapon profile names wargear it fields. In this release 6 Crucible or promotional datasheets the check did not prove have only an entry for their abilities, with no roster definition, stat lines or weapon profiles, and 2 Legends datasheets whose PDF states no loadout in typed form and the check did not prove have no roster definition; all are listed below, and 1 wargear ability some of them grant is published only for the datasheets the check proved. A characteristic another of these units' choices changes is a gap.
 
 The `mission-packs` category holds the [mission pack](../../../docs/mission-packs.md) Chapter Approved 2026-2027, built from the app build's mission tables: 5 force dispositions, 6 deployments, 45 layouts, 25 primary missions, 18 secondary cards and 6 twists. Award criteria and twist effects are the summaries above. Each member lists its app ID, in the catalogue's alias form, as `aliases`.
 
@@ -48,7 +48,7 @@ Where the app and the guide in force differ, the app's size is published (20 sta
 - `space-marines.chaplain-in-terminator-armour`: app 50mm, guide 40mm
 - `space-marines.chaplain-with-jump-pack`: app 40mm, guide 32mm
 
-### VS Data's own base sizes (334)
+### VS Data's own base sizes (333)
 
 No official source in reach prints a base size for these datasheets, so their stat lines take VS Data's own, with no `baseSizeSource`.
 
@@ -303,7 +303,6 @@ No official source in reach prints a base size for these datasheets, so their st
 - `space-marines.sergeant-chronus`
 - `space-marines.sergeant-telion`
 - `space-marines.sicaran-arcus`
-- `space-marines.sicaran-battle-tank`
 - `space-marines.sicaran-omega`
 - `space-marines.sicaran-punisher`
 - `space-marines.sicaran-venator`
@@ -387,7 +386,7 @@ No official source in reach prints a base size for these datasheets, so their st
 - `world-eaters.bloodcult-champion`
 - `world-eaters.eight-blessed-lord`
 
-### No base size: Warhammer Legends datasheets no guide lists (23)
+### No base size: Warhammer Legends datasheets no guide lists (24)
 
 No official source in reach prints their base size, so their stat lines carry a `no-source` gap.
 
@@ -414,6 +413,7 @@ No official source in reach prints their base size, so their stat lines carry a 
 - `orks.skorchas`
 - `orks.squiggoth`
 - `orks.ufthak-blackhawk`
+- `thousand-sons.sicaran`
 
 ### No base size: datasheets neither the app nor the guide in force sizes (35)
 
@@ -465,6 +465,8 @@ The app build prints no base size and the guide dated before the cutoff does not
 - `faq` `codex-necrons.errata.ophydian-destroyers-tunnelling-horrors-ability-2`, replaced by Necrons Faction Pack: Version 1.3, page 30
 - `faq` `imperial-armour-grey-knights.errata.grey-knights-thunderhawk-gunship`, replaced by Grey Knights Faction Pack: Version 1.2, page 7; Grey Knights Faction Pack: Version 1.2, page 8
 - `faq` `index-chaos-daemons.errata.feculent-gnarlmaw-screamers-skull-altar-keywords`, replaced by Chaos Daemons Faction Pack: Version 1.2, page 61; Chaos Daemons Faction Pack: Version 1.2, page 87; Chaos Daemons Faction Pack: Version 1.2, page 37
+
+19 roster entries the previous release published are retired: wargear bundles and options the roster definitions now key by their counts, with new IDs.
 
 ## Absent
 

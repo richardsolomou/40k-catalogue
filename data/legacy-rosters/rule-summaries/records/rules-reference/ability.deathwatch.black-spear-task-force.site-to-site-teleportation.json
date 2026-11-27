@@ -7,7 +7,7 @@
     "update": "MFM 1.4"
   },
   "source": {
-    "title": "Warhammer 40,000: The App 2.7.0, data build 963, released 2026-09-30",
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
     "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
   },
   "data": {
@@ -22,21 +22,17 @@
       "phases": [
         "fight"
       ],
-      "turn": "opponent"
+      "turn": "opponent",
+      "type": "strategic-ploy"
     },
-    "parts": {
-      "when": "[Opponent's Fight phase](vsdata:core-rule/fight-phase), as it ends.",
-      "target": "An **ADEPTUS ASTARTES INFANTRY** unit of yours that is **unengaged**.",
-      "effect": "Place the unit into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**. If it has **KILL TEAM**, it also gets **[Deep Strike](vsdata:core-ability/deep-strike)** until [your next Movement phase](vsdata:core-rule/movement-phase) ends."
-    },
-    "summary": "**When:** [Opponent's Fight phase](vsdata:core-rule/fight-phase), as it ends.\n\n**Target:** An **ADEPTUS ASTARTES INFANTRY** unit of yours that is **unengaged**.\n\n**Effect:** Place the unit into **[Strategic Reserves](vsdata:core-rule/strategic-reserves)**. If it has **KILL TEAM**, it also gets **[Deep Strike](vsdata:core-ability/deep-strike)** until [your next Movement phase](vsdata:core-rule/movement-phase) ends.",
+    "summary": "Use it as your opponent's Fight phase ends. Pick units of yours that are not in **Engagement Range** of any enemy unit, either:\n\n- up to 2 **KILL TEAM** units\n- 1 different **ADEPTUS ASTARTES INFANTRY** unit\n\nTake them off the battlefield and put them into **Strategic Reserves**; their models that lack **[Deep Strike](vsdata:core-ability/deep-strike)** have it until your next Movement phase ends.",
     "citations": [
       {
         "type": "app",
         "title": "Warhammer 40,000: The App",
-        "appVersion": "2.7.0",
-        "dataBuild": 963,
-        "releaseDate": "2026-09-30"
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
       }
     ],
     "facts": {
@@ -49,29 +45,8 @@
             "at": "phase-end"
           },
           "target": {
-            "count": 1,
-            "side": "friendly",
-            "entity": "unit",
-            "keywords": [
-              "ADEPTUS ASTARTES",
-              "INFANTRY"
-            ],
-            "conditions": [
-              "unengaged"
-            ]
+            "unresolved": "not typed yet; see the summary"
           }
-        },
-        "grants": {
-          "abilities": [
-            {
-              "ability": "Deep Strike",
-              "to": "unit",
-              "named": true,
-              "recipientKeywords": [
-                "KILL TEAM"
-              ]
-            }
-          ]
         },
         "reminder": {
           "timings": [
@@ -82,59 +57,40 @@
             }
           ]
         },
-        "references": [
-          {
-            "kind": "core-ability",
-            "id": "deep-strike"
-          },
-          {
-            "kind": "core-rule",
-            "id": "strategic-reserves"
-          }
-        ],
         "detail": {
-          "trigger": {
-            "windows": [
-              {
-                "phase": "fight",
-                "turn": "opponent"
-              }
-            ],
-            "event": "phase-end"
+          "detachment": "Black Spear Task Force",
+          "window": {
+            "turn": "opponent",
+            "phase": "fight",
+            "timing": "end-of-phase"
           },
           "target": {
-            "owner": "your-army",
-            "entity": "unit",
-            "count": 1,
-            "mode": "choose",
-            "keywords": [
-              "ADEPTUS ASTARTES INFANTRY"
-            ],
-            "state": "unengaged"
-          },
-          "effects": [
-            {
-              "kind": "place-in-reserves",
-              "recipient": "target-unit",
-              "reserves": "strategic"
-            },
-            {
-              "kind": "conditional",
-              "condition": {
-                "targetHas": "Kill Team"
+            "side": "friendly",
+            "options": [
+              {
+                "maxCount": 2,
+                "keywordsAll": [
+                  "KILL TEAM"
+                ]
               },
-              "effects": [
-                {
-                  "kind": "unit-ability-grant",
-                  "recipient": "target-unit",
-                  "ability": "Deep Strike",
-                  "duration": {
-                    "until": "end-of-your-next-movement-phase"
-                  }
-                }
-              ]
+              {
+                "count": 1,
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ],
+                "otherThanKillTeam": true
+              }
+            ],
+            "notWithinEngagementRangeOfEnemy": true
+          },
+          "effect": {
+            "removeAndPlaceIn": "Strategic Reserves",
+            "grantDeepStrike": {
+              "to": "models without Deep Strike",
+              "until": "end of your next Movement phase"
             }
-          ]
+          }
         }
       }
     }

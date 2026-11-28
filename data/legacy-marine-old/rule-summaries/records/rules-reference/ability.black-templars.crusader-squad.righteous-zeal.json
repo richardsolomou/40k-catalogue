@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.crusader-squad.righteous-zeal",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Crusader Squad",
+    "summary": "During [your opponent's Shooting phase](vsdata:core-rule/shooting-phase), whenever an enemy unit finishes shooting, if those attacks **destroyed** any of this unit's models, you can have this unit make a **[surge move](vsdata:core-rule/surge-move)** up to D6+2\".",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "opponent"
+            }
+          ]
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "inflict-damage.destroyed"
+          },
+          {
+            "kind": "core-rule",
+            "id": "surge-move"
+          }
+        ],
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Crusader Squad",
+          "trigger": {
+            "phase": "shooting",
+            "turn": "opponent",
+            "event": "enemy-unit-has-shot",
+            "condition": "models-in-this-unit-destroyed-by-those-attacks"
+          },
+          "optional": true,
+          "effects": [
+            {
+              "kind": "surge-move",
+              "maximumInches": "D6+2",
+              "dice": "D6",
+              "bonusInches": 2
+            }
+          ]
+        }
+      }
+    }
+  }
+}

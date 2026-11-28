@@ -1,0 +1,60 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.kayvaan-shrike.echo-of-the-ravenspire",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Kayvaan Shrike",
+    "summary": "As your opponent's turn ends, if no enemy unit is in [Engagement Range](vsdata:core-rule/engagement-range) of this model's unit, you can take that unit off the battlefield and put it in [Strategic Reserves](vsdata:core-rule/strategic-reserves).",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "turn-end",
+              "turn": "opponent"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Kayvaan Shrike",
+          "effects": [
+            {
+              "kind": "redeploy-to-reserves",
+              "when": {
+                "turn": "opponent",
+                "timing": "end-of-turn"
+              },
+              "optional": true,
+              "condition": {
+                "thisModelsUnitEngaged": false
+              },
+              "appliesTo": "this model's unit",
+              "to": "strategic-reserves"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

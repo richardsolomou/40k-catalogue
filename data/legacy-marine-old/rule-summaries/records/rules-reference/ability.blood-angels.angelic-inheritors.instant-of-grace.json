@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.angelic-inheritors.instant-of-grace",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Angelic Inheritors",
+    "detachment": {
+      "kind": "detachment",
+      "id": "blood-angels.angelic-inheritors"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own",
+      "type": "epic-deed"
+    },
+    "parts": {
+      "when": "[Your Command phase](vsdata:core-rule/command-phase).",
+      "target": "An **ADEPTUS ASTARTES INFANTRY** unit of yours.",
+      "effect": "Pick a model in the unit that lacks the **CHARACTER** keyword. That model gets the **CHARACTER** keyword until your next Command phase.\n\n**Designer's Note**: while this lasts, the model's unit counts as a **CHARACTER** unit, so rules for **CHARACTER** units, the Detachment rule **Legacy of the Angel** among them, apply to it."
+    },
+    "summary": "**When:** [Your Command phase](vsdata:core-rule/command-phase).\n\n**Target:** An **ADEPTUS ASTARTES INFANTRY** unit of yours.\n\n**Effect:** Pick a model in the unit that lacks the **CHARACTER** keyword. That model gets the **CHARACTER** keyword until your next Command phase.\n\n**Designer's Note**: while this lasts, the model's unit counts as a **CHARACTER** unit, so rules for **CHARACTER** units, the Detachment rule **Legacy of the Angel** among them, apply to it.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "detachment": "Angelic Inheritors",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "INFANTRY"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "grant-keyword",
+              "keyword": "CHARACTER",
+              "recipient": {
+                "count": 1,
+                "from": "target-models",
+                "excludeKeywords": [
+                  "CHARACTER"
+                ]
+              },
+              "duration": "until-next-own-command-phase",
+              "designerNote": "the model's unit counts as a CHARACTER unit"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

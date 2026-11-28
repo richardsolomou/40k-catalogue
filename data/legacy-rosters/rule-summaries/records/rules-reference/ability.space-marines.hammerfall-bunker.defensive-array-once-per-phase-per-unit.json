@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Hammerfall Bunker",
-    "summary": "This unit can receive **[Fire Overwatch](vsdata:core-rule/fire-overwatch)** at a discount of 1 CP, even if the [Stratagem](vsdata:core-rule/using-stratagems) has already been used that phase. The unit can claim this permission once in a phase.",
+    "summary": "Once per turn, this **FORTIFICATION** can be the target of the [Fire Overwatch](vsdata:core-rule/fire-overwatch) Stratagem at a cost of 0CP, even if you already used it on another unit this turn.",
     "citations": [
       {
         "type": "app",
@@ -34,26 +34,21 @@
           }
         ],
         "detail": {
-          "source": "this-unit",
-          "actor": "controlling-player",
-          "limit": {
-            "count": 1,
-            "period": "phase",
-            "counterOwner": "source-unit",
-            "resetsAt": "start-of-next-phase"
+          "kind": "unit-ability",
+          "datasheet": "Hammerfall Bunker",
+          "usage": {
+            "perTurn": 1,
+            "scope": "unit"
           },
-          "stratagem": "Fire Overwatch",
-          "target": "this-unit",
-          "permission": {
-            "optional": true,
-            "ignorePriorUsesOfSameStratagem": "same-phase"
-          },
-          "requiredOnUse": {
-            "cp": {
-              "operation": "subtract",
-              "amount": 1
+          "effects": [
+            {
+              "kind": "stratagem-access",
+              "stratagem": "Fire Overwatch",
+              "target": "this unit",
+              "cpCost": 0,
+              "ignoresOtherTargetsThisTurn": true
             }
-          }
+          ]
         }
       }
     }

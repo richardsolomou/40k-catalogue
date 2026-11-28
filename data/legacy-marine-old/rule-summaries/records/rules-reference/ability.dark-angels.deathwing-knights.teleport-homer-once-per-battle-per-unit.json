@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Deathwing Knights",
-    "summary": "At battle start, you may give the unit one Teleport Homer token by placing it on the battlefield. Use that token when selecting the unit for the **[Rapid Ingress stratagem](vsdata:ability/core.rapid-ingress)** to save 1 CP. Set the unit up within 3\" of its token and more than 8\" from every enemy unit. Discard the token on use. An enemy unit also removes it by finishing a move 1\" or closer.",
+    "summary": "As the battle begins, you can place this unit's Teleport Homer token on the battlefield, anywhere outside the deployment zone of your opponent. If you place it, once per battle, using the [Rapid Ingress](vsdata:ability/core.rapid-ingress) Stratagem on this unit costs 0CP. As that Stratagem resolves, you have to set this unit up up to 3\" horizontally from the token and more than 8\" horizontally from every enemy model. The token is then removed.",
     "citations": [
       {
         "type": "app",
@@ -28,34 +28,32 @@
       "version": "1",
       "fields": {
         "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Deathwing Knights",
+          "usage": {
+            "oncePer": "battle",
+            "scope": "unit"
+          },
           "setup": {
-            "at": "battle start",
+            "at": "battle-start",
             "optional": true,
             "tokens": 1,
-            "location": "battlefield"
+            "token": "Teleport Homer",
+            "location": "battlefield-outside-opponent-deployment-zone"
           },
-          "trigger": "owning unit selected for Rapid Ingress; token available",
-          "cpCostModifier": {
-            "operation": "subtract",
-            "value": 1
-          },
-          "placement": {
-            "subject": "owning unit",
-            "withinInchesOfToken": 3,
-            "outsideInchesOfEnemyUnits": 8
-          },
-          "removeToken": [
-            "after use",
+          "effects": [
             {
-              "enemyMoveEndsWithinInches": 1
+              "kind": "stratagem-cost-override",
+              "stratagem": "Rapid Ingress",
+              "cpCost": 0,
+              "condition": "token-set-up",
+              "placement": {
+                "withinInchesOfTokenHorizontally": 3,
+                "notWithinInchesOfEnemyModelsHorizontally": 8
+              },
+              "removeToken": "after-use"
             }
-          ],
-          "titleUsage": {
-            "maximum": 1,
-            "scope": "unit",
-            "reset": "battle"
-          },
-          "singleUseToken": true
+          ]
         }
       }
     }

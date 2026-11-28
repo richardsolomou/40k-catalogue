@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.caanok-var.cerebrex-logic-engine",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Caanok Var",
+    "summary": "You can do each of these:\n\n- as Declare Battle Formations begins, pick an **ADEPTUS ASTARTES INFANTRY** unit of yours: it gets [Scouts 6\"](vsdata:core-ability/scouts) for the rest of the battle\n- once both players have finished deploying, pick an **ADEPTUS ASTARTES** unit of yours and redeploy it, and you can place it in [Strategic Reserves](vsdata:core-rule/strategic-reserves) as you do, however many units are there already",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "grants": {
+          "abilities": [
+            {
+              "ability": "Scouts 6\"",
+              "to": "unit",
+              "named": true,
+              "picked": {
+                "count": 1
+              },
+              "conditional": true,
+              "recipientKeywords": [
+                "ADEPTUS ASTARTES INFANTRY"
+              ]
+            }
+          ]
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Caanok Var",
+          "effects": [
+            {
+              "kind": "grant-ability",
+              "optional": true,
+              "when": "start of the Declare Battle Formations step",
+              "select": {
+                "side": "friendly",
+                "count": 1,
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              "ability": "Scouts",
+              "scoutsInches": 6,
+              "duration": "end-of-battle"
+            },
+            {
+              "kind": "redeploy",
+              "optional": true,
+              "trigger": "after both players have deployed",
+              "select": {
+                "side": "friendly",
+                "count": 1,
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES"
+                ]
+              },
+              "mayGoToStrategicReserves": true,
+              "ignoresStrategicReservesLimit": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

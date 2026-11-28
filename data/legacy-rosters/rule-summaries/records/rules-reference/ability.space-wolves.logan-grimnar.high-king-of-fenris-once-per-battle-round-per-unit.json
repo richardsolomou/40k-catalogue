@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.logan-grimnar.high-king-of-fenris-once-per-battle-round-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Logan Grimnar",
+    "summary": "Once per battle round, you can pick a **SPACE WOLVES** unit of yours in Reserves during [your Movement phase](vsdata:core-rule/movement-phase). When that unit is set up on the battlefield, the current battle round counts as the next one for it, for the rest of the phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "movement",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Logan Grimnar",
+          "usage": {
+            "oncePer": "battle-round"
+          },
+          "trigger": {
+            "phase": "movement",
+            "turn": "own"
+          },
+          "optional": true,
+          "target": {
+            "side": "friendly",
+            "entity": "unit",
+            "keywordsAll": [
+              "SPACE WOLVES"
+            ],
+            "in": "reserves"
+          },
+          "effects": [
+            {
+              "kind": "reserves-battle-round-offset",
+              "offset": 1,
+              "duration": "phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.apothecary.narthecium",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Apothecary",
+    "summary": "While this model leads a unit, you can return a destroyed model to that unit during [your Command phase](vsdata:core-rule/command-phase). It cannot be a **CHARACTER** model.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Apothecary",
+          "effects": [
+            {
+              "kind": "return-destroyed-models",
+              "count": 1,
+              "optional": true,
+              "condition": {
+                "leading": "a unit"
+              },
+              "when": {
+                "turn": "own",
+                "phase": "command"
+              },
+              "appliesTo": "led-unit",
+              "excludeKeywords": [
+                "CHARACTER"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.iron-father-feirros.master-of-the-forge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Iron Father Feirros",
+    "summary": "In [your Command phase](vsdata:core-rule/command-phase), pick an **ADEPTUS ASTARTES VEHICLE** model of yours up to 3\" from this model. That **VEHICLE** model regains as many as 3 lost wounds, and its attacks get +1 to [Hit](vsdata:core-rule/hit-rolls) until your next Command phase. A unit already picked for **Blessing of the Omnissiah** in the phase cannot be picked for this ability, and the other way round.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Iron Father Feirros",
+          "effects": [
+            {
+              "kind": "repair-and-buff",
+              "when": {
+                "turn": "own",
+                "phase": "command"
+              },
+              "select": {
+                "side": "friendly",
+                "level": "model",
+                "count": 1,
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "VEHICLE"
+                ],
+                "withinInches": 3
+              },
+              "regainWoundsUpTo": 3,
+              "roll": "hit",
+              "modifier": 1,
+              "duration": "until-start-of-your-next-command-phase",
+              "exclusiveWith": "Blessing of the Omnissiah",
+              "exclusivePer": "phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

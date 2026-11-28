@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.land-speeder.purgation-run",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Land Speeder",
+    "summary": "After this unit shoots in [your Shooting phase](vsdata:core-rule/shooting-phase), it can move up to D6\" as a [Normal move](vsdata:core-rule/normal-move). If it does, it cannot declare a charge for the rest of the turn.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "own"
+            }
+          ]
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "normal-move"
+          }
+        ],
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Land Speeder",
+          "effects": [
+            {
+              "kind": "move-after-shooting",
+              "when": {
+                "turn": "own",
+                "phase": "shooting"
+              },
+              "trigger": "after this unit has shot",
+              "optional": true,
+              "move": "Normal",
+              "maxInches": "D6",
+              "cost": {
+                "eligibleToDeclareCharge": false,
+                "duration": "end-of-turn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.murderfang.murder-maker",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Murderfang",
+    "summary": "In [either player's Fight phase](vsdata:core-rule/fight-phase), whenever an attack against a **WULFEN** unit of yours up to 6\" from this model destroys one of that unit's models that is yet to fight in the phase, roll a D6. On a 4+, that model stays on the battlefield for now: it can fight once the attacking unit finishes attacking, and is removed from play after that.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Murderfang",
+          "trigger": {
+            "phase": "fight",
+            "turn": "either",
+            "event": "model-destroyed-by-attack",
+            "recipients": {
+              "side": "friendly",
+              "entity": "unit",
+              "keywordsAll": [
+                "WULFEN"
+              ],
+              "withinInches": 6,
+              "of": "this-model"
+            },
+            "condition": "model-has-not-fought-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "fight-on-death",
+              "roll": "D6",
+              "success": "4+",
+              "fightsAfter": "attacking-unit-finishes-attacks",
+              "thenRemoved": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

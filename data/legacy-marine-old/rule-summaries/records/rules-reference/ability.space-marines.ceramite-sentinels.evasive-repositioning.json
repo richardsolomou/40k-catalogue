@@ -1,0 +1,118 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.ceramite-sentinels.evasive-repositioning",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Ceramite Sentinels",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.ceramite-sentinels"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
+    "parts": {
+      "when": "[Opponent's Shooting phase](vsdata:core-rule/shooting-phase), after an enemy unit shoots.",
+      "target": "An **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit of yours that was a target of any of that enemy unit's attacks.",
+      "effect": "The unit can move up to D6\" as a [Normal move](vsdata:core-rule/normal-move). An **ENTRENCHED** unit can re-roll that D6."
+    },
+    "summary": "**When:** [Opponent's Shooting phase](vsdata:core-rule/shooting-phase), after an enemy unit shoots.\n\n**Target:** An **ADEPTUS ASTARTES INFANTRY** or **ADEPTUS ASTARTES MOUNTED** unit of yours that was a target of any of that enemy unit's attacks.\n\n**Effect:** The unit can move up to D6\" as a [Normal move](vsdata:core-rule/normal-move). An **ENTRENCHED** unit can re-roll that D6.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "INFANTRY"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              }
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "opponent"
+            }
+          ]
+        },
+        "detail": {
+          "detachment": "Ceramite Sentinels",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "trigger": "after an enemy unit has shot"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAny": [
+              "ADEPTUS ASTARTES INFANTRY",
+              "ADEPTUS ASTARTES MOUNTED"
+            ],
+            "targetedByThatEnemyUnit": true
+          },
+          "effects": [
+            {
+              "move": "Normal",
+              "maxInches": "D6",
+              "optional": true
+            },
+            {
+              "condition": "unit is ENTRENCHED",
+              "rerollMoveDistance": "D6"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

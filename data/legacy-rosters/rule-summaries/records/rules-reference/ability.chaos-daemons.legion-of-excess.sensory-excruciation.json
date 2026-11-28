@@ -1,0 +1,113 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "chaos-daemons.legion-of-excess.sensory-excruciation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Legion of Excess",
+    "detachment": {
+      "kind": "detachment",
+      "id": "chaos-daemons.legion-of-excess"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "command"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
+    "parts": {
+      "when": "[Your Command phase](vsdata:core-rule/command-phase).",
+      "target": "A **LEGIONES DAEMONICA SLAANESH MONSTER** unit of yours on the battlefield.",
+      "effect": "Every unit on the battlefield inside the [Shadow of Chaos](vsdata:ability/chaos-daemons.the-shadow-of-chaos) of your army takes a [Battle-shock test](vsdata:core-rule/battle-shock), with -1 to the test if it is **Below Half-strength**.\n\n**Designer's Note**: units of both armies inside your Shadow of Chaos take the test. That can let you heal your own units through your **Daemonic Terror** army rule, though some of them can end up **battle-shocked**."
+    },
+    "summary": "**When:** [Your Command phase](vsdata:core-rule/command-phase).\n\n**Target:** A **LEGIONES DAEMONICA SLAANESH MONSTER** unit of yours on the battlefield.\n\n**Effect:** Every unit on the battlefield inside the [Shadow of Chaos](vsdata:ability/chaos-daemons.the-shadow-of-chaos) of your army takes a [Battle-shock test](vsdata:core-rule/battle-shock), with -1 to the test if it is **Below Half-strength**.\n\n**Designer's Note**: units of both armies inside your Shadow of Chaos take the test. That can let you heal your own units through your **Daemonic Terror** army rule, though some of them can end up **battle-shocked**.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "LEGIONES DAEMONICA",
+              "SLAANESH",
+              "MONSTER"
+            ],
+            "more": true
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "detachment": "Legion of Excess",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "command",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "LEGIONES DAEMONICA",
+              "SLAANESH",
+              "MONSTER"
+            ],
+            "condition": "on-the-battlefield"
+          },
+          "effects": [
+            {
+              "kind": "battle-shock-test",
+              "recipients": {
+                "side": "both",
+                "entity": "unit",
+                "within": "your-army-shadow-of-chaos"
+              },
+              "modifier": {
+                "delta": -1,
+                "condition": "below-half-strength"
+              }
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

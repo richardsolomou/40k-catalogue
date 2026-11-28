@@ -1,0 +1,109 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.forgefathers-seekers.burning-vengeance",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Forgefather's Seekers",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.forgefathers-seekers"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "battle-tactic"
+    },
+    "parts": {
+      "when": "[Opponent's Shooting phase](vsdata:core-rule/shooting-phase), after an enemy unit shoots.",
+      "target": "An **ADEPTUS ASTARTES TRANSPORT** unit of yours that was a target of any of that enemy unit's attacks.",
+      "effect": "You can pick a unit embarked in that **TRANSPORT**: it can [disembark](vsdata:core-rule/disembarking) as it could in your [Movement phase](vsdata:core-rule/movement-phase), then it can shoot as it could in your [Shooting phase](vsdata:core-rule/shooting-phase). It can only shoot at that enemy unit, and cannot shoot if that unit is not an eligible target."
+    },
+    "summary": "**When:** [Opponent's Shooting phase](vsdata:core-rule/shooting-phase), after an enemy unit shoots.\n\n**Target:** An **ADEPTUS ASTARTES TRANSPORT** unit of yours that was a target of any of that enemy unit's attacks.\n\n**Effect:** You can pick a unit embarked in that **TRANSPORT**: it can [disembark](vsdata:core-rule/disembarking) as it could in your [Movement phase](vsdata:core-rule/movement-phase), then it can shoot as it could in your [Shooting phase](vsdata:core-rule/shooting-phase). It can only shoot at that enemy unit, and cannot shoot if that unit is not an eligible target.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-shot"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES",
+              "TRANSPORT"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "opponent"
+            }
+          ]
+        },
+        "detail": {
+          "detachment": "Forgefather's Seekers",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "shooting",
+              "trigger": "after an enemy unit has shot"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES",
+              "TRANSPORT"
+            ],
+            "targetedByThatEnemyUnit": true
+          },
+          "effects": [
+            {
+              "select": {
+                "count": 1,
+                "embarkedInTarget": true
+              },
+              "disembarkAsIfMovementPhase": true,
+              "thenShootAsIfShootingPhase": true,
+              "shootingTargetsOnly": "that enemy unit",
+              "requiresEligibleTarget": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

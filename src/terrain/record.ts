@@ -4,7 +4,7 @@ export type Point = { x: number; y: number };
 
 export type Provenance =
   | { basis: "synthetic" | "original"; note: string }
-  | { basis: "measured"; note: string; source: { title: string; page?: string; url?: string }; reuse: string };
+  | { basis: "measured"; note: string; source: { title: string; page?: string; url?: string; pageUrl?: string }; reuse: string };
 
 export type Wall = { id: string; points: Point[]; thickness: number };
 
@@ -19,13 +19,18 @@ export type Part = {
   walls: Wall[];
 };
 
+/** A placement guide in the board frame; `approximate` when its length is measured from a diagram rather than printed. */
+export type Measurement = { from: Point; to: Point; approximate: boolean };
+
 export type Area = {
   id: string;
+  name?: string;
   footprint: { at: Point; width: number; height: number; rotation: number };
   outline: Point[];
   group: string | null;
   objective: { id: string; at: Point } | null;
   parts: Part[];
+  measurements?: Measurement[];
 };
 
 export type TerrainLayout = {

@@ -55,12 +55,24 @@ test("footprints sharing an objective ID place it at one point", () => {
   assert.deepEqual(new Set(placed.map((a) => JSON.stringify(a.objective!.at))), new Set([JSON.stringify({ x: 30, y: 22 })]));
 });
 
+test("a measured source can name the publisher's page for what its file shows", () => {
+  const provenance = {
+    basis: "measured",
+    note: "Invented measurements for exercising the format.",
+    reuse: "Synthetic coordinates; nothing is reproduced.",
+    source: { title: "Synthetic diagram", url: "https://example.com/files/diagram.png", pageUrl: "https://example.com/format/" },
+  };
+  assert.equal(verify({ ...read("valid/standalone.json"), provenance }).ok, true);
+});
+
 const expectedErrors: Record<string, string> = {
   "duplicate-id": "/areas id turn-0 is used more than once in the layout",
   "empty-deployments": "/deployments must NOT have fewer than 1 items",
   "flat-outline": "/areas/0/outline encloses no area",
   "lone-group": "/areas group pair has one footprint; a footprint that is a terrain area on its own has no group",
   "measured-without-reuse": "/provenance must have required property 'reuse'",
+  "measurement-off-board": "/areas/0/measurements/0 is off the board",
+  "zero-length-measurement": "/areas/0/measurements/0 has no length",
   "objective-outside-outline": "/areas/0/objective is outside the area's outline",
   "off-board": "/areas/0/outline is off the board",
   "portrait-board": "/board must be landscape: width is the long edge",

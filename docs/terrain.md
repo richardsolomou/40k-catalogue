@@ -31,11 +31,13 @@ A **terrain layout** (`kind: "terrain-layout"`) has `areas`. Each area is one fo
 | Field | Meaning |
 | --- | --- |
 | `id` | Stable within the layout. Area, part, and wall IDs share one namespace per layout. |
+| `name` | Optional display name of the footprint, such as "North-east ruin". |
 | `footprint` | `at`, `width`, `height`, `rotation`: the rectangle the outline is drawn in. |
 | `outline` | The terrain boundary, used for the edge of the terrain area and for measurements. |
 | `group` | Footprints with the same group form one terrain area. A footprint that is a terrain area on its own has `null`. |
 | `objective` | `{ id, at }` when the footprint hosts an objective marker. Footprints sharing an objective `id` host one marker, as when a central marker straddles two footprints. |
 | `parts` | Pieces of the footprint, each with `name`, `density` (`dense` or `light`), `roof` (a polygon or `null`), and `walls` (polylines with a `thickness`). `name` is free text such as a kit letter, and consumers decide whether to show it. |
+| `measurements` | Optional placement guides for setting the footprint up, each a line `from` → `to` in the board frame, such as from a board edge to a wall corner. `approximate` is `true` when the length was measured from a diagram and `false` when the source prints it. |
 
 A layout that no [mission pack](mission-packs.md) lists, such as a battlefield of a format with no pack here, names the deployment maps it is played with in an optional `deployments`, by ID. A layout a pack lists leaves it out, because the pack owns that pairing.
 
@@ -47,7 +49,7 @@ A **deployment map** (`kind: "deployment-map"`) has two `zones`, one per role (`
 
 - `synthetic`: invented for tests.
 - `original`: an independently designed layout with no outside source.
-- `measured`: coordinates measured from a published map. It needs a `source` (`title` and `page` or `url`) and a `reuse` statement giving the basis for publishing the measurements. The schema rejects a measured record without one.
+- `measured`: coordinates measured from a published map. It needs a `source` (`title` and `page` or `url`) and a `reuse` statement giving the basis for publishing the measurements. The schema rejects a measured record without one. Where `url` is a file, such as the map's image, an optional `pageUrl` gives the publisher's web page for what it shows, such as the format the map is played in.
 
 ## Identity
 
@@ -82,7 +84,7 @@ node --test test/terrain.test.ts
 - The board is landscape.
 - IDs are unique within a layout.
 - Every group has at least two footprints.
-- Placed outlines, roofs, walls, zones, territories, and objectives lie on the board.
+- Placed outlines, roofs, walls, zones, territories, objectives, and measurements lie on the board.
 - No outline, roof, zone, or territory encloses zero area.
 - Each objective lies inside its footprint's outline.
 - A deployment map has one zone per role.

@@ -150,9 +150,10 @@ type ModelCountBounds = Bounds & { bySize?: SizeBounds[] };
 /**
  * `keywords` are those this model has beyond its unit's, as when a squad's leader is a Character. `warlord: false` keeps
  * the model from the warlord role unless a grant lists it: one of the roster's detachments' `warlords` or its faction's
- * `withoutDetachments.warlords`.
+ * `withoutDetachments.warlords`. `weapons` are the wargear it may carry that its datasheet prints a weapon profile for, in
+ * printed order.
  */
-export type ModelData = ModelCountBounds & { unit: string; wargear: Counts; keywords?: string[]; warlord?: false };
+export type ModelData = ModelCountBounds & { unit: string; wargear: Counts; keywords?: string[]; warlord?: false; weapons?: string[] };
 /** Scales a bound by each carrier model, or by every `models` models in the unit; absent means once per unit. */
 export type Per = "carrier" | { models: number };
 export type OptionData = {
@@ -302,7 +303,7 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
       ];
     }
     case "model":
-      return [...refs("unit", [data.unit]), ...refs("wargear", Object.keys(data.wargear))];
+      return [...refs("unit", [data.unit]), ...refs("wargear", [...Object.keys(data.wargear), ...(data.weapons ?? [])])];
     case "roster-option":
       return [
         ...refs("unit", [data.unit]),

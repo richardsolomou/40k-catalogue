@@ -190,6 +190,23 @@ test("a core ability names models of its own unit", () => {
   assert.deepEqual(coreAbilityErrors([{ ability: "stealth", models: [`${DRONES}.drone`] }], [`${DRONES}.drone`]), [`unit:${WARDENS} coreAbilities/0 names model:${DRONES}.drone, which belongs to another unit`]);
 });
 
+/** Errors of the 1.2 definitions with the warden listing `weapons`, the identity referencing `references`. */
+const weaponErrors = (weapons: string[], references: string[] = []) => {
+  const { identity, records } = input("1.2");
+  (find(records, "model", WARDEN).data as any).weapons = weapons;
+  identity.entries.find((e) => e.kind === "model" && e.id === WARDEN)!.references!.push(...references.map((id) => ({ kind: "wargear", id })));
+  const result = validateDefinitions(identity, records);
+  return result.ok ? [] : result.errors;
+};
+
+test("a model lists the weapons it may carry in printed order", () => {
+  assert.deepEqual(weaponErrors(["synthetic.cinder-cannon", "synthetic.ember-rifle"], ["synthetic.cinder-cannon"]), []);
+});
+
+test("a model's weapons are references of its identity entry", () => {
+  assert.deepEqual(weaponErrors(["synthetic.ember-rifle", "synthetic.cinder-cannon"]), [`model:${WARDEN} names wargear:synthetic.cinder-cannon but its identity entry does not reference it`]);
+});
+
 // Kindled Vow listing one Stratagem, whose rule summary entry the identity holds unless `listed` is false.
 const listingCards = (referenced: boolean, listed = true) => {
   const { identity, records } = input("1.2");

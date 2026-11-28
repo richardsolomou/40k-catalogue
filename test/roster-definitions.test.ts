@@ -1304,3 +1304,38 @@ test("a unit limit with one alternative inside another is invalid", () => {
   const result = validateDefinitions(identity, records);
   assert.ok(!result.ok && result.errors.some((e) => e.includes("unitLimits/2") && e.includes("alternative")), JSON.stringify(result));
 });
+
+// An automatic enhancement: every unit its eligibility's groups match, in a roster with its detachment, has it whether
+// or not the roster names it, priced in the unit's own detachment cost and never added.
+const withAutomaticSigil = () => {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "enhancement", SIGIL).data as any, { automatic: true });
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  return validated.definitions;
+};
+const codesOf = (definitions: Definitions, roster: Roster, code: string) =>
+  checkRoster(definitions, roster, { points: points12 }).filter((p) => p.code === code).map((p) => `${p.unit ?? "-"} ${p.code}`);
+const atLimit = (sigilOn: number) =>
+  incursion([{ unit: COLOSSUS }, { unit: COLOSSUS }, { unit: KINDLER }, { unit: LORD }, { unit: LORD }, { unit: WARDENS }, { unit: WARDENS }, { unit: WARDENS }].map((u, i) => (i === sigilOn ? { ...u, enhancement: SIGIL } : u)));
+
+test("an automatic enhancement a roster names adds no points", () => {
+  assert.deepEqual(codesOf(withAutomaticSigil(), atLimit(0), "roster-points"), []);
+});
+
+test("an automatic enhancement counts towards the enhancement limit where the roster does not name it", () => {
+  assert.deepEqual(codesOf(withAutomaticSigil(), incursion([{ unit: LORD }, { unit: COLOSSUS, enhancement: MANTLE }]), "enhancement-limit"), ["- enhancement-limit"]);
+});
+
+test("an automatic enhancement a roster names on an Epic Hero is not refused", () => {
+  assert.deepEqual(codesOf(withAutomaticSigil(), atLimit(2), "enhancement-keywords"), []);
+});
+
+test("an automatic enhancement a roster names on a unit that takes no enhancements is not refused", () => {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "enhancement", SIGIL).data as any, { automatic: true });
+  Object.assign(find(records, "unit", LORD).data as any, { enhancements: false });
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(codesOf(validated.definitions, incursion([{ unit: LORD, enhancement: SIGIL }]), "enhancement-keywords"), []);
+});

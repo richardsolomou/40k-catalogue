@@ -74,8 +74,10 @@ export type DetachmentData = {
 /**
  * An enhancement may be taken once per roster, or by up to `perRoster` units; only its first copy counts towards the
  * battle size's enhancements, and none of an `outsideLimit` one. Version 1 gives an `upgrade` a `perRoster` of three.
+ * An `automatic` one is had by every unit its eligibility's groups match, in a roster with its detachment, whether or
+ * not the roster names it; its points are in that unit's cost for the detachment, so it adds none.
  */
-export type EnhancementData = { detachment: string; upgrade?: true; perRoster?: number; outsideLimit?: true; eligibility: Eligibility };
+export type EnhancementData = { detachment: string; upgrade?: true; perRoster?: number; outsideLimit?: true; automatic?: true; eligibility: Eligibility };
 /**
  * Who may bear an enhancement: a fielded model matching one of `anyOf`, an entry holding all its `keywords` and being
  * its `unit` where it names one, and none of `excludedKeywords`; a CHARACTER unless `nonCharacters`, not an EPIC HERO

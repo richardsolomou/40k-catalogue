@@ -185,6 +185,17 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
   const copies = new Map<string, number>();
   const enhancementCopies = new Map<string, number>();
   let enhancementCount = 0;
+  // The automatic enhancements of the roster's detachments, and those some unit of the roster has.
+  const automatic = definitions.all("enhancement").filter((e) => e.data.automatic && detachmentIds.includes(e.data.detachment));
+  const given = new Set<string>();
+  const hasKeyword = (keywords: string[]) => (k: string) => keywords.some((own) => own.toUpperCase() === k.toUpperCase());
+  // Whether an enhancement's eligibility groups match a fielded model of the unit, before the flags that limit who may
+  // take it (characters, Epic Heroes), which an automatic enhancement, never taken, ignores.
+  const matches = (enhancement: Definition<"enhancement">, unit: string, keywords: string[]) => {
+    const has = hasKeyword(keywords);
+    const { anyOf, excludedKeywords = [] } = enhancement.data.eligibility;
+    return !excludedKeywords.some(has) && anyOf.some((entry) => (!entry.unit || entry.unit === unit) && (entry.keywords ?? []).every(has));
+  };
   const unitLimits = (faction?.unitLimits ?? []).map((limit) => {
     const row = limit.detachments?.find((d) => detachmentIds.includes(d.detachment)) ?? limit;
     const alternatives = limit.anyOf ?? [limit.keywords];
@@ -350,18 +361,19 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
         if (kept && keeper.id !== enhancement.data.detachment && holdsAll(keywords, kept)) add("enhancement-exclusive", `${unit.name} takes only ${keeper.name} enhancements`);
       }
       if (entry >= 0 && !allies[entry]!.enhancements) add("ally-enhancement", `${unit.name} cannot take enhancements`);
-      const { anyOf, excludedKeywords = [], requiredWargear, epicHeroes, nonCharacters, notWarlord } = enhancement.data.eligibility;
+      const { requiredWargear, epicHeroes, nonCharacters, notWarlord } = enhancement.data.eligibility;
+      const automaticallyHad = enhancement.data.automatic === true;
       // A model of the unit bears it: one fielded model whose keywords, the unit's and its own, it allows, in any letter case.
       const bears = (keywords: string[]) => {
-        const has = (k: string) => keywords.some((own) => own.toUpperCase() === k.toUpperCase());
-        if ((!nonCharacters && !has("CHARACTER")) || (!epicHeroes && has("EPIC HERO")) || excludedKeywords.some(has)) return false;
-        return anyOf.some((entry) => (!entry.unit || entry.unit === unit.id) && (entry.keywords ?? []).every(has));
+        const has = hasKeyword(keywords);
+        if (!automaticallyHad && ((!nonCharacters && !has("CHARACTER")) || (!epicHeroes && has("EPIC HERO")))) return false;
+        return matches(enhancement, unit.id, keywords);
       };
       const carries = !requiredWargear || requiredWargear.some((w) => (held.get(w) ?? 0) > 0);
-      if (unit.data.enhancements === false || !fielded.some((m) => bears(m.keywords)) || !carries) {
+      if ((!automaticallyHad && unit.data.enhancements === false) || !fielded.some((m) => bears(m.keywords)) || !carries) {
         add("enhancement-keywords", `${unit.name} cannot take ${enhancement.name}`);
       }
-      if (notWarlord && picked.warlord !== undefined) add("enhancement-keywords", `${enhancement.name} cannot be taken by the warlord's unit`);
+      if (!automaticallyHad && notWarlord && picked.warlord !== undefined) add("enhancement-keywords", `${enhancement.name} cannot be taken by the warlord's unit`);
       const copy = (enhancementCopies.get(enhancement.id) ?? 0) + 1;
       enhancementCopies.set(enhancement.id, copy);
       const most = enhancement.data.perRoster ?? 1;
@@ -370,7 +382,11 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
       if (copy === 1 && !enhancement.data.outsideLimit && ++enhancementCount === (size?.enhancements ?? Infinity) + 1) add("enhancement-limit", `a roster takes at most ${size!.enhancements} enhancements`);
     }
 
-    const enhancement = picked.enhancement ? definitions.get("enhancement", picked.enhancement) : undefined;
+    for (const e of automatic) if (fielded.some((m) => matches(e, unit.id, m.keywords))) given.add(e.id);
+
+    // An automatic enhancement's points are in the unit's cost for its detachment.
+    const named = picked.enhancement ? definitions.get("enhancement", picked.enhancement) : undefined;
+    const enhancement = named?.data.automatic ? undefined : named;
     const enhancementFaction = enhancement ? (definitions.get("detachment", enhancement.data.detachment)?.data.faction ?? "") : "";
     costs[i] =
       (enhancement ? price({ kind: "enhancement", faction: enhancementFaction, detachment: enhancement.data.detachment, enhancement: enhancement.id }) : 0) +
@@ -379,6 +395,11 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
         .filter(([item]) => !definitions.get("wargear", item)?.data.includes)
         .reduce((sum, [item, n]) => sum + Math.max(n, 0) * price({ kind: "wargear", faction: unit.data.faction, unit: unit.id, item }), 0);
   });
+  // An automatic enhancement some unit has and the roster does not name counts towards the limit as a taken one would.
+  for (const e of automatic) {
+    if (!given.has(e.id) || enhancementCopies.has(e.id) || e.data.outsideLimit) continue;
+    if (++enhancementCount === (size?.enhancements ?? Infinity) + 1) rosterProblem("enhancement-limit", `a roster takes at most ${size!.enhancements} enhancements`);
+  }
   for (const shared of unitLimits) {
     if (shared.count < (shared.min ?? 0)) rosterProblem("unit-limit", `a roster holds at least ${shared.min} ${shared.named} units, has ${shared.count}`);
   }

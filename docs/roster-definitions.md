@@ -150,7 +150,7 @@ Each earlier 11th-edition input of a current release line (`data/<version>/rule-
 
 A saved roster names a `faction`, one to three detachments as `detachment`, `detachments`, or both, which it then holds together, an optional `battleSize`, and its `units`. Each unit gives its `unit` ID, its model counts by model ID, its taken wargear as `{ <option ID>: { <wargear ID>: count } }`, an optional `enhancement` and `allegiance`, and, for the warlord's unit, the warlord's model ID as `warlord`. A unit holds at most one enhancement, an upgrade included, so `enhancement` is a single ID. An omitted model count uses its base `min`. The checker then applies the bounds for the sum of those counts. Wargear a unit keeps by default is not listed.
 
-`checkRoster(definitions, roster, { points })` checks the constraints this format supports. The optional [points snapshot](points.md) prices the roster for the points checks: a unit costs its size, its enhancement, and each priced item it carries, which counts its models' and its own wargear and the contents of a bundle it takes, less what its selections replace, never below zero per item. A bundle costs only its contents, never a row of its own. Wargear the snapshot does not price costs nothing; a unit size, detachment or enhancement it does not price also costs nothing, and `pointsGaps` below lists those. It reports problems in roster order, each with a `code`, the unit's position, and a message:
+`checkRoster(definitions, roster, { points })` checks the constraints this format supports. The optional [points snapshot](points.md) prices the roster for the points checks: a unit costs its size (the row its models' `mix` picks where rows of that size differ by the models they hold), its enhancement, and each priced item it carries, which counts its models' and its own wargear and the contents of a bundle it takes, less what its selections replace, never below zero per item. A bundle costs only its contents, never a row of its own. Wargear the snapshot does not price costs nothing; a unit size, detachment or enhancement it does not price also costs nothing, and `pointsGaps` below lists those. It reports problems in roster order, each with a `code`, the unit's position, and a message:
 
 | Code | Problem |
 | --- | --- |
@@ -188,7 +188,7 @@ Before reading a roster under another release, pass `rosterRefs(roster)` to [`ch
 
 ## Points joins
 
-`pointsGaps(definitions, snapshot)` joins definitions to a points snapshot that uses the same catalogue IDs. It reports every unit size, detachment, and enhancement without a price, with the [lookup](points.md#looking-up-a-cost) reason, and every priced unit with no definition. A unit no roster may hold needs no price.
+`pointsGaps(definitions, snapshot)` joins definitions to a points snapshot that uses the same catalogue IDs. It reports every unit size, detachment, and enhancement without a price, with the [lookup](points.md#looking-up-a-cost) reason, and every priced unit with no definition. A size whose first-copy rows all give a `mix` has a price when each mix picks its row. A unit no roster may hold needs no price.
 
 ## History
 

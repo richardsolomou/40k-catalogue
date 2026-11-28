@@ -13,24 +13,24 @@ A points snapshot holds every cost for one points update: unit sizes by copy, wa
 | `basis` | The stated basis for reusing these values, in one sentence. |
 | `factions[].units[]` | `id`, `name`, optional `group` and `legends`, the cost `tiers`, and per-item `wargear`. |
 | `tiers[]` | The `copies` it applies to and its `costs`. Ranges start at the first copy and are contiguous. An omitted `to` makes the final tier open-ended. If the final tier has a `to`, later copies return `no-tier`. |
-| `costs[]` | `models` and `points`, plus `composition` when two rows share a model count. |
+| `costs[]` | `models` and `points`, plus `composition` when two rows share a model count, and `mix` when a row is priced by the models it holds: the count of each model, by model ID, summing to `models`. |
 | `factions[].detachments[]` | `id`, `name`, `dp`, and `enhancements`. An enhancement with `upgrade: true` is an upgrade. |
 
 Any `points` or `dp` can be `{ "unresolved": "<what is missing>" }` when the source lists the entry without a usable value. The validator reports each one by JSON pointer.
 
 ## In catalogue releases
 
-A catalogue release carries a snapshot as one record of kind `points-snapshot` in the `points` category, with the update ID as its record ID and the snapshot as its `data`. Its units, wargear and detachments are the release's `unit`, `wargear` and `detachment` entries, a wargear `item` is a wargear ID, and an enhancement's `id` is the ID of its `ability` rule summary, so the cost and the rule join by one ID. The record's identity entry references every entry the snapshot names.
+A catalogue release carries a snapshot as one record of kind `points-snapshot` in the `points` category, with the update ID as its record ID and the snapshot as its `data`. Its units, wargear and detachments are the release's `unit`, `wargear` and `detachment` entries, a wargear `item` is a wargear ID, a `mix` names the unit's `model` entries, and an enhancement's `id` is the ID of its `ability` rule summary, so the cost and the rule join by one ID. The record's identity entry references every entry the snapshot names.
 
-Where the source prices one model count differently by circumstance, such as in another faction's army or in a particular Detachment, each row's `composition` says which circumstance it is (`in an army of Agents of the Imperium`, or `in the <Detachment> Detachment`), and other rows sharing a model count name the models they hold.
+Where the source prices one model count differently by circumstance, such as in another faction's army or in a particular Detachment, each row's `composition` says which circumstance it is (`in an army of Agents of the Imperium`, or `in the <Detachment> Detachment`), and other rows sharing a model count name the models they hold. A row priced by the models it holds, such as three Headtakers and three Hunting Wolves against six Headtakers, also gives them as a `mix`, so a list's models pick the row without reading the `composition` text.
 
 ## Looking up a cost
 
-`lookupPoints(snapshot, ref)` takes a unit, wargear item, detachment, or enhancement by ID. For a unit it also takes the model count, which copy of the unit this is (from 1), and a composition when one is needed. It returns `{ ok: true, points }` or a miss with a reason:
+`lookupPoints(snapshot, ref)` takes a unit, wargear item, detachment, or enhancement by ID. For a unit it also takes the model count, which copy of the unit this is (from 1), and a composition or a mix when one is needed. It returns `{ ok: true, points }` or a miss with a reason:
 
 - The tier is the one whose copy range holds the copy, so the third copy of a unit priced "1st to 2nd" and "3rd+" uses the second tier.
 - A model count prints a price only if a row has that count. In a table with exactly two rows, any count between them costs the upper row, following the publisher's starting-strength guidance. Longer tables give `no-size` for counts they do not print.
-- Rows that share a model count give `ambiguous-size` until a `composition` picks one.
+- Rows that share a model count give `ambiguous-size` until a `composition` picks one, or a `mix`: the count of each model the unit fields, by model ID. A mix matches a row whose `mix` gives the same count for each model, a model missing from either counting as zero. Once any row at that count gives a `mix`, a mix none of them gives is `no-size`, even beside rows without one. A row without a `mix` is otherwise matched by its model count alone, so a circumstance row beside a matching mix still gives `ambiguous-size`. No two rows at one count give the same mix.
 - An unresolved value gives `unresolved` with its note. An ID the snapshot lacks gives `unknown-unit` (or the matching reason), never zero.
 
 `pointsAt(snapshots, update, ref)` reads the requested update. It returns `unknown-update` if it is missing and `ambiguous-update` if more than one snapshot uses its ID.

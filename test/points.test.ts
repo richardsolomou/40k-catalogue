@@ -37,8 +37,10 @@ for (const name of names("valid")) {
 
 const expectedErrors: Record<string, string> = {
   "missing-basis": "/ must have required property 'basis'",
+  "mix-not-model-count": "/factions/0/units/0/tiers/0/costs/1/mix counts 5 models, not 6",
   "negative-points": "/factions/0/detachments/0/enhancements/0/points must match a schema in anyOf",
   "open-tier-before-last": `/factions/0/units/0/tiers/0/copies must have "to" unless it is the last tier`,
+  "repeated-mix": "/factions/0/units/0/tiers/0/costs/1/mix repeats another row's mix",
   "repeated-unit-id": `/factions/0/units/1/id repeats "cinder-wardens"`,
   "shared-model-count-without-composition": "/factions/0/units/0/tiers/0/costs/0 shares its model count with another row, so it needs a composition",
   "tier-gap": "/factions/0/units/0/tiers/1/copies/from must be 3",
@@ -97,6 +99,22 @@ test("a count above the largest row has no price", () => {
 
 test("rows that share a model count need a composition", () => {
   assert.deepEqual(lookupPoints(current, unit("pyre-hounds", 6)), { ok: false, reason: "ambiguous-size" });
+});
+
+test("a mix of models picks one of the rows that share a model count", () => {
+  assert.deepEqual(lookupPoints(current, unit("pyre-hounds", 6, { mix: { "pyre-hounds.handler": 3, "pyre-hounds.hound": 3 } })), { ok: true, points: 95 });
+});
+
+test("a model a mix leaves out counts as none", () => {
+  assert.deepEqual(lookupPoints(current, unit("pyre-hounds", 6, { mix: { "pyre-hounds.handler": 6 } })), { ok: true, points: 115 });
+});
+
+test("a row with no mix is still matched by its model count", () => {
+  assert.deepEqual(lookupPoints(current, unit("pyre-hounds", 3, { mix: { "pyre-hounds.handler": 3 } })), { ok: true, points: 60 });
+});
+
+test("a mix no row gives prices none, not the circumstance row beside it", () => {
+  assert.deepEqual(lookupPoints(current, unit("vigil-hounds", 6, { mix: { "vigil-hounds.handler": 3, "vigil-hounds.hound": 3 } })), { ok: false, reason: "no-size" });
 });
 
 test("a composition picks one of the rows that share a model count", () => {
@@ -182,7 +200,7 @@ test("comparing two updates lists every changed, missing and new row", () => {
       matched: 4,
       differ: ["enhancement/ashen-choir/lantern-vigil/gilded-censer"],
       missing: ["unit/ashen-choir/cinder-wardens/1-/5", "unit/ashen-choir/cinder-wardens/1-/10"],
-      extra: 14,
+      extra: 16,
     },
   );
 });

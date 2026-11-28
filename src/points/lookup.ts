@@ -3,7 +3,7 @@ import type { Cost, PointsSnapshot, Unit } from "./snapshot.ts";
 
 /** `copy` is which copy of the unit this is in the army, counting from 1. */
 export type PointsRef =
-  | { kind: "unit"; faction: string; unit: string; models: number; copy?: number; composition?: string }
+  | { kind: "unit"; faction: string; unit: string; models: number; copy?: number; composition?: string; mix?: Record<string, number> }
   | { kind: "wargear"; faction: string; unit: string; item: string }
   | { kind: "detachment"; faction: string; detachment: string }
   | { kind: "enhancement"; faction: string; detachment: string; enhancement: string };
@@ -43,13 +43,20 @@ export function lookupPoints(snapshot: PointsSnapshot, ref: PointsRef): PointsLo
     const item = unit.wargear?.find((w) => w.item === ref.item);
     return item ? value(item.points) : miss("unknown-wargear");
   }
-  return unitCost(unit, ref.models, ref.copy ?? 1, ref.composition);
+  return unitCost(unit, ref.models, ref.copy ?? 1, ref.composition, ref.mix);
 }
 
-function unitCost(unit: Unit, models: number, copy: number, composition?: string): PointsLookup {
+// Two mixes give each model the same count; a model missing from either counts as zero.
+export const sameMix = (a: Record<string, number>, b: Record<string, number>) =>
+  [...new Set([...Object.keys(a), ...Object.keys(b)])].every((model) => (a[model] ?? 0) === (b[model] ?? 0));
+
+function unitCost(unit: Unit, models: number, copy: number, composition?: string, mix?: Record<string, number>): PointsLookup {
   const tier = unit.tiers.find(({ copies }) => copy >= copies.from && copy <= (copies.to ?? Infinity));
   if (!tier) return miss("no-tier");
-  const rows = tier.costs.filter((c) => c.models === models && (composition === undefined || c.composition === composition));
+  const sized = tier.costs.filter((c) => c.models === models && (composition === undefined || c.composition === composition));
+  // A mix that no row's mix gives prices none, never the row of a circumstance beside them.
+  if (mix !== undefined && sized.some((c) => c.mix) && !sized.some((c) => c.mix && sameMix(c.mix, mix))) return miss("no-size");
+  const rows = sized.filter((c) => mix === undefined || c.mix === undefined || sameMix(c.mix, mix));
   if (rows.length === 1) return value(rows[0]!.points);
   if (rows.length > 1) return miss("ambiguous-size");
   if (composition !== undefined) return miss("no-size");

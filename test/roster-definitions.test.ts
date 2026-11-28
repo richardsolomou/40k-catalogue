@@ -937,6 +937,31 @@ test("a roster pays for priced wargear a chosen bundle holds", () => {
   assert.deepEqual(problems.map((p) => p.code), ["roster-points"]);
 });
 
+// The Cinder Pack priced at 6 models by its mix: 1100 as 3 hunters and 3 hounds, 120 as 6 hunters.
+const mixedPack = (): PointsSnapshot => {
+  const snapshot = structuredClone(points12);
+  const pack = snapshot.factions.flatMap((f) => f.units).find((u) => u.id === PACK)!;
+  pack.tiers = [
+    {
+      copies: { from: 1 },
+      costs: [
+        { models: 3, points: 60 },
+        { models: 6, composition: "3 Hunters, 3 Hounds", mix: { [`${PACK}.hunter`]: 3, [`${PACK}.hound`]: 3 }, points: 1100 },
+        { models: 6, composition: "6 Hunters", mix: { [`${PACK}.hunter`]: 6 }, points: 120 },
+      ],
+    },
+  ];
+  return snapshot;
+};
+
+test("a roster pays the row its unit's mix of models picks", () => {
+  assert.deepEqual(checkRoster(v12, incursion([PACK_UNIT]), { points: mixedPack() }).map((p) => p.code), ["roster-points"]);
+});
+
+test("points joins report no gap for a size its rows' mixes each price", () => {
+  assert.deepEqual(pointsGaps(v12, mixedPack()).filter((g) => g.ref.id === PACK), []);
+});
+
 test("a roster over its battle size's points reports roster-points", () => {
   assert.deepEqual(priced(overspent), ["- roster-points"]);
 });

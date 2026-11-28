@@ -451,6 +451,18 @@ test("a picked grant names how many units, not none", () => {
   assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = picked)).includes(`ability:${OATH.id} facts/grants/abilities/0/picked/count must be >= 1`));
 });
 
+test("a rule can name the wargear its unit holds rather than a model", () => {
+  const held = structuredClone(EFFECTS);
+  (held.fields as Record<string, unknown>).roster = { unitHeldWargear: ["Signal beacon"] };
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = held)), []);
+});
+
+test("unit-held wargear names at least one piece", () => {
+  const held = structuredClone(EFFECTS);
+  (held.fields as Record<string, unknown>).roster = { unitHeldWargear: [] };
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = held)).includes(`ability:${OATH.id} facts/roster/unitHeldWargear must NOT have fewer than 1 items`));
+});
+
 test("a rule can give keywords, to the unit or the bearer", () => {
   const given = structuredClone(EFFECTS);
   (given.fields.grants as Record<string, unknown>).keywords = [{ keyword: "MOBILE", to: "unit" }, { keyword: "DAEMON", to: "bearer", conditional: true }];

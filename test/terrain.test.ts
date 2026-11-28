@@ -55,7 +55,7 @@ test("footprints sharing an objective ID place it at one point", () => {
   assert.deepEqual(new Set(placed.map((a) => JSON.stringify(a.objective!.at))), new Set([JSON.stringify({ x: 30, y: 22 })]));
 });
 
-test("a measured source can name the web page its file is published on", () => {
+test("a measured source can name the publisher's page for what its file shows", () => {
   const provenance = {
     basis: "measured",
     note: "Invented measurements for exercising the format.",
@@ -72,6 +72,7 @@ const expectedErrors: Record<string, string> = {
   "lone-group": "/areas group pair has one footprint; a footprint that is a terrain area on its own has no group",
   "measured-without-reuse": "/provenance must have required property 'reuse'",
   "measurement-off-board": "/areas/0/measurements/0 is off the board",
+  "zero-length-measurement": "/areas/0/measurements/0 has no length",
   "objective-outside-outline": "/areas/0/objective is outside the area's outline",
   "off-board": "/areas/0/outline is off the board",
   "portrait-board": "/board must be landscape: width is the long edge",

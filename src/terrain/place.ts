@@ -1,4 +1,4 @@
-import type { Area, Part, Point, TerrainLayout } from "./record.ts";
+import type { Area, Measurement, Part, Point, TerrainLayout } from "./record.ts";
 
 export type PlacedPart = {
   id: string;
@@ -10,12 +10,15 @@ export type PlacedPart = {
 
 export type PlacedArea = {
   id: string;
+  name?: string;
   group: string | null;
   /** The footprint rectangle's corners, starting at its origin and going round its width first. */
   corners: Point[];
   outline: Point[];
   objective: { id: string; at: Point } | null;
   parts: PlacedPart[];
+  /** Already in the board frame, so carried over as they are. */
+  measurements?: Measurement[];
 };
 
 /** A layout with every point in the board frame, rounded to a thousandth of an inch. */
@@ -34,6 +37,7 @@ function placeArea(area: Area): PlacedArea {
   const board = (p: Point) => round(translate(at, rotate(p, rotation)));
   return {
     id: area.id,
+    ...(area.name === undefined ? {} : { name: area.name }),
     group: area.group,
     corners: [{ x: 0, y: 0 }, { x: width, y: 0 }, { x: width, y: height }, { x: 0, y: height }].map(board),
     outline: area.outline.map(board),
@@ -48,6 +52,7 @@ function placeArea(area: Area): PlacedArea {
         walls: part.walls.map((wall) => ({ id: wall.id, points: wall.points.map(local), thickness: wall.thickness })),
       };
     }),
+    ...(area.measurements === undefined ? {} : { measurements: area.measurements }),
   };
 }
 

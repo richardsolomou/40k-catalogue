@@ -49,7 +49,7 @@ A **deployment map** (`kind: "deployment-map"`) has two `zones`, one per role (`
 
 - `synthetic`: invented for tests.
 - `original`: an independently designed layout with no outside source.
-- `measured`: coordinates measured from a published map. It needs a `source` (`title` and `page` or `url`) and a `reuse` statement giving the basis for publishing the measurements. The schema rejects a measured record without one. Where `url` is a file, such as the map's image, an optional `pageUrl` gives the web page the publisher presents it on.
+- `measured`: coordinates measured from a published map. It needs a `source` (`title` and `page` or `url`) and a `reuse` statement giving the basis for publishing the measurements. The schema rejects a measured record without one. Where `url` is a file, such as the map's image, an optional `pageUrl` gives the publisher's web page for what it shows, such as the format the map is played in.
 
 ## Identity
 

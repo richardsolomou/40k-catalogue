@@ -1304,3 +1304,12 @@ test("an automatic enhancement counts towards the enhancement limit where the ro
 test("an automatic enhancement a roster names on an Epic Hero is not refused", () => {
   assert.deepEqual(codesOf(withAutomaticSigil(), atLimit(2), "enhancement-keywords"), []);
 });
+
+test("an automatic enhancement a roster names on a unit that takes no enhancements is not refused", () => {
+  const { identity, records } = input("1.2");
+  Object.assign(find(records, "enhancement", SIGIL).data as any, { automatic: true });
+  Object.assign(find(records, "unit", LORD).data as any, { enhancements: false });
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  assert.deepEqual(codesOf(validated.definitions, incursion([{ unit: LORD, enhancement: SIGIL }]), "enhancement-keywords"), []);
+});

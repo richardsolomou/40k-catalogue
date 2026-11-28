@@ -4,8 +4,11 @@ import type { OrUnresolved } from "../record.ts";
 
 export type Source = { title: string; url?: string; page?: string; revision?: string };
 
-/** One row of a cost table. `composition` tells apart rows with the same model count. */
-export type Cost = { models: number; composition?: string; points: OrUnresolved<number> };
+/**
+ * One row of a cost table. `composition` tells apart rows with the same model count; `mix`, where the row is priced by
+ * the models it holds, gives the count of each model by model ID.
+ */
+export type Cost = { models: number; composition?: string; mix?: Record<string, number>; points: OrUnresolved<number> };
 
 /** The price of the `from`th to `to`th copy of a unit in one army; no `to` means every later copy. */
 export type Tier = { copies: { from: number; to?: number }; costs: Cost[] };

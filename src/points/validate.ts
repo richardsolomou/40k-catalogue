@@ -73,6 +73,8 @@ function tierErrors(errors: string[], path: string, tiers: Tier[]) {
       const key = `${cost.models}|${cost.composition ?? ""}`;
       if (rows.has(key)) errors.push(`${path}/${i}/costs/${j} repeats ${cost.models} models${cost.composition ? ` as "${cost.composition}"` : ""}`);
       rows.add(key);
+      const mixed = cost.mix ? Object.values(cost.mix).reduce((sum, n) => sum + n, 0) : cost.models;
+      if (mixed !== cost.models) errors.push(`${path}/${i}/costs/${j}/mix counts ${mixed} models, not ${cost.models}`);
       if (!cost.composition && costs.some((other, k) => k !== j && other.models === cost.models)) {
         errors.push(`${path}/${i}/costs/${j} shares its model count with another row, so it needs a composition`);
       }

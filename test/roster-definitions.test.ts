@@ -937,6 +937,21 @@ test("a roster pays for priced wargear a chosen bundle holds", () => {
   assert.deepEqual(problems.map((p) => p.code), ["roster-points"]);
 });
 
+test("a roster pays the row its unit's mix of models picks", () => {
+  const snapshot = structuredClone(points12);
+  const pack = snapshot.factions.flatMap((f) => f.units).find((u) => u.id === PACK)!;
+  pack.tiers = [
+    {
+      copies: { from: 1 },
+      costs: [
+        { models: 6, composition: "3 Hunters, 3 Hounds", mix: { [`${PACK}.hunter`]: 3, [`${PACK}.hound`]: 3 }, points: 1100 },
+        { models: 6, composition: "6 Hunters", mix: { [`${PACK}.hunter`]: 6 }, points: 120 },
+      ],
+    },
+  ];
+  assert.deepEqual(checkRoster(v12, incursion([PACK_UNIT]), { points: snapshot }).map((p) => p.code), ["roster-points"]);
+});
+
 test("a roster over its battle size's points reports roster-points", () => {
   assert.deepEqual(priced(overspent), ["- roster-points"]);
 });

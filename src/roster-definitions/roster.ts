@@ -366,7 +366,7 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
     const enhancementFaction = enhancement ? (definitions.get("detachment", enhancement.data.detachment)?.data.faction ?? "") : "";
     costs[i] =
       (enhancement ? price({ kind: "enhancement", faction: enhancementFaction, detachment: enhancement.data.detachment, enhancement: enhancement.id }) : 0) +
-      price({ kind: "unit", faction: unit.data.faction, unit: unit.id, models: total, copy: copies.get(unit.id)! }) +
+      price({ kind: "unit", faction: unit.data.faction, unit: unit.id, models: total, copy: copies.get(unit.id)!, mix: Object.fromEntries(counts) }) +
       [...held]
         .filter(([item]) => !definitions.get("wargear", item)?.data.includes)
         .reduce((sum, [item, n]) => sum + Math.max(n, 0) * price({ kind: "wargear", faction: unit.data.faction, unit: unit.id, item }), 0);

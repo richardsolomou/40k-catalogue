@@ -1,0 +1,216 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "blood-angels.encarmine-speartip.judgement-of-the-golden-host",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Encarmine Speartip",
+    "detachment": {
+      "kind": "detachment",
+      "id": "blood-angels.encarmine-speartip"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own"
+    },
+    "parts": {
+      "when": "[Your Charge phase](vsdata:core-rule/charge-phase), after a **SANGUINARY GUARD** unit of yours ends a [Charge move](vsdata:core-rule/charge-move).",
+      "target": "That **SANGUINARY GUARD** unit.",
+      "effect": "Pick an enemy unit in [Engagement Range](vsdata:core-rule/engagement-range) of the unit, and roll a D6 for every model of the unit in Engagement Range of that enemy unit. The enemy unit takes a [mortal wound](vsdata:core-rule/mortal-wounds) for every 3+ rolled."
+    },
+    "summary": "**When:** [Your Charge phase](vsdata:core-rule/charge-phase), after a **SANGUINARY GUARD** unit of yours ends a [Charge move](vsdata:core-rule/charge-move).\n\n**Target:** That **SANGUINARY GUARD** unit.\n\n**Effect:** Pick an enemy unit in [Engagement Range](vsdata:core-rule/engagement-range) of the unit, and roll a D6 for every model of the unit in Engagement Range of that enemy unit. The enemy unit takes a [mortal wound](vsdata:core-rule/mortal-wounds) for every 3+ rolled.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-ended-charge"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "SANGUINARY GUARD"
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "charge",
+              "turn": "own"
+            }
+          ]
+        },
+        "combat": {
+          "applies": {
+            "target": {
+              "anyOf": [
+                [
+                  "SANGUINARY GUARD"
+                ]
+              ]
+            }
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "selected-target-in-engagement-range"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Every model in the unit engaged with it"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "mortalWounds": {
+                        "timing": "before",
+                        "rolls": 1,
+                        "perModel": true,
+                        "outcomes": [
+                          {
+                            "min": 3,
+                            "max": 6,
+                            "damage": {
+                              "dice": 0,
+                              "sides": 6,
+                              "bonus": 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ],
+            [
+              {
+                "reading": 1
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 1,
+            "stratagem-shooting.one.unknown": 1,
+            "stratagem-shooting.many.known": 1,
+            "stratagem-shooting.many.unknown": 1,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "charge-move"
+          }
+        ],
+        "detail": {
+          "detachment": "Encarmine Speartip",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-sanguinary-guard-unit-ends-charge-move"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "SANGUINARY GUARD"
+            ],
+            "is": "that-unit"
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds-per-roll",
+              "select": {
+                "count": 1,
+                "side": "enemy",
+                "condition": "engaged-with-target"
+              },
+              "dice": "D6",
+              "per": "target-model-engaged-with-selected-unit",
+              "success": "3+",
+              "mortalWoundsPerSuccess": 1
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

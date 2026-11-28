@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.njal-stormcaller.tempests-wrath",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Njal Stormcaller",
+    "summary": "In [your Shooting phase](vsdata:core-rule/shooting-phase), once the unit of this model has shot, pick an enemy unit, other than a **MONSTER** or **VEHICLE** unit, that was hit by any of the attacks with the **Living Lightning** of this model. That unit is **stormwracked** until your next turn begins.\n\nRanged weapons of models in a **stormwracked** unit get -6\" range, but no less than 12\".",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Njal Stormcaller",
+          "psychic": true,
+          "effects": [
+            {
+              "kind": "select",
+              "when": {
+                "turn": "own",
+                "phase": "shooting",
+                "trigger": "after this model's unit has shot"
+              },
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "excludeKeywords": [
+                  "MONSTER",
+                  "VEHICLE"
+                ],
+                "hitByWeapon": "Living Lightning"
+              },
+              "applyState": "stormwracked",
+              "duration": "until-start-of-your-next-turn"
+            },
+            {
+              "kind": "modify-characteristic",
+              "condition": {
+                "state": "stormwracked"
+              },
+              "appliesTo": "ranged weapons of models in the stormwracked unit",
+              "characteristic": "Range",
+              "modifierInches": -6,
+              "minimumInches": 12
+            }
+          ]
+        }
+      }
+    }
+  }
+}

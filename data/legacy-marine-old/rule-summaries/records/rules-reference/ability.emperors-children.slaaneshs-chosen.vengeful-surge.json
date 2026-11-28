@@ -1,0 +1,120 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "emperors-children.slaaneshs-chosen.vengeful-surge",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Slaanesh’s Chosen",
+    "detachment": {
+      "kind": "detachment",
+      "id": "emperors-children.slaaneshs-chosen"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "shooting"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
+    "parts": {
+      "when": "[Opponent's Shooting phase](vsdata:core-rule/shooting-phase), after an enemy unit picks its targets.",
+      "target": "An **EMPEROR’S CHILDREN CHARACTER** unit of yours that is a target of any of that enemy unit's attacks.",
+      "effect": "The unit can move up to D6\" in a [surge move](vsdata:core-rule/surge-move). Unless the unit is the **Favoured Champions** of your army, you are free to re-roll the dice that set the move's distance."
+    },
+    "summary": "**When:** [Opponent's Shooting phase](vsdata:core-rule/shooting-phase), after an enemy unit picks its targets.\n\n**Target:** An **EMPEROR’S CHILDREN CHARACTER** unit of yours that is a target of any of that enemy unit's attacks.\n\n**Effect:** The unit can move up to D6\" in a [surge move](vsdata:core-rule/surge-move). Unless the unit is the **Favoured Champions** of your army, you are free to re-roll the dice that set the move's distance.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "EMPEROR’S CHILDREN",
+              "CHARACTER"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "shooting",
+              "turn": "opponent"
+            }
+          ]
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "surge-move"
+          }
+        ],
+        "detail": {
+          "detachment": "Slaanesh’s Chosen",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "shooting",
+                "turn": "opponent"
+              }
+            ],
+            "event": "enemy-unit-has-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "EMPEROR’S CHILDREN",
+              "CHARACTER"
+            ],
+            "condition": "targeted-by-that-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "surge-move",
+              "maxDistance": "D6",
+              "unit": "inches",
+              "optional": true
+            },
+            {
+              "kind": "re-roll",
+              "roll": "surge-move-distance",
+              "condition": "target-is-not-favoured-champions"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.brutalis-dreadnought.brutalis-charge-once-per-phase-per-unit",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Brutalis Dreadnought",
+    "summary": "Once per phase, whenever this model finishes a [Charge move](vsdata:core-rule/charge-move), pick an enemy unit in its [Engagement Range](vsdata:core-rule/engagement-range) and roll a D6. That enemy unit takes mortal wounds by the result:\n\n- 2-3: D3 [mortal wounds](vsdata:core-rule/mortal-wounds)\n- 4-5: 3 mortal wounds\n- 6: D3+3 mortal wounds",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "combat": {
+          "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "charged"
+                    },
+                    {
+                      "kind": "target-in-engagement-range"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "mortalWounds": {
+                        "timing": "before",
+                        "rolls": 1,
+                        "outcomes": [
+                          {
+                            "min": 2,
+                            "max": 3,
+                            "damage": {
+                              "dice": 1,
+                              "sides": 3,
+                              "bonus": 0
+                            }
+                          },
+                          {
+                            "min": 4,
+                            "max": 5,
+                            "damage": {
+                              "dice": 0,
+                              "sides": 6,
+                              "bonus": 3
+                            }
+                          },
+                          {
+                            "min": 6,
+                            "max": 6,
+                            "damage": {
+                              "dice": 1,
+                              "sides": 3,
+                              "bonus": 3
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ],
+            [
+              {
+                "reading": 1
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 1,
+            "stratagem-shooting.one.unknown": 1,
+            "stratagem-shooting.many.known": 1,
+            "stratagem-shooting.many.unknown": 1,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Brutalis Dreadnought",
+          "usage": {
+            "perPhase": 1,
+            "scope": "unit"
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds-on-charge",
+              "trigger": "this model ends a Charge move",
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "withinEngagementRange": true
+              },
+              "roll": {
+                "dice": "D6",
+                "count": 1
+              },
+              "results": [
+                {
+                  "rolls": [
+                    2,
+                    3
+                  ],
+                  "mortalWounds": "D3"
+                },
+                {
+                  "rolls": [
+                    4,
+                    5
+                  ],
+                  "mortalWounds": 3
+                },
+                {
+                  "rolls": [
+                    6
+                  ],
+                  "mortalWounds": "D3+3"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

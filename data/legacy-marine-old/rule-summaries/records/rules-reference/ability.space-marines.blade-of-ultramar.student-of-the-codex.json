@@ -1,0 +1,83 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.blade-of-ultramar.student-of-the-codex",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Blade of Ultramar",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.blade-of-ultramar"
+    },
+    "summary": "Bearer: an **ADEPTUS ASTARTES** model.\n\nAs [your Command phase](vsdata:core-rule/command-phase) begins, if it is on the battlefield, the bearer can use this Enhancement. When it does, its unit has the **Tactical Doctrine** active until your next Command phase. This replaces any Combat Doctrine you pick for your army, and applies even if your army has none active.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "enhancement": {
+          "type": "model",
+          "points": 20,
+          "eligibility": {
+            "basis": "app-eligibility-rows",
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              }
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Blade of Ultramar",
+          "effects": [
+            {
+              "kind": "set-combat-doctrine",
+              "doctrine": "Tactical Doctrine",
+              "appliesTo": "bearer-unit",
+              "optional": true,
+              "when": {
+                "turn": "own",
+                "phase": "command",
+                "timing": "start"
+              },
+              "condition": {
+                "bearerOnBattlefield": true
+              },
+              "replacesArmyDoctrine": true,
+              "evenWithoutArmyDoctrine": true,
+              "duration": "until-start-of-your-next-command-phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

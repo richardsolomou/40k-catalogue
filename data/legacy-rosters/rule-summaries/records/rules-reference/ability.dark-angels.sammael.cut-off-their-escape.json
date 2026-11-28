@@ -1,0 +1,61 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.sammael.cut-off-their-escape",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Sammael",
+    "summary": "Whenever an enemy unit, other than **MONSTERS** and **VEHICLES**, is picked to make a [fall-back move](vsdata:core-rule/fall-back) while in [Engagement Range](vsdata:core-rule/engagement-range) of the unit this model is in, each of its models takes a [Desperate Escape test](vsdata:core-rule/desperate-escape) as though its unit were [battle-shocked](vsdata:core-rule/battle-shock). Those tests get -1 if the enemy unit is battle-shocked for another reason as well.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Sammael",
+          "trigger": {
+            "event": "enemy-unit-selected-to-fall-back",
+            "subject": {
+              "side": "enemy",
+              "entity": "unit",
+              "excludeKeywords": [
+                "MONSTER",
+                "VEHICLE"
+              ],
+              "condition": "engaged-with-this-model-unit"
+            }
+          },
+          "effects": [
+            {
+              "kind": "force-desperate-escape-tests",
+              "asIfBattleShocked": true
+            },
+            {
+              "kind": "test-modifier",
+              "test": "desperate-escape",
+              "delta": -1,
+              "condition": "enemy-unit-battle-shocked-by-other-means"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

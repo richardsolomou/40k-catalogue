@@ -1,0 +1,527 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.saga-of-the-great-wolf.master-of-wolves",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Saga of the Great Wolf",
+    "summary": "As [your Command phase](vsdata:core-rule/command-phase) begins, you can pick a Hunting Pack from the list below. It stays active for all your **ADEPTUS ASTARTES** units until [your next Command phase](vsdata:core-rule/command-phase). No Hunting Pack can be picked more than once in the battle.\n\n- **Encircling Jaws**: the unit can re-roll its [Advance rolls](vsdata:core-rule/advance-move) and [Charge rolls](vsdata:core-rule/charge-step).\n- **Hunter’s Eye**: ranged attacks by the unit's models get +1 to [Hit](vsdata:core-rule/hit-rolls).\n- **Ferocious Strike**: whenever the unit gets **selected to fight**, pick **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)** or **[[SUSTAINED HITS 1]](vsdata:weapon-ability/sustained-hits)**. Weapons of its models get that ability for the rest of the phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "interpretation": [
+      {
+        "question": "Printed text correction: \"with 9”\" means \"within 9”\""
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "combat": {
+          "applies": {
+            "target": {
+              "anyOf": [
+                [
+                  "ADEPTUS ASTARTES"
+                ]
+              ]
+            },
+            "reachesAttached": true
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "option": "Hunter's Eye",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Ferocious Strike",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "LETHAL HITS"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "LETHAL HITS"
+                    }
+                  ]
+                },
+                {
+                  "option": "Ferocious Strike",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "SUSTAINED HITS 1"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "SUSTAINED HITS 1"
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "Encircling Jaws",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": []
+                  },
+                  {
+                    "option": "Hunter's Eye",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "rolls": {
+                          "hitModifier": 1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "Ferocious Strike",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated",
+                        "label": "LETHAL HITS"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "weaponAbility": "LETHAL HITS"
+                      }
+                    ]
+                  },
+                  {
+                    "option": "Ferocious Strike",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated",
+                        "label": "SUSTAINED HITS 1"
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "weaponAbility": "SUSTAINED HITS 1"
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0
+            },
+            {
+              "choices": [
+                {
+                  "option": "Hunter's Eye",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "ADEPTUS ASTARTES"
+                      ]
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "ranged"
+                      ],
+                      "rolls": {
+                        "hitModifier": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "option": "Ferocious Strike",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "LETHAL HITS"
+                    },
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "ADEPTUS ASTARTES"
+                      ]
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "LETHAL HITS"
+                    }
+                  ]
+                },
+                {
+                  "option": "Ferocious Strike",
+                  "armyWide": true,
+                  "conditions": [
+                    {
+                      "kind": "option"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "SUSTAINED HITS 1"
+                    },
+                    {
+                      "kind": "for-units",
+                      "keywords": [
+                        "ADEPTUS ASTARTES"
+                      ]
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "weaponAbility": "SUSTAINED HITS 1"
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "shown": {
+                "choices": [
+                  {
+                    "option": "Encircling Jaws",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "for-units",
+                        "keywords": [
+                          "ADEPTUS ASTARTES"
+                        ]
+                      }
+                    ],
+                    "effects": []
+                  },
+                  {
+                    "option": "Hunter's Eye",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "for-units",
+                        "keywords": [
+                          "ADEPTUS ASTARTES"
+                        ]
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "ranged"
+                        ],
+                        "rolls": {
+                          "hitModifier": 1
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "option": "Ferocious Strike",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated",
+                        "label": "LETHAL HITS"
+                      },
+                      {
+                        "kind": "for-units",
+                        "keywords": [
+                          "ADEPTUS ASTARTES"
+                        ]
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "weaponAbility": "LETHAL HITS"
+                      }
+                    ]
+                  },
+                  {
+                    "option": "Ferocious Strike",
+                    "armyWide": true,
+                    "conditions": [
+                      {
+                        "kind": "option"
+                      },
+                      {
+                        "kind": "stated",
+                        "label": "SUSTAINED HITS 1"
+                      },
+                      {
+                        "kind": "for-units",
+                        "keywords": [
+                          "ADEPTUS ASTARTES"
+                        ]
+                      }
+                    ],
+                    "effects": [
+                      {
+                        "role": "attacker",
+                        "attacks": [
+                          "melee"
+                        ],
+                        "weaponAbility": "SUSTAINED HITS 1"
+                      }
+                    ]
+                  }
+                ],
+                "default": 0
+              },
+              "roles": [
+                "attacker"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "ask": {
+                  "unitHas": "ADEPTUS ASTARTES"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 0
+              },
+              {
+                "reading": 1
+              }
+            ],
+            [
+              {
+                "reading": 2
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 1,
+            "own.many.known": 0,
+            "own.many.unknown": 1,
+            "leading.one.known": 0,
+            "leading.one.unknown": 1,
+            "leading.many.known": 0,
+            "leading.many.unknown": 1,
+            "aura.one.known": 0,
+            "aura.one.unknown": 1,
+            "aura.many.known": 0,
+            "aura.many.unknown": 1,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 1,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 1,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 1,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 1,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 1,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 1,
+            "army.one.known": 0,
+            "army.one.unknown": 1,
+            "army.many.known": 0,
+            "army.many.unknown": 1
+          }
+        },
+        "references": [
+          {
+            "kind": "weapon-ability",
+            "id": "lethal-hits"
+          }
+        ],
+        "detail": {
+          "kind": "detachment-rule",
+          "detachment": "Saga of the Great Wolf",
+          "timing": {
+            "phase": "command",
+            "turn": "own",
+            "moment": "start"
+          },
+          "pick": {
+            "count": 1,
+            "optional": true,
+            "eachOncePerBattle": true,
+            "duration": "until-your-next-command-phase",
+            "appliesTo": {
+              "side": "friendly",
+              "entity": "unit",
+              "keywordsAll": [
+                "ADEPTUS ASTARTES"
+              ]
+            }
+          },
+          "options": [
+            {
+              "name": "Encircling Jaws",
+              "effect": {
+                "kind": "re-roll",
+                "rolls": [
+                  "advance",
+                  "charge"
+                ]
+              }
+            },
+            {
+              "name": "Hunter’s Eye",
+              "effect": {
+                "kind": "roll-modifier",
+                "roll": "hit",
+                "attackType": "ranged",
+                "delta": 1
+              }
+            },
+            {
+              "name": "Ferocious Strike",
+              "effect": {
+                "kind": "pick-weapon-ability",
+                "trigger": "selected-to-fight",
+                "options": [
+                  {
+                    "ability": "LETHAL HITS"
+                  },
+                  {
+                    "ability": "SUSTAINED HITS",
+                    "value": 1
+                  }
+                ],
+                "duration": "phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

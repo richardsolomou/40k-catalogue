@@ -1,0 +1,148 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.saga-of-the-great-wolf.fenrisian-ferocity",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Saga of the Great Wolf",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-wolves.saga-of-the-great-wolf"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "movement",
+        "charge"
+      ],
+      "turn": "own",
+      "type": "strategic-ploy"
+    },
+    "parts": {
+      "when": "[Your Movement phase](vsdata:core-rule/movement-phase) or [your Charge phase](vsdata:core-rule/charge-phase).",
+      "target": "An **ADEPTUS ASTARTES MOUNTED** or **ADEPTUS ASTARTES WALKER** unit of yours that has not been picked to move or charge in the phase.",
+      "effect": "Whenever one of the unit's models makes a [normal move](vsdata:core-rule/normal-move), [advance move](vsdata:core-rule/advance-move), [fall-back move](vsdata:core-rule/fall-back) or [Charge move](vsdata:core-rule/charge-move), the model can pass horizontally through models (except **TITANIC** models) and through terrain features, for the rest of the phase. As it does, it can cross into enemy models' [Engagement Range](vsdata:core-rule/engagement-range), but cannot finish a normal move, advance move or fall-back move there."
+    },
+    "summary": "**When:** [Your Movement phase](vsdata:core-rule/movement-phase) or [your Charge phase](vsdata:core-rule/charge-phase).\n\n**Target:** An **ADEPTUS ASTARTES MOUNTED** or **ADEPTUS ASTARTES WALKER** unit of yours that has not been picked to move or charge in the phase.\n\n**Effect:** Whenever one of the unit's models makes a [normal move](vsdata:core-rule/normal-move), [advance move](vsdata:core-rule/advance-move), [fall-back move](vsdata:core-rule/fall-back) or [Charge move](vsdata:core-rule/charge-move), the model can pass horizontally through models (except **TITANIC** models) and through terrain features, for the rest of the phase. As it does, it can cross into enemy models' [Engagement Range](vsdata:core-rule/engagement-range), but cannot finish a normal move, advance move or fall-back move there.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "anyOf": [
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "MOUNTED"
+                ]
+              },
+              {
+                "keywords": [
+                  "ADEPTUS ASTARTES",
+                  "WALKER"
+                ]
+              }
+            ],
+            "conditions": [
+              "not-selected-to-move-or-charge"
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "movement",
+              "turn": "own"
+            },
+            {
+              "at": "phase-start",
+              "phase": "charge",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "detachment": "Saga of the Great Wolf",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "movement",
+                "turn": "own"
+              },
+              {
+                "phase": "charge",
+                "turn": "own"
+              }
+            ]
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "keywordsAny": [
+              "MOUNTED",
+              "WALKER"
+            ],
+            "condition": "not-yet-selected-to-move-or-charge-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "move-through",
+              "moves": [
+                "normal",
+                "advance",
+                "fall-back",
+                "charge"
+              ],
+              "through": [
+                "models",
+                "terrain features"
+              ],
+              "excludingModels": [
+                "TITANIC"
+              ],
+              "horizontalOnly": true,
+              "mayCrossEngagementRange": true,
+              "cannotEndInEngagementRange": [
+                "normal",
+                "advance",
+                "fall-back"
+              ],
+              "duration": "phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

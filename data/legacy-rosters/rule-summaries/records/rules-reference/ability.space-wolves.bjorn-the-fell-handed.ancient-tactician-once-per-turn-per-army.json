@@ -13,7 +13,7 @@
   "data": {
     "ruleType": "unit-ability",
     "group": "Bjorn the Fell-handed",
-    "summary": "Give a **[Stratagem](vsdata:core-rule/using-stratagems)** targeting Bjorn’s unit a 1 CP discount. The army shares one application per turn.",
+    "summary": "Once per turn for your army, as [your Command phase](vsdata:core-rule/command-phase) begins, you gain 1CP if this model is present on the battlefield.",
     "citations": [
       {
         "type": "app",
@@ -37,24 +37,26 @@
           ]
         },
         "detail": {
-          "source": "this-unit",
-          "limit": {
-            "count": 1,
-            "period": "turn",
-            "counterOwner": "army",
-            "resetsAt": "start-of-next-turn"
+          "kind": "unit-ability",
+          "datasheet": "Bjorn the Fell-handed",
+          "usage": {
+            "oncePer": "turn",
+            "scope": "army"
           },
           "trigger": {
-            "event": "own-stratagem-targeted",
-            "target": "this-unit"
+            "phase": "command",
+            "turn": "own",
+            "timing": "start-of-phase"
           },
-          "effect": {
-            "recipient": "triggering-stratagem-use",
-            "cp": {
-              "operation": "subtract",
-              "amount": 1
+          "condition": {
+            "thisModelOnBattlefield": true
+          },
+          "effects": [
+            {
+              "kind": "gain-cp",
+              "cp": 1
             }
-          }
+          ]
         }
       }
     }

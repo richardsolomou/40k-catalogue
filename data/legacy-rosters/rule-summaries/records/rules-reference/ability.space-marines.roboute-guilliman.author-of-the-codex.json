@@ -1,0 +1,105 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.roboute-guilliman.author-of-the-codex",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Roboute Guilliman",
+    "summary": "As [your Command phase](vsdata:core-rule/command-phase) begins, pick 2 of the abilities below. This model has them until your next Command phase.\n\n- **Primarch of the XIII (Aura)**: models in your **ADEPTUS ASTARTES** units up to 6\" from this model get +1 OC, and you can also re-roll those units' [Leadership](vsdata:core-rule/leadership-rolls) and [Battle-shock tests](vsdata:core-rule/battle-shock).\n- **Master of Battle**: as your Command phase begins, after picking the target of your Oath of Moment, you also pick a second enemy unit. If that first target is **destroyed** before your next Command phase, the second unit replaces it as the target of your Oath of Moment until you next pick one.\n- **Supreme Strategist**: for your whole army, once per battle round, whenever you target an **ADEPTUS ASTARTES** unit of yours up to 12\" from a model with this ability with a [Stratagem](vsdata:core-rule/stratagems), you can make that use cost 1CP less.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Roboute Guilliman",
+          "effects": [
+            {
+              "kind": "choose-abilities",
+              "count": 2,
+              "when": {
+                "turn": "own",
+                "phase": "command",
+                "timing": "start"
+              },
+              "duration": "until-start-of-your-next-command-phase",
+              "options": [
+                {
+                  "name": "Primarch of the XIII (Aura)",
+                  "aura": {
+                    "rangeInches": 6,
+                    "recipients": {
+                      "side": "friendly",
+                      "keywordsAll": [
+                        "ADEPTUS ASTARTES"
+                      ]
+                    }
+                  },
+                  "modifiers": {
+                    "OC": 1
+                  },
+                  "rerolls": [
+                    "leadership",
+                    "battle-shock"
+                  ]
+                },
+                {
+                  "name": "Master of Battle",
+                  "when": "start of your Command phase, after selecting the Oath of Moment target",
+                  "select": {
+                    "side": "enemy",
+                    "count": 1
+                  },
+                  "replacesDestroyedOathTarget": true
+                },
+                {
+                  "name": "Supreme Strategist",
+                  "usage": {
+                    "perBattleRound": 1,
+                    "scope": "army"
+                  },
+                  "trigger": {
+                    "stratagemTargets": {
+                      "side": "friendly",
+                      "keywordsAll": [
+                        "ADEPTUS ASTARTES"
+                      ],
+                      "withinInches": 12
+                    }
+                  },
+                  "cpDelta": -1
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -671,3 +671,9 @@ test("a defender's effect can hold only against attacks by models of a keyword",
 test("only a defender's effect names the attacking models' keywords", () => {
   assert.ok(withEffect({ attackerKeywords: ["DAEMON"] }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0 must NOT be valid`));
 });
+
+test("a Feel No Pain against Psychic Attacks is stated as psychicFeelNoPain", () => {
+  const defender = structuredClone(EFFECTS);
+  defender.fields.combat.readings[0]!.choices![0]!.effects[0] = { role: "defender", attacks: ["ranged", "melee"], weaponHas: "PSYCHIC", feelNoPain: 5 } as never;
+  assert.ok(errors((_, recs) => (data(recs, "ability", OATH.id).facts = defender)).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0 states a Feel No Pain against Psychic Attacks as feelNoPain`));
+});

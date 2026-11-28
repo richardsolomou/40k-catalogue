@@ -123,6 +123,7 @@ function combatErrors(combat: CombatFacts): string[] {
         if (e.weaponHas !== undefined && e.weaponHas === e.weaponLacks) errors.push(`${at}/choices/${j}/effects/${k} applies to weapons with and without ${e.weaponHas}`);
         const lacked = e.weaponLacks !== undefined && [e.weaponAbility, e.lostWeaponAbility].find((ability) => ability === e.weaponLacks);
         if (lacked) errors.push(`${at}/choices/${j}/effects/${k} changes ${lacked} on weapons without it`);
+        if (e.role === "defender" && e.weaponHas === "PSYCHIC" && e.feelNoPain !== undefined) errors.push(`${at}/choices/${j}/effects/${k} states a Feel No Pain against Psychic Attacks as feelNoPain`);
       });
     });
   }

@@ -102,7 +102,7 @@ Keyword values are written in capitals. A **selector** is a keyword, keywords pr
 
 **`reserves`**: `exempt: true` when this unit's points do not count towards the Strategic Reserves limit, and `exemptUnits` for the selectors of friendly units whose points do not.
 
-**`invulnerableSave`**: `{ "roll": n }`, an invulnerable save of n+ the rule gives; `against: "ranged"` or `against: "melee"` when it holds only against those attacks (a rule that gives one save against ranged and another against melee attacks states them as `combat` effects for each), `keywords` when only models matching one of those selectors gain it, and `conditional: true` when a further condition only the summary gives applies.
+**`invulnerableSave`**: `{ "roll": n }`, an invulnerable save of n+ the rule gives; `against: "ranged"` or `against: "melee"` when it holds only against those attacks (a rule that gives one save against ranged and another against melee attacks, or a better one against Psychic Attacks or attacks by models of a keyword, states them as `combat` effects for each), `keywords` when only models matching one of those selectors gain it, and `conditional: true` when a further condition only the summary gives applies.
 
 **`upgradesWeapon`**: `true` for an Enhancement whose text ends by naming a weapon, whose profile the bearer gains or has in place of its own.
 
@@ -149,12 +149,13 @@ An effect applies to one `role`, `attacker` or `defender`, for the `attacks` it 
 | Field | Meaning |
 | --- | --- |
 | `weaponAbility` | A weapon ability the attacks gain. |
-| `weaponHas` | The effect applies only to weapons with this weapon ability. |
+| `weaponHas` | The effect applies only to weapons with this weapon ability. On a defender's effect, that is the attacking weapon, so `PSYCHIC` holds it against Psychic Attacks only. |
 | `weaponLacks` | The effect applies only to weapons without this weapon ability, never one the same effect names in `weaponHas`, `weaponAbility` or `lostWeaponAbility`. |
 | `lostWeaponAbility` | A weapon ability the attacks lose. With `weaponAbility` in the same effect, the one replaces the other; an effect never gives and removes the same one. |
 | `weapon` | The effect applies only to this weapon, by name. |
-| `characteristic` | A weapon characteristic (`range`, `attacks`, `ballistic-skill`, `weapon-skill`, `strength`, `armour-penetration`, `damage`) changed by `add`, set to `set`, or multiplied by `multiply`, and `range` is in inches, at least 1 when set. For `attacks` and `damage` alone, `add` and `set` can be dice (at least one die: `dice` × D`sides` + `bonus`) and `multiply` applies. `nonCumulative` when it does not stack with other changes. |
+| `characteristic` | A weapon characteristic (`range`, `attacks`, `ballistic-skill`, `weapon-skill`, `strength`, `armour-penetration`, `damage`) changed by `add`, set to `set`, or multiplied by `multiply`, and `range` is in inches, at least 1 when set. For `attacks` and `damage` alone, `add` and `set` can be dice (at least one die: `dice` × D`sides` + `bonus`) and `multiply` applies. `nonCumulative` when it does not stack with other changes. `per` scales a whole-number `add` with the [models counted](#models-counted). |
 | `targetKeywords`, `excludedTargetKeywords` | Selectors the attack's target must match one of, or none of. |
+| `attackerKeywords` | On a defender's effect only: the attacking models must match one of these selectors ("attacks made by DAEMON models"). |
 | `modelKeywords`, `excludedModelKeywords` | Only models matching one of `modelKeywords`, and none of `excludedModelKeywords`, make their attacks (or have attacks allocated to them) with the effect. |
 | `condition` | A comparison the attack must meet: `stronger` (Strength above the target's Toughness), `not-stronger`, `double-strength`, or `critical-wound`. |
 | `ignoreHitModifiers`, `ignoreWoundModifiers`, `ignoreSkillModifiers` | Modifiers to the roll or skill are ignored. |
@@ -171,10 +172,14 @@ An effect applies to one `role`, `attacker` or `defender`, for the `attacks` it 
 | `feelNoPain`, `psychicFeelNoPain`, `mortalFeelNoPain` | A Feel No Pain roll against all damage, psychic attacks, or mortal wounds. |
 | `mortalWounds` | Mortal wounds inflicted `before` or `after` the attacks, or `outside-attacks` (at another moment, as the rule's reminder says), at most `max` in all: `rolls` dice per unit, per model when `perModel`, or per point of one of the unit's models' Toughness when `perToughness`, each mapping a result from `min` to `max` to `damage` (`dice` × D`sides` + `bonus`); `psychic` when they come from a psychic ability, and `sacrifice` for the attacker's own models destroyed first. |
 | `damageReroll` | Damage rolls may be re-rolled: `ones` or `any`. |
-| `unitStat` | A unit characteristic (`movement`, `toughness`, `wounds`, `leadership`, `objective-control`) set to `set`, or one no roll reads (`movement`, `leadership`, `objective-control`) changed by `add`; `toughness` and `wounds` change by their own fields. A set value applies before any addition. Movement is in inches, and Leadership is the roll, so `add: -1` improves it by 1. |
+| `unitStat` | A unit characteristic (`movement`, `toughness`, `wounds`, `leadership`, `objective-control`) set to `set`, or one no roll reads (`movement`, `leadership`, `objective-control`) changed by `add`; `toughness` and `wounds` change by their own fields. A set value applies before any addition. Movement is in inches, and Leadership is the roll, so `add: -1` improves it by 1. `per` scales an `add` with the [models counted](#models-counted). |
 | `ability` | A named ability the unit gains, such as Stealth. |
 | `bearerOnly` | The effect is the bearer's alone: only the attacks of the model with the rule, or attacks allocated to it, gain it, not the rest of a unit it leads. |
 | `activates` | Named options of the unit's other rules this makes active together. |
+
+#### Models counted
+
+`per` on a `characteristic` or `unitStat` makes its `add` apply once for every `models` models (rounding down) counted `in` the `unit` the effect's models belong to, the models `embarked` within it, or both together when both are listed: `{ "add": 1, "per": { "models": 5, "in": ["unit"] } }` is +1 at 5 to 9 models and +2 at 10 to 14. A flat bonus beside it is its own effect. Counting happens as the effect is applied, so a consumer that tracks casualties or embarked units counts them then; one that does not counts the unit as it starts the battle.
 
 ### Detail
 

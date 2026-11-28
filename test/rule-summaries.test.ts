@@ -641,3 +641,33 @@ test("an effect on weapons without a weapon ability does not give or remove it",
 test("a Range set is at least 1", () => {
   assert.ok(withEffect({ attacks: ["ranged"], characteristic: { name: "range", set: -6 } }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0/characteristic/set must be >= 1`));
 });
+
+test("an addition to a weapon characteristic can scale with the models counted", () => {
+  assert.deepEqual(withEffect({ characteristic: { name: "strength", add: 1, per: { models: 5, in: ["unit", "embarked"] } } }), []);
+});
+
+test("an addition to a unit characteristic can scale with the models counted", () => {
+  assert.deepEqual(withEffect({ unitStat: { kind: "objective-control", add: 1, per: { models: 3, in: ["embarked"] } } }), []);
+});
+
+test("only an addition scales with the models counted", () => {
+  assert.ok(withEffect({ characteristic: { name: "attacks", set: 2, per: { models: 5, in: ["unit"] } } }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0/characteristic must have property add when property per is present`));
+});
+
+test("a scaling addition counts at least 2 models", () => {
+  assert.ok(withEffect({ characteristic: { name: "strength", add: 1, per: { models: 1, in: ["unit"] } } }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0/characteristic/per/models must be >= 2`));
+});
+
+test("a scaling addition is a whole number, never dice", () => {
+  assert.ok(withEffect({ characteristic: { name: "attacks", add: { dice: 1, sides: 3, bonus: 0 }, per: { models: 5, in: ["unit"] } } }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0/characteristic/add must be integer`));
+});
+
+test("a defender's effect can hold only against attacks by models of a keyword", () => {
+  const defender = structuredClone(EFFECTS);
+  defender.fields.combat.readings[0]!.choices![0]!.effects[0] = { role: "defender", attacks: ["ranged", "melee"], attackerKeywords: ["DAEMON"], invulnerable: 4 } as never;
+  assert.deepEqual(errors((_, recs) => (data(recs, "ability", OATH.id).facts = defender)), []);
+});
+
+test("only a defender's effect names the attacking models' keywords", () => {
+  assert.ok(withEffect({ attackerKeywords: ["DAEMON"] }).includes(`ability:${OATH.id} facts/combat/readings/0/choices/0/effects/0 must NOT be valid`));
+});

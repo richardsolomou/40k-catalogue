@@ -1227,9 +1227,8 @@ test("an option is made together with others in one entry only", () => {
   assert.ok(!validated.ok && validated.errors.includes(`unit:${WARDENS} uniformOptions/1 names roster-option:${WARDENS}.leader-weapon, which another entry names`));
 });
 
-// A unit limit over alternatives: units matching any one of them count, or with `exclusive`, a roster holds units of one
-// alternative only. `keywords` lists every keyword the alternatives name, which a reader that predates `anyOf` matches no
-// unit with.
+// A unit limit over alternatives: units matching any one of them count, and with `exclusive`, the units counted all fit
+// one alternative. `keywords` lists every keyword the alternatives name.
 const withLimit = (limit: object) => {
   const { identity, records } = input("1.2");
   (find(records, "faction", EH).data as any).unitLimits.push(limit);

@@ -18,7 +18,7 @@ export type When = { faction?: string; detachment?: string; warlord?: string; al
 type RosterBounds = { min?: number; max?: number };
 /**
  * A roster holds between `min` and `max` units with all `keywords`, or with `anyOf`, at most `max` units matching any one
- * alternative, or with `exclusive`, units that all fit one alternative; a detachment's row replaces the bounds, never
+ * alternative, and with `exclusive`, units that all fit one alternative; a detachment's row replaces the bounds, never
  * `exclusive`. `keywords` then lists every keyword the alternatives name.
  */
 export type UnitLimit = RosterBounds & { keywords: string[]; anyOf?: string[][]; exclusive?: true; detachments?: (RosterBounds & { detachment: string })[] };
@@ -418,7 +418,8 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       if (limit.anyOf) {
         const named = [...new Set(limit.anyOf.flat())].sort();
         if (JSON.stringify(named) !== JSON.stringify([...limit.keywords].sort())) errors.push(`${path} keywords must list every keyword its anyOf names`);
-        // A reader that does not know anyOf counts no unit under the entry: a minimum would refuse every roster there.
+        // A reader that does not know anyOf counts only units holding every keyword, fewer than the entry counts: a minimum
+        // would make it stricter than the entry.
         if (limit.min !== undefined || limit.detachments?.some((row) => row.min !== undefined)) errors.push(`${path} has anyOf and a min`);
         const within = (a: string[], b: string[]) => a.every((k) => b.includes(k));
         if (limit.anyOf.some((a, i) => limit.anyOf!.some((b, j) => i !== j && within(a, b)))) errors.push(`${path} has an anyOf alternative within another`);

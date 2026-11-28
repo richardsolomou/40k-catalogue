@@ -375,13 +375,16 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     }
     // A detachment's cards and a piece of wargear's rules are rule summaries, outside the roster category, so they need
     // a current entry, not a record.
-    if (kind === "detachment" || kind === "wargear") {
-      const ids = kind === "wargear" ? ((definition.data as WargearData).rules ?? []) : [...((definition.data as DetachmentData).stratagems ?? []), ...((definition.data as DetachmentData).enhancements ?? [])];
-      for (const id of ids) {
-        const target = key("ability", id);
-        if (!entries.get(target) || entries.get(target)!.retired) errors.push(`${at} names ${target}, which is not a current entry`);
-        else if (!entry.references?.some((r) => r.kind === "ability" && r.id === id)) errors.push(`${at} names ${target} but its identity entry does not reference it`);
-      }
+    const summaries = (): string[] => {
+      if (kind === "wargear") return (definition.data as WargearData).rules ?? [];
+      if (kind !== "detachment") return [];
+      const { stratagems = [], enhancements = [] } = definition.data as DetachmentData;
+      return [...stratagems, ...enhancements];
+    };
+    for (const id of summaries()) {
+      const target = key("ability", id);
+      if (!entries.get(target) || entries.get(target)!.retired) errors.push(`${at} names ${target}, which is not a current entry`);
+      else if (!entry.references?.some((r) => r.kind === "ability" && r.id === id)) errors.push(`${at} names ${target} but its identity entry does not reference it`);
     }
   }
 

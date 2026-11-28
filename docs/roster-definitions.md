@@ -188,7 +188,7 @@ Before reading a roster under another release, pass `rosterRefs(roster)` to [`ch
 
 ## Points joins
 
-`pointsGaps(definitions, snapshot)` joins definitions to a points snapshot that uses the same catalogue IDs. It reports every unit size, detachment, and enhancement without a price, with the [lookup](points.md#looking-up-a-cost) reason, and every priced unit with no definition. A unit no roster may hold needs no price.
+`pointsGaps(definitions, snapshot)` joins definitions to a points snapshot that uses the same catalogue IDs. It reports every unit size, detachment, and enhancement without a price, with the [lookup](points.md#looking-up-a-cost) reason, and every priced unit with no definition. A size whose first-copy rows all give a `mix` has a price when each mix picks its row. A unit no roster may hold needs no price.
 
 ## History
 

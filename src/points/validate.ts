@@ -3,6 +3,7 @@ import { isUnresolved } from "../record.ts";
 import type { Gap } from "../validate.ts";
 import historySchema from "./history.v1.schema.json" with { type: "json" };
 import schema from "./points.v1.schema.json" with { type: "json" };
+import { sameMix } from "./lookup.ts";
 import type { PointsHistory, PointsSnapshot, Tier } from "./snapshot.ts";
 
 export type SnapshotValidation = { ok: true; snapshot: PointsSnapshot; gaps: Gap[] } | { ok: false; errors: string[] };
@@ -75,6 +76,7 @@ function tierErrors(errors: string[], path: string, tiers: Tier[]) {
       rows.add(key);
       const mixed = cost.mix ? Object.values(cost.mix).reduce((sum, n) => sum + n, 0) : cost.models;
       if (mixed !== cost.models) errors.push(`${path}/${i}/costs/${j}/mix counts ${mixed} models, not ${cost.models}`);
+      if (cost.mix && costs.some((other, k) => k < j && other.models === cost.models && other.mix && sameMix(other.mix, cost.mix!))) errors.push(`${path}/${i}/costs/${j}/mix repeats another row's mix`);
       if (!cost.composition && costs.some((other, k) => k !== j && other.models === cost.models)) {
         errors.push(`${path}/${i}/costs/${j} shares its model count with another row, so it needs a composition`);
       }

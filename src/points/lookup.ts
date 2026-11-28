@@ -47,7 +47,7 @@ export function lookupPoints(snapshot: PointsSnapshot, ref: PointsRef): PointsLo
 }
 
 // Two mixes give each model the same count; a model missing from either counts as zero.
-const sameMix = (a: Record<string, number>, b: Record<string, number>) =>
+export const sameMix = (a: Record<string, number>, b: Record<string, number>) =>
   [...new Set([...Object.keys(a), ...Object.keys(b)])].every((model) => (a[model] ?? 0) === (b[model] ?? 0));
 
 function unitCost(unit: Unit, models: number, copy: number, composition?: string, mix?: Record<string, number>): PointsLookup {

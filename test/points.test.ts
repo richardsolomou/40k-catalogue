@@ -40,6 +40,7 @@ const expectedErrors: Record<string, string> = {
   "mix-not-model-count": "/factions/0/units/0/tiers/0/costs/1/mix counts 5 models, not 6",
   "negative-points": "/factions/0/detachments/0/enhancements/0/points must match a schema in anyOf",
   "open-tier-before-last": `/factions/0/units/0/tiers/0/copies must have "to" unless it is the last tier`,
+  "repeated-mix": "/factions/0/units/0/tiers/0/costs/1/mix repeats another row's mix",
   "repeated-unit-id": `/factions/0/units/1/id repeats "cinder-wardens"`,
   "shared-model-count-without-composition": "/factions/0/units/0/tiers/0/costs/0 shares its model count with another row, so it needs a composition",
   "tier-gap": "/factions/0/units/0/tiers/1/copies/from must be 3",

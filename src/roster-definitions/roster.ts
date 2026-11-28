@@ -500,6 +500,13 @@ export function importUnit(definitions: Definitions, faction: string, printed: P
 
 export type PointsGap = { ref: Ref; models?: number; reason: Miss | "no-definition" };
 
+// The mixes of a unit's first-copy rows at one size, where every such row gives one.
+function mixesAt(snapshot: PointsSnapshot, ref: { faction: string; unit: string; models: number }) {
+  const unit = snapshot.factions.find((f) => f.id === ref.faction)?.units.find((u) => u.id === ref.unit);
+  const rows = unit?.tiers.find((t) => t.copies.from === 1)?.costs.filter((c) => c.models === ref.models) ?? [];
+  return rows.length > 0 && rows.every((c) => c.mix) ? rows.map((c) => c.mix!) : undefined;
+}
+
 /**
  * Joins definitions to a points snapshot that uses the same catalogue IDs: every unit size and enhancement must
  * have a price, every detachment its detachment points, and every priced unit a definition. A unit no roster may
@@ -513,7 +520,12 @@ export function pointsGaps(definitions: Definitions, snapshot: PointsSnapshot): 
   for (const unit of definitions.all("unit")) {
     if (unit.data.perRoster === 0 && !unit.data.limits?.some((l) => l.perRoster > 0)) continue;
     for (const models of unit.data.sizes) {
-      miss({ kind: "unit", id: unit.id }, lookupPoints(snapshot, { kind: "unit", faction: unit.data.faction, unit: unit.id, models }), models);
+      const ref = { kind: "unit", faction: unit.data.faction, unit: unit.id, models } as const;
+      const result = lookupPoints(snapshot, ref);
+      // Rows of one size told apart by their mixes price it when each mix picks its row.
+      const mixes = !result.ok && result.reason === "ambiguous-size" ? mixesAt(snapshot, ref) : undefined;
+      if (mixes?.every((mix) => lookupPoints(snapshot, { ...ref, mix }).ok)) continue;
+      miss({ kind: "unit", id: unit.id }, result, models);
     }
   }
   for (const detachment of definitions.all("detachment")) {

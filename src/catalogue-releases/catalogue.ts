@@ -21,7 +21,7 @@ import manifestSchema from "./manifest.v1.schema.json" with { type: "json" };
 import recordSchema from "./record.v1.schema.json" with { type: "json" };
 
 // Mirrors the schemas in this directory, which are the contract consumers rely on.
-export type Source = { title: string; page?: string; url?: string; revision?: string };
+export type Source = { title: string; page?: string; url?: string; pageUrl?: string; revision?: string };
 export type Attribution = { url: string; revision: string; credit: string; licence: string; changes: string };
 export type CatalogueRecord = { formatVersion: 1; kind: string; id: string; rulesVersion: RulesVersion; source: Source; attribution?: Attribution; data: object };
 type Categories = { formatVersion: 1; categories: { name: string; status: "included" | "retained"; kinds: string[]; sources: Source[] }[] };

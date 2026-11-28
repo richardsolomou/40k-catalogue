@@ -1260,3 +1260,22 @@ test("a unit limit whose keywords are not every keyword of its alternatives is i
   const result = validateDefinitions(identity, records);
   assert.ok(!result.ok && result.errors.some((e) => e.includes("unitLimits/2") && e.includes("anyOf")), JSON.stringify(result));
 });
+
+test("exclusive alternatives let a unit matching two of them stand alone", () => {
+  const definitions = withLimit({ keywords: ["Battleline", "Fly"], anyOf: [["Fly"], ["Battleline"]], exclusive: true });
+  assert.deepEqual(codes(definitions, ashPact([{ unit: DRONES }])).filter((c) => c.endsWith("unit-limit")), []);
+});
+
+test("a unit limit with alternatives and a minimum is invalid", () => {
+  const { identity, records } = input("1.2");
+  (find(records, "faction", EH).data as any).unitLimits.push({ keywords: ["Beast", "Fly"], anyOf: [["Fly"], ["Beast"]], min: 1 });
+  const result = validateDefinitions(identity, records);
+  assert.ok(!result.ok && result.errors.some((e) => e.includes("unitLimits/2") && e.includes("min")), JSON.stringify(result));
+});
+
+test("a unit limit with one alternative inside another is invalid", () => {
+  const { identity, records } = input("1.2");
+  (find(records, "faction", EH).data as any).unitLimits.push({ keywords: ["Battleline", "Fly"], anyOf: [["Fly"], ["Fly", "Battleline"]], max: 1 });
+  const result = validateDefinitions(identity, records);
+  assert.ok(!result.ok && result.errors.some((e) => e.includes("unitLimits/2") && e.includes("alternative")), JSON.stringify(result));
+});

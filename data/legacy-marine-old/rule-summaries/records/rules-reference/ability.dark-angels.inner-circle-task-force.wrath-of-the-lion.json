@@ -1,0 +1,172 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.inner-circle-task-force.wrath-of-the-lion",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Inner Circle Task Force",
+    "detachment": {
+      "kind": "detachment",
+      "id": "dark-angels.inner-circle-task-force"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own",
+      "type": "epic-deed"
+    },
+    "parts": {
+      "when": "[Your Charge phase](vsdata:core-rule/charge-phase), after a **DEATHWING INFANTRY** unit of yours ends a [Charge move](vsdata:core-rule/charge-move).",
+      "target": "That **DEATHWING INFANTRY** unit.",
+      "effect": "Pick an enemy unit in [Engagement Range](vsdata:core-rule/engagement-range) of the unit, and roll a D6 for every model in the unit, with +1 to each roll while the enemy unit is in range of the Vowed [objective marker](vsdata:core-rule/objectives) of your army. The enemy unit takes a [mortal wound](vsdata:core-rule/mortal-wounds) for every 4+ rolled, up to 3 mortal wounds in all."
+    },
+    "summary": "**When:** [Your Charge phase](vsdata:core-rule/charge-phase), after a **DEATHWING INFANTRY** unit of yours ends a [Charge move](vsdata:core-rule/charge-move).\n\n**Target:** That **DEATHWING INFANTRY** unit.\n\n**Effect:** Pick an enemy unit in [Engagement Range](vsdata:core-rule/engagement-range) of the unit, and roll a D6 for every model in the unit, with +1 to each roll while the enemy unit is in range of the Vowed [objective marker](vsdata:core-rule/objectives) of your army. The enemy unit takes a [mortal wound](vsdata:core-rule/mortal-wounds) for every 4+ rolled, up to 3 mortal wounds in all.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DEATHWING",
+              "INFANTRY"
+            ],
+            "more": true
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "charge",
+              "turn": "own"
+            }
+          ]
+        },
+        "combat": {
+          "applies": {
+            "target": {
+              "anyOf": [
+                [
+                  "DEATHWING INFANTRY"
+                ]
+              ]
+            }
+          },
+          "readings": [
+            {
+              "roles": [
+                "attacker"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 0,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 0,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
+        },
+        "detail": {
+          "detachment": "Inner Circle Task Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-deathwing-infantry-unit-ends-charge-move"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "DEATHWING",
+              "INFANTRY"
+            ],
+            "is": "that-unit"
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds-per-roll",
+              "select": {
+                "count": 1,
+                "side": "enemy",
+                "condition": "engaged-with-target"
+              },
+              "dice": "D6",
+              "per": "target-model",
+              "rollBonus": {
+                "delta": 1,
+                "condition": "selected-unit-within-range-of-vowed-objective"
+              },
+              "success": "4+",
+              "mortalWoundsPerSuccess": 1,
+              "maxMortalWounds": 3
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

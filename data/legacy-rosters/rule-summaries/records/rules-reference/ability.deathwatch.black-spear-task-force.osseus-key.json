@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "deathwatch.black-spear-task-force.osseus-key",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Black Spear Task Force",
+    "detachment": {
+      "kind": "detachment",
+      "id": "deathwatch.black-spear-task-force"
+    },
+    "summary": "Bearer: a **WATCH MASTER** or **TECHMARINE** model.\n\nAs [your opponent's Shooting phase](vsdata:core-rule/shooting-phase) begins, pick an enemy **VEHICLE** unit, not a **TITANIC** unit, up to 12\" from the bearer and [visible](vsdata:core-rule/visibility) to it. That unit takes a [Leadership test](vsdata:core-rule/leadership-rolls):\n\n- if it passes, attacks by its models get -1 to [Hit](vsdata:core-rule/hit-rolls) for the rest of the phase\n- if it fails, it cannot shoot for the rest of the phase",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "enhancement": {
+          "type": "model",
+          "points": 15,
+          "eligibility": {
+            "basis": "app-eligibility-rows",
+            "anyOf": [
+              {
+                "keywords": [
+                  "TECHMARINE"
+                ],
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              },
+              {
+                "keywords": [
+                  "WATCH MASTER"
+                ],
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Black Spear Task Force",
+          "effects": [
+            {
+              "kind": "select",
+              "when": {
+                "turn": "opponent",
+                "phase": "shooting",
+                "point": "start"
+              },
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "keywordsAll": [
+                  "VEHICLE"
+                ],
+                "excludeKeywords": [
+                  "TITANIC"
+                ],
+                "withinInchesOfBearer": 12,
+                "visibleToBearer": true
+              },
+              "test": "leadership",
+              "onPass": {
+                "kind": "modify-roll",
+                "roll": "hit",
+                "modifier": -1,
+                "attacker": "models in the selected unit",
+                "duration": "end-of-phase"
+              },
+              "onFail": {
+                "prohibit": "shoot",
+                "duration": "end-of-phase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

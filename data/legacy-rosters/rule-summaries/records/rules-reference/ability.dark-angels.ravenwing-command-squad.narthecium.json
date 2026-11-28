@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.ravenwing-command-squad.narthecium",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Ravenwing Command Squad",
+    "summary": "While a Ravenwing Apothecary is part of this unit, during [your Command phase](vsdata:core-rule/command-phase), a destroyed model, other than a **CHARACTER** or **INVADER ATV** model, can come back to this unit.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Ravenwing Command Squad",
+          "condition": {
+            "containsModel": "Ravenwing Apothecary"
+          },
+          "trigger": {
+            "phase": "command",
+            "turn": "own"
+          },
+          "effects": [
+            {
+              "kind": "return-destroyed-model",
+              "count": 1,
+              "to": "this-unit",
+              "excludeKeywords": [
+                "CHARACTER",
+                "INVADER ATV"
+              ],
+              "optional": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

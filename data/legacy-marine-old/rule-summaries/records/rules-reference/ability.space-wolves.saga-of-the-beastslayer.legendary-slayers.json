@@ -1,0 +1,166 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.saga-of-the-beastslayer.legendary-slayers",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "detachment-rule",
+    "group": "Saga of the Beastslayer",
+    "summary": "Whenever an **ADEPTUS ASTARTES** model of yours attacks a unit with **CHARACTER**, **MONSTER** or **VEHICLE**, or attacks while your Saga is completed, the attack gets **[[LETHAL HITS]](vsdata:weapon-ability/lethal-hits)**.\n\n**Saga of the Beastslayer**: as the first battle round begins, your Beastslayer tally starts at 0. Your Beastslayer target is half the number of units in your opponent's army, rounded up, that have any of the keywords **CHARACTER**, **MONSTER** or **VEHICLE**, counting units [embarked](vsdata:core-rule/embarking) in **TRANSPORTS**.\n\nWhenever an **ADEPTUS ASTARTES** unit of yours shoots or fights, once all its attacks are resolved, raise your Beastslayer tally by one per enemy unit with any of those keywords that those attacks destroyed. Your Saga is completed once the tally reaches your Beastslayer target.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "round-start",
+              "turn": "any",
+              "firstRoundOnly": true
+            }
+          ]
+        },
+        "combat": {
+          "applies": {
+            "target": {
+              "anyOf": [
+                [
+                  "ADEPTUS ASTARTES"
+                ]
+              ]
+            }
+          },
+          "readings": [
+            {
+              "roles": [
+                "attacker"
+              ]
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ],
+            [
+              {
+                "ask": {
+                  "everyModelHas": "ADEPTUS ASTARTES"
+                },
+                "yes": 1,
+                "no": 2
+              },
+              {
+                "reading": 0
+              },
+              {
+                "reading": 0
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 1,
+            "own.one.unknown": 0,
+            "own.many.known": 1,
+            "own.many.unknown": 0,
+            "leading.one.known": 1,
+            "leading.one.unknown": 0,
+            "leading.many.known": 1,
+            "leading.many.unknown": 0,
+            "aura.one.known": 1,
+            "aura.one.unknown": 0,
+            "aura.many.known": 1,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 1,
+            "stratagem-shooting.one.unknown": 0,
+            "stratagem-shooting.many.known": 1,
+            "stratagem-shooting.many.unknown": 0,
+            "stratagem-fight.one.known": 1,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 1,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 1,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 1,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 1,
+            "army.one.unknown": 0,
+            "army.many.known": 1,
+            "army.many.unknown": 0
+          }
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "transports"
+          },
+          {
+            "kind": "weapon-ability",
+            "id": "lethal-hits"
+          }
+        ],
+        "detail": {
+          "kind": "detachment-rule",
+          "detachment": "Saga of the Beastslayer",
+          "appliesTo": {
+            "side": "friendly",
+            "entity": "model",
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "grant-weapon-ability",
+              "ability": "LETHAL HITS",
+              "condition": {
+                "any": [
+                  {
+                    "targetKeywordsAny": [
+                      "CHARACTER",
+                      "MONSTER",
+                      "VEHICLE"
+                    ]
+                  },
+                  "saga-completed"
+                ]
+              }
+            }
+          ],
+          "saga": {
+            "name": "Saga of the Beastslayer",
+            "tallyStart": 0,
+            "target": {
+              "counts": "enemy units with CHARACTER, MONSTER or VEHICLE, embarked units included",
+              "divisor": 2,
+              "rounding": "up"
+            },
+            "increment": {
+              "amount": 1,
+              "per": "enemy CHARACTER, MONSTER or VEHICLE unit destroyed",
+              "when": "after-an-adeptus-astartes-unit-shoots-or-fights"
+            },
+            "completedWhen": "tally-at-least-target"
+          }
+        }
+      }
+    }
+  }
+}

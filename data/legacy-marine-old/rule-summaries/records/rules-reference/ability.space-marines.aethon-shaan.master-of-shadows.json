@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.aethon-shaan.master-of-shadows",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Aethon Shaan",
+    "summary": "You can pick an enemy unit in [your Command phase](vsdata:core-rule/command-phase). Whenever an **ADEPTUS ASTARTES** unit of yours up to 12\" from it declares a charge before your next Command phase, it can re-roll its [Charge roll](vsdata:core-rule/charge-step), but the picked unit has to be one of the charge's targets if it can be.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Aethon Shaan",
+          "effects": [
+            {
+              "kind": "select",
+              "when": {
+                "turn": "own",
+                "phase": "command"
+              },
+              "optional": true,
+              "select": {
+                "side": "enemy",
+                "count": 1
+              },
+              "duration": "until-start-of-your-next-command-phase",
+              "effect": {
+                "kind": "re-roll",
+                "rolls": [
+                  "charge"
+                ],
+                "recipients": {
+                  "side": "friendly",
+                  "keywordsAll": [
+                    "ADEPTUS ASTARTES"
+                  ],
+                  "withinInchesOfSelected": 12
+                },
+                "trigger": "declares a charge",
+                "requirement": "must declare the selected unit as a charge target if possible"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

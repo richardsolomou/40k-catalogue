@@ -1,0 +1,114 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "dark-angels.inner-circle-task-force.duty-unto-death",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Inner Circle Task Force",
+    "detachment": {
+      "kind": "detachment",
+      "id": "dark-angels.inner-circle-task-force"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "fight"
+      ],
+      "turn": "any",
+      "type": "strategic-ploy"
+    },
+    "parts": {
+      "when": "[Either player's Fight phase](vsdata:core-rule/fight-phase), after an enemy unit picks its targets.",
+      "target": "A **DEATHWING** unit of yours that is a target of any of that enemy unit's attacks.",
+      "effect": "Whenever a model of the unit that has not yet fought in the phase is **destroyed**, roll a D6, with +1 to the roll if the unit is in range of the Vowed [objective marker](vsdata:core-rule/objectives) of your army. On a 4+, the model stays in play: once the attacking unit is done attacking, it can fight, and it is removed after that. This lasts for the rest of the phase."
+    },
+    "summary": "**When:** [Either player's Fight phase](vsdata:core-rule/fight-phase), after an enemy unit picks its targets.\n\n**Target:** A **DEATHWING** unit of yours that is a target of any of that enemy unit's attacks.\n\n**Effect:** Whenever a model of the unit that has not yet fought in the phase is **destroyed**, roll a D6, with +1 to the roll if the unit is in range of the Vowed [objective marker](vsdata:core-rule/objectives) of your army. On a 4+, the model stays in play: once the attacking unit is done attacking, it can fight, and it is removed after that. This lasts for the rest of the phase.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "enemy-selected-targets"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "DEATHWING"
+            ],
+            "conditions": [
+              "targeted-by-the-attacking-unit"
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "fight",
+              "turn": "any"
+            }
+          ]
+        },
+        "detail": {
+          "detachment": "Inner Circle Task Force",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "fight",
+                "turn": "either"
+              }
+            ],
+            "event": "enemy-unit-has-selected-targets"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "DEATHWING"
+            ],
+            "condition": "targeted-by-that-enemy-unit"
+          },
+          "effects": [
+            {
+              "kind": "fight-on-death",
+              "condition": "model-has-not-fought-this-phase",
+              "roll": "D6",
+              "rollBonus": {
+                "delta": 1,
+                "condition": "target-within-range-of-vowed-objective"
+              },
+              "success": "4+",
+              "fightsAfter": "attacking-unit-finishes-attacks",
+              "thenRemoved": true,
+              "duration": "phase"
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

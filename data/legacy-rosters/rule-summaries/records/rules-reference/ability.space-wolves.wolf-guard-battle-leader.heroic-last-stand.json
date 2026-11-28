@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.wolf-guard-battle-leader.heroic-last-stand",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Wolf Guard Battle Leader",
+    "summary": "If a melee attack destroys this model before it has fought in the phase, roll a D6. On a 2+, the model is not yet removed from play: it can fight once the attacking unit finishes attacking, and is removed from play after that.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [],
+          "whileDestroyed": true
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Wolf Guard Battle Leader",
+          "trigger": {
+            "event": "this-model-destroyed",
+            "attackType": "melee",
+            "condition": "model-has-not-fought-this-phase"
+          },
+          "effects": [
+            {
+              "kind": "fight-on-death",
+              "roll": "D6",
+              "success": "2+",
+              "fightsAfter": "attacking-unit-finishes-attacks",
+              "thenRemoved": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

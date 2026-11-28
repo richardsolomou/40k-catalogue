@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.ceramite-sentinels.defensive-mastery",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "enhancement",
+    "group": "Ceramite Sentinels",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.ceramite-sentinels"
+    },
+    "summary": "Bearer: an **ADEPTUS ASTARTES** model.\n\nOnce both players have finished deploying, you can pick up to 3 **ADEPTUS ASTARTES** units of yours and redeploy them. Any of them can be set up in [Strategic Reserves](vsdata:core-rule/strategic-reserves) as you do, however many units are already there.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "enhancement": {
+          "type": "model",
+          "points": 25,
+          "eligibility": {
+            "basis": "app-eligibility-rows",
+            "anyOf": [
+              {
+                "factionKeywords": [
+                  "ADEPTUS ASTARTES"
+                ]
+              }
+            ]
+          }
+        },
+        "detail": {
+          "kind": "enhancement",
+          "detachment": "Ceramite Sentinels",
+          "effects": [
+            {
+              "kind": "redeploy",
+              "trigger": "after both players have deployed",
+              "select": {
+                "side": "friendly",
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES"
+                ],
+                "count": {
+                  "min": 0,
+                  "max": 3
+                }
+              },
+              "mayGoToStrategicReserves": true,
+              "ignoresStrategicReservesLimit": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

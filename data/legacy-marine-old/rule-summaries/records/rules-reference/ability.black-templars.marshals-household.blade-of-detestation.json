@@ -1,0 +1,218 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "black-templars.marshals-household.blade-of-detestation",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Marshal's Household",
+    "detachment": {
+      "kind": "detachment",
+      "id": "black-templars.marshals-household"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "own"
+    },
+    "parts": {
+      "when": "[Your Charge phase](vsdata:core-rule/charge-phase), as a **SWORD BRETHREN SQUAD** unit of yours ends a [Charge move](vsdata:core-rule/charge-move).",
+      "target": "That charging **SWORD BRETHREN SQUAD** unit.",
+      "effect": "Pick an enemy unit in [Engagement Range](vsdata:core-rule/engagement-range) of the unit, then roll a D6 for each model of the unit in Engagement Range of it. That enemy unit takes a [mortal wound](vsdata:core-rule/mortal-wounds) for each 4+, and at most 6 mortal wounds in all."
+    },
+    "summary": "**When:** [Your Charge phase](vsdata:core-rule/charge-phase), as a **SWORD BRETHREN SQUAD** unit of yours ends a [Charge move](vsdata:core-rule/charge-move).\n\n**Target:** That charging **SWORD BRETHREN SQUAD** unit.\n\n**Effect:** Pick an enemy unit in [Engagement Range](vsdata:core-rule/engagement-range) of the unit, then roll a D6 for each model of the unit in Engagement Range of it. That enemy unit takes a [mortal wound](vsdata:core-rule/mortal-wounds) for each 4+, and at most 6 mortal wounds in all.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase",
+            "after": "friendly-ended-charge"
+          },
+          "target": {
+            "triggering": true,
+            "entity": "unit",
+            "keywords": [
+              "SWORD BRETHREN SQUAD"
+            ]
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "charge",
+              "turn": "own"
+            }
+          ]
+        },
+        "combat": {
+          "applies": {
+            "target": {
+              "anyOf": [
+                [
+                  "SWORD BRETHREN SQUAD"
+                ]
+              ]
+            }
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "selected-target-in-engagement-range"
+                    },
+                    {
+                      "kind": "stated",
+                      "label": "Every model in the unit engaged with it"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "mortalWounds": {
+                        "timing": "before",
+                        "rolls": 1,
+                        "perModel": true,
+                        "max": 6,
+                        "outcomes": [
+                          {
+                            "min": 4,
+                            "max": 6,
+                            "damage": {
+                              "dice": 0,
+                              "sides": 6,
+                              "bonus": 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ],
+            [
+              {
+                "reading": 1
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 1,
+            "stratagem-shooting.one.unknown": 1,
+            "stratagem-shooting.many.known": 1,
+            "stratagem-shooting.many.unknown": 1,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
+        },
+        "references": [
+          {
+            "kind": "core-rule",
+            "id": "charge-move"
+          },
+          {
+            "kind": "core-rule",
+            "id": "mortal-wounds"
+          }
+        ],
+        "detail": {
+          "detachment": "Marshal's Household",
+          "trigger": {
+            "windows": [
+              {
+                "phase": "charge",
+                "turn": "own"
+              }
+            ],
+            "event": "friendly-sword-brethren-squad-unit-ends-charge-move"
+          },
+          "target": {
+            "entity": "unit",
+            "count": 1,
+            "side": "friendly",
+            "keywordsAll": [
+              "SWORD BRETHREN SQUAD"
+            ],
+            "is": "the-charging-unit"
+          },
+          "effects": [
+            {
+              "kind": "mortal-wounds-per-model-roll",
+              "pick": "enemy-unit-in-engagement-range",
+              "dicePerModel": "D6",
+              "modelsCounted": "in-engagement-range-of-picked-unit",
+              "success": "4+",
+              "mortalWoundsPerSuccess": 1,
+              "maximumMortalWounds": 6
+            }
+          ],
+          "restrictions": []
+        }
+      }
+    }
+  }
+}

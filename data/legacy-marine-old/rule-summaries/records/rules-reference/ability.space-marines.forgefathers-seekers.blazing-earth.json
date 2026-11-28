@@ -1,0 +1,111 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.forgefathers-seekers.blazing-earth",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "stratagem",
+    "group": "Forgefather's Seekers",
+    "detachment": {
+      "kind": "detachment",
+      "id": "space-marines.forgefathers-seekers"
+    },
+    "cp": 1,
+    "stratagem": {
+      "phases": [
+        "charge"
+      ],
+      "turn": "opponent",
+      "type": "strategic-ploy"
+    },
+    "parts": {
+      "when": "[Opponent's Charge phase](vsdata:core-rule/charge-phase), as it begins.",
+      "target": "An **ADEPTUS ASTARTES** unit of yours equipped with at least one **[[TORRENT]](vsdata:weapon-ability/torrent)** weapon.",
+      "effect": "Pick an enemy unit up to 12\" from your unit and **visible** to it, other than a **MONSTER**, **VEHICLE** or **FLY** unit. That enemy unit's [Charge rolls](vsdata:core-rule/charge-step) get -2 for the rest of the phase. This penalty does not combine with other penalties to that roll."
+    },
+    "summary": "**When:** [Opponent's Charge phase](vsdata:core-rule/charge-phase), as it begins.\n\n**Target:** An **ADEPTUS ASTARTES** unit of yours equipped with at least one **[[TORRENT]](vsdata:weapon-ability/torrent)** weapon.\n\n**Effect:** Pick an enemy unit up to 12\" from your unit and **visible** to it, other than a **MONSTER**, **VEHICLE** or **FLY** unit. That enemy unit's [Charge rolls](vsdata:core-rule/charge-step) get -2 for the rest of the phase. This penalty does not combine with other penalties to that roll.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "stratagem": {
+          "limit": "phase",
+          "when": {
+            "at": "phase-start"
+          },
+          "target": {
+            "count": 1,
+            "side": "friendly",
+            "entity": "unit",
+            "keywords": [
+              "ADEPTUS ASTARTES"
+            ],
+            "more": true
+          }
+        },
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "charge",
+              "turn": "opponent"
+            }
+          ]
+        },
+        "detail": {
+          "detachment": "Forgefather's Seekers",
+          "windows": [
+            {
+              "turn": "opponent",
+              "phase": "charge",
+              "timing": "start"
+            }
+          ],
+          "target": {
+            "side": "friendly",
+            "count": 1,
+            "keywordsAll": [
+              "ADEPTUS ASTARTES"
+            ],
+            "equippedWith": "TORRENT weapon"
+          },
+          "effects": [
+            {
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "withinInches": 12,
+                "visibleToTarget": true,
+                "keywordsNone": [
+                  "MONSTER",
+                  "VEHICLE",
+                  "FLY"
+                ]
+              },
+              "roll": "charge",
+              "modifier": -2,
+              "cumulativeWithOtherPenalties": false
+            }
+          ],
+          "duration": "end-of-phase"
+        }
+      }
+    }
+  }
+}

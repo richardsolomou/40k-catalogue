@@ -1,0 +1,168 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-marines.chaplain-with-jump-pack.exhortation-of-rage",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Chaplain with Jump Pack",
+    "summary": "Whenever this model's unit gets **selected to fight**, an enemy unit in [Engagement Range](vsdata:core-rule/engagement-range) of that unit can be picked. If one is, roll a D6, and that enemy unit takes mortal wounds by the result:\n\n- 4-5: D3 [mortal wounds](vsdata:core-rule/mortal-wounds)\n- 6: 3 mortal wounds",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "combat": {
+          "applies": {
+            "reachesAttached": true
+          },
+          "readings": [
+            {
+              "choices": [
+                {
+                  "conditions": [
+                    {
+                      "kind": "target-in-engagement-range"
+                    }
+                  ],
+                  "effects": [
+                    {
+                      "role": "attacker",
+                      "attacks": [
+                        "melee"
+                      ],
+                      "mortalWounds": {
+                        "timing": "before",
+                        "rolls": 1,
+                        "outcomes": [
+                          {
+                            "min": 4,
+                            "max": 5,
+                            "damage": {
+                              "dice": 1,
+                              "sides": 3,
+                              "bonus": 0
+                            }
+                          },
+                          {
+                            "min": 6,
+                            "max": 6,
+                            "damage": {
+                              "dice": 0,
+                              "sides": 6,
+                              "bonus": 3
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "default": 0,
+              "roles": [
+                "attacker"
+              ]
+            },
+            {
+              "choices": [],
+              "default": 0
+            }
+          ],
+          "trees": [
+            [
+              {
+                "reading": 0
+              }
+            ],
+            [
+              {
+                "reading": 1
+              }
+            ]
+          ],
+          "contexts": {
+            "own.one.known": 0,
+            "own.one.unknown": 0,
+            "own.many.known": 0,
+            "own.many.unknown": 0,
+            "leading.one.known": 0,
+            "leading.one.unknown": 0,
+            "leading.many.known": 0,
+            "leading.many.unknown": 0,
+            "aura.one.known": 0,
+            "aura.one.unknown": 0,
+            "aura.many.known": 0,
+            "aura.many.unknown": 0,
+            "stratagem-shooting.one.known": 1,
+            "stratagem-shooting.one.unknown": 1,
+            "stratagem-shooting.many.known": 1,
+            "stratagem-shooting.many.unknown": 1,
+            "stratagem-fight.one.known": 0,
+            "stratagem-fight.one.unknown": 0,
+            "stratagem-fight.many.known": 0,
+            "stratagem-fight.many.unknown": 0,
+            "stratagem-both.one.known": 0,
+            "stratagem-both.one.unknown": 0,
+            "stratagem-both.many.known": 0,
+            "stratagem-both.many.unknown": 0,
+            "army.one.known": 0,
+            "army.one.unknown": 0,
+            "army.many.known": 0,
+            "army.many.unknown": 0
+          }
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Chaplain with Jump Pack",
+          "effects": [
+            {
+              "kind": "mortal-wounds",
+              "trigger": "this model's unit is selected to fight",
+              "optional": true,
+              "select": {
+                "side": "enemy",
+                "count": 1,
+                "withinEngagementRangeOf": "this model's unit"
+              },
+              "roll": {
+                "dice": "D6",
+                "count": 1
+              },
+              "results": [
+                {
+                  "rolls": [
+                    4,
+                    5
+                  ],
+                  "mortalWounds": "D3"
+                },
+                {
+                  "rolls": [
+                    6
+                  ],
+                  "mortalWounds": 3
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

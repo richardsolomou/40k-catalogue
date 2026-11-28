@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "kind": "ability",
+  "id": "space-wolves.iron-priest.gift-of-the-iron-wolf",
+  "rulesVersion": {
+    "edition": "11th",
+    "update": "MFM 1.4 · 2 Sep 2026"
+  },
+  "source": {
+    "title": "Warhammer 40,000: The App 2.6.0, data build 946, released 2026-09-02",
+    "url": "https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k"
+  },
+  "data": {
+    "ruleType": "unit-ability",
+    "group": "Iron Priest",
+    "summary": "In [your Command phase](vsdata:core-rule/command-phase), this model can pick an **ADEPTUS ASTARTES VEHICLE** model of yours up to 3\" from it. That model gets back as many as D3 lost wounds, and one of its ranged weapons that you pick gets **[[RAPID FIRE 1]](vsdata:weapon-ability/rapid-fire)** until [your next Command phase](vsdata:core-rule/command-phase).\n\nA model can be picked only once per turn, whether for this ability or for **Blessing of the Omnissiah**.",
+    "citations": [
+      {
+        "type": "app",
+        "title": "Warhammer 40,000: The App",
+        "appVersion": "2.6.0",
+        "dataBuild": 946,
+        "releaseDate": "2026-09-02"
+      }
+    ],
+    "facts": {
+      "format": "vs-data-facts",
+      "version": "1",
+      "fields": {
+        "reminder": {
+          "timings": [
+            {
+              "at": "phase-start",
+              "phase": "command",
+              "turn": "own"
+            }
+          ]
+        },
+        "detail": {
+          "kind": "unit-ability",
+          "datasheet": "Iron Priest",
+          "trigger": {
+            "phase": "command",
+            "turn": "own"
+          },
+          "optional": true,
+          "limit": {
+            "perModel": "once-per-turn",
+            "sharedWith": "Blessing of the Omnissiah"
+          },
+          "effects": [
+            {
+              "kind": "heal",
+              "amount": "D3",
+              "target": {
+                "side": "friendly",
+                "entity": "model",
+                "keywordsAll": [
+                  "ADEPTUS ASTARTES",
+                  "VEHICLE"
+                ],
+                "rangeInches": 3
+              }
+            },
+            {
+              "kind": "grant-weapon-ability",
+              "weapons": "one-picked-ranged-weapon",
+              "ability": "RAPID FIRE",
+              "value": 1,
+              "duration": "until-your-next-command-phase"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

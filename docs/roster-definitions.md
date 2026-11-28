@@ -62,10 +62,10 @@ A unit's `coreAbilities` list the core abilities its datasheet gives it, as `{ "
 | `scouts` | `inches`. |
 | `lone-operative` | `inches` where the datasheet prints a distance, as Lone Operative 15"; without it, the core rule's own distance. |
 | `deadly-demise` | `mortalWounds`, a positive integer or dice, as `D3` or `2D6+6`. |
-| `damaged` | `wounds`, the remaining wounds at or below which a model is damaged. |
+| `damaged` | `wounds`, the remaining wounds at or below which a model is damaged: `5` means Damaged 5. |
 | `deep-strike`, `fights-first`, `hover`, `infiltrators`, `leader`, `stealth`, `super-heavy-walker`, `support` | None. |
 
-An empty list means the datasheet gives the unit no core ability, and a unit without `coreAbilities` has none recorded. A Firing Deck is its [transport profile](datasheet-profiles.md#transport-capacity)'s `firingDeck`. `leader` and `support` record only that the datasheet prints the ability; its attachment profile decides which units it joins. A core ability another rule grants, such as a Detachment rule or an Enhancement, is in that rule's [rule facts](rule-facts.md). `checkRoster` does not read `coreAbilities`.
+An empty list means the datasheet gives the unit no core ability, and a unit without `coreAbilities` has none recorded. A Firing Deck is its [transport profile](datasheet-profiles.md#transport-capacity)'s `firingDeck`. A datasheet's own Damaged rule, such as "DAMAGED: 1-9 WOUNDS REMAINING", is its `unit-ability` [rule summary](rule-summaries.md), not `damaged`. `leader` and `support` record only that the datasheet prints the ability; its attachment profile decides which units it joins. A core ability another rule grants, such as a Detachment rule or an Enhancement, is in that rule's [rule facts](rule-facts.md). `checkRoster` does not read `coreAbilities`.
 
 ## Conditions
 

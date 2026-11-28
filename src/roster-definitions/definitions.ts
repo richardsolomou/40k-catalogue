@@ -166,7 +166,7 @@ export type OptionData = {
   /** The option is closed until every requirement holds. */
   requires?: Requirement | Requirement[];
 };
-export type WargearData = { includes?: Counts };
+export type WargearData = { includes?: Counts; rules?: string[] };
 
 type DataOf = {
   faction: FactionData;
@@ -373,10 +373,11 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
       if (!byKey.has(target)) errors.push(`${at} names ${target}, which has no record`);
       else if (!entry.references?.some((r) => r.kind === ref.kind && r.id === ref.id)) errors.push(`${at} names ${target} but its identity entry does not reference it`);
     }
-    // A detachment's cards are rule summaries, outside the roster category, so they need a current entry, not a record.
-    if (kind === "detachment") {
-      const { stratagems = [], enhancements = [] } = definition.data as DetachmentData;
-      for (const id of [...stratagems, ...enhancements]) {
+    // A detachment's cards and a piece of wargear's rules are rule summaries, outside the roster category, so they need
+    // a current entry, not a record.
+    if (kind === "detachment" || kind === "wargear") {
+      const ids = kind === "wargear" ? ((definition.data as WargearData).rules ?? []) : [...((definition.data as DetachmentData).stratagems ?? []), ...((definition.data as DetachmentData).enhancements ?? [])];
+      for (const id of ids) {
         const target = key("ability", id);
         if (!entries.get(target) || entries.get(target)!.retired) errors.push(`${at} names ${target}, which is not a current entry`);
         else if (!entry.references?.some((r) => r.kind === "ability" && r.id === id)) errors.push(`${at} names ${target} but its identity entry does not reference it`);

@@ -187,7 +187,7 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
   let enhancementCount = 0;
   const unitLimits = (faction?.unitLimits ?? []).map((limit) => {
     const row = limit.detachments?.find((d) => detachmentIds.includes(d.detachment)) ?? limit;
-    return { keywords: limit.keywords, min: row.min, max: row.max, count: 0 };
+    return { keywords: limit.keywords, alternatives: limit.anyOf ?? [limit.keywords], exclusive: limit.exclusive === true, min: row.min, max: row.max, count: 0, held: new Set<number>() };
   });
   const warlords = roster.units.filter((u) => u.warlord !== undefined).length;
   roster.units.forEach((picked, i) => {
@@ -214,9 +214,14 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
     const keywords = unitKeywords(unit.data, roster, picked.allegiance, held);
     keywordsAt[i] = keywords;
     for (const shared of unitLimits) {
-      if (!shared.keywords.every((k) => keywords.includes(k))) continue;
+      const matched = shared.alternatives.flatMap((alternative, at) => (alternative.every((k) => keywords.includes(k)) ? [at] : []));
+      if (!matched.length) continue;
       shared.count++;
-      if (shared.count === (shared.max ?? Infinity) + 1) add("unit-limit", `a roster holds at most ${shared.max} ${shared.keywords.join(" ")} units`);
+      const named = shared.alternatives.map((alternative) => alternative.join(" ")).join(" or ");
+      if (shared.count === (shared.max ?? Infinity) + 1) add("unit-limit", `a roster holds at most ${shared.max} ${named} units`);
+      const before = shared.held.size;
+      for (const at of matched) shared.held.add(at);
+      if (shared.exclusive && before <= 1 && shared.held.size > 1) add("unit-limit", `a roster holds units of only one of ${named}`);
     }
     // A fielded model's keywords: its unit's and its own.
     const fielded = models.filter((m) => (counts.get(m.id) ?? 0) > 0).map((m) => ({ id: m.id, keywords: [...keywords, ...(m.data.keywords ?? [])] }));
@@ -372,7 +377,7 @@ export function checkRoster(definitions: Definitions, roster: Roster, options: C
         .reduce((sum, [item, n]) => sum + Math.max(n, 0) * price({ kind: "wargear", faction: unit.data.faction, unit: unit.id, item }), 0);
   });
   for (const shared of unitLimits) {
-    if (shared.count < (shared.min ?? 0)) rosterProblem("unit-limit", `a roster holds at least ${shared.min} ${shared.keywords.join(" ")} units, has ${shared.count}`);
+    if (shared.count < (shared.min ?? 0)) rosterProblem("unit-limit", `a roster holds at least ${shared.min} ${shared.alternatives.map((alternative) => alternative.join(" ")).join(" or ")} units, has ${shared.count}`);
   }
   allies.forEach((ally, a) => {
     const units = members[a]!;

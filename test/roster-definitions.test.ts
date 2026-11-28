@@ -1226,3 +1226,37 @@ test("an option is made together with others in one entry only", () => {
   });
   assert.ok(!validated.ok && validated.errors.includes(`unit:${WARDENS} uniformOptions/1 names roster-option:${WARDENS}.leader-weapon, which another entry names`));
 });
+
+// A unit limit over alternatives: units matching any one of them count, or with `exclusive`, a roster holds units of one
+// alternative only. `keywords` lists every keyword the alternatives name, which a reader that predates `anyOf` matches no
+// unit with.
+const withLimit = (limit: object) => {
+  const { identity, records } = input("1.2");
+  (find(records, "faction", EH).data as any).unitLimits.push(limit);
+  const validated = validateDefinitions(identity, records);
+  if (!validated.ok) assert.fail(validated.errors.join("\n"));
+  return validated.definitions;
+};
+const limitCodes = (definitions: Definitions, units: Roster["units"]) => codes(definitions, incursion(units)).filter((c) => c.endsWith("unit-limit"));
+
+test("a unit limit's alternatives count units matching any one of them", () => {
+  const definitions = withLimit({ keywords: ["Fly", "Beast"], anyOf: [["Fly"], ["Beast"]], max: 1 });
+  assert.deepEqual(limitCodes(definitions, [{ unit: DRONES }, PACK_UNIT]), ["1 unit-limit"]);
+});
+
+test("exclusive alternatives let a roster hold several units of one of them", () => {
+  const definitions = withLimit({ keywords: ["Fly", "Beast"], anyOf: [["Fly"], ["Beast"]], exclusive: true });
+  assert.deepEqual(limitCodes(definitions, [{ unit: DRONES }, { unit: DRONES }]), []);
+});
+
+test("exclusive alternatives refuse a roster holding units of two of them", () => {
+  const definitions = withLimit({ keywords: ["Fly", "Beast"], anyOf: [["Fly"], ["Beast"]], exclusive: true });
+  assert.deepEqual(limitCodes(definitions, [{ unit: DRONES }, PACK_UNIT]), ["1 unit-limit"]);
+});
+
+test("a unit limit whose keywords are not every keyword of its alternatives is invalid", () => {
+  const { identity, records } = input("1.2");
+  (find(records, "faction", EH).data as any).unitLimits.push({ keywords: ["Fly"], anyOf: [["Fly"], ["Beast"]], max: 1 });
+  const result = validateDefinitions(identity, records);
+  assert.ok(!result.ok && result.errors.some((e) => e.includes("unitLimits/2") && e.includes("anyOf")), JSON.stringify(result));
+});

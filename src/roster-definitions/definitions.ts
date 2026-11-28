@@ -311,6 +311,14 @@ function namedRefs(kind: DefinitionKind, data: any): Ref[] {
   }
 }
 
+/** The rule summaries a record names, which are ability entries rather than roster records. */
+function namedSummaries(kind: DefinitionKind, data: unknown): string[] {
+  if (kind === "wargear") return (data as WargearData).rules ?? [];
+  if (kind !== "detachment") return [];
+  const { stratagems = [], enhancements = [] } = data as DetachmentData;
+  return [...stratagems, ...enhancements];
+}
+
 /**
  * Validates the records of a rules version against its identity release. A record's data may only name
  * entries its identity entry references, so release coverage and dependency reports see every join.
@@ -375,13 +383,7 @@ export function validateDefinitions(identityValue: unknown, records: CatalogueRe
     }
     // A detachment's cards and a piece of wargear's rules are rule summaries, outside the roster category, so they need
     // a current entry, not a record.
-    const summaries = (): string[] => {
-      if (kind === "wargear") return (definition.data as WargearData).rules ?? [];
-      if (kind !== "detachment") return [];
-      const { stratagems = [], enhancements = [] } = definition.data as DetachmentData;
-      return [...stratagems, ...enhancements];
-    };
-    for (const id of summaries()) {
+    for (const id of namedSummaries(kind, definition.data)) {
       const target = key("ability", id);
       if (!entries.get(target) || entries.get(target)!.retired) errors.push(`${at} names ${target}, which is not a current entry`);
       else if (!entry.references?.some((r) => r.kind === "ability" && r.id === id)) errors.push(`${at} names ${target} but its identity entry does not reference it`);

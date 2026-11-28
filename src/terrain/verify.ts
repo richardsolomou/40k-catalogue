@@ -98,6 +98,7 @@ function layoutErrors(layout: TerrainLayout): string[] {
       if (part.roof) errors.push(...shapeErrors(`${at}/parts/${j}/roof`, part.roof, layout.board));
       part.walls.forEach((wall, k) => errors.push(...pointErrors(`${at}/parts/${j}/walls/${k}`, wall.points, layout.board)));
     });
+    (area.measurements ?? []).forEach((m, j) => errors.push(...pointErrors(`${at}/measurements/${j}`, [m.from, m.to], layout.board)));
   });
   return errors;
 }
